@@ -14,7 +14,8 @@ Pod::Spec.new do |spec|
   spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
 
   spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
-  
+#  spec.source               = { :path => "." }
+
   spec.xcconfig             = {
     'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-webcore/vendor" "${PODS_ROOT}/Headers/Public/AFNetworking/" ',
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
@@ -45,28 +46,249 @@ Pod::Spec.new do |spec|
 #  spec.vendored_libraries       = 'libXG-SDK.a'
 #  spec.vendored_frameworks      = 'libXG-SDK.a'
 
-  spec.subspec 'Framework' do |sub|
-    sub.ios.deployment_target   = '10.0'
+  spec.subspec 'applet-framework' do |framework|
+    framework.ios.deployment_target   = '10.0'
         
-    sub.ios.public_header_files = 'applet-framework/*.{h,hpp}',
-                                  'applet-framework/**/*.{h,hpp}'
+    framework.ios.public_header_files = 'applet-framework/*.{h,hpp}'
+    framework.ios.source_files        = 'applet-framework/*.{h,m,c}'
 
-    sub.ios.source_files        = 'applet-framework/*.{h,m,c}',
-                                  'applet-framework/**/*.{h,m,c}'
+    framework.subspec 'samurai-config' do |config|
+      config.ios.public_header_files  = 'applet-framework/samurai-config/*.{h,hpp}'
+      config.ios.source_files         = 'applet-framework/samurai-config/*.{h,m,c}'
+    end # 'samurai-config'
+
+    framework.subspec 'samurai-core' do |core|
+      core.ios.public_header_files    = 'applet-framework/samurai-core/*.{h,hpp}'
+      core.ios.source_files           = 'applet-framework/samurai-core/*.{h,m,c}'
+
+      core.subspec 'extension' do |extension|
+        extension.ios.public_header_files = 'applet-framework/samurai-core/extension/*.{h,hpp}'
+        extension.ios.source_files        = 'applet-framework/samurai-core/extension/*.{h,m,c}'
+      end # 'extension'
+
+      core.subspec 'modules' do |modules|
+        modules.ios.public_header_files = 'applet-framework/samurai-core/modules/*.{h,hpp}'
+        modules.ios.source_files        = 'applet-framework/samurai-core/modules/*.{h,m,c}'
+      end # 'modules'
+
+    end # 'samurai-core'
+
+    framework.subspec 'samurai-event' do |event|
+      event.ios.public_header_files = 'applet-framework/samurai-event/*.{h,hpp}'
+      event.ios.source_files        = 'applet-framework/samurai-event/*.{h,m,c}'
+
+      event.subspec 'modules' do |modules|
+        modules.ios.public_header_files = 'applet-framework/samurai-event/modules/*.{h,hpp}'
+        modules.ios.source_files        = 'applet-framework/samurai-event/modules/*.{h,m,c}'
+      end # 'modules'
+
+    end # 'samurai-event'
+
+    framework.subspec 'samurai-model' do |model|
+      model.ios.public_header_files = 'applet-framework/samurai-model/*.{h,hpp}'
+      model.ios.source_files        = 'applet-framework/samurai-model/*.{h,m,c}'
+
+      model.subspec 'extension' do |extension|
+        extension.ios.public_header_files = 'applet-framework/samurai-model/extension/*.{h,hpp}'
+        extension.ios.source_files        = 'applet-framework/samurai-model/extension/*.{h,m,c}'
+      end # 'extension'
+
+      model.subspec 'modules' do |modules|
+        modules.ios.public_header_files = 'applet-framework/samurai-model/modules/*.{h,hpp}'
+        modules.ios.source_files        = 'applet-framework/samurai-model/modules/*.{h,m,c}'
+      end # 'modules'
+
+    end # 'samurai-model'
+
+    framework.subspec 'samurai-service' do |service|
+      service.ios.public_header_files = 'applet-framework/samurai-service/*.{h,hpp}'
+      service.ios.source_files        = 'applet-framework/samurai-service/*.{h,m,c}'
+
+      service.subspec 'modules' do |modules|
+        modules.ios.public_header_files = 'applet-framework/samurai-service/modules/*.{h,hpp}'
+        modules.ios.source_files        = 'applet-framework/samurai-service/modules/*.{h,m,c}'
+
+        modules.subspec 'docker' do |docker|
+          docker.ios.public_header_files = 'applet-framework/samurai-service/modules/docker/*.{h,hpp}'
+          docker.ios.source_files        = 'applet-framework/samurai-service/modules/docker/*.{h,m,c}'
+        end # 'docker'
+
+        modules.subspec 'service' do |service|
+          service.ios.public_header_files = 'applet-framework/samurai-service/modules/service/*.{h,hpp}'
+          service.ios.source_files        = 'applet-framework/samurai-service/modules/service/*.{h,m,c}'
+        end # 'service'
+
+      end # 'modules'
+
+    end # 'samurai-service'
+
+    framework.subspec 'samurai-view' do |view|
+      view.ios.public_header_files  = 'applet-framework/samurai-view/*.{h,hpp}'
+      view.ios.source_files         = 'applet-framework/samurai-view/*.{h,m,c}'
+
+      view.subspec 'extension' do |extension|
+        extension.ios.public_header_files = 'applet-framework/samurai-view/extension/*.{h,hpp}'
+        extension.ios.source_files        = 'applet-framework/samurai-view/extension/*.{h,m,c}'
+      end # 'extension'
+
+      view.subspec 'modules' do |modules|
+        modules.ios.public_header_files = 'applet-framework/samurai-view/modules/*.{h,hpp}'
+        modules.ios.source_files        = 'applet-framework/samurai-view/modules/*.{h,m,c}'
+
+        modules.subspec 'view-component' do |component|
+          component.ios.public_header_files = 'applet-framework/samurai-view/modules/view-component/*.{h,hpp}'
+          component.ios.source_files        = 'applet-framework/samurai-view/modules/view-component/*.{h,m,c}'
+        end # ''view-component''
+
+        modules.subspec 'view-controller' do |controller|
+          controller.ios.public_header_files  = 'applet-framework/samurai-view/modules/view-controller/*.{h,hpp}'
+          controller.ios.source_files         = 'applet-framework/samurai-view/modules/view-controller/*.{h,m,c}'
+        end # ''view-controller''
+
+        modules.subspec 'view-core' do |core|
+          core.ios.public_header_files  = 'applet-framework/samurai-view/modules/view-core/*.{h,hpp}'
+          core.ios.source_files         = 'applet-framework/samurai-view/modules/view-core/*.{h,m,c}'
+        end # ''view-core''
+
+        modules.subspec 'view-event' do |event|
+          event.ios.public_header_files = 'applet-framework/samurai-view/modules/view-event/*.{h,hpp}'
+          event.ios.source_files        = 'applet-framework/samurai-view/modules/view-event/*.{h,m,c}'
+        end # ''view-core''
+
+        modules.subspec 'view-utility' do |utility|
+          utility.ios.public_header_files = 'applet-framework/samurai-view/modules/view-utility/*.{h,hpp}'
+          utility.ios.source_files        = 'applet-framework/samurai-view/modules/view-utility/*.{h,m,c}'
+        end # ''view-core''
+
+      end # 'modules'
+
+    end # 'samurai-view'
+
   end
 
-  spec.subspec 'Webcore' do |sub|
-    sub.ios.deployment_target   = '10.0'
+  spec.subspec 'applet-webcore' do |webcore|
+    webcore.ios.deployment_target   = '10.0'
     
-    sub.ios.public_header_files = 'applet-webcore/*.{h}',
-                                  'applet-webcore/**/*.{h,hpp}'
+    webcore.ios.public_header_files = 'applet-webcore/*.{h}'
+    webcore.ios.source_files        = 'applet-webcore/*.{h,m,c}'
 
-    sub.ios.source_files        = 'applet-webcore/*.{h,m,c}',
-                                  'applet-webcore/modules/**/*.{h,m,c}',
-                                  'applet-webcore/extension/**/*.{h,m,c}',
-                                  'applet-webcore/vendor/gumbo-parser/**/*.{h, m,c}',
-                                  'applet-webcore/vendor/katana-parser/**/*.{h, m,c}',
-                                  'applet-webcore/vendor/AFNetworking/**/*.{h,m,c}'
+    webcore.subspec 'resource' do |resource|
+      resource.resource_bundle      = { 'IDEAApplet'  => [ 'applet-webcore/resource/*.{css,html}' ] }
+    end
+
+    webcore.subspec 'extension' do |extension|
+      extension.ios.public_header_files = 'applet-webcore/extension/*.{h}'
+      extension.ios.source_files        = 'applet-webcore/extension/*.{h,m,c}'
+    end
+
+    webcore.subspec 'modules' do |modules|
+      
+      modules.subspec 'css-media' do |media|
+        media.ios.public_header_files = 'applet-webcore/modules/css-media/*.{h}'
+        media.ios.source_files        = 'applet-webcore/modules/css-media/*.{h,m,c}'
+      end
+
+      modules.subspec 'css-parser' do |parser|
+        parser.ios.public_header_files  = 'applet-webcore/modules/css-parser/*.{h}'
+        parser.ios.source_files         = 'applet-webcore/modules/css-parser/*.{h,m,c}'
+      end
+
+      modules.subspec 'css-resolver' do |resolver|
+        resolver.ios.public_header_files  = 'applet-webcore/modules/css-resolver/*.{h}'
+        resolver.ios.source_files         = 'applet-webcore/modules/css-resolver/*.{h,m,c}'
+      end
+
+      modules.subspec 'css-stylesheet' do |stylesheet|
+        stylesheet.ios.public_header_files  = 'applet-webcore/modules/css-stylesheet/*.{h}'
+        stylesheet.ios.source_files         = 'applet-webcore/modules/css-stylesheet/*.{h,m,c}'
+      end
+
+      modules.subspec 'css-value' do |value|
+        value.ios.public_header_files = 'applet-webcore/modules/css-value/*.{h}'
+        value.ios.source_files        = 'applet-webcore/modules/css-value/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-component' do |component|
+        component.ios.public_header_files = 'applet-webcore/modules/html-component/*.{h}'
+        component.ios.source_files        = 'applet-webcore/modules/html-component/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-document' do |document|
+        document.ios.public_header_files  = 'applet-webcore/modules/html-document/*.{h}'
+        document.ios.source_files         = 'applet-webcore/modules/html-document/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-document-workflow' do |workflow|
+        workflow.ios.public_header_files  = 'applet-webcore/modules/html-document-workflow/*.{h}'
+        workflow.ios.source_files         = 'applet-webcore/modules/html-document-workflow/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-dom' do |dom|
+        dom.ios.public_header_files         = 'applet-webcore/modules/html-dom/*.{h}'
+        dom.ios.source_files                = 'applet-webcore/modules/html-dom/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-element' do |element|
+        element.ios.public_header_files     = 'applet-webcore/modules/html-element/*.{h}'
+        element.ios.source_files            = 'applet-webcore/modules/html-element/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-layout' do |layout|
+        layout.ios.public_header_files      = 'applet-webcore/modules/html-layout/*.{h}'
+        layout.ios.source_files             = 'applet-webcore/modules/html-layout/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-render' do |render|
+        render.ios.public_header_files      = 'applet-webcore/modules/html-render/*.{h}'
+        render.ios.source_files             = 'applet-webcore/modules/html-render/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-render-query' do |query|
+        query.ios.public_header_files       = 'applet-webcore/modules/html-render-query/*.{h}'
+        query.ios.source_files              = 'applet-webcore/modules/html-render-query/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-render-store' do |store|
+        store.ios.public_header_files       = 'applet-webcore/modules/html-render-store/*.{h}'
+        store.ios.source_files              = 'applet-webcore/modules/html-render-store/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-render-style' do |style|
+        style.ios.public_header_files       = 'applet-webcore/modules/html-render-style/*.{h}'
+        style.ios.source_files              = 'applet-webcore/modules/html-render-style/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-render-workflow' do |render_workflow|
+        render_workflow.ios.public_header_files = 'applet-webcore/modules/html-render-workflow/*.{h}'
+        render_workflow.ios.source_files        = 'applet-webcore/modules/html-render-workflow/*.{h,m,c}'
+      end
+
+      modules.subspec 'html-useragent' do |useragent|
+        useragent.ios.public_header_files      = 'applet-webcore/modules/html-useragent/*.{h}'
+        useragent.ios.source_files             = 'applet-webcore/modules/html-useragent/*.{h,m,c}'
+      end
+
+    end
+
+    webcore.subspec 'vendor' do |vendor|
+
+      vendor.subspec 'AFNetworking' do |networking|
+        networking.ios.public_header_files  = 'applet-webcore/vendor/AFNetworking/*.{h}'
+        networking.ios.source_files         = 'applet-webcore/vendor/AFNetworking/*.{h,m,c}'
+      end
+
+      vendor.subspec 'gumbo-parser' do |gumbo|
+        gumbo.ios.public_header_files = 'applet-webcore/vendor/gumbo-parser/*.{h}'
+        gumbo.ios.source_files        = 'applet-webcore/vendor/gumbo-parser/*.{h,m,c}'
+      end
+
+      vendor.subspec 'katana-parser' do |katana|
+        katana.ios.public_header_files  = 'applet-webcore/vendor/katana-parser/*.{h}'
+        katana.ios.source_files         = 'applet-webcore/vendor/katana-parser/*.{h,m,c}'
+      end
+
+    end
+
   end
   
 #  spec.subspec 'Services' do |sub|
