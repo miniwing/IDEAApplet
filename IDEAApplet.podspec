@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
 
   spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
 
-  spec.source               = { :path => "." }
+  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
   
   spec.xcconfig             = {
     'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-webcore/vendor" "${PODS_ROOT}/Headers/Public/AFNetworking/" ',
