@@ -1,0 +1,37 @@
+{
+  "name": "IDEAAppletDebugger",
+  "version": "1.0.0",
+  "summary": "IDEAAppletDebugger",
+  "description": "IDEAAppletDebugger",
+  "homepage": "https://github.com/miniwing",
+  "license": "MIT",
+  "authors": {
+    "Harry": "miniwing.hz@gmail.com"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "frameworks": [
+    "Foundation",
+    "UIKit",
+    "CoreGraphics",
+    "QuartzCore",
+    "CoreFoundation"
+  ],
+  "source": {
+    "path": "."
+  },
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": " \"${PODS_TARGET_SRCROOT}/\" \"${PODS_TARGET_SRCROOT}/../\" \"${PODS_TARGET_SRCROOT}/applet-framework\"/** \"${PODS_TARGET_SRCROOT}/applet-webcore/vendor\"/** "
+  },
+  "ios": {
+    "private_header_files": "applet-debugger/**/*.{h,hpp}",
+    "source_files": "applet-debugger/**/*.{h,m,c}"
+  },
+  "dependencies": {
+    "IDEAApplet": [
+
+    ]
+  },
+  "prefix_header_contents": "#ifdef DEBUG\n#  pragma clang diagnostic ignored                 \"-Wgnu\"\n#  pragma clang diagnostic ignored                 \"-Wcomma\"\n#  pragma clang diagnostic ignored                 \"-Wformat\"\n#  pragma clang diagnostic ignored                 \"-Wswitch\"\n#  pragma clang diagnostic ignored                 \"-Wvarargs\"\n#  pragma clang diagnostic ignored                 \"-Wnonnull\"\n#  pragma clang diagnostic ignored                 \"-Wpointer-sign\"\n#  pragma clang diagnostic ignored                 \"-Wdangling-else\"\n#  pragma clang diagnostic ignored                 \"-Wunused-result\"\n#  pragma clang diagnostic ignored                 \"-Wuninitialized\"\n#  pragma clang diagnostic ignored                 \"-Wdocumentation\"\n#  pragma clang diagnostic ignored                 \"-Wpch-date-time\"\n#  pragma clang diagnostic ignored                 \"-Wenum-conversion\"\n#  pragma clang diagnostic ignored                 \"-Wunused-variable\"\n#  pragma clang diagnostic ignored                 \"-Wunused-function\"\n#  pragma clang diagnostic ignored                 \"-Wmissing-noescape\"\n#  pragma clang diagnostic ignored                 \"-Wwritable-strings\"\n#  pragma clang diagnostic ignored                 \"-Wunreachable-code\"\n#  pragma clang diagnostic ignored                 \"-Wshorten-64-to-32\"\n#  pragma clang diagnostic ignored                 \"-Wwritable-strings\"\n#  pragma clang diagnostic ignored                 \"-Wstrict-prototypes\"\n#  pragma clang diagnostic ignored                 \"-Wdocumentation-html\"\n#  pragma clang diagnostic ignored                 \"-Wobjc-method-access\"\n#  pragma clang diagnostic ignored                 \"-Wundeclared-selector\"\n#  pragma clang diagnostic ignored                 \"-Wimplicit-retain-self\"\n#  pragma clang diagnostic ignored                 \"-Wunguarded-availability\"\n#  pragma clang diagnostic ignored                 \"-Wunknown-warning-option\"\n#  pragma clang diagnostic ignored                 \"-Wlogical-op-parentheses\"\n#  pragma clang diagnostic ignored                 \"-Wlogical-not-parentheses\"\n#  pragma clang diagnostic ignored                 \"-Wdeprecated-declarations\"\n#  pragma clang diagnostic ignored                 \"-Wnullability-completeness\"\n#  pragma clang diagnostic ignored                 \"-Wobjc-missing-super-calls\"\n#  pragma clang diagnostic ignored                 \"-Wnonportable-include-path\"\n#  pragma clang diagnostic ignored                 \"-Wconditional-uninitialized\"\n#  pragma clang diagnostic ignored                 \"-Wincompatible-pointer-types\"\n#  pragma clang diagnostic ignored                 \"-Wdeprecated-implementations\"\n#  pragma clang diagnostic ignored                 \"-Wmismatched-parameter-types\"\n#  pragma clang diagnostic ignored                 \"-Wobjc-redundant-literal-use\"\n#  pragma clang diagnostic ignored                 \"-Wblock-capture-autoreleasing\"\n#  pragma clang diagnostic ignored                 \"-Wtautological-pointer-compare\"\n#  pragma clang diagnostic ignored                 \"-Wimplicit-function-declaration\"\n#  pragma clang diagnostic ignored                 \"-Wquoted-include-in-framework-header\"\n#  pragma clang diagnostic ignored                 \"-Wnullability-completeness-on-arrays\"\n#endif /* DEBUG */\n\n#import <Availability.h>\n\n#ifndef __IPHONE_10_0\n#  warning \"This project uses features only available in iOS SDK 10.0 and later.\"\n#endif\n\n#import <objc/message.h>\n#import <objc/runtime.h>\n\n#ifdef __OBJC__\n\n#  import <UIKit/UIKit.h>\n#  import <Foundation/Foundation.h>\n#  import <QuartzCore/QuartzCore.h>\n#  import <QuartzCore/CAAnimation.h>\n#  import <MessageUI/MessageUI.h>\n\n#endif /* __OBJC__ */"
+}

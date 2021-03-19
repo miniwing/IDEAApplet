@@ -1,0 +1,6 @@
+framework module IDEAAppletDebugger {
+  umbrella header "IDEAAppletDebugger-umbrella.h"
+
+  export *
+  module * { export * }
+}

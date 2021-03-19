@@ -1,0 +1,784 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C37D295668810220CD3864E70BCB552 /* ServiceBorderLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5164725C7DD81CFF05770344E1BF0E6A /* ServiceBorderLayer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0CC3293F3B62DD2CF1A0DEE01E82D128 /* ServiceMonitorFPSModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3805F13BEA230EB9FDEA4D04840DB1D3 /* ServiceMonitorFPSModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1297A1D134BEA7638F17DE8DE4B03BDD /* JBLineChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88AD392BE25F59373BDC251B5CA4A5E7 /* JBLineChartView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		19E48ACA339A8C89F34C15F242E32D7F /* ServiceGestureView.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6F97A28D3AAB53DF6ADBB7ED50518E /* ServiceGestureView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1A069CBD98B9B70840ABBB39BCBCFB7E /* ServiceMonitorCPUModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A83CE563B16DF4A53F3E760C6C54A5C /* ServiceMonitorCPUModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2A3645579C81F388F640E0C18C6135D5 /* ServiceMonitorNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CCFAB42ED88794C9AE0CB021DBAE9BC /* ServiceMonitorNetworkModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2C364F3F3E4F56EE1747D8D750064DCE /* ServiceBorderHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 39304B60536B7F801385B3297ED921D0 /* ServiceBorderHook.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2D5AD15742C4CB447D8007871D31AB55 /* ServiceInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DB817A3DC787BC44182B386A0E3AF /* ServiceInspector.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		2E1009FF495217D5ED37183D9A8D7771 /* ServiceGrids.h in Headers */ = {isa = PBXBuildFile; fileRef = E04DD0AFF9918C7DA955356F2108495F /* ServiceGrids.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2E55766404082BC54638C353AA083B31 /* ServiceBorderLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 10968C093B686625416D6F64206C1D3E /* ServiceBorderLayer.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		326F8D7B808102ACD296AFD6698C003B /* ServiceGestureViewClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D6AF36C9B95C7F9FC423028507D863D /* ServiceGestureViewClick.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3B736A31A6275CDD3E7825B282AC8914 /* ServiceMonitorCPUModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 796B9D5AE4B6F3E8AE3E22469FA563D4 /* ServiceMonitorCPUModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		3C3FB24D2305BAFC1AE03C9A415E3E6E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C371B5FA809D092F614BB002A53AB13C /* QuartzCore.framework */; };
+		4036B1420335D24FAAB1D02B2CF102ED /* ServiceGestureViewSwipe.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F9AA30F951D916FE598A53C0BBB30CA /* ServiceGestureViewSwipe.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		416D71E8FE71EB5022EEAB20D3CFEBE7 /* ServiceGridsWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 75DA2269BD2D50564E459C96D6541476 /* ServiceGridsWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		442B932550198925C4E9F45E82D7E6EF /* ServiceGestureHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F1D664D215228AFA787D59BC6FD92D /* ServiceGestureHook.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		46AA400AD3B48D4E846B78CACB030E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71558F7858F472C513801C0CF17322D /* UIKit.framework */; };
+		4A4D6E1A26048E5D007BD9E8 /* IDEAApplet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4D6D6B2604858C007BD9E8 /* IDEAApplet.framework */; };
+		4A4D6FA12604A383007BD9E8 /* ServiceBorder.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA02604A383007BD9E8 /* ServiceBorder.bundle */; };
+		4A4D6FA32604A38D007BD9E8 /* ServiceGesture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA22604A38D007BD9E8 /* ServiceGesture.bundle */; };
+		4A4D6FA52604A395007BD9E8 /* ServiceGrids.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA42604A395007BD9E8 /* ServiceGrids.bundle */; };
+		4A4D6FA72604A39D007BD9E8 /* ServiceInspector.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA62604A39D007BD9E8 /* ServiceInspector.bundle */; };
+		55B9B6001E19B0269992C025DF50C4D0 /* ServiceInspectorWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = FE3C1220A72955C73E753088F736DCE9 /* ServiceInspectorWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		563A5F3B61EF07775CE35EDE33495543 /* ServiceGestureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08AE3CB08B9F1B4A997F94CD4BAB3A6E /* ServiceGestureView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		567AD20535E73612BA58D5749F969E99 /* ServiceGestureHook.h in Headers */ = {isa = PBXBuildFile; fileRef = 482BD6363A0CF538793FFE2DBF7B7E47 /* ServiceGestureHook.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		59E96C801400C6BF0EE2C8E687327D64 /* ServiceGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE920684422DAB11F417D68B42E928 /* ServiceGesture.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		62B25F12795CD9EB0F94B9778B562B14 /* ServiceMonitorMemoryModel.h in Headers */ = {isa = PBXBuildFile; fileRef = BDF93F4311CC318EB94195B3C1808412 /* ServiceMonitorMemoryModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		658B4CFDD2A78EC2D3443B7485626312 /* ServiceTapspotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B664B127510658F6BBAC3231587604EA /* ServiceTapspotManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6A9CF80094B5076512C5F0357E55C803 /* JBBarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE87D4B497FE9325A945A71542388656 /* JBBarChartView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		6DD7D0CF5FBA296FA8E8EA9FA800A8ED /* JBChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 94AA250438DC06FFD6685EBB0F8B710E /* JBChartView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		70E05E364103C61942FD65CC705886FC /* ServiceMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EBED327E7911C19B4B08538708C1B62 /* ServiceMonitor.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		721DA8652AC5AA9ECC2DD67A3DE184F5 /* ServiceMonitorNetworkModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 819E9D732A213886172C440E5D62AAD5 /* ServiceMonitorNetworkModel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		75C6237A7CE4AD93A661E8E551716DCA /* ServiceTapspotWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF4F41350738B774DDA2B8E3B97D61F /* ServiceTapspotWindow.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		76C1B765FC3735DA32CB5ABB6B0E31E1 /* ServiceGestureViewPinch.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D3063D90722F2AEC0F0213DDAB6261 /* ServiceGestureViewPinch.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7A920ECE8F53774485B8D766AC202F7A /* ServiceTapspotHook.h in Headers */ = {isa = PBXBuildFile; fileRef = CB978F8DFC2010B932C6DF353C88B1B0 /* ServiceTapspotHook.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7B0AB2D00966B676CB7AB4C867AC57C2 /* ServiceInspectorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E953E8475CBEF4F1276E24D51C2CAC8F /* ServiceInspectorWindow.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		7D2341C6811DA349720103FFC1CA3882 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48100A16C86AC94E4C3F2D7657B17CB /* CoreFoundation.framework */; };
+		7EFB23A933D6BC06D05734905F80F5B7 /* ServiceMonitorStatusBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 014D18ADA29F893565A698621A05B841 /* ServiceMonitorStatusBar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8786C2E450003E6C5C07F86D0F4FA12C /* ServiceTapspotManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E79439FA508AFEC3628B39332BBFCDF1 /* ServiceTapspotManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		89E4726E144BCD7204C4BB18B103EF94 /* ServiceBorderHook.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DAAF1F03439C70B79142AB3EDD16DDD /* ServiceBorderHook.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		8FEAA68A500F36DEAF6B7F133A062D0F /* ServiceMonitorMemoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8DE4D28D7762E0848430CA9EDDD47D /* ServiceMonitorMemoryModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9062EB2951A415CF5EEED108D40E8AEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B05CC724F9F77C7D4C314EBB3BB5FD /* Foundation.framework */; };
+		94FB80FC9615D74CB63BC9A46DF096C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A422C2ED8CFC5351895DC4DF18EF71E /* CoreGraphics.framework */; };
+		9A1CE851DE05C4FF7AE3DA1BAF72DFF3 /* ServiceTapspotHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 755DCA4CF4486907F42B40EA95175E9D /* ServiceTapspotHook.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		9BBDABA9CF9CADF5924E56F9966707EC /* ServiceInspector.h in Headers */ = {isa = PBXBuildFile; fileRef = B5EEB40515DB907FB9F9FA5C0AACF1CC /* ServiceInspector.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9F248CE11D5583B385C9F48480BF9EBF /* ServiceTapspotWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = A21A7B38978C0B35C4C0704FC6200724 /* ServiceTapspotWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9FDBE335F1A9CD1912423F48BA4842CF /* ServiceGridsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E1B0F1FB19D3EC8466D3474251AA6C /* ServiceGridsWindow.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A15D66FDCB2B0858340391EDD50E32DC /* JBBarChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F2D3323C7E27192C0FD92693FCD5F46 /* JBBarChartView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A2AF2FAF8C7BFEFD30E460FA984FA307 /* ServiceTapspot.h in Headers */ = {isa = PBXBuildFile; fileRef = 00FBC49588943633D851C2812B665696 /* ServiceTapspot.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AF27425996DA919F7CBDCFAFCB7CB179 /* ServiceGestureViewPinch.h in Headers */ = {isa = PBXBuildFile; fileRef = DAEEDFB05FFC3836EF3463A87674DDBB /* ServiceGestureViewPinch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AF56ED752CAE0F9DD35553279C039F13 /* ServiceMonitorStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A0C9CD5FD3930AD56A8FE3CD69B30 /* ServiceMonitorStatusBar.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BA56630A938F5BE09A3243C3824F7C4B /* ServiceTapspotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B7D40426B3F98CB3D9D08A03F03850 /* ServiceTapspotView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BDE75966BC5F4C738B40A30B38B70A11 /* JBChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF7AF8F23122FF8E11FE4706863C532 /* JBChartView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		BF747E5A42AC5A50852F5FD1ABC008BC /* ServiceGestureSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = F16F323945977ECAF97FDB303E63CC92 /* ServiceGestureSetting.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C08D9BF81EA70AE7855BFEED4AA9EB3D /* ServiceBorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 615E8DE8B89B91BECBA17D7C25131666 /* ServiceBorder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C3B9BE4A93EE3DA5FB3BB4CB9862C1CB /* ServiceGestureSetting.h in Headers */ = {isa = PBXBuildFile; fileRef = 4501EA3B78DD0EDF87BC68C355B77D06 /* ServiceGestureSetting.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C72CE16EE2429D6727FC61C7DFD26B27 /* ServiceGestureViewSwipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F470CD1A49F7E38C62FC511BF0DFE05 /* ServiceGestureViewSwipe.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CCF3416607E9846556FE6F3D5A515191 /* JBLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = C80C020B54636449CA5291772FC76944 /* JBLineChartView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CE7FC56CD8DACCD488183BE443199834 /* ServiceMonitorFPSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AACB08087F8D91481EC1C9AC4A012A /* ServiceMonitorFPSModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		CF5740DC1943FFBE6ED715ED659B7646 /* ServiceBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7553A9562E0D708542492537A6D55867 /* ServiceBorder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D618D603EDDFA8414E703889F49ED251 /* ServiceGestureViewClick.h in Headers */ = {isa = PBXBuildFile; fileRef = 0533CE219BFFF9F4F9E8BEBB2044DA00 /* ServiceGestureViewClick.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DFB04FE97664494D33825EB42DEB784C /* ServiceGrids.m in Sources */ = {isa = PBXBuildFile; fileRef = E0BC1EF12A30FCE206794BEAB2DF0D67 /* ServiceGrids.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E46460255BB486EE0C823DC2D49C0B9A /* ServiceTapspot.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F32C2CF935BF963E705651E2287B14A /* ServiceTapspot.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		E970EBBF6BBF8E59E25E46A852389818 /* ServiceMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = F497215148ADFC07282AABD38423414B /* ServiceMonitor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EA52123C6E8F68C735C7B6B63901D36F /* IDEAAppletDebugger-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B5D0D7BCEA918294CBD9959299BB3FAA /* IDEAAppletDebugger-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAA4F6B421E5E4BC6FD4B5D5E5A760A7 /* IDEAAppletDebugger-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C2E9EA9D69DE02F8E59E8CD5A51829 /* IDEAAppletDebugger-dummy.m */; };
+		FC1657E53149D21A76F12882A5CF4B37 /* ServiceTapspotView.h in Headers */ = {isa = PBXBuildFile; fileRef = ECF5D081CB7FE0C78E103FDB0E36AB00 /* ServiceTapspotView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FDDE57B5789C3B6B2B16F824A78DE5E5 /* ServiceGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = D167475A50A3CE5ADF4ADFF1526CADAA /* ServiceGesture.h */; settings = {ATTRIBUTES = (Private, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A4D6D6A2604858C007BD9E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22529FDFDCE6C52CD245E006F42D4A4B /* IDEAApplet */;
+			proxyType = 2;
+			remoteGlobalIDString = 55E9A8C7D22F87AEA1EC82253A859168;
+			remoteInfo = IDEAApplet;
+		};
+		4A4D6E1826048E59007BD9E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22529FDFDCE6C52CD245E006F42D4A4B /* IDEAApplet */;
+			proxyType = 1;
+			remoteGlobalIDString = 50258015D667CE003BB21241100A08AD;
+			remoteInfo = IDEAApplet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00FBC49588943633D851C2812B665696 /* ServiceTapspot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceTapspot.h; sourceTree = "<group>"; };
+		014D18ADA29F893565A698621A05B841 /* ServiceMonitorStatusBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitorStatusBar.h; sourceTree = "<group>"; };
+		0533CE219BFFF9F4F9E8BEBB2044DA00 /* ServiceGestureViewClick.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureViewClick.h; sourceTree = "<group>"; };
+		08AE3CB08B9F1B4A997F94CD4BAB3A6E /* ServiceGestureView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureView.m; sourceTree = "<group>"; };
+		0CFE920684422DAB11F417D68B42E928 /* ServiceGesture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGesture.m; sourceTree = "<group>"; };
+		0D6AF36C9B95C7F9FC423028507D863D /* ServiceGestureViewClick.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureViewClick.m; sourceTree = "<group>"; };
+		0E6F97A28D3AAB53DF6ADBB7ED50518E /* ServiceGestureView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureView.h; sourceTree = "<group>"; };
+		10968C093B686625416D6F64206C1D3E /* ServiceBorderLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceBorderLayer.h; sourceTree = "<group>"; };
+		17F1D664D215228AFA787D59BC6FD92D /* ServiceGestureHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureHook.m; sourceTree = "<group>"; };
+		18E1B0F1FB19D3EC8466D3474251AA6C /* ServiceGridsWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGridsWindow.m; sourceTree = "<group>"; };
+		1EBED327E7911C19B4B08538708C1B62 /* ServiceMonitor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitor.m; sourceTree = "<group>"; };
+		22529FDFDCE6C52CD245E006F42D4A4B /* IDEAApplet */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = IDEAApplet; path = IDEAApplet.xcodeproj; sourceTree = "<group>"; };
+		29B05CC724F9F77C7D4C314EBB3BB5FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2F2D3323C7E27192C0FD92693FCD5F46 /* JBBarChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JBBarChartView.h; sourceTree = "<group>"; };
+		3805F13BEA230EB9FDEA4D04840DB1D3 /* ServiceMonitorFPSModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitorFPSModel.h; sourceTree = "<group>"; };
+		39304B60536B7F801385B3297ED921D0 /* ServiceBorderHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceBorderHook.m; sourceTree = "<group>"; };
+		3A83CE563B16DF4A53F3E760C6C54A5C /* ServiceMonitorCPUModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorCPUModel.m; sourceTree = "<group>"; };
+		3AFA2B4B67A1020D5F0D6E21C4F1452D /* IDEAAppletDebugger.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = IDEAAppletDebugger.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		3CCFAB42ED88794C9AE0CB021DBAE9BC /* ServiceMonitorNetworkModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorNetworkModel.m; sourceTree = "<group>"; };
+		425A0C9CD5FD3930AD56A8FE3CD69B30 /* ServiceMonitorStatusBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorStatusBar.m; sourceTree = "<group>"; };
+		44AACB08087F8D91481EC1C9AC4A012A /* ServiceMonitorFPSModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorFPSModel.m; sourceTree = "<group>"; };
+		4501EA3B78DD0EDF87BC68C355B77D06 /* ServiceGestureSetting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureSetting.h; sourceTree = "<group>"; };
+		482BD6363A0CF538793FFE2DBF7B7E47 /* ServiceGestureHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureHook.h; sourceTree = "<group>"; };
+		4A4D6FA02604A383007BD9E8 /* ServiceBorder.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceBorder.bundle; path = "applet-debugger/ServiceBorder/ServiceBorder.bundle"; sourceTree = SOURCE_ROOT; };
+		4A4D6FA22604A38D007BD9E8 /* ServiceGesture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceGesture.bundle; path = "applet-debugger/ServiceGesture/ServiceGesture.bundle"; sourceTree = SOURCE_ROOT; };
+		4A4D6FA42604A395007BD9E8 /* ServiceGrids.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceGrids.bundle; path = "applet-debugger/ServiceGrids/ServiceGrids.bundle"; sourceTree = SOURCE_ROOT; };
+		4A4D6FA62604A39D007BD9E8 /* ServiceInspector.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceInspector.bundle; path = "applet-debugger/ServiceInspector/ServiceInspector.bundle"; sourceTree = SOURCE_ROOT; };
+		4C0DB817A3DC787BC44182B386A0E3AF /* ServiceInspector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceInspector.m; sourceTree = "<group>"; };
+		4C13E25888340EAB2ACE78BE02122363 /* IDEAAppletDebugger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IDEAAppletDebugger.debug.xcconfig; sourceTree = "<group>"; };
+		5164725C7DD81CFF05770344E1BF0E6A /* ServiceBorderLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceBorderLayer.m; sourceTree = "<group>"; };
+		5F9AA30F951D916FE598A53C0BBB30CA /* ServiceGestureViewSwipe.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureViewSwipe.m; sourceTree = "<group>"; };
+		615E8DE8B89B91BECBA17D7C25131666 /* ServiceBorder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceBorder.h; sourceTree = "<group>"; };
+		6F32C2CF935BF963E705651E2287B14A /* ServiceTapspot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceTapspot.m; sourceTree = "<group>"; };
+		74DFD31F3C0C83E6F276A99C2A596E41 /* IDEAAppletDebugger-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IDEAAppletDebugger-prefix.pch"; sourceTree = "<group>"; };
+		7553A9562E0D708542492537A6D55867 /* ServiceBorder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceBorder.m; sourceTree = "<group>"; };
+		755DCA4CF4486907F42B40EA95175E9D /* ServiceTapspotHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceTapspotHook.m; sourceTree = "<group>"; };
+		75DA2269BD2D50564E459C96D6541476 /* ServiceGridsWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGridsWindow.h; sourceTree = "<group>"; };
+		796B9D5AE4B6F3E8AE3E22469FA563D4 /* ServiceMonitorCPUModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitorCPUModel.h; sourceTree = "<group>"; };
+		7A422C2ED8CFC5351895DC4DF18EF71E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		7B8DE4D28D7762E0848430CA9EDDD47D /* ServiceMonitorMemoryModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorMemoryModel.m; sourceTree = "<group>"; };
+		819E9D732A213886172C440E5D62AAD5 /* ServiceMonitorNetworkModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitorNetworkModel.h; sourceTree = "<group>"; };
+		87B7D40426B3F98CB3D9D08A03F03850 /* ServiceTapspotView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceTapspotView.m; sourceTree = "<group>"; };
+		88AD392BE25F59373BDC251B5CA4A5E7 /* JBLineChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JBLineChartView.h; sourceTree = "<group>"; };
+		8EF7AF8F23122FF8E11FE4706863C532 /* JBChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JBChartView.m; sourceTree = "<group>"; };
+		94AA250438DC06FFD6685EBB0F8B710E /* JBChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JBChartView.h; sourceTree = "<group>"; };
+		9AE7AAA43FD986AA7DF309828EF6F338 /* IDEAApplet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IDEAApplet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DAAF1F03439C70B79142AB3EDD16DDD /* ServiceBorderHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceBorderHook.h; sourceTree = "<group>"; };
+		9F470CD1A49F7E38C62FC511BF0DFE05 /* ServiceGestureViewSwipe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureViewSwipe.h; sourceTree = "<group>"; };
+		A21A7B38978C0B35C4C0704FC6200724 /* ServiceTapspotWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceTapspotWindow.h; sourceTree = "<group>"; };
+		A7C2E9EA9D69DE02F8E59E8CD5A51829 /* IDEAAppletDebugger-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IDEAAppletDebugger-dummy.m"; sourceTree = "<group>"; };
+		B5D0D7BCEA918294CBD9959299BB3FAA /* IDEAAppletDebugger-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IDEAAppletDebugger-umbrella.h"; sourceTree = "<group>"; };
+		B5EEB40515DB907FB9F9FA5C0AACF1CC /* ServiceInspector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceInspector.h; sourceTree = "<group>"; };
+		B664B127510658F6BBAC3231587604EA /* ServiceTapspotManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceTapspotManager.m; sourceTree = "<group>"; };
+		B71558F7858F472C513801C0CF17322D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		BDF93F4311CC318EB94195B3C1808412 /* ServiceMonitorMemoryModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitorMemoryModel.h; sourceTree = "<group>"; };
+		C371B5FA809D092F614BB002A53AB13C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		C48100A16C86AC94E4C3F2D7657B17CB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		C80C020B54636449CA5291772FC76944 /* JBLineChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JBLineChartView.m; sourceTree = "<group>"; };
+		CB978F8DFC2010B932C6DF353C88B1B0 /* ServiceTapspotHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceTapspotHook.h; sourceTree = "<group>"; };
+		CE87D4B497FE9325A945A71542388656 /* JBBarChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JBBarChartView.m; sourceTree = "<group>"; };
+		D167475A50A3CE5ADF4ADFF1526CADAA /* ServiceGesture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGesture.h; sourceTree = "<group>"; };
+		DAEEDFB05FFC3836EF3463A87674DDBB /* ServiceGestureViewPinch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureViewPinch.h; sourceTree = "<group>"; };
+		DE50A317C92F7A4976EBFFB1F642530C /* IDEAAppletDebugger.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = IDEAAppletDebugger.modulemap; sourceTree = "<group>"; };
+		E04DD0AFF9918C7DA955356F2108495F /* ServiceGrids.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGrids.h; sourceTree = "<group>"; };
+		E0BC1EF12A30FCE206794BEAB2DF0D67 /* ServiceGrids.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGrids.m; sourceTree = "<group>"; };
+		E323CBDFAFB3D5416A244617141FC328 /* IDEAAppletDebugger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IDEAAppletDebugger.release.xcconfig; sourceTree = "<group>"; };
+		E79439FA508AFEC3628B39332BBFCDF1 /* ServiceTapspotManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceTapspotManager.h; sourceTree = "<group>"; };
+		E953E8475CBEF4F1276E24D51C2CAC8F /* ServiceInspectorWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceInspectorWindow.m; sourceTree = "<group>"; };
+		EAF4F41350738B774DDA2B8E3B97D61F /* ServiceTapspotWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceTapspotWindow.m; sourceTree = "<group>"; };
+		EC8C06D2B88D77FCCE53494D305BE706 /* IDEAAppletDebugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IDEAAppletDebugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF5D081CB7FE0C78E103FDB0E36AB00 /* ServiceTapspotView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceTapspotView.h; sourceTree = "<group>"; };
+		F03EF0A35FFC8BD97D59E141F80CC8E8 /* IDEAAppletDebugger-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "IDEAAppletDebugger-Info.plist"; sourceTree = "<group>"; };
+		F16F323945977ECAF97FDB303E63CC92 /* ServiceGestureSetting.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureSetting.m; sourceTree = "<group>"; };
+		F497215148ADFC07282AABD38423414B /* ServiceMonitor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceMonitor.h; sourceTree = "<group>"; };
+		F6D3063D90722F2AEC0F0213DDAB6261 /* ServiceGestureViewPinch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceGestureViewPinch.m; sourceTree = "<group>"; };
+		FE3C1220A72955C73E753088F736DCE9 /* ServiceInspectorWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceInspectorWindow.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F85C85D018A6EFA99F23D2CEDACF3A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4D6E1A26048E5D007BD9E8 /* IDEAApplet.framework in Frameworks */,
+				7D2341C6811DA349720103FFC1CA3882 /* CoreFoundation.framework in Frameworks */,
+				94FB80FC9615D74CB63BC9A46DF096C5 /* CoreGraphics.framework in Frameworks */,
+				9062EB2951A415CF5EEED108D40E8AEF /* Foundation.framework in Frameworks */,
+				3C3FB24D2305BAFC1AE03C9A415E3E6E /* QuartzCore.framework in Frameworks */,
+				46AA400AD3B48D4E846B78CACB030E2F /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EB5FDF9BFC625C5B5B49CA2A56B4D62 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DE50A317C92F7A4976EBFFB1F642530C /* IDEAAppletDebugger.modulemap */,
+				A7C2E9EA9D69DE02F8E59E8CD5A51829 /* IDEAAppletDebugger-dummy.m */,
+				F03EF0A35FFC8BD97D59E141F80CC8E8 /* IDEAAppletDebugger-Info.plist */,
+				74DFD31F3C0C83E6F276A99C2A596E41 /* IDEAAppletDebugger-prefix.pch */,
+				B5D0D7BCEA918294CBD9959299BB3FAA /* IDEAAppletDebugger-umbrella.h */,
+				4C13E25888340EAB2ACE78BE02122363 /* IDEAAppletDebugger.debug.xcconfig */,
+				E323CBDFAFB3D5416A244617141FC328 /* IDEAAppletDebugger.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "./Target Support Files/IDEAAppletDebugger";
+			sourceTree = "<group>";
+		};
+		139566F9C79019FD5BE339C072EE0F2A = {
+			isa = PBXGroup;
+			children = (
+				1EBBD2D327461A4C1605DFDCF6C4C786 /* Dependencies */,
+				7671134B29967AF3E6F2C0E96C6D69E8 /* Frameworks */,
+				B8445BBD51BAC94BAEED8C43D4A9F737 /* IDEAAppletDebugger */,
+				F79FBC1F640FBE0ED4A78034D398F58E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1EBBD2D327461A4C1605DFDCF6C4C786 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				22529FDFDCE6C52CD245E006F42D4A4B /* IDEAApplet */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		3248459698F49FD89DC9373BCDAA8461 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C48100A16C86AC94E4C3F2D7657B17CB /* CoreFoundation.framework */,
+				7A422C2ED8CFC5351895DC4DF18EF71E /* CoreGraphics.framework */,
+				29B05CC724F9F77C7D4C314EBB3BB5FD /* Foundation.framework */,
+				C371B5FA809D092F614BB002A53AB13C /* QuartzCore.framework */,
+				B71558F7858F472C513801C0CF17322D /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		338CBCCED09C6F33366823122F6FB7BE /* ServiceBorder */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D6FA02604A383007BD9E8 /* ServiceBorder.bundle */,
+				615E8DE8B89B91BECBA17D7C25131666 /* ServiceBorder.h */,
+				7553A9562E0D708542492537A6D55867 /* ServiceBorder.m */,
+				9DAAF1F03439C70B79142AB3EDD16DDD /* ServiceBorderHook.h */,
+				39304B60536B7F801385B3297ED921D0 /* ServiceBorderHook.m */,
+				10968C093B686625416D6F64206C1D3E /* ServiceBorderLayer.h */,
+				5164725C7DD81CFF05770344E1BF0E6A /* ServiceBorderLayer.m */,
+			);
+			name = ServiceBorder;
+			path = "applet-debugger/ServiceBorder";
+			sourceTree = "<group>";
+		};
+		3EB14E18882B75D8F4772BD35C451A8B /* ServiceMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				F497215148ADFC07282AABD38423414B /* ServiceMonitor.h */,
+				1EBED327E7911C19B4B08538708C1B62 /* ServiceMonitor.m */,
+				796B9D5AE4B6F3E8AE3E22469FA563D4 /* ServiceMonitorCPUModel.h */,
+				3A83CE563B16DF4A53F3E760C6C54A5C /* ServiceMonitorCPUModel.m */,
+				3805F13BEA230EB9FDEA4D04840DB1D3 /* ServiceMonitorFPSModel.h */,
+				44AACB08087F8D91481EC1C9AC4A012A /* ServiceMonitorFPSModel.m */,
+				BDF93F4311CC318EB94195B3C1808412 /* ServiceMonitorMemoryModel.h */,
+				7B8DE4D28D7762E0848430CA9EDDD47D /* ServiceMonitorMemoryModel.m */,
+				819E9D732A213886172C440E5D62AAD5 /* ServiceMonitorNetworkModel.h */,
+				3CCFAB42ED88794C9AE0CB021DBAE9BC /* ServiceMonitorNetworkModel.m */,
+				014D18ADA29F893565A698621A05B841 /* ServiceMonitorStatusBar.h */,
+				425A0C9CD5FD3930AD56A8FE3CD69B30 /* ServiceMonitorStatusBar.m */,
+				663DA7929419DB589D7361A55655D1D7 /* JBChartView */,
+			);
+			name = ServiceMonitor;
+			path = "applet-debugger/ServiceMonitor";
+			sourceTree = "<group>";
+		};
+		4A4D6D6726048278007BD9E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D6D6B2604858C007BD9E8 /* IDEAApplet.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AA2CBE7629FA78560F2A97C8968DA0D /* ServiceTapspot */ = {
+			isa = PBXGroup;
+			children = (
+				00FBC49588943633D851C2812B665696 /* ServiceTapspot.h */,
+				6F32C2CF935BF963E705651E2287B14A /* ServiceTapspot.m */,
+				CB978F8DFC2010B932C6DF353C88B1B0 /* ServiceTapspotHook.h */,
+				755DCA4CF4486907F42B40EA95175E9D /* ServiceTapspotHook.m */,
+				E79439FA508AFEC3628B39332BBFCDF1 /* ServiceTapspotManager.h */,
+				B664B127510658F6BBAC3231587604EA /* ServiceTapspotManager.m */,
+				ECF5D081CB7FE0C78E103FDB0E36AB00 /* ServiceTapspotView.h */,
+				87B7D40426B3F98CB3D9D08A03F03850 /* ServiceTapspotView.m */,
+				A21A7B38978C0B35C4C0704FC6200724 /* ServiceTapspotWindow.h */,
+				EAF4F41350738B774DDA2B8E3B97D61F /* ServiceTapspotWindow.m */,
+			);
+			name = ServiceTapspot;
+			path = "applet-debugger/ServiceTapspot";
+			sourceTree = "<group>";
+		};
+		663DA7929419DB589D7361A55655D1D7 /* JBChartView */ = {
+			isa = PBXGroup;
+			children = (
+				2F2D3323C7E27192C0FD92693FCD5F46 /* JBBarChartView.h */,
+				CE87D4B497FE9325A945A71542388656 /* JBBarChartView.m */,
+				94AA250438DC06FFD6685EBB0F8B710E /* JBChartView.h */,
+				8EF7AF8F23122FF8E11FE4706863C532 /* JBChartView.m */,
+				88AD392BE25F59373BDC251B5CA4A5E7 /* JBLineChartView.h */,
+				C80C020B54636449CA5291772FC76944 /* JBLineChartView.m */,
+			);
+			path = JBChartView;
+			sourceTree = "<group>";
+		};
+		7671134B29967AF3E6F2C0E96C6D69E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9AE7AAA43FD986AA7DF309828EF6F338 /* IDEAApplet.framework */,
+				3248459698F49FD89DC9373BCDAA8461 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		81F605C808ADC652869510AC5FEF95AB /* ServiceGrids */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D6FA42604A395007BD9E8 /* ServiceGrids.bundle */,
+				E04DD0AFF9918C7DA955356F2108495F /* ServiceGrids.h */,
+				E0BC1EF12A30FCE206794BEAB2DF0D67 /* ServiceGrids.m */,
+				75DA2269BD2D50564E459C96D6541476 /* ServiceGridsWindow.h */,
+				18E1B0F1FB19D3EC8466D3474251AA6C /* ServiceGridsWindow.m */,
+			);
+			name = ServiceGrids;
+			path = "applet-debugger/ServiceGrids";
+			sourceTree = "<group>";
+		};
+		B8445BBD51BAC94BAEED8C43D4A9F737 /* IDEAAppletDebugger */ = {
+			isa = PBXGroup;
+			children = (
+				CF0D5B9279B628206A11F70BE6625B68 /* Pod */,
+				338CBCCED09C6F33366823122F6FB7BE /* ServiceBorder */,
+				D29B00841CCC20E40C2A66CCEAC9DDA2 /* ServiceGesture */,
+				81F605C808ADC652869510AC5FEF95AB /* ServiceGrids */,
+				F4E85D8F89DA314F5877F106366B6EBE /* ServiceInspector */,
+				3EB14E18882B75D8F4772BD35C451A8B /* ServiceMonitor */,
+				5AA2CBE7629FA78560F2A97C8968DA0D /* ServiceTapspot */,
+				0EB5FDF9BFC625C5B5B49CA2A56B4D62 /* Support Files */,
+			);
+			name = IDEAAppletDebugger;
+			path = .;
+			sourceTree = "<group>";
+		};
+		CF0D5B9279B628206A11F70BE6625B68 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				3AFA2B4B67A1020D5F0D6E21C4F1452D /* IDEAAppletDebugger.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		D29B00841CCC20E40C2A66CCEAC9DDA2 /* ServiceGesture */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D6FA22604A38D007BD9E8 /* ServiceGesture.bundle */,
+				D167475A50A3CE5ADF4ADFF1526CADAA /* ServiceGesture.h */,
+				0CFE920684422DAB11F417D68B42E928 /* ServiceGesture.m */,
+				482BD6363A0CF538793FFE2DBF7B7E47 /* ServiceGestureHook.h */,
+				17F1D664D215228AFA787D59BC6FD92D /* ServiceGestureHook.m */,
+				4501EA3B78DD0EDF87BC68C355B77D06 /* ServiceGestureSetting.h */,
+				F16F323945977ECAF97FDB303E63CC92 /* ServiceGestureSetting.m */,
+				0E6F97A28D3AAB53DF6ADBB7ED50518E /* ServiceGestureView.h */,
+				08AE3CB08B9F1B4A997F94CD4BAB3A6E /* ServiceGestureView.m */,
+				0533CE219BFFF9F4F9E8BEBB2044DA00 /* ServiceGestureViewClick.h */,
+				0D6AF36C9B95C7F9FC423028507D863D /* ServiceGestureViewClick.m */,
+				DAEEDFB05FFC3836EF3463A87674DDBB /* ServiceGestureViewPinch.h */,
+				F6D3063D90722F2AEC0F0213DDAB6261 /* ServiceGestureViewPinch.m */,
+				9F470CD1A49F7E38C62FC511BF0DFE05 /* ServiceGestureViewSwipe.h */,
+				5F9AA30F951D916FE598A53C0BBB30CA /* ServiceGestureViewSwipe.m */,
+			);
+			name = ServiceGesture;
+			path = "applet-debugger/ServiceGesture";
+			sourceTree = "<group>";
+		};
+		F4E85D8F89DA314F5877F106366B6EBE /* ServiceInspector */ = {
+			isa = PBXGroup;
+			children = (
+				4A4D6FA62604A39D007BD9E8 /* ServiceInspector.bundle */,
+				B5EEB40515DB907FB9F9FA5C0AACF1CC /* ServiceInspector.h */,
+				4C0DB817A3DC787BC44182B386A0E3AF /* ServiceInspector.m */,
+				FE3C1220A72955C73E753088F736DCE9 /* ServiceInspectorWindow.h */,
+				E953E8475CBEF4F1276E24D51C2CAC8F /* ServiceInspectorWindow.m */,
+			);
+			name = ServiceInspector;
+			path = "applet-debugger/ServiceInspector";
+			sourceTree = "<group>";
+		};
+		F79FBC1F640FBE0ED4A78034D398F58E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC8C06D2B88D77FCCE53494D305BE706 /* IDEAAppletDebugger.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8E36E5205D6A3BD0688EE1B661F32EF8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA52123C6E8F68C735C7B6B63901D36F /* IDEAAppletDebugger-umbrella.h in Headers */,
+				A15D66FDCB2B0858340391EDD50E32DC /* JBBarChartView.h in Headers */,
+				6DD7D0CF5FBA296FA8E8EA9FA800A8ED /* JBChartView.h in Headers */,
+				1297A1D134BEA7638F17DE8DE4B03BDD /* JBLineChartView.h in Headers */,
+				C08D9BF81EA70AE7855BFEED4AA9EB3D /* ServiceBorder.h in Headers */,
+				89E4726E144BCD7204C4BB18B103EF94 /* ServiceBorderHook.h in Headers */,
+				2E55766404082BC54638C353AA083B31 /* ServiceBorderLayer.h in Headers */,
+				FDDE57B5789C3B6B2B16F824A78DE5E5 /* ServiceGesture.h in Headers */,
+				567AD20535E73612BA58D5749F969E99 /* ServiceGestureHook.h in Headers */,
+				C3B9BE4A93EE3DA5FB3BB4CB9862C1CB /* ServiceGestureSetting.h in Headers */,
+				19E48ACA339A8C89F34C15F242E32D7F /* ServiceGestureView.h in Headers */,
+				D618D603EDDFA8414E703889F49ED251 /* ServiceGestureViewClick.h in Headers */,
+				AF27425996DA919F7CBDCFAFCB7CB179 /* ServiceGestureViewPinch.h in Headers */,
+				C72CE16EE2429D6727FC61C7DFD26B27 /* ServiceGestureViewSwipe.h in Headers */,
+				2E1009FF495217D5ED37183D9A8D7771 /* ServiceGrids.h in Headers */,
+				416D71E8FE71EB5022EEAB20D3CFEBE7 /* ServiceGridsWindow.h in Headers */,
+				9BBDABA9CF9CADF5924E56F9966707EC /* ServiceInspector.h in Headers */,
+				55B9B6001E19B0269992C025DF50C4D0 /* ServiceInspectorWindow.h in Headers */,
+				E970EBBF6BBF8E59E25E46A852389818 /* ServiceMonitor.h in Headers */,
+				3B736A31A6275CDD3E7825B282AC8914 /* ServiceMonitorCPUModel.h in Headers */,
+				0CC3293F3B62DD2CF1A0DEE01E82D128 /* ServiceMonitorFPSModel.h in Headers */,
+				62B25F12795CD9EB0F94B9778B562B14 /* ServiceMonitorMemoryModel.h in Headers */,
+				721DA8652AC5AA9ECC2DD67A3DE184F5 /* ServiceMonitorNetworkModel.h in Headers */,
+				7EFB23A933D6BC06D05734905F80F5B7 /* ServiceMonitorStatusBar.h in Headers */,
+				A2AF2FAF8C7BFEFD30E460FA984FA307 /* ServiceTapspot.h in Headers */,
+				7A920ECE8F53774485B8D766AC202F7A /* ServiceTapspotHook.h in Headers */,
+				8786C2E450003E6C5C07F86D0F4FA12C /* ServiceTapspotManager.h in Headers */,
+				FC1657E53149D21A76F12882A5CF4B37 /* ServiceTapspotView.h in Headers */,
+				9F248CE11D5583B385C9F48480BF9EBF /* ServiceTapspotWindow.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		5501D042807CFF07ED74124ABF92DE02 /* IDEAAppletDebugger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCD6F77D2B603AE95BFF2079492F8F98 /* Build configuration list for PBXNativeTarget "IDEAAppletDebugger" */;
+			buildPhases = (
+				8E36E5205D6A3BD0688EE1B661F32EF8 /* Headers */,
+				BD9AD7E03E65266E252A071D08B942DE /* Sources */,
+				1F85C85D018A6EFA99F23D2CEDACF3A2 /* Frameworks */,
+				E159CEFF96A73505F56CF0D4CD370C37 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A4D6E1926048E59007BD9E8 /* PBXTargetDependency */,
+			);
+			name = IDEAAppletDebugger;
+			productName = IDEAAppletDebugger;
+			productReference = EC8C06D2B88D77FCCE53494D305BE706 /* IDEAAppletDebugger.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1198DDDFD0CD4569F1F5B9976437CA76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = B7DCB2BEFAEE1A5CDFC4885939E1548C /* Build configuration list for PBXProject "IDEAAppletDebugger" */;
+			compatibilityVersion = "Xcode 10.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 139566F9C79019FD5BE339C072EE0F2A;
+			productRefGroup = F79FBC1F640FBE0ED4A78034D398F58E /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4A4D6D6726048278007BD9E8 /* Products */;
+					ProjectRef = 22529FDFDCE6C52CD245E006F42D4A4B /* IDEAApplet */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				5501D042807CFF07ED74124ABF92DE02 /* IDEAAppletDebugger */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4A4D6D6B2604858C007BD9E8 /* IDEAApplet.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = IDEAApplet.framework;
+			remoteRef = 4A4D6D6A2604858C007BD9E8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E159CEFF96A73505F56CF0D4CD370C37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4D6FA52604A395007BD9E8 /* ServiceGrids.bundle in Resources */,
+				4A4D6FA12604A383007BD9E8 /* ServiceBorder.bundle in Resources */,
+				4A4D6FA32604A38D007BD9E8 /* ServiceGesture.bundle in Resources */,
+				4A4D6FA72604A39D007BD9E8 /* ServiceInspector.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD9AD7E03E65266E252A071D08B942DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAA4F6B421E5E4BC6FD4B5D5E5A760A7 /* IDEAAppletDebugger-dummy.m in Sources */,
+				6A9CF80094B5076512C5F0357E55C803 /* JBBarChartView.m in Sources */,
+				BDE75966BC5F4C738B40A30B38B70A11 /* JBChartView.m in Sources */,
+				CCF3416607E9846556FE6F3D5A515191 /* JBLineChartView.m in Sources */,
+				CF5740DC1943FFBE6ED715ED659B7646 /* ServiceBorder.m in Sources */,
+				2C364F3F3E4F56EE1747D8D750064DCE /* ServiceBorderHook.m in Sources */,
+				0C37D295668810220CD3864E70BCB552 /* ServiceBorderLayer.m in Sources */,
+				59E96C801400C6BF0EE2C8E687327D64 /* ServiceGesture.m in Sources */,
+				442B932550198925C4E9F45E82D7E6EF /* ServiceGestureHook.m in Sources */,
+				BF747E5A42AC5A50852F5FD1ABC008BC /* ServiceGestureSetting.m in Sources */,
+				563A5F3B61EF07775CE35EDE33495543 /* ServiceGestureView.m in Sources */,
+				326F8D7B808102ACD296AFD6698C003B /* ServiceGestureViewClick.m in Sources */,
+				76C1B765FC3735DA32CB5ABB6B0E31E1 /* ServiceGestureViewPinch.m in Sources */,
+				4036B1420335D24FAAB1D02B2CF102ED /* ServiceGestureViewSwipe.m in Sources */,
+				DFB04FE97664494D33825EB42DEB784C /* ServiceGrids.m in Sources */,
+				9FDBE335F1A9CD1912423F48BA4842CF /* ServiceGridsWindow.m in Sources */,
+				2D5AD15742C4CB447D8007871D31AB55 /* ServiceInspector.m in Sources */,
+				7B0AB2D00966B676CB7AB4C867AC57C2 /* ServiceInspectorWindow.m in Sources */,
+				70E05E364103C61942FD65CC705886FC /* ServiceMonitor.m in Sources */,
+				1A069CBD98B9B70840ABBB39BCBCFB7E /* ServiceMonitorCPUModel.m in Sources */,
+				CE7FC56CD8DACCD488183BE443199834 /* ServiceMonitorFPSModel.m in Sources */,
+				8FEAA68A500F36DEAF6B7F133A062D0F /* ServiceMonitorMemoryModel.m in Sources */,
+				2A3645579C81F388F640E0C18C6135D5 /* ServiceMonitorNetworkModel.m in Sources */,
+				AF56ED752CAE0F9DD35553279C039F13 /* ServiceMonitorStatusBar.m in Sources */,
+				E46460255BB486EE0C823DC2D49C0B9A /* ServiceTapspot.m in Sources */,
+				9A1CE851DE05C4FF7AE3DA1BAF72DFF3 /* ServiceTapspotHook.m in Sources */,
+				658B4CFDD2A78EC2D3443B7485626312 /* ServiceTapspotManager.m in Sources */,
+				BA56630A938F5BE09A3243C3824F7C4B /* ServiceTapspotView.m in Sources */,
+				75C6237A7CE4AD93A661E8E551716DCA /* ServiceTapspotWindow.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A4D6E1926048E59007BD9E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = IDEAApplet;
+			targetProxy = 4A4D6E1826048E59007BD9E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1EA8904E1A1505C1024E1729EC03E8C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E323CBDFAFB3D5416A244617141FC328 /* IDEAAppletDebugger.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger.modulemap";
+				PRODUCT_MODULE_NAME = IDEAAppletDebugger;
+				PRODUCT_NAME = IDEAAppletDebugger;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		39D51EC6A50B8C2989D9FE6E9F587577 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C13E25888340EAB2ACE78BE02122363 /* IDEAAppletDebugger.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger.modulemap";
+				PRODUCT_MODULE_NAME = IDEAAppletDebugger;
+				PRODUCT_NAME = IDEAAppletDebugger;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8B64CEF350665E79F0C690CB8FD5A35F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		C4E12CAE92DB68E7FE1660569F26FDBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B7DCB2BEFAEE1A5CDFC4885939E1548C /* Build configuration list for PBXProject "IDEAAppletDebugger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B64CEF350665E79F0C690CB8FD5A35F /* Debug */,
+				C4E12CAE92DB68E7FE1660569F26FDBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCD6F77D2B603AE95BFF2079492F8F98 /* Build configuration list for PBXNativeTarget "IDEAAppletDebugger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39D51EC6A50B8C2989D9FE6E9F587577 /* Debug */,
+				1EA8904E1A1505C1024E1729EC03E8C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1198DDDFD0CD4569F1F5B9976437CA76 /* Project object */;
+}
