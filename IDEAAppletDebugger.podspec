@@ -14,7 +14,8 @@ Pod::Spec.new do |spec|
   spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
 
   spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
-  
+#  spec.source               = { :path => "." }
+
   spec.xcconfig             = {
     'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-framework"/** "${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/** ',
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
@@ -28,20 +29,63 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'UIKitExtension'
  
   spec.ios.deployment_target      = '10.0'
-  spec.ios.private_header_files   = 'applet-debugger/**/*.{h,hpp}'
-  spec.ios.source_files           = 'applet-debugger/**/*.{h,m,c}'
+  spec.ios.private_header_files   = 'applet-debugger/*.{h,hpp}'
+  spec.ios.source_files           = 'applet-debugger/*.{h,m,c}'
   
   spec.dependency 'IDEAApplet'
 
-  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
-                                    'applet-debugger/ServiceConsole/ServiceConsole.bundle',
-                                    'applet-debugger/ServiceGesture/ServiceGesture.bundle',
-                                    'applet-debugger/ServiceGrids/ServiceGrids.bundle',
-                                    'applet-debugger/ServiceInspector/ServiceInspector.bundle',
-                                    'applet-debugger/ServiceMonitor/ServiceMonitor.bundle',
-                                    'applet-debugger/ServiceTapspot/ServiceTapspot.bundle'
+  spec.subspec 'ServiceBorder' do |border|
+    border.ios.private_header_files     = 'applet-debugger/ServiceBorder/*.{h}'
+    border.ios.source_files             = 'applet-debugger/ServiceBorder/*.{h,m.c}'
+    border.resource                     = 'applet-debugger/ServiceBorder/ServiceBorder.bundle'
+  end
+
+  spec.subspec 'ServiceConsole' do |console|
+    console.ios.private_header_files    = 'applet-debugger/ServiceConsole/*.{h}'
+    console.ios.source_files            = 'applet-debugger/ServiceConsole/*.{h,m.c}'
+    console.resource                    = 'applet-debugger/ServiceConsole/ServiceConsole.bundle'
+  end
+
+  spec.subspec 'ServiceGesture' do |gesture|
+    gesture.ios.private_header_files    = 'applet-debugger/ServiceGesture/*.{h}'
+    gesture.ios.source_files            = 'applet-debugger/ServiceGesture/*.{h,m.c}'
+    gesture.resource                    = 'applet-debugger/ServiceGesture/ServiceGesture.bundle'
+  end
+
+  spec.subspec 'ServiceGrids' do |grids|
+    grids.ios.private_header_files      = 'applet-debugger/ServiceGrids/*.{h}'
+    grids.ios.source_files              = 'applet-debugger/ServiceGrids/*.{h,m.c}'
+    grids.resource                      = 'applet-debugger/ServiceGrids/ServiceGesture.bundle'
+  end
+
+  spec.subspec 'ServiceInspector' do |inspector|
+    inspector.ios.private_header_files  = 'applet-debugger/ServiceInspector/*.{h}'
+    inspector.ios.source_files          = 'applet-debugger/ServiceInspector/*.{h,m.c}'
+    inspector.resource                  = 'applet-debugger/ServiceInspector/ServiceInspector.bundle'
+  end
   
-  
+  spec.subspec 'ServiceMonitor' do |monitor|
+    monitor.ios.private_header_files    = 'applet-debugger/ServiceMonitor/*.{h}'
+    monitor.ios.source_files            = 'applet-debugger/ServiceMonitor/*.{h,m.c}'
+    monitor.subspec 'JBChartView' do |chart|
+      chart.ios.private_header_files    = 'applet-debugger/ServiceInspector/JBChartView/*.{h}'
+      chart.ios.source_files            = 'applet-debugger/ServiceInspector/JBChartView/*.{h,m.c}'
+    end
+  end
+
+  spec.subspec 'ServiceTapspot' do |tapspot|
+    tapspot.ios.private_header_files    = 'applet-debugger/ServiceTapspot/*.{h}'
+    tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m.c}'
+  end
+
+#  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
+#                                    'applet-debugger/ServiceConsole/ServiceConsole.bundle',
+#                                    'applet-debugger/ServiceGesture/ServiceGesture.bundle',
+#                                    'applet-debugger/ServiceGrids/ServiceGrids.bundle',
+#                                    'applet-debugger/ServiceInspector/ServiceInspector.bundle',
+#                                    'applet-debugger/ServiceMonitor/ServiceMonitor.bundle',
+#                                    'applet-debugger/ServiceTapspot/ServiceTapspot.bundle'
+    
 #  spec.subspec 'ICONs' do |icons|
 #    icons.resource_bundle             = {
 #                                          'ServiceBorder'   => [ 'applet-debugger/ServiceBorder/ICONs/*.png'    ],
