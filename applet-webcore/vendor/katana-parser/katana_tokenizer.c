@@ -28,7 +28,7 @@
 #include "katana-parser/katana_parser.h"
 #include "katana-parser/katana_foundation.h"
 
-#undef	assert
+#undef   assert
 #define assert(x)
 
 static inline double katana_characters_to_double(const char* data, size_t length, bool* ok);

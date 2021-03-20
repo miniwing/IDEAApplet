@@ -13,7 +13,7 @@
 #include "katana-parser/katana_foundation.h"
 #include "katana-parser/katana_parser.h"
 
-//#undef	assert
+//#undef   assert
 //#define assert(x)
 
 struct KatanaInternalParser;
@@ -105,7 +105,7 @@ void katana_string_to_lowercase(struct KatanaInternalParser* parser,
 
 const char* katana_string_to_characters(struct KatanaInternalParser * parser, const KatanaParserString* str)
 {
-//	assert(NULL != str);
+//   assert(NULL != str);
     if (NULL == str)
         return NULL;
     
@@ -117,7 +117,7 @@ const char* katana_string_to_characters(struct KatanaInternalParser * parser, co
 
 const char* katana_string_to_characters_with_prefix_char(struct KatanaInternalParser * parser, const KatanaParserString* str, const char prefix)
 {
-//	assert(NULL != str);
+//   assert(NULL != str);
     if (NULL == str)
         return NULL;
     
@@ -172,13 +172,13 @@ void katana_array_add(struct KatanaInternalParser* parser,
                       void* element, KatanaArray* array)
 {
     enlarge_array_if_full(parser, array);
-	
-//	assert(array->data);
-//	assert(array->length < array->capacity);
-	
-	if ( array->length >= array->capacity )
-		return;
-	
+   
+//   assert(array->data);
+//   assert(array->length < array->capacity);
+   
+   if ( array->length >= array->capacity )
+      return;
+   
     array->data[array->length++] = element;
 }
 
@@ -193,28 +193,28 @@ void* katana_array_pop(struct KatanaInternalParser* parser,
 int katana_array_index_of(KatanaArray* array, void* element)
 {
     for (int i = 0; i < array->length; ++i)
-	{
+   {
         if (array->data[i] == element) {
             return i;
         }
     }
-	
+   
     return -1;
 }
 
 void katana_array_insert_at(struct KatanaInternalParser* parser,
                             void* element, int index,
                             KatanaArray* array) {
-	
-	if ( index < 0 )
-		return;
-	
-	if ( index > array->length )
-		return;
+   
+   if ( index < 0 )
+      return;
+   
+   if ( index > array->length )
+      return;
 
-//	assert(index >= 0);
-//	assert(index <= array->length);
-	
+//   assert(index >= 0);
+//   assert(index <= array->length);
+   
     enlarge_array_if_full(parser, array);
     ++array->length;
     memmove(&array->data[index + 1], &array->data[index],
@@ -228,22 +228,22 @@ void katana_array_remove(struct KatanaInternalParser* parser,
     if (index == -1) {
         return;
     }
-	
+   
     katana_array_remove_at(parser, index, array);
 }
 
 void* katana_array_remove_at(struct KatanaInternalParser* parser,
                              int index, KatanaArray* array) {
-	
-	if ( index < 0 )
-		return NULL;
+   
+   if ( index < 0 )
+      return NULL;
 
-	if ( index >= array->length )
-		return NULL;
-	
-//	assert(index >= 0);
-//	assert(index < array->length);
-	
+   if ( index >= array->length )
+      return NULL;
+   
+//   assert(index >= 0);
+//   assert(index < array->length);
+   
     void* result = array->data[index];
     memmove(&array->data[index], &array->data[index + 1],
             sizeof(void*) * (array->length - index - 1));

@@ -1,0 +1,689 @@
+/*
+ *    ____    _                        __     _      _____
+ *   / ___\  /_\     /\/\    /\ /\    /__\   /_\     \_   \
+ *   \ \    //_\\   /    \  / / \ \  / \//  //_\\     / /\/
+ * /\_\ \  /  _  \ / /\/\ \ \ \_/ / / _  \ /  _  \ /\/ /_
+ * \____/  \_/ \_/ \/    \/  \___/  \/ \_/ \_/ \_/ \____/
+ *
+ * Copyright Samurai development team and other contributors
+ *
+ * http://www.samurai-framework.com
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+html {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'IDEAAppletHtmlElementHtml';
+}
+
+head {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+title {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+meta {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+base {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+link {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+style {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+script {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+body {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementBody';
+}
+
+element {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementElement';
+}
+
+template {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTemplate';
+}
+
+article {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementArticle';
+}
+
+aside {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementAside';
+}
+
+div {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementDiv';
+}
+
+footer {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementFooter';
+}
+
+header {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementHeader';
+}
+
+hgroup {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementHgroup';
+}
+
+main {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementMain';
+}
+
+nav {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementNav';
+}
+
+section {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementSection';
+}
+
+span {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementSpan';
+}
+
+dir {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementDir';
+}
+
+ul {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementUl';
+}
+
+ol {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementOl';
+}
+
+li {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementLi';
+}
+
+dl {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementDl';
+}
+
+dt {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementDt';
+}
+
+dd {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementDd';
+}
+
+table {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTable';
+}
+
+caption {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementCaption';
+}
+
+thead {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementThead';
+}
+
+tbody {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTbody';
+}
+
+tfoot {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTfoot';
+}
+
+tr {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTr';
+}
+
+td {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTd';
+}
+
+th {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementTh';
+}
+
+col {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementCol';
+}
+
+colgroup {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementColgroup';
+}
+
+form {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementForm';
+}
+
+fieldset {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementFieldset';
+}
+
+legend {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementLegend';
+}
+
+keygen {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+menu {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+menuitem {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+button {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementButton';
+}
+
+canvas {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementCanvas';
+}
+
+datalist {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementDatalist';
+}
+
+img, image {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementImg';
+}
+
+input, input[type="text"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Text';
+}
+
+input[type="button"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Button';
+}
+
+input[type="checkbox"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Checkbox';
+}
+
+input[type="file"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_File';
+}
+
+input[type="hidden"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Hidden';
+}
+
+input[type="image"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Image';
+}
+
+input[type="password"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Password';
+}
+
+input[type="radio"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Radio';
+}
+
+input[type="reset"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Reset';
+}
+
+input[type="submit"] {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementInput_Submit';
+}
+
+label {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementLabel';
+}
+
+output {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementOutput';
+}
+
+progress {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementProgress';
+}
+
+select {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementSelect';
+}
+
+optgroup {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+option {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+textarea {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementTextarea';
+}
+
+time {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementTime';
+}
+
+meter {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementMeter';
+}
+
+h1 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH1';
+}
+
+h2 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH2';
+}
+
+h3 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH3';
+}
+
+h4 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH4';
+}
+
+h5 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH5';
+}
+
+h6 {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementH6';
+}
+
+hr {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementHr';
+}
+
+a {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+b {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+i {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+q {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+u {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+wbr {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+abbr {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+address {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+acronym {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+code {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementCode';
+}
+
+strong {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+small {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+big {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+del {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+ins {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+s, strike {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+rp {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+rt {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+ruby {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+em {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+tt {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+cite {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+dfn {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+kbd {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+samp {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+var {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+mark {
+   -applet-view-hierarchy: 'branch';
+   -applet-view-class: 'UIView';
+}
+
+sub {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementSub';
+}
+
+sup {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementSup';
+}
+
+basefont {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+font {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+bdi {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+bdo {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+br {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementBr';
+}
+
+blockquote {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementBlockquote';
+}
+
+p {
+   -applet-view-hierarchy: 'tree';
+   -applet-view-class: 'SamuraiHtmlElementP';
+}
+
+pre {
+   -applet-view-hierarchy: 'leaf';
+   -applet-view-class: 'SamuraiHtmlElementPre';
+}
+
+figcaption {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+figure {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+details {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+summary {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+area {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+map {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+frame {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+frameset {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+iframe {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+noframes {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+noscript {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+dialog {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+object {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+param {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+audio {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+source {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+video {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+track {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+applet {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+command {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}
+
+embed {
+   -applet-view-hierarchy: 'hidden';
+   -applet-view-class: 'UIView';
+}

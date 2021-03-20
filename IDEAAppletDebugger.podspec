@@ -13,8 +13,8 @@ Pod::Spec.new do |spec|
 
   spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
 
-  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
-#  spec.source               = { :path => "." }
+#  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
+  spec.source               = { :path => "." }
 
   spec.xcconfig             = {
     'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-framework"/** "${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/** ',
@@ -36,46 +36,46 @@ Pod::Spec.new do |spec|
 
   spec.subspec 'ServiceBorder' do |border|
     border.ios.private_header_files     = 'applet-debugger/ServiceBorder/*.{h}'
-    border.ios.source_files             = 'applet-debugger/ServiceBorder/*.{h,m.c}'
+    border.ios.source_files             = 'applet-debugger/ServiceBorder/*.{h,m,c}'
     border.resource                     = 'applet-debugger/ServiceBorder/ServiceBorder.bundle'
   end
 
   spec.subspec 'ServiceConsole' do |console|
     console.ios.private_header_files    = 'applet-debugger/ServiceConsole/*.{h}'
-    console.ios.source_files            = 'applet-debugger/ServiceConsole/*.{h,m.c}'
+    console.ios.source_files            = 'applet-debugger/ServiceConsole/*.{h,m,c}'
     console.resource                    = 'applet-debugger/ServiceConsole/ServiceConsole.bundle'
   end
 
   spec.subspec 'ServiceGesture' do |gesture|
     gesture.ios.private_header_files    = 'applet-debugger/ServiceGesture/*.{h}'
-    gesture.ios.source_files            = 'applet-debugger/ServiceGesture/*.{h,m.c}'
+    gesture.ios.source_files            = 'applet-debugger/ServiceGesture/*.{h,m,c}'
     gesture.resource                    = 'applet-debugger/ServiceGesture/ServiceGesture.bundle'
   end
 
   spec.subspec 'ServiceGrids' do |grids|
     grids.ios.private_header_files      = 'applet-debugger/ServiceGrids/*.{h}'
-    grids.ios.source_files              = 'applet-debugger/ServiceGrids/*.{h,m.c}'
-    grids.resource                      = 'applet-debugger/ServiceGrids/ServiceGesture.bundle'
+    grids.ios.source_files              = 'applet-debugger/ServiceGrids/*.{h,m,c}'
+    grids.resource                      = 'applet-debugger/ServiceGrids/ServiceGrids.bundle'
   end
 
   spec.subspec 'ServiceInspector' do |inspector|
     inspector.ios.private_header_files  = 'applet-debugger/ServiceInspector/*.{h}'
-    inspector.ios.source_files          = 'applet-debugger/ServiceInspector/*.{h,m.c}'
+    inspector.ios.source_files          = 'applet-debugger/ServiceInspector/*.{h,m,c}'
     inspector.resource                  = 'applet-debugger/ServiceInspector/ServiceInspector.bundle'
   end
   
   spec.subspec 'ServiceMonitor' do |monitor|
     monitor.ios.private_header_files    = 'applet-debugger/ServiceMonitor/*.{h}'
-    monitor.ios.source_files            = 'applet-debugger/ServiceMonitor/*.{h,m.c}'
+    monitor.ios.source_files            = 'applet-debugger/ServiceMonitor/*.{h,m,c}'
     monitor.subspec 'JBChartView' do |chart|
-      chart.ios.private_header_files    = 'applet-debugger/ServiceInspector/JBChartView/*.{h}'
-      chart.ios.source_files            = 'applet-debugger/ServiceInspector/JBChartView/*.{h,m.c}'
+      chart.ios.private_header_files    = 'applet-debugger/ServiceMonitor/JBChartView/*.{h}'
+      chart.ios.source_files            = 'applet-debugger/ServiceMonitor/JBChartView/*.{h,m,c}'
     end
   end
 
   spec.subspec 'ServiceTapspot' do |tapspot|
     tapspot.ios.private_header_files    = 'applet-debugger/ServiceTapspot/*.{h}'
-    tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m.c}'
+    tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m,c}'
   end
 
 #  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
@@ -406,6 +406,10 @@ __END_DECLS
 #ifndef __STRING
 #  define __STRING(STR)                            (#STR)
 #endif /* __STRING */
+
+#ifndef FREE_IF
+#  define FREE_IF(p)                               if(p) {free (p); (p)=NULL;}
+#endif /* DELETE_IF */
 
 /******************************************************************************************************/
 

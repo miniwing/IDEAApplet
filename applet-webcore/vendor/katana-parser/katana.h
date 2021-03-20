@@ -192,10 +192,10 @@ typedef enum {
     KATANA_VALUE_STRING = 19,
     KATANA_VALUE_URI = 20,
     KATANA_VALUE_IDENT = 21,
-    KATANA_VALUE_ATTR = 22,								// unused
-    KATANA_VALUE_COUNTER = 23,							// unused
-    KATANA_VALUE_RECT = 24,								// unused
-    KATANA_VALUE_RGBCOLOR = 25,							// unused
+    KATANA_VALUE_ATTR = 22,                        // unused
+    KATANA_VALUE_COUNTER = 23,                     // unused
+    KATANA_VALUE_RECT = 24,                        // unused
+    KATANA_VALUE_RGBCOLOR = 25,                     // unused
 
     KATANA_VALUE_VW = 26,
     KATANA_VALUE_VH = 27,
@@ -208,27 +208,27 @@ typedef enum {
     KATANA_VALUE_UNICODE_RANGE = 102,
     
     KATANA_VALUE_PARSER_OPERATOR = 103,
-    KATANA_VALUE_PARSER_INTEGER = 104,					// unused
+    KATANA_VALUE_PARSER_INTEGER = 104,               // unused
     KATANA_VALUE_PARSER_HEXCOLOR = 105,
     KATANA_VALUE_PARSER_FUNCTION = 0x100001,
-    KATANA_VALUE_PARSER_LIST     = 0x100002,			// unused
+    KATANA_VALUE_PARSER_LIST     = 0x100002,         // unused
     KATANA_VALUE_PARSER_Q_EMS    = 0x100003,
-    KATANA_VALUE_PARSER_IDENTIFIER = 106,				// unused
+    KATANA_VALUE_PARSER_IDENTIFIER = 106,            // unused
     
     KATANA_VALUE_TURN = 107,
     KATANA_VALUE_REMS = 108,
     KATANA_VALUE_CHS = 109,
     
-    KATANA_VALUE_COUNTER_NAME = 110,					// unused
-    KATANA_VALUE_SHAPE = 111,							// unused
-    KATANA_VALUE_QUAD = 112,							// unused
-	
-    KATANA_VALUE_CALC = 113,							// unused
-    KATANA_VALUE_CALC_PERCENTAGE_WITH_NUMBER = 114,		// unused
-    KATANA_VALUE_CALC_PERCENTAGE_WITH_LENGTH = 115,		// unused
-    KATANA_VALUE_VARIABLE_NAME = 116,					// unused
-    KATANA_VALUE_PROPERTY_ID = 117,						// unused
-    KATANA_VALUE_VALUE_ID = 118							// unused
+    KATANA_VALUE_COUNTER_NAME = 110,               // unused
+    KATANA_VALUE_SHAPE = 111,                     // unused
+    KATANA_VALUE_QUAD = 112,                     // unused
+   
+    KATANA_VALUE_CALC = 113,                     // unused
+    KATANA_VALUE_CALC_PERCENTAGE_WITH_NUMBER = 114,      // unused
+    KATANA_VALUE_CALC_PERCENTAGE_WITH_LENGTH = 115,      // unused
+    KATANA_VALUE_VARIABLE_NAME = 116,               // unused
+    KATANA_VALUE_PROPERTY_ID = 117,                  // unused
+    KATANA_VALUE_VALUE_ID = 118                     // unused
 } KatanaValueUnit;
 
 //typedef enum {

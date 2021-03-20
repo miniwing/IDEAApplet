@@ -170,10 +170,10 @@ static UIColor *kJBChartVerticalSelectionViewDefaultBgColor = nil;
 
 + (void)initialize
 {
-	if (self == [JBChartVerticalSelectionView class])
-	{
-		kJBChartVerticalSelectionViewDefaultBgColor = [UIColor whiteColor];
-	}
+   if (self == [JBChartVerticalSelectionView class])
+   {
+      kJBChartVerticalSelectionViewDefaultBgColor = [UIColor whiteColor];
+   }
 }
 
 - (id)initWithFrame:(CGRect)frame

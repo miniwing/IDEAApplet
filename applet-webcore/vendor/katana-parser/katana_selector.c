@@ -27,7 +27,7 @@
 
 #include "katana-parser/katana_selector.h"
 
-#undef	assert
+#undef   assert
 #define assert(x)
 
 // Refs:

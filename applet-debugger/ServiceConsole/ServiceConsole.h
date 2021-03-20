@@ -22,8 +22,7 @@
 //  IN THE SOFTWARE.
 //
 
-#import "Samurai.h"
-
+#import <IDEAApplet.h>
 
 
 typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
@@ -53,19 +52,19 @@ typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
 @interface ServiceConsole : SamuraiService < ManagedService, ManagedDocker >
 
 
-+(BOOL) addClassCommand:(NSString *)command
++ (BOOL)addClassCommand:(NSString *)command
             commandType:(ServiceConsoleCommandType)commandType
                impClass:(Class <ServiceConsoleCommand>)impClass
      commandDescription:(NSString *)cmdDescription;
 
 
-+(BOOL) addObjectCommand:(NSString *)command
++ (BOOL)addObjectCommand:(NSString *)command
              commandType:(ServiceConsoleCommandType)commandType
                impObject:(NSObject <ServiceConsoleCommand> *)impObject
           CMDDescription:(NSString *)cmdDescription;
 
 
-+(BOOL) analysisCommand:(NSString *)command;
++ (BOOL)analysisCommand:(NSString *)command;
 
 @end
 

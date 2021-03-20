@@ -13,7 +13,7 @@
 
 // Enums
 typedef NS_ENUM(NSUInteger, JBLineChartHorizontalIndexClamp){
-	JBLineChartHorizontalIndexClampLeft,
+   JBLineChartHorizontalIndexClampLeft,
     JBLineChartHorizontalIndexClampRight,
     JBLineChartHorizontalIndexClampNone
 };
@@ -193,15 +193,15 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
 
 + (void)initialize
 {
-	if (self == [JBLineChartView class])
-	{
-		kJBLineChartViewDefaultLineColor = [UIColor blackColor];
+   if (self == [JBLineChartView class])
+   {
+      kJBLineChartViewDefaultLineColor = [UIColor blackColor];
         kJBLineChartViewDefaultLineFillColor = [UIColor clearColor];
-		kJBLineChartViewDefaultLineSelectionColor = [UIColor whiteColor];
+      kJBLineChartViewDefaultLineSelectionColor = [UIColor whiteColor];
         kJBLineChartViewDefaultLineSelectionFillColor = [UIColor clearColor];
         kJBLineChartViewDefaultDotColor = [UIColor blackColor];
         kJBLineChartViewDefaultDotSelectionColor = [UIColor whiteColor];
-	}
+   }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -295,7 +295,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
             xOffset = chartPadding;
         }
         self.chartData = [NSArray arrayWithArray:mutableChartData];
-	};
+   };
 
     /*
      * Creates a new line graph view using the previously calculated data model
@@ -1071,10 +1071,10 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
 
 + (void)initialize
 {
-	if (self == [JBLineLayer class])
-	{
-		kJBLineChartLineViewDefaultDashPattern = @[@(3), @(2)];
-	}
+   if (self == [JBLineLayer class])
+   {
+      kJBLineChartLineViewDefaultDashPattern = @[@(3), @(2)];
+   }
 }
 
 - (id)init

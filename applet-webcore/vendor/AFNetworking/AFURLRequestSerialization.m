@@ -67,11 +67,11 @@ static NSString * const kAFCharactersToBeEscapedInQueryString = @":/?&=;+!@#$()'
 static NSString * AFPercentEscapedQueryStringKeyFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
     static NSString * const kAFCharactersToLeaveUnescapedInQueryStringPairKey = @"[].";
 
-	return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescapedInQueryStringPairKey, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
+   return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, (__bridge CFStringRef)kAFCharactersToLeaveUnescapedInQueryStringPairKey, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
 static NSString * AFPercentEscapedQueryStringValueFromStringWithEncoding(NSString *string, NSStringEncoding encoding) {
-	return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
+   return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, (__bridge CFStringRef)kAFCharactersToBeEscapedInQueryString, CFStringConvertNSStringEncodingToEncoding(encoding));
 }
 
 #pragma mark -
@@ -263,7 +263,7 @@ static void *AFHTTPRequestSerializerObserverContext = &AFHTTPRequestSerializerOb
 - (void)setValue:(NSString *)value
 forHTTPHeaderField:(NSString *)field
 {
-	[self.mutableHTTPRequestHeaders setValue:value forKey:field];
+   [self.mutableHTTPRequestHeaders setValue:value forKey:field];
 }
 
 - (NSString *)valueForHTTPHeaderField:(NSString *)field {
@@ -273,7 +273,7 @@ forHTTPHeaderField:(NSString *)field
 - (void)setAuthorizationHeaderFieldWithUsername:(NSString *)username
                                        password:(NSString *)password
 {
-	NSString *basicAuthCredentials = [NSString stringWithFormat:@"%@:%@", username, password];
+   NSString *basicAuthCredentials = [NSString stringWithFormat:@"%@:%@", username, password];
     [self setValue:[NSString stringWithFormat:@"Basic %@", AFBase64EncodedStringFromString(basicAuthCredentials)] forHTTPHeaderField:@"Authorization"];
 }
 
@@ -282,7 +282,7 @@ forHTTPHeaderField:(NSString *)field
 }
 
 - (void)clearAuthorizationHeader {
-	[self.mutableHTTPRequestHeaders removeObjectForKey:@"Authorization"];
+   [self.mutableHTTPRequestHeaders removeObjectForKey:@"Authorization"];
 }
 
 #pragma mark -
@@ -328,7 +328,7 @@ forHTTPHeaderField:(NSString *)field
 
     mutableRequest = [[self requestBySerializingRequest:mutableRequest withParameters:parameters error:error] mutableCopy];
 
-	return mutableRequest;
+   return mutableRequest;
 }
 
 - (NSMutableURLRequest *)multipartFormRequestWithMethod:(NSString *)method

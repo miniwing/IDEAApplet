@@ -5,27 +5,27 @@
 //  /\_\ \  /  _  \ / /\/\ \ \ \_/ / / _  \ /  _  \ /\/ /_
 //  \____/  \_/ \_/ \/    \/  \___/  \/ \_/ \_/ \_/ \____/
 //
-//	Copyright Samurai development team and other contributors
+//   Copyright Samurai development team and other contributors
 //
-//	http://www.samurai-framework.com
+//   http://www.samurai-framework.com
 //
-//	Permission is hereby granted, free of charge, to any person obtaining a copy
-//	of this software and associated documentation files (the "Software"), to deal
-//	in the Software without restriction, including without limitation the rights
-//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//	copies of the Software, and to permit persons to whom the Software is
-//	furnished to do so, subject to the following conditions:
+//   Permission is hereby granted, free of charge, to any person obtaining a copy
+//   of this software and associated documentation files (the "Software"), to deal
+//   in the Software without restriction, including without limitation the rights
+//   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//   copies of the Software, and to permit persons to whom the Software is
+//   furnished to do so, subject to the following conditions:
 //
-//	The above copyright notice and this permission notice shall be included in
-//	all copies or substantial portions of the Software.
+//   The above copyright notice and this permission notice shall be included in
+//   all copies or substantial portions of the Software.
 //
-//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//	THE SOFTWARE.
+//   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//   THE SOFTWARE.
 //
 
 #import "ServiceGestureViewSwipe.h"
@@ -41,192 +41,192 @@
 
 @implementation ServiceGestureViewSwipe
 {
-	BOOL						_animating;
-	UISwipeGestureRecognizer *	_gesture;
-	UIImageView *				_circle;
-	UIImageView *				_finger;
+   BOOL                  _animating;
+   UISwipeGestureRecognizer *   _gesture;
+   UIImageView *            _circle;
+   UIImageView *            _finger;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
-	self = [super initWithFrame:frame];
-	if ( self )
-	{
-		self.layer.masksToBounds = NO;
+   self = [super initWithFrame:frame];
+   if ( self )
+   {
+      self.layer.masksToBounds = NO;
 
-		_circle = [[UIImageView alloc] init];
-		_circle.backgroundColor = [UIColor clearColor];
-		_circle.contentMode = UIViewContentModeScaleAspectFit;
-		_circle.alpha = 0.0f;
-		[self addSubview:_circle];
+      _circle = [[UIImageView alloc] init];
+      _circle.backgroundColor = [UIColor clearColor];
+      _circle.contentMode = UIViewContentModeScaleAspectFit;
+      _circle.alpha = 0.0f;
+      [self addSubview:_circle];
 
-		_finger = [[UIImageView alloc] init];
-		_finger.backgroundColor = [UIColor clearColor];
-		_finger.contentMode = UIViewContentModeScaleAspectFit;
-		_finger.alpha = 0.0f;
-		[self addSubview:_finger];
-	}
-	return self;
+      _finger = [[UIImageView alloc] init];
+      _finger.backgroundColor = [UIColor clearColor];
+      _finger.contentMode = UIViewContentModeScaleAspectFit;
+      _finger.alpha = 0.0f;
+      [self addSubview:_finger];
+   }
+   return self;
 }
 
 - (void)dealloc
 {
-	[_finger removeFromSuperview];
-	_finger = nil;
-	
-	[_circle removeFromSuperview];
-	_circle = nil;
+   [_finger removeFromSuperview];
+   _finger = nil;
+   
+   [_circle removeFromSuperview];
+   _circle = nil;
 }
 
 - (void)setGesture:(UIGestureRecognizer *)gesture
 {
-	_gesture = (UISwipeGestureRecognizer *)gesture;
-	
-	_circle.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-circle.png"];
+   _gesture = (UISwipeGestureRecognizer *)gesture;
+   
+   _circle.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-circle.png"];
 
-	if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
-	{
-		_finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-left.png"];
-	}
-	else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
-	{
-		_finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-right.png"];
-	}
-	else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
-	{
-		_finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-up.png"];
-	}
-	else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
-	{
-		_finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-down.png"];
-	}
+   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
+   {
+      _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-left.png"];
+   }
+   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
+   {
+      _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-right.png"];
+   }
+   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
+   {
+      _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-up.png"];
+   }
+   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
+   {
+      _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-down.png"];
+   }
 }
 
 - (void)setFrame:(CGRect)newFrame
 {
-	[super setFrame:newFrame];
+   [super setFrame:newFrame];
 
-	CGRect circleFrame;
-	circleFrame.origin = CGPointZero;
-	circleFrame.size = newFrame.size;
-	_circle.frame = circleFrame;
+   CGRect circleFrame;
+   circleFrame.origin = CGPointZero;
+   circleFrame.size = newFrame.size;
+   _circle.frame = circleFrame;
 
-	CGRect fingerFrame;
-	fingerFrame.origin = CGPointZero;
-	fingerFrame.size = newFrame.size;
-	_finger.frame = CGRectInset( fingerFrame, -20.0f, -20.0f );
+   CGRect fingerFrame;
+   fingerFrame.origin = CGPointZero;
+   fingerFrame.size = newFrame.size;
+   _finger.frame = CGRectInset( fingerFrame, -20.0f, -20.0f );
 }
 
 - (void)startAnimation
 {
-	[self performSelector:@selector(startAnimationStep1) withObject:nil afterDelay:0.6f];
+   [self performSelector:@selector(startAnimationStep1) withObject:nil afterDelay:0.6f];
 }
 
 - (void)startAnimationStep1
 {
-	if ( NO == _animating )
-	{
-		_finger.transform = CGAffineTransformIdentity;
-		_finger.alpha = 0.0f;
+   if ( NO == _animating )
+   {
+      _finger.transform = CGAffineTransformIdentity;
+      _finger.alpha = 0.0f;
 
-		_circle.transform = CGAffineTransformIdentity;
-		_circle.alpha = 0.0f;
-		
-		[UIView beginAnimations:nil context:nil];
-		[UIView setAnimationDuration:0.3f];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(startAnimationStep2)];
+      _circle.transform = CGAffineTransformIdentity;
+      _circle.alpha = 0.0f;
+      
+      [UIView beginAnimations:nil context:nil];
+      [UIView setAnimationDuration:0.3f];
+      [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+      [UIView setAnimationDelegate:self];
+      [UIView setAnimationDidStopSelector:@selector(startAnimationStep2)];
 
-		_finger.alpha = 1.0f;
-		_circle.alpha = 1.0f;
+      _finger.alpha = 1.0f;
+      _circle.alpha = 1.0f;
 
-		[UIView commitAnimations];
+      [UIView commitAnimations];
 
-		_animating = YES;
-	}
+      _animating = YES;
+   }
 }
 
 - (void)startAnimationStep2
 {
-	CGAffineTransform transform;
+   CGAffineTransform transform;
  
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.3f];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(startAnimationStep3)];
-	
-	if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
-	{
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
-		_finger.transform = transform;
+   [UIView beginAnimations:nil context:nil];
+   [UIView setAnimationDuration:0.3f];
+   [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+   [UIView setAnimationDelegate:self];
+   [UIView setAnimationDidStopSelector:@selector(startAnimationStep3)];
+   
+   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
+   {
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
+      _finger.transform = transform;
 
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
-		_circle.transform = transform;
-	}
-	else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
-	{
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
-		_finger.transform = transform;
-		
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
-		_circle.transform = transform;
-	}
-	else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
-	{
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
-		_finger.transform = transform;
-		
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
-		_circle.transform = transform;
-	}
-	else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
-	{
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, 0.0f, (self.frame.size.height / 2.0f - 7.0f) );
-		_finger.transform = transform;
-		
-		transform = CGAffineTransformIdentity;
-		transform = CGAffineTransformTranslate( transform, 0.0f, (self.frame.size.height / 2.0f - 7.0f) );
-		_circle.transform = transform;
-	}
-	
-	_circle.alpha = 0.6f;
-	
-	[UIView commitAnimations];
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
+      _circle.transform = transform;
+   }
+   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
+   {
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
+      _finger.transform = transform;
+      
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
+      _circle.transform = transform;
+   }
+   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
+   {
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
+      _finger.transform = transform;
+      
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
+      _circle.transform = transform;
+   }
+   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
+   {
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, 0.0f, (self.frame.size.height / 2.0f - 7.0f) );
+      _finger.transform = transform;
+      
+      transform = CGAffineTransformIdentity;
+      transform = CGAffineTransformTranslate( transform, 0.0f, (self.frame.size.height / 2.0f - 7.0f) );
+      _circle.transform = transform;
+   }
+   
+   _circle.alpha = 0.6f;
+   
+   [UIView commitAnimations];
 }
 
 - (void)startAnimationStep3
 {
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.3f];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(startAnimationStep4)];
-	
-	_finger.alpha = 0.0f;
-	_circle.alpha = 0.0f;
-	
-	[UIView commitAnimations];
+   [UIView beginAnimations:nil context:nil];
+   [UIView setAnimationDuration:0.3f];
+   [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+   [UIView setAnimationDelegate:self];
+   [UIView setAnimationDidStopSelector:@selector(startAnimationStep4)];
+   
+   _finger.alpha = 0.0f;
+   _circle.alpha = 0.0f;
+   
+   [UIView commitAnimations];
 }
 
 - (void)startAnimationStep4
 {
-	_animating = NO;
-	
-	[self startAnimation];
+   _animating = NO;
+   
+   [self startAnimation];
 }
 
 - (void)stopAnimation
 {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self];
+   [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 @end
@@ -237,4 +237,4 @@
 
 #pragma mark -
 
-#endif	// #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

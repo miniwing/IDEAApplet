@@ -186,7 +186,7 @@ static inline BOOL AFStateTransitionIsValid(AFOperationState fromState, AFOperat
 
     self = [super init];
     if (!self) {
-		return nil;
+      return nil;
     }
 
     _state = AFOperationReadyState;

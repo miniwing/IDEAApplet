@@ -24,6 +24,15 @@
 		416D71E8FE71EB5022EEAB20D3CFEBE7 /* ServiceGridsWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 75DA2269BD2D50564E459C96D6541476 /* ServiceGridsWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		442B932550198925C4E9F45E82D7E6EF /* ServiceGestureHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 17F1D664D215228AFA787D59BC6FD92D /* ServiceGestureHook.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		46AA400AD3B48D4E846B78CACB030E2F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71558F7858F472C513801C0CF17322D /* UIKit.framework */; };
+		4A1155732605995A00DCE092 /* ServiceConsole.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A11556A2605995A00DCE092 /* ServiceConsole.bundle */; };
+		4A1155742605995A00DCE092 /* ServiceConsole.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A11556B2605995A00DCE092 /* ServiceConsole.h */; };
+		4A1155752605995A00DCE092 /* ServiceConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A11556C2605995A00DCE092 /* ServiceConsole.m */; };
+		4A1155762605995A00DCE092 /* ServiceConsoleInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A11556D2605995A00DCE092 /* ServiceConsoleInputView.h */; };
+		4A1155772605995A00DCE092 /* ServiceConsoleInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A11556E2605995A00DCE092 /* ServiceConsoleInputView.m */; };
+		4A1155782605995A00DCE092 /* ServiceConsoleLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A11556F2605995A00DCE092 /* ServiceConsoleLogView.h */; };
+		4A1155792605995A00DCE092 /* ServiceConsoleLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1155702605995A00DCE092 /* ServiceConsoleLogView.m */; };
+		4A11557A2605995A00DCE092 /* ServiceConsoleWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A1155712605995A00DCE092 /* ServiceConsoleWindow.h */; };
+		4A11557B2605995A00DCE092 /* ServiceConsoleWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1155722605995A00DCE092 /* ServiceConsoleWindow.m */; };
 		4A4D6E1A26048E5D007BD9E8 /* IDEAApplet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4D6D6B2604858C007BD9E8 /* IDEAApplet.framework */; };
 		4A4D6FA12604A383007BD9E8 /* ServiceBorder.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA02604A383007BD9E8 /* ServiceBorder.bundle */; };
 		4A4D6FA32604A38D007BD9E8 /* ServiceGesture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A4D6FA22604A38D007BD9E8 /* ServiceGesture.bundle */; };
@@ -118,6 +127,15 @@
 		44AACB08087F8D91481EC1C9AC4A012A /* ServiceMonitorFPSModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ServiceMonitorFPSModel.m; sourceTree = "<group>"; };
 		4501EA3B78DD0EDF87BC68C355B77D06 /* ServiceGestureSetting.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureSetting.h; sourceTree = "<group>"; };
 		482BD6363A0CF538793FFE2DBF7B7E47 /* ServiceGestureHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ServiceGestureHook.h; sourceTree = "<group>"; };
+		4A11556A2605995A00DCE092 /* ServiceConsole.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ServiceConsole.bundle; sourceTree = "<group>"; };
+		4A11556B2605995A00DCE092 /* ServiceConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConsole.h; sourceTree = "<group>"; };
+		4A11556C2605995A00DCE092 /* ServiceConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConsole.m; sourceTree = "<group>"; };
+		4A11556D2605995A00DCE092 /* ServiceConsoleInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConsoleInputView.h; sourceTree = "<group>"; };
+		4A11556E2605995A00DCE092 /* ServiceConsoleInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConsoleInputView.m; sourceTree = "<group>"; };
+		4A11556F2605995A00DCE092 /* ServiceConsoleLogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConsoleLogView.h; sourceTree = "<group>"; };
+		4A1155702605995A00DCE092 /* ServiceConsoleLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConsoleLogView.m; sourceTree = "<group>"; };
+		4A1155712605995A00DCE092 /* ServiceConsoleWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceConsoleWindow.h; sourceTree = "<group>"; };
+		4A1155722605995A00DCE092 /* ServiceConsoleWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceConsoleWindow.m; sourceTree = "<group>"; };
 		4A4D6FA02604A383007BD9E8 /* ServiceBorder.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceBorder.bundle; path = "applet-debugger/ServiceBorder/ServiceBorder.bundle"; sourceTree = SOURCE_ROOT; };
 		4A4D6FA22604A38D007BD9E8 /* ServiceGesture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceGesture.bundle; path = "applet-debugger/ServiceGesture/ServiceGesture.bundle"; sourceTree = SOURCE_ROOT; };
 		4A4D6FA42604A395007BD9E8 /* ServiceGrids.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ServiceGrids.bundle; path = "applet-debugger/ServiceGrids/ServiceGrids.bundle"; sourceTree = SOURCE_ROOT; };
@@ -271,6 +289,23 @@
 			path = "applet-debugger/ServiceMonitor";
 			sourceTree = "<group>";
 		};
+		4A1155692605995A00DCE092 /* ServiceConsole */ = {
+			isa = PBXGroup;
+			children = (
+				4A11556A2605995A00DCE092 /* ServiceConsole.bundle */,
+				4A11556B2605995A00DCE092 /* ServiceConsole.h */,
+				4A11556C2605995A00DCE092 /* ServiceConsole.m */,
+				4A11556D2605995A00DCE092 /* ServiceConsoleInputView.h */,
+				4A11556E2605995A00DCE092 /* ServiceConsoleInputView.m */,
+				4A11556F2605995A00DCE092 /* ServiceConsoleLogView.h */,
+				4A1155702605995A00DCE092 /* ServiceConsoleLogView.m */,
+				4A1155712605995A00DCE092 /* ServiceConsoleWindow.h */,
+				4A1155722605995A00DCE092 /* ServiceConsoleWindow.m */,
+			);
+			name = ServiceConsole;
+			path = "applet-debugger/ServiceConsole";
+			sourceTree = SOURCE_ROOT;
+		};
 		4A4D6D6726048278007BD9E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +372,7 @@
 			children = (
 				CF0D5B9279B628206A11F70BE6625B68 /* Pod */,
 				338CBCCED09C6F33366823122F6FB7BE /* ServiceBorder */,
+				4A1155692605995A00DCE092 /* ServiceConsole */,
 				D29B00841CCC20E40C2A66CCEAC9DDA2 /* ServiceGesture */,
 				81F605C808ADC652869510AC5FEF95AB /* ServiceGrids */,
 				F4E85D8F89DA314F5877F106366B6EBE /* ServiceInspector */,
@@ -417,18 +453,22 @@
 				FDDE57B5789C3B6B2B16F824A78DE5E5 /* ServiceGesture.h in Headers */,
 				567AD20535E73612BA58D5749F969E99 /* ServiceGestureHook.h in Headers */,
 				C3B9BE4A93EE3DA5FB3BB4CB9862C1CB /* ServiceGestureSetting.h in Headers */,
+				4A1155742605995A00DCE092 /* ServiceConsole.h in Headers */,
 				19E48ACA339A8C89F34C15F242E32D7F /* ServiceGestureView.h in Headers */,
 				D618D603EDDFA8414E703889F49ED251 /* ServiceGestureViewClick.h in Headers */,
 				AF27425996DA919F7CBDCFAFCB7CB179 /* ServiceGestureViewPinch.h in Headers */,
+				4A1155782605995A00DCE092 /* ServiceConsoleLogView.h in Headers */,
 				C72CE16EE2429D6727FC61C7DFD26B27 /* ServiceGestureViewSwipe.h in Headers */,
 				2E1009FF495217D5ED37183D9A8D7771 /* ServiceGrids.h in Headers */,
 				416D71E8FE71EB5022EEAB20D3CFEBE7 /* ServiceGridsWindow.h in Headers */,
 				9BBDABA9CF9CADF5924E56F9966707EC /* ServiceInspector.h in Headers */,
 				55B9B6001E19B0269992C025DF50C4D0 /* ServiceInspectorWindow.h in Headers */,
+				4A11557A2605995A00DCE092 /* ServiceConsoleWindow.h in Headers */,
 				E970EBBF6BBF8E59E25E46A852389818 /* ServiceMonitor.h in Headers */,
 				3B736A31A6275CDD3E7825B282AC8914 /* ServiceMonitorCPUModel.h in Headers */,
 				0CC3293F3B62DD2CF1A0DEE01E82D128 /* ServiceMonitorFPSModel.h in Headers */,
 				62B25F12795CD9EB0F94B9778B562B14 /* ServiceMonitorMemoryModel.h in Headers */,
+				4A1155762605995A00DCE092 /* ServiceConsoleInputView.h in Headers */,
 				721DA8652AC5AA9ECC2DD67A3DE184F5 /* ServiceMonitorNetworkModel.h in Headers */,
 				7EFB23A933D6BC06D05734905F80F5B7 /* ServiceMonitorStatusBar.h in Headers */,
 				A2AF2FAF8C7BFEFD30E460FA984FA307 /* ServiceTapspot.h in Headers */,
@@ -512,6 +552,7 @@
 				4A4D6FA52604A395007BD9E8 /* ServiceGrids.bundle in Resources */,
 				4A4D6FA12604A383007BD9E8 /* ServiceBorder.bundle in Resources */,
 				4A4D6FA32604A38D007BD9E8 /* ServiceGesture.bundle in Resources */,
+				4A1155732605995A00DCE092 /* ServiceConsole.bundle in Resources */,
 				4A4D6FA72604A39D007BD9E8 /* ServiceInspector.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,14 +566,17 @@
 			files = (
 				FAA4F6B421E5E4BC6FD4B5D5E5A760A7 /* IDEAAppletDebugger-dummy.m in Sources */,
 				6A9CF80094B5076512C5F0357E55C803 /* JBBarChartView.m in Sources */,
+				4A1155772605995A00DCE092 /* ServiceConsoleInputView.m in Sources */,
 				BDE75966BC5F4C738B40A30B38B70A11 /* JBChartView.m in Sources */,
 				CCF3416607E9846556FE6F3D5A515191 /* JBLineChartView.m in Sources */,
 				CF5740DC1943FFBE6ED715ED659B7646 /* ServiceBorder.m in Sources */,
+				4A1155752605995A00DCE092 /* ServiceConsole.m in Sources */,
 				2C364F3F3E4F56EE1747D8D750064DCE /* ServiceBorderHook.m in Sources */,
 				0C37D295668810220CD3864E70BCB552 /* ServiceBorderLayer.m in Sources */,
 				59E96C801400C6BF0EE2C8E687327D64 /* ServiceGesture.m in Sources */,
 				442B932550198925C4E9F45E82D7E6EF /* ServiceGestureHook.m in Sources */,
 				BF747E5A42AC5A50852F5FD1ABC008BC /* ServiceGestureSetting.m in Sources */,
+				4A11557B2605995A00DCE092 /* ServiceConsoleWindow.m in Sources */,
 				563A5F3B61EF07775CE35EDE33495543 /* ServiceGestureView.m in Sources */,
 				326F8D7B808102ACD296AFD6698C003B /* ServiceGestureViewClick.m in Sources */,
 				76C1B765FC3735DA32CB5ABB6B0E31E1 /* ServiceGestureViewPinch.m in Sources */,
@@ -540,6 +584,7 @@
 				DFB04FE97664494D33825EB42DEB784C /* ServiceGrids.m in Sources */,
 				9FDBE335F1A9CD1912423F48BA4842CF /* ServiceGridsWindow.m in Sources */,
 				2D5AD15742C4CB447D8007871D31AB55 /* ServiceInspector.m in Sources */,
+				4A1155792605995A00DCE092 /* ServiceConsoleLogView.m in Sources */,
 				7B0AB2D00966B676CB7AB4C867AC57C2 /* ServiceInspectorWindow.m in Sources */,
 				70E05E364103C61942FD65CC705886FC /* ServiceMonitor.m in Sources */,
 				1A069CBD98B9B70840ABBB39BCBCFB7E /* ServiceMonitorCPUModel.m in Sources */,
@@ -588,6 +633,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.0;
 				MODULEMAP_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger.modulemap";
 				PRODUCT_MODULE_NAME = IDEAAppletDebugger;
 				PRODUCT_NAME = IDEAAppletDebugger;
@@ -625,6 +671,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1.0;
 				MODULEMAP_FILE = "Target Support Files/IDEAAppletDebugger/IDEAAppletDebugger.modulemap";
 				PRODUCT_MODULE_NAME = IDEAAppletDebugger;
 				PRODUCT_NAME = IDEAAppletDebugger;

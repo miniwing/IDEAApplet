@@ -64,10 +64,10 @@ static UIColor *kJBBarChartViewDefaultBarColor = nil;
 
 + (void)initialize
 {
-	if (self == [JBBarChartView class])
-	{
-		kJBBarChartViewDefaultBarColor = [UIColor blackColor];
-	}
+   if (self == [JBBarChartView class])
+   {
+      kJBBarChartViewDefaultBarColor = [UIColor blackColor];
+   }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -142,7 +142,7 @@ static UIColor *kJBBarChartViewDefaultBarColor = nil;
             [dataDictionary setObject:[NSNumber numberWithFloat:height] forKey:[NSNumber numberWithInt:(int)index]];
         }
         self.chartDataDictionary = [NSDictionary dictionaryWithDictionary:dataDictionary];
-	};
+   };
     
     /*
      * Determines the padding between bars as a function of # of bars
@@ -208,16 +208,16 @@ static UIColor *kJBBarChartViewDefaultBarColor = nil;
             barView.frame = CGRectMake(xOffset, self.bounds.size.height - height - self.footerView.frame.size.height, [self barWidth], height);
             [mutableBarViews addObject:barView];
             [mutableCachedBarViewHeights addObject:[NSNumber numberWithFloat:height]];
-			
+         
             // Add new bar
             if (self.footerView)
-			{
-				[self insertSubview:barView belowSubview:self.footerView];
-			}
-			else
-			{
-				[self addSubview:barView];
-			}
+         {
+            [self insertSubview:barView belowSubview:self.footerView];
+         }
+         else
+         {
+            [self addSubview:barView];
+         }
             
             xOffset += ([self barWidth] + self.barPadding);
             index++;

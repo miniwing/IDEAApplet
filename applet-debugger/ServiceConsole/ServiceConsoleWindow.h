@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Samurai.h"
+#import <IDEAApplet.h>
 
 @interface ServiceConsoleWindow : UIWindow
 

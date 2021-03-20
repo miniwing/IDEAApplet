@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Geek-Zoo Studio. All rights reserved.
 //
 
-#import "Samurai.h"
+#import <IDEAApplet.h>
 #import "ServiceConsoleLogView.h"
 #import "ServiceConsoleInputView.h"
 

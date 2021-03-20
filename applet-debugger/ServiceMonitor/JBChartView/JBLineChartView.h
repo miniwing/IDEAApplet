@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, JBLineChartViewLineStyle){
     /**
      *  Dashed line with a phase of 3:2 (3 points dashed, 2 points spaced).
      */
-	JBLineChartViewLineStyleDashed
+   JBLineChartViewLineStyleDashed
 };
 
 @protocol JBLineChartViewDataSource <JBChartViewDataSource>

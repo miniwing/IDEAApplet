@@ -317,6 +317,10 @@ __END_DECLS
 #  define __STRING(STR)                            (#STR)
 #endif /* __STRING */
 
+#ifndef FREE_IF
+#  define FREE_IF(p)                               if(p) {free (p); (p)=NULL;}
+#endif /* DELETE_IF */
+
 /******************************************************************************************************/
 
 #if (defined(DEBUG) && (1 == DEBUG))

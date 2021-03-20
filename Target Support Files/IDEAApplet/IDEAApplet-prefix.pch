@@ -56,28 +56,28 @@
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness-on-arrays"
 #endif /* DEBUG */
 
+/******************************************************************************************************/
+
 #import <Availability.h>
 
 #ifndef __IPHONE_10_0
 #  warning "This project uses features only available in iOS SDK 10.0 and later."
 #endif
 
+/******************************************************************************************************/
+
 #import <objc/message.h>
 #import <objc/runtime.h>
 
-#ifdef __OBJC__
+/******************************************************************************************************/
 
+#ifdef __OBJC__
 #  import <UIKit/UIKit.h>
 #  import <Foundation/Foundation.h>
 #  import <QuartzCore/QuartzCore.h>
 #  import <QuartzCore/CAAnimation.h>
 #  import <MessageUI/MessageUI.h>
-
 #endif /* __OBJC__ */
-
-/******************************************************************************************************/
-
-#import <objc/runtime.h>
 
 /******************************************************************************************************/
 
@@ -317,6 +317,10 @@ __END_DECLS
 #  define __STRING(STR)                            (#STR)
 #endif /* __STRING */
 
+#ifndef FREE_IF
+#  define FREE_IF(p)                               if(p) {free (p); (p)=NULL;}
+#endif /* DELETE_IF */
+
 /******************************************************************************************************/
 
 #if (defined(DEBUG) && (1 == DEBUG))
@@ -364,3 +368,9 @@ __END_DECLS
 
 
 /******************************************************************************************************/
+
+//#import "IDEAAppletAssert.h"
+//#import "IDEAAppletDebug.h"
+//#import "IDEAAppletLog.h"
+//#import "IDEAAppletUnitTest.h"
+#import "IDEAAppletViewConfig.h"
