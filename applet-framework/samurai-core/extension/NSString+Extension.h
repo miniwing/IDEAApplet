@@ -33,21 +33,21 @@
 
 #pragma mark -
 
-#undef   _FORMAT
-#define   _FORMAT( x, ... ) \
+#undef  _FORMAT
+#define _FORMAT( x, ... ) \
       [NSString stringWithFormat:x, __VA_ARGS__]
 
 #pragma mark -
 
 @interface NSString(Extension)
 
-@prop_readonly( NSString *,            MD5String );
-@prop_readonly( NSData *,            MD5Data );
+@prop_readonly( NSString   *,    MD5String );
+@prop_readonly( NSData     *,    MD5Data );
 
-@prop_readonly( NSString *,            SHA1String );
-@prop_readonly( NSData *,            SHA1Data );
+@prop_readonly( NSString   *,    SHA1String );
+@prop_readonly( NSData     *,    SHA1Data );
 
-@prop_readonly( NSData *,            BASE64Decrypted );
+@prop_readonly( NSData     *,    BASE64Decrypted );
 
 - (NSArray *)allURLs;
 

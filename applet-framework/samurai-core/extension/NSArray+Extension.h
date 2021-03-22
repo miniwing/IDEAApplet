@@ -41,22 +41,22 @@
 
 #pragma mark -
 
-typedef NSMutableArray *   (^NSArrayElementBlock)( id obj );
-typedef NSComparisonResult   (^NSArrayCompareBlock)( id left, id right );
+typedef NSMutableArray *   (^NSArrayElementBlock)( id aObject );
+typedef NSComparisonResult (^NSArrayCompareBlock)( id aLeft, id aRight );
 
 #pragma mark -
 
 @interface NSArray(Extension) <NSArrayProtocol>
 
-- (NSMutableArray *)head:(NSUInteger)count;
-- (NSMutableArray *)tail:(NSUInteger)count;
+- (NSMutableArray *)head:(NSUInteger)aCount;
+- (NSMutableArray *)tail:(NSUInteger)aCount;
 
 - (NSString *)join;
-- (NSString *)join:(NSString *)delimiter;
+- (NSString *)join:(NSString *)aDelimiter;
 
-- (id)safeObjectAtIndex:(NSUInteger)index;
-- (id)safeSubarrayWithRange:(NSRange)range;
-- (id)safeSubarrayFromIndex:(NSUInteger)index;
-- (id)safeSubarrayWithCount:(NSUInteger)count;
+- (id)safeObjectAtIndex:(NSUInteger)aIndex;
+- (id)safeSubarrayWithRange:(NSRange)aRange;
+- (id)safeSubarrayFromIndex:(NSUInteger)aIndex;
+- (id)safeSubarrayWithCount:(NSUInteger)aCount;
 
 @end

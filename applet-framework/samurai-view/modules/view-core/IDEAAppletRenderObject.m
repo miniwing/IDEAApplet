@@ -58,7 +58,7 @@
 
 @implementation NSObject(Renderer)
 
-@def_prop_dynamic_strong( SamuraiRenderObject *, renderer, setRenderer );
+@def_prop_dynamic_strong(SamuraiRenderObject *, renderer, setRenderer);
 
 + (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer
 {
@@ -107,19 +107,19 @@
 
 @implementation SamuraiRenderObject
 
-@def_prop_strong( NSNumber *,            id );
-@def_prop_unsafe( SamuraiDomNode *,         dom );
-@def_prop_strong( SamuraiRenderStyle *,      style );
+@def_prop_strong( NSNumber             *, id);
+@def_prop_unsafe( SamuraiDomNode       *, dom);
+@def_prop_strong( SamuraiRenderStyle   *, style);
 
-@def_prop_strong( UIView *,               view );
-@def_prop_strong( Class,               viewClass );
+@def_prop_strong( UIView               *, view);
+@def_prop_strong( Class                 , viewClass);
 
-@def_prop_dynamic( SamuraiRenderObject *,   root );
-@def_prop_dynamic( SamuraiRenderObject *,   parent );
-@def_prop_dynamic( SamuraiRenderObject *,   prev );
-@def_prop_dynamic( SamuraiRenderObject *,   next );
+@def_prop_dynamic( SamuraiRenderObject *, root);
+@def_prop_dynamic( SamuraiRenderObject *, parent);
+@def_prop_dynamic( SamuraiRenderObject *, prev);
+@def_prop_dynamic( SamuraiRenderObject *, next);
 
-BASE_CLASS( SamuraiRenderObject )
+BASE_CLASS(SamuraiRenderObject)
 
 static NSUInteger __objectSeed = 0;
 
@@ -145,7 +145,7 @@ static NSUInteger __objectSeed = 0;
 - (id)init
 {
    self = [super init];
-   if ( self )
+   if (self)
    {
       self.id = [NSNumber numberWithUnsignedInteger:__objectSeed++];      
    }
@@ -157,11 +157,15 @@ static NSUInteger __objectSeed = 0;
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
    self.viewClass = nil;
-   self.view = nil;
+   self.view      = nil;
    
-   self.style = nil;
-   self.dom = nil;
-   self.id = nil;
+   self.style  = nil;
+   self.dom    = nil;
+   self.id     = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
@@ -174,6 +178,8 @@ static NSUInteger __objectSeed = 0;
    [self bindStyle:[right.style clone]];
 
    self.viewClass = right.viewClass;
+   
+   return;
 }
 
 #pragma mark -
@@ -185,12 +191,12 @@ static NSUInteger __objectSeed = 0;
 
 - (CGFloat)computeWidth:(CGFloat)height
 {
-   return [self computeSize:CGSizeMake( INVALID_VALUE, height )].width;
+   return [self computeSize:CGSizeMake(INVALID_VALUE, height)].width;
 }
 
 - (CGFloat)computeHeight:(CGFloat)width
 {
-   return [self computeSize:CGSizeMake( width, INVALID_VALUE )].width;
+   return [self computeSize:CGSizeMake(width, INVALID_VALUE)].width;
 }
 
 #pragma mark -
@@ -250,21 +256,21 @@ static NSUInteger __objectSeed = 0;
 
 - (UIView *)createViewWithIdentifier:(NSString *)identifier
 {
-//   if ( nil == self.dom )
+//   if (nil == self.dom)
 //      return nil;
    
-   if ( nil == self.viewClass )
+   if (nil == self.viewClass)
       return nil;
 
    self.view = [self.viewClass createInstanceWithRenderer:self identifier:identifier];
 
-   if ( self.view )
+   if (self.view)
    {
       self.view.renderer = self;
 
       UIView * contentView = nil;
 
-      if ( [self.view respondsToSelector:@selector(contentView)] )
+      if ([self.view respondsToSelector:@selector(contentView)])
       {
          contentView = [self.view performSelector:@selector(contentView) withObject:nil];
       }
@@ -273,13 +279,13 @@ static NSUInteger __objectSeed = 0;
          contentView = self.view;
       }
       
-      for ( SamuraiRenderObject * child in [self.childs reverseObjectEnumerator] )
+      for (SamuraiRenderObject * child in [self.childs reverseObjectEnumerator])
       {
-         if ( nil == child.view )
+         if (nil == child.view)
          {
             UIView * childView = [child createViewWithIdentifier:nil];
             
-            if ( childView )
+            if (childView)
             {
                [contentView addSubview:childView];
             }
@@ -310,7 +316,7 @@ static NSUInteger __objectSeed = 0;
 
 - (void)bindView:(UIView *)view
 {
-   if ( nil == view )
+   if (nil == view)
    {
       [self unbindView];
    }
@@ -319,13 +325,13 @@ static NSUInteger __objectSeed = 0;
       self.view = view;
       self.viewClass = [view class];
       
-      if ( self.view )
+      if (self.view)
       {
          self.view.renderer = self;
          
          UIView * contentView = nil;
          
-         if ( [self.view respondsToSelector:@selector(contentView)] )
+         if ([self.view respondsToSelector:@selector(contentView)])
          {
             contentView = [self.view performSelector:@selector(contentView) withObject:nil];
          }
@@ -334,13 +340,13 @@ static NSUInteger __objectSeed = 0;
             contentView = self.view;
          }
          
-         for ( SamuraiRenderObject * child in [self.childs reverseObjectEnumerator] )
+         for (SamuraiRenderObject * child in [self.childs reverseObjectEnumerator])
          {
-            if ( nil == child.view )
+            if (nil == child.view)
             {
                UIView * childView = [child createViewWithIdentifier:nil];
                
-               if ( childView )
+               if (childView)
                {
                   [contentView addSubview:childView];
                }
@@ -388,7 +394,7 @@ static NSUInteger __objectSeed = 0;
 
 - (void)unserialize:(id)obj
 {
-   UNUSED( obj );
+   UNUSED(obj);
 }
 
 - (void)zerolize
@@ -410,24 +416,24 @@ static NSUInteger __objectSeed = 0;
 
 - (void)dump
 {
-   if ( DomNodeType_Text == self.dom.type )
+   if (DomNodeType_Text == self.dom.type)
    {
-      PRINT( @"\"%@ ...\", [%@]", self.dom.text, [self.viewClass description] );
+      PRINT(@"\"%@ ...\", [%@]", self.dom.text, [self.viewClass description]);
    }
    else
    {
-      PRINT( @"<%@>, [%@]", self.dom.tag ?: @"", [self.viewClass description] );
+      PRINT(@"<%@>, [%@]", self.dom.tag ?: @"", [self.viewClass description]);
       
       [[SamuraiLogger sharedInstance] indent];
       
-      for ( SamuraiRenderObject * child in self.childs )
+      for (SamuraiRenderObject * child in self.childs)
       {
          [child dump];
       }
       
       [[SamuraiLogger sharedInstance] unindent];
 
-      PRINT( @"</%@>", self.dom.tag ?: @"" );
+      PRINT(@"</%@>", self.dom.tag ?: @"");
    }
 }
 
@@ -441,13 +447,13 @@ static NSUInteger __objectSeed = 0;
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( UI, RenderObject )
+TEST_CASE(UI, RenderObject)
 
-DESCRIBE( before )
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 

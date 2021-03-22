@@ -37,7 +37,7 @@
 
 @protocol NSMutableDictionaryProtocol <NSObject>
 @required
-- (void)setObject:(id)object forKey:(id)key;
+- (void)setObject:(id)aObject forKey:(id)key;
 - (void)removeObjectForKey:(id)key;
 - (void)removeAllObjects;
 @optional
@@ -49,11 +49,11 @@
 @interface NSMutableDictionary(Extension) <NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 + (NSMutableDictionary *)nonRetainingDictionary;
-+ (NSMutableDictionary *)keyValues:(id)first, ...;
++ (NSMutableDictionary *)keyValues:(id)aFirst, ...;
 
-- (BOOL)setObject:(NSObject *)obj atPath:(NSString *)path;
-- (BOOL)setObject:(NSObject *)obj atPath:(NSString *)path separator:(NSString *)separator;
-- (BOOL)setKeyValues:(id)first, ...;
+- (BOOL)setObject:(NSObject *)aObject atPath:(NSString *)aPath;
+- (BOOL)setObject:(NSObject *)aObject atPath:(NSString *)aPath separator:(NSString *)aSeparator;
+- (BOOL)setKeyValues:(id)aFirst, ...;
 
 - (id)objectForOneOfKeys:(NSArray *)array remove:(BOOL)flag;
 

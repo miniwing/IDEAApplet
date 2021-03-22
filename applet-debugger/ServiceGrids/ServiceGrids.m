@@ -44,7 +44,7 @@
 
 - (BOOL)isAutoLoad
 {
-   return YES;
+   return NO;
 }
 
 

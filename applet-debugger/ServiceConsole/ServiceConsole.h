@@ -66,6 +66,7 @@ typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
 
 + (BOOL)analysisCommand:(NSString *)command;
 
+
 @end
 
 

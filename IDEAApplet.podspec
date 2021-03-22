@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                 = "IDEAApplet"
-  spec.version              = "1.0.0"
+  spec.version              = "1.0.1"
   spec.summary              = "IDEAApplet"
   spec.description          = "IDEAApplet"
   spec.homepage             = "https://github.com/miniwing"
@@ -8,6 +8,18 @@ Pod::Spec.new do |spec|
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
   spec.platform             = :ios, "10.0"
   
+  spec.ios.pod_target_xcconfig     = {
+                                        'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet',
+                                        'ENABLE_BITCODE'            => 'NO',
+                                        'SWIFT_VERSION'             => '5.0',
+                                        'EMBEDDED_CONTENT_CONTAINS_SWIFT'       => 'NO',
+                                        'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => 'NO',
+                                        'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+                                      }
+  spec.osx.pod_target_xcconfig      = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet' }
+  spec.watchos.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet-watchOS' }
+  spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet' }
+
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
@@ -17,7 +29,7 @@ Pod::Spec.new do |spec|
   spec.source               = { :path => "." }
 
   spec.xcconfig             = {
-    'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-webcore/vendor" "${PODS_ROOT}/Headers/Public/AFNetworking/" ',
+    'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/"/** "${PODS_ROOT}/Headers/Public/AFNetworking/" ',
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
   }
   
@@ -28,7 +40,7 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'
   
-#  spec.dependency 'AFNetworking'
+  spec.dependency 'AFNetworking'
 #  spec.dependency 'AFNetworking/Serialization'
 #  spec.dependency 'AFNetworking/Security'
 #  spec.dependency 'AFNetworking/Reachability'
@@ -53,68 +65,68 @@ Pod::Spec.new do |spec|
     framework.ios.source_files        = 'applet-framework/*.{h,m,c}'
 
     framework.subspec 'samurai-config' do |config|
-      config.ios.private_header_files  = 'applet-framework/samurai-config/*.{h,hpp}'
+      config.ios.public_header_files  = 'applet-framework/samurai-config/*.{h,hpp}'
       config.ios.source_files         = 'applet-framework/samurai-config/*.{h,m,c}'
     end # 'samurai-config'
 
     framework.subspec 'samurai-core' do |core|
-      core.ios.private_header_files    = 'applet-framework/samurai-core/*.{h,hpp}'
+      core.ios.public_header_files    = 'applet-framework/samurai-core/*.{h,hpp}'
       core.ios.source_files           = 'applet-framework/samurai-core/*.{h,m,c}'
 
       core.subspec 'extension' do |extension|
-        extension.ios.private_header_files = 'applet-framework/samurai-core/extension/*.{h,hpp}'
+        extension.ios.public_header_files = 'applet-framework/samurai-core/extension/*.{h,hpp}'
         extension.ios.source_files        = 'applet-framework/samurai-core/extension/*.{h,m,c}'
       end # 'extension'
 
       core.subspec 'modules' do |modules|
-        modules.ios.private_header_files = 'applet-framework/samurai-core/modules/*.{h,hpp}'
+        modules.ios.public_header_files = 'applet-framework/samurai-core/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-core/modules/*.{h,m,c}'
       end # 'modules'
 
     end # 'samurai-core'
 
     framework.subspec 'samurai-event' do |event|
-      event.ios.private_header_files = 'applet-framework/samurai-event/*.{h,hpp}'
+      event.ios.public_header_files = 'applet-framework/samurai-event/*.{h,hpp}'
       event.ios.source_files        = 'applet-framework/samurai-event/*.{h,m,c}'
 
       event.subspec 'modules' do |modules|
-        modules.ios.private_header_files = 'applet-framework/samurai-event/modules/*.{h,hpp}'
+        modules.ios.public_header_files = 'applet-framework/samurai-event/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-event/modules/*.{h,m,c}'
       end # 'modules'
 
     end # 'samurai-event'
 
     framework.subspec 'samurai-model' do |model|
-      model.ios.private_header_files = 'applet-framework/samurai-model/*.{h,hpp}'
+      model.ios.public_header_files = 'applet-framework/samurai-model/*.{h,hpp}'
       model.ios.source_files        = 'applet-framework/samurai-model/*.{h,m,c}'
 
       model.subspec 'extension' do |extension|
-        extension.ios.private_header_files = 'applet-framework/samurai-model/extension/*.{h,hpp}'
+        extension.ios.public_header_files = 'applet-framework/samurai-model/extension/*.{h,hpp}'
         extension.ios.source_files        = 'applet-framework/samurai-model/extension/*.{h,m,c}'
       end # 'extension'
 
       model.subspec 'modules' do |modules|
-        modules.ios.private_header_files = 'applet-framework/samurai-model/modules/*.{h,hpp}'
+        modules.ios.public_header_files = 'applet-framework/samurai-model/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-model/modules/*.{h,m,c}'
       end # 'modules'
 
     end # 'samurai-model'
 
     framework.subspec 'samurai-service' do |service|
-      service.ios.private_header_files = 'applet-framework/samurai-service/*.{h,hpp}'
+      service.ios.public_header_files = 'applet-framework/samurai-service/*.{h,hpp}'
       service.ios.source_files        = 'applet-framework/samurai-service/*.{h,m,c}'
 
       service.subspec 'modules' do |modules|
-        modules.ios.private_header_files = 'applet-framework/samurai-service/modules/*.{h,hpp}'
+        modules.ios.public_header_files = 'applet-framework/samurai-service/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-service/modules/*.{h,m,c}'
 
         modules.subspec 'docker' do |docker|
-          docker.ios.private_header_files = 'applet-framework/samurai-service/modules/docker/*.{h,hpp}'
+          docker.ios.public_header_files = 'applet-framework/samurai-service/modules/docker/*.{h,hpp}'
           docker.ios.source_files        = 'applet-framework/samurai-service/modules/docker/*.{h,m,c}'
         end # 'docker'
 
         modules.subspec 'service' do |service|
-          service.ios.private_header_files = 'applet-framework/samurai-service/modules/service/*.{h,hpp}'
+          service.ios.public_header_files = 'applet-framework/samurai-service/modules/service/*.{h,hpp}'
           service.ios.source_files        = 'applet-framework/samurai-service/modules/service/*.{h,m,c}'
         end # 'service'
 
@@ -123,40 +135,40 @@ Pod::Spec.new do |spec|
     end # 'samurai-service'
 
     framework.subspec 'samurai-view' do |view|
-      view.ios.private_header_files  = 'applet-framework/samurai-view/*.{h,hpp}'
+      view.ios.public_header_files  = 'applet-framework/samurai-view/*.{h,hpp}'
       view.ios.source_files         = 'applet-framework/samurai-view/*.{h,m,c}'
 
       view.subspec 'extension' do |extension|
-        extension.ios.private_header_files = 'applet-framework/samurai-view/extension/*.{h,hpp}'
+        extension.ios.public_header_files = 'applet-framework/samurai-view/extension/*.{h,hpp}'
         extension.ios.source_files        = 'applet-framework/samurai-view/extension/*.{h,m,c}'
       end # 'extension'
 
       view.subspec 'modules' do |modules|
-        modules.ios.private_header_files = 'applet-framework/samurai-view/modules/*.{h,hpp}'
+        modules.ios.public_header_files = 'applet-framework/samurai-view/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-view/modules/*.{h,m,c}'
 
         modules.subspec 'view-component' do |component|
-          component.ios.private_header_files = 'applet-framework/samurai-view/modules/view-component/*.{h,hpp}'
+          component.ios.public_header_files = 'applet-framework/samurai-view/modules/view-component/*.{h,hpp}'
           component.ios.source_files        = 'applet-framework/samurai-view/modules/view-component/*.{h,m,c}'
         end # ''view-component''
 
         modules.subspec 'view-controller' do |controller|
-          controller.ios.private_header_files  = 'applet-framework/samurai-view/modules/view-controller/*.{h,hpp}'
+          controller.ios.public_header_files  = 'applet-framework/samurai-view/modules/view-controller/*.{h,hpp}'
           controller.ios.source_files         = 'applet-framework/samurai-view/modules/view-controller/*.{h,m,c}'
         end # ''view-controller''
 
         modules.subspec 'view-core' do |core|
-          core.ios.private_header_files  = 'applet-framework/samurai-view/modules/view-core/*.{h,hpp}'
+          core.ios.public_header_files  = 'applet-framework/samurai-view/modules/view-core/*.{h,hpp}'
           core.ios.source_files         = 'applet-framework/samurai-view/modules/view-core/*.{h,m,c}'
         end # ''view-core''
 
         modules.subspec 'view-event' do |event|
-          event.ios.private_header_files = 'applet-framework/samurai-view/modules/view-event/*.{h,hpp}'
+          event.ios.public_header_files = 'applet-framework/samurai-view/modules/view-event/*.{h,hpp}'
           event.ios.source_files        = 'applet-framework/samurai-view/modules/view-event/*.{h,m,c}'
         end # ''view-core''
 
         modules.subspec 'view-utility' do |utility|
-          utility.ios.private_header_files = 'applet-framework/samurai-view/modules/view-utility/*.{h,hpp}'
+          utility.ios.public_header_files = 'applet-framework/samurai-view/modules/view-utility/*.{h,hpp}'
           utility.ios.source_files        = 'applet-framework/samurai-view/modules/view-utility/*.{h,m,c}'
         end # ''view-core''
 
@@ -196,17 +208,17 @@ Pod::Spec.new do |spec|
       end
 
       modules.subspec 'css-parser' do |parser|
-        parser.ios.private_header_files = 'applet-webcore/modules/css-parser/*.{h}'
+        parser.ios.private_header_files= 'applet-webcore/modules/css-parser/*.{h}'
         parser.ios.source_files         = 'applet-webcore/modules/css-parser/*.{h,m,c}'
       end
 
       modules.subspec 'css-resolver' do |resolver|
-        resolver.ios.private_header_files = 'applet-webcore/modules/css-resolver/*.{h}'
+        resolver.ios.private_header_files= 'applet-webcore/modules/css-resolver/*.{h}'
         resolver.ios.source_files         = 'applet-webcore/modules/css-resolver/*.{h,m,c}'
       end
 
       modules.subspec 'css-stylesheet' do |stylesheet|
-        stylesheet.ios.private_header_files  = 'applet-webcore/modules/css-stylesheet/*.{h}'
+        stylesheet.ios.private_header_files = 'applet-webcore/modules/css-stylesheet/*.{h}'
         stylesheet.ios.source_files         = 'applet-webcore/modules/css-stylesheet/*.{h,m,c}'
       end
 
@@ -216,7 +228,7 @@ Pod::Spec.new do |spec|
       end
 
       modules.subspec 'html-component' do |component|
-        component.ios.private_header_files  = 'applet-webcore/modules/html-component/*.{h}'
+        component.ios.private_header_files = 'applet-webcore/modules/html-component/*.{h}'
         component.ios.source_files          = 'applet-webcore/modules/html-component/*.{h,m,c}'
       end
 
@@ -279,10 +291,10 @@ Pod::Spec.new do |spec|
 
     webcore.subspec 'vendor' do |vendor|
 
-      vendor.subspec 'AFNetworking' do |networking|
-        networking.ios.private_header_files  = 'applet-webcore/vendor/AFNetworking/*.{h}'
-        networking.ios.source_files         = 'applet-webcore/vendor/AFNetworking/*.{h,m,c}'
-      end
+#      vendor.subspec 'AFNetworking' do |networking|
+#        networking.ios.private_header_files = 'applet-webcore/vendor/AFNetworking/*.{h}'
+#        networking.ios.source_files         = 'applet-webcore/vendor/AFNetworking/*.{h,m,c}'
+#      end
 
       vendor.subspec 'gumbo-parser' do |gumbo|
         gumbo.ios.private_header_files= 'applet-webcore/vendor/gumbo-parser/*.{h}'
@@ -376,7 +388,25 @@ Pod::Spec.new do |spec|
 
 /******************************************************************************************************/
 
-#import <objc/runtime.h>
+#ifdef __OBJC__
+
+#  if __has_include(<AFNetworking/AFNetworking.h>)
+#     define AF_NETWORKING                                                 (1)
+#     import <AFNetworking/AFNetworking.h>
+#     import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#  elif __has_include("AFNetworking/AFNetworking.h")
+#     define AF_NETWORKING                                                 (1)
+#     import "AFNetworking/AFNetworking.h"
+#     import "AFNetworking/AFNetworkActivityIndicatorManager.h"
+#  elif __has_include("AFNetworking.h")
+#     define AF_NETWORKING                                                 (1)
+#     import "AFNetworking.h"
+#     import "AFNetworkActivityIndicatorManager.h"
+#  else
+#     define AF_NETWORKING                                                 (0)
+#  endif
+
+#endif /* __OBJC__ */
 
 /******************************************************************************************************/
 
@@ -392,6 +422,12 @@ Pod::Spec.new do |spec|
 #  define __RELEASE(x)                             if (nil != (x))                                                                                      {                                                                                                       [(x) release];                                                                                       (x) = nil;                                                                                        }
 #  define __SUPER_DEALLOC                          objc_removeAssociatedObjects(self);[super dealloc];
 #  define __dispatch_release(x)                    dispatch_release((x))
+#endif
+
+#if defined(DEBUG) && (1==DEBUG)
+#  define __AUTO__         (1)
+#else
+#  define __AUTO__         (0)
 #endif
 
 /******************************************************************************************************/

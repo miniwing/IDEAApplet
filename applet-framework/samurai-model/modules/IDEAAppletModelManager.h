@@ -38,9 +38,9 @@
 @singleton( SamuraiModelManager )
 
 - (NSArray *)loadedModels;
-- (NSArray *)loadedModelsByClass:(Class)clazz;
+- (NSArray *)loadedModelsByClass:(Class)aClass;
 
-- (void)addModel:(id)model;
-- (void)removeModel:(id)model;
+- (void)addModel:(id)aModel;
+- (void)removeModel:(id)aModel;
 
 @end

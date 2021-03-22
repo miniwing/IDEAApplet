@@ -71,30 +71,30 @@
 
 @implementation SamuraiActivity
 {
-   BOOL   _inited;
-   BOOL   _booted;
-   BOOL   _presented;
-   BOOL   _viewBuilt;
-   BOOL   _viewDirty;
+   BOOL      _inited;
+   BOOL      _booted;
+   BOOL      _presented;
+   BOOL      _viewBuilt;
+   BOOL      _viewDirty;
 }
 
 BASE_CLASS( SamuraiActivity )
 
 @def_joint( stateChanged );
 
-@def_prop_strong( SamuraiIntent *,            intent );
-@def_prop_assign( BOOL,                     animated );
-@def_prop_assign( UIInterfaceOrientation,      orientation );
-@def_prop_assign( UIInterfaceOrientationMask,   orientationMask );
+@def_prop_strong( SamuraiIntent  *,    intent );
+@def_prop_assign( BOOL            ,    animated );
+@def_prop_assign( UIInterfaceOrientation     ,  orientation );
+@def_prop_assign( UIInterfaceOrientationMask ,  orientationMask );
 
-@def_prop_copy( BlockType,                  stateChanged );
-@def_prop_assign( ActivityState,            state );
-@def_prop_dynamic( BOOL,                  created );
-@def_prop_dynamic( BOOL,                  deactivated );
-@def_prop_dynamic( BOOL,                  deactivating );
-@def_prop_dynamic( BOOL,                  activating );
-@def_prop_dynamic( BOOL,                  activated );
-@def_prop_dynamic( BOOL,                  destroyed );
+@def_prop_copy   ( BlockType     ,  stateChanged );
+@def_prop_assign ( ActivityState ,  state );
+@def_prop_dynamic( BOOL          ,  created );
+@def_prop_dynamic( BOOL          ,  deactivated );
+@def_prop_dynamic( BOOL          ,  deactivating );
+@def_prop_dynamic( BOOL          ,  activating );
+@def_prop_dynamic( BOOL          ,  activated );
+@def_prop_dynamic( BOOL          ,  destroyed );
 
 static NSMutableArray * __activities = nil;
 

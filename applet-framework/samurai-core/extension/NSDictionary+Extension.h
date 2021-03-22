@@ -45,42 +45,42 @@
 
 @interface NSDictionary(Extension) <NSDictionaryProtocol>
 
-- (id)objectForOneOfKeys:(NSArray *)array;
+- (id)objectForOneOfKeys:(NSArray *)aArray;
 
-- (NSNumber *)numberForOneOfKeys:(NSArray *)array;
-- (NSString *)stringForOneOfKeys:(NSArray *)array;
+- (NSNumber *)numberForOneOfKeys:(NSArray *)aArray;
+- (NSString *)stringForOneOfKeys:(NSArray *)aArray;
 
-- (id)objectAtPath:(NSString *)path;
-- (id)objectAtPath:(NSString *)path otherwise:(NSObject *)other;
+- (id)objectAtPath:(NSString *)aPath;
+- (id)objectAtPath:(NSString *)aPath otherwise:(NSObject *)aOther;
 
-- (id)objectAtPath:(NSString *)path separator:(NSString *)separator;
-- (id)objectAtPath:(NSString *)path otherwise:(NSObject *)other separator:(NSString *)separator;
+- (id)objectAtPath:(NSString *)aPath separator:(NSString *)aSeparator;
+- (id)objectAtPath:(NSString *)aPath otherwise:(NSObject *)aOther separator:(NSString *)aSeparator;
 
-- (id)objectAtPath:(NSString *)path withClass:(Class)clazz;
-- (id)objectAtPath:(NSString *)path withClass:(Class)clazz otherwise:(NSObject *)other;
+- (id)objectAtPath:(NSString *)aPath withClass:(Class)aClass;
+- (id)objectAtPath:(NSString *)aPath withClass:(Class)aClass otherwise:(NSObject *)aOther;
 
-- (BOOL)boolAtPath:(NSString *)path;
-- (BOOL)boolAtPath:(NSString *)path otherwise:(BOOL)other;
+- (BOOL)boolAtPath:(NSString *)aPath;
+- (BOOL)boolAtPath:(NSString *)aPath otherwise:(BOOL)aOther;
 
-- (NSNumber *)numberAtPath:(NSString *)path;
-- (NSNumber *)numberAtPath:(NSString *)path otherwise:(NSNumber *)other;
+- (NSNumber *)numberAtPath:(NSString *)aPath;
+- (NSNumber *)numberAtPath:(NSString *)aPath otherwise:(NSNumber *)aOther;
 
-- (NSString *)stringAtPath:(NSString *)path;
-- (NSString *)stringAtPath:(NSString *)path otherwise:(NSString *)other;
+- (NSString *)stringAtPath:(NSString *)aPath;
+- (NSString *)stringAtPath:(NSString *)aPath otherwise:(NSString *)aOther;
 
-- (NSArray *)arrayAtPath:(NSString *)path;
-- (NSArray *)arrayAtPath:(NSString *)path otherwise:(NSArray *)other;
+- (NSArray *)arrayAtPath:(NSString *)aPath;
+- (NSArray *)arrayAtPath:(NSString *)aPath otherwise:(NSArray *)aOther;
 
-- (NSArray *)arrayAtPath:(NSString *)path withClass:(Class)clazz;
-- (NSArray *)arrayAtPath:(NSString *)path withClass:(Class)clazz otherwise:(NSArray *)other;
+- (NSArray *)arrayAtPath:(NSString *)aPath withClass:(Class)aClass;
+- (NSArray *)arrayAtPath:(NSString *)aPath withClass:(Class)aClass otherwise:(NSArray *)aOther;
 
-- (NSMutableArray *)mutableArrayAtPath:(NSString *)path;
-- (NSMutableArray *)mutableArrayAtPath:(NSString *)path otherwise:(NSMutableArray *)other;
+- (NSMutableArray *)mutableArrayAtPath:(NSString *)aPath;
+- (NSMutableArray *)mutableArrayAtPath:(NSString *)aPath otherwise:(NSMutableArray *)aOther;
 
-- (NSDictionary *)dictAtPath:(NSString *)path;
-- (NSDictionary *)dictAtPath:(NSString *)path otherwise:(NSDictionary *)other;
+- (NSDictionary *)dictAtPath:(NSString *)aPath;
+- (NSDictionary *)dictAtPath:(NSString *)aPath otherwise:(NSDictionary *)aOther;
 
-- (NSMutableDictionary *)mutableDictAtPath:(NSString *)path;
-- (NSMutableDictionary *)mutableDictAtPath:(NSString *)path otherwise:(NSMutableDictionary *)other;
+- (NSMutableDictionary *)mutableDictAtPath:(NSString *)aPath;
+- (NSMutableDictionary *)mutableDictAtPath:(NSString *)aPath otherwise:(NSMutableDictionary *)aOther;
 
 @end

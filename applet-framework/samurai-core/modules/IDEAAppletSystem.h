@@ -80,15 +80,15 @@ typedef enum
 @prop_readonly( BOOL  ,             requiresPhoneOS   );
 
 @prop_readonly( BOOL  ,             isScreenPhone     );
-@prop_readonly( BOOL  ,             isScreen320x480   );      // history
-@prop_readonly( BOOL  ,             isScreen640x960   );      // ip4s
-@prop_readonly( BOOL  ,             isScreen640x1136  );     // ip5, ip5s, ip6 Zoom mode
-@prop_readonly( BOOL  ,             isScreen750x1334  );     // ip6
-@prop_readonly( BOOL  ,             isScreen1242x2208 );    // ip6p
-@prop_readonly( BOOL  ,             isScreen1125x2001 );    // ip6p Zoom mode
+@prop_readonly( BOOL  ,             isScreen320x480   ); // history
+@prop_readonly( BOOL  ,             isScreen640x960   ); // ip4s
+@prop_readonly( BOOL  ,             isScreen640x1136  ); // ip5, ip5s, ip6 Zoom mode
+@prop_readonly( BOOL  ,             isScreen750x1334  ); // ip6
+@prop_readonly( BOOL  ,             isScreen1242x2208 ); // ip6p
+@prop_readonly( BOOL  ,             isScreen1125x2001 ); // ip6p Zoom mode
 
 @prop_readonly( BOOL  ,             isScreenPad       );
-@prop_readonly( BOOL  ,             isScreen768x1024  );     // only ipad1, ipad2, ipad mini1
+@prop_readonly( BOOL  ,             isScreen768x1024  ); // only ipad1, ipad2, ipad mini1
 @prop_readonly( BOOL  ,             isScreen1536x2048 );
 
 @prop_readonly( CGSize,             screenSize        );

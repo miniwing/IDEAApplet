@@ -42,13 +42,13 @@
 
 @implementation NSData(Extension)
 
-@def_prop_dynamic( NSString *,   MD5String );
-@def_prop_dynamic( NSData *,   MD5Data );
+@def_prop_dynamic( NSString   *, MD5String );
+@def_prop_dynamic( NSData     *, MD5Data );
 
-@def_prop_dynamic( NSString *,   SHA1String );
-@def_prop_dynamic( NSData *,   SHA1Data );
+@def_prop_dynamic( NSString   *, SHA1String );
+@def_prop_dynamic( NSData     *, SHA1Data );
 
-@def_prop_dynamic( NSString *,   BASE64Encrypted );
+@def_prop_dynamic( NSString   *, BASE64Encrypted );
 
 - (NSString *)MD5String
 {

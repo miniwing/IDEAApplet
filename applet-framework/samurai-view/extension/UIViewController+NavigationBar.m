@@ -38,10 +38,10 @@
 
 @implementation UIViewController(NavigationBar)
 
-@def_prop_dynamic( BOOL,   navigationBarShown );
-@def_prop_dynamic( id,      navigationBarTitle );
-@def_prop_dynamic( id,      navigationBarBackButton );
-@def_prop_dynamic( id,      navigationBarDoneButton );
+@def_prop_dynamic( BOOL ,  navigationBarShown );
+@def_prop_dynamic( id   ,  navigationBarTitle );
+@def_prop_dynamic( id   ,  navigationBarBackButton );
+@def_prop_dynamic( id   ,  navigationBarDoneButton );
 
 #pragma mark -
 

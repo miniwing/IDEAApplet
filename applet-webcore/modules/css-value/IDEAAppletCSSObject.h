@@ -32,8 +32,6 @@
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-#import "katana.h"
-
 #pragma mark -
 
 @interface SamuraiCSSObject : NSObject

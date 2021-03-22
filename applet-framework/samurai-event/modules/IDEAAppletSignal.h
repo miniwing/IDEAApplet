@@ -111,34 +111,34 @@ typedef enum
 //@prop_unsafe( id,                  foreign );
 //@prop_strong( NSString *,            prefix );
 
-@prop_unsafe( id  ,        source );
-@prop_unsafe( id  ,        target );
+@prop_unsafe   ( id                  , source );
+@prop_unsafe   ( id                  , target );
+         
+@prop_copy     ( BlockType           , stateChanged );
+@prop_assign   ( SignalState         , state );
+@prop_assign   ( BOOL                , sending );
+@prop_assign   ( BOOL                , arrived );
+@prop_assign   ( BOOL                , dead );
+      
+@prop_assign   ( BOOL                , hit );
+@prop_assign   ( NSUInteger          , hitCount );
+@prop_readonly ( NSString           *, prettyName );
+      
+@prop_strong   ( NSString           *, name );
+@prop_strong   ( id                  , object );
+@prop_strong   ( NSMutableDictionary*, input );
+@prop_strong   ( NSMutableDictionary*, output );
+   
+@prop_assign   ( NSTimeInterval      , initTimeStamp );
+@prop_assign   ( NSTimeInterval      , sendTimeStamp );
+@prop_assign   ( NSTimeInterval      , arriveTimeStamp );
 
-@prop_copy  ( BlockType    ,  stateChanged );
-@prop_assign( SignalState  ,  state );
-@prop_assign( BOOL         ,  sending );
-@prop_assign( BOOL         ,  arrived );
-@prop_assign( BOOL         ,  dead );
+@prop_readonly ( NSTimeInterval      , timeElapsed );
+@prop_readonly ( NSTimeInterval      , timeCostPending );
+@prop_readonly ( NSTimeInterval      , timeCostExecution );
 
-@prop_assign( BOOL         ,  hit );
-@prop_assign( NSUInteger   ,  hitCount );
-@prop_readonly( NSString  *,  prettyName );
-
-@prop_strong( NSString    *,  name );
-@prop_strong( id,                      object );
-@prop_strong( NSMutableDictionary *,   input );
-@prop_strong( NSMutableDictionary *,   output );
-
-@prop_assign( NSTimeInterval,    initTimeStamp );
-@prop_assign( NSTimeInterval,    sendTimeStamp );
-@prop_assign( NSTimeInterval,    arriveTimeStamp );
-
-@prop_readonly( NSTimeInterval,  timeElapsed );
-@prop_readonly( NSTimeInterval,  timeCostPending );
-@prop_readonly( NSTimeInterval,  timeCostExecution );
-
-@prop_assign( NSInteger       ,  jumpCount );
-@prop_strong( NSMutableArray *,  jumpPath );
+@prop_assign   ( NSInteger           , jumpCount );
+@prop_strong   ( NSMutableArray     *, jumpPath );
 
 + (SamuraiSignal *)signal;
 + (SamuraiSignal *)signal:(NSString *)aName;

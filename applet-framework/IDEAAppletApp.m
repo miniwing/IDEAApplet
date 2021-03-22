@@ -57,28 +57,28 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-@implementation SamuraiApp
+@implementation IDEAAppletApp
 
-@def_notification(PushEnabled)
-@def_notification(PushError)
+@def_notification( PushEnabled );
+@def_notification( PushError   );
 
-@def_notification(LocalNotification)
-@def_notification(RemoteNotification)
+@def_notification( LocalNotification  );
+@def_notification( RemoteNotification );
 
-@def_notification(EnterBackground);
-@def_notification(EnterForeground);
+@def_notification( EnterBackground );
+@def_notification( EnterForeground );
 
-@def_notification(Ready)
+@def_notification( Ready );
 
-@def_prop_strong(UIWindow *,         window);
-@def_prop_strong(NSString *,         pushToken);
-@def_prop_strong(NSError *,         pushError);
-@def_prop_strong(NSString *,         sourceUrl);
-@def_prop_strong(NSString *,         sourceBundleId);
+@def_prop_strong( UIWindow *, window);
+@def_prop_strong( NSString *, pushToken);
+@def_prop_strong( NSError  *, pushError);
+@def_prop_strong( NSString *, sourceUrl);
+@def_prop_strong( NSString *, sourceBundleId);
 
-@def_prop_dynamic(BOOL,            active);
-@def_prop_dynamic(BOOL,            inactive);
-@def_prop_dynamic(BOOL,            background);
+@def_prop_dynamic(BOOL,    active);
+@def_prop_dynamic(BOOL,    inactive);
+@def_prop_dynamic(BOOL,    background);
 
 #pragma mark -
 
@@ -96,11 +96,20 @@ static __strong id __applicationInstance = nil;
 
 - (id)init
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    self = [super init];
+   
    if (self)
    {
       [self load];
-   }
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
+   
    return self;
 }
 
@@ -108,26 +117,51 @@ static __strong id __applicationInstance = nil;
 {
    [self unload];
    
-   self.window = nil;
-   self.sourceUrl = nil;
-   self.sourceBundleId = nil;
-   self.pushToken = nil;
+   self.window          = nil;
+   self.sourceUrl       = nil;
+   self.sourceBundleId  = nil;
+   self.pushToken       = nil;
    
-   __applicationInstance = nil;
+   __applicationInstance= nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
 - (void)load
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)unload
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)main
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark -
@@ -149,155 +183,214 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (SamuraiActivity *)activityFromString:(NSString *)string
+- (SamuraiActivity *)activityFromString:(NSString *)aString
 {
-   string = [string trim];
+   int                            nErr                                     = EFAULT;
    
-   INFO(@"Application '%p', create activity '%@'", self, string);
+   SamuraiActivity               *stActivity                               = nil;
    
-   SamuraiActivity * activity = [[SamuraiActivityRouter sharedInstance] activityForURL:string];
+   __TRY;
+
+   aString = [aString trim];
    
-   if (nil == activity)
+   INFO(@"Application '%p', create activity '%@'", self, aString);
+   
+   stActivity = [[SamuraiActivityRouter sharedInstance] activityForURL:aString];
+   
+   if (nil == stActivity)
    {
-      Class runtimeClass = NSClassFromString(string);
+      Class stRuntimeClass = NSClassFromString(aString);
       
-      if (runtimeClass && [runtimeClass isSubclassOfClass:[SamuraiActivity class]])
+      if (stRuntimeClass && [stRuntimeClass isSubclassOfClass:[SamuraiActivity class]])
       {
-         activity = (SamuraiActivity *)[[runtimeClass alloc] init];
-      }
-   }
+         stActivity = (SamuraiActivity *)[[stRuntimeClass alloc] init];
+         
+      } /* End if () */
+      
+   } /* End if () */
    
-   return activity;
+   __CATCH(nErr);
+   
+   return stActivity;
 }
 
 - (SamuraiActivityStack *)activityStackFromArray:(NSArray *)array
 {
+   int                            nErr                                     = EFAULT;
+   
+   SamuraiActivityStack          *stStack                                  = nil;
+   
+   __TRY;
+
    INFO(@"Application '%p', create stack", self, [[self class] description]);
    
-   SamuraiActivityStack * stack = [SamuraiActivityStack stack];
+   stStack = [SamuraiActivityStack stack];
    
    for (NSString * name in array)
    {
-      SamuraiActivity * activity = [self activityFromString:name];
-      if (activity)
+      SamuraiActivity   *stActivity = [self activityFromString:name];
+      if (stActivity)
       {
-         [stack pushActivity:activity animated:NO];
-      }
-   }
+         [stStack pushActivity:stActivity animated:NO];
+         
+      } /* End if () */
+      
+   } /* End for () */
    
-   return stack;
+   __CATCH(nErr);
+   
+   return stStack;
 }
 
-- (SamuraiActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)dict
+- (SamuraiActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDictionary
 {
+   int                            nErr                                     = EFAULT;
+   
+   SamuraiActivityStackGroup     *stStackGroup                             = nil;
+   
+   __TRY;
+
    INFO(@"Application '%p', create stack-group", self, [[self class] description]);
    
-   SamuraiActivityStackGroup * stackGroup = [SamuraiActivityStackGroup stackGroup];
+   stStackGroup   = [SamuraiActivityStackGroup stackGroup];
    
-   for (NSString * key in dict.allKeys)
+   for (NSString *szKey in aDictionary.allKeys)
    {
-      NSObject * value = [dict objectForKey:key];
-      if (nil == value)
+      NSObject *stValue = [aDictionary objectForKey:szKey];
+      if (nil == stValue)
+      {
          continue;
+         
+      } /* End if () */
       
-      INFO(@"Application '%p', create stackGroup item '%@'", self, [[self class] description], key);
+      INFO(@"Application '%p', create stackGroup item '%@'", self, [[self class] description], szKey);
       
-      if ([value isKindOfClass:[NSString class]])
+      if ([stValue isKindOfClass:[NSString class]])
       {
-         SamuraiActivity * activity = [self activityFromString:(NSString *)value];
-         if (activity)
+         SamuraiActivity   *stActivity = [self activityFromString:(NSString *)stValue];
+         
+         if (stActivity)
          {
-            [stackGroup map:(NSString *)key forActivity:activity];
-         }
-      }
-      else if ([value isKindOfClass:[NSArray class]])
+            [stStackGroup map:(NSString *)szKey forActivity:stActivity];
+            
+         }  /* End if () */
+         
+      }  /* End if () */
+      else if ([stValue isKindOfClass:[NSArray class]])
       {
-         SamuraiActivityStack * activityStack = [self activityStackFromArray:(NSArray *)value];
+         SamuraiActivityStack * activityStack = [self activityStackFromArray:(NSArray *)stValue];
          if (activityStack)
          {
-            [stackGroup map:(NSString *)key forActivityStack:activityStack];
-         }
-      }
-   }
+            [stStackGroup map:(NSString *)szKey forActivityStack:activityStack];
+            
+         }  /* End if () */
+         
+      }  /* End else if () */
+      
+   } /* End for () */
    
-   return stackGroup;
+   __CATCH(nErr);
+   
+   return stStackGroup;
 }
 
 #pragma mark -
 
 - (void)loadWindow
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    if (nil == self.window)
    {
       self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
       self.window.alpha = 1.0f;
-      self.window.backgroundColor = [UIColor whiteColor];
-   }
-   
-   NSString * fileName = [NSString stringWithFormat:@"%@.manifest", [[self class] description]];
-   NSString * fileExt = @"json";
-   
-   NSString * manifestPath = [[NSBundle mainBundle] pathForResource:fileName ofType:fileExt];
-   NSString * manifestData = [NSString stringWithContentsOfFile:manifestPath encoding:NSUTF8StringEncoding error:NULL];
-   
-   if (nil == manifestData)
-   {
-      fileName = @"app.manifest";
-      fileExt = @"json";
+      self.window.backgroundColor   = [UIColor whiteColor];
       
-      manifestPath = [[NSBundle mainBundle] pathForResource:fileName ofType:fileExt];
-      manifestData = [NSString stringWithContentsOfFile:manifestPath encoding:NSUTF8StringEncoding error:NULL];
-   }
+   } /* End if () */
    
-   if (manifestData)
+   NSString *szFileName       = [NSString stringWithFormat:@"%@.manifest", [[self class] description]];
+   NSString *szFileExt        = @"json";
+   
+   NSString *szManifestPath   = [[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt];
+   NSString *szManifestData   = [NSString stringWithContentsOfFile:szManifestPath encoding:NSUTF8StringEncoding error:NULL];
+   
+   if (nil == szManifestData)
    {
-      NSDictionary * manifest = [manifestData JSONDecoded];
+      szFileName     = @"app.manifest";
+      szFileExt      = @"json";
       
-      if (manifest)
+      szManifestPath = [[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt];
+      szManifestData = [NSString stringWithContentsOfFile:szManifestPath encoding:NSUTF8StringEncoding error:NULL];
+      
+   } /* End if () */
+   
+   if (szManifestData)
+   {
+      NSDictionary      *stManifest          = [szManifestData JSONDecoded];
+      
+      if (stManifest)
       {
-         NSDictionary *   applicationRoutes = [manifest objectAtPath:@"application.routes"];
-         NSObject *      applicationMain = [manifest objectAtPath:@"application.main"];
+         NSDictionary   *stApplicationRoutes = [stManifest objectAtPath:@"application.routes"];
+         NSObject       *stApplicationMain   = [stManifest objectAtPath:@"application.main"];
          
-         if (applicationRoutes)
+         if (stApplicationRoutes)
          {
-            for (NSString * key in applicationRoutes.allKeys)
+            for (NSString *szKey in stApplicationRoutes.allKeys)
             {
-               Class classType = NSClassFromString([applicationRoutes objectForKey:key]);
-               if (classType)
+               Class  stClassType   = NSClassFromString([stApplicationRoutes objectForKey:szKey]);
+               
+               if (stClassType)
                {
-                  [[SamuraiActivityRouter sharedInstance] mapURL:key toActivityClass:classType];
-               }
-            }
-         }
+                  [[SamuraiActivityRouter sharedInstance] mapURL:szKey toActivityClass:stClassType];
+                  
+               } /* End if () */
+               
+            } /* End for () */
+            
+         } /* End if () */
          
-         if (applicationMain)
+         if (stApplicationMain)
          {
-            if ([applicationMain isKindOfClass:[NSString class]])
+            if ([stApplicationMain isKindOfClass:[NSString class]])
             {
-               self.window.rootViewController = [self activityFromString:(NSString *)applicationMain];
-            }
-            else if ([applicationMain isKindOfClass:[NSArray class]])
+               self.window.rootViewController   = [self activityFromString:(NSString *)stApplicationMain];
+               
+            } /* End if () */
+            else if ([stApplicationMain isKindOfClass:[NSArray class]])
             {
-               self.window.rootViewController = [self activityStackFromArray:(NSArray *)applicationMain];
-            }
-            else if ([applicationMain isKindOfClass:[NSDictionary class]])
+               self.window.rootViewController   = [self activityStackFromArray:(NSArray *)stApplicationMain];
+               
+            } /* End else if () */
+            else if ([stApplicationMain isKindOfClass:[NSDictionary class]])
             {
-               self.window.rootViewController = [self activityStackGroupFromDictionary:(NSDictionary *)applicationMain];
-            }
-         }
+               self.window.rootViewController   = [self activityStackGroupFromDictionary:(NSDictionary *)stApplicationMain];
+               
+            } /* End else if () */
+            
+         } /* End if () */
          else
          {
             self.window.rootViewController = [SamuraiActivityStack stackWithActivity:[self activityFromString:@"/"]];
-         }
-      }
-   }
+            
+         } /* End else () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    if (self.window.rootViewController)
    {
       UNUSED(self.window.rootViewController.view);
-   }
+      
+   } /* End if () */
    
    [self.window makeKeyAndVisible];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark -
@@ -309,6 +402,13 @@ static __strong id __applicationInstance = nil;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+   int                            nErr                                     = EFAULT;
+   
+   UILocalNotification           *stLocalNotification                      = nil;
+   NSDictionary                  *stRemoteNotification                     = nil;
+
+   __TRY;
+
    __applicationInstance = self;
    
    UNUSED(application);
@@ -316,30 +416,32 @@ static __strong id __applicationInstance = nil;
    [self loadWindow];
    
    [self main];
-   
-   UILocalNotification *   localNotification = nil;
-   NSDictionary *         remoteNotification = nil;
-   
+      
    if (nil != launchOptions) // 从通知启动
    {
-      self.sourceUrl      = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
-      self.sourceBundleId   = [launchOptions objectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
+      self.sourceUrl       = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+      self.sourceBundleId  = [launchOptions objectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
       
-      localNotification   = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-      remoteNotification   = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-   }
+      stLocalNotification  = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+      stRemoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+      
+   } /* End if () */
    
-   [self notify:SamuraiApp.Ready];
+   [self notify:IDEAAppletApp.Ready];
    
-   if (localNotification)
+   if (stLocalNotification)
    {
-      [self notify:SamuraiApp.LocalNotification withObject:localNotification.userInfo];
-   }
+      [self notify:IDEAAppletApp.LocalNotification withObject:stLocalNotification.userInfo];
+      
+   } /* End if () */
    
-   if (remoteNotification)
+   if (stRemoteNotification)
    {
-      [self notify:SamuraiApp.RemoteNotification withObject:remoteNotification];
-   }
+      [self notify:IDEAAppletApp.RemoteNotification withObject:stRemoteNotification];
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
    
    return YES;
 }
@@ -361,121 +463,250 @@ static __strong id __applicationInstance = nil;
    self.sourceUrl = url.absoluteString;
    //   self.sourceBundleId = sourceApplication;
    
-   [self notify:SamuraiApp.Ready];
+   [self notify:IDEAAppletApp.Ready];
    
    return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
    
    //   [self.window.rootViewController viewWillAppear:NO];
    //   [self.window.rootViewController viewDidAppear:NO];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
    
    //   [self.window.rootViewController viewWillDisappear:NO];
    //   [self.window.rootViewController viewDidDisappear:NO];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark -
 
 - (void)application:(UIApplication *)application willChangeStatusBarOrientation:(UIInterfaceOrientation)newStatusBarOrientation duration:(NSTimeInterval)duration
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark -
 
 // one of these will be called after calling -registerForRemoteNotifications
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
 {
+   int                            nErr                                     = EFAULT;
+
+   NSString                      *szToken                                  = [aDeviceToken description];
+
+   __TRY;
+
    UNUSED(application)
    
-   NSString * token = [deviceToken description];
-   token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
-   token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
-   token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+   szToken = [aDeviceToken description];
+   szToken = [szToken stringByReplacingOccurrencesOfString:@"<" withString:@""];
+   szToken = [szToken stringByReplacingOccurrencesOfString:@">" withString:@""];
+   szToken = [szToken stringByReplacingOccurrencesOfString:@" " withString:@""];
    
-   self.pushToken = token;
+   self.pushToken = szToken;
    
-   [self notify:SamuraiApp.PushEnabled];
+   [self notify:IDEAAppletApp.PushEnabled];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)aError
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    UNUSED(application)
    
-   self.pushError = error;
+   self.pushError = aError;
    
-   [self notify:SamuraiApp.PushError];
+   [self notify:IDEAAppletApp.PushError];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    UNUSED(application)
    
-   [self notify:SamuraiApp.RemoteNotification withObject:userInfo];
+   [self notify:IDEAAppletApp.RemoteNotification withObject:userInfo];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    UNUSED(application)
    
-   [self notify:SamuraiApp.RemoteNotification withObject:notification.userInfo];
+   [self notify:IDEAAppletApp.RemoteNotification withObject:notification.userInfo];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    UNUSED(application)
    
-   [self notify:SamuraiApp.EnterBackground];
+   [self notify:IDEAAppletApp.EnterBackground];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
    UNUSED(application)
    
-   [self notify:SamuraiApp.EnterForeground];
+   [self notify:IDEAAppletApp.EnterForeground];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)applicationProtectedDataDidBecomeAvailable:(UIApplication *)application
 {
-   UNUSED(application)
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   UNUSED(application);
+      
+   __CATCH(nErr);
+   
+   return;
 }
 
 @end

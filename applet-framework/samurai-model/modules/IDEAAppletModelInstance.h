@@ -35,7 +35,6 @@
 #pragma mark -
 
 #if __has_feature(objc_arc)
-
 #  undef  model
 #  define model( type, name )          \
           property (nonatomic, strong) type name
@@ -44,9 +43,7 @@
 #  define def_model( type, name, ... ) \
           synthesize name = _##name;   \
           + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
-
 #else
-
 #  undef  model
 #  define model( type, name )          \
           property (nonatomic, retain) type name
@@ -55,7 +52,6 @@
 #  define def_model( type, name, ... ) \
           synthesize name = _##name;   \
           + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
-
 #endif
 
 #pragma mark -

@@ -45,7 +45,7 @@
 
 - (BOOL)isAutoLoad
 {
-   return YES;
+   return NO;
 }
 
 #pragma mark -

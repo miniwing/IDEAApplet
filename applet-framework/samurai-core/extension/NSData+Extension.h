@@ -35,12 +35,12 @@
 
 @interface NSData(Extension)
 
-@prop_readonly( NSString *,   MD5String );
-@prop_readonly( NSData *,   MD5Data );
+@prop_readonly( NSString*, MD5String );
+@prop_readonly( NSData  *, MD5Data );
 
-@prop_readonly( NSString *,   SHA1String );
-@prop_readonly( NSData *,   SHA1Data );
+@prop_readonly( NSString*, SHA1String );
+@prop_readonly( NSData  *, SHA1Data );
 
-@prop_readonly( NSString *,   BASE64Encrypted );
+@prop_readonly( NSString*, BASE64Encrypted );
 
 @end

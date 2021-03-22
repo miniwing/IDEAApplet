@@ -38,7 +38,7 @@
 
 #pragma mark -
 
-@interface SamuraiClassLoader : NSObject
+@interface IDEAAppletClassLoader : NSObject
 
 + (instancetype)classLoader;
 

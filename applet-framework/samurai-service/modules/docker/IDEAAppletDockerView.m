@@ -88,6 +88,8 @@
    [_close removeFromSuperview];
    _close   = nil;
    
+   __SUPER_DEALLOC;
+   
    return;
 }
 
@@ -101,8 +103,8 @@
    buttonFrame.origin   = CGPointZero;
    buttonFrame.size     = frame.size;
    
-   _open.frame = buttonFrame;
-   _close.frame = buttonFrame;
+   _open.frame    = buttonFrame;
+   _close.frame   = buttonFrame;
    
    return;
 }
@@ -126,6 +128,10 @@
 
 - (void)open
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    _open.hidden   = YES;
    _close.hidden  = NO;
    
@@ -135,12 +141,18 @@
       
    } /* End if () */
    
+   __CATCH(nErr);
+   
    return;
 }
 
 
 - (void)close
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    _open.hidden   = NO;
    _close.hidden  = YES;
    
@@ -149,6 +161,8 @@
       [self.service didDockerClose];
       
    } /* End if () */
+   
+   __CATCH(nErr);
    
    return;
 }

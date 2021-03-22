@@ -115,7 +115,7 @@
             
          } /* End if () */
          
-//         if ([service isAutoLoad])
+//         if ([stService isAutoLoad])
          {
             [stService install];
             

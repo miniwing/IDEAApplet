@@ -33,13 +33,13 @@
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
 #import "IDEAAppletCSSObject.h"
-#import "katana.h"
+#import "katana-parser/katana.h"
 
 #pragma mark -
 
 @interface SamuraiCSSValue : SamuraiCSSObject
 
-+ (instancetype)parseValue:(KatanaValue *)value; // override point
++ (instancetype)parseValue:(KatanaValue *)value;   // override point
 + (instancetype)parseString:(NSString *)string;    // override point
 
 @end

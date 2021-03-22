@@ -44,18 +44,36 @@
 
 - (void)openDocker
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+   
    if ([self conformsToProtocol:@protocol(ManagedDocker)])
    {
       [[SamuraiDockerManager sharedInstance] openDockerForService:(SamuraiService<ManagedDocker> *)self];
-   }
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)closeDocker
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+   
    if ([self conformsToProtocol:@protocol(ManagedDocker)])
    {
       [[SamuraiDockerManager sharedInstance] closeDockerForService:(SamuraiService<ManagedDocker> *)self];
-   }
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 @end
@@ -102,12 +120,12 @@
    int                            nErr                                     = EFAULT;
    
    NSArray                       *stServices                               = nil;
-
+   
    __TRY;
-
+   
    stServices  = [SamuraiServiceLoader sharedInstance].services;
    
-   for (SamuraiService * stService in stServices)
+   for (SamuraiService *stService in stServices)
    {
       if ([stService conformsToProtocol:@protocol(ManagedDocker)])
       {
@@ -123,7 +141,7 @@
             
          } /* End if () */
          
-         SamuraiDockerView * stDockerView = [[SamuraiDockerView alloc] init];
+         SamuraiDockerView *stDockerView = [[SamuraiDockerView alloc] init];
          [stDockerView setImageOpened:[stService.bundle imageForResource:@"docker-open.png"]];
          [stDockerView setImageClosed:[stService.bundle imageForResource:@"docker-close.png"]];
          [stDockerView setService:(SamuraiService<ManagedDocker> *)stService];
@@ -141,22 +159,33 @@
       } /* End if () */
       
    } /* End for () */
-
-    if (_dockerWindow)
-    {
-        [_dockerWindow relayoutAllDockerViews];
-    //   [_dockerWindow setHidden:NO];
-        
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.5f];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-
-        _dockerWindow.alpha   = 1.0f;
-
-        [UIView commitAnimations];
-       
-    } /* End if () */
-
+   
+   if (_dockerWindow)
+   {
+      [_dockerWindow relayoutAllDockerViews];
+      //   [_dockerWindow setHidden:NO];
+      
+//      [UIView beginAnimations:nil context:nil];
+//      [UIView setAnimationDuration:0.5f];
+//      [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+//
+//
+//      [UIView commitAnimations];
+      
+      [UIView animateWithDuration:0.25f
+                       animations:^()
+      {
+         _dockerWindow.alpha   = 1.0f;
+      }
+                       completion:^(BOOL aFinished)
+       {
+         [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
+         [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsFocusUpdate];
+         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+      }];
+            
+   } /* End if () */
+   
    __CATCH(nErr);
    
    return;
@@ -166,9 +195,9 @@
 - (void)uninstallDockers
 {
    int                            nErr                                     = EFAULT;
-
+   
    __TRY;
-
+   
    _dockerWindow = nil;
    
    __CATCH(nErr);
@@ -180,9 +209,9 @@
 - (void)openDockerForService:(SamuraiService<ManagedDocker> *)aService
 {
    int                            nErr                                     = EFAULT;
-
+   
    __TRY;
-
+   
    for (UIView * stSubview in _dockerWindow.subviews)
    {
       if ([stSubview isKindOfClass:[SamuraiDockerView class]])
@@ -207,9 +236,9 @@
 - (void)closeDockerForService:(SamuraiService<ManagedDocker> *)aService
 {
    int                            nErr                                     = EFAULT;
-
+   
    __TRY;
-
+   
    for (UIView * stSubview in _dockerWindow.subviews)
    {
       if ([stSubview isKindOfClass:[SamuraiDockerView class]])
@@ -224,7 +253,7 @@
       } /* End if () */
       
    } /* End for () */
-
+   
    __CATCH(nErr);
    
    return;

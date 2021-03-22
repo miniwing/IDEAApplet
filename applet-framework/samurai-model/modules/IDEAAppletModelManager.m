@@ -50,27 +50,37 @@
 {
    [SamuraiModelManager sharedInstance];
    
-   for ( NSString * className in [SamuraiModel subClasses] )
+   for (NSString *szClassName in [SamuraiModel subClasses])
    {
-      Class classType = NSClassFromString( className );
-
-      if ( nil == classType )
-         continue;
-
-      if ( [classType instancesRespondToSelector:@selector(sharedInstance)] )
+      Class  stClassType   = NSClassFromString(szClassName);
+      
+      if (nil == stClassType)
       {
-         [classType sharedInstance];
-      }
-   }
+         continue;
+         
+      } /* End if () */
+      
+      if ([stClassType instancesRespondToSelector:@selector(sharedInstance)])
+      {
+         [stClassType sharedInstance];
+         
+      } /* End if () */
+      
+   } /* End for () */
+   
+   return;
 }
 
 - (id)init
 {
    self = [super init];
-   if ( self )
+   
+   if (self)
    {
       _models = [NSMutableArray nonRetainingArray];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
@@ -78,36 +88,45 @@
 {
    [_models removeAllObjects];
    _models = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 - (NSArray *)loadedModels
 {
-   NSMutableArray * array = [NSMutableArray nonRetainingArray];
-   [array addObjectsFromArray:_models];
-   return array;
+   NSMutableArray *stArray = [NSMutableArray nonRetainingArray];
+   [stArray addObjectsFromArray:_models];
+   return stArray;
 }
 
 - (NSArray *)loadedModelsByClass:(Class)clazz
 {
-   if ( 0 == _models.count )
-      return nil;
-   
-   NSMutableArray * array = [NSMutableArray nonRetainingArray];
-   
-   for ( SamuraiModel * model in _models )
+   if (0 == _models.count)
    {
-      if ( [model isKindOfClass:clazz] )
+      return nil;
+      
+   } /* End if () */
+   
+   NSMutableArray *stArray = [NSMutableArray nonRetainingArray];
+   
+   for (SamuraiModel *stModel in _models)
+   {
+      if ([stModel isKindOfClass:clazz])
       {
-         [array addObject:model];
-      }
-   }
-
-   return array;
+         [stArray addObject:stModel];
+         
+      } /* End if () */
+      
+   } /* End for () */
+   
+   return stArray;
 }
 
 - (void)addModel:(id)model
 {
-   if ( NO == [_models containsObject:model] )
+   if (NO == [_models containsObject:model])
    {
       [_models addObject:model];
    }
@@ -128,13 +147,13 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Model, ModelManager )
+TEST_CASE(Model, ModelManager)
 
-DESCRIBE( before )
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 

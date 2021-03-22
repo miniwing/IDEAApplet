@@ -28,6 +28,8 @@
 //   THE SOFTWARE.
 //
 
+#import "AppletCore.h"
+
 #import "ServiceTapspot.h"
 #import "ServiceTapspotHook.h"
 #import "ServiceTapspotView.h"
@@ -44,7 +46,7 @@
 
 - (BOOL)isAutoLoad
 {
-   return NO;
+   return YES;
 }
 
 #pragma mark -

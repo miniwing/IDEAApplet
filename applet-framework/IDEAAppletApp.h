@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiApp : UIResponder<UIApplicationDelegate>
+@interface IDEAAppletApp : UIResponder<UIApplicationDelegate>
 
 @notification( PushEnabled )
 @notification( PushError   )

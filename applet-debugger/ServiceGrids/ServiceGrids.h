@@ -32,5 +32,7 @@
 
 #pragma mark -
 
-@interface ServiceGrids : SamuraiService<ManagedService, ManagedDocker>
+@interface ServiceGrids : SamuraiService < ManagedService, ManagedDocker >
+
+
 @end

@@ -32,5 +32,5 @@
 
 #pragma mark -
 
-@interface ServiceTapspot : SamuraiService<ManagedService>
+@interface ServiceTapspot : SamuraiService < ManagedService >
 @end

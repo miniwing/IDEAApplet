@@ -54,16 +54,16 @@
 
 @interface SamuraiCSSArray : SamuraiCSSObject
 
-@prop_strong( NSMutableArray *,      array );
-@prop_strong( SamuraiCSSValue *,   top );
-@prop_strong( SamuraiCSSValue *,   left );
-@prop_strong( SamuraiCSSValue *,   right );
-@prop_strong( SamuraiCSSValue *,   bottom );
+@prop_strong( NSMutableArray  *,    array  );
+@prop_strong( SamuraiCSSValue *,    top    );
+@prop_strong( SamuraiCSSValue *,    left   );
+@prop_strong( SamuraiCSSValue *,    right  );
+@prop_strong( SamuraiCSSValue *,    bottom );
 
-+ (instancetype)parseArray:(KatanaArray *)array;   // override point
-+ (instancetype)parseString:(NSString *)string;      // override point
++ (instancetype)parseArray:(KatanaArray *)aArray;  // override point
++ (instancetype)parseString:(NSString *)aString;   // override point
 
-+ (instancetype)array:(NSArray *)array;
++ (instancetype)array:(NSArray *)aArray;
 
 @end
 

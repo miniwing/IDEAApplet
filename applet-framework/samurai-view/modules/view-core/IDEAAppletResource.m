@@ -261,17 +261,17 @@ BASE_CLASS(SamuraiResource)
    {
 #if TARGET_IPHONE_SIMULATOR
       
-      if ([SamuraiWatcher sharedInstance].sourcePath)
+      if ([IDEAAppletWatcher sharedInstance].sourcePath)
       {
          NSString *srcPath = nil;
          
-         if ([aPath hasPrefix:[SamuraiWatcher sharedInstance].sourcePath])
+         if ([aPath hasPrefix:[IDEAAppletWatcher sharedInstance].sourcePath])
          {
             srcPath = aPath;
          }
          else
          {
-            srcPath = [[[SamuraiWatcher sharedInstance].sourcePath stringByAppendingPathComponent:aPath] stringByStandardizingPath];
+            srcPath = [[[IDEAAppletWatcher sharedInstance].sourcePath stringByAppendingPathComponent:aPath] stringByStandardizingPath];
          }
          
          if (srcPath)

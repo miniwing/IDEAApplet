@@ -78,44 +78,44 @@
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
+- (CGSize)computeSizeBySize:(CGSize)aSize
 {
-   return size;
+   return aSize;
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
+- (CGSize)computeSizeByWidth:(CGFloat)aWidth
 {
-   return CGSizeMake( width, self.frame.size.height );
+   return CGSizeMake(aWidth, self.frame.size.height);
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
+- (CGSize)computeSizeByHeight:(CGFloat)aHeight
 {
-   return CGSizeMake( self.frame.size.width, height );
+   return CGSizeMake(self.frame.size.width, aHeight);
 }
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(SamuraiDomNode *)aDom
 {
-   
+   return;
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(SamuraiRenderStyle *)aStyle
 {
-   
+   return;
 }
 
-- (void)applyFrame:(CGRect)newFrame
+- (void)applyFrame:(CGRect)aNewFrame
 {
    // TODO: if animation
    
-   newFrame.origin.x = isnan( newFrame.origin.x ) ? 0.0f : newFrame.origin.x;
-   newFrame.origin.y = isnan( newFrame.origin.y ) ? 0.0f : newFrame.origin.y;
-   newFrame.size.width = isnan( newFrame.size.width ) ? 0.0f : newFrame.size.width;
-   newFrame.size.height = isnan( newFrame.size.height ) ? 0.0f : newFrame.size.height;
+   aNewFrame.origin.x    = isnan(aNewFrame.origin.x) ? 0.0f : aNewFrame.origin.x;
+   aNewFrame.origin.y    = isnan(aNewFrame.origin.y) ? 0.0f : aNewFrame.origin.y;
+   aNewFrame.size.width  = isnan(aNewFrame.size.width) ? 0.0f : aNewFrame.size.width;
+   aNewFrame.size.height = isnan(aNewFrame.size.height) ? 0.0f : aNewFrame.size.height;
 
    [UIView performWithoutAnimation:^{
-      [self setFrame:newFrame];
+      [self setFrame:aNewFrame];
    }];
 }
 
@@ -138,29 +138,73 @@
 
 #pragma mark -
 
-- (NSString *)description
-{
-   [[SamuraiLogger sharedInstance] outputCapture];
-   
+//- (NSString *)description
+//{
+//   [[SamuraiLogger sharedInstance] outputCapture];
+//   
 //   [self dump];
-   
-   [[SamuraiLogger sharedInstance] outputRelease];
-   
-   return [SamuraiLogger sharedInstance].output;
-}
+//   
+//   [[SamuraiLogger sharedInstance] outputRelease];
+//   
+//   return [SamuraiLogger sharedInstance].output;
+//}
 
 - (void)dump
 {
-   SEL selector = NSSelectorFromString( @"recursiveDescription" );
-   if ( selector && [self respondsToSelector:selector] )
+   SEL    stSelector    = NSSelectorFromString(@"recursiveDescription");
+//   printf("%p\n", stSelector);
+   SEL    stSelector1   = NSSelectorFromString(@"description");
+//   printf("%p\n", stSelector1);
+
+//   IMP    stIMP         = [self methodForSelector:stSelector];
+//   printf("%p\n", stIMP);
+//   IMP    stIMP1        = [self methodForSelector:stSelector1];
+//   printf("%p\n", stIMP1);
+//
+//   Method   stMethod    = class_getClassMethod(self, stSelector);
+//   printf("%p\n", stMethod);
+//   Method   stMethod1   = class_getClassMethod(self, stSelector1);
+//   printf("%p\n", stMethod1);
+//
+//   if (stIMP == stIMP1)
+//   {
+//      return;
+//
+//   } /* End if () */
+
+   NSMethodSignature *stSignature   = nil;
+   NSMethodSignature *stSignature1  = nil;
+
+   if (stSelector && [self respondsToSelector:stSelector])
    {
-      NSMethodSignature * signature = [self methodSignatureForSelector:selector];
-      NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
+      stSignature = [self methodSignatureForSelector:stSelector];
       
-      [invocation setTarget:self];
-      [invocation setSelector:selector];
-      [invocation invoke];
-   }
+   } /* End if () */
+   
+   if (stSelector1 && [self respondsToSelector:stSelector1])
+   {
+      stSignature1   = [self methodSignatureForSelector:stSelector];
+      
+   } /* End if () */
+
+   if (stSignature == stSignature1)
+   {
+      return;
+      
+   } /* End if () */
+   
+   if (stSelector)
+   {
+      stSignature = [self methodSignatureForSelector:stSelector];
+      NSInvocation   *stInvocation  = [NSInvocation invocationWithMethodSignature:stSignature];
+      
+      [stInvocation setTarget:self];
+      [stInvocation setSelector:stSelector];
+      [stInvocation invoke];
+      
+   } /* End if () */
+   
+   return;
 }
 
 #pragma mark -
@@ -172,10 +216,12 @@
 
 - (void)unserialize:(id)obj
 {
+   return;
 }
 
 - (void)zerolize
 {
+   return;
 }
 
 @end
@@ -188,13 +234,13 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( UI, UIView )
+TEST_CASE(UI, UIView)
 
-DESCRIBE( before )
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 

@@ -62,7 +62,7 @@
 - (NSInteger)month
 {
 #ifdef __IPHONE_8_0
-   return [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:self].year;
+   return [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:self].month;
 #else
    return [[NSCalendar currentCalendar] components:NSMonthCalendarUnit fromDate:self].month;
 #endif
@@ -71,7 +71,7 @@
 - (NSInteger)day
 {
 #ifdef __IPHONE_8_0
-   return [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:self].year;
+   return [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:self].day;
 #else
    return [[NSCalendar currentCalendar] components:NSDayCalendarUnit fromDate:self].day;
 #endif
@@ -80,7 +80,7 @@
 - (NSInteger)hour
 {
 #ifdef __IPHONE_8_0
-   return [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:self].year;
+   return [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:self].hour;
 #else
    return [[NSCalendar currentCalendar] components:NSHourCalendarUnit fromDate:self].hour;
 #endif
@@ -89,7 +89,7 @@
 - (NSInteger)minute
 {
 #ifdef __IPHONE_8_0
-   return [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDate:self].year;
+   return [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDate:self].minute;
 #else
    return [[NSCalendar currentCalendar] components:NSMinuteCalendarUnit fromDate:self].minute;
 #endif
@@ -98,12 +98,11 @@
 - (NSInteger)second
 {
 #ifdef __IPHONE_8_0
-   return [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:self].year;
+   return [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:self].second;
 #else
    return [[NSCalendar currentCalendar] components:NSSecondCalendarUnit fromDate:self].second;
 #endif
 }
-
 - (WeekdayType)weekday
 {
 #ifdef __IPHONE_8_0

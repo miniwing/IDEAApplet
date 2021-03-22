@@ -33,15 +33,15 @@
 
 #pragma mark -
 
-#undef   BASE_CLASS
+#undef  BASE_CLASS
 #define BASE_CLASS( __class ) \
       + (Class)baseClass \
       { \
          return NSClassFromString( @(#__class) ); \
       }
 
-#undef   CONVERT_CLASS
-#define   CONVERT_CLASS( __name, __class ) \
+#undef  CONVERT_CLASS
+#define CONVERT_CLASS( __name, __class ) \
       + (Class)convertClass_##__name \
       { \
          return NSClassFromString( @(#__class) ); \
@@ -53,14 +53,14 @@
 
 + (Class)baseClass;
 
-+ (id)unserializeForUnknownValue:(id)value;
-+ (id)serializeForUnknownValue:(id)value;
++ (id)unserializeForUnknownValue:(id)aValue;
++ (id)serializeForUnknownValue:(id)aValue;
 
-- (void)deepEqualsTo:(id)obj;
-- (void)deepCopyFrom:(id)obj;
+- (void)deepEqualsTo:(id)aObject;
+- (void)deepCopyFrom:(id)aObject;
 
-+ (id)unserialize:(id)obj;
-+ (id)unserialize:(id)obj withClass:(Class)clazz;
++ (id)unserialize:(id)aObject;
++ (id)unserialize:(id)aObject withClass:(Class)aClass;
 
 - (id)JSONEncoded;
 - (id)JSONDecoded;
@@ -77,9 +77,9 @@
 - (NSNumber *)toNumber;
 - (NSString *)toString;
 
-- (id)clone;               // override point
-- (id)serialize;            // override point
-- (void)unserialize:(id)obj;   // override point
-- (void)zerolize;            // override point
+- (id)clone;                     // override point
+- (id)serialize;                 // override point
+- (void)unserialize:(id)aObject; // override point
+- (void)zerolize;                // override point
 
 @end

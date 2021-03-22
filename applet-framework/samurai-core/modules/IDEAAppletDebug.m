@@ -335,6 +335,7 @@ static void __uncaughtSignalHandler( int signal )
 
 - (void)dump
 {
+   return;
 }
 
 @end

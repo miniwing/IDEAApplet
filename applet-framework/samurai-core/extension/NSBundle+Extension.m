@@ -60,54 +60,58 @@
    return [self.resourcePath pathExtension];
 }
 
-- (id)dataForResource:(NSString *)resName
+- (id)dataForResource:(NSString *)aResName
 {
-   NSString *   path = [NSString stringWithFormat:@"%@/%@", self.resourcePath, resName];
-   NSData *   data = [NSData dataWithContentsOfFile:path];
+   NSString *szPath  = [NSString stringWithFormat:@"%@/%@", self.resourcePath, aResName];
+   NSData   *stData  = [NSData dataWithContentsOfFile:szPath];
 
-   return data;
+   return stData;
 }
 
-- (id)textForResource:(NSString *)resName
+- (id)textForResource:(NSString *)aResName
 {
-   NSString *   path = [NSString stringWithFormat:@"%@/%@", self.resourcePath, resName];
-   NSString *   data = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+   NSString *szPath  = [NSString stringWithFormat:@"%@/%@", self.resourcePath, aResName];
+   NSString *stData  = [NSString stringWithContentsOfFile:szPath encoding:NSUTF8StringEncoding error:NULL];
    
-   return data;
+   return stData;
 }
 
-- (id)imageForResource:(NSString *)resName
+- (id)imageForResource:(NSString *)aResName
 {
-   NSString *   extensionName = [resName pathExtension];
-   NSString *   resourceName = [resName substringToIndex:(resName.length - extensionName.length - 1)];
-
-   UIImage *   image = nil;
-
-   if ( nil == image && [[SamuraiSystem sharedInstance] isScreen640x1136] )
+   NSString *szExtensionName  = [aResName pathExtension];
+   NSString *szResourceName   = [aResName substringToIndex:(aResName.length - szExtensionName.length - 1)];
+   
+   UIImage  *stImage          = nil;
+   
+   if ( nil == stImage && [[SamuraiSystem sharedInstance] isScreen640x1136] )
    {
-      NSString *   path = [NSString stringWithFormat:@"%@/%@-568h@2x.%@", self.resourcePath, resourceName, extensionName];
-      NSString *   path2 = [NSString stringWithFormat:@"%@/%@-568h.%@", self.resourcePath, resourceName, extensionName];
+      NSString *szPath  = [NSString stringWithFormat:@"%@/%@-568h@2x.%@", self.resourcePath, szResourceName, szExtensionName];
+      NSString *szPath2 = [NSString stringWithFormat:@"%@/%@-568h.%@", self.resourcePath, szResourceName, szExtensionName];
       
-      image = [[UIImage alloc] initWithContentsOfFile:path];
-      if ( nil == image )
+      stImage = [[UIImage alloc] initWithContentsOfFile:szPath];
+      if ( nil == stImage )
       {
-         image = [[UIImage alloc] initWithContentsOfFile:path2];
-      }
-   }
-
-   if ( nil == image )
-   {
-      NSString *   path = [NSString stringWithFormat:@"%@/%@@2x.%@", self.resourcePath, resourceName, extensionName];
-      NSString *   path2 = [NSString stringWithFormat:@"%@/%@.%@", self.resourcePath, resourceName, extensionName];
-
-      image = [[UIImage alloc] initWithContentsOfFile:path];
-      if ( nil == image )
-      {
-         image = [[UIImage alloc] initWithContentsOfFile:path2];
-      }
-   }
+         stImage = [[UIImage alloc] initWithContentsOfFile:szPath2];
+         
+      } /* End if () */
+      
+   } /* End if () */
    
-   return image;
+   if ( nil == stImage )
+   {
+      NSString *szPath  = [NSString stringWithFormat:@"%@/%@@2x.%@", self.resourcePath, szResourceName, szExtensionName];
+      NSString *szPath2 = [NSString stringWithFormat:@"%@/%@.%@", self.resourcePath, szResourceName, szExtensionName];
+      
+      stImage = [[UIImage alloc] initWithContentsOfFile:szPath];
+      if ( nil == stImage )
+      {
+         stImage = [[UIImage alloc] initWithContentsOfFile:szPath2];
+         
+      } /* End if () */
+      
+   } /* End if () */
+   
+   return stImage;
 }
 
 @end

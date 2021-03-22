@@ -55,7 +55,7 @@
 {
    @weakify(self);
    
-   SamuraiSignalBlock block = ^ NSObject * (NSString * name, id signalBlock)
+   SamuraiSignalBlock    stBlock    = ^ NSObject * (NSString * name, id signalBlock)
    {
       @strongify(self);
       
@@ -78,8 +78,9 @@
       return self;
    };
    
-   return [block copy];
+   return [stBlock copy];
 }
+
 
 #pragma mark -
 
@@ -88,27 +89,33 @@
    return [self userResponders];
 }
 
+
 - (id)signalAlias
 {
    return nil;
 }
+
 
 - (NSString *)signalNamespace
 {
    return NSStringFromClass([self class]);
 }
 
+
 - (NSString *)signalTag
 {
    return nil;
 }
+
 
 - (NSString *)signalDescription
 {
    return [NSString stringWithFormat:@"%@", [[self class] description]];
 }
 
+
 #pragma mark -
+
 
 - (id)userRespondersOrCreate
 {
@@ -125,6 +132,7 @@
    return responders;
 }
 
+
 - (NSMutableArray *)userResponders
 {
    const char * storeKey = "NSObject.userResponders";
@@ -132,7 +140,9 @@
    return [self getAssociatedObjectForKey:storeKey];
 }
 
+
 #pragma mark -
+
 
 - (BOOL)hasSignalResponder:(id)obj
 {
@@ -154,6 +164,7 @@
    return NO;
 }
 
+
 - (void)addSignalResponder:(id)obj
 {
    NSMutableArray * responders = [self userRespondersOrCreate];
@@ -163,6 +174,7 @@
       [responders addObject:obj];
    }
 }
+
 
 - (void)removeSignalResponder:(id)obj
 {
@@ -174,6 +186,7 @@
    }
 }
 
+
 - (void)removeAllSignalResponders
 {
    NSMutableArray * responders = [self userResponders];
@@ -184,6 +197,7 @@
    }
 }
 
+
 #pragma mark -
 
 - (void)handleSignal:(SamuraiSignal *)that
@@ -191,44 +205,52 @@
    UNUSED(that);
 }
 
+
 @end
 
 #pragma mark -
 
 @implementation NSObject(SignalSender)
 
-- (SamuraiSignal *)sendSignal:(NSString *)name
+
+- (SamuraiSignal *)sendSignal:(NSString *)aName
 {
-   return [self sendSignal:name from:self withObject:nil];
+   return [self sendSignal:aName from:self withObject:nil];
 }
 
-- (SamuraiSignal *)sendSignal:(NSString *)name withObject:(NSObject *)object
+
+- (SamuraiSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject
 {
-   return [self sendSignal:name from:self withObject:object];
+   return [self sendSignal:aName from:self withObject:aObject];
 }
 
-- (SamuraiSignal *)sendSignal:(NSString *)name from:(id)source
+
+- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource
 {
-   return [self sendSignal:name from:source withObject:nil];
+   return [self sendSignal:aName from:aSource withObject:nil];
 }
 
-- (SamuraiSignal *)sendSignal:(NSString *)name from:(id)source withObject:(NSObject *)object
+
+- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject
 {
-   SamuraiSignal * signal = [SamuraiSignal signal];
+   SamuraiSignal  *stSignal   = [SamuraiSignal signal];
    
-   signal.source = source ? source : self;
-   signal.target = self;
-   signal.name = name;
-   signal.object = object;
+   stSignal.source   = aSource ? aSource : self;
+   stSignal.target   = self;
+   stSignal.name     = aName;
+   stSignal.object   = aObject;
    
-   [signal send];
+   [stSignal send];
    
-   return signal;
+   return stSignal;
 }
+
 
 @end
 
+
 #pragma mark -
+
 
 @implementation SamuraiSignal
 
@@ -237,36 +259,36 @@
 //@def_prop_unsafe(id,                  foreign);
 //@def_prop_strong(NSString *,            prefix);
 
-@def_prop_unsafe(id,                  source);
-@def_prop_unsafe(id,                  target);
+@def_prop_unsafe  (id                   ,    source);
+@def_prop_unsafe  (id                   ,    target);
 
-@def_prop_copy(BlockType,               stateChanged);
-@def_prop_assign(SignalState,            state);
-@def_prop_dynamic(BOOL,               sending);
-@def_prop_dynamic(BOOL,               arrived);
-@def_prop_dynamic(BOOL,               dead);
+@def_prop_copy    (BlockType            ,    stateChanged);
+@def_prop_assign  (SignalState          ,    state);
+@def_prop_dynamic (BOOL                 ,    sending);
+@def_prop_dynamic (BOOL                 ,    arrived);
+@def_prop_dynamic (BOOL                 ,    dead);
 
-@def_prop_assign(BOOL,                  hit);
-@def_prop_assign(NSUInteger,            hitCount);
-@def_prop_dynamic(NSString *,            prettyName);
+@def_prop_assign  (BOOL                 ,    hit);
+@def_prop_assign  (NSUInteger           ,    hitCount);
+@def_prop_dynamic (NSString            *,    prettyName);
 
-@def_prop_strong(NSString *,            name);
-@def_prop_strong(id,                  object);
-@def_prop_strong(NSMutableDictionary *,   input);
-@def_prop_strong(NSMutableDictionary *,   output);
+@def_prop_strong  (NSString            *,    name);
+@def_prop_strong  (id                   ,    object);
+@def_prop_strong  (NSMutableDictionary *,    input);
+@def_prop_strong  (NSMutableDictionary *,    output);
 
-@def_prop_assign(NSTimeInterval,         initTimeStamp);
-@def_prop_assign(NSTimeInterval,         sendTimeStamp);
-@def_prop_assign(NSTimeInterval,         arriveTimeStamp);
+@def_prop_assign  (NSTimeInterval       ,    initTimeStamp);
+@def_prop_assign  (NSTimeInterval       ,    sendTimeStamp);
+@def_prop_assign  (NSTimeInterval       ,    arriveTimeStamp);
 
-@def_prop_dynamic(NSTimeInterval,         timeElapsed);
-@def_prop_dynamic(NSTimeInterval,         timeCostPending);
-@def_prop_dynamic(NSTimeInterval,         timeCostExecution);
+@def_prop_dynamic (NSTimeInterval       ,    timeElapsed);
+@def_prop_dynamic (NSTimeInterval       ,    timeCostPending);
+@def_prop_dynamic (NSTimeInterval       ,    timeCostExecution);
 
-@def_prop_assign(NSInteger,            jumpCount);
-@def_prop_strong(NSArray *,            jumpPath);
+@def_prop_assign  (NSInteger            ,    jumpCount);
+@def_prop_strong  (NSArray             *,    jumpPath);
 
-BASE_CLASS(SamuraiSignal)
+BASE_CLASS  (SamuraiSignal)
 
 #pragma mark -
 
@@ -462,6 +484,7 @@ BASE_CLASS(SamuraiSignal)
       return [[SamuraiSignalBus sharedInstance] send:self];
    };
 }
+
 
 - (BOOL)forward
 {

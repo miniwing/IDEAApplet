@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 Geek-Zoo Studio. All rights reserved.
 //
 
+#import "AppletCore.h"
+
 #import "ServiceConsoleWindow.h"
 #import "ServiceConsoleLogView.h"
 

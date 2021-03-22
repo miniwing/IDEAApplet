@@ -179,6 +179,7 @@ static NSUInteger __domSeed = 0;
 
 - (void)dump
 {
+   return;
 }
 
 @end

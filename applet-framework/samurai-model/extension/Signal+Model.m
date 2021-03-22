@@ -50,13 +50,16 @@
 - (SamuraiModel *)sourceModel
 {
    if ( nil == self.source )
+   {
       return nil;
-
+      
+   } /* End if () */
+   
    if ( [self.source isKindOfClass:[SamuraiModel class]] )
    {
       return (SamuraiModel *)self.source;
    }
-
+   
    return nil;
 }
 

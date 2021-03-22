@@ -44,12 +44,24 @@
 #pragma mark - UIStatusBar
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
+   if (nil != UIApplication.sharedApplication.delegate.window.rootViewController)
+   {
+      return UIApplication.sharedApplication.delegate.window.rootViewController.preferredStatusBarStyle;
+
+   } /* End if () */
+   
    return [[UIApplication sharedApplication] statusBarStyle];
 }
 
 
 - (BOOL)prefersStatusBarHidden
 {
+   if (nil != UIApplication.sharedApplication.delegate.window.rootViewController)
+   {
+      return UIApplication.sharedApplication.delegate.window.rootViewController.prefersStatusBarHidden;
+
+   } /* End if () */
+
    return [UIApplication sharedApplication].isStatusBarHidden;
 }
 

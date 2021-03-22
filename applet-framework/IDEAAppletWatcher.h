@@ -34,15 +34,15 @@
 
 #pragma mark -
 
-@interface SamuraiWatcher : NSObject
+@interface IDEAAppletWatcher : NSObject
 
 @prop_strong( NSMutableArray  *,    sourceFiles );
-@prop_strong( NSString        *,    sourcePath );
+@prop_strong( NSString        *,    sourcePath  );
 
 @notification( SourceFileDidChanged )
 @notification( SourceFileDidRemoved )
 
-@singleton( SamuraiWatcher )
+@singleton( IDEAAppletWatcher )
 
 - (void)watch:(NSString *)path;
 

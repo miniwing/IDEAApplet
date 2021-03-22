@@ -34,38 +34,38 @@
 #import "IDEAAppletProperty.h"
 #import "IDEAAppletSingleton.h"
 
-#undef   TEST_CASE
-#define   TEST_CASE( __module, __name ) \
-      @interface __TestCase__##__module##_##__name : SamuraiTestCase \
-      @end \
-      @implementation __TestCase__##__module##_##__name
+#undef  TEST_CASE
+#define TEST_CASE( __module, __name )  \
+        @interface __TestCase__##__module##_##__name : SamuraiTestCase \
+        @end                           \
+        @implementation __TestCase__##__module##_##__name
 
-#undef   TEST_CASE_END
-#define   TEST_CASE_END \
-      @end
+#undef  TEST_CASE_END
+#define TEST_CASE_END \
+        @end
 
-#undef   DESCRIBE
-#define   DESCRIBE( ... ) \
+#undef  DESCRIBE
+#define DESCRIBE( ... ) \
       - (void) macro_concat( runTest_, __LINE__ )
 
-#undef   REPEAT
+#undef  REPEAT
 #define REPEAT( __n ) \
       for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
 
-#undef   EXPECTED
+#undef  EXPECTED
 #define EXPECTED( ... ) \
       if ( !(__VA_ARGS__) ) \
       { \
          @throw [SamuraiTestFailure expr:#__VA_ARGS__ file:__FILE__ line:__LINE__]; \
       }
 
-#undef   TIMES
+#undef  TIMES
 #define TIMES( __n ) \
       /* [[SamuraiUnitTest sharedInstance] writeLog:@"Loop %d times @ %@(#%d)", __n, [@(__FILE__) lastPathComponent], __LINE__]; */ \
       for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
 
-#undef   TEST
-#define   TEST( __name, __block ) \
+#undef  TEST
+#define TEST( __name, __block ) \
       [[SamuraiUnitTest sharedInstance] writeLog:@"> %@", @(__name)]; \
       __block
 

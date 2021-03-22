@@ -52,7 +52,7 @@
 
 #undef  handleNotification
 #define handleNotification( ... )            \
-        - (void) macro_join( handleNotification, __VA_ARGS__):(NSNotification *)notification
+        - (void) macro_join( handleNotification, __VA_ARGS__):(NSNotification *)aNotification
 
 #pragma mark -
 

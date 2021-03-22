@@ -39,13 +39,13 @@
 
 #pragma mark -
 
-@implementation Samurai
+@implementation IDEAApplet
 
-@def_singleton(Samurai)
+@def_singleton(IDEAApplet)
 
 + (void)load
 {
-   [Samurai sharedInstance];
+   [IDEAApplet sharedInstance];
    
    return;
 }
@@ -193,7 +193,7 @@
 
 - (void)startup
 {
-   [[SamuraiClassLoader classLoader] loadClasses:@[
+   [[IDEAAppletClassLoader classLoader] loadClasses:@[
       @"__ClassLoader_Config",
       @"__ClassLoader_Core",
       @"__ClassLoader_Event",
@@ -202,12 +202,13 @@
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
       @"__ClassLoader_UI",
       @"__ClassLoader_Service"
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+      
    ]];
    
 #if __SAMURAI_TESTING__
    [[SamuraiUnitTest sharedInstance] run];
-#endif   // #if __SAMURAI_TESTING__
+#endif // #if __SAMURAI_TESTING__
    
    return;
 }

@@ -32,5 +32,5 @@
 
 #pragma mark -
 
-@interface ServiceBorder : SamuraiService<ManagedService, ManagedDocker>
+@interface ServiceBorder : SamuraiService <ManagedService, ManagedDocker>
 @end

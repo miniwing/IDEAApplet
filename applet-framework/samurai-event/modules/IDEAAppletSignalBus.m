@@ -58,6 +58,10 @@
 
 - (id)init
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    self = [super init];
    
    if (self)
@@ -65,6 +69,8 @@
       _handlers = [[NSMutableDictionary alloc] init];
       
    } /* End if () */
+   
+   __CATCH(nErr);
    
    return self;
 }
@@ -81,6 +87,10 @@
 
 - (BOOL)send:(SamuraiSignal *)aSignal
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    if (aSignal.dead)
    {
       ERROR(@"signal '%@', already dead", aSignal.prettyName);
@@ -90,12 +100,10 @@
    } /* End if () */
    
 #if __SAMURAI_DEBUG__
-#if __SIGNAL_CALLSTACK__
-   
+#  if __SIGNAL_CALLSTACK__
    PRINT(@"");
    PERF(@"signal '%@'", aSignal.prettyName);
-   
-#endif
+#  endif
 #endif
    
    //// Check if foreign source
@@ -122,14 +130,16 @@
    
    if (aSignal.target)
    {
-      aSignal.sending = YES;
+      aSignal.sending   = YES;
       
       [self routes:aSignal];
-   }
+      
+   } /* End if () */
    else
    {
       aSignal.arrived = YES;
-   }
+      
+   } /* End else */
    
 #if __SAMURAI_DEBUG__
 #  if __SAMURAI_LOGGING__
@@ -142,45 +152,55 @@
       if (aSignal.jumpPath)
       {
          PERF(@"Signal '%@'%@%@%@[Done]", aSignal.prettyName, newline, [aSignal.jumpPath join:newline], newline);
-      }
+         
+      } /* End if () */
       else
       {
          PERF(@"Signal '%@'%@[Done]", aSignal.prettyName, newline);
-      }
+         
+      } /* End else */
    }
    else if (aSignal.dead)
    {
       if (aSignal.jumpPath)
       {
          PERF(@"Signal '%@'%@%@%@[Dead]", aSignal.prettyName, newline, [aSignal.jumpPath join:newline], newline);
-      }
+         
+      } /* End if () */
       else
       {
          PERF(@"Signal '%@'%s[Dead]", aSignal.prettyName, newline);
-      }
-   }
+         
+      } /* End else */
+      
+   } /* End else if () */
+   
+   __CATCH(nErr);
    
    return aSignal.arrived;
 }
 
-- (BOOL)forward:(SamuraiSignal *)signal
+- (BOOL)forward:(SamuraiSignal *)aSignal
 {
-   return [self forward:signal to:nil];
+   return [self forward:aSignal to:nil];
 }
 
-- (BOOL)forward:(SamuraiSignal *)signal to:(id)target
+- (BOOL)forward:(SamuraiSignal *)aSignal to:(id)aTarget
 {
-   if (signal.dead)
+   if (aSignal.dead)
    {
-      ERROR(@"signal '%@', already dead", signal.prettyName);
+      ERROR(@"signal '%@', already dead", aSignal.prettyName);
+      
       return NO;
-   }
+   } /* End if () */
    
-   if (nil == signal.target)
+   if (nil == aSignal.target)
    {
-      ERROR(@"signal '%@', no target", signal.prettyName);
+      ERROR(@"signal '%@', no target", aSignal.prettyName);
+      
       return NO;
-   }
+      
+   } /* End if () */
    
    //   if (nil == target)
    //   {
@@ -190,13 +210,15 @@
    //      }
    //   }
    
-   [signal log:signal.target];
+   [aSignal log:aSignal.target];
    
-   if (nil == target)
+   if (nil == aTarget)
    {
-      signal.arrived = YES;
+      aSignal.arrived = YES;
+      
       return YES;
-   }
+      
+   } /* End if () */
    
    //// Check if foreign source
    //
@@ -222,154 +244,183 @@
    
    // Routes signal
    
-   signal.target = target;
-   signal.sending = YES;
+   aSignal.target    = aTarget;
+   aSignal.sending   = YES;
    
-   [self routes:signal];
+   [self routes:aSignal];
    
-   return signal.arrived;
+   return aSignal.arrived;
 }
 
-- (void)routes:(SamuraiSignal *)signal
+- (void)routes:(SamuraiSignal *)aSignal
 {
-   NSMutableArray * classes = [NSMutableArray nonRetainingArray];
+   int                            nErr                                     = EFAULT;
+
+   NSMutableArray                *stClasses                                = [NSMutableArray nonRetainingArray];
+
+   __TRY;
    
-   for (Class clazz = [signal.target class]; nil != clazz; clazz = class_getSuperclass(clazz))
+   for (Class stClass = [aSignal.target class]; nil != stClass; stClass = class_getSuperclass(stClass))
    {
-      [classes addObject:clazz];
-   }
-   
-   [self routes:signal to:signal.target forClasses:classes];
-   
-   if (NO == signal.arrived)
-   {
-      NSObject *      object = [signal.target signalResponders];
-      EncodingType   objectType = [SamuraiEncoding typeOfObject:object];
+      [stClasses addObject:stClass];
       
-      if (nil == object)
+   } /* End for () */
+   
+   [self routes:aSignal to:aSignal.target forClasses:stClasses];
+   
+   if (NO == aSignal.arrived)
+   {
+      NSObject       *stObject      = [aSignal.target signalResponders];
+      EncodingType    eObjectType   = [SamuraiEncoding typeOfObject:stObject];
+      
+      if (nil == stObject)
       {
-         signal.arrived = YES;
-      }
+         aSignal.arrived = YES;
+         
+      } /* End if () */
       else
       {
-         if (EncodingType_Array == objectType)
+         if (EncodingType_Array == eObjectType)
          {
-            NSArray * responders = (NSArray *)object;
+            NSArray  *stResponders = (NSArray *)stObject;
             
-            if (1 == responders.count)
+            if (1 == stResponders.count)
             {
-               if (NO == signal.dead)
+               if (NO == aSignal.dead)
                {
-                  [signal log:signal.target];
+                  [aSignal log:aSignal.target];
                   
-                  signal.target = [responders objectAtIndex:0];
-                  signal.sending = YES;
+                  aSignal.target = [stResponders objectAtIndex:0];
+                  aSignal.sending = YES;
                   
-                  [self routes:signal];
-               }
+                  [self routes:aSignal];
+                  
+               } /* End if () */
                
-               //   [self forward:signal to:[responders objectAtIndex:0]];
-            }
+//               [self forward:signal to:[responders objectAtIndex:0]];
+               
+            } /* End if () */
             else
             {
-               for (NSObject * responder in responders)
+               for (NSObject *stResponder in stResponders)
                {
-                  SamuraiSignal * clonedSignal = [signal clone];
+                  SamuraiSignal  *stClonedSignal = [aSignal clone];
                   
-                  if (clonedSignal)
+                  if (stClonedSignal)
                   {
-                     if (NO == clonedSignal.dead)
+                     if (NO == stClonedSignal.dead)
                      {
-                        [clonedSignal log:clonedSignal.target];
+                        [stClonedSignal log:stClonedSignal.target];
                         
-                        clonedSignal.target = responder;
-                        clonedSignal.sending = YES;
+                        stClonedSignal.target = stResponder;
+                        stClonedSignal.sending = YES;
                         
-                        [self routes:clonedSignal];
-                     }
+                        [self routes:stClonedSignal];
+                        
+                     } /* End if () */
                      
                      //   [self forward:clonedSignal to:responder];
-                  }
-               }
-            }
+                     
+                  } /* End if () */
+                  
+               } /* End for () */
+               
+            } /* End else */
          }
          else
          {
-            if (NO == signal.dead)
+            if (NO == aSignal.dead)
             {
-               [signal log:signal.target];
+               [aSignal log:aSignal.target];
                
-               signal.target = object;
-               signal.sending = YES;
+               aSignal.target = stObject;
+               aSignal.sending = YES;
                
-               [self routes:signal];
-            }
+               [self routes:aSignal];
+               
+            } /* End if () */
             
             //   [self forward:signal to:object];
-         }
-      }
-   }
+            
+         } /* End else */
+         
+      } /* End else */
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
-- (void)routes:(SamuraiSignal *)signal to:(NSObject *)target forClasses:(NSArray *)classes
+- (void)routes:(SamuraiSignal *)aSignal to:(NSObject *)aTarget forClasses:(NSArray *)aClasses
 {
-   if (0 == classes.count)
+   if (0 == aClasses.count)
    {
       return;
-   }
+      
+   } /* End if () */
    
-   if (nil == signal.source || nil == signal.target)
+   if (nil == aSignal.source || nil == aSignal.target)
    {
       ERROR(@"No signal source/target");
-      return;
-   }
-   
-   NSObject *   prioAlias = nil;
-   NSString *   prioSelector = nil;
-   NSString *   nameSpace = nil;
-   NSString *   tagString = nil;
-   
-   NSString *   signalPrefix = nil;
-   NSString *   signalClass = nil;
-   NSString *   signalMethod = nil;
-   NSString *   signalMethod2 = nil;
-   
-   if (signal.name && [signal.name hasPrefix:@"signal."])
-   {
-      NSArray * array = [signal.name componentsSeparatedByString:@"."];
-      if (array && array.count > 1)
-      {
-         signalPrefix = (NSString *)[array safeObjectAtIndex:0];
-         signalClass = (NSString *)[array safeObjectAtIndex:1];
-         signalMethod = (NSString *)[array safeObjectAtIndex:2];
-         signalMethod2 = (NSString *)[array safeObjectAtIndex:3];
-         
-         ASSERT([signalPrefix isEqualToString:@"signal"]);
-      }
-   }
-   
-   if (signal.source)
-   {
-      nameSpace = [signal.source signalNamespace];
-      if (nameSpace && nameSpace.length)
-      {
-         nameSpace = [nameSpace stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-         nameSpace = [nameSpace stringByReplacingOccurrencesOfString:@":" withString:@"_"];
-      }
       
-      tagString = [signal.source signalTag];
-      if (tagString && tagString.length)
+      return;
+      
+   } /* End if () */
+   
+   NSObject    *szPrioAlias      = nil;
+   NSString    *szPrioSelector   = nil;
+   NSString    *szNameSpace      = nil;
+   NSString    *szTagString      = nil;
+      
+   NSString    *szSignalPrefix   = nil;
+   NSString    *szSignalClass    = nil;
+   NSString    *szSignalMethod   = nil;
+   NSString    *szSignalMethod2  = nil;
+   
+   if (aSignal.name && [aSignal.name hasPrefix:@"signal."])
+   {
+      NSArray  *stArray = [aSignal.name componentsSeparatedByString:@"."];
+      
+      if (stArray && stArray.count > 1)
       {
-         tagString = [tagString stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-         tagString = [tagString stringByReplacingOccurrencesOfString:@":" withString:@"_"];
-      }
+         szSignalPrefix = (NSString *)[stArray safeObjectAtIndex:0];
+         szSignalClass = (NSString *)[stArray safeObjectAtIndex:1];
+         szSignalMethod = (NSString *)[stArray safeObjectAtIndex:2];
+         szSignalMethod2 = (NSString *)[stArray safeObjectAtIndex:3];
+         
+         ASSERT([szSignalPrefix isEqualToString:@"signal"]);
+         
+      } /* End if () */
+      
+   } /* End if () */
+   
+   if (aSignal.source)
+   {
+      szNameSpace = [aSignal.source signalNamespace];
+      if (szNameSpace && szNameSpace.length)
+      {
+         szNameSpace = [szNameSpace stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+         szNameSpace = [szNameSpace stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+         
+      } /* End if () */
+      
+      szTagString = [aSignal.source signalTag];
+      if (szTagString && szTagString.length)
+      {
+         szTagString = [szTagString stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+         szTagString = [szTagString stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+         
+      } /* End if () */
       
       //      if (nameSpace || tagString)
       {
-         if (nameSpace && tagString)
+         if (szNameSpace && szTagString)
          {
-            prioSelector = [NSString stringWithFormat:@"%@_%@", nameSpace, tagString];
-         }
+            szPrioSelector = [NSString stringWithFormat:@"%@_%@", szNameSpace, szTagString];
+            
+         } /* End if () */
          //         else if (nameSpace)
          //         {
          //            prioSelector = nameSpace;
@@ -380,154 +431,179 @@
          //         }
       }
       
-      prioAlias = [signal.source signalAlias];
-   }
-   
-   for (Class targetClass in classes)
-   {
-      NSString *   cacheName = nil;
-      NSString *   cachedSelectorName = nil;
-      SEL         cachedSelector = nil;
+      szPrioAlias = [aSignal.source signalAlias];
       
-      if (prioSelector)
+   } /* End if () */
+   
+   for (Class stTargetClass in aClasses)
+   {
+      NSString *szCacheName            = nil;
+      NSString *szCachedSelectorName   = nil;
+      SEL       stCachedSelector       = nil;
+      
+      if (szPrioSelector)
       {
-         cacheName = [NSString stringWithFormat:@"%@/%@/%@", signal.name, [targetClass description], prioSelector];
-      }
+         szCacheName = [NSString stringWithFormat:@"%@/%@/%@", aSignal.name, [stTargetClass description], szPrioSelector];
+         
+      } /* End if () */
       else
       {
-         cacheName = [NSString stringWithFormat:@"%@/%@", signal.name, [targetClass description]];
-      }
-      
-      cachedSelectorName = [_handlers objectForKey:cacheName];
-      
-      if (cachedSelectorName)
-      {
-         cachedSelector = NSSelectorFromString(cachedSelectorName);
+         szCacheName = [NSString stringWithFormat:@"%@/%@", aSignal.name, [stTargetClass description]];
          
-         if (cachedSelector)
+      } /* End if () */
+      
+      szCachedSelectorName = [_handlers objectForKey:szCacheName];
+      
+      if (szCachedSelectorName)
+      {
+         stCachedSelector = NSSelectorFromString(szCachedSelectorName);
+         
+         if (stCachedSelector)
          {
-            BOOL hit = [self signal:signal perform:cachedSelector class:targetClass target:target];
+            BOOL hit = [self signal:aSignal perform:stCachedSelector class:stTargetClass target:aTarget];
             if (hit)
             {
                //               continue;
                break;
-            }
-         }
-      }
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
+      } /* End if () */
       
       //      do
       {
-         NSString *   selectorName = nil;
-         SEL         selector = nil;
-         BOOL      performed = NO;
+         NSString *szSelectorName   = nil;
+         SEL       stSelector       = nil;
+         BOOL      bPerformed       = NO;
          
          // native selector
          
-         if ([signal.name hasPrefix:@"signal."])
+         if ([aSignal.name hasPrefix:@"signal."])
          {
-            if (NO == performed)
+            if (NO == bPerformed)
             {
-               selectorName = [signal.name substringFromIndex:@"signal.".length];
-               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+               szSelectorName = [aSignal.name substringFromIndex:@"signal.".length];
+               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                
-               selector = NSSelectorFromString(selectorName);
+               stSelector = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
-            }
-         }
+                  
+               } /* End if () */
+               
+            } /* End if () */
+            
+         } /* End if () */
          
-         if ([signal.name hasPrefix:@"selector."])
+         if ([aSignal.name hasPrefix:@"selector."])
          {
-            if (NO == performed)
+            if (NO == bPerformed)
             {
-               selectorName = [signal.name substringFromIndex:@"selector.".length];
-               //               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-               //               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-               //               selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+               szSelectorName = [aSignal.name substringFromIndex:@"selector.".length];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                
-               selector = NSSelectorFromString(selectorName);
+               stSelector = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
-            }
-         }
+                  
+               } /* End if () */
+               
+            } /* End if () */
+            
+         } /* End if () */
          
-         if (NO == performed)
+         if (NO == bPerformed)
          {
-            if ([signal.name hasSuffix:@":"])
+            if ([aSignal.name hasSuffix:@":"])
             {
-               selectorName = signal.name;
-            }
+               szSelectorName = aSignal.name;
+               
+            } /* End if () */
             else
             {
-               selectorName = [NSString stringWithFormat:@"%@:", signal.name];
-            }
+               szSelectorName = [NSString stringWithFormat:@"%@:", aSignal.name];
+               
+            } /* End if () */
             
-            selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-            selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-            selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+            szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+            szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
             
-            selector = NSSelectorFromString(selectorName);
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // high priority selector
          
-         if (prioAlias)
+         if (szPrioAlias)
          {
-            if ([prioAlias isKindOfClass:[NSArray class]])
+            if ([szPrioAlias isKindOfClass:[NSArray class]])
             {
-               for (NSString * alias in (NSArray *)prioAlias)
+               for (NSString *szAlias in (NSArray *)szPrioAlias)
                {
-                  selectorName = [NSString stringWithFormat:@"handleSignal____%@:", alias];
-                  selector = NSSelectorFromString(selectorName);
+                  szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", szAlias];
+                  stSelector     = NSSelectorFromString(szSelectorName);
                   
-                  performed = [self signal:signal perform:selector class:targetClass target:target];
-                  if (performed)
+                  bPerformed     = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+                  
+                  if (bPerformed)
                   {
-                     [_handlers setObject:selectorName forKey:cacheName];
+                     [_handlers setObject:szSelectorName forKey:szCacheName];
+                     
                      break;
-                  }
-                  
-                  if (signalMethod && signalMethod2)
-                  {
-                     selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", alias, signalMethod, signalMethod2];
-                     selector = NSSelectorFromString(selectorName);
                      
-                     performed = [self signal:signal perform:selector class:targetClass target:target];
-                     if (performed)
+                  } /* End if () */
+                  
+                  if (szSignalMethod && szSignalMethod2)
+                  {
+                     szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", szAlias, szSignalMethod, szSignalMethod2];
+                     stSelector = NSSelectorFromString(szSelectorName);
+                     
+                     bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+                     if (bPerformed)
                      {
-                        [_handlers setObject:selectorName forKey:cacheName];
+                        [_handlers setObject:szSelectorName forKey:szCacheName];
+                        
                         break;
-                     }
-                  }
-                  
-                  if (signalMethod)
-                  {
-                     selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", alias, signalMethod];
-                     selector = NSSelectorFromString(selectorName);
+                        
+                     } /* End if () */
                      
-                     performed = [self signal:signal perform:selector class:targetClass target:target];
-                     if (performed)
+                  } /* End if () */
+                  
+                  if (szSignalMethod)
+                  {
+                     szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", szAlias, szSignalMethod];
+                     stSelector = NSSelectorFromString(szSelectorName);
+                     
+                     bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+                     if (bPerformed)
                      {
-                        [_handlers setObject:selectorName forKey:cacheName];
+                        [_handlers setObject:szSelectorName forKey:szCacheName];
                         break;
                      }
                   }
@@ -535,286 +611,329 @@
             }
             else
             {
-               selectorName = [NSString stringWithFormat:@"handleSignal____%@:", prioAlias];
-               selector = NSSelectorFromString(selectorName);
+               szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", szPrioAlias];
+               stSelector = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
                   break;
                }
                
-               if (signalMethod && signalMethod2)
+               if (szSignalMethod && szSignalMethod2)
                {
-                  selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", prioAlias, signalMethod, signalMethod2];
-                  selector = NSSelectorFromString(selectorName);
+                  szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", szPrioAlias, szSignalMethod, szSignalMethod2];
+                  stSelector = NSSelectorFromString(szSelectorName);
                   
-                  performed = [self signal:signal perform:selector class:targetClass target:target];
-                  if (performed)
+                  bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+                  if (bPerformed)
                   {
-                     [_handlers setObject:selectorName forKey:cacheName];
+                     [_handlers setObject:szSelectorName forKey:szCacheName];
                      break;
                   }
                }
                
-               if (signalMethod)
+               if (szSignalMethod)
                {
-                  selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", prioAlias, signalMethod];
-                  selector = NSSelectorFromString(selectorName);
+                  szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", szPrioAlias, szSignalMethod];
+                  stSelector = NSSelectorFromString(szSelectorName);
                   
-                  performed = [self signal:signal perform:selector class:targetClass target:target];
-                  if (performed)
+                  bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+                  if (bPerformed)
                   {
-                     [_handlers setObject:selectorName forKey:cacheName];
+                     [_handlers setObject:szSelectorName forKey:szCacheName];
                      break;
                   }
                }
             }
          }
          
-         if (performed)
+         if (bPerformed)
          {
             break;
-         }
+            
+         } /* End if () */
          
          // signal selector
          
-         if (prioSelector)
+         if (szPrioSelector)
          {
             // eg. handleSignal(Class, tag)
             
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@:", prioSelector];
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", szPrioSelector];
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
+               
+            } /* End if () */
          }
          
          // eg. handleSignal(Class, Signal, State)
          
-         if (signalClass && signalMethod && signalMethod2)
+         if (szSignalClass && szSignalMethod && szSignalMethod2)
          {
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", signalClass, signalMethod, signalMethod2];
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", szSignalClass, szSignalMethod, szSignalMethod2];
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleSignal(Class, Signal)
          
-         if (signalClass && signalMethod)
+         if (szSignalClass && szSignalMethod)
          {
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", signalClass, signalMethod];
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", szSignalClass, szSignalMethod];
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleSignal(Class)
          
-         if (signalClass)
+         if (szSignalClass)
          {
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@:", signalClass];
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", szSignalClass];
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleSignal(Class, Signal)
          
-         if ([signal.name hasPrefix:@"signal____"])
+         if ([aSignal.name hasPrefix:@"signal____"])
          {
-            selectorName = [signal.name stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
-         }
+            szSelectorName = [aSignal.name stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
+            
+         } /* End if () */
          else
          {
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@:", signal.name];
-         }
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", aSignal.name];
+            
+         } /* End else */
          
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
          
-         if (NO == [selectorName hasSuffix:@":"])
+         if (NO == [szSelectorName hasSuffix:@":"])
          {
-            selectorName = [selectorName stringByAppendingString:@":"];
-         }
+            szSelectorName = [szSelectorName stringByAppendingString:@":"];
+            
+         } /* End if () */
          
-         selector = NSSelectorFromString(selectorName);
+         stSelector = NSSelectorFromString(szSelectorName);
          
-         performed = [self signal:signal perform:selector class:targetClass target:target];
-         if (performed)
+         bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+         if (bPerformed)
          {
-            [_handlers setObject:selectorName forKey:cacheName];
+            [_handlers setObject:szSelectorName forKey:szCacheName];
+            
             break;
-         }
+            
+         } /* End if () */
          
-         for (Class rtti = [signal.source class]; nil != rtti && rtti != [NSObject class]; rtti = class_getSuperclass(rtti))
+         for (Class rtti = [aSignal.source class]; nil != rtti && rtti != [NSObject class]; rtti = class_getSuperclass(rtti))
          {
             // eg. handleSignal(Class, Signal, State)
             
-            if ((signalMethod && signalMethod.length) && signalMethod2 && signalMethod2.length)
+            if ((szSignalMethod && szSignalMethod.length) && szSignalMethod2 && szSignalMethod2.length)
             {
-               selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", [rtti description], signalMethod, signalMethod2];
-               selector = NSSelectorFromString(selectorName);
+               szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@____%@:", [rtti description], szSignalMethod, szSignalMethod2];
+               stSelector = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
-            }
+                  
+               } /* End if () */
+               
+            } /* End if () */
             
             // eg. handleSignal(Class, Signal)
             
-            if (signalMethod && signalMethod.length)
+            if (szSignalMethod && szSignalMethod.length)
             {
-               selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", [rtti description], signalMethod];
-               selector = NSSelectorFromString(selectorName);
+               szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", [rtti description], szSignalMethod];
+               stSelector     = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed     = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
-            }
+                  
+               } /* End if () */
+               
+            } /* End if () */
             
             // eg. handleSignal(Class, tag)
             
-            if (tagString && tagString.length)
+            if (szTagString && szTagString.length)
             {
-               selectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", [rtti description], tagString];
-               selector = NSSelectorFromString(selectorName);
+               szSelectorName = [NSString stringWithFormat:@"handleSignal____%@____%@:", [rtti description], szTagString];
+               stSelector     = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed     = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
+                  
+               } /* End if () */
                
-               selectorName = [NSString stringWithFormat:@"handleSignal____%@:", tagString];
-               selector = NSSelectorFromString(selectorName);
+               szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", szTagString];
+               stSelector     = NSSelectorFromString(szSelectorName);
                
-               performed = [self signal:signal perform:selector class:targetClass target:target];
-               if (performed)
+               bPerformed     = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+               if (bPerformed)
                {
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
+                  
                   break;
-               }
-            }
+                  
+               } /* End if () */
+               
+            } /* End if () */
             
             // eg. handleSignal(Class)
             
-            selectorName = [NSString stringWithFormat:@"handleSignal____%@:", [rtti description]];
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = [NSString stringWithFormat:@"handleSignal____%@:", [rtti description]];
+            stSelector     = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed     = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End for () */
          
-         if (NO == performed)
+         if (NO == bPerformed)
          {
-            selectorName = @"handleSignal____:";
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = @"handleSignal____:";
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
-         if (NO == performed)
+         if (NO == bPerformed)
          {
-            selectorName = @"handleSignal:";
-            selector = NSSelectorFromString(selectorName);
+            szSelectorName = @"handleSignal:";
+            stSelector = NSSelectorFromString(szSelectorName);
             
-            performed = [self signal:signal perform:selector class:targetClass target:target];
-            if (performed)
+            bPerformed = [self signal:aSignal perform:stSelector class:stTargetClass target:aTarget];
+            if (bPerformed)
             {
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
       }
       //      while (0);
    }
 }
 
-- (BOOL)signal:(SamuraiSignal *)signal perform:(SEL)sel class:(Class)clazz target:(id)target
+- (BOOL)signal:(SamuraiSignal *)aSignal perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget
 {
-   ASSERT(nil != signal);
-   ASSERT(nil != target);
-   ASSERT(nil != sel);
-   ASSERT(nil != clazz);
+   ASSERT(nil != aSignal);
+   ASSERT(nil != aTarget);
+   ASSERT(nil != aSEL);
+   ASSERT(nil != aClass);
    
-   BOOL performed = NO;
+   BOOL   bPerformed    = NO;
    
    // try block
    
-   if (NO == performed)
+   if (NO == bPerformed)
    {
-      SamuraiHandler * handler = [target blockHandler];
-      if (handler)
+      SamuraiHandler *stHandler  = [aTarget blockHandler];
+      if (stHandler)
       {
-         BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:signal];
-         if (found)
+         BOOL   bFound  = [stHandler trigger:[NSString stringWithUTF8String:sel_getName(aSEL)] withObject:aSignal];
+         if (bFound)
          {
-            signal.hit = YES;
-            signal.hitCount += 1;
+            aSignal.hit       = YES;
+            aSignal.hitCount += 1;
             
-            performed = YES;
-         }
-      }
-   }
+            bPerformed        = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    // try selector
    
-   if (NO == performed)
+   if (NO == bPerformed)
    {
-      Method method = class_getInstanceMethod(clazz, sel);
-      if (method)
+      Method    stMethod   = class_getInstanceMethod(aClass, aSEL);
+      if (stMethod)
       {
-         ImpFuncType imp = (ImpFuncType)method_getImplementation(method);
-         if (imp)
+         ImpFuncType stIMP = (ImpFuncType)method_getImplementation(stMethod);
+         if (stIMP)
          {
-            imp(target, sel, (__bridge void *)signal);
+            stIMP(aTarget, aSEL, (__bridge void *)aSignal);
             
-            signal.hit = YES;
-            signal.hitCount += 1;
+            aSignal.hit = YES;
+            aSignal.hitCount += 1;
             
-            performed = YES;
-         }
-      }
-   }
+            bPerformed = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
 #if __SAMURAI_DEBUG__
 #if __SIGNAL_CALLSTACK__
@@ -835,7 +954,7 @@
 #endif
 #endif
    
-   return performed;
+   return bPerformed;
 }
 
 @end

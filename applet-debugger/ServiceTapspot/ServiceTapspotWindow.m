@@ -28,6 +28,8 @@
 //   THE SOFTWARE.
 //
 
+#import "AppletCore.h"
+
 #import "IDEAAppletServiceRootController.h"
 #import "ServiceTapspotWindow.h"
 

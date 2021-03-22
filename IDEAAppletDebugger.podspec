@@ -8,6 +8,18 @@ Pod::Spec.new do |spec|
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
   spec.platform             = :ios, "10.0"
   
+  spec.ios.pod_target_xcconfig     = {
+                                        'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger',
+                                        'ENABLE_BITCODE'            => 'NO',
+                                        'SWIFT_VERSION'             => '5.0',
+                                        'EMBEDDED_CONTENT_CONTAINS_SWIFT'       => 'NO',
+                                        'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => 'NO',
+                                        'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+                                      }
+  spec.osx.pod_target_xcconfig      = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger' }
+  spec.watchos.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger-watchOS' }
+  spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger' }
+
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
@@ -167,7 +179,21 @@ Pod::Spec.new do |spec|
 
 /******************************************************************************************************/
 
-#import <objc/runtime.h>
+#if __has_include(<AFNetworking/AFNetworking.h>)
+#  define AF_NETWORKING                                                 (1)
+#  import <AFNetworking/AFNetworking.h>
+#  import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#elif __has_include("AFNetworking/AFNetworking.h")
+#  define AF_NETWORKING                                                 (1)
+#  import "AFNetworking/AFNetworking.h"
+#  import "AFNetworking/AFNetworkActivityIndicatorManager.h"
+#elif __has_include("AFNetworking.h")
+#  define AF_NETWORKING                                                 (1)
+#  import "AFNetworking.h"
+#  import "AFNetworkActivityIndicatorManager.h"
+#else
+#  define AF_NETWORKING                                                 (0)
+#endif
 
 /******************************************************************************************************/
 

@@ -42,40 +42,54 @@
 
 + (void)classAutoLoad
 {
+   return;
 }
 
 @end
 
 #pragma mark -
 
-@implementation SamuraiClassLoader
+@implementation IDEAAppletClassLoader
 
 + (instancetype)classLoader
 {
-   return [[SamuraiClassLoader alloc] init];
+   return [[IDEAAppletClassLoader alloc] init];
 }
 
-- (void)loadClasses:(NSArray *)classNames
+- (void)loadClasses:(NSArray *)stClassNames
 {
-   for ( NSString * className in classNames )
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   for (NSString *szClassName in stClassNames)
    {
-      Class classType = NSClassFromString( className );
-      if ( classType )
+      Class stClassType = NSClassFromString(szClassName);
+      
+      if (stClassType)
       {
-         fprintf( stderr, "  Loading class '%s'\n", [[classType description] UTF8String] );
-         
-         NSMethodSignature * signature = [classType methodSignatureForSelector:@selector(classAutoLoad)];
+//         fprintf(stderr, "  Loading class '%s'\n", [[stClassType description] UTF8String]);
+         LogDebug((@"Loading class '%s'\n", [[stClassType description] UTF8String]));
+
+         NSMethodSignature * signature = [stClassType methodSignatureForSelector:@selector(classAutoLoad)];
          NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
          
-         [invocation setTarget:classType];
+         [invocation setTarget:stClassType];
          [invocation setSelector:@selector(classAutoLoad)];
          [invocation invoke];
          
-         //         [classType classAutoLoad];
-      }
-   }
+//         [classType classAutoLoad];
+         
+      } /* End if () */
+      
+   } /* End for () */
    
-   fprintf( stderr, "\n" );
+//   fprintf(stderr, "\n");
+   LogDebug((@"\n"));
+
+   __CATCH(nErr);
+   
+   return;
 }
 
 @end

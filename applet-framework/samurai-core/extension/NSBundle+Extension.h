@@ -40,9 +40,9 @@
 @prop_readonly( NSString *,   bundleName );
 @prop_readonly( NSString *,   extensionName );
 
-- (id)dataForResource:(NSString *)resName;
-- (id)textForResource:(NSString *)resName;
-- (id)imageForResource:(NSString *)resName;
+- (id)dataForResource:(NSString *)aResName;
+- (id)textForResource:(NSString *)aResName;
+- (id)imageForResource:(NSString *)aResName;
 
 @end
 

@@ -35,8 +35,6 @@
 #pragma mark -
 
 @protocol ManagedService <NSObject>
-@required
-- (BOOL)isAutoLoad;
 @end
 
 #pragma mark -

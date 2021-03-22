@@ -51,7 +51,7 @@
    self = [super init];
    if (self)
    {
-//   self.alpha = 0.75f;
+      //   self.alpha = 0.75f;
       self.backgroundColor    = [UIColor clearColor];
       self.windowLevel        = UIWindowLevelStatusBar + 2.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
@@ -60,6 +60,7 @@
                                                selector:@selector(orientationWillChange)
                                                    name:UIApplicationWillChangeStatusBarOrientationNotification
                                                  object:nil];
+      
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(orientationDidChanged)
                                                    name:UIApplicationDidChangeStatusBarOrientationNotification
@@ -169,9 +170,9 @@
       UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
       
       stWindowBound.origin.y  = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - stTabBarController.tabBar.frame.size.height - DOCKER_BOTTOM;
-
+      
    } /* End if () */
-
+   
    self.frame = stWindowBound;
    
    for (SamuraiDockerView * stDockerView in stDockerViews)
@@ -194,7 +195,7 @@
 - (void)setFrame:(CGRect)newFrame
 {
    [super setFrame:newFrame];
-
+   
    return;
 }
 
@@ -202,7 +203,7 @@
 - (void)orientationWillChange
 {
    [self relayoutAllDockerViews];
-
+   
    return;
 }
 
@@ -210,7 +211,7 @@
 - (void)orientationDidChanged
 {
    [self relayoutAllDockerViews];
-
+   
    return;
 }
 

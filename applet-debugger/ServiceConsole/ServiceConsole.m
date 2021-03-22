@@ -22,6 +22,8 @@
 //  IN THE SOFTWARE.
 //
 
+#import "AppletCore.h"
+
 #import "ServiceConsole.h"
 #import "ServiceConsoleWindow.h"
 
@@ -74,7 +76,7 @@ static NSMutableDictionary * __commandCache = nil;
 
 - (BOOL)isAutoLoad
 {
-   return YES;
+   return NO;
 }
 
 #pragma mark -

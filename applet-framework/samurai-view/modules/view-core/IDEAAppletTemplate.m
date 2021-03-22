@@ -146,8 +146,8 @@
       _resourceFetcher = [SamuraiResourceFetcher resourceFetcher];
       _resourceFetcher.responder = self;
 
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:SamuraiWatcher.SourceFileDidChanged object:nil];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileRemoved:) name:SamuraiWatcher.SourceFileDidRemoved object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:IDEAAppletWatcher.SourceFileDidChanged object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileRemoved:) name:IDEAAppletWatcher.SourceFileDidRemoved object:nil];
    }
    return self;
 }

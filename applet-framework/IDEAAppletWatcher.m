@@ -38,7 +38,7 @@
 
 #pragma mark -
 
-@implementation SamuraiWatcher
+@implementation IDEAAppletWatcher
 
 @def_prop_strong  ( NSMutableArray  *,    sourceFiles );
 @def_prop_strong  ( NSString        *,    sourcePath  );
@@ -46,14 +46,14 @@
 @def_notification ( SourceFileDidChanged );
 @def_notification ( SourceFileDidRemoved );
 
-@def_singleton    ( SamuraiWatcher );
+@def_singleton    ( IDEAAppletWatcher );
 
 - (id)init
 {
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    self = [super init];
    if (self)
    {
@@ -92,6 +92,10 @@
 
 - (void)scanSourceFiles
 {
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    if (nil == self.sourceFiles)
    {
       self.sourceFiles = [[NSMutableArray alloc] init];
@@ -142,7 +146,12 @@
    for (NSString * file in self.sourceFiles)
    {
       [self watchSourceFile:file];
-   }
+      
+   } /* End for () */
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)watchSourceFile:(NSString *)filePath
@@ -169,11 +178,11 @@
                BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:NULL];
                if (exists)
                {
-                  [SamuraiWatcher notify:SamuraiWatcher.SourceFileDidChanged withObject:filePath];
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidChanged withObject:filePath];
                }
                else
                {
-                  [SamuraiWatcher notify:SamuraiWatcher.SourceFileDidRemoved withObject:filePath];
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidRemoved withObject:filePath];
                }
             });
             

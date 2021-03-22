@@ -28,6 +28,8 @@
 //   THE SOFTWARE.
 //
 
+#import "AppletCore.h"
+
 #import "ServiceTapspotManager.h"
 #import "ServiceTapspotView.h"
 

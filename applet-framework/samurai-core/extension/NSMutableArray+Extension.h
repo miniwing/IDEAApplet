@@ -37,9 +37,9 @@
 
 @protocol NSMutableArrayProtocol <NSObject>
 @required
-- (void)addObject:(id)anObject;
+- (void)addObject:(id)aObject;
 @optional
-- (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
+- (void)insertObject:(id)aObject atIndex:(NSUInteger)index;
 - (void)removeLastObject;
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
@@ -51,25 +51,25 @@
 
 + (NSMutableArray *)nonRetainingArray;         // copy from Three20
 
-- (void)addUniqueObject:(id)object compare:(NSArrayCompareBlock)compare;
-- (void)addUniqueObjects:(const id [])objects count:(NSUInteger)count compare:(NSArrayCompareBlock)compare;
-- (void)addUniqueObjectsFromArray:(NSArray *)array compare:(NSArrayCompareBlock)compare;
+- (void)addUniqueObject:(id)aObject compare:(NSArrayCompareBlock)aCompare;
+- (void)addUniqueObjects:(const id [])aObjects count:(NSUInteger)aCount compare:(NSArrayCompareBlock)aCompare;
+- (void)addUniqueObjectsFromArray:(NSArray *)aArray compare:(NSArrayCompareBlock)aCompare;
 
 - (void)unique;
-- (void)unique:(NSArrayCompareBlock)compare;
+- (void)unique:(NSArrayCompareBlock)aCompare;
 
 - (void)sort;
-- (void)sort:(NSArrayCompareBlock)compare;
+- (void)sort:(NSArrayCompareBlock)aCompare;
 
-- (void)shrink:(NSUInteger)count;
-- (void)append:(id)object;
+- (void)shrink:(NSUInteger)aCount;
+- (void)append:(id)aObject;
 
-- (NSMutableArray *)pushHead:(NSObject *)obj;
+- (NSMutableArray *)pushHead:(NSObject *)aObject;
 - (NSMutableArray *)pushHeadN:(NSArray *)all;
 - (NSMutableArray *)popTail;
 - (NSMutableArray *)popTailN:(NSUInteger)n;
 
-- (NSMutableArray *)pushTail:(NSObject *)obj;
+- (NSMutableArray *)pushTail:(NSObject *)aObject;
 - (NSMutableArray *)pushTailN:(NSArray *)all;
 - (NSMutableArray *)popHead;
 - (NSMutableArray *)popHeadN:(NSUInteger)n;
