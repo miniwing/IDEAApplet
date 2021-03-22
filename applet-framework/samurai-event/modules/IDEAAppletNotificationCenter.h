@@ -34,9 +34,9 @@
 
 #pragma mark -
 
-@interface AppletNotificationCenter : NSObject
+@interface IDEAAppletNotificationCenter : NSObject
 
-@singleton( AppletNotificationCenter )
+@singleton( IDEAAppletNotificationCenter )
 
 - (void)postNotification:(NSString *)name;
 - (void)postNotification:(NSString *)name object:(id)object;

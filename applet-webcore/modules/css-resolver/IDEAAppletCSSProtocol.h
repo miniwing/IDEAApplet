@@ -34,7 +34,7 @@
 
 #pragma mark -
 
-@protocol SamuraiCSSProtocol <NSObject>
+@protocol IDEAAppletCSSProtocol <NSObject>
 
 - (NSString *)cssId;
 - (NSString *)cssTag;
@@ -44,10 +44,10 @@
 - (NSArray *)cssClasses;
 - (NSDictionary *)cssAttributes;
 
-- (id<SamuraiCSSProtocol>)cssParent;
-- (id<SamuraiCSSProtocol>)cssPreviousSibling;
-- (id<SamuraiCSSProtocol>)cssFollowingSibling;
-- (id<SamuraiCSSProtocol>)cssSiblingAtIndex:(NSInteger)index;
+- (id<IDEAAppletCSSProtocol>)cssParent;
+- (id<IDEAAppletCSSProtocol>)cssPreviousSibling;
+- (id<IDEAAppletCSSProtocol>)cssFollowingSibling;
+- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index;
 
 - (NSArray *)cssChildren;
 - (NSArray *)cssPreviousSiblings;
@@ -57,11 +57,11 @@
 
 #pragma mark -
 
-FOUNDATION_EXPORT NSString * NSStringFromSamuraiCSSProtocolElement(id<SamuraiCSSProtocol>);
+FOUNDATION_EXPORT NSString * NSStringFromSamuraiCSSProtocolElement(id<IDEAAppletCSSProtocol>);
 
 #pragma mark -
 
-@interface SamuraiCSSCondition : NSObject<SamuraiCSSProtocol>
+@interface SamuraiCSSCondition : NSObject<IDEAAppletCSSProtocol>
 
 @prop_strong( NSString *,      cssId );
 @prop_strong( NSString *,      cssTag );

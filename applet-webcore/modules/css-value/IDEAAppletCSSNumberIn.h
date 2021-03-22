@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberIn)
+@interface IDEAAppletCSSObject(NumberIn)
 
 - (BOOL)isIn;
 

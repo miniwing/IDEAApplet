@@ -48,7 +48,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlDomNode : SamuraiDomNode<SamuraiCSSProtocol>
+@interface SamuraiHtmlDomNode : IDEAAppletDomNode<IDEAAppletCSSProtocol>
 
 @prop_assign( BOOL,                  implied );
 @prop_strong( NSMutableDictionary *,   computedStyle );

@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@interface SamuraiRenderStyle : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletRenderStyle : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @prop_strong( NSMutableDictionary *, properties );
 

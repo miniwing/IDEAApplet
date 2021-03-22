@@ -39,8 +39,8 @@
 #if __SAMURAI_DEBUG__
 
 #  define PERF_TIME( block )           { _PERF_ENTER(__PRETTY_FUNCTION__, __LINE__); block; _PERF_LEAVE(__PRETTY_FUNCTION__, __LINE__); }
-#  define _PERF_ENTER( func, line )    [[SamuraiPerformance sharedInstance] enter:[NSString stringWithFormat:@"%s#%d", func, line]];
-#  define _PERF_LEAVE( func, line )    [[SamuraiPerformance sharedInstance] leave:[NSString stringWithFormat:@"%s#%d", func, line]];
+#  define _PERF_ENTER( func, line )    [[IDEAAppletPerformance sharedInstance] enter:[NSString stringWithFormat:@"%s#%d", func, line]];
+#  define _PERF_LEAVE( func, line )    [[IDEAAppletPerformance sharedInstance] leave:[NSString stringWithFormat:@"%s#%d", func, line]];
 
 #else
 
@@ -50,9 +50,9 @@
 
 #pragma mark -
 
-@interface SamuraiPerformance : NSObject
+@interface IDEAAppletPerformance : NSObject
 
-@singleton( SamuraiPerformance );
+@singleton( IDEAAppletPerformance );
 
 - (void)enter:(NSString *)tag;
 - (void)leave:(NSString *)tag;

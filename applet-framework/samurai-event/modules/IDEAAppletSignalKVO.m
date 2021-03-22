@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation SamuraiKVObserver
+@implementation IDEAAppletKVObserver
 {
    NSMutableDictionary * _properties;
 }
@@ -136,7 +136,7 @@
    
    if ( oldValue )
    {
-      SamuraiSignal * signal = [SamuraiSignal signal];
+      IDEAAppletSignal * signal = [IDEAAppletSignal signal];
       
       signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[object class] description], keyPath];
       signal.source = object;
@@ -148,7 +148,7 @@
    
    if ( newValue )
    {
-      SamuraiSignal * signal = [SamuraiSignal signal];
+      IDEAAppletSignal * signal = [IDEAAppletSignal signal];
 
       signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[object class] description], keyPath];
       signal.source = object;
@@ -165,16 +165,16 @@
 
 @implementation NSObject(KVObserver)
 
-@def_prop_dynamic( SamuraiKVOBlock, onValueChanging );
-@def_prop_dynamic( SamuraiKVOBlock, onValueChanged );
+@def_prop_dynamic( IDEAAppletKVOBlock, onValueChanging );
+@def_prop_dynamic( IDEAAppletKVOBlock, onValueChanged );
 
-- (SamuraiKVObserver *)KVObserverOrCreate
+- (IDEAAppletKVObserver *)KVObserverOrCreate
 {
-   SamuraiKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
+   IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
    
    if ( nil == observer )
    {
-      observer = [[SamuraiKVObserver alloc] init];
+      observer = [[IDEAAppletKVObserver alloc] init];
       observer.source = self;
       
       [self retainAssociatedObject:observer forKey:"KVObserver"];
@@ -183,22 +183,22 @@
    return observer;
 }
 
-- (SamuraiKVObserver *)KVObserver
+- (IDEAAppletKVObserver *)KVObserver
 {
    return [self getAssociatedObjectForKey:"KVObserver"];
 }
 
 #pragma mark -
 
-- (SamuraiKVOBlock)onValueChanging
+- (IDEAAppletKVOBlock)onValueChanging
 {
    @weakify( self );
    
-   SamuraiKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
+   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
    {
       @strongify( self );
 
-      EncodingType encoding = [SamuraiEncoding typeOfObject:nameOrObject];
+      EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
 
       if ( EncodingType_String == encoding )
       {
@@ -255,15 +255,15 @@
    return [block copy];
 }
 
-- (SamuraiKVOBlock)onValueChanged
+- (IDEAAppletKVOBlock)onValueChanged
 {
    @weakify( self );
    
-   SamuraiKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
+   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
    {
       @strongify( self );
       
-      EncodingType encoding = [SamuraiEncoding typeOfObject:nameOrObject];
+      EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
       if ( EncodingType_String == encoding )
       {
          NSString * name = nameOrObject;
@@ -323,7 +323,7 @@
 
 - (void)observeProperty:(NSString *)property
 {
-   SamuraiKVObserver * observer = [self KVObserverOrCreate];
+   IDEAAppletKVObserver * observer = [self KVObserverOrCreate];
    if ( observer )
    {
       [observer observeProperty:property];
@@ -332,7 +332,7 @@
 
 - (void)unobserveProperty:(NSString *)property
 {
-   SamuraiKVObserver * observer = [self KVObserver];
+   IDEAAppletKVObserver * observer = [self KVObserver];
    if ( observer )
    {
       [observer unobserveProperty:property];
@@ -341,7 +341,7 @@
 
 - (void)unobserveAllProperties
 {
-   SamuraiKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
+   IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
    
    if ( observer )
    {
@@ -358,7 +358,7 @@
 
 - (void)signalValueChanging:(NSString *)property value:(id)value
 {
-   SamuraiSignal * signal = [SamuraiSignal signal];
+   IDEAAppletSignal * signal = [IDEAAppletSignal signal];
    
    signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[self class] description], property];
    signal.source = self;
@@ -375,7 +375,7 @@
 
 - (void)signalValueChanged:(NSString *)property value:(id)value
 {
-   SamuraiSignal * signal = [SamuraiSignal signal];
+   IDEAAppletSignal * signal = [IDEAAppletSignal signal];
    
    signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[self class] description], property];
    signal.source = self;

@@ -44,11 +44,11 @@
 
 #pragma mark -
 
-@interface SamuraiCSSRule ()
+@interface IDEAAppletCSSRule ()
 @prop_strong( NSString *,           selectorName );
 @end
 
-@implementation SamuraiCSSRule
+@implementation IDEAAppletCSSRule
 
 @def_prop_strong( NSString *,           selectorName );
 @def_prop_unsafe( KatanaStyleRule *,   rule );

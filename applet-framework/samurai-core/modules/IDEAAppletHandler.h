@@ -36,12 +36,12 @@
 
 #pragma mark -
 
-@class SamuraiHandler;
+@class IDEAAppletHandler;
 
 @interface NSObject(BlockHandler)
 
-- (SamuraiHandler *)blockHandlerOrCreate;
-- (SamuraiHandler *)blockHandler;
+- (IDEAAppletHandler *)blockHandlerOrCreate;
+- (IDEAAppletHandler *)blockHandler;
 
 - (void)addBlock:(id)block forName:(NSString *)name;
 - (void)removeBlockForName:(NSString *)name;
@@ -51,7 +51,7 @@
 
 #pragma mark -
 
-@interface SamuraiHandler : NSObject
+@interface IDEAAppletHandler : NSObject
 
 - (BOOL)trigger:(NSString *)name;
 - (BOOL)trigger:(NSString *)name withObject:(id)object;

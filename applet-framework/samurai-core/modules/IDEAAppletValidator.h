@@ -76,9 +76,9 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiValidator : NSObject
+@interface IDEAAppletValidator : NSObject
 
-@singleton( SamuraiValidator )
+@singleton( IDEAAppletValidator )
 
 @prop_strong( NSString *,   lastProperty );
 @prop_strong( NSString *,   lastError );

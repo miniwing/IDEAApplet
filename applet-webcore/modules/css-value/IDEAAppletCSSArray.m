@@ -44,7 +44,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(Array)
+@implementation IDEAAppletCSSObject(Array)
 
 - (BOOL)isArray
 {
@@ -91,22 +91,22 @@
    
 }
 
-- (SamuraiCSSValue *)top
+- (IDEAAppletCSSValue *)top
 {
    return nil;
 }
 
-- (SamuraiCSSValue *)left
+- (IDEAAppletCSSValue *)left
 {
    return nil;
 }
 
-- (SamuraiCSSValue *)right
+- (IDEAAppletCSSValue *)right
 {
    return nil;
 }
 
-- (SamuraiCSSValue *)bottom
+- (IDEAAppletCSSValue *)bottom
 {
    return nil;
 }
@@ -115,31 +115,31 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSArray
+@implementation IDEAAppletCSSArray
 
 @def_prop_strong( NSMutableArray *,      array );
-@def_prop_dynamic( SamuraiCSSValue *,   top );
-@def_prop_dynamic( SamuraiCSSValue *,   left );
-@def_prop_dynamic( SamuraiCSSValue *,   right );
-@def_prop_dynamic( SamuraiCSSValue *,   bottom );
+@def_prop_dynamic( IDEAAppletCSSValue *,   top );
+@def_prop_dynamic( IDEAAppletCSSValue *,   left );
+@def_prop_dynamic( IDEAAppletCSSValue *,   right );
+@def_prop_dynamic( IDEAAppletCSSValue *,   bottom );
 
 + (instancetype)parseArray:(KatanaArray *)array
 {
    if ( NULL == array || 0 == array->length )
       return nil;
    
-   SamuraiCSSArray * result = nil;
+   IDEAAppletCSSArray * result = nil;
    
    for ( size_t i = 0; i < array->length; ++i )
    {
-      SamuraiCSSValue * elem = [SamuraiCSSValue parseValue:array->data[i]];
+      IDEAAppletCSSValue * elem = [IDEAAppletCSSValue parseValue:array->data[i]];
       
       if ( nil == elem )
          continue;
       
       if ( nil == result )
       {
-         result = [[SamuraiCSSArray alloc] init];
+         result = [[IDEAAppletCSSArray alloc] init];
       }
       
       [result.array addObject:elem];
@@ -153,11 +153,11 @@
    if ( nil == string || 0 == [string length] )
       return nil;
    
-   SamuraiCSSArray * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
+   IDEAAppletCSSArray * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
 
    if ( nil == result )
    {
-      KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseValue:string];
+      KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseValue:string];
       if ( output )
       {
          result = [self parseArray:output->values];
@@ -180,7 +180,7 @@
    if ( nil == array || 0 == [array count] )
       return nil;
    
-   SamuraiCSSArray * result = [[SamuraiCSSArray alloc] init];
+   IDEAAppletCSSArray * result = [[IDEAAppletCSSArray alloc] init];
    [result.array setArray:array];
    return result;
 }
@@ -264,7 +264,7 @@
 
 #pragma mark -
 
-- (SamuraiCSSValue *)top
+- (IDEAAppletCSSValue *)top
 {
    if ( 1 == self.array.count )
    {
@@ -286,7 +286,7 @@
    return nil;
 }
 
-- (SamuraiCSSValue *)right
+- (IDEAAppletCSSValue *)right
 {
    if ( 1 == self.array.count )
    {
@@ -308,7 +308,7 @@
    return nil;
 }
 
-- (SamuraiCSSValue *)bottom
+- (IDEAAppletCSSValue *)bottom
 {
    if ( 1 == self.array.count )
    {
@@ -330,7 +330,7 @@
    return nil;
 }
 
-- (SamuraiCSSValue *)left
+- (IDEAAppletCSSValue *)left
 {
    if ( 1 == self.array.count )
    {

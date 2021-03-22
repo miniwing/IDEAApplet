@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSRuleSet
+@implementation IDEAAppletCSSRuleSet
 {
    NSUInteger _ruleSeed;
 }
@@ -163,7 +163,7 @@
    {
       KatanaSelector * selector = rule->selectors->data[i];
 
-      SamuraiCSSRule * data = [[SamuraiCSSRule alloc] initWithRule:rule
+      IDEAAppletCSSRule * data = [[IDEAAppletCSSRule alloc] initWithRule:rule
                                              selector:selector
                                              position:_ruleSeed++];
 
@@ -195,7 +195,7 @@
             {
                 KatanaImportRule * import = (KatanaImportRule *)rule;
                 
-                if ( [[SamuraiCSSMediaQuery sharedInstance] testMediaQueries:import->medias] )
+                if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:import->medias] )
                 {
                     // TODO: @(QFish) handle import rule
                 }
@@ -218,7 +218,7 @@
             {
                 KatanaMediaRule * mediaRule = (KatanaMediaRule *)rule;
                 
-                if ( [[SamuraiCSSMediaQuery sharedInstance] testMediaQueries:mediaRule->medias] )
+                if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:mediaRule->medias] )
                 {
                     [self addStyleRules:mediaRule->rules];
                 }
@@ -237,7 +237,7 @@
 
 #pragma mark -
 
-- (BOOL)findBestRuleSetAndAddWithSelector:(KatanaSelector *)selector ruleData:(SamuraiCSSRule *)ruleData
+- (BOOL)findBestRuleSetAndAddWithSelector:(KatanaSelector *)selector ruleData:(IDEAAppletCSSRule *)ruleData
 {
     if ( selector->match == KatanaSelectorMatchId )
     {
@@ -313,7 +313,7 @@
 
 - (void)addToRuleSet:(NSMutableDictionary *)map
                  key:(NSString *)key
-            ruleData:(SamuraiCSSRule *)ruleData
+            ruleData:(IDEAAppletCSSRule *)ruleData
             selector:(KatanaSelector *)selector
 {
     if ( nil == key || nil == map || nil == ruleData )

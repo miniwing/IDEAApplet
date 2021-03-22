@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberConstant)
+@interface IDEAAppletCSSObject(NumberConstant)
 
 - (BOOL)isConstant;
 

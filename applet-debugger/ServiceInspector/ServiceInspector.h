@@ -32,5 +32,5 @@
 
 #pragma mark -
 
-@interface ServiceInspector : SamuraiService < ManagedService, ManagedDocker >
+@interface ServiceInspector : IDEAAppletService < ManagedService, ManagedDocker >
 @end

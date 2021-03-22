@@ -184,17 +184,17 @@
    return self.parent;
 }
 
-- (id<SamuraiCSSProtocol>)cssPreviousSibling
+- (id<IDEAAppletCSSProtocol>)cssPreviousSibling
 {
    return self.prev;
 }
 
-- (id<SamuraiCSSProtocol>)cssFollowingSibling
+- (id<IDEAAppletCSSProtocol>)cssFollowingSibling
 {
    return self.next;
 }
 
-- (id<SamuraiCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
+- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
 {
    if (nil == self.parent)
    {
@@ -408,13 +408,13 @@
 
 - (NSString *)description
 {
-   [[SamuraiLogger sharedInstance] outputCapture];
+   [[IDEAAppletLogger sharedInstance] outputCapture];
    
    [self dump];
    
-   [[SamuraiLogger sharedInstance] outputRelease];
+   [[IDEAAppletLogger sharedInstance] outputRelease];
    
-   return [SamuraiLogger sharedInstance].output;
+   return [IDEAAppletLogger sharedInstance].output;
 }
 
 - (void)dump
@@ -459,14 +459,14 @@
       }
    }
    
-   [[SamuraiLogger sharedInstance] indent];
+   [[IDEAAppletLogger sharedInstance] indent];
    
    for (SamuraiHtmlDomNode * child in self.childs)
    {
       [child dump];
    }
    
-   [[SamuraiLogger sharedInstance] unindent];
+   [[IDEAAppletLogger sharedInstance] unindent];
    
    if (self.childs.count)
    {

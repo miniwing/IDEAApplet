@@ -42,15 +42,15 @@
 
 #pragma mark -
 
-@implementation SamuraiAsserter
+@implementation IDEAAppletAsserter
 
-@def_singleton( SamuraiAsserter );
+@def_singleton( IDEAAppletAsserter );
 
 @def_prop_assign( BOOL,   enabled );
 
 + (void)classAutoLoad
 {
-   [SamuraiAsserter sharedInstance];
+   [IDEAAppletAsserter sharedInstance];
 }
 
 - (id)init
@@ -112,7 +112,7 @@ extern "C"
 #endif
 void SamuraiAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr )
 {
-   [[SamuraiAsserter sharedInstance] file:file line:line func:func flag:flag expr:expr];
+   [[IDEAAppletAsserter sharedInstance] file:file line:line func:func flag:flag expr:expr];
 }
 
 // ----------------------------------
@@ -129,28 +129,28 @@ TEST_CASE( Core, Asserter )
 
 DESCRIBE( enable/disable )
 {
-   [[SamuraiAsserter sharedInstance] enable];
-   EXPECTED( [[SamuraiAsserter sharedInstance] enabled] );
+   [[IDEAAppletAsserter sharedInstance] enable];
+   EXPECTED( [[IDEAAppletAsserter sharedInstance] enabled] );
 
-   [[SamuraiAsserter sharedInstance] disable];
-   EXPECTED( NO == [[SamuraiAsserter sharedInstance] enabled] );
+   [[IDEAAppletAsserter sharedInstance] disable];
+   EXPECTED( NO == [[IDEAAppletAsserter sharedInstance] enabled] );
 
-   [[SamuraiAsserter sharedInstance] toggle];
-   EXPECTED( [[SamuraiAsserter sharedInstance] enabled] );
+   [[IDEAAppletAsserter sharedInstance] toggle];
+   EXPECTED( [[IDEAAppletAsserter sharedInstance] enabled] );
 
-   [[SamuraiAsserter sharedInstance] toggle];
-   EXPECTED( NO == [[SamuraiAsserter sharedInstance] enabled] );
+   [[IDEAAppletAsserter sharedInstance] toggle];
+   EXPECTED( NO == [[IDEAAppletAsserter sharedInstance] enabled] );
 
-   [[SamuraiAsserter sharedInstance] enable];
-   EXPECTED( [[SamuraiAsserter sharedInstance] enabled] );
+   [[IDEAAppletAsserter sharedInstance] enable];
+   EXPECTED( [[IDEAAppletAsserter sharedInstance] enabled] );
 
    ASSERT( YES );
 
-   [[SamuraiAsserter sharedInstance] disable];
+   [[IDEAAppletAsserter sharedInstance] disable];
    
    ASSERT( NO );
    
-   [[SamuraiAsserter sharedInstance] enable];
+   [[IDEAAppletAsserter sharedInstance] enable];
 }
 
 TEST_CASE_END

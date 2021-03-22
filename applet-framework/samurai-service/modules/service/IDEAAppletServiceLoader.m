@@ -39,12 +39,12 @@
 
 #pragma mark -
 
-@implementation SamuraiServiceLoader
+@implementation IDEAAppletServiceLoader
 {
    NSMutableDictionary * _services;
 }
 
-@def_singleton(SamuraiServiceLoader)
+@def_singleton(IDEAAppletServiceLoader)
 
 @def_prop_dynamic(NSArray *, services);
 
@@ -88,7 +88,7 @@
 
 #if __SAMURAI_SERVICE__
    
-   for (NSString *szClassName in [SamuraiService subClasses])
+   for (NSString *szClassName in [IDEAAppletService subClasses])
    {
       Class stClassType = NSClassFromString(szClassName);
       if (nil == stClassType)
@@ -100,7 +100,7 @@
 //      fprintf(stderr, "  Loading service '%s'\n", [[classType description] UTF8String]);
       LogDebug((@"Loading service '%s'\n", [[stClassType description] UTF8String]));
       
-      SamuraiService *stService = [self service:stClassType];
+      IDEAAppletService *stService = [self service:stClassType];
       if (stService)
       {
          if (NO == [stService respondsToSelector:@selector(isAutoLoad)])
@@ -137,7 +137,7 @@
 
 - (void)uninstallServices
 {
-   for (SamuraiService * service in _services)
+   for (IDEAAppletService * service in _services)
    {
       [service uninstall];
    }
@@ -154,7 +154,7 @@
 
 - (id)service:(Class)classType
 {
-   SamuraiService * service = [_services objectForKey:[classType description]];
+   IDEAAppletService * service = [_services objectForKey:[classType description]];
    
    if (nil == service)
    {

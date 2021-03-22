@@ -83,7 +83,7 @@
    
    UIImage  *stImage          = nil;
    
-   if ( nil == stImage && [[SamuraiSystem sharedInstance] isScreen640x1136] )
+   if ( nil == stImage && [[IDEAAppletSystem sharedInstance] isScreen640x1136] )
    {
       NSString *szPath  = [NSString stringWithFormat:@"%@/%@-568h@2x.%@", self.resourcePath, szResourceName, szExtensionName];
       NSString *szPath2 = [NSString stringWithFormat:@"%@/%@-568h.%@", self.resourcePath, szResourceName, szExtensionName];

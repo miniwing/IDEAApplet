@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Number)
+@interface IDEAAppletCSSObject(Number)
 
 - (BOOL)isNumber;
 - (BOOL)isNumber:(CGFloat)value;
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumber : SamuraiCSSValue
+@interface SamuraiCSSNumber : IDEAAppletCSSValue
 
 @prop_assign( CGFloat,      value );
 @prop_strong( NSString *,   unit );

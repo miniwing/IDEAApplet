@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@implementation SamuraiSandbox
+@implementation IDEAAppletSandbox
 
 @def_prop_strong( NSString *,   appPath );
 @def_prop_strong( NSString *,   docPath );
@@ -47,11 +47,11 @@
 @def_prop_strong( NSString *,   libCachePath );
 @def_prop_strong( NSString *,   tmpPath );
 
-@def_singleton( SamuraiSandbox )
+@def_singleton( IDEAAppletSandbox )
 
 + (void)classAutoLoad
 {
-   [SamuraiSandbox sharedInstance];
+   [IDEAAppletSandbox sharedInstance];
 }
 
 - (id)init
@@ -124,11 +124,11 @@ TEST_CASE( Core, Sandbox )
 
 DESCRIBE( paths )
 {
-   EXPECTED( nil != [[SamuraiSandbox sharedInstance] appPath] );
-   EXPECTED( nil != [[SamuraiSandbox sharedInstance] docPath] );
-   EXPECTED( nil != [[SamuraiSandbox sharedInstance] libPrefPath] );
-   EXPECTED( nil != [[SamuraiSandbox sharedInstance] libCachePath] );
-   EXPECTED( nil != [[SamuraiSandbox sharedInstance] tmpPath] );
+   EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] appPath] );
+   EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] docPath] );
+   EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] libPrefPath] );
+   EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] libCachePath] );
+   EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] tmpPath] );
 }
 
 TEST_CASE_END

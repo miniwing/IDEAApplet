@@ -53,7 +53,7 @@
       
       
       
-      [SamuraiLogger sharedInstance].outputHandler = ^(NSString * text){
+      [IDEAAppletLogger sharedInstance].outputHandler = ^(NSString * text){
          
          [self.logView appendLogString:text];
       };

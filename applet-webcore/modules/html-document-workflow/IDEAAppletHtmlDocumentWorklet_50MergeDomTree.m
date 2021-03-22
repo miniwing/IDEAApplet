@@ -72,7 +72,7 @@
 {
    NSMutableDictionary * elementMap = [[NSMutableDictionary alloc] init];
    
-   for ( SamuraiResource * resource in [document.externalImports copy] )
+   for ( IDEAAppletResource * resource in [document.externalImports copy] )
    {
       if ( [resource isKindOfClass:[SamuraiHtmlDocument class]] )
       {

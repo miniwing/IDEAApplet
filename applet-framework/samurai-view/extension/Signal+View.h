@@ -40,15 +40,15 @@
 
 #pragma mark -
 
-@interface SamuraiSignal(View)
+@interface IDEAAppletSignal(View)
 
 @prop_readonly( UIView              *,    sourceView );
 @prop_readonly( UIView              *,    sourceCell );
 @prop_readonly( UITableViewCell     *,    sourceTableCell );
 @prop_readonly( UICollectionViewCell*,    sourceCollectionCell );
 
-@prop_readonly( SamuraiDomNode      *,    sourceDom );
-@prop_readonly( SamuraiRenderObject *,    sourceRender );
+@prop_readonly( IDEAAppletDomNode      *,    sourceDom );
+@prop_readonly( IDEAAppletRenderObject *,    sourceRender );
 @prop_readonly( NSIndexPath         *,    sourceIndexPath );
 
 @end

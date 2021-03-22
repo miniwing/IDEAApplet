@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberAutomatic)
+@interface IDEAAppletCSSObject(NumberAutomatic)
 
 - (BOOL)isAutomatic;
 

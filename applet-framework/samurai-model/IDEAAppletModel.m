@@ -46,7 +46,7 @@
 
 + (void)classAutoLoad
 {
-   [SamuraiModelManager classAutoLoad];
+   [IDEAAppletModelManager classAutoLoad];
 }
 
 @end

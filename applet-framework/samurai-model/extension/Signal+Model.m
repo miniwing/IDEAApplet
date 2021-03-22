@@ -43,11 +43,11 @@
 
 #pragma mark -
 
-@implementation SamuraiSignal(Model)
+@implementation IDEAAppletSignal(Model)
 
-@def_prop_dynamic( SamuraiModel *,   sourceModel );
+@def_prop_dynamic( IDEAAppletModel *,   sourceModel );
 
-- (SamuraiModel *)sourceModel
+- (IDEAAppletModel *)sourceModel
 {
    if ( nil == self.source )
    {
@@ -55,9 +55,9 @@
       
    } /* End if () */
    
-   if ( [self.source isKindOfClass:[SamuraiModel class]] )
+   if ( [self.source isKindOfClass:[IDEAAppletModel class]] )
    {
-      return (SamuraiModel *)self.source;
+      return (IDEAAppletModel *)self.source;
    }
    
    return nil;

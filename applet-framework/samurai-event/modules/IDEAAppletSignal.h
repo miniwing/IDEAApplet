@@ -51,7 +51,7 @@
 
 #undef  handleSignal
 #define handleSignal( ... )               \
-        - (void) macro_join( handleSignal, __VA_ARGS__):(SamuraiSignal *)signal
+        - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)signal
 
 #pragma mark -
 
@@ -69,7 +69,7 @@ typedef enum
 
 #pragma mark -
 
-@class SamuraiSignal;
+@class IDEAAppletSignal;
 
 @interface NSObject(SignalResponder)
 
@@ -87,7 +87,7 @@ typedef enum
 - (void)removeSignalResponder:(id)aObj;
 - (void)removeAllSignalResponders;
 
-- (void)handleSignal:(SamuraiSignal *)aThat;
+- (void)handleSignal:(IDEAAppletSignal *)aThat;
 
 @end
 
@@ -95,16 +95,16 @@ typedef enum
 
 @interface NSObject(SignalSender)
 
-- (SamuraiSignal *)sendSignal:(NSString *)aName;
-- (SamuraiSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject;
-- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource;
-- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiSignal : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletSignal : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @joint( stateChanged );
 
@@ -140,8 +140,8 @@ typedef enum
 @prop_assign   ( NSInteger           , jumpCount );
 @prop_strong   ( NSMutableArray     *, jumpPath );
 
-+ (SamuraiSignal *)signal;
-+ (SamuraiSignal *)signal:(NSString *)aName;
++ (IDEAAppletSignal *)signal;
++ (IDEAAppletSignal *)signal:(NSString *)aName;
 
 - (BOOL)is:(NSString *)aName;
 

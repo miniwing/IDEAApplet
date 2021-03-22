@@ -45,14 +45,14 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderStoreScope
+@implementation IDEAAppletHtmlRenderStoreScope
 
 @def_prop_dynamic( NSObject *,            content );
 @def_prop_strong( SamuraiHtmlRenderStore *,   storeTree );
 
-BASE_CLASS( SamuraiHtmlRenderStoreScope )
+BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
-+ (SamuraiHtmlRenderStoreScope *)scope:(id)sourceOrTarget
++ (IDEAAppletHtmlRenderStoreScope *)scope:(id)sourceOrTarget
 {
    SamuraiHtmlRenderObject * renderer = nil;
    
@@ -72,7 +72,7 @@ BASE_CLASS( SamuraiHtmlRenderStoreScope )
    if ( nil == renderer )
       return nil;
 
-   SamuraiHtmlRenderStoreScope * scope = [[self alloc] init];
+   IDEAAppletHtmlRenderStoreScope * scope = [[self alloc] init];
    [scope attach:renderer];
    return scope;
 }
@@ -478,13 +478,13 @@ BASE_CLASS( SamuraiHtmlRenderStoreScope )
 
 - (NSString *)description
 {
-   [[SamuraiLogger sharedInstance] outputCapture];
+   [[IDEAAppletLogger sharedInstance] outputCapture];
    
    [self dump];
    
-   [[SamuraiLogger sharedInstance] outputRelease];
+   [[IDEAAppletLogger sharedInstance] outputRelease];
    
-   return [SamuraiLogger sharedInstance].output;
+   return [IDEAAppletLogger sharedInstance].output;
 }
 
 - (void)dump

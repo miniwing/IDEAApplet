@@ -47,14 +47,14 @@
 
 #pragma mark -
 
-@implementation SamuraiResource
+@implementation IDEAAppletResource
 
 @def_prop_assign(ResourcePolicy,   resPolicy);
 @def_prop_strong(NSString *,      resPath);
 @def_prop_strong(NSString *,      resType);
 @def_prop_strong(NSString *,      resContent);
 
-BASE_CLASS(SamuraiResource)
+BASE_CLASS(IDEAAppletResource)
 
 #pragma mark -
 
@@ -84,7 +84,7 @@ BASE_CLASS(SamuraiResource)
       return self;
    }
    
-   for (NSString * className in [SamuraiResource subClasses])
+   for (NSString * className in [IDEAAppletResource subClasses])
    {
       Class classType = NSClassFromString(className);
       
@@ -104,7 +104,7 @@ BASE_CLASS(SamuraiResource)
       return self;
    }
    
-   for (NSString * className in [SamuraiResource subClasses])
+   for (NSString * className in [IDEAAppletResource subClasses])
    {
       Class classType = NSClassFromString(className);
       
@@ -154,7 +154,7 @@ BASE_CLASS(SamuraiResource)
    if (nil == string || 0 == string.length)
       return nil;
    
-   SamuraiResource * resource = [self resourceForType:type];
+   IDEAAppletResource * resource = [self resourceForType:type];
    if (nil == resource)
       return nil;
    
@@ -180,7 +180,7 @@ BASE_CLASS(SamuraiResource)
    if (nil == string)
       return nil;
    
-   SamuraiResource * resource = nil;
+   IDEAAppletResource * resource = nil;
    
    if (nil == type)
    {
@@ -246,7 +246,7 @@ BASE_CLASS(SamuraiResource)
       
    } /* End if () */
    
-   SamuraiResource   *stResource = [self resourceForExtension:szFileExt];
+   IDEAAppletResource   *stResource = [self resourceForExtension:szFileExt];
    if (nil == stResource)
    {
       ERROR(@"Unknown resource type");
@@ -467,7 +467,7 @@ BASE_CLASS(SamuraiResource)
       {
          NSString          *szFileName = [NSString stringWithFormat:@"%s.%@", class_getName(stThisClass), szExtension];
          
-         SamuraiResource   *stResource = [self resourceAtPath:szFileName inBundle:nil];
+         IDEAAppletResource   *stResource = [self resourceAtPath:szFileName inBundle:nil];
          
          if (stResource)
          {
@@ -609,7 +609,7 @@ BASE_CLASS(SamuraiResource)
    return NO;
 }
 
-- (void)merge:(SamuraiResource *)another
+- (void)merge:(IDEAAppletResource *)another
 {
 }
 

@@ -67,13 +67,13 @@
 
 - (void)parseDocument:(SamuraiHtmlDocument *)document
 {
-   document.styleTree = [SamuraiCSSStyleSheet styleSheet];
+   document.styleTree = [IDEAAppletCSSStyleSheet styleSheet];
    
 // load default stylesheets
 
-   for ( SamuraiStyleSheet * styleSheet in [SamuraiHtmlUserAgent sharedInstance].defaultStyleSheets )
+   for ( IDEAAppletStyleSheet * styleSheet in [SamuraiHtmlUserAgent sharedInstance].defaultStyleSheets )
    {
-      BOOL isCompatible = [[SamuraiCSSMediaQuery sharedInstance] test:styleSheet.media];
+      BOOL isCompatible = [[IDEAAppletCSSMediaQuery sharedInstance] test:styleSheet.media];
       if ( isCompatible )
       {
          [document.styleTree merge:styleSheet];
@@ -84,9 +84,9 @@
 
    for ( SamuraiHtmlDocument * thisDocument = document; nil != thisDocument; thisDocument = (SamuraiHtmlDocument *)thisDocument.parent )
    {
-      for ( SamuraiStyleSheet * styleSheet in [thisDocument.externalStylesheets copy] )
+      for ( IDEAAppletStyleSheet * styleSheet in [thisDocument.externalStylesheets copy] )
       {
-         BOOL isCompatible = [[SamuraiCSSMediaQuery sharedInstance] test:styleSheet.media];
+         BOOL isCompatible = [[IDEAAppletCSSMediaQuery sharedInstance] test:styleSheet.media];
          if ( isCompatible )
          {
             [document.styleTree merge:styleSheet];
@@ -96,7 +96,7 @@
 
 // parse sub documents
 
-   for ( SamuraiResource * resource in [document.externalImports copy] )
+   for ( IDEAAppletResource * resource in [document.externalImports copy] )
    {
       if ( [resource isKindOfClass:[SamuraiHtmlDocument class]] )
       {

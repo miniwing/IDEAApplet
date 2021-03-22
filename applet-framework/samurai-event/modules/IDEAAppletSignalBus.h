@@ -34,15 +34,15 @@
 
 #pragma mark -
 
-@interface SamuraiSignalBus : NSObject
+@interface IDEAAppletSignalBus : NSObject
 
-@singleton( SamuraiSignalBus )
+@singleton( IDEAAppletSignalBus )
 
-- (BOOL)send:(SamuraiSignal *)signal;
-- (BOOL)forward:(SamuraiSignal *)signal;
-- (BOOL)forward:(SamuraiSignal *)signal to:(id)target;
+- (BOOL)send:(IDEAAppletSignal *)signal;
+- (BOOL)forward:(IDEAAppletSignal *)signal;
+- (BOOL)forward:(IDEAAppletSignal *)signal to:(id)target;
 
-- (void)routes:(SamuraiSignal *)signal;
-- (void)routes:(SamuraiSignal *)signal to:(NSObject *)target forClasses:(NSArray *)classes;
+- (void)routes:(IDEAAppletSignal *)signal;
+- (void)routes:(IDEAAppletSignal *)signal to:(NSObject *)target forClasses:(NSArray *)classes;
 
 @end

@@ -44,12 +44,12 @@
 
 #pragma mark - 
 
-@implementation AppletNotificationCenter
+@implementation IDEAAppletNotificationCenter
 {
    NSMutableDictionary * _map;
 }
 
-@def_singleton( AppletNotificationCenter )
+@def_singleton( IDEAAppletNotificationCenter )
 
 - (id)init
 {
@@ -139,7 +139,7 @@
    {
       for ( NSObject * observer in observers )
       {
-         [[AppletNotificationBus sharedInstance] routes:notification target:observer];
+         [[IDEAAppletNotificationBus sharedInstance] routes:notification target:observer];
       }
    }
 }

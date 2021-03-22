@@ -40,9 +40,9 @@
 
 #pragma mark -
 
-@implementation SamuraiSystem
+@implementation IDEAAppletSystem
 
-@def_singleton( SamuraiSystem );
+@def_singleton( IDEAAppletSystem );
 
 @def_prop_readonly( NSString *,         osVersion );
 @def_prop_readonly( OperationSystem,   osType );
@@ -71,7 +71,7 @@
 
 + (void)classAutoLoad
 {
-   [SamuraiSystem sharedInstance];
+   [IDEAAppletSystem sharedInstance];
 }
 
 - (NSString *)osVersion
@@ -553,11 +553,11 @@ TEST_CASE( Core, System )
 
 DESCRIBE( system info )
 {
-   EXPECTED( [SamuraiSystem sharedInstance].osVersion );
-   EXPECTED( [SamuraiSystem sharedInstance].osType != OperationSystem_Unknown );
+   EXPECTED( [IDEAAppletSystem sharedInstance].osVersion );
+   EXPECTED( [IDEAAppletSystem sharedInstance].osType != OperationSystem_Unknown );
 
-   EXPECTED( [SamuraiSystem sharedInstance].deviceModel );
-   EXPECTED( [SamuraiSystem sharedInstance].deviceUDID );
+   EXPECTED( [IDEAAppletSystem sharedInstance].deviceModel );
+   EXPECTED( [IDEAAppletSystem sharedInstance].deviceUDID );
 }
 
 TEST_CASE_END

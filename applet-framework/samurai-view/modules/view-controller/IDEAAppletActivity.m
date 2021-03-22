@@ -48,19 +48,19 @@
 
 @implementation UIWindow(Activity)
 
-@def_prop_dynamic( SamuraiActivity *, rootActivity );
+@def_prop_dynamic( IDEAAppletActivity *, rootActivity );
 
-- (SamuraiActivity *)rootActivity
+- (IDEAAppletActivity *)rootActivity
 {
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[SamuraiActivity class]] )
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivity class]] )
    {
-      return (SamuraiActivity *)self.rootViewController;
+      return (IDEAAppletActivity *)self.rootViewController;
    }
    
    return nil;
 }
 
-- (void)setRootActivity:(SamuraiActivity *)activity
+- (void)setRootActivity:(IDEAAppletActivity *)activity
 {
    self.rootViewController = activity;
 }
@@ -69,7 +69,7 @@
 
 #pragma mark -
 
-@implementation SamuraiActivity
+@implementation IDEAAppletActivity
 {
    BOOL      _inited;
    BOOL      _booted;
@@ -78,11 +78,11 @@
    BOOL      _viewDirty;
 }
 
-BASE_CLASS( SamuraiActivity )
+BASE_CLASS( IDEAAppletActivity )
 
 @def_joint( stateChanged );
 
-@def_prop_strong( SamuraiIntent  *,    intent );
+@def_prop_strong( IDEAAppletIntent  *,    intent );
 @def_prop_assign( BOOL            ,    animated );
 @def_prop_assign( UIInterfaceOrientation     ,  orientation );
 @def_prop_assign( UIInterfaceOrientationMask ,  orientationMask );

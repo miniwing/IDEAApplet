@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberS)
+@interface IDEAAppletCSSObject(NumberS)
 
 - (BOOL)isS;
 

@@ -34,9 +34,9 @@
 
 #pragma mark -
 
-@interface AppletNotificationBus : NSObject
+@interface IDEAAppletNotificationBus : NSObject
 
-@singleton( AppletNotificationBus )
+@singleton( IDEAAppletNotificationBus )
 
 - (void)routes:(AppletNotification *)notification target:(id)target;
 

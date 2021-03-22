@@ -45,12 +45,12 @@ typedef id   (^ActivityRouterBlock)( NSString * key );
 
 #pragma mark -
 
-@interface SamuraiActivityRouter : NSObject
+@interface IDEAAppletActivityRouter : NSObject
 
-@singleton( SamuraiActivityRouter )
+@singleton( IDEAAppletActivityRouter )
 
 - (void)mapURL:(NSString *)url toActivityClass:(Class)classType;
-- (void)mapURL:(NSString *)url toActivityInstance:(SamuraiActivity *)activity;
+- (void)mapURL:(NSString *)url toActivityInstance:(IDEAAppletActivity *)activity;
 - (void)mapURL:(NSString *)url toBlock:(ActivityRouterBlock)block;
 
 - (id)activityForURL:(NSString *)key;

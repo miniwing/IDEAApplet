@@ -40,15 +40,15 @@
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-@implementation SamuraiSignal(View)
+@implementation IDEAAppletSignal(View)
 
 @def_prop_dynamic( UIView *,            sourceView );
 @def_prop_dynamic( UIView *,            sourceCell );
 @def_prop_dynamic( UITableViewCell *,      sourceTableCell );
 @def_prop_dynamic( UICollectionViewCell *,   sourceCollectionCell );
 
-@def_prop_dynamic( SamuraiDomNode *,      sourceDom );
-@def_prop_dynamic( SamuraiRenderObject *,   sourceRender );
+@def_prop_dynamic( IDEAAppletDomNode *,      sourceDom );
+@def_prop_dynamic( IDEAAppletRenderObject *,   sourceRender );
 @def_prop_dynamic( NSIndexPath *,         sourceIndexPath );
 
 - (UIView *)sourceView
@@ -155,7 +155,7 @@
    return nil;
 }
 
-- (SamuraiDomNode *)sourceDom
+- (IDEAAppletDomNode *)sourceDom
 {
    if ( nil == self.source )
       return nil;
@@ -163,7 +163,7 @@
    return [[self.source renderer] dom];
 }
 
-- (SamuraiRenderObject *)sourceRender
+- (IDEAAppletRenderObject *)sourceRender
 {
    if ( nil == self.source )
       return nil;

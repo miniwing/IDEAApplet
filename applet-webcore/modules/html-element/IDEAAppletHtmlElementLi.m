@@ -95,9 +95,9 @@
 {
    [super html_applyStyle:style];
    
-   SamuraiCSSValue * listStyleType = style.listStyleType;
-//   SamuraiCSSValue * listStyleImage = style.listStyleImage;
-//   SamuraiCSSValue * listStylePosition = style.listStylePosition;
+   IDEAAppletCSSValue * listStyleType = style.listStyleType;
+//   IDEAAppletCSSValue * listStyleImage = style.listStyleImage;
+//   IDEAAppletCSSValue * listStylePosition = style.listStylePosition;
 
    TODO( "list-style-image" );
    TODO( "list-style-position" );

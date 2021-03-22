@@ -80,7 +80,7 @@
    if ( nil == renderObject )
       return nil;
    
-   return [[SamuraiHtmlRenderStoreScope scope:renderObject] getData];
+   return [[IDEAAppletHtmlRenderStoreScope scope:renderObject] getData];
 }
 
 - (void)store_unserialize:(id)obj
@@ -95,7 +95,7 @@
    
    for ( SamuraiHtmlRenderObject * childRender in renderObject.childs )
    {
-      [[SamuraiHtmlRenderStoreScope scope:childRender] setData:obj];
+      [[IDEAAppletHtmlRenderStoreScope scope:childRender] setData:obj];
    }
    
    [self dataDidChanged];
@@ -111,7 +111,7 @@
    
    [self dataWillChange];
 
-   [[SamuraiHtmlRenderStoreScope scope:renderObject] clearData];
+   [[IDEAAppletHtmlRenderStoreScope scope:renderObject] clearData];
    
    [self dataDidChanged];
 }

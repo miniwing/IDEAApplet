@@ -39,10 +39,10 @@
 
 #pragma mark -
 
-@interface SamuraiCSSStyleSheet : SamuraiStyleSheet
+@interface IDEAAppletCSSStyleSheet : IDEAAppletStyleSheet
 
-@prop_strong( SamuraiCSSRuleSet *,         ruleSet );
-@prop_strong( SamuraiCSSRuleCollector *,   collector );
+@prop_strong( IDEAAppletCSSRuleSet *,         ruleSet );
+@prop_strong( IDEAAppletCSSRuleCollector *,   collector );
 
 @end
 

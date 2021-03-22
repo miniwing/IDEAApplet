@@ -51,7 +51,7 @@
 
 - (void)loadTemplate
 {
-   self.template = [[SamuraiTemplate alloc] init];
+   self.template = [[IDEAAppletTemplate alloc] init];
    self.template.responder = self;
    
    [self.template loadClass:[self class]];
@@ -67,7 +67,7 @@
    self.template = nil;
 }
 
-- (void)handleTemplate:(SamuraiTemplate *)template
+- (void)handleTemplate:(IDEAAppletTemplate *)template
 {
    ASSERT( template == self.template );
    
@@ -83,13 +83,13 @@
    {
       [template.document configureForView:self];
 
-      SamuraiRenderObject * rootRender = template.document.renderTree;
+      IDEAAppletRenderObject * rootRender = template.document.renderTree;
       
       if ( rootRender )
       {
          if ( self.renderer )
          {
-            for ( SamuraiRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
+            for ( IDEAAppletRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
             {
                [self.renderer appendNode:childRender];
                

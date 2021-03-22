@@ -201,9 +201,9 @@
 
 #pragma mark -
 
-@implementation SamuraiDebugger
+@implementation IDEAAppletDebugger
 
-@def_singleton(SamuraiDebugger)
+@def_singleton( IDEAAppletDebugger )
 
 @def_prop_readonly( NSArray *,   callstack );
 
@@ -240,12 +240,12 @@ static void __uncaughtSignalHandler( int signal )
    signal( SIGPIPE,   &__uncaughtSignalHandler );
 #endif
 
-   [SamuraiDebugger sharedInstance];
+   [IDEAAppletDebugger sharedInstance];
 }
 
 - (NSArray *)callstack
 {
-   return [[SamuraiDebugger sharedInstance] callstack:MAX_CALLSTACK_DEPTH];
+   return [[IDEAAppletDebugger sharedInstance] callstack:MAX_CALLSTACK_DEPTH];
 }
 
 - (NSArray *)callstack:(NSInteger)depth;
@@ -316,15 +316,15 @@ static void __uncaughtSignalHandler( int signal )
 {
 #if __SAMURAI_DEBUG__
    
-   SamuraiLogger * logger = [SamuraiLogger sharedInstance];
+   IDEAAppletLogger  *stLogger   = [IDEAAppletLogger sharedInstance];
    
-   [logger outputCapture];
+   [stLogger outputCapture];
 
    [self dump];
    
-   [logger outputRelease];
+   [stLogger outputRelease];
    
-   return logger.output;
+   return stLogger.output;
    
 #else   // #if __SAMURAI_DEBUG__
    
@@ -358,24 +358,24 @@ DESCRIBE( before )
 
 DESCRIBE( backtrace )
 {
-   NSArray * emptyFrames = [[SamuraiDebugger sharedInstance] callstack:0];
+   NSArray * emptyFrames = [[IDEAAppletDebugger sharedInstance] callstack:0];
    EXPECTED( emptyFrames );
    EXPECTED( emptyFrames.count == 0 );
    
-   NSArray * maxFrames = [[SamuraiDebugger sharedInstance] callstack:100000];
+   NSArray * maxFrames = [[IDEAAppletDebugger sharedInstance] callstack:100000];
    EXPECTED( maxFrames );
    EXPECTED( maxFrames.count );
    
-   NSArray * frames = [[SamuraiDebugger sharedInstance] callstack:1];
+   NSArray * frames = [[IDEAAppletDebugger sharedInstance] callstack:1];
    EXPECTED( frames && frames.count );
    EXPECTED( [[frames objectAtIndex:0] isKindOfClass:[SamuraiCallFrame class]] );
    
    TRACE();
 
-   [[SamuraiDebugger sharedInstance] trace];
-   [[SamuraiDebugger sharedInstance] trace:0];
-   [[SamuraiDebugger sharedInstance] trace:1];
-   [[SamuraiDebugger sharedInstance] trace:100000];
+   [[IDEAAppletDebugger sharedInstance] trace];
+   [[IDEAAppletDebugger sharedInstance] trace:0];
+   [[IDEAAppletDebugger sharedInstance] trace:1];
+   [[IDEAAppletDebugger sharedInstance] trace:100000];
 }
 
 DESCRIBE( after )

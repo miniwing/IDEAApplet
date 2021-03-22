@@ -56,7 +56,7 @@
 
 #pragma mark -
 
-typedef NSObject * (^ AppletNotificationBlock )( NSString * name, id object );
+typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, id object );
 
 #pragma mark -
 
@@ -79,7 +79,7 @@ typedef NSNotification AppletNotification;
 
 @interface NSObject(NotificationResponder)
 
-@prop_readonly( AppletNotificationBlock, onNotification );
+@prop_readonly( IDEAAppletNotificationBlock, onNotification );
 
 - (void)observeNotification:(NSString *)aName;
 - (void)unobserveNotification:(NSString *)aName;

@@ -36,9 +36,9 @@
 
 #pragma mark -
 
-@interface SamuraiCSSRuleCollector : NSObject
+@interface IDEAAppletCSSRuleCollector : NSObject
 
-- (NSDictionary *)collectFromRuleSet:(SamuraiCSSRuleSet *)ruleSet forElement:(id<SamuraiCSSProtocol>)element;
+- (NSDictionary *)collectFromRuleSet:(IDEAAppletCSSRuleSet *)ruleSet forElement:(id<IDEAAppletCSSProtocol>)element;
 
 @end
 

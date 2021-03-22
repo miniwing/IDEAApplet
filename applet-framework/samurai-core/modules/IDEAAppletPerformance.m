@@ -43,12 +43,12 @@
 
 #pragma mark -
 
-@implementation SamuraiPerformance
+@implementation IDEAAppletPerformance
 {
    NSMutableDictionary * _tags;
 }
 
-@def_singleton( SamuraiPerformance );
+@def_singleton( IDEAAppletPerformance );
 
 - (id)init
 {

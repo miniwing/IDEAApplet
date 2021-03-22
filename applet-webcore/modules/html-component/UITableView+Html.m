@@ -127,7 +127,7 @@
    self.document = document;
    self.reuseIdentifier = [NSString stringWithFormat:@"%@-%@", document.domTree.tag, document.renderTree.id];
    
-   SamuraiCSSValue * rowHeight = document.renderTree.style.height;
+   IDEAAppletCSSValue * rowHeight = document.renderTree.style.height;
    
    if ( rowHeight && [rowHeight isAbsolute] )
    {

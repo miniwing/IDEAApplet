@@ -49,12 +49,12 @@
 
 #pragma mark -
 
-@implementation AppletNotificationBus
+@implementation IDEAAppletNotificationBus
 {
    NSMutableDictionary * _handlers;
 }
 
-@def_singleton( AppletNotificationBus )
+@def_singleton( IDEAAppletNotificationBus )
 
 - (id)init
 {
@@ -261,7 +261,7 @@
    
    if ( NO == performed )
    {
-      SamuraiHandler * handler = [target blockHandler];
+      IDEAAppletHandler * handler = [target blockHandler];
       if ( handler )
       {
          BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:notification];

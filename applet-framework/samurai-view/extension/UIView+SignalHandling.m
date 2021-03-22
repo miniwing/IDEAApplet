@@ -44,7 +44,7 @@
 
 - (NSString *)signalNamespace
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer )
    {
@@ -58,7 +58,7 @@
 
 - (NSString *)signalTag
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer )
    {
@@ -72,7 +72,7 @@
 
 - (NSString *)signalDescription
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer )
    {
@@ -86,7 +86,7 @@
 
 - (id)signalResponders
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer )
    {
@@ -100,7 +100,7 @@
 
 - (id)signalAlias
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer )
    {

@@ -61,7 +61,7 @@
 
 #pragma mark -
 
-@interface SamuraiModel : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletModel : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 + (instancetype)model;
 

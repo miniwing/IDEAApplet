@@ -37,11 +37,11 @@
 #pragma mark -
 
 #undef   cssColor
-#define cssColor( c )   [SamuraiCSSColor color:c]
+#define cssColor( c )   [IDEAAppletCSSColor color:c]
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Color)
+@interface IDEAAppletCSSObject(Color)
 
 - (BOOL)isColor;
 
@@ -51,7 +51,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSColor : SamuraiCSSValue
+@interface IDEAAppletCSSColor : IDEAAppletCSSValue
 
 @prop_strong( UIColor *, color );
 

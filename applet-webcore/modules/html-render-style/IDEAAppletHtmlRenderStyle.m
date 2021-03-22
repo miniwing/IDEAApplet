@@ -47,7 +47,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Border)
+@interface IDEAAppletCSSObject(Border)
 
 - (BOOL)isBorderSize;
 - (BOOL)isBorderStyle;
@@ -59,7 +59,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(Border)
+@implementation IDEAAppletCSSObject(Border)
 
 - (BOOL)isBorderSize
 {
@@ -370,7 +370,7 @@
 
 #pragma mark -
 
-- (SamuraiCSSValue *)getCSSValueForKey:(NSString *)key
+- (IDEAAppletCSSValue *)getCSSValueForKey:(NSString *)key
 {
    if ( nil == key )
       return nil;
@@ -386,22 +386,22 @@
    {
       if ( [object isKindOfClass:[NSString class]] )
       {
-         return [SamuraiCSSValue parseString:(NSString *)object];
+         return [IDEAAppletCSSValue parseString:(NSString *)object];
       }
-      else if ( [object isKindOfClass:[SamuraiCSSValue class]] )
+      else if ( [object isKindOfClass:[IDEAAppletCSSValue class]] )
       {
-         return (SamuraiCSSValue *)object;
+         return (IDEAAppletCSSValue *)object;
       }
-      else if ( [object isKindOfClass:[SamuraiCSSArray class]] )
+      else if ( [object isKindOfClass:[IDEAAppletCSSArray class]] )
       {
-         return [(SamuraiCSSArray *)object objectAtIndex:0];
+         return [(IDEAAppletCSSArray *)object objectAtIndex:0];
       }
    }
    
    return nil;
 }
 
-- (SamuraiCSSArray *)getCSSArrayForKey:(NSString *)key
+- (IDEAAppletCSSArray *)getCSSArrayForKey:(NSString *)key
 {
    if ( nil == key )
       return nil;
@@ -411,22 +411,22 @@
    {
       if ( [object isKindOfClass:[NSString class]] )
       {
-         return [SamuraiCSSArray parseString:(NSString *)object];
+         return [IDEAAppletCSSArray parseString:(NSString *)object];
       }
-      else if ( [object isKindOfClass:[SamuraiCSSValue class]] )
+      else if ( [object isKindOfClass:[IDEAAppletCSSValue class]] )
       {
-         return [SamuraiCSSArray array:[NSArray arrayWithObject:object]];
+         return [IDEAAppletCSSArray array:[NSArray arrayWithObject:object]];
       }
-      else if ( [object isKindOfClass:[SamuraiCSSArray class]] )
+      else if ( [object isKindOfClass:[IDEAAppletCSSArray class]] )
       {
-         return (SamuraiCSSArray *)object;
+         return (IDEAAppletCSSArray *)object;
       }
    }
 
    return nil;
 }
 
-- (void)setCSSValue:(SamuraiCSSValue *)value forKey:(NSString *)key
+- (void)setCSSValue:(IDEAAppletCSSValue *)value forKey:(NSString *)key
 {
    if ( nil == key )
       return;
@@ -441,7 +441,7 @@
    }
 }
 
-- (void)setCSSArray:(SamuraiCSSArray *)array forKey:(NSString *)key
+- (void)setCSSArray:(IDEAAppletCSSArray *)array forKey:(NSString *)key
 {
    if ( nil == key )
       return;
@@ -543,14 +543,14 @@
    UIFont * result = nil;
    
    NSUInteger         componentIndex = 0;
-   SamuraiCSSValue *   component = nil;
+   IDEAAppletCSSValue *   component = nil;
 
-   SamuraiCSSArray *   font = self.font;
-   SamuraiCSSValue *   fontVariant = self.fontVariant;
-//   SamuraiCSSArray *   fontFamily = self.fontFamily;
-   SamuraiCSSValue *   fontWeight = self.fontWeight;
-   SamuraiCSSValue *   fontStyle = self.fontStyle;
-   SamuraiCSSValue *   fontSize = self.fontSize;
+   IDEAAppletCSSArray *   font = self.font;
+   IDEAAppletCSSValue *   fontVariant = self.fontVariant;
+//   IDEAAppletCSSArray *   fontFamily = self.fontFamily;
+   IDEAAppletCSSValue *   fontWeight = self.fontWeight;
+   IDEAAppletCSSValue *   fontStyle = self.fontStyle;
+   IDEAAppletCSSValue *   fontSize = self.fontSize;
    
    if ( font )
    {
@@ -631,7 +631,7 @@
       
       if ( component )
       {
-      //   fontFamily = fontFamily ?: [SamuraiCSSArray object:component];
+      //   fontFamily = fontFamily ?: [IDEAAppletCSSArray object:component];
 
          componentIndex += 1;
       }
@@ -788,7 +788,7 @@
 
 - (UIColor *)computeColor:(UIColor *)defaultColor
 {
-   SamuraiCSSValue * color = self.color;
+   IDEAAppletCSSValue * color = self.color;
    
    if ( [color isColor] )
    {
@@ -800,7 +800,7 @@
 
 - (NSTextAlignment)computeTextAlignment:(NSTextAlignment)defaultMode
 {
-   SamuraiCSSValue * textAlign = self.textAlign;
+   IDEAAppletCSSValue * textAlign = self.textAlign;
    
    if ( textAlign )
    {
@@ -831,8 +831,8 @@
 
 - (NSLineBreakMode)computeLineBreakMode:(NSLineBreakMode)defaultMode
 {
-   SamuraiCSSValue * overflow = self.textOverflow;
-   SamuraiCSSValue * wordwrap = self.wordWrap;
+   IDEAAppletCSSValue * overflow = self.textOverflow;
+   IDEAAppletCSSValue * wordwrap = self.wordWrap;
    
    if ( overflow )
    {
@@ -875,7 +875,7 @@
 
 - (UIViewContentMode)computeContentMode:(UIViewContentMode)defaultMode
 {
-   SamuraiCSSValue * contentMode = self.contentMode;
+   IDEAAppletCSSValue * contentMode = self.contentMode;
    
    if ( contentMode )
    {
@@ -935,7 +935,7 @@
 
 - (UIBaselineAdjustment)computeBaselineAdjustment:(UIBaselineAdjustment)defaultMode
 {
-   SamuraiCSSValue * baseline = self.baseline;
+   IDEAAppletCSSValue * baseline = self.baseline;
    
    if ( baseline )
    {
@@ -958,7 +958,7 @@
 
 - (UITextDecoration)computeTextDecoration:(UITextDecoration)defaultDecoration
 {
-   SamuraiCSSValue * textDecoration = self.textDecoration;
+   IDEAAppletCSSValue * textDecoration = self.textDecoration;
 
    if ( textDecoration )
    {
@@ -987,7 +987,7 @@
 
 - (CSSWrap)computeWrap:(CSSWrap)defaultValue
 {
-   SamuraiCSSValue * flexWrap = self.flexWrap;
+   IDEAAppletCSSValue * flexWrap = self.flexWrap;
    
    if ( flexWrap )
    {
@@ -1014,8 +1014,8 @@
 
 - (CSSAlign)computeAlign:(CSSAlign)defaultValue
 {
-   SamuraiCSSValue * align = self.align;
-   SamuraiCSSValue * textAlign = self.textAlign;
+   IDEAAppletCSSValue * align = self.align;
+   IDEAAppletCSSValue * textAlign = self.textAlign;
 
    if ( align )
    {
@@ -1058,7 +1058,7 @@
 
 - (CSSClear)computeClear:(CSSClear)defaultValue
 {
-   SamuraiCSSValue * clear = self.clear;
+   IDEAAppletCSSValue * clear = self.clear;
    
    if ( clear )
    {
@@ -1089,7 +1089,7 @@
 
 - (CSSDisplay)computeDisplay:(CSSDisplay)defaultValue
 {
-   SamuraiCSSValue * display = self.display;
+   IDEAAppletCSSValue * display = self.display;
    
    if ( display )
    {
@@ -1180,7 +1180,7 @@
 
 - (CSSFloating)computeFloating:(CSSFloating)defaultValue
 {
-   SamuraiCSSValue * floating = self.floating;
+   IDEAAppletCSSValue * floating = self.floating;
    
    if ( floating )
    {
@@ -1207,7 +1207,7 @@
 
 - (CSSPosition)computePosition:(CSSPosition)defaultValue
 {
-   SamuraiCSSValue * position = self.position;
+   IDEAAppletCSSValue * position = self.position;
    
    if ( position )
    {
@@ -1238,7 +1238,7 @@
 
 - (CSSWhiteSpace)computeWhiteSpace:(CSSWhiteSpace)defaultValue
 {
-   SamuraiCSSValue * whiteSpace = self.whiteSpace;
+   IDEAAppletCSSValue * whiteSpace = self.whiteSpace;
 
    if ( whiteSpace )
    {
@@ -1269,7 +1269,7 @@
 
 - (CSSVerticalAlign)computeVerticalAlign:(CSSVerticalAlign)defaultValue
 {
-   SamuraiCSSValue * align = self.align;
+   IDEAAppletCSSValue * align = self.align;
    
    if ( align )
    {
@@ -1316,7 +1316,7 @@
 
 - (CSSViewHierarchy)computeViewHierarchy:(CSSViewHierarchy)defaultValue
 {
-   SamuraiCSSValue * hierarchy = self.samuraiViewHierarchy;
+   IDEAAppletCSSValue * hierarchy = self.samuraiViewHierarchy;
    
    if ( hierarchy )
    {
@@ -1347,7 +1347,7 @@
 
 - (CSSBorderCollapse)computeBorderCollapse:(CSSBorderCollapse)defaultValue
 {
-   SamuraiCSSValue * collapse = self.borderCollapse;
+   IDEAAppletCSSValue * collapse = self.borderCollapse;
    
    if ( collapse )
    {
@@ -1372,7 +1372,7 @@
 
 - (CSSBoxPack)computeBoxPack:(CSSBoxPack)defaultValue
 {
-   SamuraiCSSValue * boxPack = self.boxPack;
+   IDEAAppletCSSValue * boxPack = self.boxPack;
    
    if ( boxPack )
    {
@@ -1403,7 +1403,7 @@
 
 - (CSSBoxAlign)computeBoxAlign:(CSSBoxAlign)defaultValue
 {
-   SamuraiCSSValue * boxAlign = self.boxAlign;
+   IDEAAppletCSSValue * boxAlign = self.boxAlign;
    
    if ( boxAlign )
    {
@@ -1438,7 +1438,7 @@
 
 - (CSSBoxLines)computeBoxLines:(CSSBoxLines)defaultValue
 {
-   SamuraiCSSValue * boxLines = self.boxLines;
+   IDEAAppletCSSValue * boxLines = self.boxLines;
    
    if ( boxLines )
    {
@@ -1461,7 +1461,7 @@
 
 - (CSSBoxOrient)computeBoxOrient:(CSSBoxOrient)defaultValue
 {
-   SamuraiCSSValue * boxOrient = self.boxOrient;
+   IDEAAppletCSSValue * boxOrient = self.boxOrient;
    
    if ( boxOrient )
    {
@@ -1492,7 +1492,7 @@
 
 - (CSSBoxDirection)computeBoxDirection:(CSSBoxDirection)defaultValue
 {
-   SamuraiCSSValue * boxDirection = self.boxDirection;
+   IDEAAppletCSSValue * boxDirection = self.boxDirection;
    
    if ( boxDirection )
    {
@@ -1515,7 +1515,7 @@
 
 - (CSSFlexWrap)computeFlexWrap:(CSSFlexWrap)defaultValue
 {
-   SamuraiCSSValue * flexWrap = self.flexWrap ?: [self.flexFlow objectAtIndex:1];
+   IDEAAppletCSSValue * flexWrap = self.flexWrap ?: [self.flexFlow objectAtIndex:1];
    
    if ( flexWrap )
    {
@@ -1542,7 +1542,7 @@
 
 - (CSSFlexDirection)computeFlexDirection:(CSSFlexDirection)defaultValue
 {
-   SamuraiCSSValue * flexDirection = self.flexDirection ?: [self.flexFlow objectAtIndex:0];
+   IDEAAppletCSSValue * flexDirection = self.flexDirection ?: [self.flexFlow objectAtIndex:0];
    
    if ( flexDirection )
    {
@@ -1573,7 +1573,7 @@
 
 - (CSSAlignSelf)computeAlignSelf:(CSSAlignSelf)defaultValue
 {
-   SamuraiCSSValue * alignSelf = self.alignSelf;
+   IDEAAppletCSSValue * alignSelf = self.alignSelf;
    
    if ( alignSelf )
    {
@@ -1612,7 +1612,7 @@
 
 - (CSSAlignItems)computeAlignItems:(CSSAlignItems)defaultValue
 {
-   SamuraiCSSValue * alignItems = self.alignItems;
+   IDEAAppletCSSValue * alignItems = self.alignItems;
    
    if ( alignItems )
    {
@@ -1647,7 +1647,7 @@
 
 - (CSSAlignContent)computeAlignContent:(CSSAlignContent)defaultValue
 {
-   SamuraiCSSValue * alignContent = self.alignContent;
+   IDEAAppletCSSValue * alignContent = self.alignContent;
    
    if ( alignContent )
    {
@@ -1686,7 +1686,7 @@
 
 - (CSSJustifyContent)computeJustifyContent:(CSSJustifyContent)defaultValue;
 {
-   SamuraiCSSValue * justifyContent = self.justifyContent;
+   IDEAAppletCSSValue * justifyContent = self.justifyContent;
    
    if ( justifyContent )
    {
@@ -1723,7 +1723,7 @@
 
 - (BOOL)isWidthEqualsToHeight
 {
-   SamuraiCSSObject * width = self.width;
+   IDEAAppletCSSObject * width = self.width;
    
    if ( width )
    {
@@ -1738,9 +1738,9 @@
                return YES;
             }
          }
-         else if ( [firstParam isKindOfClass:[SamuraiCSSObject class]] )
+         else if ( [firstParam isKindOfClass:[IDEAAppletCSSObject class]] )
          {
-            if ( [(SamuraiCSSObject *)firstParam isString:@"height"] )
+            if ( [(IDEAAppletCSSObject *)firstParam isString:@"height"] )
             {
                return YES;
             }
@@ -1753,7 +1753,7 @@
 
 - (BOOL)isHeightEqualsToWidth
 {
-   SamuraiCSSObject * height = self.height;
+   IDEAAppletCSSObject * height = self.height;
 
    if ( height )
    {
@@ -1768,9 +1768,9 @@
                return YES;
             }
          }
-         else if ( [firstParam isKindOfClass:[SamuraiCSSObject class]] )
+         else if ( [firstParam isKindOfClass:[IDEAAppletCSSObject class]] )
          {
-            if ( [(SamuraiCSSObject *)firstParam isString:@"width"] )
+            if ( [(IDEAAppletCSSObject *)firstParam isString:@"width"] )
             {
                return YES;
             }
@@ -1931,7 +1931,7 @@
 
 - (CGFloat)computeInsetTopSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * top = self.insetTop ?: self.inset.top;
+   IDEAAppletCSSValue * top = self.insetTop ?: self.inset.top;
    
    if ( top )
    {
@@ -1947,7 +1947,7 @@
 
 - (CGFloat)computeInsetLeftSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * left = self.insetLeft ?: self.inset.left;
+   IDEAAppletCSSValue * left = self.insetLeft ?: self.inset.left;
    
    if ( left )
    {
@@ -1963,7 +1963,7 @@
 
 - (CGFloat)computeInsetRightSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * right = self.insetRight ?: self.inset.right;
+   IDEAAppletCSSValue * right = self.insetRight ?: self.inset.right;
    
    if ( right )
    {
@@ -1979,7 +1979,7 @@
 
 - (CGFloat)computeInsetBottomSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * bottom = self.insetBottom ?: self.inset.bottom;
+   IDEAAppletCSSValue * bottom = self.insetBottom ?: self.inset.bottom;
    
    if ( bottom )
    {
@@ -1997,7 +1997,7 @@
 
 - (CGFloat)computePaddingTopSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * top = self.paddingTop ?: (self.padding.top ?: self.webkitPaddingBefore);
+   IDEAAppletCSSValue * top = self.paddingTop ?: (self.padding.top ?: self.webkitPaddingBefore);
    
    if ( top )
    {
@@ -2013,7 +2013,7 @@
 
 - (CGFloat)computePaddingLeftSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * left = self.paddingLeft ?: (self.padding.left ?: self.webkitPaddingStart);
+   IDEAAppletCSSValue * left = self.paddingLeft ?: (self.padding.left ?: self.webkitPaddingStart);
    
    if ( left )
    {
@@ -2029,7 +2029,7 @@
 
 - (CGFloat)computePaddingRightSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * right = self.paddingRight ?: (self.padding.right ?: self.webkitPaddingEnd);
+   IDEAAppletCSSValue * right = self.paddingRight ?: (self.padding.right ?: self.webkitPaddingEnd);
    
    if ( right )
    {
@@ -2045,7 +2045,7 @@
 
 - (CGFloat)computePaddingBottomSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * bottom = self.paddingBottom ?: (self.padding.bottom ?: self.webkitPaddingAfter);
+   IDEAAppletCSSValue * bottom = self.paddingBottom ?: (self.padding.bottom ?: self.webkitPaddingAfter);
    
    if ( bottom )
    {
@@ -2063,7 +2063,7 @@
 
 - (CGFloat)computeMarginTopSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * top = self.marginTop ?: (self.margin.top ?: self.webkitMarginBefore);
+   IDEAAppletCSSValue * top = self.marginTop ?: (self.margin.top ?: self.webkitMarginBefore);
    
    if ( top )
    {
@@ -2079,7 +2079,7 @@
 
 - (CGFloat)computeMarginLeftSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * left = self.marginLeft ?: (self.margin.left ?: self.webkitMarginStart);
+   IDEAAppletCSSValue * left = self.marginLeft ?: (self.margin.left ?: self.webkitMarginStart);
    
    if ( left )
    {
@@ -2095,7 +2095,7 @@
 
 - (CGFloat)computeMarginRightSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * right = self.marginRight ?: (self.margin.right ?: self.webkitMarginEnd);
+   IDEAAppletCSSValue * right = self.marginRight ?: (self.margin.right ?: self.webkitMarginEnd);
    
    if ( right )
    {
@@ -2111,7 +2111,7 @@
 
 - (CGFloat)computeMarginBottomSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * bottom = self.marginBottom ?: (self.margin.bottom ?: self.webkitMarginAfter);
+   IDEAAppletCSSValue * bottom = self.marginBottom ?: (self.margin.bottom ?: self.webkitMarginAfter);
    
    if ( bottom )
    {
@@ -2129,7 +2129,7 @@
 
 - (UIColor *)computeBorderTopColor:(UIColor *)defaultColor
 {
-   SamuraiCSSValue * borderColor = nil;
+   IDEAAppletCSSValue * borderColor = nil;
 
    if ( nil == borderColor )
    {
@@ -2143,7 +2143,7 @@
 
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.borderTop.array )
+      for ( IDEAAppletCSSValue * item in self.borderTop.array )
       {
          if ( [item isColor] )
          {
@@ -2154,7 +2154,7 @@
    
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isColor] )
          {
@@ -2175,7 +2175,7 @@
 
 - (UIColor *)computeBorderLeftColor:(UIColor *)defaultColor
 {
-   SamuraiCSSValue * borderColor = nil;
+   IDEAAppletCSSValue * borderColor = nil;
    
    if ( nil == borderColor )
    {
@@ -2189,7 +2189,7 @@
 
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.borderLeft.array )
+      for ( IDEAAppletCSSValue * item in self.borderLeft.array )
       {
          if ( [item isColor] )
          {
@@ -2200,7 +2200,7 @@
    
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isColor] )
          {
@@ -2221,7 +2221,7 @@
 
 - (UIColor *)computeBorderRightColor:(UIColor *)defaultColor
 {
-   SamuraiCSSValue * borderColor = nil;
+   IDEAAppletCSSValue * borderColor = nil;
    
    if ( nil == borderColor )
    {
@@ -2235,7 +2235,7 @@
 
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.borderRight.array )
+      for ( IDEAAppletCSSValue * item in self.borderRight.array )
       {
          if ( [item isColor] )
          {
@@ -2246,7 +2246,7 @@
    
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isColor] )
          {
@@ -2267,7 +2267,7 @@
 
 - (UIColor *)computeBorderBottomColor:(UIColor *)defaultColor
 {
-   SamuraiCSSValue * borderColor = nil;
+   IDEAAppletCSSValue * borderColor = nil;
    
    if ( nil == borderColor )
    {
@@ -2281,7 +2281,7 @@
 
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.borderBottom.array )
+      for ( IDEAAppletCSSValue * item in self.borderBottom.array )
       {
          if ( [item isColor] )
          {
@@ -2292,7 +2292,7 @@
    
    if ( nil == borderColor )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isColor] )
          {
@@ -2315,7 +2315,7 @@
 
 - (CGFloat)computeBorderTopSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * borderSize = nil;
+   IDEAAppletCSSValue * borderSize = nil;
 
    if ( nil == borderSize )
    {
@@ -2329,7 +2329,7 @@
 
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.borderTop.array )
+      for ( IDEAAppletCSSValue * item in self.borderTop.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2340,7 +2340,7 @@
 
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2363,7 +2363,7 @@
 
 - (CGFloat)computeBorderLeftSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * borderSize = nil;
+   IDEAAppletCSSValue * borderSize = nil;
    
    if ( nil == borderSize )
    {
@@ -2377,7 +2377,7 @@
 
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.borderLeft.array )
+      for ( IDEAAppletCSSValue * item in self.borderLeft.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2388,7 +2388,7 @@
    
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2411,7 +2411,7 @@
 
 - (CGFloat)computeBorderRightSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * borderSize = nil;
+   IDEAAppletCSSValue * borderSize = nil;
    
    if ( nil == borderSize )
    {
@@ -2425,7 +2425,7 @@
 
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.borderRight.array )
+      for ( IDEAAppletCSSValue * item in self.borderRight.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2436,7 +2436,7 @@
    
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2459,7 +2459,7 @@
 
 - (CGFloat)computeBorderBottomSize:(CGFloat)bounds defaultSize:(CGFloat)defaultSize
 {
-   SamuraiCSSValue * borderSize = nil;
+   IDEAAppletCSSValue * borderSize = nil;
    
    if ( nil == borderSize )
    {
@@ -2473,7 +2473,7 @@
 
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.borderBottom.array )
+      for ( IDEAAppletCSSValue * item in self.borderBottom.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2484,7 +2484,7 @@
    
    if ( nil == borderSize )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderSize] )
          {
@@ -2509,7 +2509,7 @@
 
 - (CSSBorderStyle)computeBorderTopStyle:(CSSBorderStyle)defaultStyle
 {
-   SamuraiCSSValue * borderStyle = nil;
+   IDEAAppletCSSValue * borderStyle = nil;
    
    if ( nil == borderStyle )
    {
@@ -2523,7 +2523,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.borderTop.array )
+      for ( IDEAAppletCSSValue * item in self.borderTop.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2534,7 +2534,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2555,7 +2555,7 @@
 
 - (CSSBorderStyle)computeBorderLeftStyle:(CSSBorderStyle)defaultStyle
 {
-   SamuraiCSSValue * borderStyle = nil;
+   IDEAAppletCSSValue * borderStyle = nil;
    
    if ( nil == borderStyle )
    {
@@ -2569,7 +2569,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.borderLeft.array )
+      for ( IDEAAppletCSSValue * item in self.borderLeft.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2580,7 +2580,7 @@
    
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2601,7 +2601,7 @@
 
 - (CSSBorderStyle)computeBorderRightStyle:(CSSBorderStyle)defaultStyle
 {
-   SamuraiCSSValue * borderStyle = nil;
+   IDEAAppletCSSValue * borderStyle = nil;
    
    if ( nil == borderStyle )
    {
@@ -2615,7 +2615,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.borderRight.array )
+      for ( IDEAAppletCSSValue * item in self.borderRight.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2626,7 +2626,7 @@
    
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2647,7 +2647,7 @@
 
 - (CSSBorderStyle)computeBorderBottomStyle:(CSSBorderStyle)defaultStyle
 {
-   SamuraiCSSValue * borderStyle = nil;
+   IDEAAppletCSSValue * borderStyle = nil;
    
    if ( nil == borderStyle )
    {
@@ -2661,7 +2661,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.borderBottom.array )
+      for ( IDEAAppletCSSValue * item in self.borderBottom.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2672,7 +2672,7 @@
 
    if ( nil == borderStyle )
    {
-      for ( SamuraiCSSValue * item in self.border.array )
+      for ( IDEAAppletCSSValue * item in self.border.array )
       {
          if ( [item isBorderStyle] )
          {
@@ -2895,7 +2895,7 @@
 
 - (CGFloat)computeFlexGrow:(CGFloat)defaultValue
 {
-   SamuraiCSSValue * grow = self.flexGrow ?: [self.flex objectAtIndex:0];
+   IDEAAppletCSSValue * grow = self.flexGrow ?: [self.flex objectAtIndex:0];
    
    if ( grow )
    {
@@ -2911,7 +2911,7 @@
 
 - (CGFloat)computeFlexShrink:(CGFloat)defaultValue
 {
-   SamuraiCSSValue * shrink = self.flexShrink ?: [self.flex objectAtIndex:1];
+   IDEAAppletCSSValue * shrink = self.flexShrink ?: [self.flex objectAtIndex:1];
 
    if ( shrink )
    {
@@ -2927,7 +2927,7 @@
 
 - (CGFloat)computeFlexBasis:(CGFloat)defaultValue
 {
-   SamuraiCSSValue * basis = self.flexBasis ?: [self.flex objectAtIndex:2];
+   IDEAAppletCSSValue * basis = self.flexBasis ?: [self.flex objectAtIndex:2];
 
    if ( basis )
    {
@@ -2958,7 +2958,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testNumberForKey:(NSString *)key
 {
-   SamuraiCSSValue * value = nil;
+   IDEAAppletCSSValue * value = nil;
 
 // set string
    
@@ -3013,7 +3013,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testColorForKey:(NSString *)key
 {
-   SamuraiCSSValue * value = nil;
+   IDEAAppletCSSValue * value = nil;
    
 // set string
    
@@ -3099,7 +3099,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testStringForKey:(NSString *)key
 {
-   SamuraiCSSValue * value = nil;
+   IDEAAppletCSSValue * value = nil;
    
 // set string
    
@@ -3124,7 +3124,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testUrlForKey:(NSString *)key
 {
-   SamuraiCSSValue * value = nil;
+   IDEAAppletCSSValue * value = nil;
    
 // set string
    
@@ -3149,7 +3149,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testArrayForKey:(NSString *)key
 {
-   SamuraiCSSValue * value = nil;
+   IDEAAppletCSSValue * value = nil;
    
 // set array
 

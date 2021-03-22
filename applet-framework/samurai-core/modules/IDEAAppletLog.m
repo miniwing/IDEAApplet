@@ -71,7 +71,7 @@ static const char * __prefix[] =
 
 static void __NSLogv( NSString * format, va_list args )
 {
-   [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:format args:args];
+   [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:format args:args];
 }
 
 static void __NSLog( NSString * format, ... )
@@ -92,13 +92,13 @@ static void __NSLog( NSString * format, ... )
 
 #pragma mark -
 
-@implementation SamuraiLogger
+@implementation IDEAAppletLogger
 {
    NSUInteger   _capture;
    NSUInteger   _indent;
 }
 
-@def_singleton( SamuraiLogger );
+@def_singleton( IDEAAppletLogger );
 
 @def_prop_assign( BOOL               ,    enabled );
 
@@ -110,7 +110,7 @@ static void __NSLog( NSString * format, ... )
 
 + (void)classAutoLoad
 {
-   [SamuraiLogger sharedInstance];
+   [IDEAAppletLogger sharedInstance];
 }
 
 - (id)init

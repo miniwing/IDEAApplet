@@ -37,7 +37,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSValue : SamuraiCSSObject
+@interface IDEAAppletCSSValue : IDEAAppletCSSObject
 
 + (instancetype)parseValue:(KatanaValue *)value;   // override point
 + (instancetype)parseString:(NSString *)string;    // override point

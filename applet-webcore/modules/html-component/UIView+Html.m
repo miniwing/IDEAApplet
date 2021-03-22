@@ -343,11 +343,11 @@
 {
 //   #00FF00 url(bgimage.gif) no-repeat fixed top
    
-   SamuraiCSSArray *   background = style.background;
-   SamuraiCSSValue *   backgroundColor = style.backgroundColor;
-   SamuraiCSSValue *   backgroundImage = style.backgroundImage;
+   IDEAAppletCSSArray *   background = style.background;
+   IDEAAppletCSSValue *   backgroundColor = style.backgroundColor;
+   IDEAAppletCSSValue *   backgroundImage = style.backgroundImage;
    
-   for ( SamuraiCSSValue * backgroundItem in background.array )
+   for ( IDEAAppletCSSValue * backgroundItem in background.array )
    {
       if ( [backgroundItem isColor] )
       {
@@ -381,7 +381,7 @@
 
 - (void)html_applyShadow:(SamuraiHtmlRenderStyle *)style
 {
-   SamuraiCSSArray * shadow = style.boxShadow ?: style.textShadow;
+   IDEAAppletCSSArray * shadow = style.boxShadow ?: style.textShadow;
 
 // box-shadow: 5px 5px 5px #FF0000;
 // text-shadow: 5px 5px 5px #FF0000;
@@ -390,10 +390,10 @@
    {
       if ( 4 == [shadow.array count] )
       {
-         SamuraiCSSValue * xOffset = [shadow objectAtIndex:0];
-         SamuraiCSSValue * yOffset = [shadow objectAtIndex:1];
-         SamuraiCSSValue * size = [shadow objectAtIndex:2];
-         SamuraiCSSValue * color = [shadow objectAtIndex:3];
+         IDEAAppletCSSValue * xOffset = [shadow objectAtIndex:0];
+         IDEAAppletCSSValue * yOffset = [shadow objectAtIndex:1];
+         IDEAAppletCSSValue * size = [shadow objectAtIndex:2];
+         IDEAAppletCSSValue * color = [shadow objectAtIndex:3];
 
          UIColor *   shadowColor = nil;
          CGFloat      shadowRadius = 0.0f;

@@ -183,13 +183,13 @@
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiCSSStyleSheet          *stStyleSheet                             = nil;;
+   IDEAAppletCSSStyleSheet          *stStyleSheet                             = nil;;
 
    __TRY;
 
    self.defaultStyleSheets = [NSMutableArray array];
       
-   stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
    
    if (stStyleSheet && [stStyleSheet parse])
    {
@@ -197,7 +197,7 @@
       
    } /* End if () */
    
-   stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:@"IDEAApplet"];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:@"IDEAApplet"];
    
    if (stStyleSheet && [stStyleSheet parse])
    {
@@ -205,7 +205,7 @@
       
    } /* End if () */
    
-   stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:@"IDEAApplet"];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:@"IDEAApplet"];
    
    if (stStyleSheet && [stStyleSheet parse])
    {
@@ -496,7 +496,7 @@
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiCSSStyleSheet          *stStyleSheet                             = nil;
+   IDEAAppletCSSStyleSheet          *stStyleSheet                             = nil;
    
    __TRY;
 
@@ -508,7 +508,7 @@
       
    } /* End if () */
    
-   stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:aPath inBundle:nil];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:aPath inBundle:nil];
    
    if (stStyleSheet && [stStyleSheet parse])
    {

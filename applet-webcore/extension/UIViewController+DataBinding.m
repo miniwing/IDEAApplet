@@ -42,11 +42,11 @@
 
 @implementation UIViewController(DataBinding)
 
-@def_prop_dynamic( SamuraiHtmlRenderStoreScope *,   scope )
+@def_prop_dynamic( IDEAAppletHtmlRenderStoreScope *,   scope )
 
-- (SamuraiHtmlRenderStoreScope *)scope
+- (IDEAAppletHtmlRenderStoreScope *)scope
 {
-   return [SamuraiHtmlRenderStoreScope scope:[self.view renderer]];
+   return [IDEAAppletHtmlRenderStoreScope scope:[self.view renderer]];
 }
 
 - (id)getViewData

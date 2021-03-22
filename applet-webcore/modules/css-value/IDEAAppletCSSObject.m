@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject
+@implementation IDEAAppletCSSObject
 
 - (BOOL)isInherit
 {

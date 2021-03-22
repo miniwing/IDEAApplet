@@ -41,42 +41,42 @@
 
 #pragma mark -
 
-@implementation SamuraiDocument
+@implementation IDEAAppletDocument
 
 @def_prop_strong( NSString *,            href );
 @def_prop_strong( NSString *,            type );
 @def_prop_strong( NSString *,            media );
 
-@def_prop_strong( SamuraiDomNode *,         domTree );
-@def_prop_strong( SamuraiStyleSheet *,      styleTree );
-@def_prop_strong( SamuraiRenderObject *,   renderTree );
+@def_prop_strong( IDEAAppletDomNode *,         domTree );
+@def_prop_strong( IDEAAppletStyleSheet *,      styleTree );
+@def_prop_strong( IDEAAppletRenderObject *,   renderTree );
 
 @def_prop_strong( NSMutableArray *,         externalImports );
 @def_prop_strong( NSMutableArray *,         externalScripts );
 @def_prop_strong( NSMutableArray *,         externalStylesheets );
 
-BASE_CLASS( SamuraiDocument )
+BASE_CLASS( IDEAAppletDocument )
 
-+ (SamuraiDocument *)document
++ (IDEAAppletDocument *)document
 {
    return [[self alloc] init];
 }
 
-+ (SamuraiDocument *)document:(SamuraiDomNode *)domNode
++ (IDEAAppletDocument *)document:(IDEAAppletDomNode *)domNode
 {
-   SamuraiDocument * document = [[self alloc] init];
+   IDEAAppletDocument * document = [[self alloc] init];
    document.domTree = domNode;
    return document;
 }
 
-- (SamuraiDocument *)childDocument
+- (IDEAAppletDocument *)childDocument
 {
    return [[[self class] alloc] init];
 }
 
-- (SamuraiDocument *)childDocument:(SamuraiDomNode *)domNode
+- (IDEAAppletDocument *)childDocument:(IDEAAppletDomNode *)domNode
 {
-   SamuraiDocument * document = [[[self class] alloc] init];
+   IDEAAppletDocument * document = [[[self class] alloc] init];
    document.domTree = domNode;
    [self appendNode:document];
    return document;

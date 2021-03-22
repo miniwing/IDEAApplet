@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberGRad)
+@implementation IDEAAppletCSSObject(NumberGRad)
 
 - (BOOL)isGRad
 {

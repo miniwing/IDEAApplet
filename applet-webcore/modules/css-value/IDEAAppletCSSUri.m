@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(Uri)
+@implementation IDEAAppletCSSObject(Uri)
 
 - (BOOL)isUri
 {

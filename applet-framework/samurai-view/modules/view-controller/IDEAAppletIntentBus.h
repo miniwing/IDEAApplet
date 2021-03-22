@@ -38,11 +38,11 @@
 
 #pragma mark -
 
-@interface SamuraiIntentBus : NSObject
+@interface IDEAAppletIntentBus : NSObject
 
-@singleton( SamuraiIntentBus )
+@singleton( IDEAAppletIntentBus )
 
-- (void)routes:(SamuraiIntent *)intent target:(id)target;
+- (void)routes:(IDEAAppletIntent *)intent target:(id)target;
 
 @end
 

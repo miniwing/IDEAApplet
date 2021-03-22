@@ -40,11 +40,11 @@
 
 #pragma mark -
 
-@implementation SamuraiRenderStyle
+@implementation IDEAAppletRenderStyle
 
 @def_prop_strong( NSMutableDictionary *, properties );
 
-BASE_CLASS( SamuraiRenderStyle )
+BASE_CLASS( IDEAAppletRenderStyle )
 
 + (instancetype)renderStyle
 {
@@ -53,7 +53,7 @@ BASE_CLASS( SamuraiRenderStyle )
 
 + (instancetype)renderStyle:(NSDictionary *)props
 {
-   SamuraiRenderStyle * style = [[self alloc] init];
+   IDEAAppletRenderStyle * style = [[self alloc] init];
 
    [style mergeProperties:props];
 
@@ -76,7 +76,7 @@ BASE_CLASS( SamuraiRenderStyle )
    self.properties = nil;
 }
 
-- (void)deepCopyFrom:(SamuraiRenderStyle *)right
+- (void)deepCopyFrom:(IDEAAppletRenderStyle *)right
 {
 //   [super deepCopyFrom:right];
    

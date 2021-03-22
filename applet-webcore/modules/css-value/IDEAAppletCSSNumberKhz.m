@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberKhz)
+@implementation IDEAAppletCSSObject(NumberKhz)
 
 - (BOOL)isKhz
 {

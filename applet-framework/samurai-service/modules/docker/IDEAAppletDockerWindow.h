@@ -36,10 +36,10 @@
 
 #pragma mark -
 
-@interface SamuraiDockerWindow : UIWindow
+@interface IDEAAppletDockerWindow : UIWindow
 
-- (void)addDockerView:(SamuraiDockerView *)docker;
-- (void)removeDockerView:(SamuraiDockerView *)docker;
+- (void)addDockerView:(IDEAAppletDockerView *)docker;
+- (void)removeDockerView:(IDEAAppletDockerView *)docker;
 - (void)removeAllDockerViews;
 
 - (void)relayoutAllDockerViews;

@@ -47,23 +47,23 @@
 
 #pragma mark -
 
-@interface SamuraiCSSStyleSheet ()
+@interface IDEAAppletCSSStyleSheet ()
 @prop_unsafe( KatanaOutput *,                   output );
 @end
 
-@implementation SamuraiCSSStyleSheet
+@implementation IDEAAppletCSSStyleSheet
 
 @def_prop_unsafe( KatanaOutput *,               output );
-@def_prop_strong( SamuraiCSSRuleSet *,         ruleSet );
-@def_prop_strong( SamuraiCSSRuleCollector *,   collector );
+@def_prop_strong( IDEAAppletCSSRuleSet *,         ruleSet );
+@def_prop_strong( IDEAAppletCSSRuleCollector *,   collector );
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      self.ruleSet = [[SamuraiCSSRuleSet alloc] init];
-      self.collector = [[SamuraiCSSRuleCollector alloc] init];
+      self.ruleSet = [[IDEAAppletCSSRuleSet alloc] init];
+      self.collector = [[IDEAAppletCSSRuleCollector alloc] init];
    }
    return self;
 }
@@ -100,7 +100,7 @@
 
 #pragma mark -
 
-- (NSDictionary *)queryForObject:(NSObject<SamuraiCSSProtocol> *)object
+- (NSDictionary *)queryForObject:(NSObject<IDEAAppletCSSProtocol> *)object
 {
    return [self.collector collectFromRuleSet:self.ruleSet forElement:object];
 }
@@ -135,7 +135,7 @@
       return YES;
    }
 
-   _output = [[SamuraiCSSParser sharedInstance] parseStylesheet:self.resContent];
+   _output = [[IDEAAppletCSSParser sharedInstance] parseStylesheet:self.resContent];
 
    if ( _output )
    {
@@ -148,9 +148,9 @@
          {
             KatanaImportRule * rule = stylesheet->imports.data[i];
             
-            if ( [[SamuraiCSSMediaQuery sharedInstance] testMediaQueries:rule->medias] )
+            if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:rule->medias] )
             {
-               SamuraiCSSStyleSheet * styleSheet = nil;
+               IDEAAppletCSSStyleSheet * styleSheet = nil;
 
                NSString *   href = [NSString stringWithUTF8String:rule->href];
                NSString *   basePath = self.resPath;
@@ -161,21 +161,21 @@
                
                if ( filePath && [[NSFileManager defaultManager] fileExistsAtPath:filePath] )
                {
-                  styleSheet = [SamuraiCSSStyleSheet resourceAtPath:filePath];
+                  styleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:filePath];
                }
                else if ( [href hasPrefix:@"http://"] || [href hasPrefix:@"https://"] )
                {
-                  styleSheet = [SamuraiCSSStyleSheet resourceWithURL:href];
+                  styleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:href];
                }
                else if ( [href hasPrefix:@"//"] )
                {
-                  styleSheet = [SamuraiCSSStyleSheet resourceWithURL:[@"http:" stringByAppendingString:href]];
+                  styleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:[@"http:" stringByAppendingString:href]];
                }
                else if ( [basePath hasPrefix:@"http://"] || [basePath hasPrefix:@"https://"] )
                {
                   NSURL * url = [NSURL URLWithString:href relativeToURL:[NSURL URLWithString:basePath]];
                   
-                  styleSheet = [SamuraiCSSStyleSheet resourceWithURL:[url absoluteString]];
+                  styleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:[url absoluteString]];
                }
                else
                {
@@ -185,7 +185,7 @@
                   cssPath = [cssPath stringByAppendingPathComponent:href];
                   cssPath = [cssPath stringByStandardizingPath];
                   
-                  styleSheet = [SamuraiCSSStyleSheet resourceAtPath:cssPath];
+                  styleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:cssPath];
                }
                
                if ( styleSheet )
@@ -210,12 +210,12 @@
    return YES;
 }
 
-- (void)merge:(SamuraiCSSStyleSheet *)styleSheet
+- (void)merge:(IDEAAppletCSSStyleSheet *)styleSheet
 {
    if ( nil == styleSheet )
       return;
    
-   if ( NO == [styleSheet isKindOfClass:[SamuraiCSSStyleSheet class]] )
+   if ( NO == [styleSheet isKindOfClass:[IDEAAppletCSSStyleSheet class]] )
       return;
     
     if ( nil == styleSheet.output )

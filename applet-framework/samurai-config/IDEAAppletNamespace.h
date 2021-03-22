@@ -41,12 +41,12 @@
 
 #pragma mark -
 
-@class SamuraiNamespace;
-extern SamuraiNamespace * APPLET;
+@class IDEAAppletNamespace;
+extern IDEAAppletNamespace    * APPLET;
 
 #pragma mark -
 
-@interface SamuraiNamespace : NSObject
+@interface IDEAAppletNamespace : NSObject
 @end
 
 #pragma mark -
@@ -54,9 +54,9 @@ extern SamuraiNamespace * APPLET;
 #define namespace( ... )            macro_concat( namespace_, macro_count(__VA_ARGS__) )( __VA_ARGS__ )
 #define namespace_0( ... )
 #define namespace_1( _parent, ... )                               \
-        interface SamuraiNamespace_##_parent : SamuraiNamespace   \
+        interface SamuraiNamespace_##_parent : IDEAAppletNamespace   \
         @end                                                      \
-        @interface SamuraiNamespace (SamuraiNamespace_##_parent)  \
+        @interface IDEAAppletNamespace (SamuraiNamespace_##_parent)  \
         @prop_readonly( SamuraiNamespace_##_parent *, _parent );  \
         @end
 
@@ -79,7 +79,7 @@ extern SamuraiNamespace * APPLET;
 #define def_namespace_1( _parent, ... )                                 \
         implementation SamuraiNamespace_##_parent                       \
         @end                                                            \
-        @implementation SamuraiNamespace (SamuraiNamespace_##_parent)   \
+        @implementation IDEAAppletNamespace (SamuraiNamespace_##_parent)   \
         @def_prop_dynamic( SamuraiNamespace_##_parent *, _parent );     \
         - (SamuraiNamespace_##_parent *)_parent                         \
         {                                                               \

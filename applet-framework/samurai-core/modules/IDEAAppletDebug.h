@@ -61,7 +61,7 @@
 #pragma mark -
 
 #undef  TRACE
-#define TRACE()            [[SamuraiDebugger sharedInstance] trace];
+#define TRACE()            [[IDEAAppletDebugger sharedInstance] trace];
 
 #pragma mark -
 
@@ -121,9 +121,9 @@ typedef enum
  *  「武士」·「調試器」
  */
 
-@interface SamuraiDebugger : NSObject
+@interface IDEAAppletDebugger : NSObject
 
-@singleton(SamuraiDebugger)
+@singleton(IDEAAppletDebugger)
 
 @prop_readonly( NSArray *,   callstack );
 

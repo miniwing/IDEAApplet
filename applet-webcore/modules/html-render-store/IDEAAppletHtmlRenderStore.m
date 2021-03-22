@@ -163,13 +163,13 @@
 
 - (NSString *)description
 {
-   [[SamuraiLogger sharedInstance] outputCapture];
+   [[IDEAAppletLogger sharedInstance] outputCapture];
    
    [self dump];
    
-   [[SamuraiLogger sharedInstance] outputRelease];
+   [[IDEAAppletLogger sharedInstance] outputRelease];
    
-   return [SamuraiLogger sharedInstance].output;
+   return [IDEAAppletLogger sharedInstance].output;
 }
 
 - (void)dump
@@ -178,7 +178,7 @@
    {
       PRINT( @"<%@ name='%@'>", self.source.dom.tag, self.source.dom.attrName );
       
-      [[SamuraiLogger sharedInstance] indent];
+      [[IDEAAppletLogger sharedInstance] indent];
    }
 
    for ( SamuraiHtmlRenderObject * child in self.childs )
@@ -188,7 +188,7 @@
    
    if ( self.source && self.source.dom.attrName )
    {
-      [[SamuraiLogger sharedInstance] unindent];
+      [[IDEAAppletLogger sharedInstance] unindent];
 
       PRINT( @"</%@>", self.source.dom.tag, self.source.dom.attrName );
    }

@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSRule : NSObject
+@interface IDEAAppletCSSRule : NSObject
 
 @prop_unsafe( KatanaStyleRule *,   rule );
 @prop_unsafe( KatanaSelector *,      selector );

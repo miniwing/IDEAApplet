@@ -39,18 +39,18 @@
 
 #pragma mark -
 
-@implementation SamuraiModelManager
+@implementation IDEAAppletModelManager
 {
    NSMutableArray * _models;
 }
 
-@def_singleton( SamuraiModelManager )
+@def_singleton( IDEAAppletModelManager )
 
 + (void)classAutoLoad
 {
-   [SamuraiModelManager sharedInstance];
+   [IDEAAppletModelManager sharedInstance];
    
-   for (NSString *szClassName in [SamuraiModel subClasses])
+   for (NSString *szClassName in [IDEAAppletModel subClasses])
    {
       Class  stClassType   = NSClassFromString(szClassName);
       
@@ -111,7 +111,7 @@
    
    NSMutableArray *stArray = [NSMutableArray nonRetainingArray];
    
-   for (SamuraiModel *stModel in _models)
+   for (IDEAAppletModel *stModel in _models)
    {
       if ([stModel isKindOfClass:clazz])
       {

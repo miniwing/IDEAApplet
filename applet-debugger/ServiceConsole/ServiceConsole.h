@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
 #pragma mark -
 
 
-@interface ServiceConsole : SamuraiService < ManagedService, ManagedDocker >
+@interface ServiceConsole : IDEAAppletService < ManagedService, ManagedDocker >
 
 
 + (BOOL)addClassCommand:(NSString *)command

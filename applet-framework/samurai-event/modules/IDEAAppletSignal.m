@@ -200,7 +200,7 @@
 
 #pragma mark -
 
-- (void)handleSignal:(SamuraiSignal *)that
+- (void)handleSignal:(IDEAAppletSignal *)that
 {
    UNUSED(that);
 }
@@ -213,27 +213,27 @@
 @implementation NSObject(SignalSender)
 
 
-- (SamuraiSignal *)sendSignal:(NSString *)aName
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName
 {
    return [self sendSignal:aName from:self withObject:nil];
 }
 
 
-- (SamuraiSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject
 {
    return [self sendSignal:aName from:self withObject:aObject];
 }
 
 
-- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource
 {
    return [self sendSignal:aName from:aSource withObject:nil];
 }
 
 
-- (SamuraiSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject
 {
-   SamuraiSignal  *stSignal   = [SamuraiSignal signal];
+   IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
    
    stSignal.source   = aSource ? aSource : self;
    stSignal.target   = self;
@@ -252,7 +252,7 @@
 #pragma mark -
 
 
-@implementation SamuraiSignal
+@implementation IDEAAppletSignal
 
 @def_joint(stateChanged);
 
@@ -288,18 +288,18 @@
 @def_prop_assign  (NSInteger            ,    jumpCount);
 @def_prop_strong  (NSArray             *,    jumpPath);
 
-BASE_CLASS  (SamuraiSignal)
+BASE_CLASS  (IDEAAppletSignal)
 
 #pragma mark -
 
-+ (SamuraiSignal *)signal
++ (IDEAAppletSignal *)signal
 {
-   return [[SamuraiSignal alloc] init];
+   return [[IDEAAppletSignal alloc] init];
 }
 
-+ (SamuraiSignal *)signal:(NSString *)name
++ (IDEAAppletSignal *)signal:(NSString *)name
 {
-   SamuraiSignal * signal = [[SamuraiSignal alloc] init];
+   IDEAAppletSignal * signal = [[IDEAAppletSignal alloc] init];
    signal.name = name;
    return signal;
 }
@@ -335,7 +335,7 @@ BASE_CLASS  (SamuraiSignal)
    self.output = nil;
 }
 
-- (void)deepCopyFrom:(SamuraiSignal *)right
+- (void)deepCopyFrom:(IDEAAppletSignal *)right
 {
    //   [super deepCopyFrom:right];
    
@@ -481,7 +481,7 @@ BASE_CLASS  (SamuraiSignal)
 {
    @autoreleasepool
    {
-      return [[SamuraiSignalBus sharedInstance] send:self];
+      return [[IDEAAppletSignalBus sharedInstance] send:self];
    };
 }
 
@@ -490,7 +490,7 @@ BASE_CLASS  (SamuraiSignal)
 {
    @autoreleasepool
    {
-      return [[SamuraiSignalBus sharedInstance] forward:self];
+      return [[IDEAAppletSignalBus sharedInstance] forward:self];
    };
 }
 
@@ -498,7 +498,7 @@ BASE_CLASS  (SamuraiSignal)
 {
    @autoreleasepool
    {
-      return [[SamuraiSignalBus sharedInstance] forward:self to:target];
+      return [[IDEAAppletSignalBus sharedInstance] forward:self to:target];
    };
 }
 
@@ -703,12 +703,12 @@ DESCRIBE(Handle signal)
       __block BOOL block1Executed = NO;
       __block BOOL block2Executed = NO;
       
-      self.onSignal(__TestSignal.TEST, ^(SamuraiSignal * signal){
+      self.onSignal(__TestSignal.TEST, ^(IDEAAppletSignal * signal){
          UNUSED(signal);
          block1Executed = YES;
       });
       
-      self.onSignal(makeSignal(__TestSignal,xxx,yyy), ^(SamuraiSignal * signal){
+      self.onSignal(makeSignal(__TestSignal,xxx,yyy), ^(IDEAAppletSignal * signal){
          UNUSED(signal);
          block2Executed = YES;
       });

@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberRad)
+@interface IDEAAppletCSSObject(NumberRad)
 
 - (BOOL)isRad;
 

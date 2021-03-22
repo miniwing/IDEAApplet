@@ -37,54 +37,54 @@
 
 #pragma mark -
 
-typedef NS_ENUM( NSUInteger, SamuraiCSSSelectorMatch )
+typedef NS_ENUM( NSUInteger, IDEAAppletCSSSelectorMatch )
 {
-    SamuraiCSSSelectorMatches,
-    SamuraiCSSSelectorFailsLocally,
-    SamuraiCSSSelectorFailsAllSiblings,
-    SamuraiCSSSelectorFailsCompletely,
+   SamuraiCSSSelectorMatches,
+   SamuraiCSSSelectorFailsLocally,
+   SamuraiCSSSelectorFailsAllSiblings,
+   SamuraiCSSSelectorFailsCompletely,
 };
 
-typedef NS_ENUM( NSUInteger, SamuraiCSSPseudoId )
+typedef NS_ENUM( NSUInteger, IDEAAppletCSSPseudoId )
 {
-    // Static pseudo styles. Dynamic ones are produced on the fly.
-    // The order must be NOP ID, public IDs, and then internal IDs.
-    // If you add or remove a public ID, you must update _pseudoBits in ComputedStyle.
+   // Static pseudo styles. Dynamic ones are produced on the fly.
+   // The order must be NOP ID, public IDs, and then internal IDs.
+   // If you add or remove a public ID, you must update _pseudoBits in ComputedStyle.
    
-    NOPSEUDO,
-    FIRST_LINE,
-    FIRST_LETTER,
-    BEFORE,
-    AFTER,
-    BACKDROP,
-    SELECTION,
-    FIRST_LINE_INHERITED,
-    SCROLLBAR,
+   NOPSEUDO,
+   FIRST_LINE,
+   FIRST_LETTER,
+   BEFORE,
+   AFTER,
+   BACKDROP,
+   SELECTION,
+   FIRST_LINE_INHERITED,
+   SCROLLBAR,
    
    // Internal IDs follow:
    
    SCROLLBAR_THUMB,
-    SCROLLBAR_BUTTON,
-    SCROLLBAR_TRACK,
-    SCROLLBAR_TRACK_PIECE,
-    SCROLLBAR_CORNER,
-    RESIZER,
-    INPUT_LIST_BUTTON,
+   SCROLLBAR_BUTTON,
+   SCROLLBAR_TRACK,
+   SCROLLBAR_TRACK_PIECE,
+   SCROLLBAR_CORNER,
+   RESIZER,
+   INPUT_LIST_BUTTON,
    
-    // Special values follow:
+   // Special values follow:
    
-    AFTER_LAST_INTERNAL_PSEUDOID,
-    FIRST_PUBLIC_PSEUDOID = FIRST_LINE,
-    FIRST_INTERNAL_PSEUDOID = SCROLLBAR_THUMB,
-    PUBLIC_PSEUDOID_MASK = ((1 << FIRST_INTERNAL_PSEUDOID) - 1) & ~((1 << FIRST_PUBLIC_PSEUDOID) - 1),
-    PSEUDO_ElementMASK = (1 << (BEFORE - 1)) | (1 << (AFTER - 1)) | (1 << (BACKDROP - 1))
+   AFTER_LAST_INTERNAL_PSEUDOID,
+   FIRST_PUBLIC_PSEUDOID = FIRST_LINE,
+   FIRST_INTERNAL_PSEUDOID = SCROLLBAR_THUMB,
+   PUBLIC_PSEUDOID_MASK = ((1 << FIRST_INTERNAL_PSEUDOID) - 1) & ~((1 << FIRST_PUBLIC_PSEUDOID) - 1),
+   PSEUDO_ElementMASK = (1 << (BEFORE - 1)) | (1 << (AFTER - 1)) | (1 << (BACKDROP - 1))
 };
 
 #pragma mark -
 
-@interface SamuraiCSSSelectorCheckerMatchResult : NSObject
+@interface IDEAAppletCSSSelectorCheckerMatchResult : NSObject
 
-@prop_assign( SamuraiCSSPseudoId,      dynamicPseudo );
+@prop_assign( IDEAAppletCSSPseudoId,      dynamicPseudo );
 @prop_assign( NSUInteger,            specificity );
 
 @end
@@ -94,12 +94,12 @@ typedef NS_ENUM( NSUInteger, SamuraiCSSPseudoId )
 @interface SamuraiCSSSelectorCheckingContext : NSObject
 
 @prop_assign( KatanaSelector *,         selector );
-@prop_assign( SamuraiCSSPseudoId,      pseudoId );
+@prop_assign( IDEAAppletCSSPseudoId,      pseudoId );
 @prop_assign( NSUInteger,            elementStyle );
 @prop_assign( BOOL,                  isSubSelector );
 
-@prop_unsafe( id<SamuraiCSSProtocol>,   element );
-@prop_unsafe( id<SamuraiCSSProtocol>,   previousElement );
+@prop_unsafe( id<IDEAAppletCSSProtocol>,   element );
+@prop_unsafe( id<IDEAAppletCSSProtocol>,   previousElement );
 
 - (id)initWithContext:(SamuraiCSSSelectorCheckingContext *)context;
 
@@ -114,34 +114,34 @@ typedef NS_ENUM( NSUInteger, SamuraiCSSPseudoId )
  *  - #id
  *  - .class
  *  - :pseudo
-      - :nth-child(an+b|odd|even)
-        - :first-child
-        - :last-child
-        - :only-child
+ - :nth-child(an+b|odd|even)
+ - :first-child
+ - :last-child
+ - :only-child
  *  - Group
-      - <selector><selector>
+ - <selector><selector>
  *  - Combinator
-      - <selector> <selector>
-       - <selector> > <selector>
-       - <selector> + <selector>
-       - <selector> ~ <selector>
+ - <selector> <selector>
+ - <selector> > <selector>
+ - <selector> + <selector>
+ - <selector> ~ <selector>
  *   - Attribute
-      - [attribute]
-      - [attribute=value]
-      - [attribute|=value]
-      - [attribute^=value]
-      - [attribute$=value]
-      - [attribute~=value]
-      - [attribute*=value]
+ - [attribute]
+ - [attribute=value]
+ - [attribute|=value]
+ - [attribute^=value]
+ - [attribute$=value]
+ - [attribute~=value]
+ - [attribute*=value]
  *
  */
 
-@interface SamuraiCSSSelectorChecker : NSObject
+@interface IDEAAppletCSSSelectorChecker : NSObject
 
 @prop_strong( SamuraiCSSSelectorCheckingContext *,   context );
 
-- (SamuraiCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context
-                    result:(SamuraiCSSSelectorCheckerMatchResult *)result;
+- (IDEAAppletCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context
+                             result:(IDEAAppletCSSSelectorCheckerMatchResult *)result;
 
 @end
 

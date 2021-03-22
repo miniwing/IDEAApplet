@@ -81,23 +81,23 @@
 
 #undef   css_value
 #define   css_value( name ) \
-      property (nonatomic, strong) SamuraiCSSValue * name
+      property (nonatomic, strong) IDEAAppletCSSValue * name
 
 #undef   def_css_value
 #define   def_css_value( getter, setter, key ) \
       dynamic getter; \
-      - (SamuraiCSSValue *)getter { return [self getCSSValueForKey:key]; } \
-      - (void)setter:(SamuraiCSSValue *)value { [self setCSSValue:value forKey:key]; }
+      - (IDEAAppletCSSValue *)getter { return [self getCSSValueForKey:key]; } \
+      - (void)setter:(IDEAAppletCSSValue *)value { [self setCSSValue:value forKey:key]; }
 
 #undef   css_array
 #define   css_array( name ) \
-      property (nonatomic, strong) SamuraiCSSArray * name
+      property (nonatomic, strong) IDEAAppletCSSArray * name
 
 #undef   def_css_array
 #define   def_css_array( getter, setter, key ) \
       dynamic getter; \
-      - (SamuraiCSSArray *)getter { return [self getCSSArrayForKey:key]; } \
-      - (void)setter:(SamuraiCSSArray *)array { [self setCSSArray:array forKey:key]; }
+      - (IDEAAppletCSSArray *)getter { return [self getCSSArrayForKey:key]; } \
+      - (void)setter:(IDEAAppletCSSArray *)array { [self setCSSArray:array forKey:key]; }
 
 #pragma mark -
 
@@ -335,7 +335,7 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderStyle : SamuraiRenderStyle
+@interface SamuraiHtmlRenderStyle : IDEAAppletRenderStyle
 
 @css_value( top );
 @css_value( left );
@@ -511,11 +511,11 @@ typedef enum
 
 #pragma mark -
 
-- (SamuraiCSSValue *)getCSSValueForKey:(NSString *)key;
-- (SamuraiCSSArray *)getCSSArrayForKey:(NSString *)key;
+- (IDEAAppletCSSValue *)getCSSValueForKey:(NSString *)key;
+- (IDEAAppletCSSArray *)getCSSArrayForKey:(NSString *)key;
 
-- (void)setCSSValue:(SamuraiCSSValue *)value forKey:(NSString *)key;
-- (void)setCSSArray:(SamuraiCSSArray *)array forKey:(NSString *)key;
+- (void)setCSSValue:(IDEAAppletCSSValue *)value forKey:(NSString *)key;
+- (void)setCSSArray:(IDEAAppletCSSArray *)array forKey:(NSString *)key;
 
 #pragma mark -
 

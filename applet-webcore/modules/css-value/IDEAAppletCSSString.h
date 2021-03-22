@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(String)
+@interface IDEAAppletCSSObject(String)
 
 - (BOOL)isString;
 - (BOOL)isString:(NSString *)other;
@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSString : SamuraiCSSValue
+@interface SamuraiCSSString : IDEAAppletCSSValue
 
 @prop_strong( NSString *, string );
 

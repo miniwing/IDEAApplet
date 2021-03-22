@@ -37,7 +37,7 @@
 #pragma mark -
 
 #if __SAMURAI_DEBUG__
-#  define ASSERT( __expr ) [[SamuraiAsserter sharedInstance] file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ flag:((__expr) ? YES : NO) expr:#__expr];
+#  define ASSERT( __expr ) [[IDEAAppletAsserter sharedInstance] file:__FILE__ line:__LINE__ func:__PRETTY_FUNCTION__ flag:((__expr) ? YES : NO) expr:#__expr];
 #else
 #  define ASSERT( __expr )
 #endif
@@ -48,9 +48,9 @@
  *  「武士」·「斷言」
  */
 
-@interface SamuraiAsserter : NSObject
+@interface IDEAAppletAsserter : NSObject
 
-@singleton( SamuraiAsserter );
+@singleton( IDEAAppletAsserter );
 
 @prop_assign( BOOL,   enabled );
 

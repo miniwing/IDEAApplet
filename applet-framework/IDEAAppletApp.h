@@ -66,9 +66,9 @@
 
 - (void)main;
 
-- (SamuraiActivity *)activityFromString:(NSString *)aString;
-- (SamuraiActivityStack *)activityStackFromArray:(NSArray *)aArray;
-- (SamuraiActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDict;
+- (IDEAAppletActivity *)activityFromString:(NSString *)aString;
+- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)aArray;
+- (IDEAAppletActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDict;
 
 @end
 

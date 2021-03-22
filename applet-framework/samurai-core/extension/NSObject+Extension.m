@@ -85,7 +85,7 @@
          const char *   name = property_getName(properties[i]);
          const char *   attr = property_getAttributes(properties[i]);
          
-         if ( [SamuraiEncoding isReadOnly:attr] )
+         if ( [IDEAAppletEncoding isReadOnly:attr] )
          {
             continue;
          }
@@ -127,7 +127,7 @@
          const char *   name = property_getName(properties[i]);
          const char *   attr = property_getAttributes(properties[i]);
          
-         if ( [SamuraiEncoding isReadOnly:attr] )
+         if ( [IDEAAppletEncoding isReadOnly:attr] )
          {
             continue;
          }
@@ -167,7 +167,7 @@
       return obj;
    }
    
-   EncodingType type = [SamuraiEncoding typeOfObject:obj];
+   EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
    
    if ( EncodingType_Array == type )
    {
@@ -206,7 +206,7 @@
       
       for ( Class clazzType = clazz; clazzType != baseClass; )
       {
-         if ( [SamuraiEncoding isAtomClass:clazzType] )
+         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
          {
             break;
          }
@@ -219,7 +219,7 @@
             const char *   name = property_getName(properties[i]);
             const char *   attr = property_getAttributes(properties[i]);
             
-            BOOL readonly = [SamuraiEncoding isReadOnly:attr];
+            BOOL readonly = [IDEAAppletEncoding isReadOnly:attr];
             if ( readonly )
                continue;
             
@@ -229,7 +229,7 @@
 
             if ( tempValue )
             {
-               NSInteger propertyType = [SamuraiEncoding typeOfAttribute:attr];
+               NSInteger propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
                
                if ( EncodingType_Null == propertyType )
                {
@@ -309,7 +309,7 @@
                }
                else
                {
-                  Class classType = [SamuraiEncoding classOfAttribute:attr];
+                  Class classType = [IDEAAppletEncoding classOfAttribute:attr];
                   if ( classType )
                   {
                      if ( [tempValue isKindOfClass:classType] )
@@ -380,7 +380,7 @@
    if ( nil == obj )
       return;
 
-   EncodingType type = [SamuraiEncoding typeOfObject:obj];
+   EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
    
    if ( EncodingType_Array == type )
    {
@@ -401,7 +401,7 @@
       
       for ( Class clazzType = [self class]; clazzType != baseClass; )
       {
-         if ( [SamuraiEncoding isAtomClass:clazzType] )
+         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
          {
             break;
          }
@@ -414,7 +414,7 @@
             const char *   name = property_getName(properties[i]);
             const char *   attr = property_getAttributes(properties[i]);
             
-            BOOL readonly = [SamuraiEncoding isReadOnly:attr];
+            BOOL readonly = [IDEAAppletEncoding isReadOnly:attr];
             if ( readonly )
                continue;
             
@@ -424,7 +424,7 @@
             
             if ( tempValue )
             {
-               NSInteger propertyType = [SamuraiEncoding typeOfAttribute:attr];
+               NSInteger propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
                
                if ( EncodingType_Null == propertyType )
                {
@@ -505,7 +505,7 @@
                }
                else
                {
-                  Class classType = [SamuraiEncoding classOfAttribute:attr];
+                  Class classType = [IDEAAppletEncoding classOfAttribute:attr];
                   if ( classType )
                   {
                      if ( [tempValue isKindOfClass:classType] )
@@ -576,7 +576,7 @@
       return nil;
    }
    
-   EncodingType type = [SamuraiEncoding typeOfObject:obj];
+   EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
    
    if ( EncodingType_Null == type )
    {
@@ -648,7 +648,7 @@
       
       for ( Class clazzType = [self class]; clazzType != baseClass; )
       {
-         if ( [SamuraiEncoding isAtomClass:clazzType] )
+         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
          {
             break;
          }
@@ -725,14 +725,14 @@
       baseClass = [NSObject class];
    }
    
-   if ( [SamuraiEncoding isAtomObject:self] )
+   if ( [IDEAAppletEncoding isAtomObject:self] )
    {
       return;
    }
    
    for ( Class clazzType = [self class]; clazzType != baseClass; )
    {
-      if ( [SamuraiEncoding isAtomClass:clazzType] )
+      if ( [IDEAAppletEncoding isAtomClass:clazzType] )
       {
          break;
       }
@@ -746,7 +746,7 @@
          const char *   attr = property_getAttributes(properties[i]);
 
          NSString *      propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-         EncodingType   propertyType = [SamuraiEncoding typeOfAttribute:attr];
+         EncodingType   propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
 
          NSArray * policyValues = [clazzType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
 
@@ -806,7 +806,7 @@
          }
          else
          {
-            Class clazz = [SamuraiEncoding classOfAttribute:attr];
+            Class clazz = [IDEAAppletEncoding classOfAttribute:attr];
             if ( clazz )
             {
                NSObject * newObj = [[clazz alloc] init];
@@ -914,7 +914,7 @@
 
 - (NSDate *)toDate
 {
-   EncodingType encoding = [SamuraiEncoding typeOfObject:self];
+   EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
    if ( EncodingType_Null == encoding )
    {
@@ -958,7 +958,7 @@
 
 - (NSData *)toData
 {
-   EncodingType encoding = [SamuraiEncoding typeOfObject:self];
+   EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
    if ( EncodingType_Null == encoding )
    {
@@ -1025,7 +1025,7 @@
 
 - (NSNumber *)toNumber
 {
-   EncodingType encoding = [SamuraiEncoding typeOfObject:self];
+   EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
    if ( EncodingType_Null == encoding )
    {
@@ -1090,7 +1090,7 @@
 
 - (NSString *)toString
 {
-   EncodingType encoding = [SamuraiEncoding typeOfObject:self];
+   EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
    if ( EncodingType_Null == encoding )
    {

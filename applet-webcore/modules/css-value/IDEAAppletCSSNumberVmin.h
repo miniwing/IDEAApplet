@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberVmin)
+@interface IDEAAppletCSSObject(NumberVmin)
 
 - (BOOL)isVmin;
 

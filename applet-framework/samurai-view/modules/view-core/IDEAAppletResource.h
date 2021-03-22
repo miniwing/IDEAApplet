@@ -48,7 +48,7 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiResource : SamuraiTreeNode
+@interface IDEAAppletResource : IDEAAppletTreeNode
 
 @prop_assign( ResourcePolicy,   resPolicy );
 @prop_strong( NSString *,      resPath );
@@ -82,9 +82,9 @@ typedef enum
 - (BOOL)isRemote;
 - (BOOL)parse;                        // override point
 
-- (void)merge:(SamuraiResource *)another;
+- (void)merge:(IDEAAppletResource *)another;
 - (void)clear;
 
 @end
 
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

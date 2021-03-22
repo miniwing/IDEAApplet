@@ -49,12 +49,12 @@
 
 #pragma mark -
 
-@implementation SamuraiSignalBus
+@implementation IDEAAppletSignalBus
 {
    NSMutableDictionary  * _handlers;
 }
 
-@def_singleton( SamuraiSignalBus )
+@def_singleton( IDEAAppletSignalBus )
 
 - (id)init
 {
@@ -85,7 +85,7 @@
    return;
 }
 
-- (BOOL)send:(SamuraiSignal *)aSignal
+- (BOOL)send:(IDEAAppletSignal *)aSignal
 {
    int                            nErr                                     = EFAULT;
    
@@ -180,12 +180,12 @@
    return aSignal.arrived;
 }
 
-- (BOOL)forward:(SamuraiSignal *)aSignal
+- (BOOL)forward:(IDEAAppletSignal *)aSignal
 {
    return [self forward:aSignal to:nil];
 }
 
-- (BOOL)forward:(SamuraiSignal *)aSignal to:(id)aTarget
+- (BOOL)forward:(IDEAAppletSignal *)aSignal to:(id)aTarget
 {
    if (aSignal.dead)
    {
@@ -252,7 +252,7 @@
    return aSignal.arrived;
 }
 
-- (void)routes:(SamuraiSignal *)aSignal
+- (void)routes:(IDEAAppletSignal *)aSignal
 {
    int                            nErr                                     = EFAULT;
 
@@ -271,7 +271,7 @@
    if (NO == aSignal.arrived)
    {
       NSObject       *stObject      = [aSignal.target signalResponders];
-      EncodingType    eObjectType   = [SamuraiEncoding typeOfObject:stObject];
+      EncodingType    eObjectType   = [IDEAAppletEncoding typeOfObject:stObject];
       
       if (nil == stObject)
       {
@@ -304,7 +304,7 @@
             {
                for (NSObject *stResponder in stResponders)
                {
-                  SamuraiSignal  *stClonedSignal = [aSignal clone];
+                  IDEAAppletSignal  *stClonedSignal = [aSignal clone];
                   
                   if (stClonedSignal)
                   {
@@ -353,7 +353,7 @@
    return;
 }
 
-- (void)routes:(SamuraiSignal *)aSignal to:(NSObject *)aTarget forClasses:(NSArray *)aClasses
+- (void)routes:(IDEAAppletSignal *)aSignal to:(NSObject *)aTarget forClasses:(NSArray *)aClasses
 {
    if (0 == aClasses.count)
    {
@@ -882,7 +882,7 @@
    }
 }
 
-- (BOOL)signal:(SamuraiSignal *)aSignal perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget
+- (BOOL)signal:(IDEAAppletSignal *)aSignal perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget
 {
    ASSERT(nil != aSignal);
    ASSERT(nil != aTarget);
@@ -895,7 +895,7 @@
    
    if (NO == bPerformed)
    {
-      SamuraiHandler *stHandler  = [aTarget blockHandler];
+      IDEAAppletHandler *stHandler  = [aTarget blockHandler];
       if (stHandler)
       {
          BOOL   bFound  = [stHandler trigger:[NSString stringWithUTF8String:sel_getName(aSEL)] withObject:aSignal];

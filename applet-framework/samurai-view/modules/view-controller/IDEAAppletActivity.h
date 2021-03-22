@@ -39,28 +39,28 @@
 
 #pragma mark -
 
-@class SamuraiActivity;
-@class SamuraiIntent;
+@class IDEAAppletActivity;
+@class IDEAAppletIntent;
 
 @interface UIWindow(Activity)
 
-@prop_strong( SamuraiActivity *, rootActivity );
+@prop_strong( IDEAAppletActivity *, rootActivity );
 
 @end
 
 #pragma mark -
 
-#undef   activity
-#define   activity( __name, ... ) \
-      interface __name : SamuraiActivity< __VA_ARGS__ > \
-      @end \
-      @implementation __name
+#undef  activity
+#define activity( __name, ... ) \
+        interface __name : IDEAAppletActivity< __VA_ARGS__ > \
+        @end \
+        @implementation __name
 
-#undef   activity_extend
-#define   activity_extend( __name, __parent, ... ) \
-      interface __name : __parent< __VA_ARGS__ > \
-      @end \
-      @implementation __name
+#undef  activity_extend
+#define activity_extend( __name, __parent, ... ) \
+        interface __name : __parent< __VA_ARGS__ > \
+        @end \
+        @implementation __name
 
 #pragma mark -
 
@@ -77,11 +77,11 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiActivity : UIViewController
+@interface IDEAAppletActivity : UIViewController
 
 @joint( stateChanged );
 
-@prop_strong( SamuraiIntent *,            intent );
+@prop_strong( IDEAAppletIntent *,            intent );
 @prop_assign( BOOL,                     animated );
 @prop_assign( UIInterfaceOrientation,      orientation );
 @prop_assign( UIInterfaceOrientationMask,   orientationMask );
@@ -103,12 +103,12 @@ typedef enum
 
 - (void)changeState:(ActivityState)value;
 
-- (void)onCreate;   // override point
+- (void)onCreate;    // override point
 - (void)onDestroy;   // override point
-- (void)onStart;   // override point
-- (void)onResume;   // override point
-- (void)onLayout;   // override point
-- (void)onPause;   // override point
+- (void)onStart;     // override point
+- (void)onResume;    // override point
+- (void)onLayout;    // override point
+- (void)onPause;     // override point
 - (void)onStop;      // override point
 
 @end

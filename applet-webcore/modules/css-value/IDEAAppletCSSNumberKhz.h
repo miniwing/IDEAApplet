@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberKhz)
+@interface IDEAAppletCSSObject(NumberKhz)
 
 - (BOOL)isKhz;
 

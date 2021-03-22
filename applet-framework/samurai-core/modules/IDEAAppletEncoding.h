@@ -71,7 +71,7 @@ typedef enum
  *  「武士」·「編碼器」
  */
 
-@interface SamuraiEncoding : NSObject
+@interface IDEAAppletEncoding : NSObject
 
 /**
  *  判斷對象屬性是否為只讀？

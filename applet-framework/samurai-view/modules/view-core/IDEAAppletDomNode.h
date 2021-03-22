@@ -51,10 +51,10 @@ typedef enum
 
 #pragma mark -
 
-@class SamuraiDocument;
-@class SamuraiStyleSheet;
+@class IDEAAppletDocument;
+@class IDEAAppletStyleSheet;
 
-@interface SamuraiDomNode : SamuraiTreeNode<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletDomNode : IDEAAppletTreeNode<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @prop_strong( NSNumber           *,    id );
 @prop_strong( NSString           *,    tag );
@@ -62,14 +62,14 @@ typedef enum
 @prop_assign( DomNodeType         ,    type );
 @prop_strong( NSMutableDictionary*,    attr );
 
-@prop_unsafe( SamuraiDocument    *,    document );
-@prop_unsafe( SamuraiDomNode     *,    parent );
-@prop_unsafe( SamuraiDomNode     *,    prev );
-@prop_unsafe( SamuraiDomNode     *,    next );
+@prop_unsafe( IDEAAppletDocument *,    document );
+@prop_unsafe( IDEAAppletDomNode  *,    parent );
+@prop_unsafe( IDEAAppletDomNode  *,    prev );
+@prop_unsafe( IDEAAppletDomNode  *,    next );
 
 + (instancetype)domNode;
 
-- (void)attach:(SamuraiDocument *)document;
+- (void)attach:(IDEAAppletDocument *)document;
 - (void)detach;
 
 @end

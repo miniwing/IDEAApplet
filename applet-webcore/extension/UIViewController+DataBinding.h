@@ -39,7 +39,7 @@
 
 @interface UIViewController(DataBinding)
 
-@prop_readonly( SamuraiHtmlRenderStoreScope *,   scope )
+@prop_readonly( IDEAAppletHtmlRenderStoreScope *,   scope )
 
 - (id)getViewData;
 - (id)getViewDataWithPath:(NSString *)path;

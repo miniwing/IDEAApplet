@@ -47,7 +47,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderStore : SamuraiTreeNode
+@interface SamuraiHtmlRenderStore : IDEAAppletTreeNode
 
 @prop_unsafe( SamuraiHtmlRenderObject *, source );
 

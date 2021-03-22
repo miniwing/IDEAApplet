@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiDomNode
+@implementation IDEAAppletDomNode
 
 @def_prop_strong( NSNumber *,            id );
 @def_prop_strong( NSString *,            tag );
@@ -50,12 +50,12 @@
 @def_prop_assign( DomNodeType,            type );
 @def_prop_strong( NSMutableDictionary *,   attr );
 
-@def_prop_unsafe( SamuraiDocument *,      document );
-@def_prop_dynamic( SamuraiDomNode *,      parent );
-@def_prop_dynamic( SamuraiDomNode *,      prev );
-@def_prop_dynamic( SamuraiDomNode *,      next );
+@def_prop_unsafe( IDEAAppletDocument *,      document );
+@def_prop_dynamic( IDEAAppletDomNode *,      parent );
+@def_prop_dynamic( IDEAAppletDomNode *,      prev );
+@def_prop_dynamic( IDEAAppletDomNode *,      next );
 
-BASE_CLASS( SamuraiDomNode )
+BASE_CLASS( IDEAAppletDomNode )
 
 static NSUInteger __domSeed = 0;
 
@@ -97,7 +97,7 @@ static NSUInteger __domSeed = 0;
 
 #pragma mark -
 
-- (void)deepCopyFrom:(SamuraiDomNode *)right
+- (void)deepCopyFrom:(IDEAAppletDomNode *)right
 {
 //   [super deepCopyFrom:right];
 
@@ -111,11 +111,11 @@ static NSUInteger __domSeed = 0;
 
 #pragma mark -
 
-- (void)attach:(SamuraiDocument *)document
+- (void)attach:(IDEAAppletDocument *)document
 {
    self.document = document;
    
-   for ( SamuraiDomNode * child in self.childs )
+   for ( IDEAAppletDomNode * child in self.childs )
    {
       [child attach:document];
    }
@@ -125,7 +125,7 @@ static NSUInteger __domSeed = 0;
 {
    self.document = nil;
    
-   for ( SamuraiDomNode * child in self.childs )
+   for ( IDEAAppletDomNode * child in self.childs )
    {
       [child detach];
    }

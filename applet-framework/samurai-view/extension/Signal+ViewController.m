@@ -40,10 +40,10 @@
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-@implementation SamuraiSignal(ViewController)
+@implementation IDEAAppletSignal(ViewController)
 
 @def_prop_dynamic( UIViewController *,      sourceViewController );
-@def_prop_dynamic( SamuraiActivity *,      sourceActivity );
+@def_prop_dynamic( IDEAAppletActivity *,      sourceActivity );
 
 - (UIViewController *)sourceViewController
 {
@@ -67,13 +67,13 @@
    return nil;   
 }
 
-- (SamuraiActivity *)sourceActivity
+- (IDEAAppletActivity *)sourceActivity
 {
    UIViewController * controller = [self sourceViewController];
 
-   if ( controller && [controller isKindOfClass:[SamuraiActivity class]] )
+   if ( controller && [controller isKindOfClass:[IDEAAppletActivity class]] )
    {
-      return (SamuraiActivity *)controller;
+      return (IDEAAppletActivity *)controller;
    }
    
    return nil;

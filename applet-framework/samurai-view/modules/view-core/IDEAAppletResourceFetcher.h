@@ -41,21 +41,21 @@
 
 @interface NSObject(ResourceFetcher)
 
-- (void)handleResourceLoaded:(SamuraiResource *)resource;
-- (void)handleResourceFailed:(SamuraiResource *)resource;
-- (void)handleResourceCancelled:(SamuraiResource *)resource;
+- (void)handleResourceLoaded:(IDEAAppletResource *)resource;
+- (void)handleResourceFailed:(IDEAAppletResource *)resource;
+- (void)handleResourceCancelled:(IDEAAppletResource *)resource;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiResourceFetcher : NSObject
+@interface IDEAAppletResourceFetcher : NSObject
 
 @prop_unsafe( id,   responder );
 
-+ (SamuraiResourceFetcher *)resourceFetcher;
++ (IDEAAppletResourceFetcher *)resourceFetcher;
 
-- (void)queue:(SamuraiResource *)resource;
+- (void)queue:(IDEAAppletResource *)resource;
 - (void)cancel;
 
 @end

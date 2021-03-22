@@ -37,12 +37,12 @@
 
 #pragma mark -
 
-@interface SamuraiTreeNode : NSObject
+@interface IDEAAppletTreeNode : NSObject
 
-@prop_readonly( SamuraiTreeNode *,      root );
-@prop_unsafe( SamuraiTreeNode *,      parent );
-@prop_unsafe( SamuraiTreeNode *,      prev );
-@prop_unsafe( SamuraiTreeNode *,      next );
+@prop_readonly( IDEAAppletTreeNode *,      root );
+@prop_unsafe( IDEAAppletTreeNode *,      parent );
+@prop_unsafe( IDEAAppletTreeNode *,      prev );
+@prop_unsafe( IDEAAppletTreeNode *,      next );
 @prop_strong( NSMutableArray *,         childs );
 
 + (instancetype)treeNode;
@@ -53,11 +53,11 @@
 - (instancetype)createSibling;
 - (instancetype)createSibling:(Class)nodeClass;
 
-- (void)appendNode:(SamuraiTreeNode *)node;
-- (void)insertNode:(SamuraiTreeNode *)node beforeNode:(SamuraiTreeNode *)oldNode;
-- (void)insertNode:(SamuraiTreeNode *)node afterNode:(SamuraiTreeNode *)oldNode;
-- (void)changeNode:(SamuraiTreeNode *)node withNode:(SamuraiTreeNode *)newNode;
-- (void)removeNode:(SamuraiTreeNode *)node;
+- (void)appendNode:(IDEAAppletTreeNode *)node;
+- (void)insertNode:(IDEAAppletTreeNode *)node beforeNode:(IDEAAppletTreeNode *)oldNode;
+- (void)insertNode:(IDEAAppletTreeNode *)node afterNode:(IDEAAppletTreeNode *)oldNode;
+- (void)changeNode:(IDEAAppletTreeNode *)node withNode:(IDEAAppletTreeNode *)newNode;
+- (void)removeNode:(IDEAAppletTreeNode *)node;
 - (void)removeAllNodes;
 
 @end

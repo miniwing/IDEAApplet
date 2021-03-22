@@ -45,25 +45,25 @@ typedef enum
 
 #pragma mark -
 
-#define IOS9_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"9.0"]
-#define IOS8_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"8.0"]
-#define IOS7_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"7.0"]
-#define IOS6_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"6.0"]
-#define IOS5_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"5.0"]
-#define IOS4_OR_LATER         [[SamuraiSystem sharedInstance] isOsVersionOrLater:@"4.0"]
+#define IOS9_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"9.0"]
+#define IOS8_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"8.0"]
+#define IOS7_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"7.0"]
+#define IOS6_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"6.0"]
+#define IOS5_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"5.0"]
+#define IOS4_OR_LATER         [[IDEAAppletSystem sharedInstance] isOsVersionOrLater:@"4.0"]
 
-#define IOS9_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"9.0"]
-#define IOS8_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"8.0"]
-#define IOS7_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"7.0"]
-#define IOS6_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"6.0"]
-#define IOS5_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"5.0"]
-#define IOS4_OR_EARLIER       [[SamuraiSystem sharedInstance] isOsVersionOrEarlier:@"4.0"]
+#define IOS9_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"9.0"]
+#define IOS8_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"8.0"]
+#define IOS7_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"7.0"]
+#define IOS6_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"6.0"]
+#define IOS5_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"5.0"]
+#define IOS4_OR_EARLIER       [[IDEAAppletSystem sharedInstance] isOsVersionOrEarlier:@"4.0"]
 
 #pragma mark -
 
-@interface SamuraiSystem : NSObject
+@interface IDEAAppletSystem : NSObject
 
-@singleton( SamuraiSystem )
+@singleton( IDEAAppletSystem )
 
 @prop_readonly( NSString      *,    osVersion         );
 @prop_readonly( OperationSystem,    osType );

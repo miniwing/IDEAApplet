@@ -46,9 +46,9 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSParser
+@implementation IDEAAppletCSSParser
 
-@def_singleton( SamuraiCSSParser )
+@def_singleton( IDEAAppletCSSParser )
 
 - (id)init
 {
@@ -96,7 +96,7 @@
       return nil;
    
    NSDictionary * result = nil;
-   KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseDeclaration:text];
+   KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseDeclaration:text];
    
    if ( NULL != output )
    {
@@ -114,7 +114,7 @@
       return nil;
    
    NSDictionary * result = nil;
-   KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseDeclaration:text];
+   KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseDeclaration:text];
    
    if ( NULL != output )
    {
@@ -141,7 +141,7 @@
          continue;
       
       NSString * key = [NSString stringWithUTF8String:decl->property];
-      NSObject * val = [SamuraiCSSArray parseArray:decl->values];
+      NSObject * val = [IDEAAppletCSSArray parseArray:decl->values];
 
       if ( key && val )
       {
@@ -174,7 +174,7 @@
       if ( decl->important )
       {
          NSString * key = [NSString stringWithUTF8String:decl->property];
-         NSObject * val = [SamuraiCSSArray parseArray:decl->values];
+         NSObject * val = [IDEAAppletCSSArray parseArray:decl->values];
          
          if ( key && val )
          {

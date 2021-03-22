@@ -38,9 +38,9 @@
 // ----------------------------------
 #pragma mark -
 
-@implementation SamuraiQueue
+@implementation IDEAAppletQueue
 
-@def_singleton( SamuraiQueue )
+@def_singleton( IDEAAppletQueue )
 
 @def_prop_strong( dispatch_queue_t,   serial );
 @def_prop_strong( dispatch_queue_t,   concurrent );

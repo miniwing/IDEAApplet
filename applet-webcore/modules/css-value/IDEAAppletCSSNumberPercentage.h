@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberPercentage)
+@interface IDEAAppletCSSObject(NumberPercentage)
 
 - (BOOL)isPercentage;
 

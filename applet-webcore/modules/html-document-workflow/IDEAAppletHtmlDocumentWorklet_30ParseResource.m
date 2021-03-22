@@ -207,7 +207,7 @@ typedef enum
       {
          // <link rel="stylsheet" href="" media=""/>
          
-         SamuraiResource   *stResource = [self parseStyleSheet:aDomNode basePath:aDocument.resPath];
+         IDEAAppletResource   *stResource = [self parseStyleSheet:aDomNode basePath:aDocument.resPath];
          if (stResource)
          {
             [aDocument.externalStylesheets addObject:stResource];
@@ -218,7 +218,7 @@ typedef enum
       {
          // <link rel="import" href=""/>
          
-         SamuraiResource   *stResource = [self parseImport:aDomNode basePath:aDocument.resPath];
+         IDEAAppletResource   *stResource = [self parseImport:aDomNode basePath:aDocument.resPath];
          if (stResource)
          {
             [aDocument.externalImports addObject:stResource];
@@ -230,7 +230,7 @@ typedef enum
    {
       // <style type="text/css"></style>
       
-      SamuraiStyleSheet *stResource = [self parseStyleSheet:aDomNode basePath:aDocument.resPath];
+      IDEAAppletStyleSheet *stResource = [self parseStyleSheet:aDomNode basePath:aDocument.resPath];
       if (stResource)
       {
          [aDocument.externalStylesheets addObject:stResource];
@@ -273,11 +273,11 @@ typedef enum
 
 #pragma mark -
 
-- (SamuraiStyleSheet *)parseStyleSheet:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
+- (IDEAAppletStyleSheet *)parseStyleSheet:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiCSSStyleSheet          *stStyleSheet                             = nil;
+   IDEAAppletCSSStyleSheet          *stStyleSheet                             = nil;
    
    NSString                      *szType                                   = aNode.attrType;
    NSString                      *szHref                                   = aNode.attrHref;
@@ -301,24 +301,24 @@ typedef enum
          
          if (szFilePath && [[NSFileManager defaultManager] fileExistsAtPath:szFilePath])
          {
-            stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:szFilePath inBundle:nil];
+            stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:szFilePath inBundle:nil];
             
          } /* End if () */
          else if ([szHref hasPrefix:@"http://"] || [szHref hasPrefix:@"https://"])
          {
-            stStyleSheet = [SamuraiCSSStyleSheet resourceWithURL:szHref];
+            stStyleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:szHref];
             
          } /* End else if () */
          else if ([szHref hasPrefix:@"//"])
          {
-            stStyleSheet = [SamuraiCSSStyleSheet resourceWithURL:[@"http:" stringByAppendingString:szHref]];
+            stStyleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:[@"http:" stringByAppendingString:szHref]];
             
          } /* End else if () */
          else if ([aBasePath hasPrefix:@"http://"] || [aBasePath hasPrefix:@"https://"])
          {
             NSURL    *szURL   = [NSURL URLWithString:szHref relativeToURL:[NSURL URLWithString:aBasePath]];
             
-            stStyleSheet = [SamuraiCSSStyleSheet resourceWithURL:[szURL absoluteString]];
+            stStyleSheet = [IDEAAppletCSSStyleSheet resourceWithURL:[szURL absoluteString]];
             
          } /* End else if () */
          else
@@ -328,14 +328,14 @@ typedef enum
             cssPath = [cssPath stringByAppendingPathComponent:szHref];
             cssPath = [cssPath stringByStandardizingPath];
             
-            stStyleSheet = [SamuraiCSSStyleSheet resourceAtPath:cssPath inBundle:nil];
+            stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:cssPath inBundle:nil];
             
          }  /* End else */
          
       } /* End if () */
       else if (szContent && szContent.length)
       {
-         stStyleSheet = [SamuraiCSSStyleSheet resourceWithString:szContent type:szType baseURL:aBasePath];
+         stStyleSheet = [IDEAAppletCSSStyleSheet resourceWithString:szContent type:szType baseURL:aBasePath];
          
       } /* End else if () */
       else
@@ -390,7 +390,7 @@ typedef enum
    return stStyleSheet;
 }
 
-- (SamuraiDocument *)parseImport:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
+- (IDEAAppletDocument *)parseImport:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
 {
    int                            nErr                                     = EFAULT;
    

@@ -57,26 +57,26 @@ typedef enum
 
 #pragma mark -
 
-@class SamuraiTemplate;
+@class IDEAAppletTemplate;
 
 @interface NSObject(TemplateResponder)
 
-@prop_strong( SamuraiTemplate *, template );
+@prop_strong( IDEAAppletTemplate *, template );
 
 - (void)loadTemplate:(NSString *)urlOrFile;
 - (void)loadTemplate:(NSString *)urlOrFile type:(NSString *)type;
 
-- (void)handleTemplate:(SamuraiTemplate *)template;
+- (void)handleTemplate:(IDEAAppletTemplate *)template;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiTemplate : NSObject
+@interface IDEAAppletTemplate : NSObject
 
 @joint( stateChanged );
 
-@prop_strong( SamuraiDocument *,      document );
+@prop_strong( IDEAAppletDocument *,      document );
 
 @prop_assign( NSTimeInterval,         timeoutSeconds );
 @prop_assign( BOOL,                  timeout );
@@ -92,7 +92,7 @@ typedef enum
 @prop_readonly( BOOL,               failed );
 @prop_readonly( BOOL,               cancelled );
 
-+ (SamuraiTemplate *)template;
++ (IDEAAppletTemplate *)template;
 
 - (void)loadClass:(Class)clazz;
 - (void)loadFile:(NSString *)file;

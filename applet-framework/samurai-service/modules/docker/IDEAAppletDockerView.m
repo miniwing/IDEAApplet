@@ -38,13 +38,13 @@
 
 #pragma mark -
 
-@implementation SamuraiDockerView
+@implementation IDEAAppletDockerView
 {
    UIButton *   _open;
    UIButton *   _close;
 }
 
-@def_prop_unsafe  ( SamuraiService<ManagedDocker>  *,   service );
+@def_prop_unsafe  ( IDEAAppletService<ManagedDocker>  *,   service );
 
 - (id)init
 {

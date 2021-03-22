@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiSandbox : NSObject
+@interface IDEAAppletSandbox : NSObject
 
 @prop_strong( NSString *,   appPath );
 @prop_strong( NSString *,   docPath );
@@ -44,7 +44,7 @@
 @prop_strong( NSString *,   libCachePath );
 @prop_strong( NSString *,   tmpPath );
 
-@singleton( SamuraiSandbox )
+@singleton( IDEAAppletSandbox )
 
 - (BOOL)touch:(NSString *)path;
 - (BOOL)touchFile:(NSString *)file;

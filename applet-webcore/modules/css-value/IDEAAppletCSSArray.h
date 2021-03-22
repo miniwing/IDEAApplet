@@ -37,28 +37,28 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Array)<NSArrayProtocol, NSMutableArrayProtocol>
+@interface IDEAAppletCSSObject(Array)<NSArrayProtocol, NSMutableArrayProtocol>
 
 - (BOOL)isArray;
 
 - (NSArray *)array;
 
-- (SamuraiCSSValue *)top;
-- (SamuraiCSSValue *)left;
-- (SamuraiCSSValue *)right;
-- (SamuraiCSSValue *)bottom;
+- (IDEAAppletCSSValue *)top;
+- (IDEAAppletCSSValue *)left;
+- (IDEAAppletCSSValue *)right;
+- (IDEAAppletCSSValue *)bottom;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiCSSArray : SamuraiCSSObject
+@interface IDEAAppletCSSArray : IDEAAppletCSSObject
 
 @prop_strong( NSMutableArray  *,    array  );
-@prop_strong( SamuraiCSSValue *,    top    );
-@prop_strong( SamuraiCSSValue *,    left   );
-@prop_strong( SamuraiCSSValue *,    right  );
-@prop_strong( SamuraiCSSValue *,    bottom );
+@prop_strong( IDEAAppletCSSValue *,    top    );
+@prop_strong( IDEAAppletCSSValue *,    left   );
+@prop_strong( IDEAAppletCSSValue *,    right  );
+@prop_strong( IDEAAppletCSSValue *,    bottom );
 
 + (instancetype)parseArray:(KatanaArray *)aArray;  // override point
 + (instancetype)parseString:(NSString *)aString;   // override point

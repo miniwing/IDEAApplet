@@ -83,7 +83,7 @@
 
 - (SamuraiHtmlRenderObject *)htmlRenderer
 {
-   SamuraiRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject * renderer = [self renderer];
    
    if ( renderer && [renderer isKindOfClass:[SamuraiHtmlRenderObject class]] )
    {
@@ -427,22 +427,22 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 
 #pragma mark -
 
-- (id<SamuraiCSSProtocol>)cssParent
+- (id<IDEAAppletCSSProtocol>)cssParent
 {
    return self.parent;
 }
 
-- (id<SamuraiCSSProtocol>)cssPreviousSibling
+- (id<IDEAAppletCSSProtocol>)cssPreviousSibling
 {
    return self.prev;
 }
 
-- (id<SamuraiCSSProtocol>)cssFollowingSibling
+- (id<IDEAAppletCSSProtocol>)cssFollowingSibling
 {
    return self.next;
 }
 
-- (id<SamuraiCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
+- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
 {
    if ( nil == self.parent )
    {
@@ -664,11 +664,11 @@ BASE_CLASS( SamuraiHtmlRenderObject )
       if ( NULL == attr )
          return;
       
-      BOOL isReadOnly = [SamuraiEncoding isReadOnly:attr];
+      BOOL isReadOnly = [IDEAAppletEncoding isReadOnly:attr];
       if ( isReadOnly )
          return;
       
-      NSString * className = [SamuraiEncoding classNameOfAttribute:attr];
+      NSString * className = [IDEAAppletEncoding classNameOfAttribute:attr];
       if ( nil == className )
          return;
       
@@ -919,14 +919,14 @@ BASE_CLASS( SamuraiHtmlRenderObject )
               self.layout.frame.size.width, self.layout.frame.size.height );
       }
       
-      [[SamuraiLogger sharedInstance] indent];
+      [[IDEAAppletLogger sharedInstance] indent];
       
-      for ( SamuraiRenderObject * child in self.childs )
+      for ( IDEAAppletRenderObject * child in self.childs )
       {
          [child dump];
       }
       
-      [[SamuraiLogger sharedInstance] unindent];
+      [[IDEAAppletLogger sharedInstance] unindent];
       
       PRINT( @"</%@>", self.dom.tag ?: @"" );
    }

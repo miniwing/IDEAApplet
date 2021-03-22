@@ -50,7 +50,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSValue
+@implementation IDEAAppletCSSValue
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
@@ -64,14 +64,14 @@
    {
       classes = [NSArray arrayWithObjects:
                [SamuraiCSSUri class],
-               [SamuraiCSSColor class],
-               [SamuraiCSSFunction class],
+               [IDEAAppletCSSColor class],
+               [IDEAAppletCSSFunction class],
                [SamuraiCSSNumber class],
                [SamuraiCSSString class],
                nil];
    });
    
-   SamuraiCSSValue * result = nil;
+   IDEAAppletCSSValue * result = nil;
    
    for ( Class valueClass in classes )
    {
@@ -94,11 +94,11 @@
    if ( nil == string || 0 == [string length] )
       return nil;
 
-   SamuraiCSSValue * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
+   IDEAAppletCSSValue * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
    
    if ( nil == result )
    {
-      KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseValue:string];
+      KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseValue:string];
       if ( output )
       {
          result = [self parseValue:output->values->data[0]];

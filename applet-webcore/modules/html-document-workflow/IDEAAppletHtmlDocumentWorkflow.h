@@ -41,17 +41,17 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlDocumentWorkflow_All : SamuraiWorkflow
+@interface SamuraiHtmlDocumentWorkflow_All : IDEAAppletWorkflow
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlDocumentWorkflow_Parser : SamuraiWorkflow
+@interface SamuraiHtmlDocumentWorkflow_Parser : IDEAAppletWorkflow
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlDocumentWorkflow_Render : SamuraiWorkflow
+@interface SamuraiHtmlDocumentWorkflow_Render : IDEAAppletWorkflow
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

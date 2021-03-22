@@ -183,11 +183,11 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (SamuraiActivity *)activityFromString:(NSString *)aString
+- (IDEAAppletActivity *)activityFromString:(NSString *)aString
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiActivity               *stActivity                               = nil;
+   IDEAAppletActivity               *stActivity                               = nil;
    
    __TRY;
 
@@ -195,15 +195,15 @@ static __strong id __applicationInstance = nil;
    
    INFO(@"Application '%p', create activity '%@'", self, aString);
    
-   stActivity = [[SamuraiActivityRouter sharedInstance] activityForURL:aString];
+   stActivity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:aString];
    
    if (nil == stActivity)
    {
       Class stRuntimeClass = NSClassFromString(aString);
       
-      if (stRuntimeClass && [stRuntimeClass isSubclassOfClass:[SamuraiActivity class]])
+      if (stRuntimeClass && [stRuntimeClass isSubclassOfClass:[IDEAAppletActivity class]])
       {
-         stActivity = (SamuraiActivity *)[[stRuntimeClass alloc] init];
+         stActivity = (IDEAAppletActivity *)[[stRuntimeClass alloc] init];
          
       } /* End if () */
       
@@ -214,21 +214,21 @@ static __strong id __applicationInstance = nil;
    return stActivity;
 }
 
-- (SamuraiActivityStack *)activityStackFromArray:(NSArray *)array
+- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)array
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiActivityStack          *stStack                                  = nil;
+   IDEAAppletActivityStack          *stStack                                  = nil;
    
    __TRY;
 
    INFO(@"Application '%p', create stack", self, [[self class] description]);
    
-   stStack = [SamuraiActivityStack stack];
+   stStack = [IDEAAppletActivityStack stack];
    
    for (NSString * name in array)
    {
-      SamuraiActivity   *stActivity = [self activityFromString:name];
+      IDEAAppletActivity   *stActivity = [self activityFromString:name];
       if (stActivity)
       {
          [stStack pushActivity:stActivity animated:NO];
@@ -242,17 +242,17 @@ static __strong id __applicationInstance = nil;
    return stStack;
 }
 
-- (SamuraiActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDictionary
+- (IDEAAppletActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDictionary
 {
    int                            nErr                                     = EFAULT;
    
-   SamuraiActivityStackGroup     *stStackGroup                             = nil;
+   IDEAAppletActivityStackGroup     *stStackGroup                             = nil;
    
    __TRY;
 
    INFO(@"Application '%p', create stack-group", self, [[self class] description]);
    
-   stStackGroup   = [SamuraiActivityStackGroup stackGroup];
+   stStackGroup   = [IDEAAppletActivityStackGroup stackGroup];
    
    for (NSString *szKey in aDictionary.allKeys)
    {
@@ -267,7 +267,7 @@ static __strong id __applicationInstance = nil;
       
       if ([stValue isKindOfClass:[NSString class]])
       {
-         SamuraiActivity   *stActivity = [self activityFromString:(NSString *)stValue];
+         IDEAAppletActivity   *stActivity = [self activityFromString:(NSString *)stValue];
          
          if (stActivity)
          {
@@ -278,7 +278,7 @@ static __strong id __applicationInstance = nil;
       }  /* End if () */
       else if ([stValue isKindOfClass:[NSArray class]])
       {
-         SamuraiActivityStack * activityStack = [self activityStackFromArray:(NSArray *)stValue];
+         IDEAAppletActivityStack * activityStack = [self activityStackFromArray:(NSArray *)stValue];
          if (activityStack)
          {
             [stStackGroup map:(NSString *)szKey forActivityStack:activityStack];
@@ -343,7 +343,7 @@ static __strong id __applicationInstance = nil;
                
                if (stClassType)
                {
-                  [[SamuraiActivityRouter sharedInstance] mapURL:szKey toActivityClass:stClassType];
+                  [[IDEAAppletActivityRouter sharedInstance] mapURL:szKey toActivityClass:stClassType];
                   
                } /* End if () */
                
@@ -372,7 +372,7 @@ static __strong id __applicationInstance = nil;
          } /* End if () */
          else
          {
-            self.window.rootViewController = [SamuraiActivityStack stackWithActivity:[self activityFromString:@"/"]];
+            self.window.rootViewController = [IDEAAppletActivityStack stackWithActivity:[self activityFromString:@"/"]];
             
          } /* End else () */
          

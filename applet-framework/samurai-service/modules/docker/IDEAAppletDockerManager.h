@@ -35,21 +35,21 @@
 
 #pragma mark -
 
-@interface SamuraiService(Docker)
+@interface IDEAAppletService(Docker)
 - (void)openDocker;
 - (void)closeDocker;
 @end
 
 #pragma mark -
 
-@interface SamuraiDockerManager : NSObject
+@interface IDEAAppletDockerManager : NSObject
 
-@singleton( SamuraiDockerManager )
+@singleton( IDEAAppletDockerManager )
 
 - (void)installDockers;
 - (void)uninstallDockers;
 
-- (void)openDockerForService:(SamuraiService<ManagedDocker> *)service;
-- (void)closeDockerForService:(SamuraiService<ManagedDocker> *)service;
+- (void)openDockerForService:(IDEAAppletService<ManagedDocker> *)service;
+- (void)closeDockerForService:(IDEAAppletService<ManagedDocker> *)service;
 
 @end

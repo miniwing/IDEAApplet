@@ -36,12 +36,12 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderStoreScope : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletHtmlRenderStoreScope : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @prop_strong( NSObject *,            content );
 @prop_strong( SamuraiHtmlRenderStore *,   storeTree );
 
-+ (SamuraiHtmlRenderStoreScope *)scope:(id)sourceOrTarget;
++ (IDEAAppletHtmlRenderStoreScope *)scope:(id)sourceOrTarget;
 
 - (id)getData;
 - (id)getDataWithPath:(NSString *)path;

@@ -49,7 +49,7 @@
 
 @implementation NSObject(TemplateResponder)
 
-@def_prop_dynamic_strong( SamuraiTemplate *, template, setTemplate );
+@def_prop_dynamic_strong( IDEAAppletTemplate *, template, setTemplate );
 
 - (void)loadTemplate:(NSString *)urlOrFile
 {
@@ -60,7 +60,7 @@
 {
    if ( nil == self.template )
    {
-      self.template = [[SamuraiTemplate alloc] init];
+      self.template = [[IDEAAppletTemplate alloc] init];
       self.template.responder = self;
    }
 
@@ -96,7 +96,7 @@
    }
 }
 
-- (void)handleTemplate:(SamuraiTemplate *)template
+- (void)handleTemplate:(IDEAAppletTemplate *)template
 {
 }
 
@@ -104,15 +104,15 @@
 
 #pragma mark -
 
-@implementation SamuraiTemplate
+@implementation IDEAAppletTemplate
 {
    NSMutableArray *         _resourceQueue;
-   SamuraiResourceFetcher *   _resourceFetcher;
+   IDEAAppletResourceFetcher *   _resourceFetcher;
 }
 
 @def_joint( stateChanged );
 
-@def_prop_strong( SamuraiDocument *,      document );
+@def_prop_strong( IDEAAppletDocument *,      document );
 @def_prop_assign( BOOL,                  responderDisabled );
 @def_prop_unsafe( id,                  responder );
 
@@ -124,9 +124,9 @@
 @def_prop_dynamic( BOOL,               failed );
 @def_prop_dynamic( BOOL,               cancelled );
 
-+ (SamuraiTemplate *)template
++ (IDEAAppletTemplate *)template
 {
-   return [[SamuraiTemplate alloc] init];
+   return [[IDEAAppletTemplate alloc] init];
 }
 
 - (id)init
@@ -143,7 +143,7 @@
       self.state = TemplateState_Created;
       
       _resourceQueue = [[NSMutableArray alloc] init];
-      _resourceFetcher = [SamuraiResourceFetcher resourceFetcher];
+      _resourceFetcher = [IDEAAppletResourceFetcher resourceFetcher];
       _resourceFetcher.responder = self;
 
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:IDEAAppletWatcher.SourceFileDidChanged object:nil];
@@ -264,7 +264,7 @@
    ASSERT( nil != clazz );
 
    self.state = TemplateState_Created;
-   self.document = [SamuraiDocument resourceForClass:clazz];
+   self.document = [IDEAAppletDocument resourceForClass:clazz];
    
    [self loadMainResource:self.document];
 }
@@ -274,7 +274,7 @@
    ASSERT( nil != aFile );
 
    self.state     = TemplateState_Created;
-   self.document  = [SamuraiDocument resourceAtPath:aFile inBundle:nil];
+   self.document  = [IDEAAppletDocument resourceAtPath:aFile inBundle:nil];
    
    [self loadMainResource:self.document];
    
@@ -286,7 +286,7 @@
    ASSERT( nil != url );
 
    self.state = TemplateState_Created;
-   self.document = [SamuraiDocument resourceWithURL:url type:type];
+   self.document = [IDEAAppletDocument resourceWithURL:url type:type];
    
    [self loadMainResource:self.document];
 }
@@ -303,7 +303,7 @@
 
 #pragma mark -
 
-- (void)loadMainResource:(SamuraiResource *)resource
+- (void)loadMainResource:(IDEAAppletResource *)resource
 {
    [_resourceFetcher cancel];
 
@@ -322,7 +322,7 @@
    }
 }
 
-- (void)loadResource:(SamuraiResource *)resource
+- (void)loadResource:(IDEAAppletResource *)resource
 {
    ASSERT( nil != resource );
    
@@ -338,12 +338,12 @@
    }
 }
 
-- (void)fetchRemoteResource:(SamuraiResource *)resource
+- (void)fetchRemoteResource:(IDEAAppletResource *)resource
 {
    [_resourceFetcher queue:resource];
 }
 
-- (void)fetchLocalResource:(SamuraiResource *)resource
+- (void)fetchLocalResource:(IDEAAppletResource *)resource
 {
    BOOL succeed = [resource parse];
    if ( succeed )
@@ -358,11 +358,11 @@
 
 #pragma mark -
 
-- (void)handleResourceLoaded:(SamuraiResource *)resource
+- (void)handleResourceLoaded:(IDEAAppletResource *)resource
 {
-   if ( [resource isKindOfClass:[SamuraiDocument class]] )
+   if ( [resource isKindOfClass:[IDEAAppletDocument class]] )
    {
-      SamuraiDocument * document = (SamuraiDocument *)resource;
+      IDEAAppletDocument * document = (IDEAAppletDocument *)resource;
       
    // Load sub-resources in document
 
@@ -374,7 +374,7 @@
 
       [_resourceQueue addObjectsFromArray:array];
 
-      for ( SamuraiResource * resource in array )
+      for ( IDEAAppletResource * resource in array )
       {
          [self loadResource:resource];
       }
@@ -398,14 +398,14 @@
    }
 }
 
-- (void)handleResourceFailed:(SamuraiResource *)resource
+- (void)handleResourceFailed:(IDEAAppletResource *)resource
 {
    [_resourceFetcher cancel];
    
    [self changeState:TemplateState_Failed];
 }
 
-- (void)handleResourceCancelled:(SamuraiResource *)resource
+- (void)handleResourceCancelled:(IDEAAppletResource *)resource
 {
    [_resourceFetcher cancel];
    
@@ -414,7 +414,7 @@
 
 #pragma mark -
 
-- (BOOL)document:(SamuraiDocument *)document includeResourceOfPath:(NSString *)path
+- (BOOL)document:(IDEAAppletDocument *)document includeResourceOfPath:(NSString *)path
 {
    path = [path lastPathComponent];
    
@@ -423,7 +423,7 @@
       return YES;
    }
 
-   for ( SamuraiStyleSheet * styleSheet in [document.externalStylesheets copy] )
+   for ( IDEAAppletStyleSheet * styleSheet in [document.externalStylesheets copy] )
    {
       if ( [path isEqualToString:[styleSheet.resPath lastPathComponent]] )
       {
@@ -431,7 +431,7 @@
       }
    }
 
-   for ( SamuraiScript * script in [document.externalScripts copy] )
+   for ( IDEAAppletScript * script in [document.externalScripts copy] )
    {
       if ( [path isEqualToString:[script.resPath lastPathComponent]] )
       {
@@ -439,11 +439,11 @@
       }
    }
 
-   for ( SamuraiResource * resource in [document.externalImports copy] )
+   for ( IDEAAppletResource * resource in [document.externalImports copy] )
    {
-      if ( [resource isKindOfClass:[SamuraiDocument class]] )
+      if ( [resource isKindOfClass:[IDEAAppletDocument class]] )
       {
-         BOOL included = [self document:(SamuraiDocument *)resource includeResourceOfPath:path];
+         BOOL included = [self document:(IDEAAppletDocument *)resource includeResourceOfPath:path];
          if ( included )
          {
             return YES;

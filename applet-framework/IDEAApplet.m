@@ -128,7 +128,7 @@
    
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   [[SamuraiServiceLoader sharedInstance] installServices];
+   [[IDEAAppletServiceLoader sharedInstance] installServices];
    
    [[NSNotificationCenter defaultCenter] addObserver:self
                                             selector:@selector(UIApplicationDidFinishLaunchingNotification)
@@ -154,7 +154,7 @@
 {
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   [[SamuraiServiceLoader sharedInstance] uninstallServices];
+   [[IDEAAppletServiceLoader sharedInstance] uninstallServices];
    
 #endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
@@ -170,7 +170,7 @@
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    dispatch_after_foreground(1.0f, ^{
-      [[SamuraiDockerManager sharedInstance] installDockers];
+      [[IDEAAppletDockerManager sharedInstance] installDockers];
    });
    
 #endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
@@ -182,7 +182,7 @@
 {
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   [[SamuraiDockerManager sharedInstance] uninstallDockers];
+   [[IDEAAppletDockerManager sharedInstance] uninstallDockers];
    
 #endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
@@ -207,7 +207,7 @@
    ]];
    
 #if __SAMURAI_TESTING__
-   [[SamuraiUnitTest sharedInstance] run];
+   [[IDEAAppletUnitTest sharedInstance] run];
 #endif // #if __SAMURAI_TESTING__
    
    return;

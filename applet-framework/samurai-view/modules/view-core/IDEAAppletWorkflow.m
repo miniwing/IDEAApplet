@@ -63,7 +63,7 @@
 
 #pragma mark -
 
-@implementation SamuraiWorkflow
+@implementation IDEAAppletWorkflow
 
 @def_prop_unsafe( NSObject *,      context );
 @def_prop_strong( NSMutableArray *,   worklets );
@@ -75,7 +75,7 @@
 
 + (instancetype)workflowWithContext:(NSObject *)context
 {
-   SamuraiWorkflow * workflow = [[self alloc] init];
+   IDEAAppletWorkflow * workflow = [[self alloc] init];
    workflow.context = context;
    return workflow;
 }
@@ -105,13 +105,13 @@
    {
       INFO( @"  [%@]", [[worklet class] description] );
 
-      [[SamuraiLogger sharedInstance] indent:2];
-   //   [[SamuraiLogger sharedInstance] disable];
+      [[IDEAAppletLogger sharedInstance] indent:2];
+   //   [[IDEAAppletLogger sharedInstance] disable];
 
       BOOL succeed = [worklet processWithContext:self.context];
 
-   //   [[SamuraiLogger sharedInstance] enable];
-      [[SamuraiLogger sharedInstance] unindent:2];
+   //   [[IDEAAppletLogger sharedInstance] enable];
+      [[IDEAAppletLogger sharedInstance] unindent:2];
       
       if ( NO == succeed )
          break;

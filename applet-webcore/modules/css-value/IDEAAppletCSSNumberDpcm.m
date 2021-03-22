@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberDpcm)
+@implementation IDEAAppletCSSObject(NumberDpcm)
 
 - (BOOL)isDpcm
 {

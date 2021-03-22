@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberDpi)
+@interface IDEAAppletCSSObject(NumberDpi)
 
 - (BOOL)isDpi;
 

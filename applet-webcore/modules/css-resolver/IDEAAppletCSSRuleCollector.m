@@ -47,9 +47,9 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSRuleCollector
+@implementation IDEAAppletCSSRuleCollector
 
-- (NSDictionary *)collectFromRuleSet:(SamuraiCSSRuleSet *)ruleSet forElement:(id<SamuraiCSSProtocol>)element
+- (NSDictionary *)collectFromRuleSet:(IDEAAppletCSSRuleSet *)ruleSet forElement:(id<IDEAAppletCSSProtocol>)element
 {
    if ( nil == element || nil == ruleSet )
       return nil;
@@ -100,12 +100,12 @@
 
 #pragma mark -
 
-- (void)collectMatchingRules:(NSArray *)rules forElement:(id<SamuraiCSSProtocol>)element toMatchedRules:(NSMutableArray *)matchedRules
+- (void)collectMatchingRules:(NSArray *)rules forElement:(id<IDEAAppletCSSProtocol>)element toMatchedRules:(NSMutableArray *)matchedRules
 {
     if ( nil == rules )
         return;
 
-    for ( SamuraiCSSRule * ruleData in rules )
+    for ( IDEAAppletCSSRule * ruleData in rules )
    {
       KatanaStyleRule *   rule = ruleData.rule;
       KatanaArray *      declarations = rule->declarations;
@@ -113,9 +113,9 @@
       if ( NULL == declarations || 0 == declarations->length )
          continue;
       
-      SamuraiCSSSelectorChecker *            checker = [SamuraiCSSSelectorChecker new];
+      IDEAAppletCSSSelectorChecker *            checker = [IDEAAppletCSSSelectorChecker new];
       SamuraiCSSSelectorCheckingContext *      context = [SamuraiCSSSelectorCheckingContext new];
-      SamuraiCSSSelectorCheckerMatchResult *   matchResult = [SamuraiCSSSelectorCheckerMatchResult new];
+      IDEAAppletCSSSelectorCheckerMatchResult *   matchResult = [IDEAAppletCSSSelectorCheckerMatchResult new];
       
       context.selector = ruleData.selector;
       context.element = element;
@@ -131,7 +131,7 @@
 //    context.isUARule = m_matchingUARules;
 //    context.scopeContainsLastMatchedElement = m_scopeContainsLastMatchedElement;
 
-      SamuraiCSSSelectorMatch match = [checker match:context result:matchResult];
+      IDEAAppletCSSSelectorMatch match = [checker match:context result:matchResult];
       if ( SamuraiCSSSelectorMatches == match )
       {
          
@@ -139,7 +139,7 @@
 //    if (m_pseudoStyleRequest.pseudoId != NOPSEUDO && m_pseudoStyleRequest.pseudoId != result->dynamicPseudo)
 //        return;
 
-//      SamuraiCSSPseudoId dynamicPseudo = result.dynamicPseudo;
+//      IDEAAppletCSSPseudoId dynamicPseudo = result.dynamicPseudo;
 //      TODO: (@QFish) 检查 dynamicPseudo 来判断是否满足
 //      addMatchedRule(&ruleData, result.specificity, cascadeOrder, matchRequest.styleSheetIndex, matchRequest.styleSheet);
 
@@ -148,9 +148,9 @@
    }
 }
 
-- (NSDictionary *)buildResultFromMatchedRules:(NSMutableArray *)matchedRules forElement:(id<SamuraiCSSProtocol>)element
+- (NSDictionary *)buildResultFromMatchedRules:(NSMutableArray *)matchedRules forElement:(id<IDEAAppletCSSProtocol>)element
 {
-   [matchedRules sortUsingComparator:^NSComparisonResult( SamuraiCSSRule * obj1, SamuraiCSSRule * obj2 ) {
+   [matchedRules sortUsingComparator:^NSComparisonResult( IDEAAppletCSSRule * obj1, IDEAAppletCSSRule * obj2 ) {
       
       NSUInteger specificity1 = obj1.specificity;
       NSUInteger specificity2 = obj2.specificity;
@@ -161,10 +161,10 @@
    NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
    NSMutableDictionary * importants = [[NSMutableDictionary alloc] init];
 
-    for ( SamuraiCSSRule * ruleData in matchedRules )
+    for ( IDEAAppletCSSRule * ruleData in matchedRules )
     {
-      NSDictionary * dict1 = [[SamuraiCSSParser sharedInstance] buildDictionary:ruleData.rule->declarations];
-      NSDictionary * dict2 = [[SamuraiCSSParser sharedInstance] buildImportants:ruleData.rule->declarations];
+      NSDictionary * dict1 = [[IDEAAppletCSSParser sharedInstance] buildDictionary:ruleData.rule->declarations];
+      NSDictionary * dict2 = [[IDEAAppletCSSParser sharedInstance] buildImportants:ruleData.rule->declarations];
       
       for ( NSString * key in dict1 )
       {

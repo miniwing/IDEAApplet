@@ -46,9 +46,9 @@
 #pragma mark -
 
 @def_namespace( core )                                   // S.core
-@def_namespace( core,   debugger ,   SamuraiDebugger )   // S.core.debugger
-@def_namespace( core,   logger   ,   SamuraiLogger )     // S.core.log
-@def_namespace( core,   system   ,   SamuraiSystem )     // S.core.system
+@def_namespace( core,   debugger ,   IDEAAppletDebugger )   // S.core.debugger
+@def_namespace( core,   logger   ,   IDEAAppletLogger )     // S.core.log
+@def_namespace( core,   system   ,   IDEAAppletSystem )     // S.core.system
 
 #pragma mark -
 
@@ -59,12 +59,12 @@
 
 + (void)classAutoLoad
 {
-   [SamuraiAsserter  classAutoLoad];
-   [SamuraiDebugger  classAutoLoad];
-   [SamuraiLogger    classAutoLoad];
-   [SamuraiSandbox   classAutoLoad];
-   [SamuraiSystem    classAutoLoad];
-   [SamuraiValidator classAutoLoad];
+   [IDEAAppletAsserter  classAutoLoad];
+   [IDEAAppletDebugger  classAutoLoad];
+   [IDEAAppletLogger    classAutoLoad];
+   [IDEAAppletSandbox   classAutoLoad];
+   [IDEAAppletSystem    classAutoLoad];
+   [IDEAAppletValidator classAutoLoad];
    
    return;
 }

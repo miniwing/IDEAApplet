@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@interface SamuraiStyleSheet : SamuraiResource
+@interface IDEAAppletStyleSheet : IDEAAppletResource
 
 @prop_strong( NSString *,            href );
 @prop_strong( NSString *,            type );
@@ -51,7 +51,7 @@
 - (NSDictionary *)queryForObject:(NSObject *)object;   // override point
 - (NSDictionary *)queryForString:(NSString *)string;   // override point
 
-- (void)merge:(SamuraiStyleSheet *)styleSheet;         // override point
+- (void)merge:(IDEAAppletStyleSheet *)styleSheet;         // override point
 - (void)clear;                                 // override point
 
 @end

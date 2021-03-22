@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@interface SamuraiDomWritter : NSObject
+@interface IDEAAppletDomWritter : NSObject
 @end
 
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

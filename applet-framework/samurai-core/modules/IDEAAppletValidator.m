@@ -49,21 +49,21 @@
 
 - (BOOL)validate
 {
-   return [[SamuraiValidator sharedInstance] validateObject:self];
+   return [[IDEAAppletValidator sharedInstance] validateObject:self];
 }
 
 - (BOOL)validate:(NSString *)prop
 {
-   return [[SamuraiValidator sharedInstance] validateObject:self property:prop];
+   return [[IDEAAppletValidator sharedInstance] validateObject:self property:prop];
 }
 
 @end
 
 #pragma mark -
 
-@implementation SamuraiValidator
+@implementation IDEAAppletValidator
 
-@def_singleton( SamuraiValidator )
+@def_singleton( IDEAAppletValidator )
 
 @def_prop_strong( NSString *,   lastProperty );
 @def_prop_strong( NSString *,   lastError );
@@ -72,7 +72,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
 + (void)classAutoLoad
 {
-   [[SamuraiValidator sharedInstance] loadRules];
+   [[IDEAAppletValidator sharedInstance] loadRules];
 }
 
 - (void)loadRules
@@ -187,7 +187,7 @@ static __strong NSMutableDictionary * __rules = nil;
    case ValidatorRule_In:
       {
          BOOL         matched = NO;
-         EncodingType   encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType   encoding = [IDEAAppletEncoding typeOfObject:value];
          
          NSArray * list = [ruleValue componentsSeparatedByString:@","];
          for ( NSString * item in list )
@@ -212,7 +212,7 @@ static __strong NSMutableDictionary * __rules = nil;
    case ValidatorRule_NotIn:
       {
          BOOL         matched = NO;
-         EncodingType   encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType   encoding = [IDEAAppletEncoding typeOfObject:value];
          
          NSArray * list = [ruleValue componentsSeparatedByString:@","];
          for ( NSString * item in list )
@@ -350,7 +350,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
    case ValidatorRule_Integer:
       {
-         EncodingType encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
 
          if ( EncodingType_Number != encoding )
          {
@@ -445,7 +445,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
    case ValidatorRule_Size:
       {
-         EncodingType encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
          
          if ( EncodingType_Number == encoding )
          {
@@ -506,7 +506,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
    case ValidatorRule_Date:
       {
-         EncodingType encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
 
          if ( EncodingType_Date != encoding )
          {
@@ -533,7 +533,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
    case ValidatorRule_Min:
       {
-         EncodingType encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
          
          if ( EncodingType_Number == encoding )
          {
@@ -594,7 +594,7 @@ static __strong NSMutableDictionary * __rules = nil;
 
    case ValidatorRule_Max:
       {
-         EncodingType encoding = [SamuraiEncoding typeOfObject:value];
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
          
          if ( EncodingType_Number == encoding )
          {
@@ -779,10 +779,10 @@ DESCRIBE( regex: )
 {
    BOOL valid;
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1234" rule:@"regex:^([0-9]+)$"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"regex:^([0-9]+)$"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abcd" rule:@"regex:^([0-9]+)$"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abcd" rule:@"regex:^([0-9]+)$"];
    EXPECTED( NO == valid );
 }
 
@@ -790,49 +790,49 @@ DESCRIBE( accepted )
 {
    BOOL valid;
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"YES" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"YES" rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"ON" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"ON" rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"TRUE" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"TRUE" rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1" rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(YES) rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(YES) rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(1) rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(1234) rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"accepted"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"1234" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"accepted"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"NO" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"NO" rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"OFF" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"OFF" rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"FALSE" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"FALSE" rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"0" rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"0" rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(NO) rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(NO) rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(0) rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"accepted"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:obj1 rule:@"accepted"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:obj1 rule:@"accepted"];
    EXPECTED( NO == valid );
 }
 
@@ -840,19 +840,19 @@ DESCRIBE( in: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"in:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"123" rule:@"in:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"def" rule:@"in:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"def" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(123) rule:@"in:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(123) rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"456" rule:@"in:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"456" rule:@"in:abc,123,def"];
    EXPECTED( NO == valid );
 }
 
@@ -860,19 +860,19 @@ DESCRIBE( notin: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"notin:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"notin:abc,123,def"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"123" rule:@"notin:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"notin:abc,123,def"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"def" rule:@"notin:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"def" rule:@"notin:abc,123,def"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(123) rule:@"notin:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(123) rule:@"notin:abc,123,def"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"456" rule:@"notin:abc,123,def"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"456" rule:@"notin:abc,123,def"];
    EXPECTED( YES == valid );
 }
 
@@ -880,13 +880,13 @@ DESCRIBE( alpha )
 {
    BOOL valid;
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"alpha"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"alpha"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"123" rule:@"alpha"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"alpha"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha"];
    EXPECTED( NO == valid );
 }
 
@@ -894,13 +894,13 @@ DESCRIBE( numberic )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"numeric"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"numeric"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"123" rule:@"numeric"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"numeric"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"!@#$%^" rule:@"numeric"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"numeric"];
    EXPECTED( NO == valid );
 }
 
@@ -908,13 +908,13 @@ DESCRIBE( alpha_num )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc123" rule:@"alpha_num"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc123" rule:@"alpha_num"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"123abc" rule:@"alpha_num"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123abc" rule:@"alpha_num"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_num"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_num"];
    EXPECTED( NO == valid );
 }
 
@@ -922,19 +922,19 @@ DESCRIBE( alpha_dash )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"_" rule:@"alpha_dash"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc_" rule:@"alpha_dash"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"_abc" rule:@"alpha_dash"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"_abc" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"_a_b_c_" rule:@"alpha_dash"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"_a_b_c_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_dash"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_dash"];
    EXPECTED( NO == valid );
 }
 
@@ -942,28 +942,28 @@ DESCRIBE( url )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"http://qq" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"http://qq" rule:@"url"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"http://qq.com" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"http://qq.com" rule:@"url"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"http://www.qq.com" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"http://www.qq.com" rule:@"url"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"https://www.qq.com" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"https://www.qq.com" rule:@"url"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"https://www.qq.com?a=b&c=d" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"https://www.qq.com?a=b&c=d" rule:@"url"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"qq" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"qq" rule:@"url"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"qq.com" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"qq.com" rule:@"url"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"www.qq.com" rule:@"url"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"www.qq.com" rule:@"url"];
    EXPECTED( NO == valid );
 }
 
@@ -971,22 +971,22 @@ DESCRIBE( email )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"a@b.c" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"a@b.c" rule:@"email"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"a@b.co" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"a@b.co" rule:@"email"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"gavinkwoe@gmail.com" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"gavinkwoe@gmail.com" rule:@"email"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc123!@gmail.com" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc123!@gmail.com" rule:@"email"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc@123" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc@123" rule:@"email"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"email"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"email"];
    EXPECTED( NO == valid );
 }
 
@@ -994,13 +994,13 @@ DESCRIBE( tel )
 {
    BOOL valid;
    
-//   valid = [[SamuraiValidator sharedInstance] validate:@"13520351350" rule:@"tel"];
+//   valid = [[IDEAAppletValidator sharedInstance] validate:@"13520351350" rule:@"tel"];
 //   EXPECTED( YES == valid );
 //
-//   valid = [[SamuraiValidator sharedInstance] validate:@"02482510205" rule:@"tel"];
+//   valid = [[IDEAAppletValidator sharedInstance] validate:@"02482510205" rule:@"tel"];
 //   EXPECTED( YES == valid );
 //
-//   valid = [[SamuraiValidator sharedInstance] validate:@"+86 024 82510205" rule:@"tel"];
+//   valid = [[IDEAAppletValidator sharedInstance] validate:@"+86 024 82510205" rule:@"tel"];
 //   EXPECTED( NO == valid );
 }
 
@@ -1008,16 +1008,16 @@ DESCRIBE( integer )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(0) rule:@"integer"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"integer"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(123) rule:@"integer"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(123) rule:@"integer"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"integer"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"integer"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:obj1 rule:@"integer"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:obj1 rule:@"integer"];
    EXPECTED( NO == valid );
 }
 
@@ -1025,34 +1025,34 @@ DESCRIBE( ip )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"0.0.0.0" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"0.0.0.0" rule:@"ip"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"10.0.0.0" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"10.0.0.0" rule:@"ip"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"255.255.255.255" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"255.255.255.255" rule:@"ip"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"123.456.789.124" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"123.456.789.124" rule:@"ip"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1" rule:@"ip"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1.1" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1.1" rule:@"ip"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1.1.1" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1.1.1" rule:@"ip"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1...1" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1...1" rule:@"ip"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"ip"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:obj1 rule:@"ip"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:obj1 rule:@"ip"];
    EXPECTED( NO == valid );
 }
 
@@ -1060,34 +1060,34 @@ DESCRIBE( before:/after: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/11 00:00:01"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/11 00:00:01"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/10 23:59:59"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/10 23:59:59"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/11 00:00:01"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/11 00:00:01"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"after:2014/05/10 23:59:59"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"after:2014/05/10 23:59:59"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/10 23:59:59"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/10 23:59:59"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/11 00:00:01"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/11 00:00:01"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/10 23:59:59"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/10 23:59:59"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"after:2014/05/11 00:00:01"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"after:2014/05/11 00:00:01"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/11 00:00:00"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/11 00:00:00"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/11 00:00:00"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/11 00:00:00"];
    EXPECTED( NO == valid );
 }
 
@@ -1095,22 +1095,22 @@ DESCRIBE( between: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"2" rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"2" rule:@"between:1,3"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(2) rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"between:1,3"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(1) rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"between:1,3"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(3) rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(3) rule:@"between:1,3"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(0) rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"between:1,3"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(4) rule:@"between:1,3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(4) rule:@"between:1,3"];
    EXPECTED( NO == valid );
 }
 
@@ -1125,43 +1125,43 @@ DESCRIBE( size: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(1234) rule:@"size:1234"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"size:1234"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@(1234) rule:@"size:123"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"size:123"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1234" rule:@"size:4"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"size:4"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"" rule:@"size:4"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"" rule:@"size:4"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[@"1234" toData] rule:@"size:4"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[@"1234" toData] rule:@"size:4"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[NSData data] rule:@"size:4"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"size:4"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"size:17"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"size:17"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"size:17"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"size:17"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"size:32"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"size:32"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@[@1,@2,@3] rule:@"size:3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[@1,@2,@3] rule:@"size:3"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@[] rule:@"size:3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"size:3"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"size:3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"size:3"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@{} rule:@"size:3"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{} rule:@"size:3"];
    EXPECTED( NO == valid );
 }
 
@@ -1169,31 +1169,31 @@ DESCRIBE( date )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSDate date] rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSDate date] rule:@"date"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983/08/15 15:15:00 GMT+8" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15 15:15:00 GMT+8" rule:@"date"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983-08-15 15:15:00 GMT+8" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15 15:15:00 GMT+8" rule:@"date"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983/08/15 15:15:00" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15 15:15:00" rule:@"date"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983-08-15 15:15:00" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15 15:15:00" rule:@"date"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983/08/15" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15" rule:@"date"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"1983-08-15" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15" rule:@"date"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"00:00:00" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"00:00:00" rule:@"date"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"" rule:@"date"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"" rule:@"date"];
    EXPECTED( NO == valid );
 }
 
@@ -1215,43 +1215,43 @@ DESCRIBE( min: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(2) rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"min:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(1) rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"min:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"min:2"];
-   EXPECTED( YES == valid );
-
-   valid = [[SamuraiValidator sharedInstance] validate:@"ab" rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"min:2"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@"a" rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"ab" rule:@"min:2"];
+   EXPECTED( YES == valid );
+
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"a" rule:@"min:2"];
    EXPECTED( NO == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:[NSData data] rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"min:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"min:10"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"min:10"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"min:10"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"min:10"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"min:20"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"min:20"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@[@1,@2,@3] rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[@1,@2,@3] rule:@"min:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@[] rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"min:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"min:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@{} rule:@"min:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{} rule:@"min:2"];
    EXPECTED( NO == valid );
 }
 
@@ -1259,43 +1259,43 @@ DESCRIBE( max: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(2) rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"max:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(3) rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(3) rule:@"max:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"max:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"ab" rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"ab" rule:@"max:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"a" rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"a" rule:@"max:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSData data] rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"max:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"max:10"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"max:10"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"max:10"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"max:10"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"max:20"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"max:20"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@[@1,@2,@3] rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[@1,@2,@3] rule:@"max:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@[] rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"max:2"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"max:2"];
    EXPECTED( NO == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@{} rule:@"max:2"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{} rule:@"max:2"];
    EXPECTED( YES == valid );
 }
 
@@ -1303,25 +1303,25 @@ DESCRIBE( required: )
 {
    BOOL valid;
    
-   valid = [[SamuraiValidator sharedInstance] validate:@(1) rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"required"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:@"abc" rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"required"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSData data] rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"required"];
    EXPECTED( YES == valid );
    
-   valid = [[SamuraiValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"required"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@[] rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"required"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:@{} rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:@{} rule:@"required"];
    EXPECTED( YES == valid );
 
-   valid = [[SamuraiValidator sharedInstance] validate:nil rule:@"required"];
+   valid = [[IDEAAppletValidator sharedInstance] validate:nil rule:@"required"];
    EXPECTED( NO == valid );
 }
 

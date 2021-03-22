@@ -46,12 +46,12 @@
 
 #pragma mark -
 
-@implementation SamuraiActivityRouter
+@implementation IDEAAppletActivityRouter
 {
    NSMutableDictionary *   _map;
 }
 
-@def_singleton( SamuraiActivityRouter )
+@def_singleton( IDEAAppletActivityRouter )
 
 #pragma mark -
 
@@ -105,7 +105,7 @@
    }
 }
 
-- (void)mapURL:(NSString *)url toActivityInstance:(SamuraiActivity *)activity
+- (void)mapURL:(NSString *)url toActivityInstance:(IDEAAppletActivity *)activity
 {
    url = [self formatURL:url];
    
@@ -141,7 +141,7 @@
       obj = [_map objectForKey:@"*"];
    }
 
-   SamuraiActivity * activity = nil;
+   IDEAAppletActivity * activity = nil;
    
    @try
    {
@@ -150,14 +150,14 @@
          if ( [obj isKindOfClass:[NSString class]] )
          {
             Class objClass = NSClassFromString( (NSString *)obj );
-            if ( objClass && [objClass isSubclassOfClass:[SamuraiActivity class]] )
+            if ( objClass && [objClass isSubclassOfClass:[IDEAAppletActivity class]] )
             {
                activity = [[objClass alloc] init];
             }
          }
-         else if ( [obj isKindOfClass:[SamuraiActivity class]] )
+         else if ( [obj isKindOfClass:[IDEAAppletActivity class]] )
          {
-            activity = (SamuraiActivity *)obj;
+            activity = (IDEAAppletActivity *)obj;
          }
          else
          {

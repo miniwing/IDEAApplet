@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@implementation SamuraiService
+@implementation IDEAAppletService
 
 @def_prop_strong( NSString *,      name );
 @def_prop_strong( NSBundle *,      bundle );
@@ -47,7 +47,7 @@
 
 + (instancetype)instance
 {
-   return [[SamuraiServiceLoader sharedInstance] service:[self class]];
+   return [[IDEAAppletServiceLoader sharedInstance] service:[self class]];
 }
 
 

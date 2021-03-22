@@ -33,9 +33,9 @@
 
 #pragma mark -
 
-@interface SamuraiModelManager : NSObject
+@interface IDEAAppletModelManager : NSObject
 
-@singleton( SamuraiModelManager )
+@singleton( IDEAAppletModelManager )
 
 - (NSArray *)loadedModels;
 - (NSArray *)loadedModelsByClass:(Class)aClass;

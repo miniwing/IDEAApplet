@@ -50,19 +50,19 @@
 
 @implementation UIWindow(ActivityStack)
 
-@def_prop_dynamic( SamuraiActivityStack *, rootStack );
+@def_prop_dynamic( IDEAAppletActivityStack *, rootStack );
 
-- (SamuraiActivityStack *)rootStack
+- (IDEAAppletActivityStack *)rootStack
 {
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[SamuraiActivityStack class]] )
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStack class]] )
    {
-      return (SamuraiActivityStack *)self.rootViewController;
+      return (IDEAAppletActivityStack *)self.rootViewController;
    }
    
    return nil;
 }
 
-- (void)setRootStack:(SamuraiActivityStack *)activityStack
+- (void)setRootStack:(IDEAAppletActivityStack *)activityStack
 {
    self.rootViewController = activityStack;
 }
@@ -73,21 +73,21 @@
 
 @implementation UIViewController(ActivityStack)
 
-- (SamuraiActivityStack *)stack
+- (IDEAAppletActivityStack *)stack
 {
-   if ( [self isKindOfClass:[SamuraiActivityStack class]] )
+   if ( [self isKindOfClass:[IDEAAppletActivityStack class]] )
    {
-      return (SamuraiActivityStack *)self;
+      return (IDEAAppletActivityStack *)self;
    }
    else
    {
-      return (SamuraiActivityStack *)self.navigationController;
+      return (IDEAAppletActivityStack *)self.navigationController;
    }
 }
 
 #pragma mark -
 
-- (void)startActivity:(SamuraiActivity *)activity
+- (void)startActivity:(IDEAAppletActivity *)activity
 {
    if ( nil == activity )
       return;
@@ -98,14 +98,14 @@
    }
 }
 
-- (void)startActivity:(SamuraiActivity *)activity params:(NSDictionary *)params
+- (void)startActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params
 {
    if ( nil == activity )
       return;
    
    if ( params && params.count )
    {
-      SamuraiIntent * intent = [SamuraiIntent intent];
+      IDEAAppletIntent * intent = [IDEAAppletIntent intent];
       [intent.input setDictionary:params];
       activity.intent = intent;
    }
@@ -116,7 +116,7 @@
    }
 }
 
-- (void)startActivity:(SamuraiActivity *)activity intent:(SamuraiIntent *)intent
+- (void)startActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent
 {
    if ( nil == activity )
       return;
@@ -134,7 +134,7 @@
 
 #pragma mark -
 
-- (void)presentActivity:(SamuraiActivity *)activity
+- (void)presentActivity:(IDEAAppletActivity *)activity
 {
    if ( nil == activity )
       return;
@@ -142,14 +142,14 @@
    [self presentViewController:activity animated:YES completion:nil];
 }
 
-- (void)presentActivity:(SamuraiActivity *)activity params:(NSDictionary *)params
+- (void)presentActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params
 {
    if ( nil == activity )
       return;
    
    if ( params && params.count )
    {
-      SamuraiIntent * intent = [SamuraiIntent intent];
+      IDEAAppletIntent * intent = [IDEAAppletIntent intent];
       [intent.input setDictionary:params];
       activity.intent = intent;
    }
@@ -157,7 +157,7 @@
    [self presentViewController:activity animated:YES completion:nil];
 }
 
-- (void)presentActivity:(SamuraiActivity *)activity intent:(SamuraiIntent *)intent
+- (void)presentActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent
 {
    if ( nil == activity )
       return;
@@ -194,19 +194,19 @@
 
 - (void)startURL:(NSString *)url params:(NSDictionary *)params
 {
-   SamuraiIntent * intent = [SamuraiIntent intent:nil params:params];
+   IDEAAppletIntent * intent = [IDEAAppletIntent intent:nil params:params];
    
    [self startURL:url intent:intent callback:nil];
 }
 
-- (void)startURL:(NSString *)url intent:(SamuraiIntent *)intent
+- (void)startURL:(NSString *)url intent:(IDEAAppletIntent *)intent
 {
    [self startURL:url intent:intent callback:nil];
 }
 
-- (void)startURL:(NSString *)urlString intent:(SamuraiIntent *)intent callback:(IntentCallback)callback
+- (void)startURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
 {
-   SamuraiActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
+   IDEAAppletActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
    
    if ( activity )
    {
@@ -233,12 +233,12 @@
 
 - (void)presentURL:(NSString *)url params:(NSDictionary *)params
 {
-   SamuraiIntent * intent = [SamuraiIntent intent:nil params:params];
+   IDEAAppletIntent * intent = [IDEAAppletIntent intent:nil params:params];
    
    [self presentURL:url intent:intent callback:nil];
 }
 
-- (void)presentURL:(NSString *)url intent:(SamuraiIntent *)intent
+- (void)presentURL:(NSString *)url intent:(IDEAAppletIntent *)intent
 {
    [self presentURL:url intent:intent callback:nil];
 }
@@ -248,9 +248,9 @@
    [self presentURL:url intent:nil callback:callback];
 }
 
-- (void)presentURL:(NSString *)urlString intent:(SamuraiIntent *)intent callback:(IntentCallback)callback
+- (void)presentURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
 {
-   SamuraiActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
+   IDEAAppletActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
    
    if ( activity )
    {
@@ -260,7 +260,7 @@
 
 #pragma mark -
 
-- (SamuraiActivity *)makeActivityWithURL:(NSString *)urlString intent:(SamuraiIntent *)intent callback:(IntentCallback)callback
+- (IDEAAppletActivity *)makeActivityWithURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
 {
    if ( nil == urlString || 0 == urlString.length )
    {
@@ -282,11 +282,11 @@
    resource = [resource hasPrefix:@"/"] ? [resource substringFromIndex:1] : resource;
    resource = [resource hasSuffix:@"/"] ? [resource substringToIndex:resource.length - 1] : resource;
    
-   SamuraiActivity * activity = [[SamuraiActivityRouter sharedInstance] activityForURL:resource];
+   IDEAAppletActivity * activity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:resource];
    if ( nil == activity )
    {
       resource = [NSString stringWithFormat:@"/%@", resource];
-      activity = [[SamuraiActivityRouter sharedInstance] activityForURL:resource];
+      activity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:resource];
       
       ERROR( @"Activity router, invalid url '%@'", url );
       return nil;
@@ -296,7 +296,7 @@
    {
       if ( nil == intent )
       {
-         intent = [SamuraiIntent intent];
+         intent = [IDEAAppletIntent intent];
       }
       
       intent.action = fragment;
@@ -306,7 +306,7 @@
    {
       if ( nil == intent )
       {
-         intent = [SamuraiIntent intent];
+         intent = [IDEAAppletIntent intent];
       }
       
       @weakify( intent );
@@ -323,7 +323,7 @@
    {
       if ( nil == intent )
       {
-         intent = [SamuraiIntent intent];
+         intent = [IDEAAppletIntent intent];
       }
       
       NSArray * pairs = [query componentsSeparatedByString:@"&"];
@@ -349,15 +349,15 @@
 
 #pragma mark -
 
-@implementation SamuraiActivityStack
+@implementation IDEAAppletActivityStack
 {
    BOOL _inited;
 }
 
-BASE_CLASS( SamuraiActivityStack )
+BASE_CLASS( IDEAAppletActivityStack )
 
 @def_prop_dynamic( NSArray *,         activities );
-@def_prop_dynamic( SamuraiActivity *,   activity );
+@def_prop_dynamic( IDEAAppletActivity *,   activity );
 
 #pragma mark -
 
@@ -367,7 +367,7 @@ BASE_CLASS( SamuraiActivityStack )
    
    for ( UIViewController * activity in self.viewControllers )
    {
-      if ( [activity isKindOfClass:[SamuraiActivity class]] )
+      if ( [activity isKindOfClass:[IDEAAppletActivity class]] )
       {
          [array addObject:activity];
       }
@@ -376,34 +376,34 @@ BASE_CLASS( SamuraiActivityStack )
    return array;
 }
 
-- (SamuraiActivity *)activity
+- (IDEAAppletActivity *)activity
 {
    UIViewController * controller = self.topViewController;
 
    if ( nil == controller )
       return nil;
 
-   if ( NO == [controller isKindOfClass:[SamuraiActivity class]] )
+   if ( NO == [controller isKindOfClass:[IDEAAppletActivity class]] )
       return nil;
 
-   SamuraiActivity * board = (SamuraiActivity *)controller;
+   IDEAAppletActivity * board = (IDEAAppletActivity *)controller;
    UNUSED( board.view );
    return board;
 }
 
 #pragma mark -
 
-+ (SamuraiActivityStack *)stack
++ (IDEAAppletActivityStack *)stack
 {
-   return [[SamuraiActivityStack alloc] init];
+   return [[IDEAAppletActivityStack alloc] init];
 }
 
-+ (SamuraiActivityStack *)stackWithActivity:(SamuraiActivity *)activity
++ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)activity
 {
-   return [[SamuraiActivityStack alloc] initWithActivity:activity];
+   return [[IDEAAppletActivityStack alloc] initWithActivity:activity];
 }
 
-- (SamuraiActivityStack *)initWithActivity:(SamuraiActivity *)activity
+- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity
 {
    self = [super initWithNavigationBarClass:nil toolbarClass:nil];
    if ( self )
@@ -415,7 +415,7 @@ BASE_CLASS( SamuraiActivityStack )
    return self;
 }
 
-- (void)pushActivity:(SamuraiActivity *)activity animated:(BOOL)animated
+- (void)pushActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated
 {
    if ( nil == activity )
       return;
@@ -431,7 +431,7 @@ BASE_CLASS( SamuraiActivityStack )
    [self popViewControllerAnimated:animated];
 }
 
-- (void)popToActivity:(SamuraiActivity *)activity animated:(BOOL)animated
+- (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated
 {
    if ( nil == activity )
       return;
@@ -611,7 +611,7 @@ BASE_CLASS( SamuraiActivityStack )
 
 #pragma mark -
 
-//- (void)handleSignal:(SamuraiSignal *)signal
+//- (void)handleSignal:(IDEAAppletSignal *)signal
 //{
 //   [signal forward:self.topViewController];
 //}

@@ -48,7 +48,7 @@
 
 #undef  dispatch_barrier_async_foreground
 #define dispatch_barrier_async_foreground( seconds, block )    \
-        dispatch_barrier_async( [SamuraiQueue sharedInstance].concurrent, ^{ \
+        dispatch_barrier_async( [IDEAAppletQueue sharedInstance].concurrent, ^{ \
            dispatch_async_foreground( block );                 \
         });
 
@@ -56,31 +56,31 @@
 
 #undef  dispatch_async_background_concurrent
 #define dispatch_async_background_concurrent( block )          \
-        dispatch_async( [SamuraiQueue sharedInstance].concurrent, block )
+        dispatch_async( [IDEAAppletQueue sharedInstance].concurrent, block )
 
 #undef  dispatch_after_background_concurrent
 #define dispatch_after_background_concurrent( seconds, block ) \
-        dispatch_after( dispatch_time( DISPATCH_TIME_NOW, seconds * 1ull * NSEC_PER_SEC ), [SamuraiQueue sharedInstance].concurrent, block ); \
+        dispatch_after( dispatch_time( DISPATCH_TIME_NOW, seconds * 1ull * NSEC_PER_SEC ), [IDEAAppletQueue sharedInstance].concurrent, block ); \
 
 #undef  dispatch_barrier_async_background_concurrent
 #define dispatch_barrier_async_background_concurrent( seconds, block )  \
-        dispatch_barrier_async( [SamuraiQueue sharedInstance].concurrent, block )
+        dispatch_barrier_async( [IDEAAppletQueue sharedInstance].concurrent, block )
 
 // serial
 
 #undef  dispatch_async_background_serial
 #define dispatch_async_background_serial( block )           \
-        dispatch_async( [SamuraiQueue sharedInstance].serial, block )
+        dispatch_async( [IDEAAppletQueue sharedInstance].serial, block )
 
 #undef  dispatch_after_background_serial
 #define dispatch_after_background_serial( seconds, block )  \
-        dispatch_after( dispatch_time( DISPATCH_TIME_NOW, seconds * 1ull * NSEC_PER_SEC ), [SamuraiQueue sharedInstance].serial, block ); \
+        dispatch_after( dispatch_time( DISPATCH_TIME_NOW, seconds * 1ull * NSEC_PER_SEC ), [IDEAAppletQueue sharedInstance].serial, block ); \
 
 #pragma mark -
 
-@interface SamuraiQueue : NSObject
+@interface IDEAAppletQueue : NSObject
 
-@singleton( SamuraiQueue )
+@singleton( IDEAAppletQueue )
 
 @prop_readonly( dispatch_queue_t,   serial );
 @prop_readonly( dispatch_queue_t,   concurrent );

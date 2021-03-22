@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiStyleSheet
+@implementation IDEAAppletStyleSheet
 
 @def_prop_strong( NSString *,            href );
 @def_prop_strong( NSString *,            type );
@@ -81,7 +81,7 @@
 
 #pragma mark -
 
-- (void)merge:(SamuraiStyleSheet *)styleSheet
+- (void)merge:(IDEAAppletStyleSheet *)styleSheet
 {
 }
 

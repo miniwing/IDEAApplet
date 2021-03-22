@@ -105,7 +105,7 @@
    
    if ( domNode.attrStyle )
    {
-      NSDictionary * attrStyle = [[SamuraiCSSParser sharedInstance] parseDictionary:domNode.attrStyle];
+      NSDictionary * attrStyle = [[IDEAAppletCSSParser sharedInstance] parseDictionary:domNode.attrStyle];
       
       for ( NSString * key in attrStyle )
       {
@@ -145,9 +145,9 @@
          {
             inherit = (NSOrderedSame == [(NSString *)object compare:@"inherit"]) ? YES : NO;
          }
-         else if ( [object isKindOfClass:[SamuraiCSSObject class]] )
+         else if ( [object isKindOfClass:[IDEAAppletCSSObject class]] )
          {
-            inherit = [(SamuraiCSSObject *)object isInherit];
+            inherit = [(IDEAAppletCSSObject *)object isInherit];
          }
          
          if ( inherit )

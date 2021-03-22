@@ -56,7 +56,7 @@
 }
 
 @def_prop_dynamic( SamuraiHtmlDomNode *,      domTree );
-@def_prop_dynamic( SamuraiCSSStyleSheet *,      styleTree );
+@def_prop_dynamic( IDEAAppletCSSStyleSheet *,      styleTree );
 @def_prop_dynamic( SamuraiHtmlRenderObject *,   renderTree );
 
 @def_prop_strong( NSString *,   rootTag );
@@ -173,7 +173,7 @@
             {
                if ( [name isEqualToString:@"navbar-bg-color"] )
                {
-                  navbarBgColor = [SamuraiCSSColor parseColorString:content];
+                  navbarBgColor = [IDEAAppletCSSColor parseColorString:content];
                }
                else if ( [name isEqualToString:@"navbar-bg-image"] )
                {
@@ -181,11 +181,11 @@
                }
                else if ( [name isEqualToString:@"navbar-tint-color"] )
                {
-                  navbarTintColor = [SamuraiCSSColor parseColorString:content];
+                  navbarTintColor = [IDEAAppletCSSColor parseColorString:content];
                }
                else if ( [name isEqualToString:@"navbar-text-color"] )
                {
-                  navbarTextColor = [SamuraiCSSColor parseColorString:content];
+                  navbarTextColor = [IDEAAppletCSSColor parseColorString:content];
                }
                else if ( [name isEqualToString:@"navbar-logo"] )
                {

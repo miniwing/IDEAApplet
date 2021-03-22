@@ -40,12 +40,12 @@
 
 #pragma mark -
 
-@implementation SamuraiTreeNode
+@implementation IDEAAppletTreeNode
 
-@def_prop_readonly( SamuraiTreeNode *,      root );
-@def_prop_unsafe( SamuraiTreeNode *,      parent );
-@def_prop_unsafe( SamuraiTreeNode *,      prev );
-@def_prop_unsafe( SamuraiTreeNode *,      next );
+@def_prop_readonly( IDEAAppletTreeNode *,      root );
+@def_prop_unsafe( IDEAAppletTreeNode *,      parent );
+@def_prop_unsafe( IDEAAppletTreeNode *,      prev );
+@def_prop_unsafe( IDEAAppletTreeNode *,      next );
 @def_prop_strong( NSMutableArray *,         childs );
 
 #pragma mark -
@@ -94,9 +94,9 @@
    return [[self alloc] init];
 }
 
-- (SamuraiTreeNode *)root
+- (IDEAAppletTreeNode *)root
 {
-   SamuraiTreeNode * object = self;
+   IDEAAppletTreeNode * object = self;
    
    for ( ;; )
    {
@@ -118,7 +118,7 @@
 
 - (instancetype)createChild:(Class)nodeClass
 {
-   SamuraiTreeNode * node = [[nodeClass alloc] init];
+   IDEAAppletTreeNode * node = [[nodeClass alloc] init];
    
     [self appendNode:node];
    
@@ -132,7 +132,7 @@
 
 - (instancetype)createSibling:(Class)nodeClass
 {
-   SamuraiTreeNode * node = [[nodeClass alloc] init];
+   IDEAAppletTreeNode * node = [[nodeClass alloc] init];
 
    node.parent = self.parent;
    node.prev = self;
@@ -150,7 +150,7 @@
 
 #pragma mark -
 
-- (void)appendNode:(SamuraiTreeNode *)node
+- (void)appendNode:(IDEAAppletTreeNode *)node
 {
    if ( nil == node )
       return;
@@ -172,7 +172,7 @@
     [self.childs addObject:node];
 }
 
-- (void)insertNode:(SamuraiTreeNode *)node beforeNode:(SamuraiTreeNode *)oldNode
+- (void)insertNode:(IDEAAppletTreeNode *)node beforeNode:(IDEAAppletTreeNode *)oldNode
 {
    if ( nil == node || nil == oldNode )
       return;
@@ -193,7 +193,7 @@
    [self.childs addObject:node];
 }
 
-- (void)insertNode:(SamuraiTreeNode *)node afterNode:(SamuraiTreeNode *)oldNode
+- (void)insertNode:(IDEAAppletTreeNode *)node afterNode:(IDEAAppletTreeNode *)oldNode
 {
    if ( nil == node )
       return;
@@ -214,7 +214,7 @@
    [self.childs addObject:node];
 }
 
-- (void)changeNode:(SamuraiTreeNode *)node withNode:(SamuraiTreeNode *)newNode
+- (void)changeNode:(IDEAAppletTreeNode *)node withNode:(IDEAAppletTreeNode *)newNode
 {
    if ( nil == node || nil == newNode )
       return;
@@ -233,7 +233,7 @@
    [self.childs replaceObjectAtIndex:[self.childs indexOfObject:node] withObject:newNode];
 }
 
-- (void)removeNode:(SamuraiTreeNode *)node
+- (void)removeNode:(IDEAAppletTreeNode *)node
 {
    if ( nil == node )
       return;
@@ -260,7 +260,7 @@
 
 - (void)removeAllNodes
 {
-   for ( SamuraiTreeNode * node in self.childs )
+   for ( IDEAAppletTreeNode * node in self.childs )
    {
       node.parent = nil;
       node.prev = nil;

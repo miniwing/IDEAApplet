@@ -40,30 +40,30 @@
 
 #pragma mark -
 
-@class SamuraiDomNode;
-@class SamuraiStyleSheet;
-@class SamuraiRenderStore;
-@class SamuraiRenderObject;
+@class IDEAAppletDomNode;
+@class IDEAAppletStyleSheet;
+@class IDEAAppletRenderStore;
+@class IDEAAppletRenderObject;
 
-@interface SamuraiDocument : SamuraiResource
+@interface IDEAAppletDocument : IDEAAppletResource
 
-@prop_strong( NSString *,            href );
-@prop_strong( NSString *,            type );
-@prop_strong( NSString *,            media );
+@prop_strong( NSString *,  href );
+@prop_strong( NSString *,  type );
+@prop_strong( NSString *,  media );
 
-@prop_strong( SamuraiDomNode *,         domTree );
-@prop_strong( SamuraiStyleSheet *,      styleTree );
-@prop_strong( SamuraiRenderObject *,   renderTree );
+@prop_strong( IDEAAppletDomNode      *,   domTree );
+@prop_strong( IDEAAppletStyleSheet   *,   styleTree );
+@prop_strong( IDEAAppletRenderObject *,   renderTree );
 
-@prop_strong( NSMutableArray *,         externalImports );
-@prop_strong( NSMutableArray *,         externalScripts );
-@prop_strong( NSMutableArray *,         externalStylesheets );
+@prop_strong( NSMutableArray  *, externalImports );
+@prop_strong( NSMutableArray  *, externalScripts );
+@prop_strong( NSMutableArray  *, externalStylesheets );
 
-+ (SamuraiDocument *)document;
-+ (SamuraiDocument *)document:(SamuraiDomNode *)domNode;
++ (IDEAAppletDocument *)document;
++ (IDEAAppletDocument *)document:(IDEAAppletDomNode *)domNode;
 
-- (SamuraiDocument *)childDocument;
-- (SamuraiDocument *)childDocument:(SamuraiDomNode *)domNode;
+- (IDEAAppletDocument *)childDocument;
+- (IDEAAppletDocument *)childDocument:(IDEAAppletDomNode *)domNode;
 
 - (BOOL)reflow;
 

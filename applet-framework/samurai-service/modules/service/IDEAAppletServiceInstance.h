@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@interface SamuraiService : NSObject
+@interface IDEAAppletService : NSObject
 
 @prop_strong( NSString *,      name );
 @prop_strong( NSBundle *,      bundle );

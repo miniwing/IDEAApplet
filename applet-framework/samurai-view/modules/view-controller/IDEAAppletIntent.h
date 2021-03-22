@@ -39,29 +39,29 @@
 
 #pragma mark -
 
-#undef   intent
+#undef  intent
 #define intent( name ) \
-      static_property( name )
+        static_property( name )
 
-#undef   def_intent
+#undef  def_intent
 #define def_intent( name ) \
-      def_static_property2( name, @"intent", NSStringFromClass([self class]) )
+        def_static_property2( name, @"intent", NSStringFromClass([self class]) )
 
-#undef   def_intent_alias
+#undef  def_intent_alias
 #define def_intent_alias( name, alias ) \
-      alias_static_property( name, alias )
+        alias_static_property( name, alias )
 
-#undef   makeIntent
-#define   makeIntent( ... ) \
-      macro_string( macro_join(intent, __VA_ARGS__) )
+#undef  makeIntent
+#define makeIntent( ... ) \
+        macro_string( macro_join(intent, __VA_ARGS__) )
 
-#undef   handleIntent
-#define   handleIntent( ... ) \
-      - (void) macro_join( handleIntent, __VA_ARGS__):(SamuraiIntent *)intent
+#undef  handleIntent
+#define handleIntent( ... ) \
+        - (void) macro_join( handleIntent, __VA_ARGS__):(IDEAAppletIntent *)intent
 
 #pragma mark -
 
-typedef NSObject *   (^ SamuraiIntentObserverBlock )( NSString * name, id object );
+typedef NSObject *   (^ IDEAAppletIntentObserverBlock )( NSString * name, id object );
 
 #pragma mark -
 
@@ -76,19 +76,19 @@ typedef enum
 
 #pragma mark -
 
-@class SamuraiIntent;
+@class IDEAAppletIntent;
 
 @interface NSObject(IntentResponder)
 
-@prop_readonly( SamuraiIntentObserverBlock, onIntent );
+@prop_readonly( IDEAAppletIntentObserverBlock, onIntent );
 
-- (void)handleIntent:(SamuraiIntent *)that;
+- (void)handleIntent:(IDEAAppletIntent *)that;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiIntent : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
+@interface IDEAAppletIntent : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @joint( stateChanged );
 
@@ -106,9 +106,9 @@ typedef enum
 @prop_assign( BOOL,                     failed );
 @prop_assign( BOOL,                     cancelled );
 
-+ (SamuraiIntent *)intent;
-+ (SamuraiIntent *)intent:(NSString *)name;
-+ (SamuraiIntent *)intent:(NSString *)name params:(NSDictionary *)params;
++ (IDEAAppletIntent *)intent;
++ (IDEAAppletIntent *)intent:(NSString *)name;
++ (IDEAAppletIntent *)intent:(NSString *)name params:(NSDictionary *)params;
 
 - (BOOL)is:(NSString *)name;
 

@@ -178,7 +178,7 @@ static BOOL __enabled = NO;
       
    } /* End if () */
    
-   SamuraiRenderObject  *stRenderer = aContainer.renderer;
+   IDEAAppletRenderObject  *stRenderer = aContainer.renderer;
    
    if (stRenderer)
    {

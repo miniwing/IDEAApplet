@@ -41,59 +41,59 @@
 
 #pragma mark -
 
-@class SamuraiActivityStack;
+@class IDEAAppletActivityStack;
 
 @interface UIWindow(ActivityStack)
 
-@prop_strong( SamuraiActivityStack *,   rootStack );
+@prop_strong( IDEAAppletActivityStack *,   rootStack );
 
 @end
 
 #pragma mark -
 
-typedef void (^ IntentCallback )( SamuraiIntent * intent );
+typedef void (^ IntentCallback )( IDEAAppletIntent * intent );
 
 #pragma mark -
 
 @interface UIViewController(ActivityStack)
 
-- (SamuraiActivityStack *)stack;
+- (IDEAAppletActivityStack *)stack;
 
-- (void)startActivity:(SamuraiActivity *)activity;
-- (void)startActivity:(SamuraiActivity *)activity params:(NSDictionary *)params;
-- (void)startActivity:(SamuraiActivity *)activity intent:(SamuraiIntent *)intent;
+- (void)startActivity:(IDEAAppletActivity *)activity;
+- (void)startActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params;
+- (void)startActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent;
 
-- (void)presentActivity:(SamuraiActivity *)activity;
-- (void)presentActivity:(SamuraiActivity *)activity params:(NSDictionary *)params;
-- (void)presentActivity:(SamuraiActivity *)activity intent:(SamuraiIntent *)intent;
+- (void)presentActivity:(IDEAAppletActivity *)activity;
+- (void)presentActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params;
+- (void)presentActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent;
 
 - (void)startURL:(NSString *)url, ...;
 - (void)startURL:(NSString *)url params:(NSDictionary *)params;
-- (void)startURL:(NSString *)url intent:(SamuraiIntent *)intent;
+- (void)startURL:(NSString *)url intent:(IDEAAppletIntent *)intent;
 - (void)startURL:(NSString *)url callback:(IntentCallback)callback;
 
 - (void)presentURL:(NSString *)url, ...;
 - (void)presentURL:(NSString *)url params:(NSDictionary *)params;
-- (void)presentURL:(NSString *)url intent:(SamuraiIntent *)intent;
+- (void)presentURL:(NSString *)url intent:(IDEAAppletIntent *)intent;
 - (void)presentURL:(NSString *)url callback:(IntentCallback)callback;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiActivityStack : UINavigationController
+@interface IDEAAppletActivityStack : UINavigationController
 
 @prop_readonly( NSArray *,         activities );
-@prop_readonly( SamuraiActivity *,   activity );
+@prop_readonly( IDEAAppletActivity *,   activity );
 
-+ (SamuraiActivityStack *)stack;
-+ (SamuraiActivityStack *)stackWithActivity:(SamuraiActivity *)activity;
++ (IDEAAppletActivityStack *)stack;
++ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)activity;
 
-- (SamuraiActivityStack *)initWithActivity:(SamuraiActivity *)activity;
+- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity;
 
-- (void)pushActivity:(SamuraiActivity *)activity animated:(BOOL)animated;
+- (void)pushActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated;
 - (void)popActivityAnimated:(BOOL)animated;
-- (void)popToActivity:(SamuraiActivity *)activity animated:(BOOL)animated;
+- (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated;
 - (void)popToFirstActivityAnimated:(BOOL)animated;
 - (void)popAllActivities;
 

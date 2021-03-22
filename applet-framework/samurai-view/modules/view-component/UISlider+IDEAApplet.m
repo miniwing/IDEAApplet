@@ -89,7 +89,7 @@
 
 @def_signal( eventValueChanged )
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
    UISlider * slider = [[self alloc] initWithFrame:CGRectZero];
    
@@ -162,12 +162,12 @@
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(IDEAAppletDomNode *)dom
 {
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(IDEAAppletRenderStyle *)style
 {
    [super applyStyle:style];
 }

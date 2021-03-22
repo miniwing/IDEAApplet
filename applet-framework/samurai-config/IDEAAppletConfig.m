@@ -47,7 +47,7 @@
 
 + (void)classAutoLoad
 {
-   [SamuraiNamespace classAutoLoad];
+   [IDEAAppletNamespace classAutoLoad];
    
    return;
 }

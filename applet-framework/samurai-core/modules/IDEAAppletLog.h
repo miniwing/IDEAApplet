@@ -49,17 +49,17 @@ typedef enum
 
 #if __SAMURAI_LOGGING__
 #  if __SAMURAI_DEBUG__
-#     define INFO( ... )         [[SamuraiLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Info format:__VA_ARGS__];
-#     define PERF( ... )         [[SamuraiLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Perf format:__VA_ARGS__];
-#     define WARN( ... )         [[SamuraiLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Warn format:__VA_ARGS__];
-#     define ERROR( ... )        [[SamuraiLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Error format:__VA_ARGS__];
-#     define PRINT( ... )        [[SamuraiLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_All format:__VA_ARGS__];
+#     define INFO( ... )         [[IDEAAppletLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Info format:__VA_ARGS__];
+#     define PERF( ... )         [[IDEAAppletLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Perf format:__VA_ARGS__];
+#     define WARN( ... )         [[IDEAAppletLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Warn format:__VA_ARGS__];
+#     define ERROR( ... )        [[IDEAAppletLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_Error format:__VA_ARGS__];
+#     define PRINT( ... )        [[IDEAAppletLogger sharedInstance] file:@(__FILE__) line:__LINE__ func:@(__PRETTY_FUNCTION__) level:LogLevel_All format:__VA_ARGS__];
 #  else
-#     define INFO( ... )         [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:__VA_ARGS__];
-#     define PERF( ... )         [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Perf format:__VA_ARGS__];
-#     define WARN( ... )         [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Warn format:__VA_ARGS__];
-#     define ERROR( ... )        [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Error format:__VA_ARGS__];
-#     define PRINT( ... )        [[SamuraiLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_All format:__VA_ARGS__];
+#     define INFO( ... )         [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:__VA_ARGS__];
+#     define PERF( ... )         [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Perf format:__VA_ARGS__];
+#     define WARN( ... )         [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Warn format:__VA_ARGS__];
+#     define ERROR( ... )        [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Error format:__VA_ARGS__];
+#     define PRINT( ... )        [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_All format:__VA_ARGS__];
 #  endif
 #else
 #  define INFO( ... )
@@ -77,9 +77,9 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiLogger : NSObject
+@interface IDEAAppletLogger : NSObject
 
-@singleton( SamuraiLogger );
+@singleton( IDEAAppletLogger );
 
 @prop_assign( BOOL             ,    enabled );
 

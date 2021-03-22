@@ -92,7 +92,7 @@
 
 #pragma mark -
 
-@implementation SamuraiEncoding
+@implementation IDEAAppletEncoding
 
 + (BOOL)isReadOnly:(const char *)attr
 {
@@ -112,7 +112,7 @@
    {
       return EncodingType_Unknown;
    }
-
+   
    if ( attr[0] != 'T' )
       return EncodingType_Unknown;
    
@@ -208,7 +208,7 @@
    {
       return EncodingType_Unknown;
    }
-
+   
    const char * className = [[typeClazz description] UTF8String];
    return [self typeOfClassName:className];
 }
@@ -219,16 +219,16 @@
    {
       return EncodingType_Unknown;
    }
-
+   
 #undef   __MATCH_CLASS
 #define   __MATCH_CLASS( X ) \
-      0 == strcmp((const char *)className, "NS" #X) || \
-      0 == strcmp((const char *)className, "NSMutable" #X) || \
-      0 == strcmp((const char *)className, "_NSInline" #X) || \
-      0 == strcmp((const char *)className, "__NS" #X) || \
-      0 == strcmp((const char *)className, "__NSMutable" #X) || \
-      0 == strcmp((const char *)className, "__NSCF" #X) || \
-      0 == strcmp((const char *)className, "__NSCFConstant" #X)
+0 == strcmp((const char *)className, "NS" #X) || \
+0 == strcmp((const char *)className, "NSMutable" #X) || \
+0 == strcmp((const char *)className, "_NSInline" #X) || \
+0 == strcmp((const char *)className, "__NS" #X) || \
+0 == strcmp((const char *)className, "__NSMutable" #X) || \
+0 == strcmp((const char *)className, "__NSCF" #X) || \
+0 == strcmp((const char *)className, "__NSCFConstant" #X)
    
    if ( __MATCH_CLASS( Number ) )
    {
@@ -320,7 +320,7 @@
    {
       return nil;
    }
-
+   
    if ( attr[0] != 'T' )
       return nil;
    
@@ -353,7 +353,7 @@
    {
       return nil;
    }
-
+   
    const char * className = class_getName( clazz );
    if ( className )
    {
@@ -369,7 +369,7 @@
    {
       return nil;
    }
-
+   
    return [[obj class] description];
 }
 
@@ -381,7 +381,7 @@
    {
       return nil;
    }
-
+   
    NSString * className = [self classNameOfAttribute:attr];
    if ( nil == className )
       return nil;
@@ -397,7 +397,7 @@
    {
       return NO;
    }
-
+   
    return [self isAtomClass:[obj class]];
 }
 
@@ -407,7 +407,7 @@
    {
       return NO;
    }
-
+   
    NSInteger encoding = [self typeOfAttribute:attr];
    
    if ( EncodingType_Unknown != encoding )
@@ -426,7 +426,7 @@
    {
       return NO;
    }
-
+   
    NSInteger encoding = [self typeOfClassName:clazz];
    
    if ( EncodingType_Unknown != encoding )
@@ -445,7 +445,7 @@
    {
       return NO;
    }
-
+   
    NSInteger encoding = [self typeOfClass:clazz];
    
    if ( EncodingType_Unknown != encoding )
@@ -463,7 +463,7 @@
 // ----------------------------------
 // Unit test
 // ----------------------------------
-    
+
 #pragma mark -
 
 #if __SAMURAI_TESTING__

@@ -46,9 +46,9 @@
 
 #pragma mark -
 
-@implementation SamuraiModel
+@implementation IDEAAppletModel
 
-BASE_CLASS( SamuraiModel )
+BASE_CLASS( IDEAAppletModel )
 
 + (instancetype)model
 {
@@ -60,7 +60,7 @@ BASE_CLASS( SamuraiModel )
    self = [super init];
    if ( self )
    {
-      [[SamuraiModelManager sharedInstance] addModel:self];
+      [[IDEAAppletModelManager sharedInstance] addModel:self];
 
    //   [self modelLoad];
    }
@@ -71,7 +71,7 @@ BASE_CLASS( SamuraiModel )
 {
 //   [self modelSave];
    
-   [[SamuraiModelManager sharedInstance] removeModel:self];
+   [[IDEAAppletModelManager sharedInstance] removeModel:self];
 }
 
 #pragma mark -
@@ -147,7 +147,7 @@ BASE_CLASS( SamuraiModel )
          const char * attr = property_getAttributes( prop );
          if ( attr )
          {
-            if ( NO == [SamuraiEncoding isReadOnly:attr] )
+            if ( NO == [IDEAAppletEncoding isReadOnly:attr] )
             {
                [self setValue:object forKey:key];
                
@@ -186,7 +186,7 @@ BASE_CLASS( SamuraiModel )
          const char * attr = property_getAttributes( prop );
          if ( attr )
          {
-            if ( NO == [SamuraiEncoding isReadOnly:attr] )
+            if ( NO == [IDEAAppletEncoding isReadOnly:attr] )
             {
                [self setValue:nil forKey:key];
                
@@ -246,7 +246,7 @@ BASE_CLASS( SamuraiModel )
 
 #if __SAMURAI_TESTING__
 
-@interface __TestModel : SamuraiModel
+@interface __TestModel : IDEAAppletModel
 
 @prop_strong( NSNumber *,         number );
 @prop_strong( NSArray *,         array );

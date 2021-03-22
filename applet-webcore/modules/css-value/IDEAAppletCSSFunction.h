@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Function)
+@interface IDEAAppletCSSObject(Function)
 
 - (BOOL)isFunction;
 - (BOOL)isFunction:(NSString *)function;
@@ -48,7 +48,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSFunction : SamuraiCSSValue
+@interface IDEAAppletCSSFunction : IDEAAppletCSSValue
 
 @prop_strong( NSString *,      method )
 @prop_strong( NSMutableArray *,   params )

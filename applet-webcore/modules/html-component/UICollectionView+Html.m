@@ -70,7 +70,7 @@
 @prop_strong( NSMutableDictionary *,   cachedHeight );
 
 @prop_assign( NSUInteger,            index );
-@prop_strong( SamuraiDocument *,      document );
+@prop_strong( IDEAAppletDocument *,      document );
 @prop_unsafe( UICollectionView *,      collectionView );
 @prop_strong( NSString *,            reuseIdentifier );
 
@@ -88,7 +88,7 @@
 @def_prop_strong( NSMutableDictionary *,   cachedHeight );
 
 @def_prop_assign( NSUInteger,            index );
-@def_prop_strong( SamuraiDocument *,      document );
+@def_prop_strong( IDEAAppletDocument *,      document );
 @def_prop_unsafe( UICollectionView *,      collectionView );
 @def_prop_strong( NSString *,            reuseIdentifier );
 

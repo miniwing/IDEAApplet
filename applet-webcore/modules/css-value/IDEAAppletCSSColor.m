@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(Color)
+@implementation IDEAAppletCSSObject(Color)
 
 - (BOOL)isColor
 {
@@ -57,7 +57,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSColor
+@implementation IDEAAppletCSSColor
 
 @def_prop_strong( UIColor *, color );
 
@@ -70,7 +70,7 @@
    if ( nil == color )
       return nil;
 
-   SamuraiCSSColor * result = [[self alloc] init];
+   IDEAAppletCSSColor * result = [[self alloc] init];
    result.color = color;
    return result;
 }
@@ -79,7 +79,7 @@
 
 + (instancetype)color:(UIColor *)color
 {
-   SamuraiCSSColor * value = [[self alloc] init];
+   IDEAAppletCSSColor * value = [[self alloc] init];
    value.color = color;
    return value;
 }
@@ -93,7 +93,7 @@
    
    UIColor * result = nil;
    
-   KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseValue:string];
+   KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseValue:string];
    
    if ( output && output->values && output->values->length )
    {

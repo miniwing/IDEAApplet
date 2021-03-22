@@ -36,7 +36,7 @@
 
 #undef  TEST_CASE
 #define TEST_CASE( __module, __name )  \
-        @interface __TestCase__##__module##_##__name : SamuraiTestCase \
+        @interface __TestCase__##__module##_##__name : IDEAAppletTestCase \
         @end                           \
         @implementation __TestCase__##__module##_##__name
 
@@ -46,51 +46,51 @@
 
 #undef  DESCRIBE
 #define DESCRIBE( ... ) \
-      - (void) macro_concat( runTest_, __LINE__ )
+        - (void) macro_concat( runTest_, __LINE__ )
 
 #undef  REPEAT
 #define REPEAT( __n ) \
-      for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
+        for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
 
 #undef  EXPECTED
 #define EXPECTED( ... ) \
-      if ( !(__VA_ARGS__) ) \
-      { \
-         @throw [SamuraiTestFailure expr:#__VA_ARGS__ file:__FILE__ line:__LINE__]; \
-      }
+        if ( !(__VA_ARGS__) ) \
+        { \
+           @throw [IDEAAppletTestFailure expr:#__VA_ARGS__ file:__FILE__ line:__LINE__]; \
+        }
 
 #undef  TIMES
 #define TIMES( __n ) \
-      /* [[SamuraiUnitTest sharedInstance] writeLog:@"Loop %d times @ %@(#%d)", __n, [@(__FILE__) lastPathComponent], __LINE__]; */ \
-      for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
+        /* [[IDEAAppletUnitTest sharedInstance] writeLog:@"Loop %d times @ %@(#%d)", __n, [@(__FILE__) lastPathComponent], __LINE__]; */ \
+        for ( int __i_##__LINE__ = 0; __i_##__LINE__ < __n; ++__i_##__LINE__ )
 
 #undef  TEST
 #define TEST( __name, __block ) \
-      [[SamuraiUnitTest sharedInstance] writeLog:@"> %@", @(__name)]; \
-      __block
+        [[IDEAAppletUnitTest sharedInstance] writeLog:@"> %@", @(__name)]; \
+        __block
 
 #pragma mark -
 
-@interface SamuraiTestFailure : NSException
+@interface IDEAAppletTestFailure : NSException
 
 @prop_strong( NSString *,   expr );
 @prop_strong( NSString *,   file );
 @prop_assign( NSInteger,   line );
 
-+ (SamuraiTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line;
++ (IDEAAppletTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line;
 
 @end
 
 #pragma mark -
 
-@interface SamuraiTestCase : NSObject
+@interface IDEAAppletTestCase : NSObject
 @end
 
 #pragma mark -
 
-@interface SamuraiUnitTest : NSObject
+@interface IDEAAppletUnitTest : NSObject
 
-@singleton( SamuraiUnitTest )
+@singleton( IDEAAppletUnitTest )
 
 @prop_assign( NSUInteger,   failedCount );
 @prop_assign( NSUInteger,   succeedCount );

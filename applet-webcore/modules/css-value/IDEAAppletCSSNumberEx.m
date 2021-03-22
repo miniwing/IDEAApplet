@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberEx)
+@implementation IDEAAppletCSSObject(NumberEx)
 
 - (BOOL)isEx
 {

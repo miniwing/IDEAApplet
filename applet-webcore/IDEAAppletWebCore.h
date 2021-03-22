@@ -49,5 +49,5 @@
 
 #pragma mark -
 
-@interface SamuraiWebcore : NSObject
+@interface IDEAAppletWebcore : NSObject
 @end

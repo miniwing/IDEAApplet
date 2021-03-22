@@ -33,11 +33,11 @@
 
 #pragma mark -
 
-typedef NSObject *   (^ SamuraiKVOBlock )( id nameOrObject, id propertyOrBlock, ... );
+typedef NSObject *   (^ IDEAAppletKVOBlock )( id nameOrObject, id propertyOrBlock, ... );
 
 #pragma mark -
 
-@interface SamuraiKVObserver : NSObject
+@interface IDEAAppletKVObserver : NSObject
 
 @prop_unsafe( id, source );
 
@@ -51,11 +51,11 @@ typedef NSObject *   (^ SamuraiKVOBlock )( id nameOrObject, id propertyOrBlock, 
 
 @interface NSObject(KVObserver)
 
-@prop_readonly( SamuraiKVOBlock, onValueChanging );
-@prop_readonly( SamuraiKVOBlock, onValueChanged );
+@prop_readonly( IDEAAppletKVOBlock, onValueChanging );
+@prop_readonly( IDEAAppletKVOBlock, onValueChanged );
 
-- (SamuraiKVObserver *)KVObserverOrCreate;
-- (SamuraiKVObserver *)KVObserver;
+- (IDEAAppletKVObserver *)KVObserverOrCreate;
+- (IDEAAppletKVObserver *)KVObserver;
 
 - (void)observeProperty:(NSString *)aProperty;
 - (void)unobserveProperty:(NSString *)aProperty;

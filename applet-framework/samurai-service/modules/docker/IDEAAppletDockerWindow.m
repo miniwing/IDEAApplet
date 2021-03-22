@@ -39,7 +39,7 @@
 
 #pragma mark -
 
-@implementation SamuraiDockerWindow
+@implementation IDEAAppletDockerWindow
 
 
 - (id)init
@@ -88,7 +88,7 @@
 }
 
 
-- (void)addDockerView:(SamuraiDockerView *)aDocker
+- (void)addDockerView:(IDEAAppletDockerView *)aDocker
 {
    int                            nErr                                     = EFAULT;
    
@@ -102,7 +102,7 @@
 }
 
 
-- (void)removeDockerView:(SamuraiDockerView *)aDocker
+- (void)removeDockerView:(IDEAAppletDockerView *)aDocker
 {
    int                            nErr                                     = EFAULT;
    
@@ -147,7 +147,7 @@
    
    for (UIView * subview in self.subviews)
    {
-      if ([subview isKindOfClass:[SamuraiDockerView class]])
+      if ([subview isKindOfClass:[IDEAAppletDockerView class]])
       {
          [stDockerViews addObject:subview];
          
@@ -175,7 +175,7 @@
    
    self.frame = stWindowBound;
    
-   for (SamuraiDockerView * stDockerView in stDockerViews)
+   for (IDEAAppletDockerView * stDockerView in stDockerViews)
    {
       CGRect stDockerFrame;
       stDockerFrame.size.width   = DOCKER_HEIGHT;

@@ -40,12 +40,12 @@
 
 #pragma mark -
 
-@implementation SamuraiScript
+@implementation IDEAAppletScript
 
 @def_prop_strong( NSString *,   href );
 @def_prop_strong( NSString *,   type );
 
-+ (SamuraiScript *)script
++ (IDEAAppletScript *)script
 {
    return [[self alloc] init];
 }

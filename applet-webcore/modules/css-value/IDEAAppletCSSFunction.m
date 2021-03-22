@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(Function)
+@implementation IDEAAppletCSSObject(Function)
 
 - (BOOL)isFunction
 {
@@ -68,7 +68,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSFunction
+@implementation IDEAAppletCSSFunction
 
 @def_prop_strong( NSString *,      method )
 @def_prop_strong( NSMutableArray *,   params )
@@ -78,20 +78,20 @@
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSFunction * result = nil;
+   IDEAAppletCSSFunction * result = nil;
    
    if ( KATANA_VALUE_PARSER_FUNCTION == value->unit )
    {
       if ( NULL == value->function || NULL == value->function->name )
          return nil;
 
-      result = [[SamuraiCSSFunction alloc] init];
+      result = [[IDEAAppletCSSFunction alloc] init];
 
       result.method = [NSString stringWithUTF8String:value->function->name];
          
       for ( size_t i = 0; i < value->function->args->length; ++i )
       {
-         SamuraiCSSValue * param = [SamuraiCSSValue parseValue:value->function->args->data[0]];
+         IDEAAppletCSSValue * param = [IDEAAppletCSSValue parseValue:value->function->args->data[0]];
 
          if ( param )
          {
@@ -110,7 +110,7 @@
    if ( nil == method )
       return nil;
    
-   SamuraiCSSFunction * function = [[SamuraiCSSFunction alloc] init];
+   IDEAAppletCSSFunction * function = [[IDEAAppletCSSFunction alloc] init];
    function.method = method;
    return function;
 }
@@ -120,7 +120,7 @@
    if ( nil == method )
       return nil;
    
-   SamuraiCSSFunction * function = [[SamuraiCSSFunction alloc] init];
+   IDEAAppletCSSFunction * function = [[IDEAAppletCSSFunction alloc] init];
    function.method = method;
    return function;
 }

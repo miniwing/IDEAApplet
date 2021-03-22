@@ -34,8 +34,8 @@
 
 #pragma mark -
 
-@interface SamuraiSignal(Model)
+@interface IDEAAppletSignal(Model)
 
-@prop_readonly( SamuraiModel *,   sourceModel );
+@prop_readonly( IDEAAppletModel *,   sourceModel );
 
 @end

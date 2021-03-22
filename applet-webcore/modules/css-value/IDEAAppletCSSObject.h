@@ -34,7 +34,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject : NSObject
+@interface IDEAAppletCSSObject : NSObject
 
 - (BOOL)isInherit;
 

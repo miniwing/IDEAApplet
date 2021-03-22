@@ -48,19 +48,19 @@
 
 @implementation UIWindow(ActivityStackGroup)
 
-@def_prop_dynamic( SamuraiActivityStackGroup *, rootStackGroup );
+@def_prop_dynamic( IDEAAppletActivityStackGroup *, rootStackGroup );
 
-- (SamuraiActivityStackGroup *)rootStackGroup
+- (IDEAAppletActivityStackGroup *)rootStackGroup
 {
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[SamuraiActivityStackGroup class]] )
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStackGroup class]] )
    {
-      return (SamuraiActivityStackGroup *)self.rootViewController;
+      return (IDEAAppletActivityStackGroup *)self.rootViewController;
    }
    
    return nil;
 }
 
-- (void)setRootStackGroup:(SamuraiActivityStackGroup *)group
+- (void)setRootStackGroup:(IDEAAppletActivityStackGroup *)group
 {
    self.rootViewController = group;
 }
@@ -118,18 +118,18 @@
 
 #pragma mark -
 
-@implementation SamuraiActivityStackGroup
+@implementation IDEAAppletActivityStackGroup
 {
    NSString *            _name;
    NSMutableDictionary *   _mapping;
 }
 
-BASE_CLASS( SamuraiActivityStackGroup )
+BASE_CLASS( IDEAAppletActivityStackGroup )
 
-@def_prop_dynamic( SamuraiActivity *,      activity );
-@def_prop_dynamic( SamuraiActivityStack *,   stack );
+@def_prop_dynamic( IDEAAppletActivity *,      activity );
+@def_prop_dynamic( IDEAAppletActivityStack *,   stack );
 
-+ (SamuraiActivityStackGroup *)stackGroup
++ (IDEAAppletActivityStackGroup *)stackGroup
 {
    return [[self alloc] init];
 }
@@ -155,7 +155,7 @@ BASE_CLASS( SamuraiActivityStackGroup )
 
 #pragma mark -
 
-- (SamuraiActivity *)activity
+- (IDEAAppletActivity *)activity
 {
    if ( nil == _name )
       return nil;
@@ -164,13 +164,13 @@ BASE_CLASS( SamuraiActivityStackGroup )
    if ( nil == item || nil == item.instance )
       return nil;
    
-   if ( NO == [item.instance isKindOfClass:[SamuraiActivity class]] )
+   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivity class]] )
       return nil;
    
-   return (SamuraiActivity *)item.instance;
+   return (IDEAAppletActivity *)item.instance;
 }
 
-- (SamuraiActivityStack *)stack
+- (IDEAAppletActivityStack *)stack
 {
    if ( nil == _name )
       return nil;
@@ -179,10 +179,10 @@ BASE_CLASS( SamuraiActivityStackGroup )
    if ( nil == item || nil == item.instance )
       return nil;
    
-   if ( NO == [item.instance isKindOfClass:[SamuraiActivityStack class]] )
+   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivityStack class]] )
       return nil;
 
-   return (SamuraiActivityStack *)item.instance;
+   return (IDEAAppletActivityStack *)item.instance;
 }
 
 #pragma mark -
@@ -207,7 +207,7 @@ BASE_CLASS( SamuraiActivityStackGroup )
    }
 }
 
-- (void)map:(NSString *)name forActivity:(SamuraiActivity *)activity
+- (void)map:(NSString *)name forActivity:(IDEAAppletActivity *)activity
 {
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
@@ -227,7 +227,7 @@ BASE_CLASS( SamuraiActivityStackGroup )
    }
 }
 
-- (void)map:(NSString *)name forActivityStack:(SamuraiActivityStack *)activityStack
+- (void)map:(NSString *)name forActivityStack:(IDEAAppletActivityStack *)activityStack
 {
    INFO( @"StackGroup '%p', map '%@'", self, name );
    

@@ -70,21 +70,21 @@
 
 #pragma mark -
 
-- (AppletNotificationBlock)onNotification
+- (IDEAAppletNotificationBlock)onNotification
 {
    @weakify(self);
    
-   AppletNotificationBlock block = ^ NSObject * (NSString * name, id notificationBlock)
+   IDEAAppletNotificationBlock block = ^ NSObject * (NSString * name, id notificationBlock)
    {
       @strongify(self);
       
       if (notificationBlock)
       {
-         [[AppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
+         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
       }
       else
       {
-         [[AppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
       }
       
       name = [name stringByReplacingOccurrencesOfString:@"notification." withString:@"handleNotification____"];
@@ -111,12 +111,12 @@
 
 - (void)observeNotification:(NSString *)name
 {
-   [[AppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
+   [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
 }
 
 - (void)unobserveNotification:(NSString *)name
 {
-   [[AppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+   [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
 }
 
 - (void)observeAllNotifications
@@ -139,7 +139,7 @@
             notificationName = [notificationName substringToIndex:(notificationName.length - 1)];
          }
          
-         [[AppletNotificationCenter sharedInstance] addObserver:self forNotification:notificationName];
+         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:notificationName];
          
          [names addObject:notificationName];
       }
@@ -156,13 +156,13 @@
    {
       for (NSString * name in names)
       {
-         [[AppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
       }
       
       [self removeAssociatedObjectForKey:"notificationNames"];
    }
    
-   [[AppletNotificationCenter sharedInstance] removeObserver:self];
+   [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self];
 }
 
 - (void)handleNotification:(AppletNotification *)notification
@@ -178,22 +178,22 @@
 
 + (void)notify:(NSString *)name
 {
-   [[AppletNotificationCenter sharedInstance] postNotification:name object:nil];
+   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:nil];
 }
 
 - (void)notify:(NSString *)name
 {
-   [[AppletNotificationCenter sharedInstance] postNotification:name object:nil];
+   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:nil];
 }
 
 + (void)notify:(NSString *)name withObject:(NSObject *)object
 {
-   [[AppletNotificationCenter sharedInstance] postNotification:name object:object];
+   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:object];
 }
 
 - (void)notify:(NSString *)name withObject:(NSObject *)object
 {
-   [[AppletNotificationCenter sharedInstance] postNotification:name object:object];
+   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:object];
 }
 
 @end

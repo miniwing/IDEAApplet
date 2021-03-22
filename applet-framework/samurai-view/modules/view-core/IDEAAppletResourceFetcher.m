@@ -43,7 +43,7 @@
 
 @implementation NSObject(ResourceFetcher)
 
-- (void)handleResourceLoaded:(SamuraiResource *)aResource
+- (void)handleResourceLoaded:(IDEAAppletResource *)aResource
 {
    int                            nErr                                     = EFAULT;
    
@@ -54,7 +54,7 @@
    return;
 }
 
-- (void)handleResourceFailed:(SamuraiResource *)aResource
+- (void)handleResourceFailed:(IDEAAppletResource *)aResource
 {
    int                            nErr                                     = EFAULT;
    
@@ -65,7 +65,7 @@
    return;
 }
 
-- (void)handleResourceCancelled:(SamuraiResource *)aResource
+- (void)handleResourceCancelled:(IDEAAppletResource *)aResource
 {
    int                            nErr                                     = EFAULT;
    
@@ -80,7 +80,7 @@
 
 #pragma mark -
 
-@implementation SamuraiResourceFetcher
+@implementation IDEAAppletResourceFetcher
 {
    NSMutableArray       * _operations;
    AFURLSessionManager  * _sessionManager;
@@ -88,9 +88,9 @@
 
 @def_prop_unsafe(id,   responder);
 
-+ (SamuraiResourceFetcher *)resourceFetcher
++ (IDEAAppletResourceFetcher *)resourceFetcher
 {
-   return [[SamuraiResourceFetcher alloc] init];
+   return [[IDEAAppletResourceFetcher alloc] init];
 }
 
 - (id)init
@@ -130,7 +130,7 @@
    return;
 }
 
-- (void)queue:(SamuraiResource *)aResource
+- (void)queue:(IDEAAppletResource *)aResource
 {
    int                            nErr                                     = EFAULT;
    
@@ -165,7 +165,7 @@
                                            downloadProgress:nil
                                           completionHandler:^(NSURLResponse *aResponse, id aResponseObject, NSError *aError)
                         {
-      LogDebug((@"-[SamuraiResourceFetcher queue] : Error : %@", aError));
+      LogDebug((@"-[IDEAAppletResourceFetcher queue] : Error : %@", aError));
       
       if (nil == aError)
       {

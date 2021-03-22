@@ -47,7 +47,7 @@
 
 @implementation UIView(Samurai)
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
    UIView * newView = [[self alloc] initWithFrame:CGRectZero];
    newView.renderer = renderer;
@@ -95,12 +95,12 @@
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)aDom
+- (void)applyDom:(IDEAAppletDomNode *)aDom
 {
    return;
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)aStyle
+- (void)applyStyle:(IDEAAppletRenderStyle *)aStyle
 {
    return;
 }
@@ -140,13 +140,13 @@
 
 //- (NSString *)description
 //{
-//   [[SamuraiLogger sharedInstance] outputCapture];
+//   [[IDEAAppletLogger sharedInstance] outputCapture];
 //   
 //   [self dump];
 //   
-//   [[SamuraiLogger sharedInstance] outputRelease];
+//   [[IDEAAppletLogger sharedInstance] outputRelease];
 //   
-//   return [SamuraiLogger sharedInstance].output;
+//   return [IDEAAppletLogger sharedInstance].output;
 //}
 
 - (void)dump

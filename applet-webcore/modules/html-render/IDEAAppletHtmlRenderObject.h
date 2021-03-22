@@ -55,7 +55,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderObject : SamuraiRenderObject<SamuraiCSSProtocol>
+@interface SamuraiHtmlRenderObject : IDEAAppletRenderObject<IDEAAppletCSSProtocol>
 
 @prop_strong( NSMutableArray *,            customClasses );
 @prop_strong( SamuraiHtmlRenderStyle *,      customStyle );
@@ -111,7 +111,7 @@
 - (void)computeProperties;                        // override point
 
 - (SamuraiHtmlRenderObject *)queryById:(NSString *)domId;
-- (SamuraiHtmlRenderObject *)queryByDom:(SamuraiDomNode *)domNode;
+- (SamuraiHtmlRenderObject *)queryByDom:(IDEAAppletDomNode *)domNode;
 - (SamuraiHtmlRenderObject *)queryByName:(NSString *)name;
 
 @end

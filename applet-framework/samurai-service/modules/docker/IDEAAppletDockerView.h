@@ -36,9 +36,9 @@
 
 #pragma mark -
 
-@interface SamuraiDockerView : UIView
+@interface IDEAAppletDockerView : UIView
 
-@prop_unsafe( SamuraiService<ManagedDocker>  *,   service );
+@prop_unsafe( IDEAAppletService<ManagedDocker>  *,   service );
 
 - (void)setImageOpened:(UIImage *)image;
 - (void)setImageClosed:(UIImage *)image;

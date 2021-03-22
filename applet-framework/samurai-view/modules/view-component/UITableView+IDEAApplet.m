@@ -460,7 +460,7 @@
 @def_signal( eventDidSelectRow );
 @def_signal( eventDidDeselectRow );
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
    UITableView * tableView = [[self alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
@@ -532,12 +532,12 @@
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(IDEAAppletDomNode *)dom
 {
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(IDEAAppletRenderStyle *)style
 {
    [super applyStyle:style];
 }

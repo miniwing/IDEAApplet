@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiService(Docker)
+@implementation IDEAAppletService(Docker)
 
 - (void)openDocker
 {
@@ -50,7 +50,7 @@
    
    if ([self conformsToProtocol:@protocol(ManagedDocker)])
    {
-      [[SamuraiDockerManager sharedInstance] openDockerForService:(SamuraiService<ManagedDocker> *)self];
+      [[IDEAAppletDockerManager sharedInstance] openDockerForService:(IDEAAppletService<ManagedDocker> *)self];
       
    } /* End if () */
    
@@ -67,7 +67,7 @@
    
    if ([self conformsToProtocol:@protocol(ManagedDocker)])
    {
-      [[SamuraiDockerManager sharedInstance] closeDockerForService:(SamuraiService<ManagedDocker> *)self];
+      [[IDEAAppletDockerManager sharedInstance] closeDockerForService:(IDEAAppletService<ManagedDocker> *)self];
       
    } /* End if () */
    
@@ -80,12 +80,12 @@
 
 #pragma mark -
 
-@implementation SamuraiDockerManager
+@implementation IDEAAppletDockerManager
 {
-   SamuraiDockerWindow * _dockerWindow;
+   IDEAAppletDockerWindow * _dockerWindow;
 }
 
-@def_singleton ( SamuraiDockerManager )
+@def_singleton ( IDEAAppletDockerManager )
 
 - (id)init
 {
@@ -123,9 +123,9 @@
    
    __TRY;
    
-   stServices  = [SamuraiServiceLoader sharedInstance].services;
+   stServices  = [IDEAAppletServiceLoader sharedInstance].services;
    
-   for (SamuraiService *stService in stServices)
+   for (IDEAAppletService *stService in stServices)
    {
       if ([stService conformsToProtocol:@protocol(ManagedDocker)])
       {
@@ -141,14 +141,14 @@
             
          } /* End if () */
          
-         SamuraiDockerView *stDockerView = [[SamuraiDockerView alloc] init];
+         IDEAAppletDockerView *stDockerView = [[IDEAAppletDockerView alloc] init];
          [stDockerView setImageOpened:[stService.bundle imageForResource:@"docker-open.png"]];
          [stDockerView setImageClosed:[stService.bundle imageForResource:@"docker-close.png"]];
-         [stDockerView setService:(SamuraiService<ManagedDocker> *)stService];
+         [stDockerView setService:(IDEAAppletService<ManagedDocker> *)stService];
          
          if (nil == _dockerWindow)
          {
-            _dockerWindow = [[SamuraiDockerWindow alloc] init];
+            _dockerWindow = [[IDEAAppletDockerWindow alloc] init];
             _dockerWindow.alpha  = 0.0f;
             _dockerWindow.hidden = NO;
             
@@ -206,7 +206,7 @@
 }
 
 
-- (void)openDockerForService:(SamuraiService<ManagedDocker> *)aService
+- (void)openDockerForService:(IDEAAppletService<ManagedDocker> *)aService
 {
    int                            nErr                                     = EFAULT;
    
@@ -214,9 +214,9 @@
    
    for (UIView * stSubview in _dockerWindow.subviews)
    {
-      if ([stSubview isKindOfClass:[SamuraiDockerView class]])
+      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]])
       {
-         SamuraiDockerView * stDockerView = (SamuraiDockerView *)stSubview;
+         IDEAAppletDockerView * stDockerView = (IDEAAppletDockerView *)stSubview;
          if (stDockerView.service == aService)
          {
             [stDockerView open];
@@ -233,7 +233,7 @@
 }
 
 
-- (void)closeDockerForService:(SamuraiService<ManagedDocker> *)aService
+- (void)closeDockerForService:(IDEAAppletService<ManagedDocker> *)aService
 {
    int                            nErr                                     = EFAULT;
    
@@ -241,9 +241,9 @@
    
    for (UIView * stSubview in _dockerWindow.subviews)
    {
-      if ([stSubview isKindOfClass:[SamuraiDockerView class]])
+      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]])
       {
-         SamuraiDockerView * stDockerView = (SamuraiDockerView *)stSubview;
+         IDEAAppletDockerView * stDockerView = (IDEAAppletDockerView *)stSubview;
          if (stDockerView.service == aService)
          {
             [stDockerView close];

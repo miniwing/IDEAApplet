@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberTurn)
+@interface IDEAAppletCSSObject(NumberTurn)
 
 - (BOOL)isTurn;
 

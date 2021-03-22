@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberDeg)
+@interface IDEAAppletCSSObject(NumberDeg)
 
 - (BOOL)isDeg;
 

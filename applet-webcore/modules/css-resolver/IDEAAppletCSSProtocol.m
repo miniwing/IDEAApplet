@@ -38,7 +38,7 @@
 // Source code
 // ----------------------------------
 
-NSString * NSStringFromSamuraiCSSProtocolElement(id<SamuraiCSSProtocol> element)
+NSString * NSStringFromSamuraiCSSProtocolElement(id<IDEAAppletCSSProtocol> element)
 {
     NSMutableString * desc = [NSMutableString string];
     
@@ -93,22 +93,22 @@ NSString * NSStringFromSamuraiCSSProtocolElement(id<SamuraiCSSProtocol> element)
 @def_prop_strong( NSArray *,      cssClasses );
 @def_prop_strong( NSDictionary *,   cssAttributes );
 
-- (id<SamuraiCSSProtocol>)cssParent
+- (id<IDEAAppletCSSProtocol>)cssParent
 {
    return nil;
 }
 
-- (id<SamuraiCSSProtocol>)cssPreviousSibling
+- (id<IDEAAppletCSSProtocol>)cssPreviousSibling
 {
    return nil;
 }
 
-- (id<SamuraiCSSProtocol>)cssFollowingSibling
+- (id<IDEAAppletCSSProtocol>)cssFollowingSibling
 {
    return nil;
 }
 
-- (id<SamuraiCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
+- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
 {
    return nil;
 }

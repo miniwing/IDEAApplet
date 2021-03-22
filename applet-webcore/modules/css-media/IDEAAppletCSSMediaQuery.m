@@ -41,9 +41,9 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSMediaQuery
+@implementation IDEAAppletCSSMediaQuery
 
-@def_singleton( SamuraiCSSMediaQuery )
+@def_singleton( IDEAAppletCSSMediaQuery )
 
 - (BOOL)test:(NSString *)condition
 {
@@ -52,7 +52,7 @@
       return YES;
    }
 
-    KatanaOutput * output = [[SamuraiCSSParser sharedInstance] parseMedia:condition];
+    KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseMedia:condition];
     
     if ( NULL != output )
     {

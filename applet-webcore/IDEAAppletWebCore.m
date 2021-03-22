@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiWebcore
+@implementation IDEAAppletWebcore
 
 + (void)load
 {

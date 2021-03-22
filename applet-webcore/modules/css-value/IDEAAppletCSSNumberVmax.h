@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberVmax)
+@interface IDEAAppletCSSObject(NumberVmax)
 
 - (BOOL)isVmax;
 

@@ -46,13 +46,13 @@ typedef void (^ __handlerBlockType )( id object );
 
 @implementation NSObject(BlockHandler)
 
-- (SamuraiHandler *)blockHandlerOrCreate
+- (IDEAAppletHandler *)blockHandlerOrCreate
 {
-   SamuraiHandler * handler = [self getAssociatedObjectForKey:"blockHandler"];
+   IDEAAppletHandler * handler = [self getAssociatedObjectForKey:"blockHandler"];
    
    if ( nil == handler )
    {
-      handler = [[SamuraiHandler alloc] init];
+      handler = [[IDEAAppletHandler alloc] init];
       
       [self retainAssociatedObject:handler forKey:"blockHandler"];
    }
@@ -60,14 +60,14 @@ typedef void (^ __handlerBlockType )( id object );
    return handler;
 }
 
-- (SamuraiHandler *)blockHandler
+- (IDEAAppletHandler *)blockHandler
 {
    return [self getAssociatedObjectForKey:"blockHandler"];
 }
 
 - (void)addBlock:(id)block forName:(NSString *)name
 {
-   SamuraiHandler * handler = [self blockHandlerOrCreate];
+   IDEAAppletHandler * handler = [self blockHandlerOrCreate];
    
    if ( handler )
    {
@@ -77,7 +77,7 @@ typedef void (^ __handlerBlockType )( id object );
 
 - (void)removeBlockForName:(NSString *)name
 {
-   SamuraiHandler * handler = [self blockHandler];
+   IDEAAppletHandler * handler = [self blockHandler];
    
    if ( handler )
    {
@@ -87,7 +87,7 @@ typedef void (^ __handlerBlockType )( id object );
 
 - (void)removeAllBlocks
 {
-   SamuraiHandler * handler = [self blockHandler];
+   IDEAAppletHandler * handler = [self blockHandler];
    
    if ( handler )
    {
@@ -101,7 +101,7 @@ typedef void (^ __handlerBlockType )( id object );
 
 #pragma mark -
 
-@implementation SamuraiHandler
+@implementation IDEAAppletHandler
 {
    NSMutableDictionary * _blocks;
 }

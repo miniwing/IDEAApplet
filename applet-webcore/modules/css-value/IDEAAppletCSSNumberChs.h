@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(NumberChs)
+@interface IDEAAppletCSSObject(NumberChs)
 
 - (BOOL)isChs;
 

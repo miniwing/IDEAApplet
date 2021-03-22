@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberRad)
+@implementation IDEAAppletCSSObject(NumberRad)
 
 - (BOOL)isRad
 {

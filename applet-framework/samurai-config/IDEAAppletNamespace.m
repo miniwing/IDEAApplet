@@ -38,15 +38,15 @@
 
 #pragma mark -
 
-__strong SamuraiNamespace * APPLET = nil;
+__strong IDEAAppletNamespace * APPLET = nil;
 
 #pragma mark -
 
-@implementation SamuraiNamespace
+@implementation IDEAAppletNamespace
 
 + (void)classAutoLoad
 {
-   APPLET = [[SamuraiNamespace alloc] init];
+   APPLET = [[IDEAAppletNamespace alloc] init];
    
    return;
 }

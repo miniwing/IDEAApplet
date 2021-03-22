@@ -48,15 +48,15 @@
 
 @implementation NSObject(IntentResponder)
 
-@def_prop_dynamic( SamuraiIntentObserverBlock, onIntent );
+@def_prop_dynamic( IDEAAppletIntentObserverBlock, onIntent );
 
 #pragma mark -
 
-- (SamuraiIntentObserverBlock)onIntent
+- (IDEAAppletIntentObserverBlock)onIntent
 {
    @weakify( self );
 
-   SamuraiIntentObserverBlock block = ^ NSObject * ( NSString * action, id intentBlock )
+   IDEAAppletIntentObserverBlock block = ^ NSObject * ( NSString * action, id intentBlock )
    {
       @strongify( self );
       
@@ -82,7 +82,7 @@
    return [block copy];
 }
 
-- (void)handleIntent:(SamuraiIntent *)that
+- (void)handleIntent:(IDEAAppletIntent *)that
 {
    UNUSED( that );
 }
@@ -91,7 +91,7 @@
 
 #pragma mark -
 
-@implementation SamuraiIntent
+@implementation IDEAAppletIntent
 
 @def_joint( stateChanged );
 
@@ -111,21 +111,21 @@
 
 #pragma mark -
 
-+ (SamuraiIntent *)intent
++ (IDEAAppletIntent *)intent
 {
-   return [[SamuraiIntent alloc] init];
+   return [[IDEAAppletIntent alloc] init];
 }
 
-+ (SamuraiIntent *)intent:(NSString *)action
++ (IDEAAppletIntent *)intent:(NSString *)action
 {
-   SamuraiIntent * intent = [[SamuraiIntent alloc] init];
+   IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
    intent.action = action;
    return intent;
 }
 
-+ (SamuraiIntent *)intent:(NSString *)action params:(NSDictionary *)params
++ (IDEAAppletIntent *)intent:(NSString *)action params:(NSDictionary *)params
 {
-   SamuraiIntent * intent = [[SamuraiIntent alloc] init];
+   IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
    intent.action = action;
    
    if ( params )
@@ -259,19 +259,19 @@
 
    if ( IntentState_Arrived == _state )
    {
-      [[SamuraiIntentBus sharedInstance] routes:self target:self.target];
+      [[IDEAAppletIntentBus sharedInstance] routes:self target:self.target];
    }
    else if ( IntentState_Succeed == _state )
    {
-      [[SamuraiIntentBus sharedInstance] routes:self target:self.source];
+      [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
    else if ( IntentState_Failed == _state )
    {
-      [[SamuraiIntentBus sharedInstance] routes:self target:self.source];
+      [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
    else if ( IntentState_Cancelled == _state )
    {
-      [[SamuraiIntentBus sharedInstance] routes:self target:self.source];
+      [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
 
    triggerAfter( self, stateChanged );

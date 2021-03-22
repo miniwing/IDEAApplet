@@ -62,7 +62,7 @@
 // Namesapce
 
 
-@namespace( core )                                 // S.core
-@namespace( core, debugger ,   SamuraiDebugger )   // S.core.debugger
-@namespace( core, logger   ,   SamuraiLogger )     // S.core.logger
-@namespace( core, system   ,   SamuraiSystem )     // S.core.system
+@namespace( core )                                    // S.core
+@namespace( core, debugger ,   IDEAAppletDebugger )   // S.core.debugger
+@namespace( core, logger   ,   IDEAAppletLogger )     // S.core.logger
+@namespace( core, system   ,   IDEAAppletSystem )     // S.core.system

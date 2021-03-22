@@ -42,26 +42,26 @@
 
 #pragma mark -
 
-@class SamuraiActivityStackGroup;
+@class IDEAAppletActivityStackGroup;
 
 @interface UIWindow(ActivityStackGroup)
 
-@prop_readonly( SamuraiActivityStackGroup *, rootStackGroup );
+@prop_readonly( IDEAAppletActivityStackGroup *, rootStackGroup );
 
 @end
 
 #pragma mark -
 
-@interface SamuraiActivityStackGroup : UIViewController
+@interface IDEAAppletActivityStackGroup : UIViewController
 
-@prop_readonly( SamuraiActivity *,      activity );
-@prop_readonly( SamuraiActivityStack *,   stack );
+@prop_readonly( IDEAAppletActivity *,      activity );
+@prop_readonly( IDEAAppletActivityStack *,   stack );
 
-+ (SamuraiActivityStackGroup *)stackGroup;
++ (IDEAAppletActivityStackGroup *)stackGroup;
 
 - (void)map:(NSString *)name forClass:(Class)classType;
-- (void)map:(NSString *)name forActivity:(SamuraiActivity *)activity;
-- (void)map:(NSString *)name forActivityStack:(SamuraiActivityStack *)activityStack;
+- (void)map:(NSString *)name forActivity:(IDEAAppletActivity *)activity;
+- (void)map:(NSString *)name forActivityStack:(IDEAAppletActivityStack *)activityStack;
 
 - (BOOL)open:(NSString *)url;
 

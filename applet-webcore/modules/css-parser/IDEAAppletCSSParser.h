@@ -36,9 +36,9 @@
 
 #pragma mark -
 
-@interface SamuraiCSSParser : NSObject
+@interface IDEAAppletCSSParser : NSObject
 
-@singleton( SamuraiCSSParser )
+@singleton( IDEAAppletCSSParser )
 
 - (KatanaOutput *)parseStylesheet:(NSString *)text;      // css
 - (KatanaOutput *)parseMedia:(NSString *)text;         // screen and (device-width:320px)

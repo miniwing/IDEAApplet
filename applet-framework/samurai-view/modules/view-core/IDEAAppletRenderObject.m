@@ -58,14 +58,14 @@
 
 @implementation NSObject(Renderer)
 
-@def_prop_dynamic_strong(SamuraiRenderObject *, renderer, setRenderer);
+@def_prop_dynamic_strong(IDEAAppletRenderObject *, renderer, setRenderer);
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer
 {
    return nil;
 }
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
    return nil;
 }
@@ -89,11 +89,11 @@
    return CGSizeZero;
 }
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(IDEAAppletDomNode *)dom
 {   
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(IDEAAppletRenderStyle *)style
 {
 }
 
@@ -105,21 +105,21 @@
 
 #pragma mark -
 
-@implementation SamuraiRenderObject
+@implementation IDEAAppletRenderObject
 
 @def_prop_strong( NSNumber             *, id);
-@def_prop_unsafe( SamuraiDomNode       *, dom);
-@def_prop_strong( SamuraiRenderStyle   *, style);
+@def_prop_unsafe( IDEAAppletDomNode       *, dom);
+@def_prop_strong( IDEAAppletRenderStyle   *, style);
 
 @def_prop_strong( UIView               *, view);
 @def_prop_strong( Class                 , viewClass);
 
-@def_prop_dynamic( SamuraiRenderObject *, root);
-@def_prop_dynamic( SamuraiRenderObject *, parent);
-@def_prop_dynamic( SamuraiRenderObject *, prev);
-@def_prop_dynamic( SamuraiRenderObject *, next);
+@def_prop_dynamic( IDEAAppletRenderObject *, root);
+@def_prop_dynamic( IDEAAppletRenderObject *, parent);
+@def_prop_dynamic( IDEAAppletRenderObject *, prev);
+@def_prop_dynamic( IDEAAppletRenderObject *, next);
 
-BASE_CLASS(SamuraiRenderObject)
+BASE_CLASS(IDEAAppletRenderObject)
 
 static NSUInteger __objectSeed = 0;
 
@@ -130,9 +130,9 @@ static NSUInteger __objectSeed = 0;
    return [[self alloc] init];
 }
 
-+ (instancetype)renderObjectWithDom:(SamuraiDomNode *)dom andStyle:(SamuraiRenderStyle *)style
++ (instancetype)renderObjectWithDom:(IDEAAppletDomNode *)dom andStyle:(IDEAAppletRenderStyle *)style
 {
-   SamuraiRenderObject * renderObject = [[self alloc] init];
+   IDEAAppletRenderObject * renderObject = [[self alloc] init];
    
    [renderObject bindDom:dom];
    [renderObject bindStyle:style];
@@ -170,7 +170,7 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (void)deepCopyFrom:(SamuraiRenderObject *)right
+- (void)deepCopyFrom:(IDEAAppletRenderObject *)right
 {
 //   [super deepCopyFrom:right];
    
@@ -201,12 +201,12 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (SamuraiRenderObject *)prevObject
+- (IDEAAppletRenderObject *)prevObject
 {
    return nil;
 }
 
-- (SamuraiRenderObject *)nextObject
+- (IDEAAppletRenderObject *)nextObject
 {
    return nil;
 }
@@ -279,7 +279,7 @@ static NSUInteger __objectSeed = 0;
          contentView = self.view;
       }
       
-      for (SamuraiRenderObject * child in [self.childs reverseObjectEnumerator])
+      for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator])
       {
          if (nil == child.view)
          {
@@ -340,7 +340,7 @@ static NSUInteger __objectSeed = 0;
             contentView = self.view;
          }
          
-         for (SamuraiRenderObject * child in [self.childs reverseObjectEnumerator])
+         for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator])
          {
             if (nil == child.view)
             {
@@ -365,7 +365,7 @@ static NSUInteger __objectSeed = 0;
    self.view = nil;
 }
 
-- (void)bindDom:(SamuraiDomNode *)newDom
+- (void)bindDom:(IDEAAppletDomNode *)newDom
 {
    self.dom = newDom;
 }
@@ -375,7 +375,7 @@ static NSUInteger __objectSeed = 0;
    self.dom = nil;
 }
 
-- (void)bindStyle:(SamuraiRenderStyle *)newStyle
+- (void)bindStyle:(IDEAAppletRenderStyle *)newStyle
 {
    self.style = newStyle;
 }
@@ -405,13 +405,13 @@ static NSUInteger __objectSeed = 0;
 
 - (NSString *)description
 {
-   [[SamuraiLogger sharedInstance] outputCapture];
+   [[IDEAAppletLogger sharedInstance] outputCapture];
    
    [self dump];
    
-   [[SamuraiLogger sharedInstance] outputRelease];
+   [[IDEAAppletLogger sharedInstance] outputRelease];
    
-   return [SamuraiLogger sharedInstance].output;
+   return [IDEAAppletLogger sharedInstance].output;
 }
 
 - (void)dump
@@ -424,14 +424,14 @@ static NSUInteger __objectSeed = 0;
    {
       PRINT(@"<%@>, [%@]", self.dom.tag ?: @"", [self.viewClass description]);
       
-      [[SamuraiLogger sharedInstance] indent];
+      [[IDEAAppletLogger sharedInstance] indent];
       
-      for (SamuraiRenderObject * child in self.childs)
+      for (IDEAAppletRenderObject * child in self.childs)
       {
          [child dump];
       }
       
-      [[SamuraiLogger sharedInstance] unindent];
+      [[IDEAAppletLogger sharedInstance] unindent];
 
       PRINT(@"</%@>", self.dom.tag ?: @"");
    }

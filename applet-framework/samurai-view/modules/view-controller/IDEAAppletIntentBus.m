@@ -51,12 +51,12 @@
 
 #pragma mark -
 
-@implementation SamuraiIntentBus
+@implementation IDEAAppletIntentBus
 {
    NSMutableDictionary * _handlers;
 }
 
-@def_singleton( SamuraiIntentBus )
+@def_singleton( IDEAAppletIntentBus )
 
 - (id)init
 {
@@ -74,7 +74,7 @@
    _handlers = nil;
 }
 
-- (void)routes:(SamuraiIntent *)intent target:(id)target
+- (void)routes:(IDEAAppletIntent *)intent target:(id)target
 {
    if ( nil == target )
    {
@@ -250,7 +250,7 @@
    }
 }
 
-- (BOOL)intent:(SamuraiIntent *)intent perform:(SEL)sel class:(Class)clazz target:(id)target
+- (BOOL)intent:(IDEAAppletIntent *)intent perform:(SEL)sel class:(Class)clazz target:(id)target
 {
    ASSERT( nil != intent );
    ASSERT( nil != target );
@@ -263,7 +263,7 @@
    
    if ( NO == performed )
    {
-      SamuraiHandler * handler = [target blockHandler];
+      IDEAAppletHandler * handler = [target blockHandler];
       if ( handler )
       {
          BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:intent];

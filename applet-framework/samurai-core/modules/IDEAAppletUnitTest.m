@@ -46,15 +46,15 @@
 
 #pragma mark -
 
-@implementation SamuraiTestFailure
+@implementation IDEAAppletTestFailure
 
 @def_prop_strong( NSString *,   expr );
 @def_prop_strong( NSString *,   file );
 @def_prop_assign( NSInteger,   line );
 
-+ (SamuraiTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line
++ (IDEAAppletTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line
 {
-   SamuraiTestFailure * failure = [[SamuraiTestFailure alloc] initWithName:@"UnitTest" reason:nil userInfo:nil];
+   IDEAAppletTestFailure * failure = [[IDEAAppletTestFailure alloc] initWithName:@"UnitTest" reason:nil userInfo:nil];
    failure.expr = @(expr);
    failure.file = [@(file) lastPathComponent];
    failure.line = line;
@@ -65,17 +65,17 @@
 
 #pragma mark -
 
-@implementation SamuraiTestCase
+@implementation IDEAAppletTestCase
 @end
 
 #pragma mark -
 
-@implementation SamuraiUnitTest
+@implementation IDEAAppletUnitTest
 {
    __strong NSMutableArray * _logs;
 }
 
-@def_singleton( SamuraiUnitTest )
+@def_singleton( IDEAAppletUnitTest )
 
 @def_prop_assign( NSUInteger,   failedCount );
 @def_prop_assign( NSUInteger,   succeedCount );
@@ -101,11 +101,11 @@
    fprintf( stderr, "   Unit testing ...\n" );
    fprintf( stderr, "  -------------------------------------------------------------\n" );
 
-   NSArray *   classes = [SamuraiTestCase subClasses];
-   LogLevel   filter = [SamuraiLogger sharedInstance].filter;
+   NSArray *   classes = [IDEAAppletTestCase subClasses];
+   LogLevel   filter = [IDEAAppletLogger sharedInstance].filter;
 
-   [SamuraiLogger sharedInstance].filter = LogLevel_Warn;
-//   [SamuraiLogger sharedInstance].filter = LogLevel_All;
+   [IDEAAppletLogger sharedInstance].filter = LogLevel_Warn;
+//   [IDEAAppletLogger sharedInstance].filter = LogLevel_All;
    
    CFTimeInterval beginTime = CACurrentMediaTime();
    
@@ -123,7 +123,7 @@
 
       NSString * formattedName = [testCaseName stringByPaddingToLength:48 withString:@" " startingAtIndex:0];
 
-//      [[SamuraiLogger sharedInstance] disable];
+//      [[IDEAAppletLogger sharedInstance] disable];
 
       fprintf( stderr, "%s", [formattedName UTF8String] );
 
@@ -135,9 +135,9 @@
       {
          @try
          {
-            SamuraiTestCase * testCase = [[classType alloc] init];
+            IDEAAppletTestCase * testCase = [[classType alloc] init];
 
-            NSArray * selectorNames = [classType methodsWithPrefix:@"runTest_" untilClass:[SamuraiTestCase class]];
+            NSArray * selectorNames = [classType methodsWithPrefix:@"runTest_" untilClass:[IDEAAppletTestCase class]];
             
             if ( selectorNames && [selectorNames count] )
             {
@@ -158,9 +158,9 @@
          }
          @catch ( NSException * e )
          {
-            if ( [e isKindOfClass:[SamuraiTestFailure class]] )
+            if ( [e isKindOfClass:[IDEAAppletTestFailure class]] )
             {
-               SamuraiTestFailure * failure = (SamuraiTestFailure *)e;
+               IDEAAppletTestFailure * failure = (IDEAAppletTestFailure *)e;
                
                [self writeLog:
                      @"                        \n"
@@ -189,7 +189,7 @@
       CFTimeInterval time2 = CACurrentMediaTime();
       CFTimeInterval time = time2 - time1;
       
-//      [[SamuraiLogger sharedInstance] enable];
+//      [[IDEAAppletLogger sharedInstance] enable];
 
       if ( testCasePassed )
       {
@@ -217,7 +217,7 @@
    fprintf( stderr, "  =============================================================\n" );
    fprintf( stderr, "\n" );
 
-   [SamuraiLogger sharedInstance].filter = filter;
+   [IDEAAppletLogger sharedInstance].filter = filter;
 }
 
 - (void)writeLog:(NSString *)format, ...

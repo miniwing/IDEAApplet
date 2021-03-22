@@ -150,7 +150,7 @@
 
 @implementation UIButton(Samurai)
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(__unused NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(__unused NSString *)identifier
 {
    UIButton * button = [self buttonWithType:UIButtonTypeCustom];
 
@@ -219,12 +219,12 @@
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(IDEAAppletDomNode *)dom
 {
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(IDEAAppletRenderStyle *)style
 {
    [super applyStyle:style];
 }

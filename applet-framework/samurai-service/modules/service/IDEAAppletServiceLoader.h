@@ -33,9 +33,9 @@
 
 #pragma mark -
 
-@interface SamuraiServiceLoader : NSObject
+@interface IDEAAppletServiceLoader : NSObject
 
-@singleton( SamuraiServiceLoader )
+@singleton( IDEAAppletServiceLoader )
 
 @prop_readonly( NSArray *, services );
 

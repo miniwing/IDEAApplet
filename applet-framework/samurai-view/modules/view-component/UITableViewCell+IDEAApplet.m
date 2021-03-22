@@ -43,7 +43,7 @@
 
 @implementation UITableViewCell(Samurai)
 
-+ (id)createInstanceWithRenderer:(SamuraiRenderObject *)renderer identifier:(NSString *)identifier
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
    UITableViewCell * tableViewCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
    
@@ -113,12 +113,12 @@
 
 #pragma mark -
 
-- (void)applyDom:(SamuraiDomNode *)dom
+- (void)applyDom:(IDEAAppletDomNode *)dom
 {
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(SamuraiRenderStyle *)style
+- (void)applyStyle:(IDEAAppletRenderStyle *)style
 {
    [super applyStyle:style];
 }

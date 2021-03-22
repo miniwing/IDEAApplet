@@ -37,7 +37,7 @@
 
 #pragma mark -
 
-@class SamuraiWorkflow;
+@class IDEAAppletWorkflow;
 
 @interface SamuraiViewWorklet : NSObject
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiWorkflow : NSObject
+@interface IDEAAppletWorkflow : NSObject
 
 @prop_unsafe( NSObject *,      context );
 @prop_strong( NSMutableArray *,   worklets );

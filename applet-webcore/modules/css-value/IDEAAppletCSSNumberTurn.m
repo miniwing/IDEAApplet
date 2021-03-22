@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberTurn)
+@implementation IDEAAppletCSSObject(NumberTurn)
 
 - (BOOL)isTurn
 {

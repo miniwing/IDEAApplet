@@ -40,12 +40,12 @@
 
 #pragma mark -
 
-@interface SamuraiScript : SamuraiResource
+@interface IDEAAppletScript : IDEAAppletResource
 
 @prop_strong( NSString *,   href );
 @prop_strong( NSString *,   type );
 
-+ (SamuraiScript *)script;
++ (IDEAAppletScript *)script;
 
 @end
 

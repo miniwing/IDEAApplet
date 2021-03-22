@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObject(Uri)
+@interface IDEAAppletCSSObject(Uri)
 
 - (BOOL)isUri;
 - (BOOL)isUri:(NSString *)uri;
@@ -52,7 +52,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSUri : SamuraiCSSValue
+@interface SamuraiCSSUri : IDEAAppletCSSValue
 
 @prop_strong( NSURL *, uri );
 

@@ -36,9 +36,9 @@
 
 #pragma mark -
 
-@interface SamuraiCSSMediaQuery : NSObject
+@interface IDEAAppletCSSMediaQuery : NSObject
 
-@singleton( SamuraiCSSMediaQuery )
+@singleton( IDEAAppletCSSMediaQuery )
 
 - (BOOL)test:(NSString *)condition;
 

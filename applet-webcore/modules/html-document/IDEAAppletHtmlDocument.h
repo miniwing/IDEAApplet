@@ -39,10 +39,10 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlDocument : SamuraiDocument
+@interface SamuraiHtmlDocument : IDEAAppletDocument
 
 @prop_strong( SamuraiHtmlDomNode *,         domTree );
-@prop_strong( SamuraiCSSStyleSheet *,      styleTree );
+@prop_strong( IDEAAppletCSSStyleSheet *,      styleTree );
 @prop_strong( SamuraiHtmlRenderObject *,   renderTree );
 
 @prop_strong( NSString *,   rootTag );

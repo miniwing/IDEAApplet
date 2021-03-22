@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberVw)
+@implementation IDEAAppletCSSObject(NumberVw)
 
 - (BOOL)isVw
 {

@@ -32,7 +32,7 @@
 
 #pragma mark -
 
-@interface ServiceGrids : SamuraiService < ManagedService, ManagedDocker >
+@interface ServiceGrids : IDEAAppletService < ManagedService, ManagedDocker >
 
 
 @end

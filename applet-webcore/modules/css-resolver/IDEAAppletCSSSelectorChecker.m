@@ -55,9 +55,9 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 
 #pragma mark -
 
-@implementation SamuraiCSSSelectorCheckerMatchResult
+@implementation IDEAAppletCSSSelectorCheckerMatchResult
 
-@def_prop_assign( SamuraiCSSPseudoId,      dynamicPseudo );
+@def_prop_assign( IDEAAppletCSSPseudoId,      dynamicPseudo );
 @def_prop_assign( NSUInteger,            specificity );
 
 @end
@@ -67,12 +67,12 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 @implementation SamuraiCSSSelectorCheckingContext
 
 @def_prop_assign( KatanaSelector *,         selector );
-@def_prop_assign( SamuraiCSSPseudoId,      pseudoId );
+@def_prop_assign( IDEAAppletCSSPseudoId,      pseudoId );
 @def_prop_assign( NSUInteger,            elementStyle );
 @def_prop_assign( BOOL,                  isSubSelector );
 
-@def_prop_unsafe( id<SamuraiCSSProtocol>,   element );
-@def_prop_unsafe( id<SamuraiCSSProtocol>,   previousElement );
+@def_prop_unsafe( id<IDEAAppletCSSProtocol>,   element );
+@def_prop_unsafe( id<IDEAAppletCSSProtocol>,   previousElement );
 
 - (id)initWithContext:(SamuraiCSSSelectorCheckingContext *)context
 {
@@ -94,7 +94,7 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 
 #pragma mark -
 
-@implementation SamuraiCSSSelectorChecker
+@implementation IDEAAppletCSSSelectorChecker
 
 @def_prop_strong( SamuraiCSSSelectorCheckingContext *,   context );
 
@@ -111,7 +111,7 @@ static inline SamuraiCSSSelectorCheckingContext * prepareNextContextForRelation(
    return nextContext;
 }
 
-static id<SamuraiCSSProtocol> parentElement( const SamuraiCSSSelectorCheckingContext * context )
+static id<IDEAAppletCSSProtocol> parentElement( const SamuraiCSSSelectorCheckingContext * context )
 {
    // - If context.scope is a shadow root, we should walk up to its shadow host.
    // - If context.scope is some element in some shadow tree and querySelector initialized the context,
@@ -419,7 +419,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 // * SelectorFailsLocally     - the selector fails for the element e
 // * SelectorFailsAllSiblings - the selector fails for e and any sibling of e
 // * SelectorFailsCompletely  - the selector fails for e and any sibling or ancestor of e
-- (SamuraiCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context result:(SamuraiCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
 // first selector has to match
    
@@ -508,7 +508,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
           match = matchForRelation(context, siblingTraversalStrategy, result);
          */
 
-            SamuraiCSSSelectorMatch match = [self matchForRelation:context result:result];
+            IDEAAppletCSSSelectorMatch match = [self matchForRelation:context result:result];
 
          if ( match != SamuraiCSSSelectorMatches || NULL == result )
          {
@@ -528,7 +528,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     }
    else
    {
-        SamuraiCSSSelectorMatch match = [self matchForSubSelector:context result:result];
+        IDEAAppletCSSSelectorMatch match = [self matchForSubSelector:context result:result];
       
       if ( match != SamuraiCSSSelectorMatches || NULL == result )
       {
@@ -548,7 +548,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     return NO;
 }
 
-- (SamuraiCSSSelectorMatch)matchForRelation:(SamuraiCSSSelectorCheckingContext *)context result:(SamuraiCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)matchForRelation:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
     SamuraiCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
     
@@ -585,7 +585,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
               nextContext.element;
               nextContext.element = parentElement(nextContext) )
          {
-                SamuraiCSSSelectorMatch match = [self match:nextContext result:result];
+                IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
             
                 if ( match == SamuraiCSSSelectorMatches || match == SamuraiCSSSelectorFailsCompletely )
             {
@@ -666,7 +666,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          
          for ( ; nil != nextContext.element; nextContext.element = [nextContext.element cssPreviousSibling] )
          {
-                SamuraiCSSSelectorMatch match = [self match:nextContext result:result];
+                IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
             
                 if ( match == SamuraiCSSSelectorMatches || match == SamuraiCSSSelectorFailsAllSiblings || match == SamuraiCSSSelectorFailsCompletely )
             {
@@ -709,7 +709,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 //            nextContext.isSubSelector = NO;
 //            nextContext.elementStyle = 0;
 //            for (nextContext.element = parentOrShadowHostButDisallowEscapingUserAgentShadowTree(*context.element); nextContext.element; nextContext.element = parentOrShadowHostButDisallowEscapingUserAgentShadowTree(*nextContext.element)) {
-//                SamuraiCSSSelectorMatch match = [self match:nextContext result:result];
+//                IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
 //                if (match == SamuraiCSSSelectorMatches
 //                    || match == SamuraiCSSSelectorFailsCompletely)
 //                    return match;
@@ -734,7 +734,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     return SamuraiCSSSelectorFailsCompletely;
 }
 
-- (SamuraiCSSSelectorMatch)matchForSubSelector:(SamuraiCSSSelectorCheckingContext *)context result:(SamuraiCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)matchForSubSelector:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
     SamuraiCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
    
@@ -758,7 +758,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 {
 //   ASSERT(context.element);
 
-    id<SamuraiCSSProtocol> element = context.element;
+    id<IDEAAppletCSSProtocol> element = context.element;
    
    if ( NULL == context.selector)
    {
@@ -864,7 +864,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     return YES;
 }
 
-- (BOOL)anyAttributeMatches:(id<SamuraiCSSProtocol>)element match:(KatanaSelectorMatch)match selector:(const KatanaSelector *)selector
+- (BOOL)anyAttributeMatches:(id<IDEAAppletCSSProtocol>)element match:(KatanaSelectorMatch)match selector:(const KatanaSelector *)selector
 {
    NSDictionary *            attributes = [element cssAttributes];
    const KatanaQualifiedName *   selectorAttr = selector->data ? selector->data->attribute : NULL;
@@ -892,7 +892,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 
 - (BOOL)checkPseudoClass:(SamuraiCSSSelectorCheckingContext *)context specificity:(NSUInteger *)specificity
 {
-    id<SamuraiCSSProtocol>   element = context.element;
+    id<IDEAAppletCSSProtocol>   element = context.element;
     const KatanaSelector *   selector = context.selector;
 
     // Handle :not up front.
@@ -1571,7 +1571,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     return NO;
 }
 
-- (BOOL)tagMatches:(id<SamuraiCSSProtocol>)element tag:(KatanaQualifiedName *)tag
+- (BOOL)tagMatches:(id<IDEAAppletCSSProtocol>)element tag:(KatanaQualifiedName *)tag
 {
     if ( NULL == tag )
    {

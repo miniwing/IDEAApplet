@@ -57,7 +57,7 @@
 {
    [super html_applyStyle:style];
 
-   SamuraiCSSValue * color = style.color;
+   IDEAAppletCSSValue * color = style.color;
 
    if ( color && [color isColor] )
    {

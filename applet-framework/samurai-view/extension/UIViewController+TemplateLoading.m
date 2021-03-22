@@ -49,7 +49,7 @@
 
 - (void)loadTemplate
 {
-   self.template = [[SamuraiTemplate alloc] init];
+   self.template = [[IDEAAppletTemplate alloc] init];
    self.template.responder = self;
    
    [self.template loadClass:[self class]];
@@ -64,7 +64,7 @@
    self.template = nil;
 }
 
-- (void)handleTemplate:(SamuraiTemplate *)template
+- (void)handleTemplate:(IDEAAppletTemplate *)template
 {
    ASSERT( template == self.template );
    

@@ -41,10 +41,10 @@
 
 #pragma mark -
 
-@interface SamuraiSignal(ViewController)
+@interface IDEAAppletSignal(ViewController)
 
 @prop_readonly(   UIViewController *,      sourceViewController );
-@prop_readonly(   SamuraiActivity *,      sourceActivity );
+@prop_readonly(   IDEAAppletActivity *,      sourceActivity );
 
 @end
 

@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(NumberEm)
+@implementation IDEAAppletCSSObject(NumberEm)
 
 - (BOOL)isEm
 {

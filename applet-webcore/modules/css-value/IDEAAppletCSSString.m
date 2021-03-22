@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObject(String)
+@implementation IDEAAppletCSSObject(String)
 
 - (BOOL)isString
 {

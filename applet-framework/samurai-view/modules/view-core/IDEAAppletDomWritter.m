@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiDomWritter
+@implementation IDEAAppletDomWritter
 
 #pragma mark -
 
