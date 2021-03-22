@@ -115,7 +115,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlUserAgent
+@implementation IDEAAppletHtmlUserAgent
 
 @def_prop_assign(CGFloat,               thinSize);
 @def_prop_assign(CGFloat,               mediumSize);
@@ -128,11 +128,11 @@
 @def_prop_strong(NSMutableArray *,         defaultCSSInherition);
 @def_prop_strong(NSMutableArray *,         defaultDOMAttributedStyle);
 
-@def_singleton(SamuraiHtmlUserAgent)
+@def_singleton(IDEAAppletHtmlUserAgent)
 
 + (void)load
 {
-   [SamuraiHtmlUserAgent sharedInstance];
+   [IDEAAppletHtmlUserAgent sharedInstance];
    
    return;
 }

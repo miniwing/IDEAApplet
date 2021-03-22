@@ -69,7 +69,7 @@
 
 #pragma mark -
 
-@interface SamuraiActivityStackGroupItem : NSObject
+@interface IDEAAppletActivityStackGroupItem : NSObject
 
 @prop_assign( NSUInteger,            order );
 @prop_strong( NSString *,            name );
@@ -82,7 +82,7 @@
 
 #pragma mark -
 
-@implementation SamuraiActivityStackGroupItem
+@implementation IDEAAppletActivityStackGroupItem
 
 @def_prop_assign( NSUInteger,         order );
 @def_prop_strong( NSString *,         name );
@@ -160,7 +160,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( nil == _name )
       return nil;
    
-   SamuraiActivityStackGroupItem * item = [_mapping objectForKey:_name];
+   IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:_name];
    if ( nil == item || nil == item.instance )
       return nil;
    
@@ -175,7 +175,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( nil == _name )
       return nil;
    
-   SamuraiActivityStackGroupItem * item = [_mapping objectForKey:_name];
+   IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:_name];
    if ( nil == item || nil == item.instance )
       return nil;
    
@@ -194,10 +194,10 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( nil == name || nil == classType )
       return;
    
-   SamuraiActivityStackGroupItem * item = [_mapping objectForKey:name];
+   IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item )
    {
-      item = [[SamuraiActivityStackGroupItem alloc] init];
+      item = [[IDEAAppletActivityStackGroupItem alloc] init];
 
       item.order = _mapping.count;
       item.name = name;
@@ -214,10 +214,10 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( nil == name || nil == activity )
       return;
    
-   SamuraiActivityStackGroupItem * item = [_mapping objectForKey:name];
+   IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item )
    {
-      item = [[SamuraiActivityStackGroupItem alloc] init];
+      item = [[IDEAAppletActivityStackGroupItem alloc] init];
       
       item.order = _mapping.count;
       item.name = name;
@@ -234,10 +234,10 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( nil == name || nil == activityStack )
       return;
    
-   SamuraiActivityStackGroupItem * item = [_mapping objectForKey:name];
+   IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item )
    {
-      item = [[SamuraiActivityStackGroupItem alloc] init];
+      item = [[IDEAAppletActivityStackGroupItem alloc] init];
       
       item.order = _mapping.count;
       item.name = name;
@@ -257,8 +257,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    if ( _name && [_name isEqualToString:name] )
       return NO;
 
-   SamuraiActivityStackGroupItem * prevItem = _name ? [_mapping objectForKey:_name] : nil;
-   SamuraiActivityStackGroupItem * currItem = [_mapping objectForKey:name];
+   IDEAAppletActivityStackGroupItem * prevItem = _name ? [_mapping objectForKey:_name] : nil;
+   IDEAAppletActivityStackGroupItem * currItem = [_mapping objectForKey:name];
 
    if ( prevItem == currItem )
       return NO;
@@ -269,7 +269,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    [transition setType:kCATransitionFade];
    [self.view.layer addAnimation:transition forKey:nil];
 
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       if ( NO == [item.name isEqualToString:name] )
       {
@@ -350,7 +350,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller )
@@ -370,7 +370,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super viewDidLayoutSubviews];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller && [controller isViewLoaded] )
@@ -385,7 +385,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super viewWillAppear:animated];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller && [controller isViewLoaded] )
@@ -399,7 +399,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super viewDidAppear:animated];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller && [controller isViewLoaded] )
@@ -413,7 +413,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super viewWillDisappear:animated];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller && [controller isViewLoaded] )
@@ -427,7 +427,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 {
    [super viewDidDisappear:animated];
    
-   for ( SamuraiActivityStackGroupItem * item in _mapping.allValues )
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
    {
       UIViewController * controller = (UIViewController *)item.instance;
       if ( controller && [controller isViewLoaded] )

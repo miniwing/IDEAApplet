@@ -53,9 +53,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorklet_30UpdateFrame
+@implementation IDEAAppletHtmlRenderWorklet_30UpdateFrame
 
-- (BOOL)processWithContext:(SamuraiHtmlRenderObject *)renderObject
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
 {
    if ( NO == CGSizeEqualToSize( renderObject.view.frame.size, CGSizeZero ) )
    {
@@ -89,7 +89,7 @@
 
 #pragma mark -
 
-- (void)applyViewFrameForRender:(SamuraiHtmlRenderObject *)renderObject
+- (void)applyViewFrameForRender:(IDEAAppletHtmlRenderObject *)renderObject
 {
    if ( renderObject.view )
    {
@@ -102,13 +102,13 @@
       [renderObject.view html_applyStyle:renderObject.style];
    }
    
-   for ( SamuraiHtmlRenderObject * childRender in renderObject.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
    {
       [self applyViewFrameForRender:childRender];
    }
 }
 
-- (void)clearViewFrameForRender:(SamuraiHtmlRenderObject *)renderObject
+- (void)clearViewFrameForRender:(IDEAAppletHtmlRenderObject *)renderObject
 {
    if ( renderObject.view )
    {
@@ -116,7 +116,7 @@
       [renderObject.view html_applyStyle:renderObject.style];
    }
    
-   for ( SamuraiHtmlRenderObject * childRender in renderObject.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
    {
       [self applyViewFrameForRender:childRender];
    }

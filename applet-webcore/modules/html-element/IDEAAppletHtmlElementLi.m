@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlElementLi
+@implementation IDEAAppletHtmlElementLi
 
 @def_prop_strong( UILabel *,   listIcon )
 @def_prop_assign( HtmlListType,   listType )
@@ -70,7 +70,7 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    
@@ -78,7 +78,7 @@
 
    if ( dom.parent )
    {
-      for ( SamuraiHtmlDomNode * sibling in dom.parent.childs )
+      for ( IDEAAppletHtmlDomNode * sibling in dom.parent.childs )
       {
          if ( sibling == dom )
             break;
@@ -91,7 +91,7 @@
    }
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
    
@@ -233,7 +233,7 @@
 {
    [super html_applyFrame:newFrame];
 
-   SamuraiHtmlRenderObject * renderer = (SamuraiHtmlRenderObject *)self.renderer;
+   IDEAAppletHtmlRenderObject * renderer = (IDEAAppletHtmlRenderObject *)self.renderer;
    
    if ( renderer && CSSDisplay_ListItem != renderer.display )
    {
@@ -329,7 +329,7 @@
       self.listIcon.layer.masksToBounds = YES;
       self.listIcon.backgroundColor = [UIColor clearColor];
 
-      self.listIcon.font = [SamuraiHtmlUserAgent sharedInstance].defaultFont;
+      self.listIcon.font = [IDEAAppletHtmlUserAgent sharedInstance].defaultFont;
       self.listIcon.textColor = [UIColor darkGrayColor];
       self.listIcon.textAlignment = NSTextAlignmentRight;
       self.listIcon.baselineAdjustment = UIBaselineAdjustmentAlignCenters;

@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssDpi
-#define cssDpi( n )   [SamuraiCSSNumberDpi dpi:n]
+#define cssDpi( n )   [IDEAAppletCSSNumberDpi dpi:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberDpi : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberDpi : IDEAAppletCSSNumber
 
 + (instancetype)dpi:(CGFloat)value;
 

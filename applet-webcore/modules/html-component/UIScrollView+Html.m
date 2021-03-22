@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    
@@ -69,7 +69,7 @@
    }
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
    
@@ -92,8 +92,8 @@
    
    for ( UIView * subview in self.subviews )
    {
-      SamuraiHtmlRenderObject * renderer = (SamuraiHtmlRenderObject *)[subview renderer];
-      SamuraiHtmlLayoutObject * layout = (SamuraiHtmlLayoutObject *)[renderer layout];
+      IDEAAppletHtmlRenderObject * renderer = (IDEAAppletHtmlRenderObject *)[subview renderer];
+      IDEAAppletHtmlLayoutObject * layout = (IDEAAppletHtmlLayoutObject *)[renderer layout];
       
       if ( layout )
       {

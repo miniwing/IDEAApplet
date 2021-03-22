@@ -44,9 +44,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorklet_10Begin
+@implementation IDEAAppletHtmlRenderWorklet_10Begin
 
-- (BOOL)processWithContext:(SamuraiHtmlRenderObject *)renderObject
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
 {
    UNUSED( renderObject );
 

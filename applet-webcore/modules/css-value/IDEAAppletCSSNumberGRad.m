@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberGRad
+@implementation IDEAAppletCSSNumberGRad
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberGRad * result = nil;
+   IDEAAppletCSSNumberGRad * result = nil;
 
    if ( KATANA_VALUE_GRAD == value->unit )
    {
-      result = [[SamuraiCSSNumberGRad alloc] init];
+      result = [[IDEAAppletCSSNumberGRad alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)grad:(CGFloat)value
 {
-   SamuraiCSSNumberGRad * result = [[SamuraiCSSNumberGRad alloc] init];
+   IDEAAppletCSSNumberGRad * result = [[IDEAAppletCSSNumberGRad alloc] init];
    result.value = value;
    return result;
 }

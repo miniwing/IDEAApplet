@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation UIWebView(Samurai)
+@implementation UIWebView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

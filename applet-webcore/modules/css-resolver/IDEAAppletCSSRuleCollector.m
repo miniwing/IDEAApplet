@@ -114,7 +114,7 @@
          continue;
       
       IDEAAppletCSSSelectorChecker *            checker = [IDEAAppletCSSSelectorChecker new];
-      SamuraiCSSSelectorCheckingContext *      context = [SamuraiCSSSelectorCheckingContext new];
+      IDEAAppletCSSSelectorCheckingContext *      context = [IDEAAppletCSSSelectorCheckingContext new];
       IDEAAppletCSSSelectorCheckerMatchResult *   matchResult = [IDEAAppletCSSSelectorCheckerMatchResult new];
       
       context.selector = ruleData.selector;
@@ -132,7 +132,7 @@
 //    context.scopeContainsLastMatchedElement = m_scopeContainsLastMatchedElement;
 
       IDEAAppletCSSSelectorMatch match = [checker match:context result:matchResult];
-      if ( SamuraiCSSSelectorMatches == match )
+      if ( IDEAAppletCSSSelectorMatches == match )
       {
          
 // TODO: @(QFish) 检查伪类的逻辑

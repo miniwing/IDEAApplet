@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssPx
-#define cssPx( n )   [SamuraiCSSNumberPx px:n]
+#define cssPx( n )   [IDEAAppletCSSNumberPx px:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberPx : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberPx : IDEAAppletCSSNumber
 
 + (instancetype)px:(CGFloat)value;
 

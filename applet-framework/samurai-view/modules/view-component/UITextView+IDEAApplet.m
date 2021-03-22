@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUITextViewAgent
+@implementation IDEAAppletUITextViewAgent
 {
    BOOL _enabled;
 }
@@ -123,7 +123,7 @@
 
 #pragma mark -
 
-@implementation UITextView(Samurai)
+@implementation UITextView(IDEAApplet)
 
 @def_signal( eventDidBeginEditing );
 @def_signal( eventDidEndEditing );
@@ -157,13 +157,13 @@
    return textView;
 }
 
-- (SamuraiUITextViewAgent *)textViewAgent
+- (IDEAAppletUITextViewAgent *)textViewAgent
 {
-   SamuraiUITextViewAgent * agent = [self getAssociatedObjectForKey:"UITextView.agent"];
+   IDEAAppletUITextViewAgent * agent = [self getAssociatedObjectForKey:"UITextView.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUITextViewAgent alloc] init];
+      agent = [[IDEAAppletUITextViewAgent alloc] init];
       agent.textView = self;
       
       self.delegate = agent;

@@ -48,7 +48,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutElement
+@implementation IDEAAppletHtmlLayoutElement
 
 - (void)layout
 {

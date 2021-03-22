@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@interface SamuraiUICollectionViewSection : NSObject
+@interface IDEAAppletUICollectionViewSection : NSObject
 
 - (CGFloat)getWidthForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (CGFloat)getWidthForRowAtIndexPath:(NSIndexPath *)indexPath byHeight:(CGFloat)height;
@@ -62,22 +62,22 @@
 
 #pragma mark -
 
-@interface SamuraiUICollectionViewAgent : SamuraiUIScrollViewAgent<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface IDEAAppletUICollectionViewAgent : IDEAAppletUIScrollViewAgent<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @prop_strong( NSMutableArray *,      sections );
 @prop_unsafe( UICollectionView *,   collectionView );
 
-- (void)appendSection:(SamuraiUICollectionViewSection *)section;
-- (void)insertSection:(SamuraiUICollectionViewSection *)section atIndex:(NSUInteger)index;
+- (void)appendSection:(IDEAAppletUICollectionViewSection *)section;
+- (void)insertSection:(IDEAAppletUICollectionViewSection *)section atIndex:(NSUInteger)index;
 - (void)removeAllSections;
 
 @end
 
 #pragma mark -
 
-@interface UICollectionView(Samurai)
+@interface UICollectionView(IDEAApplet)
 
-- (SamuraiUICollectionViewAgent *)collectionViewAgent;
+- (IDEAAppletUICollectionViewAgent *)collectionViewAgent;
 
 @end
 

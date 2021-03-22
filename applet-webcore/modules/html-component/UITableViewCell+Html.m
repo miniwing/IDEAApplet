@@ -53,12 +53,12 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 }
@@ -76,7 +76,7 @@
    if ( nil != data )
       return data;
    
-   SamuraiHtmlRenderObject * renderObject = (SamuraiHtmlRenderObject *)[self renderer];
+   IDEAAppletHtmlRenderObject * renderObject = (IDEAAppletHtmlRenderObject *)[self renderer];
    if ( nil == renderObject )
       return nil;
    
@@ -87,13 +87,13 @@
 {
    [super store_unserialize:obj];
    
-   SamuraiHtmlRenderObject * renderObject = (SamuraiHtmlRenderObject *)[self renderer];
+   IDEAAppletHtmlRenderObject * renderObject = (IDEAAppletHtmlRenderObject *)[self renderer];
    if ( nil == renderObject )
       return;
    
    [self dataWillChange];
    
-   for ( SamuraiHtmlRenderObject * childRender in renderObject.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
    {
       [[IDEAAppletHtmlRenderStoreScope scope:childRender] setData:obj];
    }
@@ -105,7 +105,7 @@
 {
    [super store_zerolize];
    
-   SamuraiHtmlRenderObject * renderObject = (SamuraiHtmlRenderObject *)[self renderer];
+   IDEAAppletHtmlRenderObject * renderObject = (IDEAAppletHtmlRenderObject *)[self renderer];
    if ( nil == renderObject )
       return;
    

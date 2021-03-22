@@ -34,7 +34,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlElementH6 : UIView
+@interface IDEAAppletHtmlElementH6 : UIView
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

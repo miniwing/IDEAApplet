@@ -56,9 +56,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_50MergeDomTree
+@implementation IDEAAppletHtmlDocumentWorklet_50MergeDomTree
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    if ( document.domTree )
    {
@@ -68,17 +68,17 @@
    return YES;
 }
 
-- (void)parseDocument:(SamuraiHtmlDocument *)document
+- (void)parseDocument:(IDEAAppletHtmlDocument *)document
 {
    NSMutableDictionary * elementMap = [[NSMutableDictionary alloc] init];
    
    for ( IDEAAppletResource * resource in [document.externalImports copy] )
    {
-      if ( [resource isKindOfClass:[SamuraiHtmlDocument class]] )
+      if ( [resource isKindOfClass:[IDEAAppletHtmlDocument class]] )
       {
-         [self parseDocument:(SamuraiHtmlDocument *)resource];
+         [self parseDocument:(IDEAAppletHtmlDocument *)resource];
          
-         SamuraiHtmlDomNode * rootElement = [(SamuraiHtmlDocument *)resource getRootDomNode];
+         IDEAAppletHtmlDomNode * rootElement = [(IDEAAppletHtmlDocument *)resource getRootDomNode];
          
          if ( rootElement && rootElement.attrName )
          {
@@ -90,9 +90,9 @@
    [self mergeDomTree:document.domTree withElements:elementMap];
 }
 
-- (void)mergeDomTree:(SamuraiHtmlDomNode *)domNode withElements:(NSDictionary *)elementMap
+- (void)mergeDomTree:(IDEAAppletHtmlDomNode *)domNode withElements:(NSDictionary *)elementMap
 {
-   SamuraiHtmlDocument * shadowElement = [elementMap objectForKey:domNode.tag];
+   IDEAAppletHtmlDocument * shadowElement = [elementMap objectForKey:domNode.tag];
    
    if ( shadowElement && shadowElement.domTree )
    {
@@ -102,7 +102,7 @@
       [domNode.shadowRoot attach:shadowElement];
    }
    
-   for ( SamuraiHtmlDomNode * childDom in domNode.childs )
+   for ( IDEAAppletHtmlDomNode * childDom in domNode.childs )
    {
       [self mergeDomTree:childDom withElements:elementMap];
    }

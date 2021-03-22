@@ -48,9 +48,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutObject
+@implementation IDEAAppletHtmlLayoutObject
 
-@def_prop_unsafe( SamuraiHtmlRenderObject *,   source );
+@def_prop_unsafe( IDEAAppletHtmlRenderObject *,   source );
 
 @def_prop_assign( UIEdgeInsets,               collapse );
 @def_prop_assign( CGSize,                  stretch );
@@ -80,9 +80,9 @@
    return [[self alloc] init];
 }
 
-+ (instancetype)layout:(SamuraiHtmlRenderObject *)target
++ (instancetype)layout:(IDEAAppletHtmlRenderObject *)target
 {
-   SamuraiHtmlLayoutObject * layout = [[self alloc] init];
+   IDEAAppletHtmlLayoutObject * layout = [[self alloc] init];
    layout.source = target;
    return layout;
 }

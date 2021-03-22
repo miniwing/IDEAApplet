@@ -51,11 +51,11 @@
 
 #pragma mark -
 
-- (SamuraiSignalBlock)onSignal
+- (IDEAAppletSignalBlock)onSignal
 {
    @weakify(self);
    
-   SamuraiSignalBlock    stBlock    = ^ NSObject * (NSString * name, id signalBlock)
+   IDEAAppletSignalBlock    stBlock    = ^ NSObject * (NSString * name, id signalBlock)
    {
       @strongify(self);
       

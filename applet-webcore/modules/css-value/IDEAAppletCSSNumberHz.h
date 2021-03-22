@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssHz
-#define cssHz( n )   [SamuraiCSSNumberHz hz:n]
+#define cssHz( n )   [IDEAAppletCSSNumberHz hz:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberHz : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberHz : IDEAAppletCSSNumber
 
 + (instancetype)hz:(CGFloat)value;
 

@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberTurn
+@implementation IDEAAppletCSSNumberTurn
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberTurn * result = nil;
+   IDEAAppletCSSNumberTurn * result = nil;
 
    if ( KATANA_VALUE_TURN == value->unit )
    {
-      result = [[SamuraiCSSNumberTurn alloc] init];
+      result = [[IDEAAppletCSSNumberTurn alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)turn:(CGFloat)value
 {
-   SamuraiCSSNumberTurn * result = [[SamuraiCSSNumberTurn alloc] init];
+   IDEAAppletCSSNumberTurn * result = [[IDEAAppletCSSNumberTurn alloc] init];
    result.value = value;
    return result;
 }

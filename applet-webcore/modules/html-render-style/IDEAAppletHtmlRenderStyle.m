@@ -93,15 +93,15 @@
    }
    else if ( [self isString:@"thin"] )
    {
-      return [SamuraiHtmlUserAgent sharedInstance].thinSize;
+      return [IDEAAppletHtmlUserAgent sharedInstance].thinSize;
    }
    else if ( [self isString:@"medium"] )
    {
-      return [SamuraiHtmlUserAgent sharedInstance].mediumSize;
+      return [IDEAAppletHtmlUserAgent sharedInstance].mediumSize;
    }
    else if ( [self isString:@"thick"] )
    {
-      return [SamuraiHtmlUserAgent sharedInstance].thickSize;
+      return [IDEAAppletHtmlUserAgent sharedInstance].thickSize;
    }
    else
    {
@@ -176,7 +176,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderStyle
+@implementation IDEAAppletHtmlRenderStyle
 
 @def_css_value( top, setTop,                          @"top" );
 @def_css_value( left, setLeft,                        @"left");
@@ -347,11 +347,11 @@
 @def_css_value( webkitPaddingStart, setWebkitPaddingStart,     @"-webkit-padding-start" );
 @def_css_value( webkitPaddingEnd, setWebkitPaddingEnd,         @"-webkit-padding-end" );
 
-//@def_css_value( samuraiViewHierarchy, setSamuraiViewHierarchy, @"-samurai-view-hierarchy" );
-//@def_css_value( samuraiViewClass, setSamuraiViewClass,         @"-samurai-view-class" );
+//@def_css_value( samuraiViewHierarchy, setIDEAAppletViewHierarchy, @"-samurai-view-hierarchy" );
+//@def_css_value( samuraiViewClass, setIDEAAppletViewClass,         @"-samurai-view-class" );
 
-@def_css_value( samuraiViewHierarchy, setSamuraiViewHierarchy, @"-applet-view-hierarchy" );
-@def_css_value( samuraiViewClass, setSamuraiViewClass,         @"-applet-view-class" );
+@def_css_value( appletViewHierarchy, setIDEAAppletViewHierarchy, @"-applet-view-hierarchy" );
+@def_css_value( appletViewClass, setIDEAAppletViewClass,         @"-applet-view-class" );
 
 #pragma mark -
 
@@ -366,6 +366,9 @@
 
 - (void)dealloc
 {
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
@@ -637,7 +640,7 @@
       }
    }
 
-   CGFloat defaultFontHeight = [SamuraiHtmlUserAgent sharedInstance].defaultFont.lineHeight;
+   CGFloat defaultFontHeight = [IDEAAppletHtmlUserAgent sharedInstance].defaultFont.lineHeight;
    CGFloat fontHeight = defaultFontHeight;
 
    if ( fontSize )
@@ -708,7 +711,7 @@
    
 //// custom font
 //   
-//   for ( SamuraiCSSString * family in fontFamily.items )
+//   for ( IDEAAppletCSSString * family in fontFamily.items )
 //   {
 //      if ( [family isString] )
 //      {
@@ -1316,7 +1319,7 @@
 
 - (CSSViewHierarchy)computeViewHierarchy:(CSSViewHierarchy)defaultValue
 {
-   IDEAAppletCSSValue * hierarchy = self.samuraiViewHierarchy;
+   IDEAAppletCSSValue * hierarchy = self.appletViewHierarchy;
    
    if ( hierarchy )
    {
@@ -2835,7 +2838,7 @@
       }
       else if ( [self.lineHeight isString:@"normal"] )
       {
-         lineHeight = [SamuraiHtmlUserAgent sharedInstance].defaultFont.lineHeight;
+         lineHeight = [IDEAAppletHtmlUserAgent sharedInstance].defaultFont.lineHeight;
       }
       else
       {
@@ -2953,7 +2956,7 @@
 
 TEST_CASE( WebCore, HtmlRenderStyle )
 {
-   SamuraiHtmlRenderStyle *   _style;
+   IDEAAppletHtmlRenderStyle *   _style;
 }
 
 - (void)testNumberForKey:(NSString *)key
@@ -3182,7 +3185,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 - (void)testBoxForKey:(NSString *)key
 {
-   SamuraiCSSBox * value = nil;
+   IDEAAppletCSSBox * value = nil;
 
 // set box
 
@@ -3222,7 +3225,7 @@ TEST_CASE( WebCore, HtmlRenderStyle )
 
 DESCRIBE( before )
 {
-   _style = [[SamuraiHtmlRenderStyle alloc] init];
+   _style = [[IDEAAppletHtmlRenderStyle alloc] init];
 }
 
 DESCRIBE( test )

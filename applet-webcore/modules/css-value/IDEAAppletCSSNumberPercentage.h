@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssPercent
-#define cssPercent( n )   [SamuraiCSSNumberPercentage percentage:n]
+#define cssPercent( n )   [IDEAAppletCSSNumberPercentage percentage:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberPercentage : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberPercentage : IDEAAppletCSSNumber
 
 - (instancetype)percentage:(CGFloat)value;
 

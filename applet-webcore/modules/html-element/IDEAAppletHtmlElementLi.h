@@ -45,7 +45,7 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiHtmlElementLi : UIView
+@interface IDEAAppletHtmlElementLi : UIView
 
 @prop_strong( UILabel *,   listIcon )
 @prop_assign( HtmlListType,   listType )

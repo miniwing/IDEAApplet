@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCallFrame()
+@interface IDEAAppletCallFrame()
 + (NSUInteger)hexValueFromString:(NSString *)text;
 + (id)parseFormat1:(NSString *)line;
 + (id)parseFormat2:(NSString *)line;
@@ -57,7 +57,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCallFrame
+@implementation IDEAAppletCallFrame
 
 @def_prop_assign( CallFrameType,   type );
 @def_prop_strong( NSString *,      process );
@@ -124,7 +124,7 @@
 
    if ( result && (__regex.numberOfCaptureGroups + 1) == result.numberOfRanges )
    {
-      SamuraiCallFrame * frame = [[SamuraiCallFrame alloc] init];
+      IDEAAppletCallFrame * frame = [[IDEAAppletCallFrame alloc] init];
       if ( frame )
       {
          frame.type = CallFrameType_ObjectC;
@@ -159,7 +159,7 @@
    
    if ( result && (__regex.numberOfCaptureGroups + 1) == result.numberOfRanges )
    {
-      SamuraiCallFrame * frame = [[SamuraiCallFrame alloc] init];
+      IDEAAppletCallFrame * frame = [[IDEAAppletCallFrame alloc] init];
       if ( frame )
       {
          frame.type = CallFrameType_NativeC;
@@ -178,7 +178,7 @@
 
 + (id)unknown
 {
-   return [[SamuraiCallFrame alloc] init];
+   return [[IDEAAppletCallFrame alloc] init];
 }
 
 + (id)parse:(NSString *)line
@@ -186,11 +186,11 @@
    if ( 0 == [line length] )
       return nil;
 
-   id frame1 = [SamuraiCallFrame parseFormat1:line];
+   id frame1 = [IDEAAppletCallFrame parseFormat1:line];
    if ( frame1 )
       return frame1;
    
-   id frame2 = [SamuraiCallFrame parseFormat2:line];
+   id frame2 = [IDEAAppletCallFrame parseFormat2:line];
    if ( frame2 )
       return frame2;
 
@@ -266,7 +266,7 @@ static void __uncaughtSignalHandler( int signal )
             if ( 0 == [line length] )
                continue;
             
-            SamuraiCallFrame * frame = [SamuraiCallFrame parse:line];
+            IDEAAppletCallFrame * frame = [IDEAAppletCallFrame parse:line];
             if ( frame )
             {
                [array addObject:frame];
@@ -368,7 +368,7 @@ DESCRIBE( backtrace )
    
    NSArray * frames = [[IDEAAppletDebugger sharedInstance] callstack:1];
    EXPECTED( frames && frames.count );
-   EXPECTED( [[frames objectAtIndex:0] isKindOfClass:[SamuraiCallFrame class]] );
+   EXPECTED( [[frames objectAtIndex:0] isKindOfClass:[IDEAAppletCallFrame class]] );
    
    TRACE();
 

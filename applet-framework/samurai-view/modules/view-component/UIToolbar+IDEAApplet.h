@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUIToolbarAgent : NSObject
+@interface IDEAAppletUIToolbarAgent : NSObject
 
 @prop_unsafe( UIToolbar *,   toolbar );
 
@@ -53,11 +53,11 @@
 
 #pragma mark -
 
-@interface UIToolbar(Samurai)
+@interface UIToolbar(IDEAApplet)
 
 //@signal( eventValueChanged )
 
-- (SamuraiUIToolbarAgent *)toolbarAgent;
+- (IDEAAppletUIToolbarAgent *)toolbarAgent;
 
 @end
 

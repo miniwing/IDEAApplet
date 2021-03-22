@@ -40,14 +40,14 @@
 
 #pragma mark -
 
-@class SamuraiHtmlRenderObject;
+@class IDEAAppletHtmlRenderObject;
 
 @interface NSObject(HtmlSupport)
 
-@prop_readonly( SamuraiHtmlRenderObject *,   htmlRenderer );
+@prop_readonly( IDEAAppletHtmlRenderObject *,   htmlRenderer );
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom;         // override point
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style;   // override point
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom;         // override point
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style;   // override point
 - (void)html_applyFrame:(CGRect)newFrame;               // override point
 - (void)html_forView:(UIView *)hostView;               // override point, for="id"
 
@@ -55,10 +55,10 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderObject : IDEAAppletRenderObject<IDEAAppletCSSProtocol>
+@interface IDEAAppletHtmlRenderObject : IDEAAppletRenderObject<IDEAAppletCSSProtocol>
 
 @prop_strong( NSMutableArray *,            customClasses );
-@prop_strong( SamuraiHtmlRenderStyle *,      customStyle );
+@prop_strong( IDEAAppletHtmlRenderStyle *,      customStyle );
 
 @prop_assign( CSSWrap,                  wrap );
 @prop_assign( CSSAlign,                  align );
@@ -94,14 +94,14 @@
 @prop_assign( NSInteger,               tableRowSpan );
 @prop_assign( NSInteger,               tableColSpan );
 
-@prop_unsafe( SamuraiHtmlDomNode *,         dom );      // overrided
-@prop_strong( SamuraiHtmlRenderStyle *,      style );   // overrided
-@prop_strong( SamuraiHtmlLayoutObject *,   layout );
+@prop_unsafe( IDEAAppletHtmlDomNode *,         dom );      // overrided
+@prop_strong( IDEAAppletHtmlRenderStyle *,      style );   // overrided
+@prop_strong( IDEAAppletHtmlLayoutObject *,   layout );
 
-@prop_readonly( SamuraiHtmlRenderObject *,   root );      // overrided
-@prop_unsafe( SamuraiHtmlRenderObject *,   parent );   // overrided
-@prop_unsafe( SamuraiHtmlRenderObject *,   prev );      // overrided
-@prop_unsafe( SamuraiHtmlRenderObject *,   next );      // overrided
+@prop_readonly( IDEAAppletHtmlRenderObject *,   root );      // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject *,   parent );   // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject *,   prev );      // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject *,   next );      // overrided
 
 + (Class)defaultLayoutClass;                     // override point
 + (Class)defaultViewClass;                        // override point
@@ -110,9 +110,9 @@
 - (void)renderDidLoad;                           // override point
 - (void)computeProperties;                        // override point
 
-- (SamuraiHtmlRenderObject *)queryById:(NSString *)domId;
-- (SamuraiHtmlRenderObject *)queryByDom:(IDEAAppletDomNode *)domNode;
-- (SamuraiHtmlRenderObject *)queryByName:(NSString *)name;
+- (IDEAAppletHtmlRenderObject *)queryById:(NSString *)domId;
+- (IDEAAppletHtmlRenderObject *)queryByDom:(IDEAAppletDomNode *)domNode;
+- (IDEAAppletHtmlRenderObject *)queryByName:(NSString *)name;
 
 @end
 

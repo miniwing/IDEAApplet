@@ -52,27 +52,27 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberAutomatic
+@implementation IDEAAppletCSSNumberAutomatic
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberAutomatic * result = nil;
+   IDEAAppletCSSNumberAutomatic * result = nil;
    
    if ( KATANA_VALUE_NUMBER == value->unit )
    {
       if ( INVALID_VALUE == value->fValue )
       {
-         result = [[SamuraiCSSNumberAutomatic alloc] init];
+         result = [[IDEAAppletCSSNumberAutomatic alloc] init];
       }
    }
    else if ( KATANA_VALUE_STRING == value->unit || KATANA_VALUE_IDENT == value->unit )
    {
       if ( 0 == strcasecmp( value->string, "auto" ) )
       {
-         result = [[SamuraiCSSNumberAutomatic alloc] init];
+         result = [[IDEAAppletCSSNumberAutomatic alloc] init];
       }
    }
    
@@ -83,7 +83,7 @@
 
 + (instancetype)automatic
 {
-   return [[SamuraiCSSNumberAutomatic alloc] init];
+   return [[IDEAAppletCSSNumberAutomatic alloc] init];
 }
 
 #pragma mark -

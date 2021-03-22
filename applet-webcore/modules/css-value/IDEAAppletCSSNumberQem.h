@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssQem
-#define cssQem( n )   [SamuraiCSSNumberQem qem:n]
+#define cssQem( n )   [IDEAAppletCSSNumberQem qem:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberQem : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberQem : IDEAAppletCSSNumber
 
 + (instancetype)qem:(CGFloat)value;
 

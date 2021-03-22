@@ -48,23 +48,23 @@
 @implementation IDEAAppletHtmlRenderStoreScope
 
 @def_prop_dynamic( NSObject *,            content );
-@def_prop_strong( SamuraiHtmlRenderStore *,   storeTree );
+@def_prop_strong( IDEAAppletHtmlRenderStore *,   storeTree );
 
 BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
 + (IDEAAppletHtmlRenderStoreScope *)scope:(id)sourceOrTarget
 {
-   SamuraiHtmlRenderObject * renderer = nil;
+   IDEAAppletHtmlRenderObject * renderer = nil;
    
    if ( [sourceOrTarget isKindOfClass:[UIViewController class]] )
    {
-      renderer = (SamuraiHtmlRenderObject *)[[sourceOrTarget view] renderer];
+      renderer = (IDEAAppletHtmlRenderObject *)[[sourceOrTarget view] renderer];
    }
    else if ( [sourceOrTarget isKindOfClass:[UIView class]] )
    {
-      renderer = (SamuraiHtmlRenderObject *)[sourceOrTarget renderer];
+      renderer = (IDEAAppletHtmlRenderObject *)[sourceOrTarget renderer];
    }
-   else if ( [sourceOrTarget isKindOfClass:[SamuraiHtmlRenderObject class]] )
+   else if ( [sourceOrTarget isKindOfClass:[IDEAAppletHtmlRenderObject class]] )
    {
       renderer = sourceOrTarget;
    }
@@ -95,20 +95,20 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
 #pragma mark -
 
-- (void)attach:(SamuraiHtmlRenderObject *)renderer
+- (void)attach:(IDEAAppletHtmlRenderObject *)renderer
 {
-   self.storeTree = [SamuraiHtmlRenderStore store];
+   self.storeTree = [IDEAAppletHtmlRenderStore store];
    
    [self attach:renderer forStore:self.storeTree];
 }
 
-- (void)attach:(SamuraiHtmlRenderObject *)renderer forStore:(SamuraiHtmlRenderStore *)parentStore
+- (void)attach:(IDEAAppletHtmlRenderObject *)renderer forStore:(IDEAAppletHtmlRenderStore *)parentStore
 {
-   SamuraiHtmlRenderStore * thisStore = nil;
+   IDEAAppletHtmlRenderStore * thisStore = nil;
    
    if ( renderer.dom.attrName && renderer.dom.attrName.length )
    {
-      thisStore = [SamuraiHtmlRenderStore store:renderer];
+      thisStore = [IDEAAppletHtmlRenderStore store:renderer];
 
       [parentStore appendNode:thisStore];
    }
@@ -120,7 +120,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
    if ( [renderer store_hasChildren] )
    {
-      for ( SamuraiHtmlRenderObject * child in renderer.childs )
+      for ( IDEAAppletHtmlRenderObject * child in renderer.childs )
       {
          [self attach:child forStore:thisStore];
       }
@@ -182,7 +182,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
       {
          NSMutableArray * array = [NSMutableArray array];
          
-         for ( SamuraiHtmlRenderStore * child in nodes)
+         for ( IDEAAppletHtmlRenderStore * child in nodes)
          {
             NSObject * childData = [self getDataFromStore:child];
             
@@ -197,7 +197,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
    }
 }
 
-- (id)getDataFromStore:(SamuraiHtmlRenderStore *)store
+- (id)getDataFromStore:(IDEAAppletHtmlRenderStore *)store
 {
    if ( nil == store )
       return nil;
@@ -206,7 +206,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
    {
       NSMutableDictionary * dict = [NSMutableDictionary dictionary];
 
-      for ( SamuraiHtmlRenderStore * child in store.childs )
+      for ( IDEAAppletHtmlRenderStore * child in store.childs )
       {
          if ( [child.source.dom.attrName hasSuffix:@"[]"] )
          {
@@ -295,7 +295,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
       {
          if ( [data isKindOfClass:[NSArray class]] || [data conformsToProtocol:@protocol(NSArrayProtocol)] )
          {
-            for ( SamuraiHtmlRenderStore * child in nodes)
+            for ( IDEAAppletHtmlRenderStore * child in nodes)
             {
                NSObject * childData = [(NSArray *)data safeObjectAtIndex:[nodes indexOfObject:child]];
                
@@ -311,7 +311,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
          }
          else
          {
-            for ( SamuraiHtmlRenderStore * child in nodes)
+            for ( IDEAAppletHtmlRenderStore * child in nodes)
             {
                if ( 0 == [nodes indexOfObject:child] )
                {
@@ -327,7 +327,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
    }
 }
 
-- (void)setData:(NSObject *)data forStore:(SamuraiHtmlRenderStore *)store
+- (void)setData:(NSObject *)data forStore:(IDEAAppletHtmlRenderStore *)store
 {
    if ( nil == store )
       return;
@@ -348,7 +348,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
    NSMutableDictionary * arrayIndexes = nil;
 
-   for ( SamuraiHtmlRenderStore * child in store.childs )
+   for ( IDEAAppletHtmlRenderStore * child in store.childs )
    {
       if ( child.source )
       {
@@ -447,14 +447,14 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
    {
       NSArray * nodes = [self.storeTree find:path];
       
-      for ( SamuraiHtmlRenderStore * child in nodes )
+      for ( IDEAAppletHtmlRenderStore * child in nodes )
       {
          [self clearDataForStore:child];
       }
    }
 }
 
-- (void)clearDataForStore:(SamuraiHtmlRenderStore *)store
+- (void)clearDataForStore:(IDEAAppletHtmlRenderStore *)store
 {
    if ( nil == store )
    {
@@ -468,7 +468,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
       [store.source store_zerolize];
    }
 
-   for ( SamuraiHtmlRenderStore * child in store.childs )
+   for ( IDEAAppletHtmlRenderStore * child in store.childs )
    {
       [self clearDataForStore:child];
    }

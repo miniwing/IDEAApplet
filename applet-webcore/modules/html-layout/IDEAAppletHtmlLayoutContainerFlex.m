@@ -62,7 +62,7 @@ typedef struct
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutContainerFlex
+@implementation IDEAAppletHtmlLayoutContainerFlex
 
 - (void)layout
 {
@@ -76,7 +76,7 @@ typedef struct
    [childLines addObject:childLine];
 
    [childCopy addObjectsFromArray:self.source.childs];
-   [childCopy sortUsingComparator:^NSComparisonResult( SamuraiHtmlRenderObject * obj1, SamuraiHtmlRenderObject * obj2 ) {
+   [childCopy sortUsingComparator:^NSComparisonResult( IDEAAppletHtmlRenderObject * obj1, IDEAAppletHtmlRenderObject * obj2 ) {
       return obj1.order > obj2.order;
    }];
 
@@ -118,7 +118,7 @@ typedef struct
       maxBoundsBottom = self.computedSize.height;
    }
 
-   for ( SamuraiHtmlRenderObject * child in childCopy )
+   for ( IDEAAppletHtmlRenderObject * child in childCopy )
    {
       CGRect         childFrame = CGRectZero;
       CGPoint         childOrigin = CGPointZero;
@@ -475,7 +475,7 @@ typedef struct
       CGFloat   lineMainSize = 0.0f;
       CGFloat   lineCrossSize = 0.0f;
       
-      for ( SamuraiHtmlRenderObject * child in line )
+      for ( IDEAAppletHtmlRenderObject * child in line )
       {
          lineGrow += child.flexGrow;
          lineShrink += child.flexShrink;
@@ -729,7 +729,7 @@ typedef struct
       CGFloat alignRight = contentRight;
       CGFloat alignBottom = contentBottom;
 
-      for ( SamuraiHtmlRenderObject * child in line )
+      for ( IDEAAppletHtmlRenderObject * child in line )
       {
          CGPoint childOffset = child.layout.origin;
          CGSize   childSize = child.layout.computedBounds.size;

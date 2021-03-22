@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberCm
+@implementation IDEAAppletCSSNumberCm
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberCm * result = nil;
+   IDEAAppletCSSNumberCm * result = nil;
    
    if ( KATANA_VALUE_CM == value->unit )
    {
-      result = [[SamuraiCSSNumberCm alloc] init];
+      result = [[IDEAAppletCSSNumberCm alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)cm:(CGFloat)value
 {
-   SamuraiCSSNumberCm * result = [[SamuraiCSSNumberCm alloc] init];
+   IDEAAppletCSSNumberCm * result = [[IDEAAppletCSSNumberCm alloc] init];
    result.value = value;
    return result;
 }

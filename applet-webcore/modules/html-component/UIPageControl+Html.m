@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    
@@ -86,7 +86,7 @@
    self.currentPage = current;
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 

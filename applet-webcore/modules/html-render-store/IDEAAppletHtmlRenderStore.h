@@ -47,12 +47,12 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderStore : IDEAAppletTreeNode
+@interface IDEAAppletHtmlRenderStore : IDEAAppletTreeNode
 
-@prop_unsafe( SamuraiHtmlRenderObject *, source );
+@prop_unsafe( IDEAAppletHtmlRenderObject *, source );
 
-+ (SamuraiHtmlRenderStore *)store;
-+ (SamuraiHtmlRenderStore *)store:(SamuraiHtmlRenderObject *)object;
++ (IDEAAppletHtmlRenderStore *)store;
++ (IDEAAppletHtmlRenderStore *)store:(IDEAAppletHtmlRenderObject *)object;
 
 - (NSArray *)find:(NSString *)dataPath;
 

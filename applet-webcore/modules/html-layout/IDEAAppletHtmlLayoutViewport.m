@@ -48,13 +48,13 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutViewport
+@implementation IDEAAppletHtmlLayoutViewport
 
 - (void)layout
 {
    DEBUG_RENDERER_LAYOUT( self.source );
 
-   for ( SamuraiHtmlRenderObject * child in self.source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in self.source.childs )
    {
       child.layout.bounds      = self.bounds,
       child.layout.origin      = CGPointZero;

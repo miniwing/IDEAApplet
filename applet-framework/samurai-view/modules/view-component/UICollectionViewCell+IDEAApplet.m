@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation UICollectionViewCell(Samurai)
+@implementation UICollectionViewCell(IDEAApplet)
 
 #pragma mark -
 

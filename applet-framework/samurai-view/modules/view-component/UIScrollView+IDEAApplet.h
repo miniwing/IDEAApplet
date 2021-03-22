@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUIScrollViewAgent : NSObject<UIScrollViewDelegate>
+@interface IDEAAppletUIScrollViewAgent : NSObject<UIScrollViewDelegate>
 
 @prop_assign( BOOL,            scrollEventsEnabled )
 @prop_unsafe( UIScrollView *,   scrollView )
@@ -51,7 +51,7 @@
 
 #pragma mark -
 
-@interface UIScrollView(Samurai)
+@interface UIScrollView(IDEAApplet)
 
 @signal( eventDidScroll );
 @signal( eventDidZoom );
@@ -68,7 +68,7 @@
 @signal( eventDidEndZooming );
 @signal( eventDidScrollToTop );
 
-- (SamuraiUIScrollViewAgent *)scrollViewAgent;
+- (IDEAAppletUIScrollViewAgent *)scrollViewAgent;
 
 @end
 

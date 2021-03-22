@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssFr
-#define cssFr( n )   [SamuraiCSSNumberFr fr:n]
+#define cssFr( n )   [IDEAAppletCSSNumberFr fr:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberFr : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberFr : IDEAAppletCSSNumber
 
 + (instancetype)fr:(CGFloat)value;
 

@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface UICollectionViewCell(Samurai)
+@interface UICollectionViewCell(IDEAApplet)
 
 - (void)dataWillChange;         // override point
 - (void)dataDidChanged;         // override point

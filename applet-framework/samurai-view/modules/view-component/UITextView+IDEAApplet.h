@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUITextViewAgent : NSObject<UITextViewDelegate>
+@interface IDEAAppletUITextViewAgent : NSObject<UITextViewDelegate>
 
 @prop_unsafe( UITextView *,   textView );
 
@@ -53,13 +53,13 @@
 
 #pragma mark -
 
-@interface UITextView(Samurai)
+@interface UITextView(IDEAApplet)
 
 @signal( eventDidBeginEditing );
 @signal( eventDidEndEditing );
 @signal( eventChanged );
 
-- (SamuraiUITextViewAgent *)textViewAgent;
+- (IDEAAppletUITextViewAgent *)textViewAgent;
 
 @end
 

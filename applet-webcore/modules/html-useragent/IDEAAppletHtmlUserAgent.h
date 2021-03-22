@@ -34,7 +34,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlUserAgent : NSObject
+@interface IDEAAppletHtmlUserAgent : NSObject
 
 @prop_assign( CGFloat,               thinSize );
 @prop_assign( CGFloat,               mediumSize );
@@ -47,7 +47,7 @@
 @prop_strong( NSMutableArray *,         defaultCSSInherition );
 @prop_strong( NSMutableArray *,         defaultDOMAttributedStyle );
 
-@singleton( SamuraiHtmlUserAgent )
+@singleton( IDEAAppletHtmlUserAgent )
 
 - (void)importStyleSheet:(NSString *)path;
 

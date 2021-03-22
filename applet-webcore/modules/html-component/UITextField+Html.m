@@ -54,7 +54,7 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    
@@ -235,11 +235,11 @@
    }
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 
-   self.font = [style computeFont:[SamuraiHtmlUserAgent sharedInstance].defaultFont];
+   self.font = [style computeFont:[IDEAAppletHtmlUserAgent sharedInstance].defaultFont];
    self.textColor = [style computeColor:self.textColor];
    self.textAlignment = [style computeTextAlignment:self.textAlignment];
 //   self.baselineAdjustment = [style computeBaselineAdjustment:self.baselineAdjustment];

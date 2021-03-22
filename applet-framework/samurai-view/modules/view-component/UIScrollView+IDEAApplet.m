@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUIScrollViewAgent
+@implementation IDEAAppletUIScrollViewAgent
 
 @def_prop_assign( BOOL,            scrollEventsEnabled )
 @def_prop_unsafe( UIScrollView *,   scrollView )
@@ -162,7 +162,7 @@
 
 #pragma mark -
 
-@implementation UIScrollView(Samurai)
+@implementation UIScrollView(IDEAApplet)
 
 @def_signal( eventDidScroll );
 @def_signal( eventDidZoom );
@@ -193,13 +193,13 @@
 
 #pragma mark -
 
-- (SamuraiUIScrollViewAgent *)scrollViewAgent
+- (IDEAAppletUIScrollViewAgent *)scrollViewAgent
 {
-   SamuraiUIScrollViewAgent * agent = [self getAssociatedObjectForKey:"UIScrollView.agent"];
+   IDEAAppletUIScrollViewAgent * agent = [self getAssociatedObjectForKey:"UIScrollView.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUIScrollViewAgent alloc] init];
+      agent = [[IDEAAppletUIScrollViewAgent alloc] init];
       agent.scrollView = self;
 
       self.delegate = agent;

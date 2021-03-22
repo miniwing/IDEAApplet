@@ -48,26 +48,26 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet
+@implementation IDEAAppletHtmlDocumentWorklet
 @end
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorkflow_All
+@implementation IDEAAppletHtmlDocumentWorkflow_All
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_20ParseDomTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_30ParseResource worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_40MergeStyleTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_50MergeDomTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_60ApplyStyleTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_70BuildRenderTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_80Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_20ParseDomTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_30ParseResource worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_40MergeStyleTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_50MergeDomTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_60ApplyStyleTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_70BuildRenderTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_80Finish worklet]];
    }
    return self;
 }
@@ -80,16 +80,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorkflow_Parser
+@implementation IDEAAppletHtmlDocumentWorkflow_Parser
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_20ParseDomTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_30ParseResource worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_20ParseDomTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_30ParseResource worklet]];
    }
    return self;
 }
@@ -102,18 +102,18 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorkflow_Render
+@implementation IDEAAppletHtmlDocumentWorkflow_Render
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_40MergeStyleTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_50MergeDomTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_60ApplyStyleTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_70BuildRenderTree worklet]];
-      [self.worklets addObject:[SamuraiHtmlDocumentWorklet_80Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_40MergeStyleTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_50MergeDomTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_60ApplyStyleTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_70BuildRenderTree worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlDocumentWorklet_80Finish worklet]];
    }
    return self;
 }

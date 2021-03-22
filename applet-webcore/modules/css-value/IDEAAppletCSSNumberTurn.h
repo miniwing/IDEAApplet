@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssTurn
-#define cssTurn( n )   [SamuraiCSSNumberTurn rurn:n]
+#define cssTurn( n )   [IDEAAppletCSSNumberTurn rurn:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberTurn : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberTurn : IDEAAppletCSSNumber
 
 + (instancetype)turn:(CGFloat)value;
 

@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation UIActivityIndicatorView(Samurai)
+@implementation UIActivityIndicatorView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUIStepperAgent
+@implementation IDEAAppletUIStepperAgent
 {
    BOOL _enabled;
 }
@@ -85,7 +85,7 @@
 
 #pragma mark -
 
-@implementation UIStepper(Samurai)
+@implementation UIStepper(IDEAApplet)
 
 @def_signal( eventValueChanged )
 
@@ -102,13 +102,13 @@
 
 #pragma mark -
 
-- (SamuraiUIStepperAgent *)stepperAgent
+- (IDEAAppletUIStepperAgent *)stepperAgent
 {
-   SamuraiUIStepperAgent * agent = [self getAssociatedObjectForKey:"UIStepper.agent"];
+   IDEAAppletUIStepperAgent * agent = [self getAssociatedObjectForKey:"UIStepper.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUIStepperAgent alloc] init];
+      agent = [[IDEAAppletUIStepperAgent alloc] init];
       agent.stepper = self;
 
       [self retainAssociatedObject:agent forKey:"UIStepper.agent"];

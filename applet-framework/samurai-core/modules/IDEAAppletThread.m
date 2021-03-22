@@ -50,8 +50,8 @@
     self = [super init];
     if ( self )
     {
-        _serial = dispatch_queue_create( "com.samurai.serial", DISPATCH_QUEUE_SERIAL );
-        _concurrent = dispatch_queue_create( "com.samurai.concurrent", DISPATCH_QUEUE_CONCURRENT );
+        _serial = dispatch_queue_create( "com.idea.applet.serial", DISPATCH_QUEUE_SERIAL );
+        _concurrent = dispatch_queue_create( "com.idea.applet.concurrent", DISPATCH_QUEUE_CONCURRENT );
     }
 
     return self;

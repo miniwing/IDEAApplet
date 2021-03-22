@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation UIPageControl(Samurai)
+@implementation UIPageControl(IDEAApplet)
 
 #pragma mark -
 

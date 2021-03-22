@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssPt
-#define cssPt( n )   [SamuraiCSSNumberPt pt:n]
+#define cssPt( n )   [IDEAAppletCSSNumberPt pt:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberPt : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberPt : IDEAAppletCSSNumber
 
 + (instancetype)pt:(CGFloat)value;
 

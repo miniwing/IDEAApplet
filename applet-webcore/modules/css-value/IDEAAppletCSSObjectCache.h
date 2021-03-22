@@ -34,9 +34,9 @@
 
 #pragma mark -
 
-@interface SamuraiCSSObjectCache : NSObject
+@interface IDEAAppletCSSObjectCache : NSObject
 
-@singleton( SamuraiCSSObjectCache )
+@singleton( IDEAAppletCSSObjectCache )
 
 @prop_strong( NSMutableDictionary *, cache )
 

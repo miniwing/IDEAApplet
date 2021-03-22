@@ -35,11 +35,11 @@
 
 #pragma mark -
 
-#undef  samuraiClass
-#define samuraiClass( x )        NSClassFromString(@ #x)
+#undef  appletClass
+#define appletClass( x )         NSClassFromString(@ #x)
 
-#undef  samuraiInstance
-#define samuraiInstance( x )     [[NSClassFromString(@ #x) alloc] init]
+#undef  appletInstance
+#define appletInstance( x )      [[NSClassFromString(@ #x) alloc] init]
 
 #pragma mark -
 

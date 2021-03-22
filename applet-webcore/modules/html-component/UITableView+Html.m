@@ -51,10 +51,10 @@
 
 #pragma mark -
 
-@interface __HtmlTableViewSection : SamuraiUITableViewSection
+@interface __HtmlTableViewSection : IDEAAppletUITableViewSection
 
 @prop_assign( NSUInteger,               index );
-@prop_strong( SamuraiHtmlDocument *,      document );
+@prop_strong( IDEAAppletHtmlDocument *,      document );
 @prop_assign( CGFloat,                  rowHeight );
 @prop_unsafe( UITableView *,            tableView );
 @prop_strong( NSString *,               reuseIdentifier );
@@ -62,7 +62,7 @@
 @prop_strong( NSObject *,               cachedData );
 @prop_strong( NSMutableDictionary *,      cachedHeight );
 
-- (BOOL)parseDocument:(SamuraiHtmlDocument *)document;
+- (BOOL)parseDocument:(IDEAAppletHtmlDocument *)document;
 
 @end
 
@@ -71,7 +71,7 @@
 @implementation __HtmlTableViewSection
 
 @def_prop_assign( NSUInteger,            index );
-@def_prop_strong( SamuraiHtmlDocument *,   document );
+@def_prop_strong( IDEAAppletHtmlDocument *,   document );
 @def_prop_assign( CGFloat,               rowHeight );
 @def_prop_unsafe( UITableView *,         tableView );
 @def_prop_strong( NSString *,            reuseIdentifier );
@@ -102,7 +102,7 @@
 
 #pragma mark -
 
-- (BOOL)parseDocument:(SamuraiHtmlDocument *)document
+- (BOOL)parseDocument:(IDEAAppletHtmlDocument *)document
 {
    BOOL parseSucceed = [document parse];
    if ( NO == parseSucceed )
@@ -262,7 +262,7 @@
    {
       PERF( @"UITableView '%p', creating cell '%@' for row #%d", self, self.reuseIdentifier, indexPath.row );
       
-      SamuraiHtmlRenderObject * reuseRenderer = [self.document.renderTree clone];
+      IDEAAppletHtmlRenderObject * reuseRenderer = [self.document.renderTree clone];
       
       ASSERT( nil != reuseRenderer );
       
@@ -332,14 +332,14 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 
    [self html_parseSections:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 
@@ -357,18 +357,18 @@
 
 #pragma mark -
 
-- (void)html_parseSections:(SamuraiHtmlDomNode *)rootDom
+- (void)html_parseSections:(IDEAAppletHtmlDomNode *)rootDom
 {
-   SamuraiUITableViewAgent * agent = [self tableViewAgent];
+   IDEAAppletUITableViewAgent * agent = [self tableViewAgent];
    if ( agent )
    {
       [agent removeAllSections];
       
-      for ( SamuraiHtmlDomNode * childDom in rootDom.childs )
+      for ( IDEAAppletHtmlDomNode * childDom in rootDom.childs )
       {
          if ( DomNodeType_Document == childDom.type || DomNodeType_Element == childDom.type )
          {
-            SamuraiHtmlDocument * childDocument = (SamuraiHtmlDocument *)[rootDom.document childDocument:childDom];
+            IDEAAppletHtmlDocument * childDocument = (IDEAAppletHtmlDocument *)[rootDom.document childDocument:childDom];
             if ( nil == childDocument )
                continue;
 
@@ -395,7 +395,7 @@
    if ( nil != data )
       return data;
 
-   SamuraiUITableViewAgent * agent = [self tableViewAgent];
+   IDEAAppletUITableViewAgent * agent = [self tableViewAgent];
    if ( agent )
    {
 //      if ( 1 == [agent.sections count] )
@@ -439,7 +439,7 @@
 {
    [super store_unserialize:obj];
    
-   SamuraiUITableViewAgent * agent = [self tableViewAgent];
+   IDEAAppletUITableViewAgent * agent = [self tableViewAgent];
    if ( agent )
    {
 //      if ( 1 == [agent.sections count] )
@@ -490,7 +490,7 @@
 {
    [super store_zerolize];
    
-   SamuraiUITableViewAgent * agent = [self tableViewAgent];
+   IDEAAppletUITableViewAgent * agent = [self tableViewAgent];
    if ( agent )
    {
       for ( __HtmlTableViewSection * section in agent.sections )

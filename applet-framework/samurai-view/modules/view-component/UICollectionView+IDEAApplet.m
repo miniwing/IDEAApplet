@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUICollectionViewSection
+@implementation IDEAAppletUICollectionViewSection
 
 - (CGFloat)getWidthForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -102,7 +102,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUICollectionViewAgent
+@implementation IDEAAppletUICollectionViewAgent
 
 @def_prop_strong( NSMutableArray *,      sections );
 @def_prop_unsafe( UICollectionView *,   collectionView );
@@ -125,7 +125,7 @@
 
 #pragma mark -
 
-- (void)appendSection:(SamuraiUICollectionViewSection *)section
+- (void)appendSection:(IDEAAppletUICollectionViewSection *)section
 {
    if ( nil == section )
       return;
@@ -133,7 +133,7 @@
    [self.sections addObject:section];
 }
 
-- (void)insertSection:(SamuraiUICollectionViewSection *)section atIndex:(NSUInteger)index
+- (void)insertSection:(IDEAAppletUICollectionViewSection *)section atIndex:(NSUInteger)index
 {
    if ( nil == section )
       return;
@@ -227,7 +227,7 @@
 {
    // Default is 1 if not implemented
 
-   SamuraiUICollectionViewSection * collectionSection = [self.sections safeObjectAtIndex:(section % [self.sections count])];
+   IDEAAppletUICollectionViewSection * collectionSection = [self.sections safeObjectAtIndex:(section % [self.sections count])];
    
    if ( nil == collectionSection )
    {
@@ -242,7 +242,7 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-   SamuraiUICollectionViewSection * collectionSection = [self.sections safeObjectAtIndex:(indexPath.section % [self.sections count])];
+   IDEAAppletUICollectionViewSection * collectionSection = [self.sections safeObjectAtIndex:(indexPath.section % [self.sections count])];
    
    if ( nil == collectionSection )
    {
@@ -271,7 +271,7 @@
 
 #pragma mark - UICollectionView
 
-@implementation UICollectionView(Samurai)
+@implementation UICollectionView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {
@@ -310,13 +310,13 @@
 
 #pragma mark -
 
-- (SamuraiUICollectionViewAgent *)collectionViewAgent
+- (IDEAAppletUICollectionViewAgent *)collectionViewAgent
 {
-   SamuraiUICollectionViewAgent * agent = [self getAssociatedObjectForKey:"UICollectionView.agent"];
+   IDEAAppletUICollectionViewAgent * agent = [self getAssociatedObjectForKey:"UICollectionView.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUICollectionViewAgent alloc] init];
+      agent = [[IDEAAppletUICollectionViewAgent alloc] init];
       agent.scrollView = self;
       agent.collectionView = self;
 

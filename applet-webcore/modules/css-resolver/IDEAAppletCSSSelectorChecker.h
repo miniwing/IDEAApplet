@@ -39,10 +39,10 @@
 
 typedef NS_ENUM( NSUInteger, IDEAAppletCSSSelectorMatch )
 {
-   SamuraiCSSSelectorMatches,
-   SamuraiCSSSelectorFailsLocally,
-   SamuraiCSSSelectorFailsAllSiblings,
-   SamuraiCSSSelectorFailsCompletely,
+   IDEAAppletCSSSelectorMatches,
+   IDEAAppletCSSSelectorFailsLocally,
+   IDEAAppletCSSSelectorFailsAllSiblings,
+   IDEAAppletCSSSelectorFailsCompletely,
 };
 
 typedef NS_ENUM( NSUInteger, IDEAAppletCSSPseudoId )
@@ -91,7 +91,7 @@ typedef NS_ENUM( NSUInteger, IDEAAppletCSSPseudoId )
 
 #pragma mark -
 
-@interface SamuraiCSSSelectorCheckingContext : NSObject
+@interface IDEAAppletCSSSelectorCheckingContext : NSObject
 
 @prop_assign( KatanaSelector *,         selector );
 @prop_assign( IDEAAppletCSSPseudoId,      pseudoId );
@@ -101,7 +101,7 @@ typedef NS_ENUM( NSUInteger, IDEAAppletCSSPseudoId )
 @prop_unsafe( id<IDEAAppletCSSProtocol>,   element );
 @prop_unsafe( id<IDEAAppletCSSProtocol>,   previousElement );
 
-- (id)initWithContext:(SamuraiCSSSelectorCheckingContext *)context;
+- (id)initWithContext:(IDEAAppletCSSSelectorCheckingContext *)context;
 
 @end
 
@@ -138,9 +138,9 @@ typedef NS_ENUM( NSUInteger, IDEAAppletCSSPseudoId )
 
 @interface IDEAAppletCSSSelectorChecker : NSObject
 
-@prop_strong( SamuraiCSSSelectorCheckingContext *,   context );
+@prop_strong( IDEAAppletCSSSelectorCheckingContext *,   context );
 
-- (IDEAAppletCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context
+- (IDEAAppletCSSSelectorMatch)match:(IDEAAppletCSSSelectorCheckingContext *)context
                              result:(IDEAAppletCSSSelectorCheckerMatchResult *)result;
 
 @end

@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation UIImageView(Samurai)
+@implementation UIImageView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

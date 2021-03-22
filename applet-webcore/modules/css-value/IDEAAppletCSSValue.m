@@ -63,11 +63,11 @@
    dispatch_once( &once, ^
    {
       classes = [NSArray arrayWithObjects:
-               [SamuraiCSSUri class],
+               [IDEAAppletCSSUri class],
                [IDEAAppletCSSColor class],
                [IDEAAppletCSSFunction class],
-               [SamuraiCSSNumber class],
-               [SamuraiCSSString class],
+               [IDEAAppletCSSNumber class],
+               [IDEAAppletCSSString class],
                nil];
    });
    
@@ -83,7 +83,7 @@
    
    if ( nil == result )
    {
-      result = [SamuraiCSSString string:[NSString stringWithUTF8String:value->raw]];
+      result = [IDEAAppletCSSString string:[NSString stringWithUTF8String:value->raw]];
    }
    
    return result;
@@ -94,7 +94,7 @@
    if ( nil == string || 0 == [string length] )
       return nil;
 
-   IDEAAppletCSSValue * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
+   IDEAAppletCSSValue * result = [[IDEAAppletCSSObjectCache sharedInstance].cache objectForKey:string];
    
    if ( nil == result )
    {
@@ -107,7 +107,7 @@
 
       if ( result )
       {
-         [[SamuraiCSSObjectCache sharedInstance].cache setObject:result forKey:string];
+         [[IDEAAppletCSSObjectCache sharedInstance].cache setObject:result forKey:string];
       }
    }
    

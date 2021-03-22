@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutContainerBlock
+@implementation IDEAAppletHtmlLayoutContainerBlock
 
 - (void)layout
 {
@@ -64,7 +64,7 @@
    CGFloat            thisBottom = 0.0f;
    CGFloat            lastBottom = 0.0f;
 
-   for ( SamuraiHtmlRenderObject * child in self.source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in self.source.childs )
    {
       if ( CSSPosition_Static == child.position || CSSPosition_Relative == child.position )
       {
@@ -478,7 +478,7 @@
          NSMutableArray * rightFlow = [NSMutableArray array];
          NSMutableArray * normalFlow = [NSMutableArray array];
          
-         for ( SamuraiHtmlRenderObject * child in line )
+         for ( IDEAAppletHtmlRenderObject * child in line )
          {
             if ( CSSDisplay_None == child.display )
                continue;
@@ -541,7 +541,7 @@
          //   floatingRight -= self.computedMargin.right;
             floatingRight -= self.computedPadding.right;
 
-            for ( SamuraiHtmlRenderObject * child in leftFlow )
+            for ( IDEAAppletHtmlRenderObject * child in leftFlow )
             {
                CGPoint childOffset;
                
@@ -557,7 +557,7 @@
                floatingLeft += child.layout.computedBounds.size.width;
             }
 
-            for ( SamuraiHtmlRenderObject * child in rightFlow )
+            for ( IDEAAppletHtmlRenderObject * child in rightFlow )
             {
                CGPoint childOffset;
                
@@ -597,7 +597,7 @@
 
             CGFloat floatCenter = contentLeft;
 
-            for ( SamuraiHtmlRenderObject * child in normalFlow )
+            for ( IDEAAppletHtmlRenderObject * child in normalFlow )
             {
                CGPoint childOffset;
                
@@ -622,7 +622,7 @@
             {
                CGFloat alignLeft = contentLeft;
 
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
                   
@@ -645,7 +645,7 @@
             {
                CGFloat alignRight = contentRight;
                
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
                   
@@ -669,7 +669,7 @@
             {
                CGFloat alignCenter = contentLeft + ((contentRight - contentLeft) - centerWidth) / 2.0f;
                
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
 
@@ -689,7 +689,7 @@
 
       // compute margin: 0 auto
          
-         for ( SamuraiHtmlRenderObject * child in normalFlow )
+         for ( IDEAAppletHtmlRenderObject * child in normalFlow )
          {
             if ( [child block_shouldLeftJustifiedInRow] )
             {
@@ -738,7 +738,7 @@
          {
             if ( [self.source block_shouldVerticalAlignTop] )
             {
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
                   
@@ -754,7 +754,7 @@
             }
             else if ( [self.source block_shouldVerticalAlignBottom] )
             {
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
                   
@@ -770,7 +770,7 @@
             }
             else if ( [self.source block_shouldVerticalAlignMiddle] )
             {
-               for ( SamuraiHtmlRenderObject * child in normalFlow )
+               for ( IDEAAppletHtmlRenderObject * child in normalFlow )
                {
                   CGPoint childOffset;
                   
@@ -797,7 +797,7 @@
 
    // compute offset
       
-      for ( SamuraiHtmlRenderObject * child in self.source.childs )
+      for ( IDEAAppletHtmlRenderObject * child in self.source.childs )
       {
          if ( CSSDisplay_None == child.display )
             continue;

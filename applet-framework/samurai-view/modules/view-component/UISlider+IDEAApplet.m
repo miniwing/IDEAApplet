@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUISliderAgent
+@implementation IDEAAppletUISliderAgent
 {
    BOOL _enabled;
 }
@@ -85,7 +85,7 @@
 
 #pragma mark -
 
-@implementation UISlider(Samurai)
+@implementation UISlider(IDEAApplet)
 
 @def_signal( eventValueChanged )
 
@@ -106,13 +106,13 @@
 
 #pragma mark -
 
-- (SamuraiUISliderAgent *)sliderAgent
+- (IDEAAppletUISliderAgent *)sliderAgent
 {
-   SamuraiUISliderAgent * agent = [self getAssociatedObjectForKey:"UISlider.agent"];
+   IDEAAppletUISliderAgent * agent = [self getAssociatedObjectForKey:"UISlider.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUISliderAgent alloc] init];
+      agent = [[IDEAAppletUISliderAgent alloc] init];
       agent.slider = self;
       
       [self retainAssociatedObject:agent forKey:"UISlider.agent"];

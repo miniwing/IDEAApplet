@@ -38,7 +38,7 @@
 // Source code
 // ----------------------------------
 
-NSString * NSStringFromSamuraiCSSProtocolElement(id<IDEAAppletCSSProtocol> element)
+NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol> element)
 {
     NSMutableString * desc = [NSMutableString string];
     
@@ -84,7 +84,7 @@ NSString * NSStringFromSamuraiCSSProtocolElement(id<IDEAAppletCSSProtocol> eleme
 
 #pragma mark -
 
-@implementation SamuraiCSSCondition
+@implementation IDEAAppletCSSCondition
 
 @def_prop_strong( NSString *,      cssId );
 @def_prop_strong( NSString *,      cssTag );

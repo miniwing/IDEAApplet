@@ -36,12 +36,12 @@
 
 #pragma mark -
 
-@class  SamuraiHtmlRenderQuery;
-typedef SamuraiHtmlRenderQuery * (^SamuraiHtmlRenderQueryBlockN)( id first, ... );
+@class  IDEAAppletHtmlRenderQuery;
+typedef IDEAAppletHtmlRenderQuery * (^IDEAAppletHtmlRenderQueryBlockN)( id first, ... );
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderQuery : NSObject<NSArrayProtocol>
+@interface IDEAAppletHtmlRenderQuery : NSObject<NSArrayProtocol>
 
 @prop_strong( NSMutableArray *,               input );
 @prop_strong( NSMutableArray *,               output );
@@ -50,17 +50,17 @@ typedef SamuraiHtmlRenderQuery * (^SamuraiHtmlRenderQueryBlockN)( id first, ... 
 @prop_readonly( UIView *,                  lastView );
 @prop_readonly( UIView *,                  firstView );
 
-@prop_readonly( SamuraiHtmlRenderQueryBlockN,   ATTR );
-@prop_readonly( SamuraiHtmlRenderQueryBlockN,   SET_CLASS );
-@prop_readonly( SamuraiHtmlRenderQueryBlockN,   ADD_CLASS );
-@prop_readonly( SamuraiHtmlRenderQueryBlockN,   REMOVE_CLASS );
-@prop_readonly( SamuraiHtmlRenderQueryBlockN,   TOGGLE_CLASS );
+@prop_readonly( IDEAAppletHtmlRenderQueryBlockN,   ATTR );
+@prop_readonly( IDEAAppletHtmlRenderQueryBlockN,   SET_CLASS );
+@prop_readonly( IDEAAppletHtmlRenderQueryBlockN,   ADD_CLASS );
+@prop_readonly( IDEAAppletHtmlRenderQueryBlockN,   REMOVE_CLASS );
+@prop_readonly( IDEAAppletHtmlRenderQueryBlockN,   TOGGLE_CLASS );
 
-+ (SamuraiHtmlRenderQuery *)renderQuery;
-+ (SamuraiHtmlRenderQuery *)renderQuery:(NSArray *)array;
++ (IDEAAppletHtmlRenderQuery *)renderQuery;
++ (IDEAAppletHtmlRenderQuery *)renderQuery:(NSArray *)array;
 
-- (void)input:(SamuraiHtmlRenderObject *)object;
-- (void)output:(SamuraiHtmlRenderObject *)object;
+- (void)input:(IDEAAppletHtmlRenderObject *)object;
+- (void)output:(IDEAAppletHtmlRenderObject *)object;
 - (void)execute:(NSString *)condition;
 
 @end
@@ -71,9 +71,9 @@ typedef SamuraiHtmlRenderQuery * (^SamuraiHtmlRenderQueryBlockN)( id first, ... 
 #define $   __dollar( self )
 
 #if defined(__cplusplus)
-extern "C"   SamuraiHtmlRenderQueryBlockN __dollar( id context );
+extern "C"   IDEAAppletHtmlRenderQueryBlockN __dollar( id context );
 #else   // #if defined(__cplusplus)
-extern      SamuraiHtmlRenderQueryBlockN __dollar( id context );
+extern      IDEAAppletHtmlRenderQueryBlockN __dollar( id context );
 #endif   // #if defined(__cplusplus)
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

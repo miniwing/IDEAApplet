@@ -52,7 +52,7 @@ typedef enum
 
 #pragma mark -
 
-@interface UILabel(Samurai)
+@interface UILabel(IDEAApplet)
 
 @prop_assign( BOOL,               trimmed );
 @prop_assign( BOOL,               flattern );

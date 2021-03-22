@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUITextFieldAgent : NSObject<UITextFieldDelegate>
+@interface IDEAAppletUITextFieldAgent : NSObject<UITextFieldDelegate>
 
 @prop_unsafe( UITextField *,         textField );
 
@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-@interface UITextField(Samurai)
+@interface UITextField(IDEAApplet)
 
 @signal( eventDidBeginEditing );
 @signal( eventDidEndEditing );
@@ -61,7 +61,7 @@
 @signal( eventClear );
 @signal( eventReturn );
 
-- (SamuraiUITextFieldAgent *)textFieldAgent;
+- (IDEAAppletUITextFieldAgent *)textFieldAgent;
 
 @end
 

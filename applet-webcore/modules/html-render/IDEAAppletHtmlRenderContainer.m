@@ -51,16 +51,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderContainer
+@implementation IDEAAppletHtmlRenderContainer
 
 + (Class)defaultLayoutClass
 {
-   return [SamuraiHtmlLayoutContainerBlock class];
+   return [IDEAAppletHtmlLayoutContainerBlock class];
 }
 
 + (Class)defaultViewClass
 {
-   return [SamuraiHtmlElementDiv class];
+   return [IDEAAppletHtmlElementDiv class];
 }
 
 #pragma mark -
@@ -102,21 +102,21 @@
    
    switch ( self.display )
    {
-      case CSSDisplay_Inline:            layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_Block:            layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_InlineBlock:      layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_Flex:            layoutClass = [SamuraiHtmlLayoutContainerFlex class];   break;
-      case CSSDisplay_InlineFlex:         layoutClass = [SamuraiHtmlLayoutContainerFlex class];   break;
-      case CSSDisplay_ListItem:         layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_Table:            layoutClass = [SamuraiHtmlLayoutContainerTable class];   break;
-      case CSSDisplay_TableRowGroup:      layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableHeaderGroup:   layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableFooterGroup:   layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableRow:         layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableColumnGroup:   layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableColumn:      layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableCell:         layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
-      case CSSDisplay_TableCaption:      layoutClass = [SamuraiHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_Inline:            layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_Block:            layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_InlineBlock:      layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_Flex:            layoutClass = [IDEAAppletHtmlLayoutContainerFlex class];   break;
+      case CSSDisplay_InlineFlex:         layoutClass = [IDEAAppletHtmlLayoutContainerFlex class];   break;
+      case CSSDisplay_ListItem:         layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_Table:            layoutClass = [IDEAAppletHtmlLayoutContainerTable class];   break;
+      case CSSDisplay_TableRowGroup:      layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableHeaderGroup:   layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableFooterGroup:   layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableRow:         layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableColumnGroup:   layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableColumn:      layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableCell:         layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
+      case CSSDisplay_TableCaption:      layoutClass = [IDEAAppletHtmlLayoutContainerBlock class];   break;
       default:
          break;
    }
@@ -127,7 +127,7 @@
       
       if ( nil == layoutClass )
       {
-         layoutClass = [SamuraiHtmlLayoutElement class];
+         layoutClass = [IDEAAppletHtmlLayoutElement class];
       }
    }
 
@@ -139,12 +139,12 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 }
@@ -181,7 +181,7 @@
    {
       NSMutableArray * array = [NSMutableArray array];
       
-      for ( SamuraiHtmlRenderObject * child in self.childs )
+      for ( IDEAAppletHtmlRenderObject * child in self.childs )
       {
          [array addObject:[child store_serialize]];
       }
@@ -194,7 +194,7 @@
 {
    if ( 1 == [self.childs count] )
    {
-      SamuraiHtmlRenderObject * childRender = [self.childs firstObject];
+      IDEAAppletHtmlRenderObject * childRender = [self.childs firstObject];
       
       if ( DomNodeType_Text == childRender.dom.type )
       {
@@ -205,7 +205,7 @@
 
 - (void)store_zerolize
 {
-   for ( SamuraiHtmlRenderObject * child in self.childs )
+   for ( IDEAAppletHtmlRenderObject * child in self.childs )
    {
       [child store_zerolize];
    }

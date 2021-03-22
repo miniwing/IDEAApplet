@@ -335,7 +335,7 @@ typedef enum
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderStyle : IDEAAppletRenderStyle
+@interface IDEAAppletHtmlRenderStyle : IDEAAppletRenderStyle
 
 @css_value( top );
 @css_value( left );
@@ -506,8 +506,8 @@ typedef enum
 @css_value( webkitPaddingStart );
 @css_value( webkitPaddingEnd );
 
-@css_value( samuraiViewHierarchy );
-@css_value( samuraiViewClass );
+@css_value( appletViewHierarchy );
+@css_value( appletViewClass );
 
 #pragma mark -
 

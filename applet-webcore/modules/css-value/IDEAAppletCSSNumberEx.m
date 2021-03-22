@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberEx
+@implementation IDEAAppletCSSNumberEx
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberEx * result = nil;
+   IDEAAppletCSSNumberEx * result = nil;
    
    if ( KATANA_VALUE_EXS == value->unit )
    {
-      result = [[SamuraiCSSNumberEx alloc] init];
+      result = [[IDEAAppletCSSNumberEx alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)ex:(CGFloat)value
 {
-   SamuraiCSSNumberEx * result = [[SamuraiCSSNumberEx alloc] init];
+   IDEAAppletCSSNumberEx * result = [[IDEAAppletCSSNumberEx alloc] init];
    result.value = value;
    return result;
 }
@@ -117,7 +117,7 @@
 
 - (CGFloat)computeValue:(CGFloat)value
 {
-   CGFloat lineHeight = [SamuraiHtmlUserAgent sharedInstance].defaultFont.lineHeight;
+   CGFloat lineHeight = [IDEAAppletHtmlUserAgent sharedInstance].defaultFont.lineHeight;
    
    return self.value * lineHeight;   // ex to px
 }

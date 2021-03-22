@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberHz
+@implementation IDEAAppletCSSNumberHz
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberHz * result = nil;
+   IDEAAppletCSSNumberHz * result = nil;
 
    if ( KATANA_VALUE_HZ == value->unit )
    {
-      result = [[SamuraiCSSNumberHz alloc] init];
+      result = [[IDEAAppletCSSNumberHz alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)hz:(CGFloat)value
 {
-   SamuraiCSSNumberHz * result = [[SamuraiCSSNumberHz alloc] init];
+   IDEAAppletCSSNumberHz * result = [[IDEAAppletCSSNumberHz alloc] init];
    result.value = value;
    return result;
 }

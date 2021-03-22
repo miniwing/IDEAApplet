@@ -86,7 +86,7 @@ typedef enum
  *  「武士」·「調用棧」
  */
 
-@interface SamuraiCallFrame : NSObject
+@interface IDEAAppletCallFrame : NSObject
 
 @prop_assign( CallFrameType,   type );
 @prop_strong( NSString *,      process );

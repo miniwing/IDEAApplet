@@ -47,6 +47,6 @@
 
 @singleton(IDEAApplet)
 
-- (void)startup; // Samurai will startup itself automaticlly, DO NOT call this again
+- (void)startup; // Applet will startup itself automaticlly, DO NOT call this again
 
 @end

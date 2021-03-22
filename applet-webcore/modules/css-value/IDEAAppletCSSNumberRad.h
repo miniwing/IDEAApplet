@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssRad
-#define cssRad( n )   [SamuraiCSSNumberRad rad:n]
+#define cssRad( n )   [IDEAAppletCSSNumberRad rad:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberRad : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberRad : IDEAAppletCSSNumber
 
 + (instancetype)rad:(CGFloat)value;
 

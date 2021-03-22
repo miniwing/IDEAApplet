@@ -38,7 +38,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderObject(ContainerLayout)
+@interface IDEAAppletHtmlRenderObject(ContainerLayout)
 
 - (BOOL)block_isInline;
 - (BOOL)block_isBlock;
@@ -87,7 +87,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlLayoutContainer : SamuraiHtmlLayoutObject
+@interface IDEAAppletHtmlLayoutContainer : IDEAAppletHtmlLayoutObject
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

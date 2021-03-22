@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssIn
-#define cssIn( n )   [SamuraiCSSNumberIn in:n]
+#define cssIn( n )   [IDEAAppletCSSNumberIn in:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberIn : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberIn : IDEAAppletCSSNumber
 
 + (instancetype)in:(CGFloat)value;
 

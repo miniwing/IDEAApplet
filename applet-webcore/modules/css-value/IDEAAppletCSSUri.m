@@ -62,7 +62,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSUri
+@implementation IDEAAppletCSSUri
 
 @def_prop_strong( NSURL *, uri );
 
@@ -71,7 +71,7 @@
    if ( NULL == value )
       return nil;
 
-   SamuraiCSSUri * result = nil;
+   IDEAAppletCSSUri * result = nil;
    
    if ( KATANA_VALUE_PARSER_FUNCTION == value->unit )
    {
@@ -82,14 +82,14 @@
       {
          if ( value->function->args && value->function->args->length )
          {
-            result = [[SamuraiCSSUri alloc] init];
+            result = [[IDEAAppletCSSUri alloc] init];
             result.uri = [NSURL URLWithString:[NSString stringWithUTF8String:value->function->name]];
          }
       }
    }
    else if ( KATANA_VALUE_URI == value->unit )
    {
-      result = [[SamuraiCSSUri alloc] init];
+      result = [[IDEAAppletCSSUri alloc] init];
       result.uri = [NSURL URLWithString:[NSString stringWithUTF8String:value->string]];
    }
 
@@ -100,7 +100,7 @@
 
 + (instancetype)uri:(NSURL *)uri
 {
-   SamuraiCSSUri * result = [[SamuraiCSSUri alloc] init];
+   IDEAAppletCSSUri * result = [[IDEAAppletCSSUri alloc] init];
    result.uri = uri;
    return result;
 }

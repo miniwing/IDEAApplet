@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorklet_40UpdateChain : SamuraiHtmlRenderWorklet
+@interface IDEAAppletHtmlRenderWorklet_40UpdateChain : IDEAAppletHtmlRenderWorklet
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

@@ -46,16 +46,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderViewport
+@implementation IDEAAppletHtmlRenderViewport
 
 + (Class)defaultLayoutClass
 {
-   return [SamuraiHtmlLayoutViewport class];
+   return [IDEAAppletHtmlLayoutViewport class];
 }
 
 + (Class)defaultViewClass
 {
-   return [SamuraiHtmlElementViewport class];
+   return [IDEAAppletHtmlElementViewport class];
 }
 
 #pragma mark -
@@ -85,18 +85,18 @@
    
    if ( nil == self.layout )
    {
-      self.layout = [SamuraiHtmlLayoutViewport layout:self];
+      self.layout = [IDEAAppletHtmlLayoutViewport layout:self];
    }
 }
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 }

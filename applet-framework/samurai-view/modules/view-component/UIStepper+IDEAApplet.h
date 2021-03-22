@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUIStepperAgent : NSObject
+@interface IDEAAppletUIStepperAgent : NSObject
 
 @prop_unsafe( UIStepper *,   stepper );
 
@@ -53,11 +53,11 @@
 
 #pragma mark -
 
-@interface UIStepper(Samurai)
+@interface UIStepper(IDEAApplet)
 
 @signal( eventValueChanged )
 
-- (SamuraiUIStepperAgent *)stepperAgent;
+- (IDEAAppletUIStepperAgent *)stepperAgent;
 
 @end
 

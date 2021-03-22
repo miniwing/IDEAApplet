@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssUri
-#define cssUri( x )   [SamuraiCSSUri uri:x]
+#define cssUri( x )   [IDEAAppletCSSUri uri:x]
 
 #pragma mark -
 
@@ -52,7 +52,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSUri : IDEAAppletCSSValue
+@interface IDEAAppletCSSUri : IDEAAppletCSSValue
 
 @prop_strong( NSURL *, uri );
 

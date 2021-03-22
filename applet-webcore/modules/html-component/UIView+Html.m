@@ -68,7 +68,7 @@
 
 #pragma mark -
 
-- (void)html_applyBorder:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyBorder:(IDEAAppletHtmlRenderStyle *)style
 {
    CGFloat   borderTopSize = [style computeBorderTopSize:self.frame.size.width defaultSize:0.0f];
    CGFloat   borderLeftSize = [style computeBorderLeftSize:self.frame.size.width defaultSize:0.0f];
@@ -104,7 +104,7 @@
    {
       if ( CSSBorderStyle_None != borderTopStyle && CSSBorderStyle_Inherit != borderTopStyle )
       {
-         borderTopSize = [SamuraiHtmlUserAgent sharedInstance].mediumSize;
+         borderTopSize = [IDEAAppletHtmlUserAgent sharedInstance].mediumSize;
       }
    }
 
@@ -112,7 +112,7 @@
    {
       if ( CSSBorderStyle_None != borderLeftStyle && CSSBorderStyle_Inherit != borderLeftStyle )
       {
-         borderLeftSize = [SamuraiHtmlUserAgent sharedInstance].mediumSize;
+         borderLeftSize = [IDEAAppletHtmlUserAgent sharedInstance].mediumSize;
       }
    }
 
@@ -120,7 +120,7 @@
    {
       if ( CSSBorderStyle_None != borderRightStyle && CSSBorderStyle_Inherit != borderRightStyle )
       {
-         borderRightSize = [SamuraiHtmlUserAgent sharedInstance].mediumSize;
+         borderRightSize = [IDEAAppletHtmlUserAgent sharedInstance].mediumSize;
       }
    }
 
@@ -128,7 +128,7 @@
    {
       if ( CSSBorderStyle_None != borderBottomStyle && CSSBorderStyle_Inherit != borderBottomStyle )
       {
-         borderBottomSize = [SamuraiHtmlUserAgent sharedInstance].mediumSize;
+         borderBottomSize = [IDEAAppletHtmlUserAgent sharedInstance].mediumSize;
       }
    }
 
@@ -339,7 +339,7 @@
    }
 }
 
-- (void)html_applyBackground:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyBackground:(IDEAAppletHtmlRenderStyle *)style
 {
 //   #00FF00 url(bgimage.gif) no-repeat fixed top
    
@@ -379,7 +379,7 @@
    }
 }
 
-- (void)html_applyShadow:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyShadow:(IDEAAppletHtmlRenderStyle *)style
 {
    IDEAAppletCSSArray * shadow = style.boxShadow ?: style.textShadow;
 
@@ -469,7 +469,7 @@
    }
 }
 
-- (void)html_applyOpacity:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyOpacity:(IDEAAppletHtmlRenderStyle *)style
 {
    if ( style.opacity && [style.opacity isNumber] )
    {
@@ -481,7 +481,7 @@
    }
 }
 
-- (void)html_applyDisplay:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyDisplay:(IDEAAppletHtmlRenderStyle *)style
 {
    if ( [style.display isString:@"none"] )
    {
@@ -519,12 +519,12 @@
 //   }
 }
 
-- (void)html_applyContentMode:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyContentMode:(IDEAAppletHtmlRenderStyle *)style
 {
    self.contentMode = [style computeContentMode:self.contentMode];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 
@@ -614,7 +614,7 @@
    return nil;
 }
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    

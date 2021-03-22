@@ -36,27 +36,27 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorklet : SamuraiViewWorklet
+@interface IDEAAppletHtmlRenderWorklet : IDEAAppletViewWorklet
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorkflow_All : IDEAAppletWorkflow
+@interface IDEAAppletHtmlRenderWorkflow_All : IDEAAppletWorkflow
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorkflow_UpdateStyle : IDEAAppletWorkflow
+@interface IDEAAppletHtmlRenderWorkflow_UpdateStyle : IDEAAppletWorkflow
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorkflow_UpdateFrame : IDEAAppletWorkflow
+@interface IDEAAppletHtmlRenderWorkflow_UpdateFrame : IDEAAppletWorkflow
 @end
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderWorkflow_UpdateChain : IDEAAppletWorkflow
+@interface IDEAAppletHtmlRenderWorkflow_UpdateChain : IDEAAppletWorkflow
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

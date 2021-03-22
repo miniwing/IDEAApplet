@@ -104,7 +104,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumber
+@implementation IDEAAppletCSSNumber
 
 @def_prop_assign( CGFloat,      value );
 @def_prop_strong( NSString *,   unit );
@@ -120,40 +120,40 @@
    dispatch_once( &once, ^
    {
       classes = [NSArray arrayWithObjects:
-               [SamuraiCSSNumberAutomatic class],
-               [SamuraiCSSNumberPercentage class],
-               [SamuraiCSSNumberPx class],
-                [SamuraiCSSNumberChs class],
-               [SamuraiCSSNumberCm class],
-                [SamuraiCSSNumberDeg class],
-                [SamuraiCSSNumberDpcm class],
-                [SamuraiCSSNumberDpi class],
-                [SamuraiCSSNumberDppx class],
-               [SamuraiCSSNumberEm class],
-               [SamuraiCSSNumberEx class],
-                [SamuraiCSSNumberFr class],
-                [SamuraiCSSNumberGRad class],
-                [SamuraiCSSNumberHz class],
-               [SamuraiCSSNumberIn class],
-                [SamuraiCSSNumberKhz class],
-               [SamuraiCSSNumberMm class],
-                [SamuraiCSSNumberMs class],
-               [SamuraiCSSNumberPc class],
-               [SamuraiCSSNumberPt class],
-                [SamuraiCSSNumberRad class],
-                [SamuraiCSSNumberRems class],
-                [SamuraiCSSNumberS class],
-                [SamuraiCSSNumberTurn class],
-                [SamuraiCSSNumberVh class],
-                [SamuraiCSSNumberVmax class],
-                [SamuraiCSSNumberVmin class],
-                [SamuraiCSSNumberVw class],
-               [SamuraiCSSNumberQem class],
-               [SamuraiCSSNumberConstant class],
+               [IDEAAppletCSSNumberAutomatic class],
+               [IDEAAppletCSSNumberPercentage class],
+               [IDEAAppletCSSNumberPx class],
+                [IDEAAppletCSSNumberChs class],
+               [IDEAAppletCSSNumberCm class],
+                [IDEAAppletCSSNumberDeg class],
+                [IDEAAppletCSSNumberDpcm class],
+                [IDEAAppletCSSNumberDpi class],
+                [IDEAAppletCSSNumberDppx class],
+               [IDEAAppletCSSNumberEm class],
+               [IDEAAppletCSSNumberEx class],
+                [IDEAAppletCSSNumberFr class],
+                [IDEAAppletCSSNumberGRad class],
+                [IDEAAppletCSSNumberHz class],
+               [IDEAAppletCSSNumberIn class],
+                [IDEAAppletCSSNumberKhz class],
+               [IDEAAppletCSSNumberMm class],
+                [IDEAAppletCSSNumberMs class],
+               [IDEAAppletCSSNumberPc class],
+               [IDEAAppletCSSNumberPt class],
+                [IDEAAppletCSSNumberRad class],
+                [IDEAAppletCSSNumberRems class],
+                [IDEAAppletCSSNumberS class],
+                [IDEAAppletCSSNumberTurn class],
+                [IDEAAppletCSSNumberVh class],
+                [IDEAAppletCSSNumberVmax class],
+                [IDEAAppletCSSNumberVmin class],
+                [IDEAAppletCSSNumberVw class],
+               [IDEAAppletCSSNumberQem class],
+               [IDEAAppletCSSNumberConstant class],
                nil];
    });
    
-   SamuraiCSSNumber * result = nil;
+   IDEAAppletCSSNumber * result = nil;
 
    for ( Class valueClass in classes )
    {

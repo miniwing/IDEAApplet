@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlRenderViewport : SamuraiHtmlRenderObject
+@interface IDEAAppletHtmlRenderViewport : IDEAAppletHtmlRenderObject
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

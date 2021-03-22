@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssVmin
-#define cssVmin( n )   [SamuraiCSSNumberVmin vmin:n]
+#define cssVmin( n )   [IDEAAppletCSSNumberVmin vmin:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberVmin : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberVmin : IDEAAppletCSSNumber
 
 + (instancetype)vmin:(CGFloat)value;
 

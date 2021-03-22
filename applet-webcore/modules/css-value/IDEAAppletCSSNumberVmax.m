@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberVmax
+@implementation IDEAAppletCSSNumberVmax
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberVmax * result = nil;
+   IDEAAppletCSSNumberVmax * result = nil;
 
    if ( KATANA_VALUE_VMAX == value->unit )
    {
-      result = [[SamuraiCSSNumberVmax alloc] init];
+      result = [[IDEAAppletCSSNumberVmax alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)vmax:(CGFloat)value
 {
-   SamuraiCSSNumberVmax * result = [[SamuraiCSSNumberVmax alloc] init];
+   IDEAAppletCSSNumberVmax * result = [[IDEAAppletCSSNumberVmax alloc] init];
    result.value = value;
    return result;
 }

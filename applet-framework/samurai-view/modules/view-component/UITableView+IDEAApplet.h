@@ -44,7 +44,7 @@
 
 #pragma mark -
 
-@interface SamuraiUITableViewSection : NSObject
+@interface IDEAAppletUITableViewSection : NSObject
 
 - (NSUInteger)getRowCount;                                    // override point
 - (CGFloat)getHeightForRowAtIndexPath:(NSIndexPath *)indexPath;         // override point
@@ -55,20 +55,20 @@
 
 #pragma mark -
 
-@interface SamuraiUITableViewAgent : SamuraiUIScrollViewAgent<UITableViewDelegate, UITableViewDataSource>
+@interface IDEAAppletUITableViewAgent : IDEAAppletUIScrollViewAgent<UITableViewDelegate, UITableViewDataSource>
 
 @prop_unsafe( UITableView *,      tableView );
 @prop_strong( NSMutableArray *,      sections );
 
-- (void)appendSection:(SamuraiUITableViewSection *)section;
-- (void)insertSection:(SamuraiUITableViewSection *)section atIndex:(NSUInteger)index;
+- (void)appendSection:(IDEAAppletUITableViewSection *)section;
+- (void)insertSection:(IDEAAppletUITableViewSection *)section atIndex:(NSUInteger)index;
 - (void)removeAllSections;
 
 @end
 
 #pragma mark -
 
-@interface UITableView(Samurai)
+@interface UITableView(IDEAApplet)
 
 @signal( eventWillSelectRow );
 @signal( eventWillDeselectRow );
@@ -76,7 +76,7 @@
 @signal( eventDidSelectRow );
 @signal( eventDidDeselectRow );
 
-- (SamuraiUITableViewAgent *)tableViewAgent;
+- (IDEAAppletUITableViewAgent *)tableViewAgent;
 
 @end
 

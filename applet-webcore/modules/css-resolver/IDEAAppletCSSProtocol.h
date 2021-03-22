@@ -57,11 +57,11 @@
 
 #pragma mark -
 
-FOUNDATION_EXPORT NSString * NSStringFromSamuraiCSSProtocolElement(id<IDEAAppletCSSProtocol>);
+FOUNDATION_EXPORT NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol>);
 
 #pragma mark -
 
-@interface SamuraiCSSCondition : NSObject<IDEAAppletCSSProtocol>
+@interface IDEAAppletCSSCondition : NSObject<IDEAAppletCSSProtocol>
 
 @prop_strong( NSString *,      cssId );
 @prop_strong( NSString *,      cssTag );

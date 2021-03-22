@@ -50,9 +50,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_20ParseDomTree
+@implementation IDEAAppletHtmlDocumentWorklet_20ParseDomTree
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    if ( document.resContent && [document.resContent length] )
    {
@@ -69,12 +69,12 @@
 
 #pragma mark -
 
-- (SamuraiHtmlDomNode *)parseHtml:(NSString *)html
+- (IDEAAppletHtmlDomNode *)parseHtml:(NSString *)html
 {
    if ( nil == html || 0 == html.length )
       return nil;
    
-   SamuraiHtmlDomNode *   domTree = nil;
+   IDEAAppletHtmlDomNode *   domTree = nil;
    GumboOptions         options = kGumboDefaultOptions;
    GumboOutput *         output = gumbo_parse_with_options( &options, [html UTF8String], strlen([html UTF8String]));
    
@@ -88,7 +88,7 @@
          
          if ( GUMBO_NODE_ELEMENT == child->type )
          {
-            domTree = [SamuraiHtmlDomNode domNode];
+            domTree = [IDEAAppletHtmlDomNode domNode];
             domTree.type = DomNodeType_Document;
             domTree.implied = YES;
             
@@ -109,9 +109,9 @@
 
 #pragma mark -
 
-- (void)parseNodeElement:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseNodeElement:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
-   SamuraiHtmlDomNode * childNode = [SamuraiHtmlDomNode domNode];
+   IDEAAppletHtmlDomNode * childNode = [IDEAAppletHtmlDomNode domNode];
    
    childNode.type = DomNodeType_Element;
    childNode.implied = ( GUMBO_INSERTION_IMPLIED & node->parse_flags ) ? YES : NO;
@@ -125,7 +125,7 @@
    [self parseChildren:node forParentNode:childNode];
 }
 
-- (void)parseNodeText:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseNodeText:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
    if ( node->v.text.text && strlen(node->v.text.text) )
    {
@@ -133,7 +133,7 @@
       
       if ( content && content.length )
       {
-         SamuraiHtmlDomNode * childNode = [SamuraiHtmlDomNode domNode];
+         IDEAAppletHtmlDomNode * childNode = [IDEAAppletHtmlDomNode domNode];
          
          childNode.type = DomNodeType_Text;
          childNode.implied = ( GUMBO_INSERTION_IMPLIED & node->parse_flags ) ? YES : NO;
@@ -148,7 +148,7 @@
    }
 }
 
-- (void)parseNodeCData:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseNodeCData:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
    if ( node->v.text.text && strlen(node->v.text.text) )
    {
@@ -156,7 +156,7 @@
       
       if ( content && content.length )
       {
-         SamuraiHtmlDomNode * childNode = [SamuraiHtmlDomNode domNode];
+         IDEAAppletHtmlDomNode * childNode = [IDEAAppletHtmlDomNode domNode];
          
          childNode.type = DomNodeType_Data;
          childNode.implied = ( GUMBO_INSERTION_IMPLIED & node->parse_flags ) ? YES : NO;
@@ -171,7 +171,7 @@
    }
 }
 
-- (void)parseNodeComment:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseNodeComment:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
    //   if ( node->v.text.text && strlen(node->v.text.text) )
    //   {
@@ -179,7 +179,7 @@
    //
    //      if ( content && content.length )
    //      {
-   //         SamuraiHtmlDomNode * childNode = [SamuraiHtmlDomNode domNode];
+   //         IDEAAppletHtmlDomNode * childNode = [IDEAAppletHtmlDomNode domNode];
    //
    //         childNode.type = DomNodeType_Comment;
    //         childNode.domText = content;
@@ -193,7 +193,7 @@
 
 #pragma mark -
 
-- (void)parseAttributes:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseAttributes:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
    if ( GUMBO_NODE_ELEMENT != node->type )
       return;
@@ -239,7 +239,7 @@
    }
 }
 
-- (void)parseChildren:(GumboNode *)node forParentNode:(SamuraiHtmlDomNode *)domNode
+- (void)parseChildren:(GumboNode *)node forParentNode:(IDEAAppletHtmlDomNode *)domNode
 {
    const GumboVector * children = NULL;
    

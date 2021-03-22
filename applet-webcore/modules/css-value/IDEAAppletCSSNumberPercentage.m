@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberPercentage
+@implementation IDEAAppletCSSNumberPercentage
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberPercentage * result = nil;
+   IDEAAppletCSSNumberPercentage * result = nil;
    
    if ( KATANA_VALUE_PERCENTAGE == value->unit )
    {
-      result = [[SamuraiCSSNumberPercentage alloc] init];
+      result = [[IDEAAppletCSSNumberPercentage alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 - (instancetype)percentage:(CGFloat)value
 {
-   SamuraiCSSNumberPercentage * result = [[SamuraiCSSNumberPercentage alloc] init];
+   IDEAAppletCSSNumberPercentage * result = [[IDEAAppletCSSNumberPercentage alloc] init];
    result.value = value;
    return result;   
 }

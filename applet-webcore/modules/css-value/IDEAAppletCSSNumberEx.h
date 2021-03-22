@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssEx
-#define cssEx( n )   [SamuraiCSSNumberEx ex:n]
+#define cssEx( n )   [IDEAAppletCSSNumberEx ex:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberEx : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberEx : IDEAAppletCSSNumber
 
 + (instancetype)ex:(CGFloat)value;
 

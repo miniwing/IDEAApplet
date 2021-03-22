@@ -69,18 +69,18 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderStore
+@implementation IDEAAppletHtmlRenderStore
 
-@def_prop_unsafe( SamuraiHtmlRenderObject *, source );
+@def_prop_unsafe( IDEAAppletHtmlRenderObject *, source );
 
-+ (SamuraiHtmlRenderStore *)store
++ (IDEAAppletHtmlRenderStore *)store
 {
    return [[self alloc] init];
 }
 
-+ (SamuraiHtmlRenderStore *)store:(SamuraiHtmlRenderObject *)object
++ (IDEAAppletHtmlRenderStore *)store:(IDEAAppletHtmlRenderObject *)object
 {
-   SamuraiHtmlRenderStore * store = [[self alloc] init];
+   IDEAAppletHtmlRenderStore * store = [[self alloc] init];
    store.source = object;
    return store;
 }
@@ -144,7 +144,7 @@
       }
       else
       {
-         for ( SamuraiHtmlRenderStore * childStore in self.childs )
+         for ( IDEAAppletHtmlRenderStore * childStore in self.childs )
          {
             [childStore matchFirstOf:dataPaths atIndex:(index + 1) toResult:result];
          }
@@ -152,7 +152,7 @@
    }
    else
    {
-      for ( SamuraiHtmlRenderStore * childStore in self.childs )
+      for ( IDEAAppletHtmlRenderStore * childStore in self.childs )
       {
          [childStore matchFirstOf:dataPaths atIndex:index toResult:result];
       }
@@ -181,7 +181,7 @@
       [[IDEAAppletLogger sharedInstance] indent];
    }
 
-   for ( SamuraiHtmlRenderObject * child in self.childs )
+   for ( IDEAAppletHtmlRenderObject * child in self.childs )
    {
       [child dump];
    }

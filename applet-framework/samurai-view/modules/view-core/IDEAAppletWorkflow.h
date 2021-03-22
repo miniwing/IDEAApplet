@@ -39,7 +39,7 @@
 
 @class IDEAAppletWorkflow;
 
-@interface SamuraiViewWorklet : NSObject
+@interface IDEAAppletViewWorklet : NSObject
 
 + (instancetype)worklet;
 

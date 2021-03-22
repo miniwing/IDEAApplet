@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlLayoutContainerBlock : SamuraiHtmlLayoutContainer
+@interface IDEAAppletHtmlLayoutContainerBlock : IDEAAppletHtmlLayoutContainer
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

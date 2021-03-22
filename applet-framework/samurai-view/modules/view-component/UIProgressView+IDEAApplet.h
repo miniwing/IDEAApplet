@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface UIProgressView(Samurai)
+@interface UIProgressView(IDEAApplet)
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

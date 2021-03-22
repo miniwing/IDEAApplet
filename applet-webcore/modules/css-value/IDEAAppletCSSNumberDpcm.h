@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssDpcm
-#define cssDpcm( n )   [SamuraiCSSNumberDpcm dpcm:n]
+#define cssDpcm( n )   [IDEAAppletCSSNumberDpcm dpcm:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberDpcm : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberDpcm : IDEAAppletCSSNumber
 
 + (instancetype)dpcm:(CGFloat)value;
 

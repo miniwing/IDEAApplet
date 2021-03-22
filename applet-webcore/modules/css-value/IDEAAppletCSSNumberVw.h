@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssVw
-#define cssVw( n )   [SamuraiCSSNumberVw vw:n]
+#define cssVw( n )   [IDEAAppletCSSNumberVw vw:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberVw : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberVw : IDEAAppletCSSNumber
 
 + (instancetype)vw:(CGFloat)value;
 

@@ -46,7 +46,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderQuery
+@implementation IDEAAppletHtmlRenderQuery
 
 @def_prop_strong( NSMutableArray *,               input );
 @def_prop_strong( NSMutableArray *,               output );
@@ -55,20 +55,20 @@
 @def_prop_readonly( UIView *,                  lastView );
 @def_prop_readonly( UIView *,                  firstView );
 
-@def_prop_dynamic( SamuraiHtmlRenderQueryBlockN,   ATTR );
-@def_prop_dynamic( SamuraiHtmlRenderQueryBlockN,   SET_CLASS );
-@def_prop_dynamic( SamuraiHtmlRenderQueryBlockN,   ADD_CLASS );
-@def_prop_dynamic( SamuraiHtmlRenderQueryBlockN,   REMOVE_CLASS );
-@def_prop_dynamic( SamuraiHtmlRenderQueryBlockN,   TOGGLE_CLASS );
+@def_prop_dynamic( IDEAAppletHtmlRenderQueryBlockN,   ATTR );
+@def_prop_dynamic( IDEAAppletHtmlRenderQueryBlockN,   SET_CLASS );
+@def_prop_dynamic( IDEAAppletHtmlRenderQueryBlockN,   ADD_CLASS );
+@def_prop_dynamic( IDEAAppletHtmlRenderQueryBlockN,   REMOVE_CLASS );
+@def_prop_dynamic( IDEAAppletHtmlRenderQueryBlockN,   TOGGLE_CLASS );
 
-+ (SamuraiHtmlRenderQuery *)renderQuery
++ (IDEAAppletHtmlRenderQuery *)renderQuery
 {
    return [[self alloc] init];
 }
 
-+ (SamuraiHtmlRenderQuery *)renderQuery:(NSArray *)array
++ (IDEAAppletHtmlRenderQuery *)renderQuery:(NSArray *)array
 {
-   SamuraiHtmlRenderQuery * query = [[self alloc] init];
+   IDEAAppletHtmlRenderQuery * query = [[self alloc] init];
    [query.input addObjectsFromArray:array];
    return query;
 }
@@ -94,7 +94,7 @@
 
 #pragma mark -
 
-- (BOOL)renderer:(SamuraiHtmlRenderObject *)source matchById:(NSString *)idString
+- (BOOL)renderer:(IDEAAppletHtmlRenderObject *)source matchById:(NSString *)idString
 {
    if ( nil == idString || 0 == idString.length )
       return NO;
@@ -110,7 +110,7 @@
    return NO;
 }
 
-- (BOOL)renderer:(SamuraiHtmlRenderObject *)source matchByClass:(NSString *)classString
+- (BOOL)renderer:(IDEAAppletHtmlRenderObject *)source matchByClass:(NSString *)classString
 {
    if ( nil == classString || 0 == classString.length )
       return NO;
@@ -131,7 +131,7 @@
    return NO;
 }
 
-- (BOOL)renderer:(SamuraiHtmlRenderObject *)source matchByTag:(NSString *)tagString
+- (BOOL)renderer:(IDEAAppletHtmlRenderObject *)source matchByTag:(NSString *)tagString
 {
    if ( nil == tagString || 0 == tagString.length )
       return NO;
@@ -147,14 +147,14 @@
    return NO;
 }
 
-- (BOOL)renderer:(SamuraiHtmlRenderObject *)source matchByPaths:(NSArray *)paths
+- (BOOL)renderer:(IDEAAppletHtmlRenderObject *)source matchByPaths:(NSArray *)paths
 {
    if ( 0 == paths.count )
       return NO;
    
    NSUInteger index = 0;
    
-   for ( SamuraiHtmlRenderObject *   render = source; render; render = (id)render.parent )
+   for ( IDEAAppletHtmlRenderObject *   render = source; render; render = (id)render.parent )
    {
       BOOL      matched = NO;
       NSString *   condition = [paths objectAtIndex:(paths.count - index - 1)];
@@ -187,59 +187,59 @@
 
 #pragma mark -
 
-- (void)renderer:(SamuraiHtmlRenderObject *)source queryById:(NSString *)condition
+- (void)renderer:(IDEAAppletHtmlRenderObject *)source queryById:(NSString *)condition
 {
    if ( [self renderer:source matchById:condition] )
    {
       [self.output addObject:source];
    }
    
-   for ( SamuraiHtmlRenderObject * child in source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in source.childs )
    {
       [self renderer:child queryById:condition];
    }
 }
 
-- (void)renderer:(SamuraiHtmlRenderObject *)source queryByClass:(NSString *)classString
+- (void)renderer:(IDEAAppletHtmlRenderObject *)source queryByClass:(NSString *)classString
 {
    if ( [self renderer:source matchByClass:classString] )
    {
       [self.output addObject:source];
    }
    
-   for ( SamuraiHtmlRenderObject * child in source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in source.childs )
    {
       [self renderer:child queryByClass:classString];
    }
 }
 
-- (void)renderer:(SamuraiHtmlRenderObject *)source queryByTag:(NSString *)tagString
+- (void)renderer:(IDEAAppletHtmlRenderObject *)source queryByTag:(NSString *)tagString
 {
    if ( [self renderer:source matchByTag:tagString] )
    {
       [self.output addObject:source];
    }
    
-   for ( SamuraiHtmlRenderObject * child in source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in source.childs )
    {
       [self renderer:child queryByTag:tagString];
    }
 }
 
-- (void)renderer:(SamuraiHtmlRenderObject *)source queryByPaths:(NSArray *)paths
+- (void)renderer:(IDEAAppletHtmlRenderObject *)source queryByPaths:(NSArray *)paths
 {
    if ( [self renderer:source matchByPaths:paths] )
    {
       [self.output addObject:source];
    }
    
-   for ( SamuraiHtmlRenderObject * child in source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in source.childs )
    {
       [self renderer:child queryByPaths:paths];
    }
 }
 
-- (void)renderer:(SamuraiHtmlRenderObject *)source query:(NSString *)text
+- (void)renderer:(IDEAAppletHtmlRenderObject *)source query:(NSString *)text
 {
    NSArray * components = [text componentsSeparatedByString:@","];
    
@@ -277,22 +277,22 @@
 
 #pragma mark -
 
-- (void)input:(SamuraiHtmlRenderObject *)object
+- (void)input:(IDEAAppletHtmlRenderObject *)object
 {
    if ( nil == object )
       return;
    
-   ASSERT( [object isKindOfClass:[SamuraiHtmlRenderObject class]] );
+   ASSERT( [object isKindOfClass:[IDEAAppletHtmlRenderObject class]] );
    
    [self.input addObject:object];
 }
 
-- (void)output:(SamuraiHtmlRenderObject *)object
+- (void)output:(IDEAAppletHtmlRenderObject *)object
 {
    if ( nil == object )
       return;
 
-   ASSERT( [object isKindOfClass:[SamuraiHtmlRenderObject class]] );
+   ASSERT( [object isKindOfClass:[IDEAAppletHtmlRenderObject class]] );
 
    [self.output addObject:object];
 }
@@ -305,7 +305,7 @@
    }
    else
    {
-      for ( SamuraiHtmlRenderObject * renderer in self.input )
+      for ( IDEAAppletHtmlRenderObject * renderer in self.input )
       {
          [self renderer:renderer query:condition];
       }
@@ -318,7 +318,7 @@
 {
    NSMutableArray * array = [NSMutableArray nonRetainingArray];
    
-   for ( SamuraiHtmlRenderObject * renderObject in self.output )
+   for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
    {
       [array addObject:renderObject.view];
    }
@@ -350,17 +350,17 @@
 
 #pragma mark -
 
-- (SamuraiHtmlRenderQueryBlockN)ATTR
+- (IDEAAppletHtmlRenderQueryBlockN)ATTR
 {
    @weakify( self )
    
-   SamuraiHtmlRenderQueryBlockN block = (SamuraiHtmlRenderQueryBlockN)^ SamuraiHtmlRenderQuery * ( NSString * key, NSString * value )
+   IDEAAppletHtmlRenderQueryBlockN block = (IDEAAppletHtmlRenderQueryBlockN)^ IDEAAppletHtmlRenderQuery * ( NSString * key, NSString * value )
    {
       @strongify( self )
       
       if ( key && value )
       {
-         for ( SamuraiHtmlRenderObject * renderObject in self.output )
+         for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
          {
             [renderObject.customStyle setObject:value forKey:key];
             
@@ -374,11 +374,11 @@
    return [block copy];
 }
 
-- (SamuraiHtmlRenderQueryBlockN)SET_CLASS
+- (IDEAAppletHtmlRenderQueryBlockN)SET_CLASS
 {
    @weakify( self )
    
-   SamuraiHtmlRenderQueryBlockN block = (SamuraiHtmlRenderQueryBlockN)^ SamuraiHtmlRenderQuery * ( NSString * string )
+   IDEAAppletHtmlRenderQueryBlockN block = (IDEAAppletHtmlRenderQueryBlockN)^ IDEAAppletHtmlRenderQuery * ( NSString * string )
    {
       @strongify( self )
       
@@ -386,7 +386,7 @@
       
       if ( classes && [classes count] )
       {
-         for ( SamuraiHtmlRenderObject * renderObject in self.output )
+         for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
          {
             [renderObject.customClasses removeAllObjects];
             [renderObject.customClasses addObjectsFromArray:classes];
@@ -401,11 +401,11 @@
    return [block copy];
 }
 
-- (SamuraiHtmlRenderQueryBlockN)ADD_CLASS
+- (IDEAAppletHtmlRenderQueryBlockN)ADD_CLASS
 {
    @weakify( self )
    
-   SamuraiHtmlRenderQueryBlockN block = (SamuraiHtmlRenderQueryBlockN)^ SamuraiHtmlRenderQuery * ( NSString * string )
+   IDEAAppletHtmlRenderQueryBlockN block = (IDEAAppletHtmlRenderQueryBlockN)^ IDEAAppletHtmlRenderQuery * ( NSString * string )
    {
       @strongify( self )
       
@@ -413,7 +413,7 @@
       
       if ( classes && [classes count] )
       {
-         for ( SamuraiHtmlRenderObject * renderObject in self.output )
+         for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
          {
             [renderObject.customClasses addObjectsFromArray:classes];
             
@@ -427,11 +427,11 @@
    return [block copy];
 }
 
-- (SamuraiHtmlRenderQueryBlockN)REMOVE_CLASS
+- (IDEAAppletHtmlRenderQueryBlockN)REMOVE_CLASS
 {
    @weakify( self )
    
-   SamuraiHtmlRenderQueryBlockN block = (SamuraiHtmlRenderQueryBlockN)^ SamuraiHtmlRenderQuery * ( NSString * string )
+   IDEAAppletHtmlRenderQueryBlockN block = (IDEAAppletHtmlRenderQueryBlockN)^ IDEAAppletHtmlRenderQuery * ( NSString * string )
    {
       @strongify( self )
       
@@ -439,7 +439,7 @@
       
       if ( classes && [classes count] )
       {
-         for ( SamuraiHtmlRenderObject * renderObject in self.output )
+         for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
          {
             [renderObject.customClasses removeObjectsInArray:classes];
             
@@ -453,11 +453,11 @@
    return [block copy];
 }
 
-- (SamuraiHtmlRenderQueryBlockN)TOGGLE_CLASS
+- (IDEAAppletHtmlRenderQueryBlockN)TOGGLE_CLASS
 {
    @weakify( self )
    
-   SamuraiHtmlRenderQueryBlockN block = (SamuraiHtmlRenderQueryBlockN)^ SamuraiHtmlRenderQuery * ( NSString * string )
+   IDEAAppletHtmlRenderQueryBlockN block = (IDEAAppletHtmlRenderQueryBlockN)^ IDEAAppletHtmlRenderQuery * ( NSString * string )
    {
       @strongify( self )
       
@@ -465,7 +465,7 @@
       
       if ( classes && [classes count] )
       {
-         for ( SamuraiHtmlRenderObject * renderObject in self.output )
+         for ( IDEAAppletHtmlRenderObject * renderObject in self.output )
          {
             for ( NSString * class in classes )
             {
@@ -493,11 +493,11 @@
 
 #pragma mark -
 
-SamuraiHtmlRenderQueryBlockN __dollar( id context )
+IDEAAppletHtmlRenderQueryBlockN __dollar( id context )
 {
-   SamuraiHtmlRenderQueryBlockN resultBlock = ^ SamuraiHtmlRenderQuery * ( id first, ... )
+   IDEAAppletHtmlRenderQueryBlockN resultBlock = ^ IDEAAppletHtmlRenderQuery * ( id first, ... )
    {
-      SamuraiHtmlRenderQuery * queryContext = [SamuraiHtmlRenderQuery renderQuery];
+      IDEAAppletHtmlRenderQuery * queryContext = [IDEAAppletHtmlRenderQuery renderQuery];
 
       UIView *   container = nil;
       NSString *   condition = nil;
@@ -538,7 +538,7 @@ SamuraiHtmlRenderQueryBlockN __dollar( id context )
          }
       }
 
-      [queryContext input:(SamuraiHtmlRenderObject *)[container renderer]];
+      [queryContext input:(IDEAAppletHtmlRenderObject *)[container renderer]];
       [queryContext execute:condition];
 
       return queryContext;

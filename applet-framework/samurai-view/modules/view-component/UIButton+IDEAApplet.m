@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUIButtonAgent
+@implementation IDEAAppletUIButtonAgent
 {
    BOOL _enabled;
 }
@@ -148,7 +148,7 @@
 
 #pragma mark -
 
-@implementation UIButton(Samurai)
+@implementation UIButton(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(__unused NSString *)identifier
 {
@@ -163,13 +163,13 @@
 
 #pragma mark -
 
-- (SamuraiUIButtonAgent *)buttonAgent
+- (IDEAAppletUIButtonAgent *)buttonAgent
 {
-   SamuraiUIButtonAgent * agent = [self getAssociatedObjectForKey:"UIButton.agent"];
+   IDEAAppletUIButtonAgent * agent = [self getAssociatedObjectForKey:"UIButton.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUIButtonAgent alloc] init];
+      agent = [[IDEAAppletUIButtonAgent alloc] init];
       agent.button = self;
 
       [self retainAssociatedObject:agent forKey:"UIButton.agent"];

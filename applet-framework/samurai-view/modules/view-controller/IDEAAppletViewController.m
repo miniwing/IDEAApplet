@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation UIViewController(Samurai)
+@implementation UIViewController(IDEAApplet)
 
 - (id)serialize
 {

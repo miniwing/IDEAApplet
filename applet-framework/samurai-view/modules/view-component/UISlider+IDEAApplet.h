@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUISliderAgent : NSObject
+@interface IDEAAppletUISliderAgent : NSObject
 
 @prop_unsafe( UISlider *,   slider );
 
@@ -53,11 +53,11 @@
 
 #pragma mark -
 
-@interface UISlider(Samurai)
+@interface UISlider(IDEAApplet)
 
 @signal( eventValueChanged )
 
-- (SamuraiUISliderAgent *)sliderAgent;
+- (IDEAAppletUISliderAgent *)sliderAgent;
 
 @end
 

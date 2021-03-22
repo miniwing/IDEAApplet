@@ -67,7 +67,7 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSString
+@implementation IDEAAppletCSSString
 
 @def_prop_strong( NSString *, string );
 
@@ -76,7 +76,7 @@
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSString * result = nil;
+   IDEAAppletCSSString * result = nil;
    
    if ( KATANA_VALUE_IDENT == value->unit ||
        KATANA_VALUE_STRING == value->unit ||
@@ -86,7 +86,7 @@
       if ( NULL == value->string )
          return nil;
       
-      result = [[SamuraiCSSString alloc] init];
+      result = [[IDEAAppletCSSString alloc] init];
       result.string = [NSString stringWithUTF8String:value->string];
    }
    else if ( KATANA_VALUE_PARSER_OPERATOR == value->unit )
@@ -96,7 +96,7 @@
       operator[0] = value->iValue;
       operator[1] = '\0';
       
-      result = [[SamuraiCSSString alloc] init];
+      result = [[IDEAAppletCSSString alloc] init];
       result.string = [NSString stringWithUTF8String:operator];
    }
 
@@ -110,7 +110,7 @@
    if ( nil == string )
       return nil;
 
-   SamuraiCSSString * result = [[SamuraiCSSString alloc] init];
+   IDEAAppletCSSString * result = [[IDEAAppletCSSString alloc] init];
    result.string = string;
    return result;
 }

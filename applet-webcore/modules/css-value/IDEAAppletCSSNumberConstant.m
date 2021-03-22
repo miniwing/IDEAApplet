@@ -52,25 +52,25 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberConstant
+@implementation IDEAAppletCSSNumberConstant
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberConstant * result = nil;
+   IDEAAppletCSSNumberConstant * result = nil;
    
    if ( KATANA_VALUE_NUMBER == value->unit )
    {
-      result = [[SamuraiCSSNumberConstant alloc] init];
+      result = [[IDEAAppletCSSNumberConstant alloc] init];
       result.value = value->fValue;
    }
    else if ( KATANA_VALUE_STRING == value->unit || KATANA_VALUE_IDENT == value->unit )
    {
       if ( 0 == strcasecmp( value->string, "0" ) )
       {
-         result = [[SamuraiCSSNumberConstant alloc] init];
+         result = [[IDEAAppletCSSNumberConstant alloc] init];
          result.value = 0;
       }
    }
@@ -82,7 +82,7 @@
 
 + (instancetype)constant:(CGFloat)value
 {
-   SamuraiCSSNumberConstant * result = [[SamuraiCSSNumberConstant alloc] init];
+   IDEAAppletCSSNumberConstant * result = [[IDEAAppletCSSNumberConstant alloc] init];
    result.value = value;
    return result;
 }

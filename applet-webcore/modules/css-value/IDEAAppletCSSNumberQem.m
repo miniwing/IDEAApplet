@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberQem
+@implementation IDEAAppletCSSNumberQem
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberQem * result = nil;
+   IDEAAppletCSSNumberQem * result = nil;
    
    if ( KATANA_VALUE_PARSER_Q_EMS == value->unit )
    {
-      result = [[SamuraiCSSNumberQem alloc] init];
+      result = [[IDEAAppletCSSNumberQem alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)qem:(CGFloat)value
 {
-   SamuraiCSSNumberQem * result = [[SamuraiCSSNumberQem alloc] init];
+   IDEAAppletCSSNumberQem * result = [[IDEAAppletCSSNumberQem alloc] init];
    result.value = value;
    return result;
 }
@@ -117,7 +117,7 @@
 
 - (CGFloat)computeValue:(CGFloat)value
 {
-   CGFloat lineHeight = [SamuraiHtmlUserAgent sharedInstance].defaultFont.lineHeight;
+   CGFloat lineHeight = [IDEAAppletHtmlUserAgent sharedInstance].defaultFont.lineHeight;
 
    return self.value * lineHeight;   // qem to px
 }

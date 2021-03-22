@@ -53,9 +53,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_40MergeStyleTree
+@implementation IDEAAppletHtmlDocumentWorklet_40MergeStyleTree
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    if ( document.domTree )
    {
@@ -65,13 +65,13 @@
    return YES;
 }
 
-- (void)parseDocument:(SamuraiHtmlDocument *)document
+- (void)parseDocument:(IDEAAppletHtmlDocument *)document
 {
    document.styleTree = [IDEAAppletCSSStyleSheet styleSheet];
    
 // load default stylesheets
 
-   for ( IDEAAppletStyleSheet * styleSheet in [SamuraiHtmlUserAgent sharedInstance].defaultStyleSheets )
+   for ( IDEAAppletStyleSheet * styleSheet in [IDEAAppletHtmlUserAgent sharedInstance].defaultStyleSheets )
    {
       BOOL isCompatible = [[IDEAAppletCSSMediaQuery sharedInstance] test:styleSheet.media];
       if ( isCompatible )
@@ -82,7 +82,7 @@
 
 // load document stylesheets
 
-   for ( SamuraiHtmlDocument * thisDocument = document; nil != thisDocument; thisDocument = (SamuraiHtmlDocument *)thisDocument.parent )
+   for ( IDEAAppletHtmlDocument * thisDocument = document; nil != thisDocument; thisDocument = (IDEAAppletHtmlDocument *)thisDocument.parent )
    {
       for ( IDEAAppletStyleSheet * styleSheet in [thisDocument.externalStylesheets copy] )
       {
@@ -98,9 +98,9 @@
 
    for ( IDEAAppletResource * resource in [document.externalImports copy] )
    {
-      if ( [resource isKindOfClass:[SamuraiHtmlDocument class]] )
+      if ( [resource isKindOfClass:[IDEAAppletHtmlDocument class]] )
       {
-         [self parseDocument:(SamuraiHtmlDocument *)resource];
+         [self parseDocument:(IDEAAppletHtmlDocument *)resource];
       }
    }
 }

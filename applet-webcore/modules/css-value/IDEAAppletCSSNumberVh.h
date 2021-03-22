@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssVh
-#define cssVh( n )   [SamuraiCSSNumberVh vh:n]
+#define cssVh( n )   [IDEAAppletCSSNumberVh vh:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberVh : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberVh : IDEAAppletCSSNumber
 
 + (instancetype)vh:(CGFloat)value;
 

@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation UILabel(Samurai)
+@implementation UILabel(IDEAApplet)
 
 @def_prop_dynamic( BOOL,            trimmed );
 @def_prop_dynamic( BOOL,            flattern );

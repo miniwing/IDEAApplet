@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUIButtonAgent : NSObject
+@interface IDEAAppletUIButtonAgent : NSObject
 
 @prop_unsafe( UIButton *,   button );
 
@@ -53,9 +53,9 @@
 
 #pragma mark -
 
-@interface UIButton(Samurai)
+@interface UIButton (IDEAApplet)
 
-- (SamuraiUIButtonAgent *)buttonAgent;
+- (IDEAAppletUIButtonAgent *)buttonAgent;
 
 @end
 

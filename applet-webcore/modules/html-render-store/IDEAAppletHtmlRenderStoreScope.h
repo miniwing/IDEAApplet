@@ -39,7 +39,7 @@
 @interface IDEAAppletHtmlRenderStoreScope : NSObject<NSDictionaryProtocol, NSMutableDictionaryProtocol>
 
 @prop_strong( NSObject *,            content );
-@prop_strong( SamuraiHtmlRenderStore *,   storeTree );
+@prop_strong( IDEAAppletHtmlRenderStore *,   storeTree );
 
 + (IDEAAppletHtmlRenderStoreScope *)scope:(id)sourceOrTarget;
 

@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssDeg
-#define cssDeg( n )   [SamuraiCSSNumberDeg deg:n]
+#define cssDeg( n )   [IDEAAppletCSSNumberDeg deg:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberDeg : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberDeg : IDEAAppletCSSNumber
 
 + (instancetype)deg:(CGFloat)value;
 

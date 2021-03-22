@@ -34,7 +34,7 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlElementSelect : UILabel<UIActionSheetDelegate>
+@interface IDEAAppletHtmlElementSelect : UILabel<UIActionSheetDelegate>
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

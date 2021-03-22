@@ -39,19 +39,19 @@
 
 #pragma mark -
 
-@interface SamuraiHtmlDocument : IDEAAppletDocument
+@interface IDEAAppletHtmlDocument : IDEAAppletDocument
 
-@prop_strong( SamuraiHtmlDomNode *,         domTree );
+@prop_strong( IDEAAppletHtmlDomNode *,         domTree );
 @prop_strong( IDEAAppletCSSStyleSheet *,      styleTree );
-@prop_strong( SamuraiHtmlRenderObject *,   renderTree );
+@prop_strong( IDEAAppletHtmlRenderObject *,   renderTree );
 
 @prop_strong( NSString *,   rootTag );
 @prop_strong( NSString *,   headTag );
 @prop_strong( NSString *,   bodyTag );
 
-- (SamuraiHtmlDomNode *)getRootDomNode;
-- (SamuraiHtmlDomNode *)getHeadDomNode;
-- (SamuraiHtmlDomNode *)getBodyDomNode;
+- (IDEAAppletHtmlDomNode *)getRootDomNode;
+- (IDEAAppletHtmlDomNode *)getHeadDomNode;
+- (IDEAAppletHtmlDomNode *)getBodyDomNode;
 
 @end
 

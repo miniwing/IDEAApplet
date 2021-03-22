@@ -57,9 +57,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_70BuildRenderTree
+@implementation IDEAAppletHtmlDocumentWorklet_70BuildRenderTree
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    if ( document.domTree )
    {
@@ -78,9 +78,9 @@
    return YES;
 }
 
-- (SamuraiHtmlRenderObject *)renderDomNode:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
+- (IDEAAppletHtmlRenderObject *)renderDomNode:(IDEAAppletHtmlDomNode *)domNode forContainer:(IDEAAppletHtmlRenderObject *)container inDocument:(IDEAAppletHtmlDocument *)document
 {
-   SamuraiHtmlRenderObject * renderObject = nil;
+   IDEAAppletHtmlRenderObject * renderObject = nil;
 
    if ( DomNodeType_Document == domNode.type )
    {
@@ -110,11 +110,11 @@
    return renderObject;
 }
 
-- (SamuraiHtmlRenderObject *)renderDomNodeDocument:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
+- (IDEAAppletHtmlRenderObject *)renderDomNodeDocument:(IDEAAppletHtmlDomNode *)domNode forContainer:(IDEAAppletHtmlRenderObject *)container inDocument:(IDEAAppletHtmlDocument *)document
 {
    DEBUG_HTML_RENDER( domNode );
 
-   SamuraiHtmlRenderObject * rootObject = [SamuraiHtmlRenderViewport renderObjectWithDom:nil andStyle:nil];
+   IDEAAppletHtmlRenderObject * rootObject = [IDEAAppletHtmlRenderViewport renderObjectWithDom:nil andStyle:nil];
    
    if ( rootObject )
    {
@@ -130,7 +130,7 @@
    return rootObject;
 }
 
-- (SamuraiHtmlRenderObject *)renderDomNodeElement:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
+- (IDEAAppletHtmlRenderObject *)renderDomNodeElement:(IDEAAppletHtmlDomNode *)domNode forContainer:(IDEAAppletHtmlRenderObject *)container inDocument:(IDEAAppletHtmlDocument *)document
 {
    DEBUG_HTML_RENDER( domNode );
 
@@ -138,8 +138,8 @@
    {
       PERF( @"tag '%@', shadow element", domNode.tag );
 
-      SamuraiHtmlRenderStyle *   thisStyle = [SamuraiHtmlRenderStyle renderStyle:domNode.shadowRoot.computedStyle];
-      SamuraiHtmlRenderObject *   thisObject = [SamuraiHtmlRenderContainer renderObjectWithDom:domNode andStyle:thisStyle];
+      IDEAAppletHtmlRenderStyle *   thisStyle = [IDEAAppletHtmlRenderStyle renderStyle:domNode.shadowRoot.computedStyle];
+      IDEAAppletHtmlRenderObject *   thisObject = [IDEAAppletHtmlRenderContainer renderObjectWithDom:domNode andStyle:thisStyle];
 
       if ( thisObject )
       {
@@ -152,7 +152,7 @@
          
          [thisObject computeProperties];
          
-         for ( SamuraiHtmlDomNode * childDom in domNode.shadowRoot.childs )
+         for ( IDEAAppletHtmlDomNode * childDom in domNode.shadowRoot.childs )
          {
             [self renderDomNode:childDom forContainer:thisObject inDocument:document];
          }
@@ -164,15 +164,15 @@
    }
    else
    {
-        SamuraiHtmlRenderStyle *   thisStyle = [SamuraiHtmlRenderStyle renderStyle:domNode.computedStyle];
-      SamuraiHtmlRenderObject *   thisObject = nil;
+        IDEAAppletHtmlRenderStyle *   thisStyle = [IDEAAppletHtmlRenderStyle renderStyle:domNode.computedStyle];
+      IDEAAppletHtmlRenderObject *   thisObject = nil;
 
       CSSViewHierarchy   viewHierarchy = [thisStyle computeViewHierarchy:CSSViewHierarchy_Inherit];
       Class            viewClassType = nil;
       
       if ( CSSViewHierarchy_Inherit == viewHierarchy )
       {
-         viewClassType = viewClassType ?: NSClassFromString( [thisStyle.samuraiViewClass string] );
+         viewClassType = viewClassType ?: NSClassFromString( [thisStyle.appletViewClass string] );
          viewClassType = viewClassType ?: NSClassFromString( domNode.tag );
          
          if ( [viewClassType isSubclassOfClass:[UIView class]] )
@@ -185,7 +185,7 @@
                
                if ( defaultProperties && [defaultProperties count] )
                {
-                  SamuraiHtmlRenderStyle * defaultStyle = [SamuraiHtmlRenderStyle renderStyle:defaultProperties];
+                  IDEAAppletHtmlRenderStyle * defaultStyle = [IDEAAppletHtmlRenderStyle renderStyle:defaultProperties];
                   
                   viewHierarchy = [defaultStyle computeViewHierarchy:CSSViewHierarchy_Inherit];
                }
@@ -214,7 +214,7 @@
 
          case CSSViewHierarchy_Branch:
          {
-            for ( SamuraiHtmlDomNode * childDom in domNode.childs )
+            for ( IDEAAppletHtmlDomNode * childDom in domNode.childs )
             {
                [self renderDomNode:childDom forContainer:container inDocument:document];
             }
@@ -223,7 +223,7 @@
             
          case CSSViewHierarchy_Leaf:
          {
-            thisObject = [SamuraiHtmlRenderElement renderObjectWithDom:domNode andStyle:thisStyle];
+            thisObject = [IDEAAppletHtmlRenderElement renderObjectWithDom:domNode andStyle:thisStyle];
             
             if ( thisObject )
             {
@@ -243,7 +243,7 @@
             
          case CSSViewHierarchy_Tree:
          {
-            thisObject = [SamuraiHtmlRenderContainer renderObjectWithDom:domNode andStyle:thisStyle];
+            thisObject = [IDEAAppletHtmlRenderContainer renderObjectWithDom:domNode andStyle:thisStyle];
             
             if ( thisObject )
             {
@@ -256,7 +256,7 @@
                
                [thisObject computeProperties];
                
-               for ( SamuraiHtmlDomNode * childDom in domNode.childs )
+               for ( IDEAAppletHtmlDomNode * childDom in domNode.childs )
                {
                   [self renderDomNode:childDom forContainer:thisObject inDocument:document];
                }
@@ -274,12 +274,12 @@
    }
 }
 
-- (SamuraiHtmlRenderObject *)renderDomNodeText:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
+- (IDEAAppletHtmlRenderObject *)renderDomNodeText:(IDEAAppletHtmlDomNode *)domNode forContainer:(IDEAAppletHtmlRenderObject *)container inDocument:(IDEAAppletHtmlDocument *)document
 {
    DEBUG_HTML_RENDER( domNode );
 
-   SamuraiHtmlRenderStyle *   thisStyle = [SamuraiHtmlRenderStyle renderStyle:domNode.computedStyle];
-   SamuraiHtmlRenderObject *   thisObject = [SamuraiHtmlRenderText renderObjectWithDom:domNode andStyle:thisStyle];
+   IDEAAppletHtmlRenderStyle *   thisStyle = [IDEAAppletHtmlRenderStyle renderStyle:domNode.computedStyle];
+   IDEAAppletHtmlRenderObject *   thisObject = [IDEAAppletHtmlRenderText renderObjectWithDom:domNode andStyle:thisStyle];
 
    if ( thisObject )
    {
@@ -298,7 +298,7 @@
    return thisObject;
 }
 
-- (SamuraiHtmlRenderObject *)renderDomNodeData:(SamuraiHtmlDomNode *)domNode forContainer:(SamuraiHtmlRenderObject *)container inDocument:(SamuraiHtmlDocument *)document
+- (IDEAAppletHtmlRenderObject *)renderDomNodeData:(IDEAAppletHtmlDomNode *)domNode forContainer:(IDEAAppletHtmlRenderObject *)container inDocument:(IDEAAppletHtmlDocument *)document
 {
    DEBUG_HTML_RENDER( domNode );
 

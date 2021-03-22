@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUISwitchAgent
+@implementation IDEAAppletUISwitchAgent
 {
    BOOL _enabled;
 }
@@ -85,7 +85,7 @@
 
 #pragma mark -
 
-@implementation UISwitch(Samurai)
+@implementation UISwitch(IDEAApplet)
 
 @def_signal( eventValueChanged )
 
@@ -102,13 +102,13 @@
 
 #pragma mark -
 
-- (SamuraiUISwitchAgent *)switchAgent
+- (IDEAAppletUISwitchAgent *)switchAgent
 {
-   SamuraiUISwitchAgent * agent = [self getAssociatedObjectForKey:"UISwitch.agent"];
+   IDEAAppletUISwitchAgent * agent = [self getAssociatedObjectForKey:"UISwitch.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUISwitchAgent alloc] init];
+      agent = [[IDEAAppletUISwitchAgent alloc] init];
       agent.switchh = self;
 
       [self retainAssociatedObject:agent forKey:"UISwitch.agent"];

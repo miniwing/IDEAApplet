@@ -49,15 +49,15 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocument
+@implementation IDEAAppletHtmlDocument
 {
-   SamuraiHtmlDocumentWorkflow_Parser *   _parserFlow;
-   SamuraiHtmlDocumentWorkflow_Render *   _renderFlow;
+   IDEAAppletHtmlDocumentWorkflow_Parser *   _parserFlow;
+   IDEAAppletHtmlDocumentWorkflow_Render *   _renderFlow;
 }
 
-@def_prop_dynamic( SamuraiHtmlDomNode *,      domTree );
+@def_prop_dynamic( IDEAAppletHtmlDomNode *,      domTree );
 @def_prop_dynamic( IDEAAppletCSSStyleSheet *,      styleTree );
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   renderTree );
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   renderTree );
 
 @def_prop_strong( NSString *,   rootTag );
 @def_prop_strong( NSString *,   headTag );
@@ -105,19 +105,19 @@
 
 #pragma mark -
 
-- (SamuraiHtmlDomNode *)getRootDomNode
+- (IDEAAppletHtmlDomNode *)getRootDomNode
 {
-   return (SamuraiHtmlDomNode *)[self.domTree getFirstElementByTagName:self.rootTag];
+   return (IDEAAppletHtmlDomNode *)[self.domTree getFirstElementByTagName:self.rootTag];
 }
 
-- (SamuraiHtmlDomNode *)getHeadDomNode
+- (IDEAAppletHtmlDomNode *)getHeadDomNode
 {
-   return (SamuraiHtmlDomNode *)[self.domTree getFirstElementByTagName:self.headTag];
+   return (IDEAAppletHtmlDomNode *)[self.domTree getFirstElementByTagName:self.headTag];
 }
 
-- (SamuraiHtmlDomNode *)getBodyDomNode
+- (IDEAAppletHtmlDomNode *)getBodyDomNode
 {
-   return (SamuraiHtmlDomNode *)[self.domTree getFirstElementByTagName:self.bodyTag];
+   return (IDEAAppletHtmlDomNode *)[self.domTree getFirstElementByTagName:self.bodyTag];
 }
 
 #pragma mark -
@@ -126,7 +126,7 @@
 {
    if ( nil == _parserFlow )
    {
-      _parserFlow = [SamuraiHtmlDocumentWorkflow_Parser workflowWithContext:self];
+      _parserFlow = [IDEAAppletHtmlDocumentWorkflow_Parser workflowWithContext:self];
    }
    
    return [_parserFlow process];
@@ -136,7 +136,7 @@
 {
    if ( nil == _renderFlow )
    {
-      _renderFlow = [SamuraiHtmlDocumentWorkflow_Render workflowWithContext:self];
+      _renderFlow = [IDEAAppletHtmlDocumentWorkflow_Render workflowWithContext:self];
    }
 
    return [_renderFlow process];
@@ -151,7 +151,7 @@
 
 - (void)configureForViewController:(UIViewController *)viewController
 {
-   SamuraiHtmlDomNode * head = [self getHeadDomNode];
+   IDEAAppletHtmlDomNode * head = [self getHeadDomNode];
    
    UIImage *   navbarBgImage = nil;
    UIColor *   navbarBgColor = nil;
@@ -162,7 +162,7 @@
 
    if ( head )
    {
-      for ( SamuraiHtmlDomNode * child in head.childs )
+      for ( IDEAAppletHtmlDomNode * child in head.childs )
       {
          if ( NSOrderedSame == [child.tag compare:@"meta" options:NSCaseInsensitiveSearch] )
          {

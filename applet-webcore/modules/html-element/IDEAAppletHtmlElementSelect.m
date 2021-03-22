@@ -44,7 +44,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlElementSelect
+@implementation IDEAAppletHtmlElementSelect
 {
    NSUInteger         _selectedIndex;
    NSMutableArray *   _options;
@@ -66,13 +66,13 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
    
    _options = [NSMutableArray array];
    
-   for ( SamuraiHtmlDomNode * child in dom.childs )
+   for ( IDEAAppletHtmlDomNode * child in dom.childs )
    {
       if ( NSOrderedSame == [child.tag compare:@"option" options:NSCaseInsensitiveSearch] )
       {
@@ -87,7 +87,7 @@
       }
       else if ( NSOrderedSame == [child.tag compare:@"optgroup" options:NSCaseInsensitiveSearch] )
       {
-         for ( SamuraiHtmlDomNode * subchild in dom.childs )
+         for ( IDEAAppletHtmlDomNode * subchild in dom.childs )
          {
             [_options addObject:subchild];
          
@@ -104,7 +104,7 @@
    [self unserialize:@(_selectedIndex)];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
    
@@ -123,7 +123,7 @@
 {
    if ( [_options count] )
    {
-      SamuraiHtmlDomNode * currentOption = [_options objectAtIndex:_selectedIndex];
+      IDEAAppletHtmlDomNode * currentOption = [_options objectAtIndex:_selectedIndex];
       
       return currentOption.attrName;
    }
@@ -155,7 +155,7 @@
    }
    else if ( [obj isKindOfClass:[NSString class]] )
    {
-      for ( SamuraiHtmlDomNode * option in _options )
+      for ( IDEAAppletHtmlDomNode * option in _options )
       {
          if ( option.attrName && [option.attrName isEqualToString:obj] )
          {
@@ -167,7 +167,7 @@
    
    if ( [_options count] )
    {
-      SamuraiHtmlDomNode * currentOption = [_options objectAtIndex:_selectedIndex];
+      IDEAAppletHtmlDomNode * currentOption = [_options objectAtIndex:_selectedIndex];
       
       self.text = [currentOption computeInnerText];
    }
@@ -185,7 +185,7 @@
    
    if ( [_options count] )
    {
-      SamuraiHtmlDomNode * currentOption = [_options firstObject];
+      IDEAAppletHtmlDomNode * currentOption = [_options firstObject];
       
       self.text = [currentOption computeInnerText];
    }
@@ -207,7 +207,7 @@
                                     destructiveButtonTitle:nil
                                         otherButtonTitles:nil];
    
-   for ( SamuraiHtmlDomNode * option in _options )
+   for ( IDEAAppletHtmlDomNode * option in _options )
    {
       NSString * text = [option computeInnerText];
       

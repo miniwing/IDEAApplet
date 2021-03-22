@@ -153,7 +153,7 @@
    if ( nil == string || 0 == [string length] )
       return nil;
    
-   IDEAAppletCSSArray * result = [[SamuraiCSSObjectCache sharedInstance].cache objectForKey:string];
+   IDEAAppletCSSArray * result = [[IDEAAppletCSSObjectCache sharedInstance].cache objectForKey:string];
 
    if ( nil == result )
    {
@@ -166,7 +166,7 @@
       
       if ( result )
       {
-         [[SamuraiCSSObjectCache sharedInstance].cache setObject:result forKey:string];
+         [[IDEAAppletCSSObjectCache sharedInstance].cache setObject:result forKey:string];
       }
    }
 

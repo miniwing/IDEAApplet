@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUIToolbarAgent
+@implementation IDEAAppletUIToolbarAgent
 {
    BOOL _enabled;
 }
@@ -78,7 +78,7 @@
 
 #pragma mark -
 
-@implementation UIToolbar(Samurai)
+@implementation UIToolbar(IDEAApplet)
 
 //@def_signal( eventValueChanged )
 
@@ -95,13 +95,13 @@
 
 #pragma mark -
 
-- (SamuraiUIToolbarAgent *)toolbarAgent
+- (IDEAAppletUIToolbarAgent *)toolbarAgent
 {
-   SamuraiUIToolbarAgent * agent = [self getAssociatedObjectForKey:"UIToolbar.agent"];
+   IDEAAppletUIToolbarAgent * agent = [self getAssociatedObjectForKey:"UIToolbar.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUIToolbarAgent alloc] init];
+      agent = [[IDEAAppletUIToolbarAgent alloc] init];
       agent.toolbar = self;
 
       [self retainAssociatedObject:agent forKey:"UIToolbar.agent"];

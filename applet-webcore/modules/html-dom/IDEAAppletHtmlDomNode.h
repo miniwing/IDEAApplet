@@ -36,27 +36,27 @@
 
 #pragma mark -
 
-#undef   dom_attr
-#define   dom_attr( name ) \
-      property (nonatomic, strong) NSString * name
+#undef  dom_attr
+#define dom_attr( name ) \
+        property (nonatomic, strong) NSString * name
 
-#undef   def_dom_attr
-#define   def_dom_attr( getter, setter, key ) \
-      dynamic getter; \
-      - (NSString *)getter { return [self objectForKey:key]; } \
-      - (void)setter:(NSString *)value { [self setObject:value forKey:key]; }
+#undef  def_dom_attr
+#define def_dom_attr( getter, setter, key ) \
+        dynamic getter; \
+        - (NSString *)getter { return [self objectForKey:key]; } \
+        - (void)setter:(NSString *)value { [self setObject:value forKey:key]; }
 
 #pragma mark -
 
-@interface SamuraiHtmlDomNode : IDEAAppletDomNode<IDEAAppletCSSProtocol>
+@interface IDEAAppletHtmlDomNode : IDEAAppletDomNode<IDEAAppletCSSProtocol>
 
 @prop_assign( BOOL,                  implied );
 @prop_strong( NSMutableDictionary *,   computedStyle );
-@prop_unsafe( SamuraiHtmlDomNode *,      parent );
-@prop_unsafe( SamuraiHtmlDomNode *,      prev );
-@prop_unsafe( SamuraiHtmlDomNode *,      next );
-@prop_unsafe( SamuraiHtmlDomNode *,      shadowHost );
-@prop_strong( SamuraiHtmlDomNode *,      shadowRoot );
+@prop_unsafe( IDEAAppletHtmlDomNode *,      parent );
+@prop_unsafe( IDEAAppletHtmlDomNode *,      prev );
+@prop_unsafe( IDEAAppletHtmlDomNode *,      next );
+@prop_unsafe( IDEAAppletHtmlDomNode *,      shadowHost );
+@prop_strong( IDEAAppletHtmlDomNode *,      shadowRoot );
 
 @dom_attr( attrId );
 @dom_attr( attrFor );
@@ -124,9 +124,9 @@
 - (NSArray *)getElementsByName:(NSString *)domName;
 - (NSArray *)getElementsByTagName:(NSString *)domTag;
 
-- (SamuraiHtmlDomNode *)getFirstElementById:(NSString *)domId;
-- (SamuraiHtmlDomNode *)getFirstElementByName:(NSString *)domName;
-- (SamuraiHtmlDomNode *)getFirstElementByTagName:(NSString *)domTag;
+- (IDEAAppletHtmlDomNode *)getFirstElementById:(NSString *)domId;
+- (IDEAAppletHtmlDomNode *)getFirstElementByName:(NSString *)domName;
+- (IDEAAppletHtmlDomNode *)getFirstElementByTagName:(NSString *)domTag;
 
 @end
 

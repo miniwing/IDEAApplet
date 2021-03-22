@@ -64,7 +64,7 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 
 #pragma mark -
 
-@implementation SamuraiCSSSelectorCheckingContext
+@implementation IDEAAppletCSSSelectorCheckingContext
 
 @def_prop_assign( KatanaSelector *,         selector );
 @def_prop_assign( IDEAAppletCSSPseudoId,      pseudoId );
@@ -74,7 +74,7 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 @def_prop_unsafe( id<IDEAAppletCSSProtocol>,   element );
 @def_prop_unsafe( id<IDEAAppletCSSProtocol>,   previousElement );
 
-- (id)initWithContext:(SamuraiCSSSelectorCheckingContext *)context
+- (id)initWithContext:(IDEAAppletCSSSelectorCheckingContext *)context
 {
     self = [super init];
     if ( self )
@@ -96,22 +96,22 @@ static BOOL matchNth( const KatanaSelector * selector, NSInteger count );
 
 @implementation IDEAAppletCSSSelectorChecker
 
-@def_prop_strong( SamuraiCSSSelectorCheckingContext *,   context );
+@def_prop_strong( IDEAAppletCSSSelectorCheckingContext *,   context );
 
 
-static inline SamuraiCSSSelectorCheckingContext * prepareNextContextForRelation( SamuraiCSSSelectorCheckingContext * context )
+static inline IDEAAppletCSSSelectorCheckingContext * prepareNextContextForRelation( IDEAAppletCSSSelectorCheckingContext * context )
 {
    if ( NULL == context.selector->tagHistory )
    {
       return nil;
    }
    
-   SamuraiCSSSelectorCheckingContext * nextContext = [[SamuraiCSSSelectorCheckingContext alloc] initWithContext:context];
+   IDEAAppletCSSSelectorCheckingContext * nextContext = [[IDEAAppletCSSSelectorCheckingContext alloc] initWithContext:context];
    nextContext.selector = context.selector->tagHistory;
    return nextContext;
 }
 
-static id<IDEAAppletCSSProtocol> parentElement( const SamuraiCSSSelectorCheckingContext * context )
+static id<IDEAAppletCSSProtocol> parentElement( const IDEAAppletCSSSelectorCheckingContext * context )
 {
    // - If context.scope is a shadow root, we should walk up to its shadow host.
    // - If context.scope is some element in some shadow tree and querySelector initialized the context,
@@ -419,7 +419,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 // * SelectorFailsLocally     - the selector fails for the element e
 // * SelectorFailsAllSiblings - the selector fails for e and any sibling of e
 // * SelectorFailsCompletely  - the selector fails for e and any sibling or ancestor of e
-- (IDEAAppletCSSSelectorMatch)match:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)match:(IDEAAppletCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
 // first selector has to match
    
@@ -427,7 +427,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 
     if ( NO == [self checkOne:context specificity:&specificity] )
    {
-        return SamuraiCSSSelectorFailsLocally;
+        return IDEAAppletCSSSelectorFailsLocally;
    }
 
 // ::pseudo
@@ -467,7 +467,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
             result.specificity += specificity;
       }
 
-        return SamuraiCSSSelectorMatches;
+        return IDEAAppletCSSSelectorMatches;
     }
 
 // TODO: @(QFish) Using isLastInTagHistory
@@ -490,14 +490,14 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 
         if ( [self nextSelectorExceedsScope:context] )
       {
-            return SamuraiCSSSelectorFailsCompletely;
+            return IDEAAppletCSSSelectorFailsCompletely;
       }
 
         // Bail-out if this selector is irrelevant for the pseudoId
 
         if ( context.pseudoId != NOPSEUDO && (!result || context.pseudoId != result.dynamicPseudo) )
       {
-            return SamuraiCSSSelectorFailsCompletely;
+            return IDEAAppletCSSSelectorFailsCompletely;
       }
 
         if ( result )
@@ -510,7 +510,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 
             IDEAAppletCSSSelectorMatch match = [self matchForRelation:context result:result];
 
-         if ( match != SamuraiCSSSelectorMatches || NULL == result )
+         if ( match != IDEAAppletCSSSelectorMatches || NULL == result )
          {
             return match;
          }
@@ -518,7 +518,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          {
             result.specificity += specificity;
             
-            return SamuraiCSSSelectorMatches;
+            return IDEAAppletCSSSelectorMatches;
          }
         }
       else
@@ -530,7 +530,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
    {
         IDEAAppletCSSSelectorMatch match = [self matchForSubSelector:context result:result];
       
-      if ( match != SamuraiCSSSelectorMatches || NULL == result )
+      if ( match != IDEAAppletCSSSelectorMatches || NULL == result )
       {
          return match;
       }
@@ -538,19 +538,19 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
       {
          result.specificity += specificity;
          
-         return SamuraiCSSSelectorMatches;
+         return IDEAAppletCSSSelectorMatches;
       }
     }
 }
 
-- (BOOL)nextSelectorExceedsScope:(SamuraiCSSSelectorCheckingContext *)context
+- (BOOL)nextSelectorExceedsScope:(IDEAAppletCSSSelectorCheckingContext *)context
 {
     return NO;
 }
 
-- (IDEAAppletCSSSelectorMatch)matchForRelation:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)matchForRelation:(IDEAAppletCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
-    SamuraiCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
+    IDEAAppletCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
     
     nextContext.previousElement = context.element;
     
@@ -573,7 +573,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 //                    if (matchForShadowDistributed(element, siblingTraversalStrategy, nextContext, result) == SelectorMatches)
 //                        return SelectorMatches;
 //                }
-//                return SamuraiCSSSelectorFailsCompletely;
+//                return IDEAAppletCSSSelectorFailsCompletely;
 //            }
             nextContext.isSubSelector = NO;
             nextContext.elementStyle = 0;
@@ -587,18 +587,18 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          {
                 IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
             
-                if ( match == SamuraiCSSSelectorMatches || match == SamuraiCSSSelectorFailsCompletely )
+                if ( match == IDEAAppletCSSSelectorMatches || match == IDEAAppletCSSSelectorFailsCompletely )
             {
                     return match;
             }
             
                 if ( [self nextSelectorExceedsScope:nextContext] )
             {
-                    return SamuraiCSSSelectorFailsCompletely;
+                    return IDEAAppletCSSSelectorFailsCompletely;
             }
             }
          
-            return SamuraiCSSSelectorFailsCompletely;
+            return IDEAAppletCSSSelectorFailsCompletely;
       }
       break;
          
@@ -617,7 +617,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          
             if ( nil == nextContext.element )
          {
-                return SamuraiCSSSelectorFailsCompletely;
+                return IDEAAppletCSSSelectorFailsCompletely;
          }
          
             return [self match:nextContext result:result];
@@ -628,7 +628,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
         {
             // Shadow roots can't have sibling elements
 //            if (selectorMatchesShadowRoot(nextContext.selector))
-//                return SamuraiCSSSelectorFailsCompletely;
+//                return IDEAAppletCSSSelectorFailsCompletely;
             
 //            if (m_mode == ResolvingStyle) {
 //                if (ContainerNode* parent = context.element->parentElementOrShadowRoot())
@@ -639,7 +639,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          
             if ( nil == nextContext.element )
          {
-                return SamuraiCSSSelectorFailsAllSiblings;
+                return IDEAAppletCSSSelectorFailsAllSiblings;
          }
          
             nextContext.isSubSelector = NO;
@@ -653,7 +653,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
         {
             // Shadow roots can't have sibling elements
 //            if (selectorMatchesShadowRoot(nextContext.selector))
-//                return SamuraiCSSSelectorFailsCompletely;
+//                return IDEAAppletCSSSelectorFailsCompletely;
             
 //            if (m_mode == ResolvingStyle) {
 //                if (ContainerNode* parent = context.element->parentElementOrShadowRoot())
@@ -668,13 +668,13 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          {
                 IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
             
-                if ( match == SamuraiCSSSelectorMatches || match == SamuraiCSSSelectorFailsAllSiblings || match == SamuraiCSSSelectorFailsCompletely )
+                if ( match == IDEAAppletCSSSelectorMatches || match == IDEAAppletCSSSelectorFailsAllSiblings || match == IDEAAppletCSSSelectorFailsCompletely )
             {
                     return match;
             }
             };
          
-            return SamuraiCSSSelectorFailsAllSiblings;
+            return IDEAAppletCSSSelectorFailsAllSiblings;
         }
       break;
          
@@ -682,7 +682,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
         {
             // If we're in the same tree-scope as the scoping element, then following a shadow descendant combinator would escape that and thus the scope.
 //            if (context.scope && context.scope->shadowHost() && context.scope->shadowHost()->treeScope() == context.element->treeScope())
-//                return SamuraiCSSSelectorFailsCompletely;
+//                return IDEAAppletCSSSelectorFailsCompletely;
             
 //            Element* shadowHost = context.element->shadowHost();
 //            if (!shadowHost)
@@ -692,7 +692,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 //            nextContext.elementStyle = 0;
 //            return [self match:nextContext result:result];
          
-            return  SamuraiCSSSelectorFailsCompletely;
+            return  IDEAAppletCSSSelectorFailsCompletely;
         }
       break;
          
@@ -703,21 +703,21 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 //                    if (matchForShadowDistributed(element, siblingTraversalStrategy, nextContext, result) == SelectorMatches)
 //                        return SelectorMatches;
 //                }
-//                return SamuraiCSSSelectorFailsCompletely;
+//                return IDEAAppletCSSSelectorFailsCompletely;
 //            }
             
 //            nextContext.isSubSelector = NO;
 //            nextContext.elementStyle = 0;
 //            for (nextContext.element = parentOrShadowHostButDisallowEscapingUserAgentShadowTree(*context.element); nextContext.element; nextContext.element = parentOrShadowHostButDisallowEscapingUserAgentShadowTree(*nextContext.element)) {
 //                IDEAAppletCSSSelectorMatch match = [self match:nextContext result:result];
-//                if (match == SamuraiCSSSelectorMatches
-//                    || match == SamuraiCSSSelectorFailsCompletely)
+//                if (match == IDEAAppletCSSSelectorMatches
+//                    || match == IDEAAppletCSSSelectorFailsCompletely)
 //                    return match;
 //                if ([self nextSelectorExceedsScope:nextContext])
-//                    return SamuraiCSSSelectorFailsCompletely;
+//                    return IDEAAppletCSSSelectorFailsCompletely;
 //            }
          
-            return SamuraiCSSSelectorFailsCompletely;
+            return IDEAAppletCSSSelectorFailsCompletely;
         }
       break;
 
@@ -731,12 +731,12 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 
 //   ASSERT_NOT_REACHED;
    
-    return SamuraiCSSSelectorFailsCompletely;
+    return IDEAAppletCSSSelectorFailsCompletely;
 }
 
-- (IDEAAppletCSSSelectorMatch)matchForSubSelector:(SamuraiCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
+- (IDEAAppletCSSSelectorMatch)matchForSubSelector:(IDEAAppletCSSSelectorCheckingContext *)context result:(IDEAAppletCSSSelectorCheckerMatchResult *)result
 {
-    SamuraiCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
+    IDEAAppletCSSSelectorCheckingContext * nextContext = prepareNextContextForRelation(context);
    
 //    PseudoId dynamicPseudo = result ? result->dynamicPseudo : NOPSEUDO;
 // a selector is invalid if something follows a pseudo-element
@@ -747,14 +747,14 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
 //    if ((context.elementStyle || m_mode == CollectingCSSRules || m_mode == CollectingStyleRules || m_mode == QueryingRules) && dynamicPseudo != NOPSEUDO
 //        && !nextContext.hasSelectionPseudo
 //        && !(nextContext.hasScrollbarPseudo && nextContext.selector->match() == CSSSelector::PseudoClass))
-//        return SamuraiCSSSelectorFailsLocally;
+//        return IDEAAppletCSSSelectorFailsLocally;
    
     nextContext.isSubSelector = YES;
    
     return [self match:nextContext result:result];
 }
 
-- (BOOL)checkOne:(SamuraiCSSSelectorCheckingContext *)context specificity:(NSUInteger *)specificity
+- (BOOL)checkOne:(IDEAAppletCSSSelectorCheckingContext *)context specificity:(NSUInteger *)specificity
 {
 //   ASSERT(context.element);
 
@@ -890,7 +890,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
     return NO;
 }
 
-- (BOOL)checkPseudoClass:(SamuraiCSSSelectorCheckingContext *)context specificity:(NSUInteger *)specificity
+- (BOOL)checkPseudoClass:(IDEAAppletCSSSelectorCheckingContext *)context specificity:(NSUInteger *)specificity
 {
     id<IDEAAppletCSSProtocol>   element = context.element;
     const KatanaSelector *   selector = context.selector;
@@ -904,7 +904,7 @@ static BOOL matchNth(const KatanaSelector * selector, NSInteger count)
          return NO;
       }
 
-        SamuraiCSSSelectorCheckingContext * subContext = [[SamuraiCSSSelectorCheckingContext alloc] initWithContext:context];
+        IDEAAppletCSSSelectorCheckingContext * subContext = [[IDEAAppletCSSSelectorCheckingContext alloc] initWithContext:context];
 
       subContext.isSubSelector = YES;
 

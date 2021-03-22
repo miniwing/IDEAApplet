@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumber : IDEAAppletCSSValue
+@interface IDEAAppletCSSNumber : IDEAAppletCSSValue
 
 @prop_assign( CGFloat,      value );
 @prop_strong( NSString *,   unit );

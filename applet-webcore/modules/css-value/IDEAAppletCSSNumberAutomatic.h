@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssAuto
-#define cssAuto()   [SamuraiCSSNumberAutomatic automatic]
+#define cssAuto()   [IDEAAppletCSSNumberAutomatic automatic]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberAutomatic : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberAutomatic : IDEAAppletCSSNumber
 
 + (instancetype)automatic;
 

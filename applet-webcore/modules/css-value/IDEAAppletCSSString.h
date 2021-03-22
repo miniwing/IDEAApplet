@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssString
-#define cssString( s )   [SamuraiCSSString string:s]
+#define cssString( s )   [IDEAAppletCSSString string:s]
 
 #pragma mark -
 
@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSString : IDEAAppletCSSValue
+@interface IDEAAppletCSSString : IDEAAppletCSSValue
 
 @prop_strong( NSString *, string );
 

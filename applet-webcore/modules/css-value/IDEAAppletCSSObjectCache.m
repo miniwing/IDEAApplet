@@ -40,9 +40,9 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSObjectCache
+@implementation IDEAAppletCSSObjectCache
 
-@def_singleton( SamuraiCSSObjectCache )
+@def_singleton( IDEAAppletCSSObjectCache )
 
 @def_prop_strong( NSMutableDictionary *, cache )
 

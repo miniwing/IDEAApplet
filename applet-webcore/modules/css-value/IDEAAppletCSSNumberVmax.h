@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssVmax
-#define cssVmax( n )   [SamuraiCSSNumberVmax vmax:n]
+#define cssVmax( n )   [IDEAAppletCSSNumberVmax vmax:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberVmax : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberVmax : IDEAAppletCSSNumber
 
 + (instancetype)vmax:(CGFloat)value;
 

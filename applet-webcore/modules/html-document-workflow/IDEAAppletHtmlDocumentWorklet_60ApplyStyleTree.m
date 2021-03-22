@@ -53,9 +53,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_60ApplyStyleTree
+@implementation IDEAAppletHtmlDocumentWorklet_60ApplyStyleTree
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    if ( document.domTree )
    {
@@ -65,17 +65,17 @@
    return YES;
 }
 
-- (NSMutableDictionary *)computeStyleForDomNode:(SamuraiHtmlDomNode *)domNode
+- (NSMutableDictionary *)computeStyleForDomNode:(IDEAAppletHtmlDomNode *)domNode
 {
    NSMutableDictionary * styleProperties = [[NSMutableDictionary alloc] init];
    
-   [styleProperties addEntriesFromDictionary:[SamuraiHtmlUserAgent sharedInstance].defaultCSSValue];
+   [styleProperties addEntriesFromDictionary:[IDEAAppletHtmlUserAgent sharedInstance].defaultCSSValue];
    
    // style inherition
    
    if ( domNode.parent )
    {
-      for ( NSString * key in [SamuraiHtmlUserAgent sharedInstance].defaultCSSInherition )
+      for ( NSString * key in [IDEAAppletHtmlUserAgent sharedInstance].defaultCSSInherition )
       {
          NSString * value = [domNode.parent.computedStyle objectForKey:key];
          
@@ -88,7 +88,7 @@
    
    // attributed style
    
-   for ( NSArray * pair in [SamuraiHtmlUserAgent sharedInstance].defaultDOMAttributedStyle )
+   for ( NSArray * pair in [IDEAAppletHtmlUserAgent sharedInstance].defaultDOMAttributedStyle )
    {
       NSString * attrName1 = [pair objectAtIndex:0];
       NSString * attrName2 = [pair objectAtIndex:1];
@@ -169,7 +169,7 @@
    return styleProperties;
 }
 
-- (void)mergeStyleForDomNode:(SamuraiHtmlDomNode *)domNode
+- (void)mergeStyleForDomNode:(IDEAAppletHtmlDomNode *)domNode
 {
    DEBUG_HTML_STYLE( domNode );
    
@@ -183,7 +183,7 @@
    [domNode.computedStyle removeAllObjects];
    [domNode.computedStyle addEntriesFromDictionary:domStyle];
    
-   for ( SamuraiHtmlDomNode * childDom in domNode.childs )
+   for ( IDEAAppletHtmlDomNode * childDom in domNode.childs )
    {
       [self mergeStyleForDomNode:childDom];
    }
@@ -199,7 +199,7 @@
       [domNode.shadowRoot.computedStyle removeAllObjects];
       [domNode.shadowRoot.computedStyle addEntriesFromDictionary:shadowStyle];
       
-      for ( SamuraiHtmlDomNode * childDom in domNode.shadowRoot.childs )
+      for ( IDEAAppletHtmlDomNode * childDom in domNode.shadowRoot.childs )
       {
          [self mergeStyleForDomNode:childDom];
       }

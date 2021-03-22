@@ -102,7 +102,7 @@ extern "C" {
  *  @param expr 斷言表達式
  */
 
-void SamuraiAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr );
+void IDEAAppletAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr );
 
 #if __cplusplus
 }

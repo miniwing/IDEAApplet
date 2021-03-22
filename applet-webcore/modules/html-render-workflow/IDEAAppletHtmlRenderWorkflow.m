@@ -45,23 +45,23 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorklet
+@implementation IDEAAppletHtmlRenderWorklet
 @end
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorkflow_All
+@implementation IDEAAppletHtmlRenderWorkflow_All
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_20UpdateStyle worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_30UpdateFrame worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_40UpdateChain worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_50Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_20UpdateStyle worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_30UpdateFrame worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_40UpdateChain worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
    }
    return self;
 }
@@ -74,16 +74,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorkflow_UpdateStyle
+@implementation IDEAAppletHtmlRenderWorkflow_UpdateStyle
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_20UpdateStyle worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_50Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_20UpdateStyle worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
    }
    return self;
 }
@@ -96,16 +96,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorkflow_UpdateFrame
+@implementation IDEAAppletHtmlRenderWorkflow_UpdateFrame
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_30UpdateFrame worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_50Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_30UpdateFrame worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
    }
    return self;
 }
@@ -118,16 +118,16 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorkflow_UpdateChain
+@implementation IDEAAppletHtmlRenderWorkflow_UpdateChain
 
 - (id)init
 {
    self = [super init];
    if ( self )
    {
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_10Begin worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_40UpdateChain worklet]];
-      [self.worklets addObject:[SamuraiHtmlRenderWorklet_50Finish worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_40UpdateChain worklet]];
+      [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
    }
    return self;
 }

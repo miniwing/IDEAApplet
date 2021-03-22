@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssDppx
-#define cssDppx( n )   [SamuraiCSSNumberDppx dppx:n]
+#define cssDppx( n )   [IDEAAppletCSSNumberDppx dppx:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberDppx : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberDppx : IDEAAppletCSSNumber
 
 + (instancetype)dppx:(CGFloat)value;
 

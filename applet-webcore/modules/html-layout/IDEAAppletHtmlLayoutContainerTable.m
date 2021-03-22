@@ -53,7 +53,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutContainerTable
+@implementation IDEAAppletHtmlLayoutContainerTable
 {
    BOOL               _layoutParsed;
    NSInteger            _layoutMaxRow;
@@ -99,7 +99,7 @@
    NSMutableArray * tfoot = [NSMutableArray array];
    NSMutableArray * groups = [NSMutableArray array];
    
-   for ( SamuraiHtmlRenderObject * child in self.source.childs )
+   for ( IDEAAppletHtmlRenderObject * child in self.source.childs )
    {
       if ( NSOrderedSame == [child.dom.tag compare:@"thead"] )
       {
@@ -126,7 +126,7 @@
    NSMutableArray * rows = [NSMutableArray array];
    NSMutableArray * tr = nil;
    
-   for ( SamuraiHtmlRenderObject * child in groups )
+   for ( IDEAAppletHtmlRenderObject * child in groups )
    {
       if ( NSOrderedSame == [child.dom.tag compare:@"tr"] )
       {
@@ -134,7 +134,7 @@
          
          tr = [NSMutableArray array];
          
-         for ( SamuraiHtmlRenderObject * column in child.childs )
+         for ( IDEAAppletHtmlRenderObject * column in child.childs )
          {
             if ( NSOrderedSame == [column.dom.tag compare:@"td"] || NSOrderedSame == [column.dom.tag compare:@"th"] )
             {
@@ -167,7 +167,7 @@
       
       for ( NSUInteger colIndex = 0; colIndex < [row count]; ++colIndex )
       {
-         SamuraiHtmlRenderObject * column = [row objectAtIndex:colIndex];
+         IDEAAppletHtmlRenderObject * column = [row objectAtIndex:colIndex];
          
          column.tableRow = -1;
          column.tableCol = -1;
@@ -295,7 +295,7 @@
    {
       for ( NSInteger colIndex = 0; colIndex < _layoutMaxCol; ++colIndex )
       {
-         SamuraiHtmlRenderObject * tableCell = _layoutBlocks[rowIndex][colIndex];
+         IDEAAppletHtmlRenderObject * tableCell = _layoutBlocks[rowIndex][colIndex];
          
          if ( nil == tableCell )
             continue;
@@ -358,7 +358,7 @@
    {
       for ( NSInteger colIndex = 0; colIndex < _layoutMaxCol; ++colIndex )
       {
-         SamuraiHtmlRenderObject * tableCell = _layoutBlocks[rowIndex][colIndex];
+         IDEAAppletHtmlRenderObject * tableCell = _layoutBlocks[rowIndex][colIndex];
          
          if ( nil == tableCell )
             continue;

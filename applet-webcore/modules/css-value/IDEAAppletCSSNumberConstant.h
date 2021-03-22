@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssConstant
-#define cssConstant( n )   [SamuraiCSSNumberConstant constant:n]
+#define cssConstant( n )   [IDEAAppletCSSNumberConstant constant:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberConstant : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberConstant : IDEAAppletCSSNumber
 
 + (instancetype)constant:(CGFloat)value;
 

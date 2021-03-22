@@ -46,7 +46,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUITableViewSection
+@implementation IDEAAppletUITableViewSection
 
 - (NSUInteger)getRowCount
 {
@@ -74,7 +74,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUITableViewAgent
+@implementation IDEAAppletUITableViewAgent
 
 @def_prop_unsafe( UITableView *,      tableView );
 @def_prop_strong( NSMutableArray *,      sections );
@@ -97,7 +97,7 @@
 
 #pragma mark -
 
-- (void)appendSection:(SamuraiUITableViewSection *)section
+- (void)appendSection:(IDEAAppletUITableViewSection *)section
 {
    if ( nil == section )
       return;
@@ -105,7 +105,7 @@
    [self.sections addObject:section];
 }
 
-- (void)insertSection:(SamuraiUITableViewSection *)section atIndex:(NSUInteger)index
+- (void)insertSection:(IDEAAppletUITableViewSection *)section atIndex:(NSUInteger)index
 {
    if ( nil == section )
       return;
@@ -158,7 +158,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   SamuraiUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(indexPath.section % self.sections.count)];
+   IDEAAppletUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(indexPath.section % self.sections.count)];
    
    if ( nil == tableSection )
    {
@@ -368,7 +368,7 @@
 {
    // Default is 1 if not implemented
 
-   SamuraiUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(section % self.sections.count)];
+   IDEAAppletUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(section % self.sections.count)];
    
    if ( nil == tableSection )
    {
@@ -385,7 +385,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   SamuraiUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(indexPath.section % self.sections.count)];
+   IDEAAppletUITableViewSection * tableSection = [self.sections safeObjectAtIndex:(indexPath.section % self.sections.count)];
 
    if ( nil == tableSection )
    {
@@ -452,7 +452,7 @@
 
 #pragma mark - UITableView
 
-@implementation UITableView(Samurai)
+@implementation UITableView(IDEAApplet)
 
 @def_signal( eventWillSelectRow );
 @def_signal( eventWillDeselectRow );
@@ -496,13 +496,13 @@
 
 #pragma mark -
 
-- (SamuraiUITableViewAgent *)tableViewAgent
+- (IDEAAppletUITableViewAgent *)tableViewAgent
 {
-   SamuraiUITableViewAgent * agent = [self getAssociatedObjectForKey:"UITableView.agent"];
+   IDEAAppletUITableViewAgent * agent = [self getAssociatedObjectForKey:"UITableView.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUITableViewAgent alloc] init];
+      agent = [[IDEAAppletUITableViewAgent alloc] init];
       agent.scrollView = self;
       agent.tableView = self;
 

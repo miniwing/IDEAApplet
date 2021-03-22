@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssGRad
-#define cssGRad( n )   [SamuraiCSSNumberGRad grad:n]
+#define cssGRad( n )   [IDEAAppletCSSNumberGRad grad:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberGRad : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberGRad : IDEAAppletCSSNumber
 
 + (instancetype)grad:(CGFloat)value;
 

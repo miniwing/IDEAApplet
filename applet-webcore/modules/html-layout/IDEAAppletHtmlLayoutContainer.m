@@ -43,7 +43,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderObject(ContainerLayout)
+@implementation IDEAAppletHtmlRenderObject(ContainerLayout)
 
 - (BOOL)block_isInline
 {
@@ -523,7 +523,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlLayoutContainer
+@implementation IDEAAppletHtmlLayoutContainer
 
 - (void)layout
 {

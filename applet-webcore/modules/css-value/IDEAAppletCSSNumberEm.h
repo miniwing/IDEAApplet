@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssEm
-#define cssEm( n )   [SamuraiCSSNumberEm em:n]
+#define cssEm( n )   [IDEAAppletCSSNumberEm em:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberEm : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberEm : IDEAAppletCSSNumber
 
 + (instancetype)em:(CGFloat)value;
 

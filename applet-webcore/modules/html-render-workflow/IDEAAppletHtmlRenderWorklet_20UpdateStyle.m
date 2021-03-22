@@ -53,9 +53,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorklet_20UpdateStyle
+@implementation IDEAAppletHtmlRenderWorklet_20UpdateStyle
 
-- (BOOL)processWithContext:(SamuraiHtmlRenderObject *)renderObject
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
 {
    [self updateStyleForRenderObject:renderObject];
    
@@ -84,7 +84,7 @@
    return diffKeys;
 }
 
-- (void)updateStyleForRenderObject:(SamuraiHtmlRenderObject *)renderObject
+- (void)updateStyleForRenderObject:(IDEAAppletHtmlRenderObject *)renderObject
 {
    if ( renderObject.view )
    {
@@ -100,7 +100,7 @@
       [renderObject.view html_applyStyle:renderObject.style];
    }
 
-   for ( SamuraiHtmlRenderObject * child in renderObject.childs )
+   for ( IDEAAppletHtmlRenderObject * child in renderObject.childs )
    {
       [self updateStyleForRenderObject:child];
    }
@@ -108,7 +108,7 @@
 
 #pragma mark -
 
-- (NSMutableDictionary *)computeStyleForForRenderObject:(SamuraiHtmlRenderObject *)renderObject
+- (NSMutableDictionary *)computeStyleForForRenderObject:(IDEAAppletHtmlRenderObject *)renderObject
 {
    NSMutableDictionary * styleProperties = [[NSMutableDictionary alloc] init];
 
@@ -134,7 +134,7 @@
 
    if ( renderObject.parent )
    {
-      for ( NSString * key in [SamuraiHtmlUserAgent sharedInstance].defaultCSSInherition )
+      for ( NSString * key in [IDEAAppletHtmlUserAgent sharedInstance].defaultCSSInherition )
       {
          NSString * value = [renderObject.parent.customStyle objectForKey:key];
 

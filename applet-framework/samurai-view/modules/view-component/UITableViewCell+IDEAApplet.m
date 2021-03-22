@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-@implementation UITableViewCell(Samurai)
+@implementation UITableViewCell(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

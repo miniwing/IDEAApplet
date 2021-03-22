@@ -54,18 +54,18 @@
 
 #pragma mark -
 
-@implementation SamuraiCSSNumberDpi
+@implementation IDEAAppletCSSNumberDpi
 
 + (instancetype)parseValue:(KatanaValue *)value
 {
    if ( NULL == value )
       return nil;
    
-   SamuraiCSSNumberDpi * result = nil;
+   IDEAAppletCSSNumberDpi * result = nil;
 
    if ( KATANA_VALUE_DPI == value->unit )
    {
-      result = [[SamuraiCSSNumberDpi alloc] init];
+      result = [[IDEAAppletCSSNumberDpi alloc] init];
       result.value = value->fValue;
    }
    
@@ -76,7 +76,7 @@
 
 + (instancetype)dpi:(CGFloat)value
 {
-   SamuraiCSSNumberDpi * result = [[SamuraiCSSNumberDpi alloc] init];
+   IDEAAppletCSSNumberDpi * result = [[IDEAAppletCSSNumberDpi alloc] init];
    result.value = value;
    return result;
 }

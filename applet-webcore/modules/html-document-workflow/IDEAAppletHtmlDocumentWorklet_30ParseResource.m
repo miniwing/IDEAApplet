@@ -61,7 +61,7 @@ typedef enum
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_30ParseResource
+@implementation IDEAAppletHtmlDocumentWorklet_30ParseResource
 {
    ParseDomain _domain;
 }
@@ -92,7 +92,7 @@ typedef enum
    return;
 }
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)aDocument
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
@@ -114,7 +114,7 @@ typedef enum
 
 #pragma mark -
 
-- (void)parseDomNode:(SamuraiHtmlDomNode *)aDomNode forDocument:(SamuraiHtmlDocument *)aDocument
+- (void)parseDomNode:(IDEAAppletHtmlDomNode *)aDomNode forDocument:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
@@ -176,13 +176,13 @@ typedef enum
    return;
 }
 
-- (void)parseDomNodeDocument:(SamuraiHtmlDomNode *)aDomNode forDocument:(SamuraiHtmlDocument *)aDocument
+- (void)parseDomNodeDocument:(IDEAAppletHtmlDomNode *)aDomNode forDocument:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   for (SamuraiHtmlDomNode * childNode in aDomNode.childs)
+   for (IDEAAppletHtmlDomNode * childNode in aDomNode.childs)
    {
       [self parseDomNode:childNode forDocument:aDocument];
       
@@ -193,7 +193,7 @@ typedef enum
    return;
 }
 
-- (void)parseDomNodeElement:(SamuraiHtmlDomNode *)aDomNode forDocument:(SamuraiHtmlDocument *)aDocument
+- (void)parseDomNodeElement:(IDEAAppletHtmlDomNode *)aDomNode forDocument:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
@@ -238,7 +238,7 @@ typedef enum
       } /* End if () */
    }
    
-   for (SamuraiHtmlDomNode * childNode in aDomNode.childs)
+   for (IDEAAppletHtmlDomNode * childNode in aDomNode.childs)
    {
       [self parseDomNode:childNode forDocument:aDocument];
       
@@ -249,7 +249,7 @@ typedef enum
    return;
 }
 
-- (void)parseDomNodeText:(SamuraiHtmlDomNode *)aDomNode forDocument:(SamuraiHtmlDocument *)aDocument
+- (void)parseDomNodeText:(IDEAAppletHtmlDomNode *)aDomNode forDocument:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
@@ -260,7 +260,7 @@ typedef enum
    return;
 }
 
-- (void)parseDomNodeData:(SamuraiHtmlDomNode *)aDomNode forDocument:(SamuraiHtmlDocument *)aDocument
+- (void)parseDomNodeData:(IDEAAppletHtmlDomNode *)aDomNode forDocument:(IDEAAppletHtmlDocument *)aDocument
 {
    int                            nErr                                     = EFAULT;
    
@@ -273,7 +273,7 @@ typedef enum
 
 #pragma mark -
 
-- (IDEAAppletStyleSheet *)parseStyleSheet:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
+- (IDEAAppletStyleSheet *)parseStyleSheet:(IDEAAppletHtmlDomNode *)aNode basePath:(NSString *)aBasePath
 {
    int                            nErr                                     = EFAULT;
    
@@ -390,12 +390,12 @@ typedef enum
    return stStyleSheet;
 }
 
-- (IDEAAppletDocument *)parseImport:(SamuraiHtmlDomNode *)aNode basePath:(NSString *)aBasePath
+- (IDEAAppletDocument *)parseImport:(IDEAAppletHtmlDomNode *)aNode basePath:(NSString *)aBasePath
 {
    int                            nErr                                     = EFAULT;
    
    NSString                      *szHref                                   = aNode.attrHref;
-   SamuraiHtmlDocument           *stDocument                               = nil;
+   IDEAAppletHtmlDocument           *stDocument                               = nil;
    
    __TRY;
    
@@ -403,12 +403,12 @@ typedef enum
    {
       if ([szHref hasPrefix:@"http://"] || [szHref hasPrefix:@"https://"])
       {
-         stDocument = [SamuraiHtmlDocument resourceWithURL:szHref];
+         stDocument = [IDEAAppletHtmlDocument resourceWithURL:szHref];
          
       } /* End if () */
       else if ([szHref hasPrefix:@"//"])
       {
-         stDocument = [SamuraiHtmlDocument resourceWithURL:[@"http:" stringByAppendingString:szHref]];
+         stDocument = [IDEAAppletHtmlDocument resourceWithURL:[@"http:" stringByAppendingString:szHref]];
          
       } /* End if () */
       else
@@ -417,7 +417,7 @@ typedef enum
          {
             NSURL *szURL   = [NSURL URLWithString:szHref relativeToURL:[NSURL URLWithString:aBasePath]];
             
-            stDocument = [SamuraiHtmlDocument resourceWithURL:[szURL absoluteString]];
+            stDocument = [IDEAAppletHtmlDocument resourceWithURL:[szURL absoluteString]];
             
          } /* End if () */
          else
@@ -426,7 +426,7 @@ typedef enum
             szHtmlPath = [szHtmlPath stringByAppendingPathComponent:szHref];
             szHtmlPath = [szHtmlPath stringByStandardizingPath];
             
-            stDocument = [SamuraiHtmlDocument resourceAtPath:szHtmlPath inBundle:nil];
+            stDocument = [IDEAAppletHtmlDocument resourceAtPath:szHtmlPath inBundle:nil];
             
          } /* End else */
          

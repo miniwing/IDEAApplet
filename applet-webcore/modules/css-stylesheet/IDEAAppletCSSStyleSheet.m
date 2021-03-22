@@ -107,7 +107,7 @@
 
 - (NSDictionary *)queryForString:(NSString *)string
 {
-   SamuraiCSSCondition * condition = [[SamuraiCSSCondition alloc] init];
+   IDEAAppletCSSCondition * condition = [[IDEAAppletCSSCondition alloc] init];
 
    if ( [string hasPrefix:@"#"] )
    {

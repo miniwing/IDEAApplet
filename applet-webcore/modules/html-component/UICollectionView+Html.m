@@ -62,7 +62,7 @@
 
 #pragma mark -
 
-@interface __HtmlCollectionViewSection : SamuraiUICollectionViewSection
+@interface __HtmlCollectionViewSection : IDEAAppletUICollectionViewSection
 
 @prop_assign( NSUInteger,            minCount );
 @prop_assign( NSUInteger,            maxCount );
@@ -74,7 +74,7 @@
 @prop_unsafe( UICollectionView *,      collectionView );
 @prop_strong( NSString *,            reuseIdentifier );
 
-- (BOOL)parseDocument:(SamuraiHtmlDocument *)document;
+- (BOOL)parseDocument:(IDEAAppletHtmlDocument *)document;
 
 @end
 
@@ -118,7 +118,7 @@
 
 #pragma mark -
 
-- (BOOL)parseDocument:(SamuraiHtmlDocument *)document
+- (BOOL)parseDocument:(IDEAAppletHtmlDocument *)document
 {
    BOOL parseSucceed = [document parse];
    if ( NO == parseSucceed )
@@ -143,7 +143,7 @@
    self.document = document;
    self.reuseIdentifier = [NSString stringWithFormat:@"%@-%@", document.domTree.tag, document.renderTree.id];
    
-   NSString * isStatic = ((SamuraiHtmlDomNode *)self.document.domTree).attrIsStatic;
+   NSString * isStatic = ((IDEAAppletHtmlDomNode *)self.document.domTree).attrIsStatic;
    
    if ( isStatic )
    {
@@ -508,7 +508,7 @@
 
 - (void)prepareLayout
 {
-   SamuraiUICollectionViewAgent * agent = [self.collectionView collectionViewAgent];
+   IDEAAppletUICollectionViewAgent * agent = [self.collectionView collectionViewAgent];
    
    CGSize viewBounds = self.collectionView.frame.size;
    if ( CGSizeEqualToSize(viewBounds, CGSizeZero) )
@@ -518,7 +518,7 @@
    
    // Compute size
    
-   NSString * columnCount = ((SamuraiHtmlDomNode *)self.collectionView.renderer.dom).attrColumns;
+   NSString * columnCount = ((IDEAAppletHtmlDomNode *)self.collectionView.renderer.dom).attrColumns;
    
    if ( columnCount )
    {
@@ -526,8 +526,8 @@
       _layoutColumnCount = (_layoutColumnCount > 0) ? _layoutColumnCount : 1;
    }
    
-   NSString * isVertical = ((SamuraiHtmlDomNode *)self.collectionView.renderer.dom).attrIsVertical;
-   NSString * isHorizontal = ((SamuraiHtmlDomNode *)self.collectionView.renderer.dom).attrIsHorizontal;
+   NSString * isVertical = ((IDEAAppletHtmlDomNode *)self.collectionView.renderer.dom).attrIsVertical;
+   NSString * isHorizontal = ((IDEAAppletHtmlDomNode *)self.collectionView.renderer.dom).attrIsHorizontal;
    
    if ( isVertical )
    {
@@ -553,14 +553,14 @@
       if ( 0 == rowCount )
          continue;
       
-      NSString *   isStickTop = ((SamuraiHtmlDomNode *)section.document.domTree).attrStickTop;
-      NSString *   isStickBottom = ((SamuraiHtmlDomNode *)section.document.domTree).attrStickBottom;
+      NSString *   isStickTop = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrStickTop;
+      NSString *   isStickBottom = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrStickBottom;
       
-      NSString *   isFixedTop = ((SamuraiHtmlDomNode *)section.document.domTree).attrFixedTop;
-      NSString *   isFixedBottom = ((SamuraiHtmlDomNode *)section.document.domTree).attrFixedBottom;
+      NSString *   isFixedTop = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrFixedTop;
+      NSString *   isFixedBottom = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrFixedBottom;
       
-      NSString *   isCol = ((SamuraiHtmlDomNode *)section.document.domTree).attrIsColumn;
-      NSString *   isRow = ((SamuraiHtmlDomNode *)section.document.domTree).attrIsRow;
+      NSString *   isCol = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrIsColumn;
+      NSString *   isRow = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrIsRow;
       
       NSUInteger   itemType = LAYOUT_PATTERN_COL;
       
@@ -1016,7 +1016,7 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 
@@ -1024,7 +1024,7 @@
    [self html_parseSections:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 
@@ -1036,8 +1036,8 @@
 {
    [super html_applyFrame:newFrame];
 
-   NSString * isVertical = ((SamuraiHtmlDomNode *)self.renderer.dom).attrIsVertical;
-   NSString * isHorizontal = ((SamuraiHtmlDomNode *)self.renderer.dom).attrIsHorizontal;
+   NSString * isVertical = ((IDEAAppletHtmlDomNode *)self.renderer.dom).attrIsVertical;
+   NSString * isHorizontal = ((IDEAAppletHtmlDomNode *)self.renderer.dom).attrIsHorizontal;
 
    if ( isVertical )
    {
@@ -1076,7 +1076,7 @@
 
 #pragma mark -
 
-- (void)html_parseLayout:(SamuraiHtmlDomNode *)rootDom
+- (void)html_parseLayout:(IDEAAppletHtmlDomNode *)rootDom
 {
    Class layoutClass = NSClassFromString( rootDom.attrLayout );
 
@@ -1090,18 +1090,18 @@
    }
 }
 
-- (void)html_parseSections:(SamuraiHtmlDomNode *)rootDom
+- (void)html_parseSections:(IDEAAppletHtmlDomNode *)rootDom
 {
-   SamuraiUICollectionViewAgent * agent = [self collectionViewAgent];
+   IDEAAppletUICollectionViewAgent * agent = [self collectionViewAgent];
    if ( agent )
    {
       [agent removeAllSections];
 
-      for ( SamuraiHtmlDomNode * childDom in rootDom.childs )
+      for ( IDEAAppletHtmlDomNode * childDom in rootDom.childs )
       {
          if ( DomNodeType_Document == childDom.type || DomNodeType_Element == childDom.type )
          {
-            SamuraiHtmlDocument * childDocument = (SamuraiHtmlDocument *)[rootDom.document childDocument:childDom];
+            IDEAAppletHtmlDocument * childDocument = (IDEAAppletHtmlDocument *)[rootDom.document childDocument:childDom];
             if ( nil == childDocument )
                continue;
             
@@ -1128,7 +1128,7 @@
    if ( nil != data )
       return data;
    
-   SamuraiUICollectionViewAgent * agent = [self collectionViewAgent];
+   IDEAAppletUICollectionViewAgent * agent = [self collectionViewAgent];
    if ( agent )
    {
 //      if ( 1 == [agent.sections count] )
@@ -1144,9 +1144,9 @@
             NSString * sectionKey = nil;
             NSString * sectionData = nil;
             
-            if ( ((SamuraiHtmlDomNode *)section.document.domTree).attrName )
+            if ( ((IDEAAppletHtmlDomNode *)section.document.domTree).attrName )
             {
-               sectionKey = ((SamuraiHtmlDomNode *)section.document.domTree).attrName;
+               sectionKey = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrName;
             }
             else
             {
@@ -1172,7 +1172,7 @@
 {
    [super store_unserialize:obj];
    
-   SamuraiUICollectionViewAgent * agent = [self collectionViewAgent];
+   IDEAAppletUICollectionViewAgent * agent = [self collectionViewAgent];
    if ( agent )
    {
 //      if ( 1 == [agent.sections count] )
@@ -1186,9 +1186,9 @@
             NSString * sectionKey = nil;
             NSString * sectionData = nil;
             
-            if ( ((SamuraiHtmlDomNode *)section.document.domTree).attrName )
+            if ( ((IDEAAppletHtmlDomNode *)section.document.domTree).attrName )
             {
-               sectionKey = ((SamuraiHtmlDomNode *)section.document.domTree).attrName;
+               sectionKey = ((IDEAAppletHtmlDomNode *)section.document.domTree).attrName;
             }
             else
             {
@@ -1223,7 +1223,7 @@
 {
    [super store_zerolize];
    
-   SamuraiUICollectionViewAgent * agent = [self collectionViewAgent];
+   IDEAAppletUICollectionViewAgent * agent = [self collectionViewAgent];
    if ( agent )
    {
       for ( __HtmlCollectionViewSection * section in agent.sections )

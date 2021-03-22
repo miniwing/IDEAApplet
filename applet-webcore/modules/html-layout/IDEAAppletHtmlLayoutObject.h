@@ -34,14 +34,14 @@
 
 #pragma mark -
 
-@class SamuraiHtmlRenderStyle;
-@class SamuraiHtmlRenderObject;
+@class IDEAAppletHtmlRenderStyle;
+@class IDEAAppletHtmlRenderObject;
 
 #pragma mark -
 
-@interface SamuraiHtmlLayoutObject : NSObject
+@interface IDEAAppletHtmlLayoutObject : NSObject
 
-@prop_unsafe( SamuraiHtmlRenderObject *,   source );
+@prop_unsafe( IDEAAppletHtmlRenderObject *,   source );
 
 @prop_assign( UIEdgeInsets,               IN   collapse );
 @prop_assign( CGSize,                  IN   stretch );
@@ -67,7 +67,7 @@
 @prop_assign( CGRect,                  OUT   frame );
 
 + (instancetype)layout;
-+ (instancetype)layout:(SamuraiHtmlRenderObject *)renderer;
++ (instancetype)layout:(IDEAAppletHtmlRenderObject *)renderer;
 
 - (BOOL)begin:(BOOL)reset;
 - (BOOL)offset:(CGPoint)point;

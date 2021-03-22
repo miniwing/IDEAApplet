@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation SamuraiViewWorklet
+@implementation IDEAAppletViewWorklet
 
 + (instancetype)worklet
 {
@@ -101,7 +101,7 @@
    INFO( @" " );
    INFO( @"Workflow '%@', start", [[self class] description] );
 
-   for ( SamuraiViewWorklet * worklet in self.worklets )
+   for ( IDEAAppletViewWorklet * worklet in self.worklets )
    {
       INFO( @"  [%@]", [[worklet class] description] );
 

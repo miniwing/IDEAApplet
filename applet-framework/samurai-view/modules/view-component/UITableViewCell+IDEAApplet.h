@@ -42,12 +42,12 @@
 
 #pragma mark -
 
-@interface SamuraiUITableViewCellAgent : NSObject
+@interface IDEAAppletUITableViewCellAgent : NSObject
 @end
 
 #pragma mark -
 
-@interface UITableViewCell(Samurai)
+@interface UITableViewCell(IDEAApplet)
 
 - (void)dataWillChange;         // override point
 - (void)dataDidChanged;         // override point

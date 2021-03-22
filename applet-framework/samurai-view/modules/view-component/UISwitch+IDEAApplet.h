@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface SamuraiUISwitchAgent : NSObject
+@interface IDEAAppletUISwitchAgent : NSObject
 
 @prop_unsafe( UISwitch *,   switchh );
 
@@ -53,11 +53,11 @@
 
 #pragma mark -
 
-@interface UISwitch(Samurai)
+@interface UISwitch(IDEAApplet)
 
 @signal( eventValueChanged )
 
-- (SamuraiUISwitchAgent *)switchAgent;
+- (IDEAAppletUISwitchAgent *)switchAgent;
 
 @end
 

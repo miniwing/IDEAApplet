@@ -45,7 +45,7 @@
 
 #pragma mark -
 
-@implementation UIView(Samurai)
+@implementation UIView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

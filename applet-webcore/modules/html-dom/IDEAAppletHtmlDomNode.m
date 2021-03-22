@@ -47,17 +47,17 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDomNode
+@implementation IDEAAppletHtmlDomNode
 
 @def_prop_assign(BOOL,                     implied);
 @def_prop_strong(NSMutableDictionary *,      computedStyle);
 
-@def_prop_dynamic(SamuraiHtmlDomNode *,      parent);
-@def_prop_dynamic(SamuraiHtmlDomNode *,      prev);
-@def_prop_dynamic(SamuraiHtmlDomNode *,      next);
+@def_prop_dynamic(IDEAAppletHtmlDomNode *,      parent);
+@def_prop_dynamic(IDEAAppletHtmlDomNode *,      prev);
+@def_prop_dynamic(IDEAAppletHtmlDomNode *,      next);
 
-@def_prop_unsafe(SamuraiHtmlDomNode *,         shadowHost);
-@def_prop_strong(SamuraiHtmlDomNode *,         shadowRoot);
+@def_prop_unsafe(IDEAAppletHtmlDomNode *,         shadowHost);
+@def_prop_strong(IDEAAppletHtmlDomNode *,         shadowRoot);
 
 @def_dom_attr(attrId,            setAttrId,            @"id");
 @def_dom_attr(attrFor,            setAttrFor,            @"for");
@@ -136,7 +136,7 @@
    self.shadowHost = nil;
 }
 
-- (void)deepCopyFrom:(SamuraiHtmlDomNode *)right
+- (void)deepCopyFrom:(IDEAAppletHtmlDomNode *)right
 {
    [super deepCopyFrom:right];
    
@@ -215,7 +215,7 @@
 {
    NSMutableArray * array = [NSMutableArray array];
    
-   SamuraiHtmlDomNode * domNode = self.prev;
+   IDEAAppletHtmlDomNode * domNode = self.prev;
    
    while (domNode)
    {
@@ -231,7 +231,7 @@
 {
    NSMutableArray * array = [NSMutableArray array];
    
-   SamuraiHtmlDomNode * domNode = self.next;
+   IDEAAppletHtmlDomNode * domNode = self.next;
    
    while (domNode)
    {
@@ -260,7 +260,7 @@
    }
    else if (1 == self.childs.count)
    {
-      SamuraiHtmlDomNode * childNode = [self.childs firstObject];
+      IDEAAppletHtmlDomNode * childNode = [self.childs firstObject];
       
       if (DomNodeType_Text == childNode.type)
       {
@@ -275,7 +275,7 @@
    {
       NSMutableString * innerText = [NSMutableString string];
       
-      for (SamuraiHtmlDomNode * childNode in self.childs)
+      for (IDEAAppletHtmlDomNode * childNode in self.childs)
       {
          if (DomNodeType_Text == childNode.type)
          {
@@ -306,7 +306,7 @@
       }
    }
    
-   for (SamuraiHtmlDomNode * child in self.childs)
+   for (IDEAAppletHtmlDomNode * child in self.childs)
    {
       [child getElementsById:domId toArray:array limitCount:limitCount];
    }
@@ -324,7 +324,7 @@
       }
    }
    
-   for (SamuraiHtmlDomNode * child in self.childs)
+   for (IDEAAppletHtmlDomNode * child in self.childs)
    {
       [child getElementsByName:domName toArray:array limitCount:limitCount];
    }
@@ -342,7 +342,7 @@
       }
    }
    
-   for (SamuraiHtmlDomNode * child in self.childs)
+   for (IDEAAppletHtmlDomNode * child in self.childs)
    {
       [child getElementsByTagName:domTag toArray:array limitCount:limitCount];
    }
@@ -377,7 +377,7 @@
    return array;
 }
 
-- (SamuraiHtmlDomNode *)getFirstElementById:(NSString *)domId
+- (IDEAAppletHtmlDomNode *)getFirstElementById:(NSString *)domId
 {
    NSMutableArray * array = [NSMutableArray array];
    
@@ -386,7 +386,7 @@
    return [array firstObject];
 }
 
-- (SamuraiHtmlDomNode *)getFirstElementByName:(NSString *)domName
+- (IDEAAppletHtmlDomNode *)getFirstElementByName:(NSString *)domName
 {
    NSMutableArray * array = [NSMutableArray array];
    
@@ -395,7 +395,7 @@
    return [array firstObject];
 }
 
-- (SamuraiHtmlDomNode *)getFirstElementByTagName:(NSString *)domTag
+- (IDEAAppletHtmlDomNode *)getFirstElementByTagName:(NSString *)domTag
 {
    NSMutableArray * array = [NSMutableArray array];
    
@@ -461,7 +461,7 @@
    
    [[IDEAAppletLogger sharedInstance] indent];
    
-   for (SamuraiHtmlDomNode * child in self.childs)
+   for (IDEAAppletHtmlDomNode * child in self.childs)
    {
       [child dump];
    }

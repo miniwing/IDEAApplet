@@ -44,7 +44,7 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlElementLegend
+@implementation IDEAAppletHtmlElementLegend
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -62,12 +62,12 @@
 
 #pragma mark -
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [super html_applyDom:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [super html_applyStyle:style];
 }

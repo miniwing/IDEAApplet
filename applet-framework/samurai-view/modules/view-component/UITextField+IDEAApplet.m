@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@implementation SamuraiUITextFieldAgent
+@implementation IDEAAppletUITextFieldAgent
 {
    BOOL _enabled;
 }
@@ -171,7 +171,7 @@
 
 #pragma mark -
 
-@implementation UITextField(Samurai)
+@implementation UITextField(IDEAApplet)
 
 @def_signal( eventDidBeginEditing );
 @def_signal( eventDidEndEditing );
@@ -210,13 +210,13 @@
    return textField;
 }
 
-- (SamuraiUITextFieldAgent *)textFieldAgent
+- (IDEAAppletUITextFieldAgent *)textFieldAgent
 {
-   SamuraiUITextFieldAgent * agent = [self getAssociatedObjectForKey:"UITextField.agent"];
+   IDEAAppletUITextFieldAgent * agent = [self getAssociatedObjectForKey:"UITextField.agent"];
    
    if ( nil == agent )
    {
-      agent = [[SamuraiUITextFieldAgent alloc] init];
+      agent = [[IDEAAppletUITextFieldAgent alloc] init];
       agent.textField = self;
 
       self.delegate = agent;

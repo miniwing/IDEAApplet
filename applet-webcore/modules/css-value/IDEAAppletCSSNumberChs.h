@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssChs
-#define cssChs( n )   [SamuraiCSSNumberChs chs:n]
+#define cssChs( n )   [IDEAAppletCSSNumberChs chs:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberChs : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberChs : IDEAAppletCSSNumber
 
 + (instancetype)chs:(CGFloat)value;
 

@@ -110,7 +110,7 @@
 #if __cplusplus
 extern "C"
 #endif
-void SamuraiAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr )
+void IDEAAppletAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr )
 {
    [[IDEAAppletAsserter sharedInstance] file:file line:line func:func flag:flag expr:expr];
 }

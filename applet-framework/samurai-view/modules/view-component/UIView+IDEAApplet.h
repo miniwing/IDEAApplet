@@ -40,7 +40,7 @@
 
 #pragma mark -
 
-@interface UIView(Samurai)
+@interface UIView(IDEAApplet)
 
 - (BOOL)isCell;
 - (BOOL)isCellContainer;

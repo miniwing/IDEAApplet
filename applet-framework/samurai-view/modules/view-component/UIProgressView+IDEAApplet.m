@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@implementation UIProgressView(Samurai)
+@implementation UIProgressView(IDEAApplet)
 
 + (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
 {

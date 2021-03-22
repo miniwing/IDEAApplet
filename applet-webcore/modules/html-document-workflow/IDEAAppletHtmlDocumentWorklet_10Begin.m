@@ -43,9 +43,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlDocumentWorklet_10Begin
+@implementation IDEAAppletHtmlDocumentWorklet_10Begin
 
-- (BOOL)processWithContext:(SamuraiHtmlDocument *)document
+- (BOOL)processWithContext:(IDEAAppletHtmlDocument *)document
 {
    UNUSED( document );
    

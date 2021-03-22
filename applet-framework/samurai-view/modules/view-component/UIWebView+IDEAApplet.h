@@ -42,7 +42,7 @@
 
 #pragma mark -
 
-@interface UIWebView(Samurai)
+@interface UIWebView(IDEAApplet)
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

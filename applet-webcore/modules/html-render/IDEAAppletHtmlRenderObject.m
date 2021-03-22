@@ -79,15 +79,15 @@
 
 @implementation NSObject(HtmlSupport)
 
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   htmlRenderer );
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   htmlRenderer );
 
-- (SamuraiHtmlRenderObject *)htmlRenderer
+- (IDEAAppletHtmlRenderObject *)htmlRenderer
 {
    IDEAAppletRenderObject * renderer = [self renderer];
    
-   if ( renderer && [renderer isKindOfClass:[SamuraiHtmlRenderObject class]] )
+   if ( renderer && [renderer isKindOfClass:[IDEAAppletHtmlRenderObject class]] )
    {
-      return (SamuraiHtmlRenderObject *)renderer;
+      return (IDEAAppletHtmlRenderObject *)renderer;
    }
    else
    {
@@ -95,12 +95,12 @@
    }
 }
 
-- (void)html_applyDom:(SamuraiHtmlDomNode *)dom
+- (void)html_applyDom:(IDEAAppletHtmlDomNode *)dom
 {
    [self applyDom:dom];
 }
 
-- (void)html_applyStyle:(SamuraiHtmlRenderStyle *)style
+- (void)html_applyStyle:(IDEAAppletHtmlRenderStyle *)style
 {
    [self applyStyle:style];
 }
@@ -118,15 +118,15 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderObject
+@implementation IDEAAppletHtmlRenderObject
 {
-   SamuraiHtmlRenderWorkflow_UpdateFrame *      _relayoutFlow;
-   SamuraiHtmlRenderWorkflow_UpdateStyle *      _restyleFlow;
-   SamuraiHtmlRenderWorkflow_UpdateChain *      _rechainFlow;
+   IDEAAppletHtmlRenderWorkflow_UpdateFrame *      _relayoutFlow;
+   IDEAAppletHtmlRenderWorkflow_UpdateStyle *      _restyleFlow;
+   IDEAAppletHtmlRenderWorkflow_UpdateChain *      _rechainFlow;
 }
 
 @def_prop_strong( NSMutableArray *,            customClasses );
-@def_prop_strong( SamuraiHtmlRenderStyle *,      customStyle );
+@def_prop_strong( IDEAAppletHtmlRenderStyle *,      customStyle );
 
 @def_prop_assign( CSSWrap,                  wrap );
 @def_prop_assign( CSSAlign,                  align );
@@ -162,16 +162,16 @@
 @def_prop_assign( NSInteger,               tableRowSpan );
 @def_prop_assign( NSInteger,               tableColSpan );
 
-@def_prop_strong( SamuraiHtmlLayoutObject *,   layout );
+@def_prop_strong( IDEAAppletHtmlLayoutObject *,   layout );
 
-@def_prop_dynamic( SamuraiHtmlDomNode *,      dom );      // overrided
-@def_prop_dynamic( SamuraiHtmlRenderStyle *,   style );   // overrided
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   root );      // overrided
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   parent );   // overrided
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   prev );      // overrided
-@def_prop_dynamic( SamuraiHtmlRenderObject *,   next );      // overrided
+@def_prop_dynamic( IDEAAppletHtmlDomNode *,      dom );      // overrided
+@def_prop_dynamic( IDEAAppletHtmlRenderStyle *,   style );   // overrided
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   root );      // overrided
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   parent );   // overrided
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   prev );      // overrided
+@def_prop_dynamic( IDEAAppletHtmlRenderObject *,   next );      // overrided
 
-BASE_CLASS( SamuraiHtmlRenderObject )
+BASE_CLASS( IDEAAppletHtmlRenderObject )
 
 + (Class)defaultLayoutClass
 {
@@ -191,7 +191,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    if ( self )
    {
       self.customClasses = [[NSMutableArray alloc] init];
-      self.customStyle = [[SamuraiHtmlRenderStyle alloc] init];
+      self.customStyle = [[IDEAAppletHtmlRenderStyle alloc] init];
 
       self.wrap         = HTML_DEFAULT_WRAP;
       self.align         = HTML_DEFAULT_ALIGN;
@@ -243,7 +243,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 
 #pragma mark -
 
-- (void)deepCopyFrom:(SamuraiHtmlRenderObject *)right
+- (void)deepCopyFrom:(IDEAAppletHtmlRenderObject *)right
 {
    [super deepCopyFrom:right];
 
@@ -316,7 +316,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
          NSMutableArray * subRenderers = [NSMutableArray nonRetainingArray];
          
          [subRenderers addObjectsFromArray:self.childs];
-         [subRenderers sortUsingComparator:^NSComparisonResult(SamuraiHtmlRenderObject * obj1, SamuraiHtmlRenderObject * obj2) {
+         [subRenderers sortUsingComparator:^NSComparisonResult(IDEAAppletHtmlRenderObject * obj1, IDEAAppletHtmlRenderObject * obj2) {
             if ( obj1.zIndex < obj2.zIndex )
             {
                return NSOrderedAscending;
@@ -331,7 +331,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
             }
          }];
          
-         for ( SamuraiHtmlRenderObject * subRenderer in subRenderers )
+         for ( IDEAAppletHtmlRenderObject * subRenderer in subRenderers )
          {
             if ( subRenderer.view )
             {
@@ -373,7 +373,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    [super unbindView];
 }
 
-- (void)bindDom:(SamuraiHtmlDomNode *)newDom
+- (void)bindDom:(IDEAAppletHtmlDomNode *)newDom
 {
    [super bindDom:newDom];
 }
@@ -383,7 +383,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    [super unbindDom];
 }
 
-- (void)bindStyle:(SamuraiHtmlRenderStyle *)newStyle
+- (void)bindStyle:(IDEAAppletHtmlRenderStyle *)newStyle
 {
    [super bindStyle:newStyle];
 }
@@ -463,7 +463,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 {
    NSMutableArray * array = [NSMutableArray array];
    
-   SamuraiHtmlRenderObject * domNode = self.prev;
+   IDEAAppletHtmlRenderObject * domNode = self.prev;
    
    while ( domNode )
    {
@@ -479,7 +479,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 {
    NSMutableArray * array = [NSMutableArray array];
    
-   SamuraiHtmlRenderObject * domNode = self.next;
+   IDEAAppletHtmlRenderObject * domNode = self.next;
 
    while ( domNode )
    {
@@ -493,7 +493,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 
 - (NSString *)description
 {
-    return NSStringFromSamuraiCSSProtocolElement(self);
+    return NSStringFromIDEAAppletCSSProtocolElement(self);
 }
 
 #pragma mark -
@@ -567,7 +567,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 {
    if ( nil == _relayoutFlow )
    {
-      _relayoutFlow = [SamuraiHtmlRenderWorkflow_UpdateFrame workflowWithContext:self];
+      _relayoutFlow = [IDEAAppletHtmlRenderWorkflow_UpdateFrame workflowWithContext:self];
    }
    
    [_relayoutFlow process];
@@ -577,7 +577,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 {
    if ( nil == _restyleFlow )
    {
-      _restyleFlow = [SamuraiHtmlRenderWorkflow_UpdateStyle workflowWithContext:self];
+      _restyleFlow = [IDEAAppletHtmlRenderWorkflow_UpdateStyle workflowWithContext:self];
    }
 
    [_restyleFlow process];
@@ -587,7 +587,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 {
    if ( nil == _rechainFlow )
    {
-      _rechainFlow = [SamuraiHtmlRenderWorkflow_UpdateChain workflowWithContext:self];
+      _rechainFlow = [IDEAAppletHtmlRenderWorkflow_UpdateChain workflowWithContext:self];
    }
    
    [_rechainFlow process];
@@ -600,7 +600,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    [self bindOutlets:self toContainer:container];
 }
 
-- (void)bindOutlets:(SamuraiHtmlRenderObject *)source toContainer:(NSObject *)container
+- (void)bindOutlets:(IDEAAppletHtmlRenderObject *)source toContainer:(NSObject *)container
 {
    if ( nil == source )
       return;
@@ -617,7 +617,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    }
    else
    {
-      for ( SamuraiHtmlRenderObject * childRender in source.childs )
+      for ( IDEAAppletHtmlRenderObject * childRender in source.childs )
       {
          [self bindOutlets:childRender toContainer:container];
       }
@@ -629,7 +629,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    [self unbindOutlets:self fromContainer:container];
 }
 
-- (void)unbindOutlets:(SamuraiHtmlRenderObject *)source fromContainer:(NSObject *)container
+- (void)unbindOutlets:(IDEAAppletHtmlRenderObject *)source fromContainer:(NSObject *)container
 {
    if ( source.dom.attrId && source.dom.attrId.length )
    {
@@ -641,7 +641,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    }
    else
    {
-      for ( SamuraiHtmlRenderObject * childRender in source.childs )
+      for ( IDEAAppletHtmlRenderObject * childRender in source.childs )
       {
          [self unbindOutlets:childRender fromContainer:container];
       }
@@ -694,7 +694,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
 
 #pragma mark -
 
-- (SamuraiHtmlRenderObject *)queryById:(NSString *)domId
+- (IDEAAppletHtmlRenderObject *)queryById:(NSString *)domId
 {
    if ( nil == domId )
    {
@@ -706,9 +706,9 @@ BASE_CLASS( SamuraiHtmlRenderObject )
       return self;
    }
    
-   for ( SamuraiHtmlRenderObject * childRender in self.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in self.childs )
    {
-      SamuraiHtmlRenderObject * result = [childRender queryById:domId];
+      IDEAAppletHtmlRenderObject * result = [childRender queryById:domId];
       
       if ( result )
       {
@@ -719,7 +719,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    return nil;
 }
 
-- (SamuraiHtmlRenderObject *)queryByDom:(SamuraiHtmlDomNode *)domNode
+- (IDEAAppletHtmlRenderObject *)queryByDom:(IDEAAppletHtmlDomNode *)domNode
 {
    if ( nil == domNode )
    {
@@ -731,9 +731,9 @@ BASE_CLASS( SamuraiHtmlRenderObject )
       return self;
    }
 
-   for ( SamuraiHtmlRenderObject * childRender in self.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in self.childs )
    {
-      SamuraiHtmlRenderObject * result = [childRender queryByDom:domNode];
+      IDEAAppletHtmlRenderObject * result = [childRender queryByDom:domNode];
       
       if ( result )
       {
@@ -744,7 +744,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    return nil;
 }
 
-- (SamuraiHtmlRenderObject *)queryByName:(NSString *)name
+- (IDEAAppletHtmlRenderObject *)queryByName:(NSString *)name
 {
    if ( nil == name )
    {
@@ -756,9 +756,9 @@ BASE_CLASS( SamuraiHtmlRenderObject )
       return self;
    }
    
-   for ( SamuraiHtmlRenderObject * childRender in self.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in self.childs )
    {
-      SamuraiHtmlRenderObject * result = [childRender queryByName:name];
+      IDEAAppletHtmlRenderObject * result = [childRender queryByName:name];
       
       if ( result )
       {
@@ -833,7 +833,7 @@ BASE_CLASS( SamuraiHtmlRenderObject )
    {
       Class classType = nil;
       
-      classType = classType ?: NSClassFromString( [self.style.samuraiViewClass string] );
+      classType = classType ?: NSClassFromString( [self.style.appletViewClass string] );
       classType = classType ?: NSClassFromString( self.dom.tag );
       classType = classType ?: [[self class] defaultViewClass];
       

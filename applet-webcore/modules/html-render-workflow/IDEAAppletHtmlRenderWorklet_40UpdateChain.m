@@ -48,9 +48,9 @@
 
 #pragma mark -
 
-@implementation SamuraiHtmlRenderWorklet_40UpdateChain
+@implementation IDEAAppletHtmlRenderWorklet_40UpdateChain
 
-- (BOOL)processWithContext:(SamuraiHtmlRenderObject *)renderObject
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
 {
    [self applyChainForRender:renderObject];
 
@@ -59,7 +59,7 @@
 
 #pragma mark -
 
-- (void)applyChainForRender:(SamuraiHtmlRenderObject *)renderObject
+- (void)applyChainForRender:(IDEAAppletHtmlRenderObject *)renderObject
 {
    if ( renderObject.view )
    {
@@ -69,7 +69,7 @@
 
       for ( NSString * targetId in forIds )
       {
-         SamuraiHtmlRenderObject * targetRender = (SamuraiHtmlRenderObject *)[renderObject.root queryById:targetId];
+         IDEAAppletHtmlRenderObject * targetRender = (IDEAAppletHtmlRenderObject *)[renderObject.root queryById:targetId];
          
          if ( targetRender && targetRender.view )
          {
@@ -78,7 +78,7 @@
       }
    }
 
-   for ( SamuraiHtmlRenderObject * childRender in renderObject.childs )
+   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
    {
       [self applyChainForRender:childRender];
    }

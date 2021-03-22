@@ -54,21 +54,21 @@ extern IDEAAppletNamespace    * APPLET;
 #define namespace( ... )            macro_concat( namespace_, macro_count(__VA_ARGS__) )( __VA_ARGS__ )
 #define namespace_0( ... )
 #define namespace_1( _parent, ... )                               \
-        interface SamuraiNamespace_##_parent : IDEAAppletNamespace   \
+        interface IDEAAppletNamespace_##_parent : IDEAAppletNamespace   \
         @end                                                      \
-        @interface IDEAAppletNamespace (SamuraiNamespace_##_parent)  \
-        @prop_readonly( SamuraiNamespace_##_parent *, _parent );  \
+        @interface IDEAAppletNamespace (IDEAAppletNamespace_##_parent)  \
+        @prop_readonly( IDEAAppletNamespace_##_parent *, _parent );  \
         @end
 
 #define namespace_2( ... )
 #define namespace_3( _parent, _child, _class, ... )                        \
-        interface SamuraiNamespace_##_parent (SamuraiNamespace_##_child)   \
+        interface IDEAAppletNamespace_##_parent (IDEAAppletNamespace_##_child)   \
         @prop_readonly( _class *, _child );                                \
         @end
 
 #define namespace_4( ... )
 #define namespace_5( _parent, _child, _class, _subchild, _subclass, ... )  \
-        interface _class (SamuraiNamespace_##_subchild)                    \
+        interface _class (IDEAAppletNamespace_##_subchild)                    \
         @prop_readonly( _subclass *, _subchild );                          \
         @end
 
@@ -77,16 +77,16 @@ extern IDEAAppletNamespace    * APPLET;
 #define def_namespace( ... )        macro_concat( def_namespace_, macro_count(__VA_ARGS__) )( __VA_ARGS__ )
 #define def_namespace_0( ... )
 #define def_namespace_1( _parent, ... )                                 \
-        implementation SamuraiNamespace_##_parent                       \
+        implementation IDEAAppletNamespace_##_parent                       \
         @end                                                            \
-        @implementation IDEAAppletNamespace (SamuraiNamespace_##_parent)   \
-        @def_prop_dynamic( SamuraiNamespace_##_parent *, _parent );     \
-        - (SamuraiNamespace_##_parent *)_parent                         \
+        @implementation IDEAAppletNamespace (IDEAAppletNamespace_##_parent)   \
+        @def_prop_dynamic( IDEAAppletNamespace_##_parent *, _parent );     \
+        - (IDEAAppletNamespace_##_parent *)_parent                         \
         {                                                               \
            static __strong id __instance = nil;                         \
            if ( nil == __instance )                                     \
            {                                                            \
-              __instance = [[SamuraiNamespace_##_parent alloc] init];   \
+              __instance = [[IDEAAppletNamespace_##_parent alloc] init];   \
            }                                                            \
            return __instance;                                           \
         }                                                               \
@@ -94,7 +94,7 @@ extern IDEAAppletNamespace    * APPLET;
 
 #define def_namespace_2( ... )
 #define def_namespace_3( _parent, _child, _class, ... )                       \
-        implementation SamuraiNamespace_##_parent (SamuraiNamespace_##_child) \
+        implementation IDEAAppletNamespace_##_parent (IDEAAppletNamespace_##_child) \
         @def_prop_dynamic( _class *, _child );                                \
         - (_class *)_child                                                    \
         {                                                                     \
@@ -116,7 +116,7 @@ extern IDEAAppletNamespace    * APPLET;
 
 #define def_namespace_4( ... )
 #define def_namespace_5( _parent, _child, _class, _subchild, _subclass, ... ) \
-        implementation _class (SamuraiNamespace_##_subchild)                  \
+        implementation _class (IDEAAppletNamespace_##_subchild)                  \
         @def_prop_dynamic( _subclass *, _subchild );                          \
         - (_subclass *)_subchild                                              \
         {                                                                     \

@@ -37,7 +37,7 @@
 #pragma mark -
 
 #undef   cssPc
-#define cssPc( n )   [SamuraiCSSNumberPc pc:n]
+#define cssPc( n )   [IDEAAppletCSSNumberPc pc:n]
 
 #pragma mark -
 
@@ -49,7 +49,7 @@
 
 #pragma mark -
 
-@interface SamuraiCSSNumberPc : SamuraiCSSNumber
+@interface IDEAAppletCSSNumberPc : IDEAAppletCSSNumber
 
 + (instancetype)pc:(CGFloat)value;
 
