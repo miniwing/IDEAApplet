@@ -30,9 +30,9 @@
 
 #if (TARGET_OS_IPHONE)
 
-#define __SAMURAI_DEBUG__        (__ON__ )   /// 調試模式
-#define __SAMURAI_LOGGING__      (__ON__ )   /// 日誌模式
+#define __SAMURAI_DEBUG__        (__AUTO__)  /// 調試模式
+#define __SAMURAI_LOGGING__      (__AUTO__)  /// 日誌模式
 #define __SAMURAI_TESTING__      (__OFF__)   /// 單元測試
-#define __SAMURAI_SERVICE__      (__ON__ )   /// 後臺服務
+#define __SAMURAI_SERVICE__      (__AUTO__)  /// 後臺服務
 
 #endif /* TARGET_OS_IPHONE */

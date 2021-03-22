@@ -66,7 +66,7 @@
 
 @implementation NSObject(NotificationResponder)
 
-@def_prop_dynamic( SamuraiEventBlock,  onNotification );
+@def_prop_dynamic( IDEAAppletEventBlock,  onNotification );
 
 #pragma mark -
 

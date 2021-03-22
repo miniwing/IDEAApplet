@@ -307,18 +307,22 @@
    return result;
 }
 
-+ (NSArray *)classesWithProtocolName:(NSString *)protocolName
++ (NSArray *)classesWithProtocolName:(NSString *)aProtocolName
 {
    NSMutableArray *results = [[NSMutableArray alloc] init];
-   Protocol * protocol = NSProtocolFromString(protocolName);
-   for (NSString *className in [self loadedClassNames])
+   Protocol * protocol = NSProtocolFromString(aProtocolName);
+   for (NSString *szClassName in [self loadedClassNames])
    {
-      Class classType = NSClassFromString(className);
+      Class classType = NSClassFromString(szClassName);
       if (classType == self)
+      {
          continue;
+      }
       
       if (NO == [classType conformsToProtocol:protocol])
+      {
          continue;
+      }
       
       [results addObject:[classType description]];
    }

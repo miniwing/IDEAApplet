@@ -32,12 +32,11 @@
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 #  ifndef __IPHONE_10_0
-#     error "Samurai only available in iOS SDK 10.0 and later."
+#     error "Applet only available in iOS SDK 10.0 and later."
 #  endif
 #endif
 
 #import "IDEAAppletPredefine.h"
-#import "IDEAAppletNamespace.h"
 
 // ----------------------------------
 // Global configuration
@@ -51,3 +50,4 @@
 #else
 #  import "IDEAAppletConfig(Phone).h"
 #endif
+

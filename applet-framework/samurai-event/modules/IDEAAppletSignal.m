@@ -46,8 +46,8 @@
 
 @implementation NSObject(SignalResponder)
 
-@def_prop_dynamic( SamuraiEventBlock , onSignal       );
-@def_prop_dynamic( NSMutableArray   *, userResponders );
+@def_prop_dynamic( IDEAAppletEventBlock , onSignal       );
+@def_prop_dynamic( NSMutableArray      *, userResponders );
 
 #pragma mark -
 
@@ -55,24 +55,24 @@
 {
    @weakify(self);
    
-   IDEAAppletSignalBlock    stBlock    = ^ NSObject * (NSString * name, id signalBlock)
+   IDEAAppletSignalBlock stBlock = ^ NSObject * (NSString *aName, id aSignalBlock)
    {
       @strongify(self);
       
-      name = [name stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
-      name = [name stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
-      name = [name stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-      name = [name stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-      name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
-      name = [name stringByAppendingString:@":"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+      aName = [aName stringByAppendingString:@":"];
       
-      if (signalBlock)
+      if (aSignalBlock)
       {
-         [self addBlock:signalBlock forName:name];
+         [self addBlock:aSignalBlock forName:aName];
       }
       else
       {
-         [self removeBlockForName:name];
+         [self removeBlockForName:aName];
       }
       
       return self;

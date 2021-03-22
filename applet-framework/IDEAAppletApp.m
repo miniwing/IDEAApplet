@@ -214,19 +214,19 @@ static __strong id __applicationInstance = nil;
    return stActivity;
 }
 
-- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)array
+- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)aArray
 {
    int                            nErr                                     = EFAULT;
    
-   IDEAAppletActivityStack          *stStack                                  = nil;
+   IDEAAppletActivityStack       *stStack                                  = nil;
    
    __TRY;
 
    INFO(@"Application '%p', create stack", self, [[self class] description]);
+
+   stStack  = [IDEAAppletActivityStack stack];
    
-   stStack = [IDEAAppletActivityStack stack];
-   
-   for (NSString * name in array)
+   for (NSString * name in aArray)
    {
       IDEAAppletActivity   *stActivity = [self activityFromString:name];
       if (stActivity)
@@ -251,7 +251,7 @@ static __strong id __applicationInstance = nil;
    __TRY;
 
    INFO(@"Application '%p', create stack-group", self, [[self class] description]);
-   
+
    stStackGroup   = [IDEAAppletActivityStackGroup stackGroup];
    
    for (NSString *szKey in aDictionary.allKeys)
@@ -311,6 +311,7 @@ static __strong id __applicationInstance = nil;
    } /* End if () */
    
    NSString *szFileName       = [NSString stringWithFormat:@"%@.manifest", [[self class] description]];
+
    NSString *szFileExt        = @"json";
    
    NSString *szManifestPath   = [[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt];

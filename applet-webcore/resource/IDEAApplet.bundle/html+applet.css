@@ -70,167 +70,167 @@ script {
 
 body {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementBody';
+   -applet-view-class: 'IDEAAppletHtmlElementBody';
 }
 
 element {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementElement';
+   -applet-view-class: 'IDEAAppletHtmlElementElement';
 }
 
 template {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTemplate';
+   -applet-view-class: 'IDEAAppletHtmlElementTemplate';
 }
 
 article {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementArticle';
+   -applet-view-class: 'IDEAAppletHtmlElementArticle';
 }
 
 aside {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementAside';
+   -applet-view-class: 'IDEAAppletHtmlElementAside';
 }
 
 div {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementDiv';
+   -applet-view-class: 'IDEAAppletHtmlElementDiv';
 }
 
 footer {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementFooter';
+   -applet-view-class: 'IDEAAppletHtmlElementFooter';
 }
 
 header {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementHeader';
+   -applet-view-class: 'IDEAAppletHtmlElementHeader';
 }
 
 hgroup {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementHgroup';
+   -applet-view-class: 'IDEAAppletHtmlElementHgroup';
 }
 
 main {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementMain';
+   -applet-view-class: 'IDEAAppletHtmlElementMain';
 }
 
 nav {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementNav';
+   -applet-view-class: 'IDEAAppletHtmlElementNav';
 }
 
 section {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementSection';
+   -applet-view-class: 'IDEAAppletHtmlElementSection';
 }
 
 span {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementSpan';
+   -applet-view-class: 'IDEAAppletHtmlElementSpan';
 }
 
 dir {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementDir';
+   -applet-view-class: 'IDEAAppletHtmlElementDir';
 }
 
 ul {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementUl';
+   -applet-view-class: 'IDEAAppletHtmlElementUl';
 }
 
 ol {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementOl';
+   -applet-view-class: 'IDEAAppletHtmlElementOl';
 }
 
 li {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementLi';
+   -applet-view-class: 'IDEAAppletHtmlElementLi';
 }
 
 dl {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementDl';
+   -applet-view-class: 'IDEAAppletHtmlElementDl';
 }
 
 dt {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementDt';
+   -applet-view-class: 'IDEAAppletHtmlElementDt';
 }
 
 dd {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementDd';
+   -applet-view-class: 'IDEAAppletHtmlElementDd';
 }
 
 table {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTable';
+   -applet-view-class: 'IDEAAppletHtmlElementTable';
 }
 
 caption {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementCaption';
+   -applet-view-class: 'IDEAAppletHtmlElementCaption';
 }
 
 thead {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementThead';
+   -applet-view-class: 'IDEAAppletHtmlElementThead';
 }
 
 tbody {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTbody';
+   -applet-view-class: 'IDEAAppletHtmlElementTbody';
 }
 
 tfoot {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTfoot';
+   -applet-view-class: 'IDEAAppletHtmlElementTfoot';
 }
 
 tr {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTr';
+   -applet-view-class: 'IDEAAppletHtmlElementTr';
 }
 
 td {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTd';
+   -applet-view-class: 'IDEAAppletHtmlElementTd';
 }
 
 th {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementTh';
+   -applet-view-class: 'IDEAAppletHtmlElementTh';
 }
 
 col {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementCol';
+   -applet-view-class: 'IDEAAppletHtmlElementCol';
 }
 
 colgroup {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementColgroup';
+   -applet-view-class: 'IDEAAppletHtmlElementColgroup';
 }
 
 form {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementForm';
+   -applet-view-class: 'IDEAAppletHtmlElementForm';
 }
 
 fieldset {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementFieldset';
+   -applet-view-class: 'IDEAAppletHtmlElementFieldset';
 }
 
 legend {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementLegend';
+   -applet-view-class: 'IDEAAppletHtmlElementLegend';
 }
 
 keygen {
@@ -250,92 +250,92 @@ menuitem {
 
 button {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementButton';
+   -applet-view-class: 'IDEAAppletHtmlElementButton';
 }
 
 canvas {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementCanvas';
+   -applet-view-class: 'IDEAAppletHtmlElementCanvas';
 }
 
 datalist {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementDatalist';
+   -applet-view-class: 'IDEAAppletHtmlElementDatalist';
 }
 
 img, image {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementImg';
+   -applet-view-class: 'IDEAAppletHtmlElementImg';
 }
 
 input, input[type="text"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Text';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Text';
 }
 
 input[type="button"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Button';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Button';
 }
 
 input[type="checkbox"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Checkbox';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Checkbox';
 }
 
 input[type="file"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_File';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_File';
 }
 
 input[type="hidden"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Hidden';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Hidden';
 }
 
 input[type="image"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Image';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Image';
 }
 
 input[type="password"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Password';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Password';
 }
 
 input[type="radio"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Radio';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Radio';
 }
 
 input[type="reset"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Reset';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Reset';
 }
 
 input[type="submit"] {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementInput_Submit';
+   -applet-view-class: 'IDEAAppletHtmlElementInput_Submit';
 }
 
 label {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementLabel';
+   -applet-view-class: 'IDEAAppletHtmlElementLabel';
 }
 
 output {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementOutput';
+   -applet-view-class: 'IDEAAppletHtmlElementOutput';
 }
 
 progress {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementProgress';
+   -applet-view-class: 'IDEAAppletHtmlElementProgress';
 }
 
 select {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementSelect';
+   -applet-view-class: 'IDEAAppletHtmlElementSelect';
 }
 
 optgroup {
@@ -350,52 +350,52 @@ option {
 
 textarea {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementTextarea';
+   -applet-view-class: 'IDEAAppletHtmlElementTextarea';
 }
 
 time {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementTime';
+   -applet-view-class: 'IDEAAppletHtmlElementTime';
 }
 
 meter {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementMeter';
+   -applet-view-class: 'IDEAAppletHtmlElementMeter';
 }
 
 h1 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH1';
+   -applet-view-class: 'IDEAAppletHtmlElementH1';
 }
 
 h2 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH2';
+   -applet-view-class: 'IDEAAppletHtmlElementH2';
 }
 
 h3 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH3';
+   -applet-view-class: 'IDEAAppletHtmlElementH3';
 }
 
 h4 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH4';
+   -applet-view-class: 'IDEAAppletHtmlElementH4';
 }
 
 h5 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH5';
+   -applet-view-class: 'IDEAAppletHtmlElementH5';
 }
 
 h6 {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementH6';
+   -applet-view-class: 'IDEAAppletHtmlElementH6';
 }
 
 hr {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementHr';
+   -applet-view-class: 'IDEAAppletHtmlElementHr';
 }
 
 a {
@@ -445,7 +445,7 @@ acronym {
 
 code {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementCode';
+   -applet-view-class: 'IDEAAppletHtmlElementCode';
 }
 
 strong {
@@ -535,12 +535,12 @@ mark {
 
 sub {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementSub';
+   -applet-view-class: 'IDEAAppletHtmlElementSub';
 }
 
 sup {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementSup';
+   -applet-view-class: 'IDEAAppletHtmlElementSup';
 }
 
 basefont {
@@ -565,22 +565,22 @@ bdo {
 
 br {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementBr';
+   -applet-view-class: 'IDEAAppletHtmlElementBr';
 }
 
 blockquote {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementBlockquote';
+   -applet-view-class: 'IDEAAppletHtmlElementBlockquote';
 }
 
 p {
    -applet-view-hierarchy: 'tree';
-   -applet-view-class: 'SamuraiHtmlElementP';
+   -applet-view-class: 'IDEAAppletHtmlElementP';
 }
 
 pre {
    -applet-view-hierarchy: 'leaf';
-   -applet-view-class: 'SamuraiHtmlElementPre';
+   -applet-view-class: 'IDEAAppletHtmlElementPre';
 }
 
 figcaption {

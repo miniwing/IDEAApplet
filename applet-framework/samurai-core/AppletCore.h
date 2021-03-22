@@ -46,6 +46,7 @@
 #import "IDEAAppletTrigger.h"
 #import "IDEAAppletUnitTest.h"
 #import "IDEAAppletValidator.h"
+#import "IDEAAppletNamespace.h"
 
 // Extensions
 #import "NSObject+Extension.h"

@@ -55,234 +55,267 @@
 
 + (id)unserializeForUnknownValue:(id)value
 {
-   UNUSED( value )
+   UNUSED(value)
    
    return nil;
 }
 
 + (id)serializeForUnknownValue:(id)value
 {
-   UNUSED( value )
+   UNUSED(value)
    
    return nil;
 }
 
-- (void)deepEqualsTo:(id)obj
+
+- (void)deepEqualsTo:(id)aObject
 {
-   Class baseClass = [[self class] baseClass];
-   if ( nil == baseClass )
+   Class stBaseClass = [[self class] baseClass];
+   if (nil == stBaseClass)
    {
-      baseClass = [NSObject class];
-   }
-   
-   for ( Class clazzType = [self class]; clazzType != baseClass; )
-   {
-      unsigned int      propertyCount = 0;
-      objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
+      stBaseClass = [NSObject class];
       
-      for ( NSUInteger i = 0; i < propertyCount; i++ )
+   } /* End if () */
+   
+   for (Class stClazzType = [self class]; stClazzType != stBaseClass;)
+   {
+      unsigned int       nPropertyCount   = 0;
+      objc_property_t   *pstProperties    = class_copyPropertyList(stClazzType, &nPropertyCount);
+      
+      for (NSUInteger H = 0; H < nPropertyCount; H++)
       {
-         const char *   name = property_getName(properties[i]);
-         const char *   attr = property_getAttributes(properties[i]);
+         const char  *cpcName = property_getName(pstProperties[H]);
+         const char  *cpcAttr = property_getAttributes(pstProperties[H]);
          
-         if ( [IDEAAppletEncoding isReadOnly:attr] )
+         if ([IDEAAppletEncoding isReadOnly:cpcAttr])
          {
             continue;
-         }
+            
+         } /* End if () */
          
-         NSString * propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-         NSObject * propertyValue = [obj valueForKey:propertyName];
-
-         [self setValue:propertyValue forKey:propertyName];
-      }
+         NSString *szPropertyName   = [NSString stringWithCString:cpcName encoding:NSUTF8StringEncoding];
+         NSObject *szPropertyValue  = [aObject valueForKey:szPropertyName];
+         
+         [self setValue:szPropertyValue forKey:szPropertyName];
+         
+      } /* End for () */
       
-      free( properties );
+      FREE_IF(pstProperties);
       
-      clazzType = class_getSuperclass( clazzType );
-      if ( nil == clazzType )
+      stClazzType = class_getSuperclass(stClazzType);
+      if (nil == stClazzType)
+      {
          break;
-   }
+         
+      } /* End if () */
+      
+   } /* End for () */
+   
+   return;
 }
 
-- (void)deepCopyFrom:(id)obj
+
+- (void)deepCopyFrom:(id)aObject
 {
-   if ( nil == obj )
+   if (nil == aObject)
    {
       return;
-   }
-   
-   Class baseClass = [[obj class] baseClass];
-   if ( nil == baseClass )
-   {
-      baseClass = [NSObject class];
-   }
-   
-   for ( Class clazzType = [obj class]; clazzType != baseClass; )
-   {
-      unsigned int      propertyCount = 0;
-      objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
       
-      for ( NSUInteger i = 0; i < propertyCount; i++ )
+   } /* End if () */
+   
+   Class  stBaseClass   = [[aObject class] baseClass];
+   if (nil == stBaseClass)
+   {
+      stBaseClass = [NSObject class];
+      
+   } /* End if () */
+   
+   for (Class stClazzType = [aObject class]; stClazzType != stBaseClass;)
+   {
+      unsigned int       nPropertyCount   = 0;
+      objc_property_t   *pstProperties    = class_copyPropertyList(stClazzType, &nPropertyCount);
+      
+      for (NSUInteger H = 0; H < nPropertyCount; H++)
       {
-         const char *   name = property_getName(properties[i]);
-         const char *   attr = property_getAttributes(properties[i]);
+         const char  *cpcName = property_getName(pstProperties[H]);
+         const char  *cpcAttr = property_getAttributes(pstProperties[H]);
          
-         if ( [IDEAAppletEncoding isReadOnly:attr] )
+         if ([IDEAAppletEncoding isReadOnly:cpcAttr])
          {
             continue;
-         }
+            
+         } /* End if () */
          
-         NSString * propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-         NSObject * propertyValue = [obj valueForKey:propertyName];
+         NSString * propertyName = [NSString stringWithCString:cpcName encoding:NSUTF8StringEncoding];
+         NSObject * propertyValue = [aObject valueForKey:propertyName];
          
          [self setValue:propertyValue forKey:propertyName];
-      }
+         
+      } /* End for () */
       
-      free( properties );
+      FREE_IF(pstProperties);
       
-      clazzType = class_getSuperclass( clazzType );
-      if ( nil == clazzType )
+      stClazzType = class_getSuperclass(stClazzType);
+      if (nil == stClazzType)
+      {
          break;
-   }
+      } /* End if () */
+      
+   } /* End for () */
+   
+   return;
 }
 
-+ (id)unserialize:(id)obj
++ (id)unserialize:(id)aObject
 {
-   return [self unserialize:obj withClass:self];
+   return [self unserialize:aObject withClass:self];
 }
 
-+ (id)unserialize:(id)obj withClass:(Class)clazz
++ (id)unserialize:(id)aObject withClass:(Class)aClass
 {
-   if ( nil == obj )
+   if (nil == aObject)
    {
       return nil;
-   }
-   
-   if ( nil == clazz )
-   {
-      return obj;
-   }
-   else if ( [obj isKindOfClass:clazz] )
-   {
-      return obj;
-   }
-   
-   EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
-   
-   if ( EncodingType_Array == type )
-   {
-      NSMutableArray * result = [NSMutableArray array];
       
-      for ( id elem in (NSArray *)obj )
+   } /* End if () */
+   
+   if (nil == aClass)
+   {
+      return aObject;
+      
+   } /* End if () */
+   else if ([aObject isKindOfClass:aClass])
+   {
+      return aObject;
+      
+   } /* End if () */
+   
+   EncodingType    eType   = [IDEAAppletEncoding typeOfObject:aObject];
+   
+   if (EncodingType_Array == eType)
+   {
+      NSMutableArray *stResult = [NSMutableArray array];
+      
+      for (id stElem in (NSArray *)aObject)
       {
-         id subResult = [self unserialize:elem withClass:clazz];
-         if ( subResult )
+         id stSubResult = [self unserialize:stElem withClass:aClass];
+         if (stSubResult)
          {
-            [result addObject:subResult];
-         }
-      }
+            [stResult addObject:stSubResult];
+            
+         } /* End if () */
+         
+      } /* End for () */
       
-      return result;
-   }
-   else if ( EncodingType_Dict == type )
+      return stResult;
+      
+   } /* End if () */
+   else if (EncodingType_Dict == eType)
    {
-      NSDictionary * dict = (NSDictionary *)obj;
-      if ( 0 == dict.count )
+      NSDictionary   *stDict  = (NSDictionary *)aObject;
+      if (0 == stDict.count)
       {
          return nil;
-      }
+         
+      } /* End if () */
       
-      id result = [[clazz alloc] init];
-      if ( nil == result )
+      id  stResult   = [[aClass alloc] init];
+      if (nil == stResult)
       {
          return nil;
-      }
+         
+      } /* End if () */
       
-      Class baseClass = [[obj class] baseClass];
-      if ( nil == baseClass )
+      Class stBaseClass = [[aObject class] baseClass];
+      if (nil == stBaseClass)
       {
-         baseClass = [NSObject class];
-      }
+         stBaseClass = [NSObject class];
+         
+      } /* End if () */
       
-      for ( Class clazzType = clazz; clazzType != baseClass; )
+      for (Class stClassType = aClass; stClassType != stBaseClass;)
       {
-         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
+         if ([IDEAAppletEncoding isAtomClass:stClassType])
          {
             break;
-         }
+            
+         } /* End if () */
          
-         unsigned int      propertyCount = 0;
-         objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
+         unsigned int       nPropertyCount   = 0;
+         objc_property_t   *pstProperties    = class_copyPropertyList(stClassType, &nPropertyCount);
          
-         for ( NSUInteger i = 0; i < propertyCount; i++ )
+         for (NSUInteger H = 0; H < nPropertyCount; H++)
          {
-            const char *   name = property_getName(properties[i]);
-            const char *   attr = property_getAttributes(properties[i]);
+            const char *cpcName     = property_getName(pstProperties[H]);
+            const char *cpcAttr     = property_getAttributes(pstProperties[H]);
             
-            BOOL readonly = [IDEAAppletEncoding isReadOnly:attr];
-            if ( readonly )
-               continue;
-            
-            NSString *   propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-            NSObject *   tempValue = [dict objectForKey:propertyName];
-            NSObject *   value = nil;
-
-            if ( tempValue )
+            BOOL         bReadonly  = [IDEAAppletEncoding isReadOnly:cpcAttr];
+            if (bReadonly)
             {
-               NSInteger propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
+               continue;
                
-               if ( EncodingType_Null == propertyType )
+            } /* End if () */
+
+            NSString *   propertyName = [NSString stringWithCString:cpcName encoding:NSUTF8StringEncoding];
+            NSObject *   tempValue = [stDict objectForKey:propertyName];
+            NSObject *   value = nil;
+            
+            if (tempValue)
+            {
+               NSInteger propertyType = [IDEAAppletEncoding typeOfAttribute:cpcAttr];
+               
+               if (EncodingType_Null == propertyType)
                {
                   value = nil;
                }
-               else if ( EncodingType_Number == propertyType )
+               else if (EncodingType_Number == propertyType)
                {
                   value = [tempValue toNumber];
                }
-               else if ( EncodingType_String == propertyType )
+               else if (EncodingType_String == propertyType)
                {
                   value = [tempValue toString];
                }
-               else if ( EncodingType_Array == propertyType )
+               else if (EncodingType_Array == propertyType)
                {
                   value = tempValue;
                   
                   __autoreleasing Class convertClass = nil;
-
-                  if ( nil == convertClass )
+                  
+                  if (nil == convertClass)
                   {
-                     SEL convertSelector = NSSelectorFromString( [NSString stringWithFormat:@"convertClass_%@", propertyName] );
-                     if ( [clazz respondsToSelector:convertSelector] )
+                     SEL convertSelector = NSSelectorFromString([NSString stringWithFormat:@"convertClass_%@", propertyName]);
+                     if ([aClass respondsToSelector:convertSelector])
                      {
-//                        convertClass = [clazz performSelector:convertSelector];
-
-                        NSMethodSignature * signature = [clazz methodSignatureForSelector:convertSelector];
+                        //                        convertClass = [clazz performSelector:convertSelector];
+                        
+                        NSMethodSignature * signature = [aClass methodSignatureForSelector:convertSelector];
                         NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
                         
-                        [invocation setTarget:clazz];
+                        [invocation setTarget:aClass];
                         [invocation setSelector:convertSelector];
                         [invocation invoke];
                         [invocation getReturnValue:&convertClass];
                      }
                   }
-
-                  if ( nil == convertClass )
+                  
+                  if (nil == convertClass)
                   {
-                     NSString * convertClassName = [clazzType extentionForProperty:propertyName stringValueWithKey:@"Class"];
-                     if ( convertClassName )
+                     NSString * convertClassName = [stClassType extentionForProperty:propertyName stringValueWithKey:@"Class"];
+                     if (convertClassName)
                      {
-                        convertClass = NSClassFromString( convertClassName );
+                        convertClass = NSClassFromString(convertClassName);
                      }
                   }
-
-                  if ( convertClass )
+                  
+                  if (convertClass)
                   {
                      NSMutableArray * arrayTemp = [NSMutableArray array];
                      
-                     for ( NSObject * tempObject in (NSArray *)tempValue )
+                     for (NSObject * tempObject in (NSArray *)tempValue)
                      {
                         id elem = [convertClass unserialize:tempObject];
-                        if ( elem )
+                        if (elem)
                         {
                            [arrayTemp addObject:elem];
                         }
@@ -291,35 +324,35 @@
                      value = arrayTemp;
                   }
                }
-               else if ( EncodingType_Dict == propertyType )
+               else if (EncodingType_Dict == propertyType)
                {
                   value = tempValue;
                }
-               else if ( EncodingType_Date == propertyType )
+               else if (EncodingType_Date == propertyType)
                {
                   value = [tempValue toDate];
                }
-               else if ( EncodingType_Data == propertyType )
+               else if (EncodingType_Data == propertyType)
                {
                   value = [tempValue toData];
                }
-               else if ( EncodingType_Url == propertyType )
+               else if (EncodingType_Url == propertyType)
                {
                   value = [tempValue toURL];
                }
                else
                {
-                  Class classType = [IDEAAppletEncoding classOfAttribute:attr];
-                  if ( classType )
+                  Class classType = [IDEAAppletEncoding classOfAttribute:cpcAttr];
+                  if (classType)
                   {
-                     if ( [tempValue isKindOfClass:classType] )
+                     if ([tempValue isKindOfClass:classType])
                      {
                         value = tempValue;
                      }
                      else
                      {
                         value = [classType unserialize:tempValue];
-                        if ( nil == value )
+                        if (nil == value)
                         {
                            value = [classType unserializeForUnknownValue:tempValue];
                         }
@@ -328,48 +361,48 @@
                }
             }
             
-            NSArray * policyValues = [clazzType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
-
-            if ( policyValues )
+            NSArray * policyValues = [stClassType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
+            
+            if (policyValues)
             {
                BOOL isSave = NO;
                BOOL isLoad = NO;
                BOOL isClear = NO;
-
-               for ( NSString * policyValue in policyValues )
+               
+               for (NSString * policyValue in policyValues)
                {
-                  if ( NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch] )
+                  if (NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch])
                   {
                      isSave = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch])
                   {
                      isLoad = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch])
                   {
                      isClear = YES;
                   }
                }
-
-               if ( NO == isLoad )
+               
+               if (NO == isLoad)
                   continue;
             }
-
-            if ( nil != value )
+            
+            if (nil != value)
             {
-               [result setValue:value forKey:propertyName];
+               [stResult setValue:value forKey:propertyName];
             }
          }
          
-         free( properties );
+         free(pstProperties);
          
-         clazzType = class_getSuperclass( clazzType );
-         if ( nil == clazzType )
+         stClassType = class_getSuperclass(stClassType);
+         if (nil == stClassType)
             break;
       }
       
-      return result;
+      return stResult;
    }
    
    return nil;
@@ -377,79 +410,79 @@
 
 - (void)unserialize:(id)obj
 {
-   if ( nil == obj )
+   if (nil == obj)
       return;
-
+   
    EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
    
-   if ( EncodingType_Array == type )
+   if (EncodingType_Array == type)
    {
-      TODO( "does not support array" );
+      TODO("does not support array");
       return;
    }
-   else if ( EncodingType_Dict == type )
+   else if (EncodingType_Dict == type)
    {
       NSDictionary * dict = (NSDictionary *)obj;
-      if ( 0 == dict.count )
+      if (0 == dict.count)
          return;
       
       Class baseClass = [[obj class] baseClass];
-      if ( nil == baseClass )
+      if (nil == baseClass)
       {
          baseClass = [NSObject class];
       }
       
-      for ( Class clazzType = [self class]; clazzType != baseClass; )
+      for (Class clazzType = [self class]; clazzType != baseClass;)
       {
-         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
+         if ([IDEAAppletEncoding isAtomClass:clazzType])
          {
             break;
          }
          
          unsigned int      propertyCount = 0;
-         objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
+         objc_property_t *   properties = class_copyPropertyList(clazzType, &propertyCount);
          
-         for ( NSUInteger i = 0; i < propertyCount; i++ )
+         for (NSUInteger i = 0; i < propertyCount; i++)
          {
             const char *   name = property_getName(properties[i]);
             const char *   attr = property_getAttributes(properties[i]);
             
             BOOL readonly = [IDEAAppletEncoding isReadOnly:attr];
-            if ( readonly )
+            if (readonly)
                continue;
             
             NSString *   propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
             NSObject *   tempValue = [dict objectForKey:propertyName];
             NSObject *   value = nil;
             
-            if ( tempValue )
+            if (tempValue)
             {
                NSInteger propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
                
-               if ( EncodingType_Null == propertyType )
+               if (EncodingType_Null == propertyType)
                {
                   value = nil;
                }
-               else if ( EncodingType_Number == propertyType )
+               else if (EncodingType_Number == propertyType)
                {
                   value = [tempValue toNumber];
                }
-               else if ( EncodingType_String == propertyType )
+               else if (EncodingType_String == propertyType)
                {
                   value = [tempValue toString];
                }
-               else if ( EncodingType_Array == propertyType )
+               else if (EncodingType_Array == propertyType)
                {
                   value = tempValue;
                   
                   __autoreleasing Class convertClass = nil;
                   
-                  if ( nil == convertClass )
+                  if (nil == convertClass)
                   {
-                     SEL convertSelector = NSSelectorFromString( [NSString stringWithFormat:@"convertClass_%@", propertyName] );
-                     if ( [[self class] respondsToSelector:convertSelector] )
+                     SEL convertSelector = NSSelectorFromString([NSString stringWithFormat:@"convertClass_%@", propertyName]);
+                     if ([[self class] respondsToSelector:convertSelector])
                      {
-//                        convertClass = [[self class] performSelector:convertSelector];
+                        //                        convertClass = [[self class] performSelector:convertSelector];
                         
                         NSMethodSignature * signature = [[self class] methodSignatureForSelector:convertSelector];
                         NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -461,24 +494,24 @@
                      }
                   }
                   
-                  if ( nil == convertClass )
+                  if (nil == convertClass)
                   {
                      NSString * convertClassName = [clazzType extentionForProperty:propertyName stringValueWithKey:@"Class"];
-
-                     if ( convertClassName )
+                     
+                     if (convertClassName)
                      {
-                        convertClass = NSClassFromString( convertClassName );
+                        convertClass = NSClassFromString(convertClassName);
                      }
                   }
                   
-                  if ( convertClass )
+                  if (convertClass)
                   {
                      NSMutableArray * arrayTemp = [NSMutableArray array];
                      
-                     for ( NSObject * tempObject in (NSArray *)tempValue )
+                     for (NSObject * tempObject in (NSArray *)tempValue)
                      {
                         id elem = [convertClass unserialize:tempObject];
-                        if ( elem )
+                        if (elem)
                         {
                            [arrayTemp addObject:elem];
                         }
@@ -487,35 +520,35 @@
                      value = arrayTemp;
                   }
                }
-               else if ( EncodingType_Dict == propertyType )
+               else if (EncodingType_Dict == propertyType)
                {
                   value = tempValue;
                }
-               else if ( EncodingType_Date == propertyType )
+               else if (EncodingType_Date == propertyType)
                {
                   value = [tempValue toDate];
                }
-               else if ( EncodingType_Data == propertyType )
+               else if (EncodingType_Data == propertyType)
                {
                   value = [tempValue toData];
                }
-               else if ( EncodingType_Url == propertyType )
+               else if (EncodingType_Url == propertyType)
                {
                   value = [tempValue toURL];
                }
                else
                {
                   Class classType = [IDEAAppletEncoding classOfAttribute:attr];
-                  if ( classType )
+                  if (classType)
                   {
-                     if ( [tempValue isKindOfClass:classType] )
+                     if ([tempValue isKindOfClass:classType])
                      {
                         value = tempValue;
                      }
                      else
                      {
                         value = [classType unserialize:tempValue];
-                        if ( nil == value )
+                        if (nil == value)
                         {
                            value = [classType unserializeForUnknownValue:tempValue];
                         }
@@ -523,45 +556,45 @@
                   }
                }
             }
-
+            
             NSArray * policyValues = [clazzType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
             
-            if ( policyValues )
+            if (policyValues)
             {
                BOOL isSave = NO;
                BOOL isLoad = NO;
                BOOL isClear = NO;
                
-               for ( NSString * policyValue in policyValues )
+               for (NSString * policyValue in policyValues)
                {
-                  if ( NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch] )
+                  if (NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch])
                   {
                      isSave = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch])
                   {
                      isLoad = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch])
                   {
                      isClear = YES;
                   }
                }
                
-               if ( NO == isLoad )
+               if (NO == isLoad)
                   continue;
             }
             
-            if ( nil != value )
+            if (nil != value)
             {
                [self setValue:value forKey:propertyName];
             }
          }
          
-         free( properties );
+         free(properties);
          
-         clazzType = class_getSuperclass( clazzType );
-         if ( nil == clazzType )
+         clazzType = class_getSuperclass(clazzType);
+         if (nil == clazzType)
             break;
       }
    }
@@ -571,45 +604,45 @@
 {
    id obj = self;
    
-   if ( nil == obj )
+   if (nil == obj)
    {
       return nil;
    }
    
    EncodingType type = [IDEAAppletEncoding typeOfObject:obj];
    
-   if ( EncodingType_Null == type )
+   if (EncodingType_Null == type)
    {
       return obj;
    }
-   else if ( EncodingType_Number == type )
+   else if (EncodingType_Number == type)
    {
       return obj;
    }
-   else if ( EncodingType_String == type )
+   else if (EncodingType_String == type)
    {
       return obj;
    }
-   else if ( EncodingType_Date == type )
+   else if (EncodingType_Date == type)
    {
       return [(NSDate *)obj toString:@"yyyy/MM/dd HH:mm:ss z"];
    }
-   else if ( EncodingType_Data == type )
+   else if (EncodingType_Data == type)
    {
       return obj;
    }
-   else if ( EncodingType_Url == type )
+   else if (EncodingType_Url == type)
    {
       return [obj toString];
    }
-   else if ( EncodingType_Array == type )
+   else if (EncodingType_Array == type)
    {
       NSMutableArray * result = [NSMutableArray array];
       
-      for ( id elem in (NSArray *)obj )
+      for (id elem in (NSArray *)obj)
       {
          id subResult = [elem serialize];
-         if ( subResult )
+         if (subResult)
          {
             [result addObject:subResult];
          }
@@ -617,17 +650,17 @@
       
       return result;
    }
-   else if ( EncodingType_Dict == type )
+   else if (EncodingType_Dict == type)
    {
       NSMutableDictionary * result = [NSMutableDictionary dictionary];
       
-      for ( NSString * key in [(NSDictionary *)obj allKeys] )
+      for (NSString * key in [(NSDictionary *)obj allKeys])
       {
          NSObject * value = [(NSDictionary *)obj objectForKey:key];
-         if ( value )
+         if (value)
          {
             id subResult = [value serialize];
-            if ( subResult )
+            if (subResult)
             {
                [result setObject:subResult forKey:key];
             }
@@ -641,71 +674,71 @@
       NSMutableDictionary * result = [NSMutableDictionary dictionary];
       
       Class baseClass = [[obj class] baseClass];
-      if ( nil == baseClass )
+      if (nil == baseClass)
       {
          baseClass = [NSObject class];
       }
       
-      for ( Class clazzType = [self class]; clazzType != baseClass; )
+      for (Class clazzType = [self class]; clazzType != baseClass;)
       {
-         if ( [IDEAAppletEncoding isAtomClass:clazzType] )
+         if ([IDEAAppletEncoding isAtomClass:clazzType])
          {
             break;
          }
          
          unsigned int      propertyCount = 0;
-         objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
+         objc_property_t *   properties = class_copyPropertyList(clazzType, &propertyCount);
          
-         for ( NSUInteger i = 0; i < propertyCount; i++ )
+         for (NSUInteger i = 0; i < propertyCount; i++)
          {
             const char *   name = property_getName(properties[i]);
-//            const char *   attr = property_getAttributes(properties[i]);
+            //            const char *   attr = property_getAttributes(properties[i]);
             NSString *      propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-
+            
             NSArray * policyValues = [clazzType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
             
-            if ( policyValues )
+            if (policyValues)
             {
                BOOL isSave = NO;
                BOOL isLoad = NO;
                BOOL isClear = NO;
                
-               for ( NSString * policyValue in policyValues )
+               for (NSString * policyValue in policyValues)
                {
-                  if ( NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch] )
+                  if (NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch])
                   {
                      isSave = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch])
                   {
                      isLoad = YES;
                   }
-                  else if ( NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch] )
+                  else if (NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch])
                   {
                      isClear = YES;
                   }
                }
-
-               if ( NO == isSave )
+               
+               if (NO == isSave)
                   continue;
             }
-
+            
             NSObject * value = [self valueForKey:propertyName];
             
-            if ( value )
+            if (value)
             {
                id subResult = [value serialize];
-               if ( subResult )
+               if (subResult)
                {
                   [result setObject:subResult forKey:propertyName];
                }
             }
          }
          
-         free( properties );
+         free(properties);
          
-         clazzType = class_getSuperclass( clazzType );
-         if ( nil == clazzType )
+         clazzType = class_getSuperclass(clazzType);
+         if (nil == clazzType)
             break;
       }
       
@@ -720,97 +753,97 @@
    id obj = self;
    
    Class baseClass = [[obj class] baseClass];
-   if ( nil == baseClass )
+   if (nil == baseClass)
    {
       baseClass = [NSObject class];
    }
    
-   if ( [IDEAAppletEncoding isAtomObject:self] )
+   if ([IDEAAppletEncoding isAtomObject:self])
    {
       return;
    }
    
-   for ( Class clazzType = [self class]; clazzType != baseClass; )
+   for (Class clazzType = [self class]; clazzType != baseClass;)
    {
-      if ( [IDEAAppletEncoding isAtomClass:clazzType] )
+      if ([IDEAAppletEncoding isAtomClass:clazzType])
       {
          break;
       }
-
-      unsigned int      propertyCount = 0;
-      objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
       
-      for ( NSUInteger i = 0; i < propertyCount; i++ )
+      unsigned int      propertyCount = 0;
+      objc_property_t *   properties = class_copyPropertyList(clazzType, &propertyCount);
+      
+      for (NSUInteger i = 0; i < propertyCount; i++)
       {
          const char *   name = property_getName(properties[i]);
          const char *   attr = property_getAttributes(properties[i]);
-
+         
          NSString *      propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
          EncodingType   propertyType = [IDEAAppletEncoding typeOfAttribute:attr];
-
+         
          NSArray * policyValues = [clazzType extentionForProperty:propertyName arrayValueWithKey:@"Policy"];
-
-         if ( policyValues )
+         
+         if (policyValues)
          {
             BOOL isSave = NO;
             BOOL isLoad = NO;
             BOOL isClear = NO;
             
-            for ( NSString * policyValue in policyValues )
+            for (NSString * policyValue in policyValues)
             {
-               if ( NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch] )
+               if (NSOrderedSame == [policyValue compare:@"save" options:NSCaseInsensitiveSearch])
                {
                   isSave = YES;
                }
-               else if ( NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch] )
+               else if (NSOrderedSame == [policyValue compare:@"load" options:NSCaseInsensitiveSearch])
                {
                   isLoad = YES;
                }
-               else if ( NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch] )
+               else if (NSOrderedSame == [policyValue compare:@"clear" options:NSCaseInsensitiveSearch])
                {
                   isClear = YES;
                }
             }
-
-            if ( NO == isClear )
+            
+            if (NO == isClear)
                continue;
          }
-
-         if ( EncodingType_Number == propertyType )
+         
+         if (EncodingType_Number == propertyType)
          {
             [self setValue:nil forKey:propertyName];
          }
-         else if ( EncodingType_String == propertyType )
+         else if (EncodingType_String == propertyType)
          {
             [self setValue:nil forKey:propertyName];
          }
-         else if ( EncodingType_Date == propertyType )
+         else if (EncodingType_Date == propertyType)
          {
             [self setValue:nil forKey:propertyName];
          }
-         else if ( EncodingType_Data == propertyType )
+         else if (EncodingType_Data == propertyType)
          {
             [self setValue:nil forKey:propertyName];
          }
-         else if ( EncodingType_Url == propertyType )
+         else if (EncodingType_Url == propertyType)
          {
             [self setValue:nil forKey:propertyName];
          }
-         else if ( EncodingType_Array == propertyType )
+         else if (EncodingType_Array == propertyType)
          {
             [self setValue:[NSMutableArray array] forKey:propertyName];
          }
-         else if ( EncodingType_Dict == propertyType )
+         else if (EncodingType_Dict == propertyType)
          {
             [self setValue:[NSMutableDictionary dictionary] forKey:propertyName];
          }
          else
          {
             Class clazz = [IDEAAppletEncoding classOfAttribute:attr];
-            if ( clazz )
+            if (clazz)
             {
                NSObject * newObj = [[clazz alloc] init];
-               if ( newObj )
+               if (newObj)
                {
                   [self setValue:newObj forKey:propertyName];
                }
@@ -826,10 +859,10 @@
          }
       }
       
-      free( properties );
+      free(properties);
       
-      clazzType = class_getSuperclass( clazzType );
-      if ( nil == clazzType )
+      clazzType = class_getSuperclass(clazzType);
+      if (nil == clazzType)
       {
          break;
       }
@@ -839,12 +872,12 @@
 - (id)clone
 {
    id newObject = [[[self class] alloc] init];
-
-   if ( newObject )
+   
+   if (newObject)
    {
       [newObject deepCopyFrom:self];
    }
-
+   
    return newObject;
 }
 
@@ -854,9 +887,9 @@
 {
    NSError * error = nil;
    NSData * result = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
-   if ( nil == result )
+   if (nil == result)
    {
-      ERROR( @"%@", error );
+      ERROR(@"%@", error);
       return nil;
    }
    
@@ -867,9 +900,9 @@
 {
    NSError * error = nil;
    NSObject * result = [NSJSONSerialization JSONObjectWithData:[self toData] options:NSJSONReadingAllowFragments error:&error];
-   if ( nil == result )
+   if (nil == result)
    {
-      ERROR( @"%@", error );
+      ERROR(@"%@", error);
       return nil;
    }
    
@@ -904,7 +937,7 @@
 - (NSURL *)toURL
 {
    NSString * string = [self toString];
-   if ( nil == string )
+   if (nil == string)
    {
       return nil;
    }
@@ -916,39 +949,39 @@
 {
    EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
-   if ( EncodingType_Null == encoding )
+   if (EncodingType_Null == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Number == encoding )
+   else if (EncodingType_Number == encoding)
    {
       NSNumber * number = (NSNumber *)self;
       return [NSDate dateWithTimeIntervalSince1970:[number doubleValue]];
    }
-   else if ( EncodingType_String == encoding )
+   else if (EncodingType_String == encoding)
    {
       return [NSDate fromString:(NSString *)self];
    }
-   else if ( EncodingType_Date == encoding )
+   else if (EncodingType_Date == encoding)
    {
       return (NSDate *)self;
    }
-   else if ( EncodingType_Data == encoding )
+   else if (EncodingType_Data == encoding)
    {
       NSData *   data = (NSData *)self;
       NSString *   string = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
       
       return [NSDate fromString:string];
    }
-   else if ( EncodingType_Url == encoding )
+   else if (EncodingType_Url == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Array == encoding )
+   else if (EncodingType_Array == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Dict == encoding )
+   else if (EncodingType_Dict == encoding)
    {
       return nil;
    }
@@ -960,42 +993,42 @@
 {
    EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
-   if ( EncodingType_Null == encoding )
+   if (EncodingType_Null == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Number == encoding )
+   else if (EncodingType_Number == encoding)
    {
       NSString * string = [(NSNumber *)self description];
       return [string dataUsingEncoding:NSUTF8StringEncoding];
    }
-   else if ( EncodingType_String == encoding )
+   else if (EncodingType_String == encoding)
    {
       NSString * string = (NSString *)self;
       return [string dataUsingEncoding:NSUTF8StringEncoding];
    }
-   else if ( EncodingType_Date == encoding )
+   else if (EncodingType_Date == encoding)
    {
       NSString * string = [(NSDate *)self toString:@"yyyy/MM/dd HH:mm:ss z"];
       return [string dataUsingEncoding:NSUTF8StringEncoding];
    }
-   else if ( EncodingType_Data == encoding )
+   else if (EncodingType_Data == encoding)
    {
       return (NSData *)self;
    }
-   else if ( EncodingType_Url == encoding )
+   else if (EncodingType_Url == encoding)
    {
       NSURL * url = (NSURL *)self;
       return [[url absoluteString] dataUsingEncoding:NSUTF8StringEncoding];
    }
-   else if ( EncodingType_Array == encoding )
+   else if (EncodingType_Array == encoding)
    {
       NSMutableArray * array = [NSMutableArray array];
       
-      for ( NSObject * elem in (NSArray *)self )
+      for (NSObject * elem in (NSArray *)self)
       {
          id serializedObject = [elem serialize];
-         if ( serializedObject )
+         if (serializedObject)
          {
             [array addObject:serializedObject];
          }
@@ -1003,10 +1036,10 @@
       
       return [NSJSONSerialization dataWithJSONObject:array options:kNilOptions error:NULL];
    }
-   else if ( EncodingType_Dict == encoding )
+   else if (EncodingType_Dict == encoding)
    {
       id serializedObject = [self serialize];
-      if ( serializedObject )
+      if (serializedObject)
       {
          return [NSJSONSerialization dataWithJSONObject:serializedObject options:kNilOptions error:NULL];
       }
@@ -1014,7 +1047,7 @@
    else
    {
       id serializedObject = [self serialize];
-      if ( serializedObject )
+      if (serializedObject)
       {
          return [NSJSONSerialization dataWithJSONObject:serializedObject options:kNilOptions error:NULL];
       }
@@ -1027,29 +1060,29 @@
 {
    EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
    
-   if ( EncodingType_Null == encoding )
+   if (EncodingType_Null == encoding)
    {
       return [NSNumber numberWithInt:0];
    }
-   else if ( EncodingType_Number == encoding )
+   else if (EncodingType_Number == encoding)
    {
       return (NSNumber *)self;
    }
-   else if ( EncodingType_String == encoding )
+   else if (EncodingType_String == encoding)
    {
       NSString * string = (NSString *)self;
       
-      if ( NSOrderedSame == [string compare:@"yes" options:NSCaseInsensitiveSearch] ||
-         NSOrderedSame == [string compare:@"true" options:NSCaseInsensitiveSearch] ||
-         NSOrderedSame == [string compare:@"on" options:NSCaseInsensitiveSearch] ||
-         NSOrderedSame == [string compare:@"1" options:NSCaseInsensitiveSearch] )
+      if (NSOrderedSame == [string compare:@"yes" options:NSCaseInsensitiveSearch] ||
+          NSOrderedSame == [string compare:@"true" options:NSCaseInsensitiveSearch] ||
+          NSOrderedSame == [string compare:@"on" options:NSCaseInsensitiveSearch] ||
+          NSOrderedSame == [string compare:@"1" options:NSCaseInsensitiveSearch])
       {
          return [NSNumber numberWithBool:YES];
       }
-      else if ( NSOrderedSame == [string compare:@"no" options:NSCaseInsensitiveSearch] ||
-             NSOrderedSame == [string compare:@"off" options:NSCaseInsensitiveSearch] ||
-             NSOrderedSame == [string compare:@"false" options:NSCaseInsensitiveSearch] ||
-             NSOrderedSame == [string compare:@"0" options:NSCaseInsensitiveSearch] )
+      else if (NSOrderedSame == [string compare:@"no" options:NSCaseInsensitiveSearch] ||
+               NSOrderedSame == [string compare:@"off" options:NSCaseInsensitiveSearch] ||
+               NSOrderedSame == [string compare:@"false" options:NSCaseInsensitiveSearch] ||
+               NSOrderedSame == [string compare:@"0" options:NSCaseInsensitiveSearch])
       {
          return [NSNumber numberWithBool:NO];
       }
@@ -1058,29 +1091,29 @@
          return [NSNumber numberWithInteger:[string integerValue]];
       }
    }
-   else if ( EncodingType_Date == encoding )
+   else if (EncodingType_Date == encoding)
    {
       NSDate * date = (NSDate *)self;
       return [NSNumber numberWithDouble:[date timeIntervalSince1970]];
    }
-   else if ( EncodingType_Data == encoding )
+   else if (EncodingType_Data == encoding)
    {
       NSData * data = (NSData *)self;
       NSString * string = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
-      if ( string )
+      if (string)
       {
          return [NSNumber numberWithInteger:[string integerValue]];
       }
    }
-   else if ( EncodingType_Url == encoding )
+   else if (EncodingType_Url == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Array == encoding )
+   else if (EncodingType_Array == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Dict == encoding )
+   else if (EncodingType_Dict == encoding)
    {
       return nil;
    }
@@ -1090,34 +1123,34 @@
 
 - (NSString *)toString
 {
-   EncodingType encoding = [IDEAAppletEncoding typeOfObject:self];
+   EncodingType    encoding = [IDEAAppletEncoding typeOfObject:self];
    
-   if ( EncodingType_Null == encoding )
+   if (EncodingType_Null == encoding)
    {
       return nil;
    }
-   else if ( EncodingType_Number == encoding )
+   else if (EncodingType_Number == encoding)
    {
       return [self description];
    }
-   else if ( EncodingType_String == encoding )
+   else if (EncodingType_String == encoding)
    {
       return (NSString *)self;
    }
-   else if ( EncodingType_Date == encoding )
+   else if (EncodingType_Date == encoding)
    {
       return [(NSDate *)self toString:@"yyyy/MM/dd HH:mm:ss z"];
    }
-   else if ( EncodingType_Data == encoding )
+   else if (EncodingType_Data == encoding)
    {
       NSData *   data = (NSData *)self;
       NSString *   text = nil;
       
       text = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
-      if ( nil == text )
+      if (nil == text)
       {
          text = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         if ( nil == text )
+         if (nil == text)
          {
             text = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
          }
@@ -1125,37 +1158,37 @@
       
       return text;
    }
-   else if ( EncodingType_Url == encoding )
+   else if (EncodingType_Url == encoding)
    {
       NSURL * url = (NSURL *)self;
       return [url absoluteString];
    }
-   else if ( EncodingType_Array == encoding )
+   else if (EncodingType_Array == encoding)
    {
       NSMutableArray * array = [NSMutableArray array];
       
-      for ( NSObject * elem in (NSArray *)self )
+      for (NSObject * elem in (NSArray *)self)
       {
          id serializedObject = [elem serialize];
-         if ( serializedObject )
+         if (serializedObject)
          {
             [array addObject:serializedObject];
          }
       }
       
       NSData * result = [NSJSONSerialization dataWithJSONObject:array options:kNilOptions error:NULL];
-      if ( result )
+      if (result)
       {
          return [result toString];
       }
    }
-   else if ( EncodingType_Dict == encoding )
+   else if (EncodingType_Dict == encoding)
    {
       id serializedObject = [self serialize];
-      if ( serializedObject )
+      if (serializedObject)
       {
          NSData * result = [NSJSONSerialization dataWithJSONObject:serializedObject options:kNilOptions error:NULL];
-         if ( result )
+         if (result)
          {
             return [result toString];
          }
@@ -1164,10 +1197,10 @@
    else
    {
       id serializedObject = [self serialize];
-      if ( serializedObject )
+      if (serializedObject)
       {
          NSData * result = [NSJSONSerialization dataWithJSONObject:serializedObject options:kNilOptions error:NULL];
-         if ( result )
+         if (result)
          {
             return [result toString];
          }
@@ -1176,6 +1209,18 @@
    
    return nil;
 }
+
+
++ (NSString *)className
+{
+   return NSStringFromClass([self class]);
+}
+
+- (NSString *)className
+{
+   return NSStringFromClass([self class]);
+}
+
 
 @end
 
@@ -1188,61 +1233,63 @@
 #if __SAMURAI_TESTING__
 
 @interface __SimpleClass : NSObject
-@prop_strong( NSNumber *,         number );
-@prop_strong( NSString *,         string );
-@prop_strong( NSDate *,            date );
-@prop_strong( NSData *,            data );
-@prop_strong( NSURL *,            url );
+@prop_strong(NSNumber *,         number);
+@prop_strong(NSString *,         string);
+@prop_strong(NSDate *,            date);
+@prop_strong(NSData *,            data);
+@prop_strong(NSURL *,            url);
 @end
 
 @interface __ComplexClass : __SimpleClass
-@prop_strong( NSArray *,         array1 );
-@prop_strong( NSArray *,         array2 );
-@prop_strong( NSArray *,         array3 );
-@prop_strong( NSDictionary *,      dict );
-@prop_strong( __SimpleClass *,      object1 );
-@prop_strong( __ComplexClass *,      object2 );
+@prop_strong(NSArray *,         array1);
+@prop_strong(NSArray *,         array2);
+@prop_strong(NSArray *,         array3);
+@prop_strong(NSDictionary *,      dict);
+@prop_strong(__SimpleClass *,      object1);
+@prop_strong(__ComplexClass *,      object2);
 @end
 
 @implementation __SimpleClass
-@def_prop_strong( NSNumber *,      number );
-@def_prop_strong( NSString *,      string );
-@def_prop_strong( NSDate *,         date );
-@def_prop_strong( NSData *,         data );
-@def_prop_strong( NSURL *,         url );
+@def_prop_strong(NSNumber *,      number);
+@def_prop_strong(NSString *,      string);
+@def_prop_strong(NSDate *,         date);
+@def_prop_strong(NSData *,         data);
+@def_prop_strong(NSURL *,         url);
 @end
 
 @implementation __ComplexClass
-@def_prop_strong( NSArray *,      array1 );
-@def_prop_strong( NSArray *,      array2,      Class => __SimpleClass );
-@def_prop_strong( NSArray *,      array3,      Class => __ComplexClass );
-@def_prop_strong( NSDictionary *,   dict );
-@def_prop_strong( __SimpleClass *,   object1 );
-@def_prop_strong( __ComplexClass *,   object2 );
+@def_prop_strong(NSArray *,      array1);
+@def_prop_strong(NSArray *,      array2,      Class => __SimpleClass);
+@def_prop_strong(NSArray *,      array3,      Class => __ComplexClass);
+@def_prop_strong(NSDictionary *,   dict);
+@def_prop_strong(__SimpleClass *,   object1);
+@def_prop_strong(__ComplexClass *,   object2);
 
-BASE_CLASS( NSObject )
+BASE_CLASS(NSObject)
 
-//CONVERT_CLASS( array2, __SimpleClass )
-//CONVERT_CLASS( array3, __ComplexClass )
+//CONVERT_CLASS(array2, __SimpleClass)
+//CONVERT_CLASS(array3, __ComplexClass)
 
 @end
 
-TEST_CASE( Core, NSObject_Extension )
+TEST_CASE(Core, NSObject_Extension)
 {
    
 }
 
-DESCRIBE( before )
+
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( serialize )
+
+DESCRIBE(serialize)
 {
    __SimpleClass * simple = [[__SimpleClass alloc] init];
    simple.number = @1;
    simple.string = @"2";
    simple.date = [NSDate date];
-//   simple.data = [NSData dataWithBytes:"123456" length:6];
+   //   simple.data = [NSData dataWithBytes:"123456" length:6];
    simple.url = [NSURL URLWithString:@"http://www.geek-zoo.com"];
    
    __ComplexClass * complex = [[__ComplexClass alloc] init];
@@ -1251,44 +1298,44 @@ DESCRIBE( serialize )
    complex2.number = @1;
    complex2.string = @"2";
    complex2.date = [NSDate date];
-//   complex2.data = [NSData dataWithBytes:"123456" length:6];
+   //   complex2.data = [NSData dataWithBytes:"123456" length:6];
    complex2.url = [NSURL URLWithString:@"http://www.geek-zoo.com"];
-
+   
    complex.number = @1;
    complex.string = @"2";
    complex.date = [NSDate date];
-//   complex.data = [NSData dataWithBytes:"123456" length:6];
+   //   complex.data = [NSData dataWithBytes:"123456" length:6];
    complex.url = [NSURL URLWithString:@"http://www.geek-zoo.com"];
    
    complex.array1 = @[simple.number, simple.string, simple.date, /*simple.data,*/ simple.url];
    complex.array2 = @[simple, simple];
    complex.array3 = @[complex2, complex2];
    complex.dict = @{@"k1":simple.number,
-                @"k2":simple.string,
-                @"k3":simple.date,
-                //                @"k4":simple.data,
-                @"k5":simple.url,
-                @"k6":complex.array1,
-                @"k7":complex.array2,
-                @"k8":complex.array3,
-                @"k9":simple,
-                @"k10":complex2};
+                    @"k2":simple.string,
+                    @"k3":simple.date,
+                    //                @"k4":simple.data,
+                    @"k5":simple.url,
+                    @"k6":complex.array1,
+                    @"k7":complex.array2,
+                    @"k8":complex.array3,
+                    @"k9":simple,
+                    @"k10":complex2};
    complex.object1 = simple;
    complex.object2 = complex2;
-      
+   
    id obj1 = [simple serialize];
    id obj2 = [complex serialize];
    
    NSString * obj1JSON = [[obj1 JSONEncoded] toString];
    NSString * obj2JSON = [[obj2 JSONEncoded] toString];
    
-   EXPECTED( obj1 )
-   EXPECTED( obj2 )
-   EXPECTED( obj1JSON )
-   EXPECTED( obj2JSON )
+   EXPECTED(obj1)
+   EXPECTED(obj2)
+   EXPECTED(obj1JSON)
+   EXPECTED(obj2JSON)
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 

@@ -222,18 +222,21 @@ static void __NSLog( NSString * format, ... )
 - (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format, ...
 {
 #if __SAMURAI_LOGGING__
-   
    if ( nil == format || NO == [format isKindOfClass:[NSString class]] )
+   {
       return;
-   
+      
+   } /* End if () */
+
    va_list args;
    va_start( args, format );
    
    [self file:file line:line func:func level:level format:format args:args];
    
    va_end( args );
-   
 #endif
+   
+   return;
 }
 
 - (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format args:(va_list)params
