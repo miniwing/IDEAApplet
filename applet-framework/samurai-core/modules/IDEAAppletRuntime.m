@@ -49,11 +49,11 @@
 + (NSArray *)loadedClassNames
 {
    static dispatch_once_t   stOnceToken;
-   static NSMutableArray   *stClassNames;
+   static NSMutableArray   *stClassNames  = nil;
    
    dispatch_once(&stOnceToken, ^
                  {
-      stClassNames = [[NSMutableArray alloc] init];
+      stClassNames = [NSMutableArray array];
       
       unsigned int    unClassesCount   = 0;
       Class          *stClasses        = objc_copyClassList(&unClassesCount);
@@ -192,37 +192,54 @@
    return [self methodsWithPrefix:prefix untilClass:[self superclass]];
 }
 
-+ (NSArray *)methodsWithPrefix:(NSString *)prefix untilClass:(Class)baseClass
++ (NSArray *)methodsWithPrefix:(NSString *)aPrefix untilClass:(Class)baseClass
 {
-   NSArray * methods = [self methodsUntilClass:baseClass];
+   int                            nErr                                     = EFAULT;
+
+   NSArray                       *stMethods                                = nil;
+   NSMutableArray                *stResult                                 = nil;
+
+   __TRY;
+
+   stMethods = [self methodsUntilClass:baseClass];
    
-   if (nil == methods || 0 == methods.count)
+   if (nil == stMethods || 0 == stMethods.count)
    {
-      return nil;
-   }
+      break;
+      
+   } /* End if () */
    
-   if (nil == prefix)
+   if (nil == aPrefix)
    {
-      return methods;
-   }
+      nErr  = noErr;
+      
+      break;
+
+   } /* End if () */
    
-   NSMutableArray * result = [[NSMutableArray alloc] init];
+   stResult = [NSMutableArray array];
    
-   for (NSString * selectorName in methods)
+   for (NSString *szSelectorName in stMethods)
    {
-      if (NO == [selectorName hasPrefix:prefix])
+      if (NO == [szSelectorName hasPrefix:aPrefix])
       {
          continue;
-      }
+         
+      } /* End if () */
       
-      [result addObject:selectorName];
-   }
+      [stResult addObject:szSelectorName];
+      
+   } /* End for () */
    
-   [result sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-      return [obj1 compare:obj2];
+   [stResult sortUsingComparator:^NSComparisonResult(id aObject1, id aObject2) {
+      return [aObject1 compare:aObject2];
    }];
    
-   return result;
+   stMethods   = stResult;
+   
+   __CATCH(nErr);
+   
+   return stMethods;
 }
 
 + (NSArray *)properties
@@ -230,43 +247,57 @@
    return [self propertiesUntilClass:[self superclass]];
 }
 
-+ (NSArray *)propertiesUntilClass:(Class)baseClass
++ (NSArray *)propertiesUntilClass:(Class)aBaseClass
 {
-   NSMutableArray * propertyNames = [[NSMutableArray alloc] init];
+   int                            nErr                                     = EFAULT;
+ 
+   NSMutableArray                *stPropertyNames                          = [NSMutableArray array];
+   Class                          stThisClass                              = self;
+
+   __TRY;
    
-   Class thisClass = self;
+   aBaseClass = aBaseClass ?: [NSObject class];
    
-   baseClass = baseClass ?: [NSObject class];
-   
-   while (NULL != thisClass)
+   while (NULL != stThisClass)
    {
-      unsigned int      propertyCount = 0;
-      objc_property_t *   propertyList = class_copyPropertyList(thisClass, &propertyCount);
+      unsigned int       nPropertyCount   = 0;
+      objc_property_t   *pstPropertyList  = class_copyPropertyList(stThisClass, &nPropertyCount);
       
-      for (unsigned int i = 0; i < propertyCount; ++i)
+      for (unsigned int i = 0; i < nPropertyCount; ++i)
       {
-         const char * cstrName = property_getName(propertyList[i]);
+         const char * cstrName = property_getName(pstPropertyList[i]);
          if (NULL == cstrName)
+         {
             continue;
+            
+         } /* End if () */
          
          NSString * propName = [NSString stringWithUTF8String:cstrName];
          if (NULL == propName)
+         {
             continue;
+            
+         } /* End if () */
          
-         [propertyNames addObject:propName];
-      }
+         [stPropertyNames addObject:propName];
+         
+      } /* End for () */
       
-      FREE_IF(propertyList);
+      FREE_IF(pstPropertyList);
       
-      thisClass = class_getSuperclass(thisClass);
+      stThisClass = class_getSuperclass(stThisClass);
       
-      if (nil == thisClass || baseClass == thisClass)
+      if (nil == stThisClass || aBaseClass == stThisClass)
       {
          break;
-      }
-   }
+         
+      } /* End if () */
+      
+   } /* End while () */
    
-   return propertyNames;
+   __CATCH(nErr);
+   
+   return stPropertyNames;
 }
 
 + (NSArray *)propertiesWithPrefix:(NSString *)prefix
@@ -274,37 +305,55 @@
    return [self propertiesWithPrefix:prefix untilClass:[self superclass]];
 }
 
-+ (NSArray *)propertiesWithPrefix:(NSString *)prefix untilClass:(Class)baseClass
++ (NSArray *)propertiesWithPrefix:(NSString *)aPrefix untilClass:(Class)aBaseClass
 {
-   NSArray * properties = [self propertiesUntilClass:baseClass];
+   int                            nErr                                     = EFAULT;
+
+   NSArray                       *stProperties                             = nil;
+
+   __TRY;
    
-   if (nil == properties || 0 == properties.count)
+   stProperties   = [self propertiesUntilClass:aBaseClass];
+   
+   if (nil == stProperties || 0 == stProperties.count)
    {
-      return nil;
-   }
+      nErr  = noErr;
+      
+      break;
+      
+   } /* End if () */
    
-   if (nil == prefix)
+   if (nil == aPrefix)
    {
-      return properties;
-   }
+      nErr  = noErr;
+      
+      break;
+      
+   } /* End if () */
    
-   NSMutableArray * result = [[NSMutableArray alloc] init];
+   NSMutableArray *stResult = [NSMutableArray array];
    
-   for (NSString * propName in properties)
+   for (NSString * propName in stProperties)
    {
-      if (NO == [propName hasPrefix:prefix])
+      if (NO == [propName hasPrefix:aPrefix])
       {
          continue;
-      }
+         
+      } /* End if () */
       
-      [result addObject:propName];
-   }
+      [stResult addObject:propName];
+      
+   } /* End for () */
    
-   [result sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-      return [obj1 compare:obj2];
+   [stResult sortUsingComparator:^NSComparisonResult(id aObject1, id aObject2) {
+      return [aObject1 compare:aObject2];
    }];
    
-   return result;
+   stProperties   = stResult;
+   
+   __CATCH(nErr);
+   
+   return stProperties;
 }
 
 + (NSArray *)classesWithProtocolName:(NSString *)aProtocolName
@@ -317,15 +366,18 @@
       if (classType == self)
       {
          continue;
-      }
+         
+      } /* End if () */
       
       if (NO == [classType conformsToProtocol:protocol])
       {
          continue;
-      }
+         
+      } /* End if () */
       
       [results addObject:[classType description]];
-   }
+      
+   } /* End for () */
    
    return results;
 }

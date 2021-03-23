@@ -36,18 +36,18 @@
 
 @interface IDEAAppletHtmlUserAgent : NSObject
 
-@prop_assign( CGFloat,               thinSize );
-@prop_assign( CGFloat,               mediumSize );
-@prop_assign( CGFloat,               thickSize );
+@prop_assign( CGFloat   ,     thinSize );
+@prop_assign( CGFloat   ,     mediumSize );
+@prop_assign( CGFloat   ,     thickSize );
 
-@prop_strong( UIFont *,               defaultFont );
-@prop_strong( NSMutableDictionary *,   defaultElements );
-@prop_strong( NSMutableArray *,         defaultStyleSheets );
-@prop_strong( NSMutableDictionary *,   defaultCSSValue );
-@prop_strong( NSMutableArray *,         defaultCSSInherition );
-@prop_strong( NSMutableArray *,         defaultDOMAttributedStyle );
+@prop_strong( UIFont                *,    defaultFont );
+@prop_strong( NSMutableDictionary   *,    defaultElements );
+@prop_strong( NSMutableArray        *,    defaultStyleSheets );
+@prop_strong( NSMutableDictionary   *,    defaultCSSValue );
+@prop_strong( NSMutableArray        *,    defaultCSSInherition );
+@prop_strong( NSMutableArray        *,    defaultDOMAttributedStyle );
 
-@singleton( IDEAAppletHtmlUserAgent )
+@singleton  ( IDEAAppletHtmlUserAgent );
 
 - (void)importStyleSheet:(NSString *)path;
 

@@ -41,14 +41,20 @@
 
 @implementation IDEAApplet
 
-@def_singleton(IDEAApplet)
+@def_singleton ( IDEAApplet );
 
+#if __IDEA_APPLET_AUTO_LOAD__
 + (void)load
 {
+//   dispatch_async_background_serial(^{
+//      [IDEAApplet sharedInstance];
+//   });
+
    [IDEAApplet sharedInstance];
-   
+
    return;
 }
+#endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
 - (id)init
 {

@@ -50,7 +50,7 @@
 
 #pragma mark -
 
-@implementation UIView(EventTapGesture)
+@implementation UIView (EventTapGesture)
 
 @def_signal( eventTapPressing );   /// 按下
 @def_signal( eventTapRaised );      /// 抬起

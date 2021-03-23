@@ -69,23 +69,26 @@ static const char * __prefix[] =
 
 #if __SAMURAI_DEBUG__
 
-static void __NSLogv( NSString * format, va_list args )
+static void __NSLogv(NSString * format, va_list args)
 {
    [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:format args:args];
 }
 
-static void __NSLog( NSString * format, ... )
+static void __NSLog(NSString * format, ...)
 {
-   if ( nil == format || NO == [format isKindOfClass:[NSString class]] )
+   if (nil == format || NO == [format isKindOfClass:[NSString class]])
+   {
       return;
-   
+      
+   } /* End if () */
+
    va_list args;
    
-   va_start( args, format );
+   va_start(args, format);
    
-   __NSLogv( format, args );
+   __NSLogv(format, args);
    
-   va_end( args );
+   va_end(args);
 }
 
 #endif  // #if __SAMURAI_DEBUG__
@@ -98,15 +101,15 @@ static void __NSLog( NSString * format, ... )
    NSUInteger   _indent;
 }
 
-@def_singleton( IDEAAppletLogger );
+@def_singleton(IDEAAppletLogger);
 
-@def_prop_assign( BOOL               ,    enabled );
+@def_prop_assign(BOOL               ,    enabled);
 
-@def_prop_strong( NSMutableString   *,    output );
-@def_prop_strong( NSMutableArray    *,    buffer );
-@def_prop_assign( LogLevel           ,    filter );
+@def_prop_strong(NSMutableString   *,    output);
+@def_prop_strong(NSMutableArray    *,    buffer);
+@def_prop_assign(LogLevel           ,    filter);
 
-@def_prop_copy( BlockType            ,    outputHandler );
+@def_prop_copy(BlockType            ,    outputHandler);
 
 + (void)classAutoLoad
 {
@@ -116,7 +119,7 @@ static void __NSLog( NSString * format, ... )
 - (id)init
 {
    self = [super init];
-   if ( self )
+   if (self)
    {
       self.enabled = YES;
       self.output = [NSMutableString string];
@@ -140,7 +143,7 @@ static void __NSLog( NSString * format, ... )
          }
       };
       
-      rebind_symbols( r, 2 );
+      rebind_symbols(r, 2);
 #endif  // #if __SAMURAI_DEBUG__
    }
    return self;
@@ -183,7 +186,7 @@ static void __NSLog( NSString * format, ... )
 
 - (void)unindent
 {
-   if ( _indent > 0 )
+   if (_indent > 0)
    {
       _indent -= 1;
    }
@@ -191,7 +194,7 @@ static void __NSLog( NSString * format, ... )
 
 - (void)unindent:(NSUInteger)tabs
 {
-   if ( _indent < tabs )
+   if (_indent < tabs)
    {
       _indent = 0;
    }
@@ -203,7 +206,7 @@ static void __NSLog( NSString * format, ... )
 
 - (void)outputCapture
 {
-   if ( 0 == _capture )
+   if (0 == _capture)
    {
       [self.output setString:@""];
    }
@@ -213,7 +216,7 @@ static void __NSLog( NSString * format, ... )
 
 - (void)outputRelease
 {
-   if ( _capture > 0 )
+   if (_capture > 0)
    {
       _capture -= 1;
    }
@@ -222,18 +225,18 @@ static void __NSLog( NSString * format, ... )
 - (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format, ...
 {
 #if __SAMURAI_LOGGING__
-   if ( nil == format || NO == [format isKindOfClass:[NSString class]] )
+   if (nil == format || NO == [format isKindOfClass:[NSString class]])
    {
       return;
       
    } /* End if () */
 
    va_list args;
-   va_start( args, format );
+   va_start(args, format);
    
    [self file:file line:line func:func level:level format:format args:args];
    
-   va_end( args );
+   va_end(args);
 #endif
    
    return;
@@ -243,21 +246,25 @@ static void __NSLog( NSString * format, ... )
 {
 #if __SAMURAI_LOGGING__
    
-   if ( NO == _enabled || level > _filter )
+   if (NO == _enabled || level > _filter)
+   {
       return;
-   
+      
+   } /* End if () */
+
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
    
    @autoreleasepool
    {
       const char * prefix = __prefix[level];
-      if ( NULL == prefix )
+      if (NULL == prefix)
       {
          prefix = "";
-      }
+         
+      } /* End if () */
       
       char tabs[256] = { 0 };
-      for ( NSUInteger i = 0; i < _indent; ++i )
+      for (NSUInteger i = 0; i < _indent; ++i)
       {
          tabs[i] = '\t';
       }
@@ -266,15 +273,15 @@ static void __NSLog( NSString * format, ... )
       size_t diff = ((plen / 4 + 1) * 4) - plen;
       
       char padding[16] = { 0 };
-      for ( size_t i = 0; i < diff; ++i )
+      for (size_t i = 0; i < diff; ++i)
       {
          padding[i] = ' ';
       }
       
       NSMutableString * content = [[NSMutableString alloc] initWithFormat:(NSString *)format arguments:params];
-      if ( content )
+      if (content)
       {
-         if ( [content rangeOfString:@"\n"].length )
+         if ([content rangeOfString:@"\n"].length)
          {
             [content replaceOccurrencesOfString:@"\n"
                                      withString:[NSString stringWithFormat:@"\n%s", _indent ? tabs : "\t\t"]
@@ -283,15 +290,15 @@ static void __NSLog( NSString * format, ... )
          }
       }
       
-      if ( content && content.length )
+      if (content && content.length)
       {
          NSMutableString * text = [[NSMutableString alloc] init];
-         if ( text )
+         if (text)
          {
             [text appendFormat:@"%s%s%s", prefix, padding, tabs];
             [text appendString:content];
             
-            if ( [text rangeOfString:@"%"].length )
+            if ([text rangeOfString:@"%"].length)
             {
                [text replaceOccurrencesOfString:@"%"
                                      withString:@"%%"
@@ -299,14 +306,14 @@ static void __NSLog( NSString * format, ... )
                                           range:NSMakeRange(0, text.length)];
             }
             
-            if ( _capture )
+            if (_capture)
             {
                [self.output appendString:text];
                [self.output appendString:@"\n"];
             }
             else
             {
-               fprintf( stderr, "%s\n", [text UTF8String] );
+               fprintf(stderr, "%s\n", [text UTF8String]);
                
                [self.buffer addObject:text];
             }
@@ -316,24 +323,24 @@ static void __NSLog( NSString * format, ... )
 #  undef  MAX_CALLSTACK
 #  define MAX_CALLSTACK   (8)
             
-            if ( LogLevel_Error == level )
+            if (LogLevel_Error == level)
             {
-               fprintf( stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String] );
+               fprintf(stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String]);
                
                void *   stacks[MAX_CALLSTACK + 1];
                
-               int depth = backtrace( stacks, MAX_CALLSTACK );
-               if ( depth )
+               int depth = backtrace(stacks, MAX_CALLSTACK);
+               if (depth)
                {
-                  char ** symbols = backtrace_symbols( stacks, (int)depth );
-                  if ( symbols )
+                  char ** symbols = backtrace_symbols(stacks, (int)depth);
+                  if (symbols)
                   {
-                     for ( int i = 2; i < depth; ++i )
+                     for (int i = 2; i < depth; ++i)
                      {
-                        fprintf( stderr, "    | %s\n", (const char *)symbols[i] );
+                        fprintf(stderr, "    | %s\n", (const char *)symbols[i]);
                      }
                      
-                     free( symbols );
+                     free(symbols);
                   }
                }
             }
@@ -352,11 +359,11 @@ static void __NSLog( NSString * format, ... )
 {
 #if __SAMURAI_DEBUG__
    
-   for ( NSString * text in [self.buffer copy] )
+   for (NSString * text in [self.buffer copy])
    {
-      if ( self.outputHandler )
+      if (self.outputHandler)
       {
-         ((BlockTypeVarg)self.outputHandler)( text );
+         ((BlockTypeVarg)self.outputHandler)(text);
       }
    }
    
@@ -375,50 +382,50 @@ static void __NSLog( NSString * format, ... )
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, Log )
+TEST_CASE(Core, Log)
 {
 }
 
-DESCRIBE( info )
+DESCRIBE(info)
 {
    // INFO
    
-   INFO( nil );
-   INFO( nil, nil );
-   INFO( nil, @"" );
-   INFO( nil, @"format %@", @"" );
+   INFO(nil);
+   INFO(nil, nil);
+   INFO(nil, @"");
+   INFO(nil, @"format %@", @"");
    
-   INFO( @"a", nil );
-   INFO( @"a", @"" );
-   INFO( @"a", @"format %@", @"" );
+   INFO(@"a", nil);
+   INFO(@"a", @"");
+   INFO(@"a", @"format %@", @"");
 }
 
-DESCRIBE( warn )
+DESCRIBE(warn)
 {
    // WARN
    
-   WARN( nil );
-   WARN( nil, nil );
-   WARN( nil, @"" );
-   WARN( nil, @"format %@", @"" );
+   WARN(nil);
+   WARN(nil, nil);
+   WARN(nil, @"");
+   WARN(nil, @"format %@", @"");
    
-   WARN( @"a", nil );
-   WARN( @"a", @"" );
-   WARN( @"a", @"format %@", @"" );
+   WARN(@"a", nil);
+   WARN(@"a", @"");
+   WARN(@"a", @"format %@", @"");
 }
 
-DESCRIBE( error )
+DESCRIBE(error)
 {
    // ERROR
    
-   ERROR( nil );
-   ERROR( nil, nil );
-   ERROR( nil, @"" );
-   ERROR( nil, @"format %@", @"" );
+   ERROR(nil);
+   ERROR(nil, nil);
+   ERROR(nil, @"");
+   ERROR(nil, @"format %@", @"");
    
-   ERROR( @"a", nil );
-   ERROR( @"a", @"" );
-   ERROR( @"a", @"format %@", @"" );
+   ERROR(@"a", nil);
+   ERROR(@"a", @"");
+   ERROR(@"a", @"format %@", @"");
 }
 
 TEST_CASE_END

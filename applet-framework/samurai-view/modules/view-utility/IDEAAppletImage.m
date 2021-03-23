@@ -42,12 +42,14 @@
 
 @implementation UIImage(ViewUtility)
 
-+ (UIImage *)imageWithColor:(UIColor *)color
+#if __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h")
+#else /* __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
++ (UIImage *)applet_imageWithColor:(UIColor *)color
 {
-   return [self imageWithColor:color size:CGSizeMake(1.0f, 1.0f)];
+   return [self applet_imageWithColor:color size:CGSizeMake(1.0f, 1.0f)];
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
++ (UIImage *)applet_imageWithColor:(UIColor *)color size:(CGSize)size
 {
    CGRect rect = CGRectMake( 0.0f, 0.0f, size.width, size.height );
 
@@ -64,6 +66,7 @@
 
    return result;
 }
+#endif /* !__has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
 
 @end
 

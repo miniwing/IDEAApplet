@@ -42,15 +42,17 @@
 
 @implementation NSDate(Extension)
 
-@def_prop_dynamic( NSInteger,   year );
-@def_prop_dynamic( NSInteger,   month );
-@def_prop_dynamic( NSInteger,   day );
-@def_prop_dynamic( NSInteger,   hour );
-@def_prop_dynamic( NSInteger,   minute );
-@def_prop_dynamic( NSInteger,   second );
-@def_prop_dynamic( NSInteger,   weekday );
 
-- (NSInteger)year
+@def_prop_dynamic ( NSInteger ,   apple_year    );
+@def_prop_dynamic ( NSInteger ,   apple_month   );
+@def_prop_dynamic ( NSInteger ,   apple_day     );
+@def_prop_dynamic ( NSInteger ,   apple_hour    );
+@def_prop_dynamic ( NSInteger ,   apple_minute  );
+@def_prop_dynamic ( NSInteger ,   apple_second  );
+@def_prop_dynamic ( NSInteger ,   apple_weekday );
+
+
+- (NSInteger)apple_year
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:self].year;
@@ -59,7 +61,8 @@
 #endif
 }
 
-- (NSInteger)month
+
+- (NSInteger)apple_month
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDate:self].month;
@@ -68,7 +71,8 @@
 #endif
 }
 
-- (NSInteger)day
+
+- (NSInteger)apple_day
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:self].day;
@@ -77,7 +81,8 @@
 #endif
 }
 
-- (NSInteger)hour
+
+- (NSInteger)apple_hour
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDate:self].hour;
@@ -86,7 +91,8 @@
 #endif
 }
 
-- (NSInteger)minute
+
+- (NSInteger)apple_minute
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDate:self].minute;
@@ -95,7 +101,8 @@
 #endif
 }
 
-- (NSInteger)second
+
+- (NSInteger)apple_second
 {
 #ifdef __IPHONE_8_0
    return [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDate:self].second;
@@ -103,7 +110,9 @@
    return [[NSCalendar currentCalendar] components:NSSecondCalendarUnit fromDate:self].second;
 #endif
 }
-- (WeekdayType)weekday
+
+
+- (WeekdayType)apple_weekday
 {
 #ifdef __IPHONE_8_0
    return (WeekdayType)[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:self].weekday;
@@ -112,29 +121,32 @@
 #endif
 }
 
+
 + (NSTimeInterval)unixTime
 {
    return [[NSDate date] timeIntervalSince1970];
 }
+
 
 + (NSString *)unixDate
 {
    return [[NSDate date] toString:@"yyyy/MM/dd HH:mm:ss z"];
 }
 
+
 + (NSDate *)fromString:(NSString *)string
 {
-   if ( nil == string || 0 == string.length )
+   if (nil == string || 0 == string.length)
       return nil;
    
    NSDate * date = [[NSDate format:@"yyyy/MM/dd HH:mm:ss z"] dateFromString:string];
-   if ( nil == date )
+   if (nil == date)
    {
       date = [[NSDate format:@"yyyy-MM-dd HH:mm:ss z"] dateFromString:string];
-      if ( nil == date )
+      if (nil == date)
       {
          date = [[NSDate format:@"yyyy-MM-dd HH:mm:ss"] dateFromString:string];
-         if ( nil == date )
+         if (nil == date)
          {
             date = [[NSDate format:@"yyyy/MM/dd HH:mm:ss"] dateFromString:string];
          }
@@ -144,28 +156,31 @@
    return date;
 }
 
+
 + (NSDateFormatter *)format
 {
    return [self format:@"yyyy/MM/dd HH:mm:ss z"];
 }
+
 
 + (NSDateFormatter *)format:(NSString *)format
 {
    return [self format:format timeZoneGMT:[[NSTimeZone defaultTimeZone] secondsFromGMT]];
 }
 
+
 + (NSDateFormatter *)format:(NSString *)format timeZoneGMT:(NSInteger)seconds
 {
    static __strong NSMutableDictionary * __formatters = nil;
    
-   if ( nil == __formatters )
+   if (nil == __formatters)
    {
       __formatters = [[NSMutableDictionary alloc] init];
    }
    
    NSString * key = [NSString stringWithFormat:@"%@ %ld", format, (long)seconds];
    NSDateFormatter * formatter = [__formatters objectForKey:key];
-   if ( nil == formatter )
+   if (nil == formatter)
    {
       formatter = [[NSDateFormatter alloc] init];
       [formatter setDateFormat:format];
@@ -176,18 +191,19 @@
    return formatter;
 }
 
+
 + (NSDateFormatter *)format:(NSString *)format timeZoneName:(NSString *)name
 {
    static __strong NSMutableDictionary * __formatters = nil;
    
-   if ( nil == __formatters )
+   if (nil == __formatters)
    {
       __formatters = [[NSMutableDictionary alloc] init];
    }
    
    NSString * key = [NSString stringWithFormat:@"%@ %@", format, name];
    NSDateFormatter * formatter = [__formatters objectForKey:key];
-   if ( nil == formatter )
+   if (nil == formatter)
    {
       formatter = [[NSDateFormatter alloc] init];
       [formatter setDateFormat:format];
@@ -198,20 +214,24 @@
    return formatter;
 }
 
+
 - (NSString *)toString:(NSString *)format
 {
    return [self toString:format timeZoneGMT:[[NSTimeZone defaultTimeZone] secondsFromGMT]];
 }
+
 
 - (NSString *)toString:(NSString *)format timeZoneGMT:(NSInteger)seconds
 {
    return [[NSDate format:format timeZoneGMT:seconds] stringFromDate:self];
 }
 
+
 - (NSString *)toString:(NSString *)format timeZoneName:(NSString *)name
 {
    return [[NSDate format:format timeZoneName:name] stringFromDate:self];
 }
+
 
 @end
 
@@ -223,91 +243,91 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, NSDate_Extension )
+TEST_CASE(Core, NSDate_Extension)
 {
    
 }
 
-DESCRIBE( before )
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( Format1 )
+DESCRIBE(Format1)
 {
    NSDate * date = [NSDate fromString:@"1983/08/15 15:15:00 GMT+8"];
-   EXPECTED( date.year == 1983 );
-   EXPECTED( date.month == 8 );
-   EXPECTED( date.day == 15 );
-   EXPECTED( date.hour == 15 );
-   EXPECTED( date.minute == 15 );
-   EXPECTED( date.second == 0 );
-   EXPECTED( date.weekday == WeekdayType_Monday );
-
+   EXPECTED(date.year == 1983);
+   EXPECTED(date.month == 8);
+   EXPECTED(date.day == 15);
+   EXPECTED(date.hour == 15);
+   EXPECTED(date.minute == 15);
+   EXPECTED(date.second == 0);
+   EXPECTED(date.weekday == WeekdayType_Monday);
+   
    NSString * string = [date toString:@"yyyy/MM/dd HH:mm:ss z" timeZoneGMT:8 * HOUR];
-   EXPECTED( [string isEqualToString:@"1983/08/15 15:15:00 GMT+8"] );
+   EXPECTED([string isEqualToString:@"1983/08/15 15:15:00 GMT+8"]);
 }
 
-DESCRIBE( Format2 )
+DESCRIBE(Format2)
 {
    NSDate * date = [NSDate fromString:@"1983-08-15 15:15:00 GMT+8"];
-   EXPECTED( date.year == 1983 );
-   EXPECTED( date.month == 8 );
-   EXPECTED( date.day == 15 );
-   EXPECTED( date.hour == 15 );
-   EXPECTED( date.minute == 15 );
-   EXPECTED( date.second == 0 );
-   EXPECTED( date.weekday == WeekdayType_Monday );
-
+   EXPECTED(date.year == 1983);
+   EXPECTED(date.month == 8);
+   EXPECTED(date.day == 15);
+   EXPECTED(date.hour == 15);
+   EXPECTED(date.minute == 15);
+   EXPECTED(date.second == 0);
+   EXPECTED(date.weekday == WeekdayType_Monday);
+   
    NSString * string = [date toString:@"yyyy-MM-dd HH:mm:ss z" timeZoneGMT:8 * HOUR];
-   EXPECTED( [string isEqualToString:@"1983-08-15 15:15:00 GMT+8"] );
+   EXPECTED([string isEqualToString:@"1983-08-15 15:15:00 GMT+8"]);
 }
 
-DESCRIBE( Format3 )
+DESCRIBE(Format3)
 {
    NSDate * date = [NSDate fromString:@"1983/08/15 15:15:00"];
-   EXPECTED( date.year == 1983 );
-   EXPECTED( date.month == 8 );
-   EXPECTED( date.day == 15 );
-   EXPECTED( date.hour == 15 );
-   EXPECTED( date.minute == 15 );
-   EXPECTED( date.second == 0 );
-   EXPECTED( date.weekday == WeekdayType_Monday );
-
+   EXPECTED(date.year == 1983);
+   EXPECTED(date.month == 8);
+   EXPECTED(date.day == 15);
+   EXPECTED(date.hour == 15);
+   EXPECTED(date.minute == 15);
+   EXPECTED(date.second == 0);
+   EXPECTED(date.weekday == WeekdayType_Monday);
+   
    NSString * string = [date toString:@"yyyy/MM/dd HH:mm:ss" timeZoneGMT:8 * HOUR];
-   EXPECTED( [string isEqualToString:@"1983/08/15 15:15:00"] );
+   EXPECTED([string isEqualToString:@"1983/08/15 15:15:00"]);
 }
 
-DESCRIBE( Format4 )
+DESCRIBE(Format4)
 {
    NSDate * date = [NSDate fromString:@"1983-08-15 15:15:00"];
-   EXPECTED( date.year == 1983 );
-   EXPECTED( date.month == 8 );
-   EXPECTED( date.day == 15 );
-   EXPECTED( date.hour == 15 );
-   EXPECTED( date.minute == 15 );
-   EXPECTED( date.second == 0 );
-   EXPECTED( date.weekday == WeekdayType_Monday );
-
+   EXPECTED(date.year == 1983);
+   EXPECTED(date.month == 8);
+   EXPECTED(date.day == 15);
+   EXPECTED(date.hour == 15);
+   EXPECTED(date.minute == 15);
+   EXPECTED(date.second == 0);
+   EXPECTED(date.weekday == WeekdayType_Monday);
+   
    NSString * string = [date toString:@"yyyy-MM-dd HH:mm:ss" timeZoneGMT:8 * HOUR];
-   EXPECTED( [string isEqualToString:@"1983-08-15 15:15:00"] );
+   EXPECTED([string isEqualToString:@"1983-08-15 15:15:00"]);
 }
 
-DESCRIBE( Unix format )
+DESCRIBE(Unix format)
 {
    NSTimeInterval unixTime = [NSDate unixTime];
-   EXPECTED( unixTime >= NSTimeIntervalSince1970 );
-
+   EXPECTED(unixTime >= NSTimeIntervalSince1970);
+   
    NSString * unixDateString = [NSDate unixDate];
-   EXPECTED( unixDateString );
-
+   EXPECTED(unixDateString);
+   
    NSDate * unixDate = [NSDate fromString:unixDateString];
-   EXPECTED( nil != unixDate );
-
+   EXPECTED(nil != unixDate);
+   
    NSString * unixDateString2 = [unixDate toString:@"yyyy/MM/dd HH:mm:ss z" timeZoneGMT:8 * HOUR];
-   EXPECTED( [unixDateString2 isEqualToString:unixDateString] );
+   EXPECTED([unixDateString2 isEqualToString:unixDateString]);
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 

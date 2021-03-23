@@ -119,23 +119,29 @@
 
 @def_prop_assign(CGFloat,               thinSize);
 @def_prop_assign(CGFloat,               mediumSize);
-@def_prop_assign(CGFloat,               thickSize);
+@def_prop_assign(CGFloat   ,               thickSize);
 
-@def_prop_strong(UIFont *,               defaultFont);
-@def_prop_strong(NSMutableDictionary *,   defaultElements);
-@def_prop_strong(NSMutableArray *,         defaultStyleSheets);
-@def_prop_strong(NSMutableDictionary *,   defaultCSSValue);
-@def_prop_strong(NSMutableArray *,         defaultCSSInherition);
-@def_prop_strong(NSMutableArray *,         defaultDOMAttributedStyle);
+@def_prop_strong(UIFont                *,    defaultFont);
+@def_prop_strong(NSMutableDictionary   *,    defaultElements);
+@def_prop_strong(NSMutableArray        *,    defaultStyleSheets);
+@def_prop_strong(NSMutableDictionary   *,    defaultCSSValue);
+@def_prop_strong(NSMutableArray        *,    defaultCSSInherition);
+@def_prop_strong(NSMutableArray        *,    defaultDOMAttributedStyle);
 
-@def_singleton(IDEAAppletHtmlUserAgent)
+@def_singleton  (IDEAAppletHtmlUserAgent);
 
+#if __IDEA_APPLET_AUTO_LOAD__
 + (void)load
 {
+//   dispatch_async_background_serial(^{
+//      [IDEAAppletHtmlUserAgent sharedInstance];
+//   });
+
    [IDEAAppletHtmlUserAgent sharedInstance];
    
    return;
 }
+#endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
 - (id)init
 {
@@ -183,13 +189,13 @@
 {
    int                            nErr                                     = EFAULT;
    
-   IDEAAppletCSSStyleSheet          *stStyleSheet                             = nil;;
+   IDEAAppletCSSStyleSheet       *stStyleSheet                             = nil;;
 
    __TRY;
 
    self.defaultStyleSheets = [NSMutableArray array];
       
-   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
+   stStyleSheet   = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
    
    if (stStyleSheet && [stStyleSheet parse])
    {

@@ -37,7 +37,7 @@
 
 #pragma mark -
 
-@interface UIView(EventTapGesture)
+@interface UIView (EventTapGesture)
 
 @signal( eventTapPressing );   /// 按下
 @signal( eventTapRaised );      /// 抬起

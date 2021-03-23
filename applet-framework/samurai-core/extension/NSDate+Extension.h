@@ -58,13 +58,13 @@ typedef enum
 
 @interface NSDate(Extension)
 
-@prop_readonly( NSInteger,    year    );
-@prop_readonly( NSInteger,    month   );
-@prop_readonly( NSInteger,    day     );
-@prop_readonly( NSInteger,    hour    );
-@prop_readonly( NSInteger,    minute  );
-@prop_readonly( NSInteger,    second  );
-@prop_readonly( WeekdayType,  weekday );
+@prop_readonly( NSInteger,    apple_year    );
+@prop_readonly( NSInteger,    apple_month   );
+@prop_readonly( NSInteger,    apple_day     );
+@prop_readonly( NSInteger,    apple_hour    );
+@prop_readonly( NSInteger,    apple_minute  );
+@prop_readonly( NSInteger,    apple_second  );
+@prop_readonly( WeekdayType,  apple_weekday );
 
 + (NSTimeInterval)unixTime;
 + (NSString *)unixDate;

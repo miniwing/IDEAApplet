@@ -151,61 +151,18 @@
 
 - (void)dump
 {
-   SEL    stSelector    = NSSelectorFromString(@"recursiveDescription");
-//   printf("%p\n", stSelector);
-   SEL    stSelector1   = NSSelectorFromString(@"description");
-//   printf("%p\n", stSelector1);
-
-//   IMP    stIMP         = [self methodForSelector:stSelector];
-//   printf("%p\n", stIMP);
-//   IMP    stIMP1        = [self methodForSelector:stSelector1];
-//   printf("%p\n", stIMP1);
-//
-//   Method   stMethod    = class_getClassMethod(self, stSelector);
-//   printf("%p\n", stMethod);
-//   Method   stMethod1   = class_getClassMethod(self, stSelector1);
-//   printf("%p\n", stMethod1);
-//
-//   if (stIMP == stIMP1)
-//   {
-//      return;
-//
-//   } /* End if () */
-
-   NSMethodSignature *stSignature   = nil;
-   NSMethodSignature *stSignature1  = nil;
-
-   if (stSelector && [self respondsToSelector:stSelector])
+   SEL selector = NSSelectorFromString( @"recursiveDescription" );
+   if ( selector && [self respondsToSelector:selector] )
    {
-      stSignature = [self methodSignatureForSelector:stSelector];
+      NSMethodSignature * signature = [self methodSignatureForSelector:selector];
+      NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
       
-   } /* End if () */
-   
-   if (stSelector1 && [self respondsToSelector:stSelector1])
-   {
-      stSignature1   = [self methodSignatureForSelector:stSelector];
-      
-   } /* End if () */
-
-   if (stSignature == stSignature1)
-   {
-      return;
-      
-   } /* End if () */
-   
-   if (stSelector)
-   {
-      stSignature = [self methodSignatureForSelector:stSelector];
-      NSInvocation   *stInvocation  = [NSInvocation invocationWithMethodSignature:stSignature];
-      
-      [stInvocation setTarget:self];
-      [stInvocation setSelector:stSelector];
-      [stInvocation invoke];
-      
-   } /* End if () */
-   
-   return;
+      [invocation setTarget:self];
+      [invocation setSelector:selector];
+      [invocation invoke];
+   }
 }
+
 
 #pragma mark -
 

@@ -45,6 +45,8 @@
 + (void)load
 {
    fprintf( stderr, "  Starting WebCore ...\n" );
+   
+   return;
 }
 
 @end

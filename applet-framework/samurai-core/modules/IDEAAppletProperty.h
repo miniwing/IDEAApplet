@@ -126,6 +126,7 @@
 #pragma mark -
 
 #if __has_feature(objc_arc)
+#  define prop_readwrite( __type, __name )   property (nonatomic, readwrite)           __type __name;
 #  define prop_readonly( __type, __name )    property (nonatomic, readonly)            __type __name;
 #  define prop_dynamic( __type, __name )     property (nonatomic, strong)              __type __name;
 #  define prop_assign( __type, __name )      property (nonatomic, assign)              __type __name;
@@ -134,6 +135,7 @@
 #  define prop_copy( __type, __name )        property (nonatomic, copy)                __type __name;
 #  define prop_unsafe( __type, __name )      property (nonatomic, unsafe_unretained)   __type __name;
 #else
+#  define prop_readwrite( __type, __name )   property (nonatomic, readwrite)           __type __name;
 #  define prop_readonly( __type, __name )    property (nonatomic, readonly)            __type __name;
 #  define prop_dynamic( __type, __name )     property (nonatomic, retain)              __type __name;
 #  define prop_assign( __type, __name )      property (nonatomic, assign)              __type __name;

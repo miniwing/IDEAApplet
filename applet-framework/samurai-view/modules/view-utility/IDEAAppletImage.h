@@ -39,8 +39,8 @@
 
 @interface UIImage(ViewUtility)
 
-+ (UIImage *)imageWithColor:(UIColor *)color;
-+ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
++ (UIImage *)applet_imageWithColor:(UIColor *)color;
++ (UIImage *)applet_imageWithColor:(UIColor *)color size:(CGSize)size;
 
 @end
 

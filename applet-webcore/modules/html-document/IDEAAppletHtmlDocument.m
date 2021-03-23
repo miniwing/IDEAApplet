@@ -77,13 +77,16 @@
 
 - (void)dealloc
 {
-   
    self.rootTag = nil;
    self.headTag = nil;
    self.bodyTag = nil;
-
+   
    _parserFlow = nil;
    _renderFlow = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
@@ -138,7 +141,7 @@
    {
       _renderFlow = [IDEAAppletHtmlDocumentWorkflow_Render workflowWithContext:self];
    }
-
+   
    return [_renderFlow process];
 }
 
@@ -159,7 +162,7 @@
    UIColor *   navbarTextColor = nil;
    NSString *   navbarTitle = nil;
    NSString *   navbarLogo = nil;
-
+   
    if ( head )
    {
       for ( IDEAAppletHtmlDomNode * child in head.childs )
@@ -168,7 +171,7 @@
          {
             NSString * name = child.attrName;
             NSString * content = child.attrContent;
-
+            
             if ( name && content )
             {
                if ( [name isEqualToString:@"navbar-bg-color"] )
@@ -205,16 +208,16 @@
          }
       }
    }
-
+   
    CGSize navigationBarSize = CGSizeMake( [UIScreen mainScreen].bounds.size.width, 64.0f );
-
+   
    if ( navbarBgColor )
    {
-      navbarBgImage = navbarBgImage ?: [UIImage imageWithColor:navbarBgColor size:navigationBarSize];
+      navbarBgImage = navbarBgImage ?: [UIImage applet_imageWithColor:navbarBgColor size:navigationBarSize];
    }
-
+   
    UINavigationBar * navigationBar = viewController.navigationController.navigationBar;
-
+   
    if ( navbarTintColor )
    {
       [navigationBar setTintColor:navbarTintColor];
@@ -255,7 +258,7 @@
       {
          viewController.navigationItem.title = nil;
          viewController.navigationItem.titleView = nil;
-      }   
+      }
    }
 }
 
