@@ -72,6 +72,7 @@ typedef enum
    IntentState_Succeed,
    IntentState_Failed,
    IntentState_Cancelled
+   
 } IntentState;
 
 #pragma mark -
@@ -92,28 +93,28 @@ typedef enum
 
 @joint( stateChanged );
 
-@prop_strong( NSString *,               action );
-@prop_strong( NSMutableDictionary *,      input );
-@prop_strong( NSMutableDictionary *,      output );
+@prop_strong( NSString              *, action );
+@prop_strong( NSMutableDictionary   *, input );
+@prop_strong( NSMutableDictionary   *, output );
 
-@prop_unsafe( id,                     source );
-@prop_unsafe( id,                     target );
+@prop_unsafe( id, source );
+@prop_unsafe( id, target );
 
-@prop_copy( BlockType,                  stateChanged );
-@prop_assign( IntentState,               state );
-@prop_assign( BOOL,                     arrived );
-@prop_assign( BOOL,                     succeed );
-@prop_assign( BOOL,                     failed );
-@prop_assign( BOOL,                     cancelled );
+@prop_copy  ( BlockType    ,  stateChanged );
+@prop_assign( IntentState  ,  state );
+@prop_assign( BOOL,  arrived );
+@prop_assign( BOOL,  succeed );
+@prop_assign( BOOL,  failed );
+@prop_assign( BOOL,  cancelled );
 
 + (IDEAAppletIntent *)intent;
-+ (IDEAAppletIntent *)intent:(NSString *)name;
-+ (IDEAAppletIntent *)intent:(NSString *)name params:(NSDictionary *)params;
++ (IDEAAppletIntent *)intent:(NSString *)aName;
++ (IDEAAppletIntent *)intent:(NSString *)aName params:(NSDictionary *)aParams;
 
-- (BOOL)is:(NSString *)name;
+- (BOOL)is:(NSString *)aName;
 
-- (BOOL)changeState:(IntentState)newState;
+- (BOOL)changeState:(IntentState)aNewState;
 
 @end
 
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

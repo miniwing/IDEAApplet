@@ -45,23 +45,31 @@
 @def_prop_strong( dispatch_queue_t,   serial );
 @def_prop_strong( dispatch_queue_t,   concurrent );
 
-- (id)init
-{
+
+- (id)init {
+   
     self = [super init];
-    if ( self )
-    {
-        _serial = dispatch_queue_create( "com.idea.applet.serial", DISPATCH_QUEUE_SERIAL );
-        _concurrent = dispatch_queue_create( "com.idea.applet.concurrent", DISPATCH_QUEUE_CONCURRENT );
-    }
+    if (self) {
+       
+        _serial      = dispatch_queue_create( "com.idea.applet.serial", DISPATCH_QUEUE_SERIAL );
+        _concurrent  = dispatch_queue_create( "com.idea.applet.concurrent", DISPATCH_QUEUE_CONCURRENT );
+       
+    } /* End if () */
 
     return self;
 }
 
-- (void)dealloc
-{
-   _serial = nil;
+
+- (void)dealloc {
+   
+   _serial     = nil;
    _concurrent = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
+
 
 @end
 // ----------------------------------

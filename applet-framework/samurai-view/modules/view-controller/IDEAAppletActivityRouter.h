@@ -41,7 +41,7 @@
 
 #pragma mark -
 
-typedef id   (^ActivityRouterBlock)( NSString * key );
+typedef id   (^ActivityRouterBlock)( NSString * aKey );
 
 #pragma mark -
 
@@ -49,11 +49,11 @@ typedef id   (^ActivityRouterBlock)( NSString * key );
 
 @singleton( IDEAAppletActivityRouter )
 
-- (void)mapURL:(NSString *)url toActivityClass:(Class)classType;
-- (void)mapURL:(NSString *)url toActivityInstance:(IDEAAppletActivity *)activity;
-- (void)mapURL:(NSString *)url toBlock:(ActivityRouterBlock)block;
+- (void)mapURL:(NSString *)aURL toActivityClass:(Class)aClassType;
+- (void)mapURL:(NSString *)aURL toActivityInstance:(IDEAAppletActivity *)aActivity;
+- (void)mapURL:(NSString *)aURL toBlock:(ActivityRouterBlock)aBlock;
 
-- (id)activityForURL:(NSString *)key;
+- (id)activityForURL:(NSString *)aKey;
 
 @end
 

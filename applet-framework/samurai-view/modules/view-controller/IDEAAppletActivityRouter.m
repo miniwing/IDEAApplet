@@ -46,8 +46,8 @@
 
 #pragma mark -
 
-@implementation IDEAAppletActivityRouter
-{
+@implementation IDEAAppletActivityRouter {
+   
    NSMutableDictionary *   _map;
 }
 
@@ -55,124 +55,124 @@
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _map = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_map removeAllObjects];
    _map = nil;
 }
 
 #pragma mark -
 
-- (NSString *)formatURL:(NSString *)url
-{
+- (NSString *)formatURL:(NSString *)url {
+   
    NSString * formattedURL = url;
    
-   if ( NO == [formattedURL hasPrefix:@"/"] )
-   {
+   if ( NO == [formattedURL hasPrefix:@"/"] ) {
+      
       formattedURL = [@"/" stringByAppendingString:formattedURL];
    }
    
-   if ( NO == [formattedURL hasPrefix:@"/"] )
-   {
+   if ( NO == [formattedURL hasPrefix:@"/"] ) {
+      
       formattedURL = [formattedURL stringByAppendingString:@"/"];
    }
    
-   if ( formattedURL && formattedURL.length )
-   {
+   if ( formattedURL && formattedURL.length ) {
+      
       formattedURL = [formattedURL lowercaseString];
    }
    
    return formattedURL;
 }
 
-- (void)mapURL:(NSString *)url toActivityClass:(Class)classType
-{
+- (void)mapURL:(NSString *)url toActivityClass:(Class)classType {
+   
    url = [self formatURL:url];
    
-   if ( url )
-   {
+   if ( url ) {
+      
       [_map setObject:[classType description] forKey:url];
    }
 }
 
-- (void)mapURL:(NSString *)url toActivityInstance:(IDEAAppletActivity *)activity
-{
+- (void)mapURL:(NSString *)url toActivityInstance:(IDEAAppletActivity *)activity {
+   
    url = [self formatURL:url];
    
-   if ( url )
-   {
+   if ( url ) {
+      
       [_map setObject:activity forKey:url];
    }
 }
 
-- (void)mapURL:(NSString *)url toBlock:(ActivityRouterBlock)block
-{
+- (void)mapURL:(NSString *)url toBlock:(ActivityRouterBlock)block {
+   
    url = [self formatURL:url];
    
-   if ( url )
-   {
+   if ( url ) {
+      
       [_map setObject:[block copy] forKey:url];
    }
 }
 
-- (id)activityForURL:(NSString *)url
-{
+- (id)activityForURL:(NSString *)url {
+   
    url = [self formatURL:url];
    
    NSObject * obj = nil;
    
-   if ( url && url.length )
-   {
+   if ( url && url.length ) {
+      
       obj = [_map objectForKey:url];
    }
    
-   if ( nil == obj )
-   {
+   if ( nil == obj ) {
+      
       obj = [_map objectForKey:@"*"];
    }
-
+   
    IDEAAppletActivity * activity = nil;
    
-   @try
-   {
-      if ( obj )
-      {
-         if ( [obj isKindOfClass:[NSString class]] )
-         {
+   @try {
+      
+      if ( obj ) {
+         
+         if ( [obj isKindOfClass:[NSString class]] ) {
+            
             Class objClass = NSClassFromString( (NSString *)obj );
-            if ( objClass && [objClass isSubclassOfClass:[IDEAAppletActivity class]] )
-            {
+            if ( objClass && [objClass isSubclassOfClass:[IDEAAppletActivity class]] ) {
+               
                activity = [[objClass alloc] init];
             }
          }
-         else if ( [obj isKindOfClass:[IDEAAppletActivity class]] )
-         {
+         else if ( [obj isKindOfClass:[IDEAAppletActivity class]] ) {
+            
             activity = (IDEAAppletActivity *)obj;
          }
-         else
-         {
+         else {
+            
             ActivityRouterBlock objBlock = (ActivityRouterBlock)obj;
             activity = objBlock( url );
          }
       }
    }
-   @catch ( NSException * exception )
-   {
+   @catch ( NSException * exception ) {
+      
    }
-   @finally
-   {
+   @finally {
+      
    }
-
+   
    return activity;
 }
 
@@ -188,12 +188,12 @@
 
 TEST_CASE( UI, ActivityRouter )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

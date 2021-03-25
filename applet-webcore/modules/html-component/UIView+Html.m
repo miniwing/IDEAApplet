@@ -620,12 +620,12 @@
    
    NSString * onClick      = [self html_parseEvent:dom.attrOnClick];
    NSString * onSwipe      = [self html_parseEvent:dom.attrOnSwipe];
-   NSString * onSwipeLeft   = [self html_parseEvent:dom.attrOnSwipeLeft];
-   NSString * onSwipeRight   = [self html_parseEvent:dom.attrOnSwipeRight];
-   NSString * onSwipeUp   = [self html_parseEvent:dom.attrOnSwipeUp];
-   NSString * onSwipeDown   = [self html_parseEvent:dom.attrOnSwipeDown];
+   NSString * onSwipeLeft  = [self html_parseEvent:dom.attrOnSwipeLeft];
+   NSString * onSwipeRight = [self html_parseEvent:dom.attrOnSwipeRight];
+   NSString * onSwipeUp    = [self html_parseEvent:dom.attrOnSwipeUp];
+   NSString * onSwipeDown  = [self html_parseEvent:dom.attrOnSwipeDown];
    NSString * onPinch      = [self html_parseEvent:dom.attrOnPinch];
-   NSString * onPan      = [self html_parseEvent:dom.attrOnPan];
+   NSString * onPan        = [self html_parseEvent:dom.attrOnPan];
 
    if ( onClick )
    {

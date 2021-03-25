@@ -51,12 +51,12 @@
 
 #pragma mark -
 
-- (IDEAAppletSignalBlock)onSignal
-{
+- (IDEAAppletSignalBlock)onSignal {
+   
    @weakify(self);
    
-   IDEAAppletSignalBlock stBlock = ^ NSObject * (NSString *aName, id aSignalBlock)
-   {
+   IDEAAppletSignalBlock stBlock = ^ NSObject * (NSString *aName, id aSignalBlock) {
+      
       @strongify(self);
       
       aName = [aName stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
@@ -66,14 +66,16 @@
       aName = [aName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
       aName = [aName stringByAppendingString:@":"];
       
-      if (aSignalBlock)
-      {
+      if (aSignalBlock) {
+         
          [self addBlock:aSignalBlock forName:aName];
-      }
-      else
-      {
+         
+      } /* End if () */
+      else {
+         
          [self removeBlockForName:aName];
-      }
+         
+      } /* End else */
       
       return self;
    };
@@ -84,32 +86,30 @@
 
 #pragma mark -
 
-- (id)signalResponders
-{
+- (id)signalResponders {
+   
    return [self userResponders];
 }
 
 
-- (id)signalAlias
-{
+- (id)signalAlias {
    return nil;
 }
 
 
-- (NSString *)signalNamespace
-{
+- (NSString *)signalNamespace {
+   
    return NSStringFromClass([self class]);
 }
 
 
-- (NSString *)signalTag
-{
+- (NSString *)signalTag {
+   
    return nil;
 }
 
 
-- (NSString *)signalDescription
-{
+- (NSString *)signalDescription {
    return [NSString stringWithFormat:@"%@", [[self class] description]];
 }
 
@@ -117,92 +117,106 @@
 #pragma mark -
 
 
-- (id)userRespondersOrCreate
-{
-   const char * storeKey = "NSObject.userResponders";
+- (id)userRespondersOrCreate {
    
-   NSMutableArray * responders = [self getAssociatedObjectForKey:storeKey];
+   const char     *cpcStoreKey   = "NSObject.userResponders";
+   NSMutableArray *stResponders  = [self getAssociatedObjectForKey:cpcStoreKey];
    
-   if (nil == responders)
-   {
-      responders = [NSMutableArray nonRetainingArray];
+   if (nil == stResponders) {
       
-      [self retainAssociatedObject:responders forKey:storeKey];
-   }
-   return responders;
+      stResponders = [NSMutableArray nonRetainingArray];
+      
+      [self retainAssociatedObject:stResponders forKey:cpcStoreKey];
+      
+   } /* End if () */
+   
+   return stResponders;
 }
 
 
-- (NSMutableArray *)userResponders
-{
-   const char * storeKey = "NSObject.userResponders";
+- (NSMutableArray *)userResponders {
    
-   return [self getAssociatedObjectForKey:storeKey];
+   const char  *cpcStoreKey   = "NSObject.userResponders";
+   
+   return [self getAssociatedObjectForKey:cpcStoreKey];
 }
 
 
 #pragma mark -
 
 
-- (BOOL)hasSignalResponder:(id)obj
-{
-   NSMutableArray * responders = [self userResponders];
+- (BOOL)hasSignalResponder:(id)aObject {
    
-   if (nil == responders)
-   {
+   NSMutableArray *stResponders  = [self userResponders];
+   
+   if (nil == stResponders) {
+      
       return NO;
-   }
+      
+   } /* End if () */
    
-   for (id responder in responders)
-   {
-      if (responder == obj)
-      {
+   for (id responder in stResponders) {
+      
+      if (responder == aObject) {
+         
          return YES;
-      }
-   }
+         
+      } /* End if () */
+      
+   } /* End for () */
    
    return NO;
 }
 
 
-- (void)addSignalResponder:(id)obj
-{
-   NSMutableArray * responders = [self userRespondersOrCreate];
+- (void)addSignalResponder:(id)aObject {
    
-   if (responders && NO == [responders containsObject:obj])
-   {
-      [responders addObject:obj];
-   }
+   NSMutableArray *stResponders  = [self userRespondersOrCreate];
+   
+   if (stResponders && NO == [stResponders containsObject:aObject]) {
+      
+      [stResponders addObject:aObject];
+      
+   } /* End if () */
+   
+   return;
 }
 
 
-- (void)removeSignalResponder:(id)obj
-{
-   NSMutableArray * responders = [self userResponders];
+- (void)removeSignalResponder:(id)aObject {
    
-   if (responders && [responders containsObject:obj])
-   {
-      [responders removeObject:obj];
-   }
+   NSMutableArray *stResponders  = [self userResponders];
+   
+   if (stResponders && [stResponders containsObject:aObject]) {
+      
+      [stResponders removeObject:aObject];
+      
+   } /* End if () */
+   return;
 }
 
 
-- (void)removeAllSignalResponders
-{
-   NSMutableArray * responders = [self userResponders];
+- (void)removeAllSignalResponders {
    
-   if (responders)
-   {
-      [responders removeAllObjects];
-   }
+   NSMutableArray *stResponders  = [self userResponders];
+   
+   if (stResponders) {
+      
+      [stResponders removeAllObjects];
+      
+   } /* End if () */
+   
+   return;
 }
 
 
 #pragma mark -
 
-- (void)handleSignal:(IDEAAppletSignal *)that
-{
-   UNUSED(that);
+- (void)handleSignal:(IDEAAppletSignal *)aThat {
+   
+   UNUSED(aThat);
+   
+   return;
 }
 
 
@@ -213,26 +227,26 @@
 @implementation NSObject(SignalSender)
 
 
-- (IDEAAppletSignal *)sendSignal:(NSString *)aName
-{
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName {
+   
    return [self sendSignal:aName from:self withObject:nil];
 }
 
 
-- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject
-{
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject {
+   
    return [self sendSignal:aName from:self withObject:aObject];
 }
 
 
-- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource
-{
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource {
+   
    return [self sendSignal:aName from:aSource withObject:nil];
 }
 
 
-- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject
-{
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
+   
    IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
    
    stSignal.source   = aSource ? aSource : self;
@@ -243,6 +257,98 @@
    [stSignal send];
    
    return stSignal;
+}
+
+
+- (void)postSignal:(NSString *)aName {
+   
+   [self postSignal:aName from:self withObject:nil];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject {
+   
+   [self postSignal:aName from:self withObject:aObject];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName from:(id)aSource {
+   
+   [self postSignal:aName from:aSource withObject:nil];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
+   
+   dispatch_async_background_concurrent(^{
+   
+      IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
+      
+      stSignal.source   = aSource ? aSource : self;
+      stSignal.target   = self;
+      stSignal.name     = aName;
+      stSignal.object   = aObject;
+      
+      [stSignal send];
+
+   });
+      
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName onQueue:aQueue from:self withObject:nil];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue withObject:(NSObject *)aObject {
+   
+   [self postSignal:aName onQueue:aQueue from:self withObject:aObject];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource {
+   
+   [self postSignal:aName onQueue:aQueue from:aSource withObject:nil];
+   
+   return;
+}
+
+
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource withObject:(NSObject *)aObject {
+   
+   if (NULL == aQueue) {
+      
+      aQueue   = [IDEAAppletQueue sharedInstance].concurrent;
+      
+   } /* End if () */
+   
+   dispatch_async(aQueue, ^{
+      
+      IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
+      
+      stSignal.source   = aSource ? aSource : self;
+      stSignal.target   = self;
+      stSignal.name     = aName;
+      stSignal.object   = aObject;
+      
+      [stSignal send];
+      
+   });
+         
+   return;
 }
 
 
@@ -292,69 +398,78 @@ BASE_CLASS  (IDEAAppletSignal)
 
 #pragma mark -
 
-+ (IDEAAppletSignal *)signal
-{
++ (IDEAAppletSignal *)signal {
+   
    return [[IDEAAppletSignal alloc] init];
 }
 
-+ (IDEAAppletSignal *)signal:(NSString *)name
-{
-   IDEAAppletSignal * signal = [[IDEAAppletSignal alloc] init];
-   signal.name = name;
-   return signal;
++ (IDEAAppletSignal *)signal:(NSString *)aName {
+   
+   IDEAAppletSignal  *stSignal   = [[IDEAAppletSignal alloc] init];
+   stSignal.name  = aName;
+   
+   return stSignal;
 }
 
-- (id)init
-{
+- (id)init {
+   
    static NSUInteger __seed = 0;
    
    self = [super init];
-   if (self)
-   {
-      self.name = [NSString stringWithFormat:@"signal-%lu", (unsigned long)__seed++];
+   
+   if (self) {
       
-      _state = SignalState_Inited;
+      _name    = [NSString stringWithFormat:@"signal-%lu", (unsigned long)__seed++];
+      _state   = SignalState_Inited;
       
-      _initTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-      _sendTimeStamp = _initTimeStamp;
-      _arriveTimeStamp = _initTimeStamp;
-   }
+      _initTimeStamp    = [NSDate timeIntervalSinceReferenceDate];
+      _sendTimeStamp    = _initTimeStamp;
+      _arriveTimeStamp  = _initTimeStamp;
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
-   self.jumpPath = nil;
+- (void)dealloc {
+   
+   self.jumpPath     = nil;
    self.stateChanged = nil;
    
-   self.name = nil;
+   self.name         = nil;
    //   self.prefix = nil;
-   self.object = nil;
+   self.object       = nil;
    
-   self.input = nil;
-   self.output = nil;
+   self.input        = nil;
+   self.output       = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)deepCopyFrom:(IDEAAppletSignal *)right
-{
-   //   [super deepCopyFrom:right];
+- (void)deepCopyFrom:(IDEAAppletSignal *)aRight {
    
-   //   self.foreign         = right.foreign;
-   self.source            = right.source;
-   self.target            = right.target;
+//   [super deepCopyFrom:right];
+
+//   self.foreign         = aRight.foreign;
+   self.source          = aRight.source;
+   self.target          = aRight.target;
    
-   self.state            = right.state;
+   self.state           = aRight.state;
    
-   self.name            = [right.name copy];
-   //   self.prefix            = [right.prefix copy];
-   self.object            = right.object;
+   self.name            = [aRight.name copy];
+//   self.prefix          = [aRight.prefix copy];
+   self.object          = aRight.object;
    
-   self.initTimeStamp      = right.initTimeStamp;
-   self.sendTimeStamp      = right.sendTimeStamp;
-   self.arriveTimeStamp   = right.arriveTimeStamp;
+   self.initTimeStamp   = aRight.initTimeStamp;
+   self.sendTimeStamp   = aRight.sendTimeStamp;
+   self.arriveTimeStamp = aRight.arriveTimeStamp;
    
-   self.jumpCount         = right.jumpCount;
-   self.jumpPath         = [right.jumpPath mutableCopy];
+   self.jumpCount = aRight.jumpCount;
+   self.jumpPath  = [aRight.jumpPath mutableCopy];
+   
+   return;
 }
 
 - (NSString *)prettyName
@@ -368,8 +483,8 @@ BASE_CLASS  (IDEAAppletSignal)
    return self.name;
 }
 
-- (NSString *)description
-{
+- (NSString *)description {
+   
 #if __SAMURAI_DEBUG__
    return [NSString stringWithFormat:@"[%@] > %@", self.prettyName, [self.jumpPath join:@" > "]];
 #else
@@ -377,66 +492,75 @@ BASE_CLASS  (IDEAAppletSignal)
 #endif
 }
 
-- (BOOL)is:(NSString *)name
-{
-   return [self.name isEqualToString:name];
+- (BOOL)is:(NSString *)aName {
+   
+   return [self.name isEqualToString:aName];
 }
 
-- (BOOL)isSentFrom:(id)source
-{
+- (BOOL)isSentFrom:(id)source {
+   
    return (self.source == source) ? YES : NO;
 }
 
-- (SignalState)state
-{
+- (SignalState)state {
+   
    return _state;
 }
 
-- (void)setState:(SignalState)newState
-{
-   [self changeState:newState];
+- (void)setState:(SignalState)aNewState {
+   
+   [self changeState:aNewState];
 }
 
-- (BOOL)sending
-{
+- (BOOL)sending {
+   
    return SignalState_Sending == _state ? YES : NO;
 }
 
-- (void)setSending:(BOOL)flag
-{
-   if (flag)
-   {
+- (void)setSending:(BOOL)aFlag {
+   
+   if (aFlag) {
+      
       [self changeState:SignalState_Sending];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (BOOL)arrived
-{
+- (BOOL)arrived {
+   
    return SignalState_Arrived == _state ? YES : NO;
 }
 
-- (void)setArrived:(BOOL)flag
-{
-   if (flag)
-   {
+- (void)setArrived:(BOOL)aFlag {
+   
+   if (aFlag) {
+      
       [self changeState:SignalState_Arrived];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (BOOL)dead
-{
+- (BOOL)dead {
+   
    return SignalState_Dead == _state ? YES : NO;
 }
 
-- (void)setDead:(BOOL)flag
-{
-   if (flag)
-   {
+- (void)setDead:(BOOL)aFlag {
+   
+   if (aFlag) {
+      
       [self changeState:SignalState_Dead];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (BOOL)changeState:(SignalState)newState
+- (BOOL)changeState:(SignalState)aNewState
 {
    //   static const char * __states[] = {
    //      "!Inited",
@@ -445,93 +569,102 @@ BASE_CLASS  (IDEAAppletSignal)
    //      "!Dead"
    //   };
    
-   if (newState == _state)
+   if (aNewState == _state) {
+      
       return NO;
-   
+      
+   } /* End if () */
+
    triggerBefore(self, stateChanged);
    
    PERF(@"Signal '%@', state %d -> %d", self.prettyName, _state, newState);
    
-   _state = newState;
+   _state = aNewState;
    
-   if (SignalState_Sending == _state)
-   {
+   if (SignalState_Sending == _state) {
+      
       _sendTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-   }
-   else if (SignalState_Arrived == _state)
-   {
+      
+   } /* End if () */
+   else if (SignalState_Arrived == _state) {
+      
       _arriveTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-   }
-   else if (SignalState_Dead == _state)
-   {
+      
+   } /* End else if () */
+   else if (SignalState_Dead == _state) {
+      
       _arriveTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-   }
+      
+   } /* End else if () */
    
-   if (self.stateChanged)
-   {
+   if (self.stateChanged) {
+      
       ((BlockTypeVarg)self.stateChanged)(self);
-   }
+      
+   } /* End if () */
    
    triggerAfter(self, stateChanged);
    
    return YES;
 }
 
-- (BOOL)send
-{
-   @autoreleasepool
-   {
+- (BOOL)send {
+   
+   @autoreleasepool {
       return [[IDEAAppletSignalBus sharedInstance] send:self];
    };
 }
 
 
-- (BOOL)forward
-{
-   @autoreleasepool
-   {
+- (BOOL)forward {
+   
+   @autoreleasepool {
       return [[IDEAAppletSignalBus sharedInstance] forward:self];
    };
 }
 
-- (BOOL)forward:(id)target
-{
-   @autoreleasepool
-   {
-      return [[IDEAAppletSignalBus sharedInstance] forward:self to:target];
+- (BOOL)forward:(id)aTarget {
+   
+   @autoreleasepool {
+      return [[IDEAAppletSignalBus sharedInstance] forward:self to:aTarget];
    };
 }
 
-- (NSTimeInterval)timeElapsed
-{
+- (NSTimeInterval)timeElapsed {
+   
    return _arriveTimeStamp - _initTimeStamp;
 }
 
-- (NSTimeInterval)timeCostPending
-{
+- (NSTimeInterval)timeCostPending {
+   
    return _sendTimeStamp - _initTimeStamp;
 }
 
-- (NSTimeInterval)timeCostExecution
-{
+- (NSTimeInterval)timeCostExecution {
+   
    return _arriveTimeStamp - _sendTimeStamp;
 }
 
-- (void)log:(id)target
-{
-   if (self.arrived || self.dead)
-      return;
+- (void)log:(id)aTarget {
    
-#if __SAMURAI_DEBUG__
-   if (target)
-   {
-      if (nil == self.jumpPath)
-      {
-         self.jumpPath = [[NSMutableArray alloc] init];
-      }
+   if (self.arrived || self.dead) {
       
-      [self.jumpPath addObject:[target signalDescription]];
-   }
+      return;
+      
+   } /* End if () */
+
+#if __SAMURAI_DEBUG__
+   if (aTarget) {
+      
+      if (nil == self.jumpPath) {
+         
+         self.jumpPath = [[NSMutableArray alloc] init];
+         
+      } /* End if () */
+      
+      [self.jumpPath addObject:[aTarget signalDescription]];
+      
+   } /* End if () */
 #endif
    
    _jumpCount += 1;
@@ -539,66 +672,80 @@ BASE_CLASS  (IDEAAppletSignal)
 
 #pragma mark -
 
-- (NSMutableDictionary *)inputOrOutput
-{
-   if (SignalState_Inited == _state)
-   {
-      if (nil == self.input)
-      {
+- (NSMutableDictionary *)inputOrOutput {
+   
+   if (SignalState_Inited == _state) {
+      
+      if (nil == self.input) {
+         
          self.input = [NSMutableDictionary dictionary];
-      }
+         
+      } /* End if () */
       
       return self.input;
-   }
-   else
-   {
-      if (nil == self.output)
-      {
+      
+   } /* End if () */
+   else {
+      
+      if (nil == self.output) {
+         
          self.output = [NSMutableDictionary dictionary];
-      }
+         
+      } /* End if () */
       
       return self.output;
-   }
+      
+   } /* End else () */
 }
 
-- (id)objectForKey:(id)key
-{
-   NSMutableDictionary * objects = [self inputOrOutput];
-   return [objects objectForKey:key];
+- (id)objectForKey:(id)aKey {
+   
+   NSMutableDictionary  *stObjects  = [self inputOrOutput];
+   
+   return [stObjects objectForKey:aKey];
 }
 
-- (BOOL)hasObjectForKey:(id)key
-{
-   NSMutableDictionary * objects = [self inputOrOutput];
-   return [objects objectForKey:key] ? YES : NO;
+- (BOOL)hasObjectForKey:(id)aKey {
+   
+   NSMutableDictionary  *stObjects  = [self inputOrOutput];
+   
+   return [stObjects objectForKey:aKey] ? YES : NO;
 }
 
-- (void)setObject:(id)value forKey:(id)key
-{
-   NSMutableDictionary * objects = [self inputOrOutput];
-   [objects setObject:value forKey:key];
+- (void)setObject:(id)value forKey:(id)aKey {
+   
+   NSMutableDictionary  *stObjects  = [self inputOrOutput];
+   [stObjects setObject:value forKey:aKey];
+   
+   return;
 }
 
-- (void)removeObjectForKey:(id)key
-{
-   NSMutableDictionary * objects = [self inputOrOutput];
-   [objects removeObjectForKey:key];
+- (void)removeObjectForKey:(id)aKey {
+   
+   NSMutableDictionary  *stObjects  = [self inputOrOutput];
+   [stObjects removeObjectForKey:aKey];
+   
+   return;
 }
 
-- (void)removeAllObjects
-{
-   NSMutableDictionary * objects = [self inputOrOutput];
-   [objects removeAllObjects];
+- (void)removeAllObjects {
+   
+   NSMutableDictionary  *stObjects  = [self inputOrOutput];
+   [stObjects removeAllObjects];
+   
+   return;
 }
 
-- (id)objectForKeyedSubscript:(id)key;
-{
-   return [self objectForKey:key];
+- (id)objectForKeyedSubscript:(id)aKey; {
+   
+   return [self objectForKey:aKey];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
-{
-   [self setObject:obj forKey:key];
+- (void)setObject:(id)obj forKeyedSubscript:(id)aKey {
+   
+   [self setObject:obj forKey:aKey];
+   
+   return;
 }
 
 @end

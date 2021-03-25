@@ -106,23 +106,23 @@
 
 @implementation IDEAAppletTemplate
 {
-   NSMutableArray *         _resourceQueue;
-   IDEAAppletResourceFetcher *   _resourceFetcher;
+   NSMutableArray             * _resourceQueue;
+   IDEAAppletResourceFetcher  * _resourceFetcher;
 }
 
-@def_joint( stateChanged );
+@def_joint       ( stateChanged );
 
-@def_prop_strong( IDEAAppletDocument *,      document );
-@def_prop_assign( BOOL,                  responderDisabled );
-@def_prop_unsafe( id,                  responder );
+@def_prop_strong ( IDEAAppletDocument *,  document );
+@def_prop_assign ( BOOL ,                 responderDisabled );
+@def_prop_unsafe ( id   ,                 responder );
 
-@def_prop_copy( BlockType,               stateChanged );
-@def_prop_assign( TemplateState,      state );
-@def_prop_dynamic( BOOL,               created );
-@def_prop_dynamic( BOOL,               loading );
-@def_prop_dynamic( BOOL,               loaded );
-@def_prop_dynamic( BOOL,               failed );
-@def_prop_dynamic( BOOL,               cancelled );
+@def_prop_copy   ( BlockType     ,  stateChanged );
+@def_prop_assign ( TemplateState ,  state );
+@def_prop_dynamic( BOOL,            created );
+@def_prop_dynamic( BOOL,            loading );
+@def_prop_dynamic( BOOL,            loaded );
+@def_prop_dynamic( BOOL,            failed );
+@def_prop_dynamic( BOOL,            cancelled );
 
 + (IDEAAppletTemplate *)template
 {
@@ -134,21 +134,24 @@
    self = [super init];
    if ( self )
    {
-      self.document = nil;
+      self.document           = nil;
       
-      self.responderDisabled = NO;
-      self.responder = nil;
+      self.responderDisabled  = NO;
+      self.responder          = nil;
       
-      self.stateChanged = nil;
-      self.state = TemplateState_Created;
+      self.stateChanged       = nil;
+      self.state              = TemplateState_Created;
       
-      _resourceQueue = [[NSMutableArray alloc] init];
-      _resourceFetcher = [IDEAAppletResourceFetcher resourceFetcher];
+      _resourceQueue    = [[NSMutableArray alloc] init];
+      _resourceFetcher  = [IDEAAppletResourceFetcher resourceFetcher];
+      
       _resourceFetcher.responder = self;
 
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:IDEAAppletWatcher.SourceFileDidChanged object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileRemoved:) name:IDEAAppletWatcher.SourceFileDidRemoved object:nil];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
@@ -172,6 +175,10 @@
    
    [_resourceQueue removeAllObjects];
    _resourceQueue = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -

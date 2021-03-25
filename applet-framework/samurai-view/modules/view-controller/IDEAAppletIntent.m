@@ -52,12 +52,12 @@
 
 #pragma mark -
 
-- (IDEAAppletIntentObserverBlock)onIntent
-{
+- (IDEAAppletIntentObserverBlock)onIntent {
+   
    @weakify( self );
-
-   IDEAAppletIntentObserverBlock block = ^ NSObject * ( NSString * action, id intentBlock )
-   {
+   
+   IDEAAppletIntentObserverBlock block = ^ NSObject * ( NSString * action, id intentBlock ) {
+      
       @strongify( self );
       
       action = [action stringByReplacingOccurrencesOfString:@"intent." withString:@"handleIntent____"];
@@ -67,12 +67,12 @@
       action = [action stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
       action = [action stringByAppendingString:@":"];
       
-      if ( intentBlock )
-      {
+      if ( intentBlock ) {
+         
          [self addBlock:intentBlock forName:action];
       }
-      else
-      {
+      else {
+         
          [self removeBlockForName:action];
       }
       
@@ -82,8 +82,8 @@
    return [block copy];
 }
 
-- (void)handleIntent:(IDEAAppletIntent *)that
-{
+- (void)handleIntent:(IDEAAppletIntent *)that {
+   
    UNUSED( that );
 }
 
@@ -111,38 +111,38 @@
 
 #pragma mark -
 
-+ (IDEAAppletIntent *)intent
-{
++ (IDEAAppletIntent *)intent {
+   
    return [[IDEAAppletIntent alloc] init];
 }
 
-+ (IDEAAppletIntent *)intent:(NSString *)action
-{
++ (IDEAAppletIntent *)intent:(NSString *)action {
+   
    IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
    intent.action = action;
    return intent;
 }
 
-+ (IDEAAppletIntent *)intent:(NSString *)action params:(NSDictionary *)params
-{
++ (IDEAAppletIntent *)intent:(NSString *)action params:(NSDictionary *)params {
+   
    IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
    intent.action = action;
    
-   if ( params )
-   {
+   if ( params ) {
+      
       [intent.input setDictionary:params];
    }
    
    return intent;
 }
 
-- (id)init
-{
+- (id)init {
+   
    static NSUInteger __seed = 0;
    
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.action = [NSString stringWithFormat:@"intent-%lu", (unsigned long)__seed++];
       self.input = [NSMutableDictionary dictionary];
       self.output = [NSMutableDictionary dictionary];
@@ -152,8 +152,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.stateChanged = nil;
    
    self.action = nil;
@@ -161,119 +161,119 @@
    self.output = nil;
 }
 
-- (NSString *)prettyName
-{
+- (NSString *)prettyName {
+   
    return [self.action stringByReplacingOccurrencesOfString:@"intent." withString:@""];
 }
 
-- (BOOL)is:(NSString *)action
-{
+- (BOOL)is:(NSString *)action {
+   
    return [self.action isEqualToString:action];
 }
 
-- (IntentState)state
-{
+- (IntentState)state {
+   
    return _state;
 }
 
-- (void)setState:(IntentState)newState
-{
+- (void)setState:(IntentState)newState {
+   
    [self changeState:newState];
 }
 
-- (BOOL)arrived
-{
+- (BOOL)arrived {
+   
    return IntentState_Arrived == _state ? YES : NO;
 }
 
-- (void)setArrived:(BOOL)flag
-{
-   if ( flag )
-   {
+- (void)setArrived:(BOOL)flag {
+   
+   if ( flag ) {
+      
       [self changeState:IntentState_Arrived];
    }
 }
 
-- (BOOL)succeed
-{
+- (BOOL)succeed {
+   
    return IntentState_Succeed == _state ? YES : NO;
 }
 
-- (void)setSucceed:(BOOL)flag
-{
-   if ( flag )
-   {
+- (void)setSucceed:(BOOL)flag {
+   
+   if ( flag ) {
+      
       [self changeState:IntentState_Succeed];
    }
 }
 
-- (BOOL)failed
-{
+- (BOOL)failed {
+   
    return IntentState_Failed == _state ? YES : NO;
 }
 
-- (void)setFailed:(BOOL)flag
-{
-   if ( flag )
-   {
+- (void)setFailed:(BOOL)flag {
+   
+   if ( flag ) {
+      
       [self changeState:IntentState_Failed];
    }
 }
 
-- (BOOL)cancelled
-{
+- (BOOL)cancelled {
+   
    return IntentState_Cancelled == _state ? YES : NO;
 }
 
-- (void)setCancelled:(BOOL)flag
-{
-   if ( flag )
-   {
+- (void)setCancelled:(BOOL)flag {
+   
+   if ( flag ) {
+      
       [self changeState:IntentState_Cancelled];
    }
 }
 
-- (BOOL)changeState:(IntentState)newState
-{
-//   static const char * __states[] = {
-//      "!Inited",
-//      "!Arrived",
-//      "!Succeed",
-//      "!Failed",
-//      "!Cancelled"
-//   };
-
+- (BOOL)changeState:(IntentState)newState {
+   
+   //   static const char * __states[] = {
+   //      "!Inited",
+   //      "!Arrived",
+   //      "!Succeed",
+   //      "!Failed",
+   //      "!Cancelled"
+   //   };
+   
    if ( newState == _state )
       return NO;
    
    triggerBefore( self, stateChanged );
    
    PERF( @"Intent '%@', state %d -> %d", self.prettyName, _state, newState );
-
+   
    _state = newState;
-
-   if ( self.stateChanged )
-   {
+   
+   if ( self.stateChanged ) {
+      
       ((BlockTypeVarg)self.stateChanged)( self );
    }
-
-   if ( IntentState_Arrived == _state )
-   {
+   
+   if ( IntentState_Arrived == _state ) {
+      
       [[IDEAAppletIntentBus sharedInstance] routes:self target:self.target];
    }
-   else if ( IntentState_Succeed == _state )
-   {
+   else if ( IntentState_Succeed == _state ) {
+      
       [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
-   else if ( IntentState_Failed == _state )
-   {
+   else if ( IntentState_Failed == _state ) {
+      
       [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
-   else if ( IntentState_Cancelled == _state )
-   {
+   else if ( IntentState_Cancelled == _state ) {
+      
       [[IDEAAppletIntentBus sharedInstance] routes:self target:self.source];
    }
-
+   
    triggerAfter( self, stateChanged );
    
    return YES;
@@ -281,21 +281,21 @@
 
 #pragma mark -
 
-- (NSMutableDictionary *)inputOrOutput
-{
-   if ( IntentState_Inited == _state )
-   {
-      if ( nil == self.input )
-      {
+- (NSMutableDictionary *)inputOrOutput {
+   
+   if ( IntentState_Inited == _state ) {
+      
+      if ( nil == self.input ) {
+         
          self.input = [NSMutableDictionary dictionary];
       }
       
       return self.input;
    }
-   else
-   {
-      if ( nil == self.output )
-      {
+   else {
+      
+      if ( nil == self.output ) {
+         
          self.output = [NSMutableDictionary dictionary];
       }
       
@@ -303,43 +303,43 @@
    }
 }
 
-- (id)objectForKey:(id)key
-{
+- (id)objectForKey:(id)key {
+   
    NSMutableDictionary * objects = [self inputOrOutput];
    return [objects objectForKey:key];
 }
 
-- (BOOL)hasObjectForKey:(id)key
-{
+- (BOOL)hasObjectForKey:(id)key {
+   
    NSMutableDictionary * objects = [self inputOrOutput];
    return [objects objectForKey:key] ? YES : NO;
 }
 
-- (void)setObject:(id)value forKey:(id)key
-{
+- (void)setObject:(id)value forKey:(id)key {
+   
    NSMutableDictionary * objects = [self inputOrOutput];
    [objects setObject:value forKey:key];
 }
 
-- (void)removeObjectForKey:(id)key
-{
+- (void)removeObjectForKey:(id)key {
+   
    NSMutableDictionary * objects = [self inputOrOutput];
    [objects removeObjectForKey:key];
 }
 
-- (void)removeAllObjects
-{
+- (void)removeAllObjects {
+   
    NSMutableDictionary * objects = [self inputOrOutput];
    [objects removeAllObjects];
 }
 
-- (id)objectForKeyedSubscript:(id)key;
-{
+- (id)objectForKeyedSubscript:(id)key; {
+   
    return [self objectForKey:key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
-{
+- (void)setObject:(id)obj forKeyedSubscript:(id)key {
+   
    [self setObject:obj forKey:key];
 }
 
@@ -355,12 +355,12 @@
 
 TEST_CASE( UI, Intent )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

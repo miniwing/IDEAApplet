@@ -100,6 +100,16 @@ typedef enum
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource;
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
+- (IDEAAppletSignal *)postSignal:(NSString *)aName;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
+
+- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource withObject:(NSObject *)aObject;
+
 @end
 
 #pragma mark -
@@ -124,7 +134,7 @@ typedef enum
 @prop_assign   ( NSUInteger          , hitCount );
 @prop_readonly ( NSString           *, prettyName );
       
-@prop_strong   ( NSString           *, name );
+@prop_copy     ( NSString           *, name );
 @prop_strong   ( id                  , object );
 @prop_strong   ( NSMutableDictionary*, input );
 @prop_strong   ( NSMutableDictionary*, output );

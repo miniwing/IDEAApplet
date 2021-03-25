@@ -81,27 +81,27 @@ typedef enum
 
 @joint( stateChanged );
 
-@prop_strong( IDEAAppletIntent *,            intent );
-@prop_assign( BOOL,                     animated );
-@prop_assign( UIInterfaceOrientation,      orientation );
-@prop_assign( UIInterfaceOrientationMask,   orientationMask );
+@prop_strong( IDEAAppletIntent         *, intent );
+@prop_assign( BOOL                      , animated );
+@prop_assign( UIInterfaceOrientation    , orientation );
+@prop_assign( UIInterfaceOrientationMask, orientationMask );
 
-@prop_copy( BlockType,                  stateChanged );
-@prop_assign( ActivityState,            state );
-@prop_readonly( BOOL,                  created );
-@prop_readonly( BOOL,                  deactivated );
-@prop_readonly( BOOL,                  deactivating );
-@prop_readonly( BOOL,                  activating );
-@prop_readonly( BOOL,                  activated );
-@prop_readonly( BOOL,                  destroyed );
+@prop_copy     ( BlockType    ,  stateChanged );
+@prop_assign   ( ActivityState,  state );
+@prop_readonly ( BOOL,           created );
+@prop_readonly ( BOOL,           deactivated );
+@prop_readonly ( BOOL,           deactivating );
+@prop_readonly ( BOOL,           activating );
+@prop_readonly ( BOOL,           activated );
+@prop_readonly ( BOOL,           destroyed );
 
 + (instancetype)activity;
-+ (instancetype)activityWithNibName:(NSString *)nibNameOrNil;
-+ (instancetype)activityWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
++ (instancetype)activityWithNibName:(NSString *)aNibNameOrNil;
++ (instancetype)activityWithNibName:(NSString *)aNibNameOrNil bundle:(NSBundle *)aNibBundleOrNil;
 
 + (NSArray *)activities;
 
-- (void)changeState:(ActivityState)value;
+- (void)changeState:(ActivityState)aValue;
 
 - (void)onCreate;    // override point
 - (void)onDestroy;   // override point
@@ -113,4 +113,4 @@ typedef enum
 
 @end
 
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

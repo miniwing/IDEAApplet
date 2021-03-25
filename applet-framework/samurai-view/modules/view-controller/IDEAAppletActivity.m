@@ -50,18 +50,18 @@
 
 @def_prop_dynamic( IDEAAppletActivity *, rootActivity );
 
-- (IDEAAppletActivity *)rootActivity
-{
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivity class]] )
-   {
+- (IDEAAppletActivity *)rootActivity {
+   
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivity class]] ) {
+      
       return (IDEAAppletActivity *)self.rootViewController;
    }
    
    return nil;
 }
 
-- (void)setRootActivity:(IDEAAppletActivity *)activity
-{
+- (void)setRootActivity:(IDEAAppletActivity *)activity {
+   
    self.rootViewController = activity;
 }
 
@@ -69,8 +69,8 @@
 
 #pragma mark -
 
-@implementation IDEAAppletActivity
-{
+@implementation IDEAAppletActivity {
+   
    BOOL      _inited;
    BOOL      _booted;
    BOOL      _presented;
@@ -80,56 +80,56 @@
 
 BASE_CLASS( IDEAAppletActivity )
 
-@def_joint( stateChanged );
+@def_joint        ( stateChanged );
 
-@def_prop_strong( IDEAAppletIntent  *,    intent );
-@def_prop_assign( BOOL            ,    animated );
-@def_prop_assign( UIInterfaceOrientation     ,  orientation );
-@def_prop_assign( UIInterfaceOrientationMask ,  orientationMask );
+@def_prop_strong  ( IDEAAppletIntent   *,    intent );
+@def_prop_assign  ( BOOL                ,    animated );
+@def_prop_assign  ( UIInterfaceOrientation     ,  orientation );
+@def_prop_assign  ( UIInterfaceOrientationMask ,  orientationMask );
 
-@def_prop_copy   ( BlockType     ,  stateChanged );
-@def_prop_assign ( ActivityState ,  state );
-@def_prop_dynamic( BOOL          ,  created );
-@def_prop_dynamic( BOOL          ,  deactivated );
-@def_prop_dynamic( BOOL          ,  deactivating );
-@def_prop_dynamic( BOOL          ,  activating );
-@def_prop_dynamic( BOOL          ,  activated );
-@def_prop_dynamic( BOOL          ,  destroyed );
+@def_prop_copy    ( BlockType     ,  stateChanged );
+@def_prop_assign  ( ActivityState ,  state );
+@def_prop_dynamic ( BOOL          ,  created );
+@def_prop_dynamic ( BOOL          ,  deactivated );
+@def_prop_dynamic ( BOOL          ,  deactivating );
+@def_prop_dynamic ( BOOL          ,  activating );
+@def_prop_dynamic ( BOOL          ,  activated );
+@def_prop_dynamic ( BOOL          ,  destroyed );
 
 static NSMutableArray * __activities = nil;
 
 #pragma mark -
 
-+ (instancetype)activity
-{
++ (instancetype)activity {
+   
    return [[[self class] alloc] init];
 }
 
-+ (instancetype)activityWithNibName:(NSString *)nibNameOrNil
-{
++ (instancetype)activityWithNibName:(NSString *)nibNameOrNil {
+   
    return [[self alloc] initWithNibName:nibNameOrNil bundle:nil];
 }
 
-+ (instancetype)activityWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
++ (instancetype)activityWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+   
    return [[self alloc] initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 }
 
 #pragma mark -
 
-+ (NSArray *)activities
-{
++ (NSArray *)activities {
+   
    return __activities;
 }
 
 #pragma mark -
 
-- (void)initSelf
-{
-   if ( NO == _inited )
-   {
-      if ( nil == __activities )
-      {
+- (void)initSelf {
+   
+   if ( NO == _inited ) {
+      
+      if ( nil == __activities ) {
+         
          __activities = [NSMutableArray nonRetainingArray];
       }
       
@@ -143,60 +143,64 @@ static NSMutableArray * __activities = nil;
       
       _inited = YES;
    }
+   
+   return;
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   
+   if ( self ) {
+      
       [self initSelf];
    }
+   
    return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder // Support story board
-{
+- (id)initWithCoder:(NSCoder *)aDecoder { // Support story board
+   
    self = [super initWithCoder:aDecoder];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self initSelf];
    }
    return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil // Support interface builder
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil { // Support interface builder
+   
    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self initSelf];
    }
    return self;
 }
 
-- (void)dealloc
-{
-   if ( _viewBuilt )
-   {
+- (void)dealloc {
+   
+   if ( _viewBuilt ) {
+      
       [self changeState:ActivityState_Destroyed];
-
-      @autoreleasepool
-      {
+      
+      @autoreleasepool {
+         
          NSArray * array = [self.view.subviews copy];
          
-         for ( UIView * view in array )
-         {
+         for ( UIView * view in array ) {
+            
             [view removeFromSuperview];
          }
       }
-
-   // BUG, will create a new view when dealloc
-   //   self.view = nil;
-
+      
+      // BUG, will create a new view when dealloc
+      //   self.view = nil;
+      
       _viewBuilt = NO;
    }
-
+   
    self.intent = nil;
    self.stateChanged = nil;
    
@@ -207,124 +211,124 @@ static NSMutableArray * __activities = nil;
 
 #pragma mark -
 
-- (void)changeState:(ActivityState)newState
-{
-//   static const char * __states[] = {
-//      "!Inited",
-//      "!Created",
-//      "!Activating",
-//      "!Activated",
-//      "!Deactivating",
-//      "!Deactivated",
-//      "!Destroyed"
-//   };
-
+- (void)changeState:(ActivityState)newState {
+   
+   //   static const char * __states[] = {
+   //      "!Inited",
+   //      "!Created",
+   //      "!Activating",
+   //      "!Activated",
+   //      "!Deactivating",
+   //      "!Deactivated",
+   //      "!Destroyed"
+   //   };
+   
    if ( _state == newState )
       return;
-
+   
    PERF( @"Activity '%p', '%@' state %d -> %d", self, [[self class] description], _state, newState );
    
    _state = newState;
    
    triggerBefore( self, stateChanged );
    
-   if ( self.stateChanged )
-   {
+   if ( self.stateChanged ) {
+      
       ((BlockTypeVarg)self.stateChanged)( self );
    }
-
-   if ( ActivityState_Created == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   
+   if ( ActivityState_Created == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onCreate) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onCreate];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( ActivityState_Activating == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( ActivityState_Activating == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onStart) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onStart];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( ActivityState_Activated == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( ActivityState_Activated == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onResume) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onResume];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( ActivityState_Deactivating == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( ActivityState_Deactivating == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onPause) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onPause];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( ActivityState_Deactivated == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( ActivityState_Deactivated == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onStop) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onStop];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( ActivityState_Destroyed == _state )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( ActivityState_Destroyed == _state ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onDestroy) reversed:NO];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onDestroy];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-
+   
    triggerAfter( self, stateChanged );
 }
 
-- (BOOL)created
-{
+- (BOOL)created {
+   
    return ActivityState_Created == _state ? YES : NO;
 }
 
-- (BOOL)activating
-{
+- (BOOL)activating {
+   
    return ActivityState_Activating == _state ? YES : NO;
 }
 
-- (BOOL)activated
-{
+- (BOOL)activated {
+   
    return ActivityState_Activated == _state ? YES : NO;
 }
 
-- (BOOL)deactivating
-{
+- (BOOL)deactivating {
+   
    return ActivityState_Deactivating == _state ? YES : NO;
 }
 
-- (BOOL)deactivated
-{
+- (BOOL)deactivated {
+   
    return ActivityState_Deactivated == _state ? YES : NO;
 }
 
-- (BOOL)destroyed
-{
+- (BOOL)destroyed {
+   
    return ActivityState_Destroyed == _state ? YES : NO;
 }
 
 #pragma mark -
 
-- (void)setView:(UIView *)newView
-{
+- (void)setView:(UIView *)newView {
+   
    [super setView:newView];
    
-   if ( newView )
-   {
-      if ( IOS7_OR_LATER )
-      {
+   if ( newView ) {
+      
+      if ( IOS7_OR_LATER ) {
+         
          self.edgesForExtendedLayout = UIRectEdgeNone;
          self.extendedLayoutIncludesOpaqueBars = NO;
          self.modalPresentationCapturesStatusBarAppearance = NO;
@@ -333,18 +337,20 @@ static NSMutableArray * __activities = nil;
       
       self.view.userInteractionEnabled = YES;
       self.view.backgroundColor = [UIColor whiteColor];
-      self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;   
+      self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
    }
+   
+   return;
 }
 
-- (void)loadView
-{
+- (void)loadView {
+   
    PERF( @"Activity '%p', '%@' loadView", self, [[self class] description] );
-
+   
    [super loadView];
-
-   if ( NO == _viewBuilt )
-   {
+   
+   if ( NO == _viewBuilt ) {
+      
       [self changeState:ActivityState_Created];
       
       _viewDirty = YES;
@@ -352,16 +358,16 @@ static NSMutableArray * __activities = nil;
    }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+   
    PERF( @"Activity '%p', '%@' viewDidLoad", self, [[self class] description] );
-
+   
    [super viewDidLoad];
    
-   if ( NO == _booted )
-   {
-      if ( self.intent )
-      {
+   if ( NO == _booted ) {
+      
+      if ( self.intent ) {
+         
          self.intent.target = self;
          self.intent.arrived = YES;
       }
@@ -370,97 +376,97 @@ static NSMutableArray * __activities = nil;
    }
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
+   
    PERF( @"Activity '%p', '%@' viewDidUnload", self, [[self class] description] );
-
-   if ( _viewBuilt )
-   {
+   
+   if ( _viewBuilt ) {
+      
       [self changeState:ActivityState_Destroyed];
-
-      @autoreleasepool
-      {
+      
+      @autoreleasepool {
+         
          NSArray * array = [self.view.subviews copy];
          
-         for ( UIView * view in array )
-         {
+         for ( UIView * view in array ) {
+            
             [view removeFromSuperview];
          }
       }
       
       _viewBuilt = NO;
    }
-
+   
    self.view = nil;
-
-    [super viewDidUnload];
+   
+   [super viewDidUnload];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+   
    PERF( @"Activity '%p', '%@' didReceiveMemoryWarning", self, [[self class] description] );
    
    [super didReceiveMemoryWarning];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+   
    if ( self.state == ActivityState_Activating )
       return;
-
+   
    PERF( @"Activity '%p', '%@' viewWillAppear", self, [[self class] description] );
    
    [super viewWillAppear:animated];
-
-   if ( NO == _viewBuilt )
-   {
+   
+   if ( NO == _viewBuilt ) {
+      
       [self changeState:ActivityState_Created];
-
+      
       _viewBuilt = YES;
    }
-
-   if ( self.view )
-   {
+   
+   if ( self.view ) {
+      
       [self.view addSignalResponder:self];
    }
-
+   
    _viewDirty = YES;
    
    _animated = animated;
    
    [self changeState:ActivityState_Activating];
-
+   
    _animated = NO;
    
    [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+   
    if ( self.state == ActivityState_Activated )
       return;
    
    PERF( @"Activity '%p', '%@' viewDidAppear", self, [[self class] description] );
    
    [super viewDidAppear:animated];
-
+   
    _animated = animated;
    
    [self changeState:ActivityState_Activated];
-
+   
    _animated = NO;
    _presented = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
+   
    if ( self.state == ActivityState_Deactivating )
       return;
-
+   
    PERF( @"Activity '%p', '%@' viewWillDisappear", self, [[self class] description] );
    
    [super viewWillDisappear:animated];
-
+   
    _animated = animated;
    
    [self changeState:ActivityState_Deactivating];
@@ -468,47 +474,47 @@ static NSMutableArray * __activities = nil;
    _animated = NO;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
+   
    if ( self.state == ActivityState_Deactivated )
       return;
-
+   
    PERF( @"Activity '%p', '%@' viewDidDisappear", self, [[self class] description] );
    
    [super viewDidDisappear:animated];
-
+   
    _animated = animated;
    
    [self changeState:ActivityState_Deactivated];
-
+   
    _animated = NO;
 }
 
-- (void)viewWillLayoutSubviews
-{
+- (void)viewWillLayoutSubviews {
+   
    PERF( @"Activity '%p', '%@' viewWillLayoutSubviews", self, [[self class] description] );
-
+   
    [super viewWillLayoutSubviews];
 }
 
-- (void)viewDidLayoutSubviews
-{
-//   if ( self.state != ActivityState_Activated )
-//      return;
-
+- (void)viewDidLayoutSubviews {
+   
+   //   if ( self.state != ActivityState_Activated )
+   //      return;
+   
    PERF( @"Activity '%p', '%@' viewDidLayoutSubviews", self, [[self class] description] );
-
+   
    [super viewDidLayoutSubviews];
    
-   if ( _viewDirty )
-   {
+   if ( _viewDirty ) {
+      
       _animated = YES;
-
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onLayout) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onLayout];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
       
       _animated = NO;
       
@@ -518,71 +524,71 @@ static NSMutableArray * __activities = nil;
 
 #pragma mark -
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+   
    return (_orientationMask & (1 << interfaceOrientation)) ? YES : NO;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+   
    _viewDirty = YES;
    _orientation = toInterfaceOrientation;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+   
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+   
    return _orientationMask;
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
+   
    return NO;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
+   
    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark -
 
-- (void)onCreate
-{
+- (void)onCreate {
+   
 }
 
-- (void)onDestroy
-{
+- (void)onDestroy {
+   
 }
 
-- (void)onStart
-{
+- (void)onStart {
+   
 }
 
-- (void)onResume
-{
+- (void)onResume {
+   
 }
 
-- (void)onLayout
-{
+- (void)onLayout {
+   
 }
 
-- (void)onPause
-{
+- (void)onPause {
+   
 }
 
-- (void)onStop
-{
+- (void)onStop {
+   
 }
 
 @end
@@ -597,12 +603,12 @@ static NSMutableArray * __activities = nil;
 
 TEST_CASE( UI, Activity )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

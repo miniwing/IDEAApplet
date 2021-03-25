@@ -49,74 +49,74 @@
 
 @implementation IDEAAppletHtmlDomNode
 
-@def_prop_assign(BOOL,                     implied);
-@def_prop_strong(NSMutableDictionary *,      computedStyle);
+@def_prop_assign(BOOL                      , implied);
+@def_prop_strong(NSMutableDictionary      *, computedStyle);
 
-@def_prop_dynamic(IDEAAppletHtmlDomNode *,      parent);
-@def_prop_dynamic(IDEAAppletHtmlDomNode *,      prev);
-@def_prop_dynamic(IDEAAppletHtmlDomNode *,      next);
+@def_prop_dynamic(IDEAAppletHtmlDomNode   *, parent);
+@def_prop_dynamic(IDEAAppletHtmlDomNode   *, prev);
+@def_prop_dynamic(IDEAAppletHtmlDomNode   *, next);
 
-@def_prop_unsafe(IDEAAppletHtmlDomNode *,         shadowHost);
-@def_prop_strong(IDEAAppletHtmlDomNode *,         shadowRoot);
+@def_prop_unsafe(IDEAAppletHtmlDomNode    *, shadowHost);
+@def_prop_strong(IDEAAppletHtmlDomNode    *, shadowRoot);
 
-@def_dom_attr(attrId,            setAttrId,            @"id");
-@def_dom_attr(attrFor,            setAttrFor,            @"for");
-@def_dom_attr(attrSrc,            setAttrSrc,            @"src");
-@def_dom_attr(attrRel,            setAttrRel,            @"rel");
-@def_dom_attr(attrName,         setAttrName,         @"name");
-@def_dom_attr(attrType,         setAttrType,         @"type");
-@def_dom_attr(attrHref,         setAttrHref,         @"href");
-@def_dom_attr(attrMedia,         setAttrMedia,         @"media");
-@def_dom_attr(attrStyle,         setAttrStyle,         @"style");
-@def_dom_attr(attrClass,         setAttrClass,         @"class");
-@def_dom_attr(attrContent,         setAttrContent,         @"content");
-@def_dom_attr(attrValue,         setAttrValue,         @"value");
-@def_dom_attr(attrMin,            setAttrMin,            @"min");
-@def_dom_attr(attrMax,            setAttrMax,            @"max");
-@def_dom_attr(attrSelected,      setAttrSelected,      @"selected");
-@def_dom_attr(attrRowSpan,         setAttrRowSpan,         @"rowspan");
-@def_dom_attr(attrColSpan,         setAttrColSpan,         @"colspan");
-@def_dom_attr(attrTabindex,      setAttrTabindex,      @"tabindex");
-@def_dom_attr(attrIsLarge,         setAttrIsLarge,         @"is-large");
-@def_dom_attr(attrIsAnimating,      setAttrIsAnimating,      @"is-animating");
-@def_dom_attr(attrIsStatic,      setAttrIsStatic,      @"is-static");
-@def_dom_attr(attrColumns,         setAttrColumns,         @"columns");
-@def_dom_attr(attrIsVertical,      setAttrIsVertical,      @"is-vertical");
-@def_dom_attr(attrIsHorizontal,   setAttrIsHorizontal,   @"is-horizontal");
-@def_dom_attr(attrStickTop,      setAttrStickTop,      @"stick-top");
-@def_dom_attr(attrStickBottom,      setAttrStickBottom,      @"stick-bottom");
-@def_dom_attr(attrFixedTop,      setAttrFixedTop,      @"fixed-top");
-@def_dom_attr(attrFixedBottom,      setAttrFixedBottom,      @"fixed-bottom");
-@def_dom_attr(attrIsColumn,      setAttrIsColumn,      @"is-column");
-@def_dom_attr(attrIsRow,         setAttrIsRow,         @"is-row");
-@def_dom_attr(attrLayout,         setAttrLayout,         @"layout");
-@def_dom_attr(attrPages,         setAttrPages,         @"pages");
-@def_dom_attr(attrCurrent,         setAttrCurrent,         @"current");
-@def_dom_attr(attrIsBar,         setAttrIsBar,         @"is-bar");
-@def_dom_attr(attrIsPaging,      setAttrIsPaging,      @"is-paging");
-@def_dom_attr(attrIsContinuous,   setAttrIsContinuous,   @"is-continuous");
-@def_dom_attr(attrStep,         setAttrStep,         @"step");
-@def_dom_attr(attrIsOn,         setAttrIsOn,         @"is-on");
-@def_dom_attr(attrIsOff,         setAttrIsOff,         @"is-off");
+@def_dom_attr(attrId          ,  setAttrId            ,  @"id");
+@def_dom_attr(attrFor         ,  setAttrFor           ,  @"for");
+@def_dom_attr(attrSrc         ,  setAttrSrc           ,  @"src");
+@def_dom_attr(attrRel         ,  setAttrRel           ,  @"rel");
+@def_dom_attr(attrName        ,  setAttrName          ,  @"name");
+@def_dom_attr(attrType        ,  setAttrType          ,  @"type");
+@def_dom_attr(attrHref        ,  setAttrHref          ,  @"href");
+@def_dom_attr(attrMedia       ,  setAttrMedia         ,  @"media");
+@def_dom_attr(attrStyle       ,  setAttrStyle         ,  @"style");
+@def_dom_attr(attrClass       ,  setAttrClass         ,  @"class");
+@def_dom_attr(attrContent     ,  setAttrContent       ,  @"content");
+@def_dom_attr(attrValue       ,  setAttrValue         ,  @"value");
+@def_dom_attr(attrMin         ,  setAttrMin           ,  @"min");
+@def_dom_attr(attrMax         ,  setAttrMax           ,  @"max");
+@def_dom_attr(attrSelected    ,  setAttrSelected      ,  @"selected");
+@def_dom_attr(attrRowSpan     ,  setAttrRowSpan       ,  @"rowspan");
+@def_dom_attr(attrColSpan     ,  setAttrColSpan       ,  @"colspan");
+@def_dom_attr(attrTabindex    ,  setAttrTabindex      ,  @"tabindex");
+@def_dom_attr(attrIsLarge     ,  setAttrIsLarge       ,  @"is-large");
+@def_dom_attr(attrIsAnimating ,  setAttrIsAnimating   ,  @"is-animating");
+@def_dom_attr(attrIsStatic    ,  setAttrIsStatic      ,  @"is-static");
+@def_dom_attr(attrColumns     ,  setAttrColumns       ,  @"columns");
+@def_dom_attr(attrIsVertical  ,  setAttrIsVertical    ,  @"is-vertical");
+@def_dom_attr(attrIsHorizontal,  setAttrIsHorizontal  ,  @"is-horizontal");
+@def_dom_attr(attrStickTop    ,  setAttrStickTop      ,  @"stick-top");
+@def_dom_attr(attrStickBottom ,  setAttrStickBottom   ,  @"stick-bottom");
+@def_dom_attr(attrFixedTop    ,  setAttrFixedTop      ,  @"fixed-top");
+@def_dom_attr(attrFixedBottom ,  setAttrFixedBottom   ,  @"fixed-bottom");
+@def_dom_attr(attrIsColumn    ,  setAttrIsColumn      ,  @"is-column");
+@def_dom_attr(attrIsRow       ,  setAttrIsRow         ,  @"is-row");
+@def_dom_attr(attrLayout      ,  setAttrLayout        ,  @"layout");
+@def_dom_attr(attrPages       ,  setAttrPages         ,  @"pages");
+@def_dom_attr(attrCurrent     ,  setAttrCurrent       ,  @"current");
+@def_dom_attr(attrIsBar       ,  setAttrIsBar         ,  @"is-bar");
+@def_dom_attr(attrIsPaging    ,  setAttrIsPaging      ,  @"is-paging");
+@def_dom_attr(attrIsContinuous,  setAttrIsContinuous  ,  @"is-continuous");
+@def_dom_attr(attrStep        ,  setAttrStep          ,  @"step");
+@def_dom_attr(attrIsOn        ,  setAttrIsOn          ,  @"is-on");
+@def_dom_attr(attrIsOff       ,  setAttrIsOff         ,  @"is-off");
 
-@def_dom_attr(attrPlaceholder,         setAttrPlaceholder,         @"placeholder");
-@def_dom_attr(attrAutoCapitalization,   setAttrAutoCapitalization,   @"auto-capitalization");
-@def_dom_attr(attrAutoCorrection,      setAttrAutoCorrection,      @"auto-correction");
-@def_dom_attr(attrAutoClears,         setAttrAutoClears,         @"auto-clears");
-@def_dom_attr(attrSpellChecking,      setAttrSpellChecking,      @"spell-checking");
-@def_dom_attr(attrKeyboardType,      setAttrKeyboardType,      @"keyboard-type");
-@def_dom_attr(attrKeyboardAppearance,   setAttrKeyboardAppearance,   @"keyboard-appearance");
-@def_dom_attr(attrReturnKeyType,      setAttrReturnKeyType,      @"return-key-type");
-@def_dom_attr(attrIsSecure,         setAttrIsSecure,         @"is-secure");
+@def_dom_attr(attrPlaceholder       ,  setAttrPlaceholder         ,  @"placeholder");
+@def_dom_attr(attrAutoCapitalization,  setAttrAutoCapitalization  ,  @"auto-capitalization");
+@def_dom_attr(attrAutoCorrection    ,  setAttrAutoCorrection      ,  @"auto-correction");
+@def_dom_attr(attrAutoClears        ,  setAttrAutoClears          ,  @"auto-clears");
+@def_dom_attr(attrSpellChecking     ,  setAttrSpellChecking       ,  @"spell-checking");
+@def_dom_attr(attrKeyboardType      ,  setAttrKeyboardType        ,  @"keyboard-type");
+@def_dom_attr(attrKeyboardAppearance,  setAttrKeyboardAppearance  ,  @"keyboard-appearance");
+@def_dom_attr(attrReturnKeyType     ,  setAttrReturnKeyType       ,  @"return-key-type");
+@def_dom_attr(attrIsSecure          ,  setAttrIsSecure            ,  @"is-secure");
 
-@def_dom_attr(attrOnClick,         setAttrOnClick,         @"onclick");
-@def_dom_attr(attrOnSwipe,         setAttrOnSwipe,         @"onswipe");
-@def_dom_attr(attrOnSwipeLeft,      setAttrOnSwipeLeft,      @"onswipe-left");
-@def_dom_attr(attrOnSwipeRight,   setAttrOnSwipeRight,   @"onswipe-right");
-@def_dom_attr(attrOnSwipeUp,      setAttrOnSwipeUp,      @"onswipe-up");
-@def_dom_attr(attrOnSwipeDown,      setAttrOnSwipeDown,      @"onswipe-down");
-@def_dom_attr(attrOnPinch,         setAttrOnPinch,         @"onpinch");
-@def_dom_attr(attrOnPan,         setAttrOnPan,         @"onpan");
+@def_dom_attr(attrOnClick     ,  setAttrOnClick       ,  @"onclick");
+@def_dom_attr(attrOnSwipe     ,  setAttrOnSwipe       ,  @"onswipe");
+@def_dom_attr(attrOnSwipeLeft ,  setAttrOnSwipeLeft   ,  @"onswipe-left");
+@def_dom_attr(attrOnSwipeRight,  setAttrOnSwipeRight  ,  @"onswipe-right");
+@def_dom_attr(attrOnSwipeUp   ,  setAttrOnSwipeUp     ,  @"onswipe-up");
+@def_dom_attr(attrOnSwipeDown ,  setAttrOnSwipeDown   ,  @"onswipe-down");
+@def_dom_attr(attrOnPinch     ,  setAttrOnPinch       ,  @"onpinch");
+@def_dom_attr(attrOnPan       ,  setAttrOnPan         ,  @"onpan");
 
 - (id)init
 {
@@ -125,15 +125,21 @@
    {
       self.implied = NO;
       self.computedStyle = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
 - (void)dealloc
 {
-   self.computedStyle = nil;
-   self.shadowRoot = nil;
-   self.shadowHost = nil;
+   self.computedStyle   = nil;
+   self.shadowRoot      = nil;
+   self.shadowHost      = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 - (void)deepCopyFrom:(IDEAAppletHtmlDomNode *)right
@@ -145,6 +151,8 @@
    
    self.shadowHost = nil;
    self.shadowRoot = [right.shadowRoot clone];
+   
+   return;
 }
 
 #pragma mark -

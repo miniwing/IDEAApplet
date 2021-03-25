@@ -52,19 +52,22 @@
 
 @def_prop_dynamic( IDEAAppletActivityStack *, rootStack );
 
-- (IDEAAppletActivityStack *)rootStack
-{
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStack class]] )
-   {
+- (IDEAAppletActivityStack *)rootStack {
+   
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStack class]] ) {
+      
       return (IDEAAppletActivityStack *)self.rootViewController;
-   }
+      
+   } /* End if () */
    
    return nil;
 }
 
-- (void)setRootStack:(IDEAAppletActivityStack *)activityStack
-{
-   self.rootViewController = activityStack;
+- (void)setRootStack:(IDEAAppletActivityStack *)aActivityStack {
+   
+   self.rootViewController = aActivityStack;
+   
+   return;
 }
 
 @end
@@ -73,284 +76,358 @@
 
 @implementation UIViewController(ActivityStack)
 
-- (IDEAAppletActivityStack *)stack
-{
-   if ( [self isKindOfClass:[IDEAAppletActivityStack class]] )
-   {
+- (IDEAAppletActivityStack *)stack {
+   
+   if ( [self isKindOfClass:[IDEAAppletActivityStack class]] ) {
+      
       return (IDEAAppletActivityStack *)self;
-   }
-   else
-   {
+      
+   } /* End if () */
+   else {
+      
       return (IDEAAppletActivityStack *)self.navigationController;
-   }
-}
-
-#pragma mark -
-
-- (void)startActivity:(IDEAAppletActivity *)activity
-{
-   if ( nil == activity )
-      return;
-
-   if ( self.navigationController )
-   {
-      [self.navigationController pushViewController:activity animated:YES];
-   }
-}
-
-- (void)startActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params
-{
-   if ( nil == activity )
-      return;
-   
-   if ( params && params.count )
-   {
-      IDEAAppletIntent * intent = [IDEAAppletIntent intent];
-      [intent.input setDictionary:params];
-      activity.intent = intent;
-   }
-   
-   if ( self.navigationController )
-   {
-      [self.navigationController pushViewController:activity animated:YES];
-   }
-}
-
-- (void)startActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent
-{
-   if ( nil == activity )
-      return;
-   
-   if ( intent )
-   {
-      activity.intent = intent;
-   }
-
-   if ( self.navigationController )
-   {
-      [self.navigationController pushViewController:activity animated:YES];
-   }
-}
-
-#pragma mark -
-
-- (void)presentActivity:(IDEAAppletActivity *)activity
-{
-   if ( nil == activity )
-      return;
-   
-   [self presentViewController:activity animated:YES completion:nil];
-}
-
-- (void)presentActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params
-{
-   if ( nil == activity )
-      return;
-   
-   if ( params && params.count )
-   {
-      IDEAAppletIntent * intent = [IDEAAppletIntent intent];
-      [intent.input setDictionary:params];
-      activity.intent = intent;
-   }
-   
-   [self presentViewController:activity animated:YES completion:nil];
-}
-
-- (void)presentActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent
-{
-   if ( nil == activity )
-      return;
-   
-   if ( intent )
-   {
-      activity.intent = intent;
-   }
-   
-   [self presentViewController:activity animated:YES completion:nil];
-}
-
-#pragma mark -
-
-- (void)startURL:(NSString *)url, ...
-{
-   if ( url && url.length )
-   {
-      va_list args;
-      va_start( args, url );
       
-      url = [[NSString alloc] initWithFormat:url arguments:args];
-      
-      va_end( args );
-   }
-   
-   [self startURL:url intent:nil callback:nil];
-}
-
-- (void)startURL:(NSString *)url callback:(IntentCallback)callback
-{
-   [self startURL:url intent:nil callback:callback];
-}
-
-- (void)startURL:(NSString *)url params:(NSDictionary *)params
-{
-   IDEAAppletIntent * intent = [IDEAAppletIntent intent:nil params:params];
-   
-   [self startURL:url intent:intent callback:nil];
-}
-
-- (void)startURL:(NSString *)url intent:(IDEAAppletIntent *)intent
-{
-   [self startURL:url intent:intent callback:nil];
-}
-
-- (void)startURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
-{
-   IDEAAppletActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
-   
-   if ( activity )
-   {
-      [self startActivity:activity intent:intent];
-   }
+   } /* End else */
 }
 
 #pragma mark -
 
-- (void)presentURL:(NSString *)url, ...
-{
-   if ( url && url.length )
-   {
-      va_list args;
-      va_start( args, url );
+- (void)startActivity:(IDEAAppletActivity *)aActivity {
+   
+   if ( nil == aActivity ) {
       
-      url = [[NSString alloc] initWithFormat:url arguments:args];
+      return;
       
-      va_end( args );
-   }
+   }  /* End if () */
    
-   [self presentURL:url intent:nil callback:nil];
-}
-
-- (void)presentURL:(NSString *)url params:(NSDictionary *)params
-{
-   IDEAAppletIntent * intent = [IDEAAppletIntent intent:nil params:params];
+   if ( self.navigationController ) {
+      
+      [self.navigationController pushViewController:aActivity animated:YES];
+      
+   } /* End if () */
    
-   [self presentURL:url intent:intent callback:nil];
+   return;
 }
 
-- (void)presentURL:(NSString *)url intent:(IDEAAppletIntent *)intent
-{
-   [self presentURL:url intent:intent callback:nil];
-}
-
-- (void)presentURL:(NSString *)url callback:(IntentCallback)callback
-{
-   [self presentURL:url intent:nil callback:callback];
-}
-
-- (void)presentURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
-{
-   IDEAAppletActivity * activity = [self makeActivityWithURL:urlString intent:intent callback:callback];
+- (void)startActivity:(IDEAAppletActivity *)aActivity params:(NSDictionary *)aParams {
    
-   if ( activity )
-   {
-      [self presentActivity:activity intent:intent];
-   }
+   if ( nil == aActivity ) {
+      
+         return;
+      
+   } /* End if () */
+
+   if ( aParams && aParams.count ) {
+      
+      IDEAAppletIntent  *stIntent   = [IDEAAppletIntent intent];
+      [stIntent.input setDictionary:aParams];
+      aActivity.intent = stIntent;
+      
+   } /* End if () */
+   
+   if ( self.navigationController ) {
+      
+      [self.navigationController pushViewController:aActivity animated:YES];
+      
+   } /* End if () */
+   
+   return;
+}
+
+- (void)startActivity:(IDEAAppletActivity *)aActivity intent:(IDEAAppletIntent *)aIntent {
+   
+   if ( nil == aActivity ) {
+      
+      return;
+      
+   } /* End if () */
+   
+   if ( aIntent ) {
+      
+      aActivity.intent = aIntent;
+      
+   } /* End if () */
+   
+   if ( self.navigationController ) {
+      
+      [self.navigationController pushViewController:aActivity animated:YES];
+      
+   } /* End if () */
+   
+   return;
 }
 
 #pragma mark -
 
-- (IDEAAppletActivity *)makeActivityWithURL:(NSString *)urlString intent:(IDEAAppletIntent *)intent callback:(IntentCallback)callback
-{
-   if ( nil == urlString || 0 == urlString.length )
-   {
+- (void)presentActivity:(IDEAAppletActivity *)aActivity {
+   
+   if ( nil == aActivity ) {
+      
+      return;
+      
+   } /* End if () */
+   
+   [self presentViewController:aActivity animated:YES completion:nil];
+   
+   return;
+}
+
+- (void)presentActivity:(IDEAAppletActivity *)aActivity params:(NSDictionary *)aParams {
+   
+   if ( nil == aActivity )
+      return;
+   
+   if ( aParams && aParams.count ) {
+      
+      IDEAAppletIntent  *stIntent   = [IDEAAppletIntent intent];
+      [stIntent.input setDictionary:aParams];
+      aActivity.intent = stIntent;
+      
+   } /* End if () */
+   
+   [self presentViewController:aActivity animated:YES completion:nil];
+   
+   return;
+}
+
+- (void)presentActivity:(IDEAAppletActivity *)aActivity intent:(IDEAAppletIntent *)aIntent {
+   
+   if ( nil == aActivity ) {
+      
+      return;
+      
+   } /* End if () */
+   
+   if ( aIntent ) {
+      
+      aActivity.intent = aIntent;
+      
+   } /* End if () */
+   
+   [self presentViewController:aActivity animated:YES completion:nil];
+   
+   return;
+}
+
+#pragma mark -
+
+- (void)startURL:(NSString *)aURL, ... {
+   
+   if ( aURL && aURL.length ) {
+      
+      va_list stArgs;
+      va_start( stArgs, aURL );
+      
+      aURL = [[NSString alloc] initWithFormat:aURL arguments:stArgs];
+      
+      va_end( stArgs );
+      
+   } /* End if () */
+   
+   [self startURL:aURL intent:nil callback:nil];
+   
+   return;
+}
+
+- (void)startURL:(NSString *)aURL callback:(IntentCallback)aCallback {
+   
+   [self startURL:aURL intent:nil callback:aCallback];
+   
+   return;
+}
+
+- (void)startURL:(NSString *)aURL params:(NSDictionary *)aParams {
+   
+   IDEAAppletIntent  *stIntent   = [IDEAAppletIntent intent:nil params:aParams];
+   
+   [self startURL:aURL intent:stIntent callback:nil];
+   
+   return;
+}
+
+- (void)startURL:(NSString *)aURL intent:(IDEAAppletIntent *)aIntent {
+   
+   [self startURL:aURL intent:aIntent callback:nil];
+   
+   return;
+}
+
+- (void)startURL:(NSString *)aURL intent:(IDEAAppletIntent *)aIntent callback:(IntentCallback)aCallback {
+   
+   IDEAAppletActivity   *stActivity = [self makeActivityWithURL:aURL intent:aIntent callback:aCallback];
+   
+   if ( stActivity ) {
+      
+      [self startActivity:stActivity intent:aIntent];
+      
+   } /* End if () */
+   
+   return;
+}
+
+#pragma mark -
+
+- (void)presentURL:(NSString *)aURL, ... {
+   
+   if ( aURL && aURL.length ) {
+      
+      va_list stArgs;
+      va_start( stArgs, aURL );
+      
+      aURL = [[NSString alloc] initWithFormat:aURL arguments:stArgs];
+      
+      va_end( stArgs );
+      
+   } /* End if () */
+   
+   [self presentURL:aURL intent:nil callback:nil];
+   
+   return;
+}
+
+- (void)presentURL:(NSString *)aURL params:(NSDictionary *)aParams {
+   
+   IDEAAppletIntent  *stIntent   = [IDEAAppletIntent intent:nil params:aParams];
+   
+   [self presentURL:aURL intent:stIntent callback:nil];
+   
+   return;
+}
+
+- (void)presentURL:(NSString *)aURL intent:(IDEAAppletIntent *)aIntent {
+   
+   [self presentURL:aURL intent:aIntent callback:nil];
+   
+   return;
+}
+
+- (void)presentURL:(NSString *)aURL callback:(IntentCallback)aCallback {
+   
+   [self presentURL:aURL intent:nil callback:aCallback];
+   
+   return;
+}
+
+- (void)presentURL:(NSString *)aURL intent:(IDEAAppletIntent *)aIntent callback:(IntentCallback)aCallback {
+   
+   IDEAAppletActivity * activity = [self makeActivityWithURL:aURL intent:aIntent callback:aCallback];
+   
+   if ( activity ) {
+      
+      [self presentActivity:activity intent:aIntent];
+      
+   } /* End if () */
+   
+   return;
+}
+
+#pragma mark -
+
+- (IDEAAppletActivity *)makeActivityWithURL:(NSString *)aURL intent:(IDEAAppletIntent *)aIntent callback:(IntentCallback)aCallback {
+   
+   if ( nil == aURL || 0 == aURL.length ) {
+      
       ERROR( @"Activity stack, empty url" );
+      
       return nil;
-   }
+      
+   } /* End if () */
    
-   NSURL * url = [NSURL URLWithString:urlString];
-   if ( nil == url )
-   {
-      ERROR( @"Activity stack, invalid url '%@'", urlString );
+   NSURL *stURL   = [NSURL URLWithString:aURL];
+   if ( nil == stURL ) {
+      
+      ERROR( @"Activity stack, invalid url '%@'", aURL );
+      
       return nil;
-   }
+      
+   } /* End if () */
    
-   NSString * resource = url.path;
-   NSString * fragment = url.fragment;
-   NSString * query = url.query;
+   NSString *szResource = stURL.path;
+   NSString *szFragment = stURL.fragment;
+   NSString *szQuery    = stURL.query;
    
-   resource = [resource hasPrefix:@"/"] ? [resource substringFromIndex:1] : resource;
-   resource = [resource hasSuffix:@"/"] ? [resource substringToIndex:resource.length - 1] : resource;
+   szResource = [szResource hasPrefix:@"/"] ? [szResource substringFromIndex:1] : szResource;
+   szResource = [szResource hasSuffix:@"/"] ? [szResource substringToIndex:szResource.length - 1] : szResource;
    
-   IDEAAppletActivity * activity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:resource];
-   if ( nil == activity )
-   {
-      resource = [NSString stringWithFormat:@"/%@", resource];
-      activity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:resource];
+   IDEAAppletActivity   *stActivity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:szResource];
+   
+   if ( nil == stActivity ) {
+      
+      szResource = [NSString stringWithFormat:@"/%@", szResource];
+      stActivity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:szResource];
       
       ERROR( @"Activity router, invalid url '%@'", url );
+      
       return nil;
-   }
+      
+   } /* End if () */
    
-   if ( fragment )
-   {
-      if ( nil == intent )
-      {
-         intent = [IDEAAppletIntent intent];
-      }
+   if ( szFragment ) {
       
-      intent.action = fragment;
-   }
-   
-   if ( callback )
-   {
-      if ( nil == intent )
-      {
-         intent = [IDEAAppletIntent intent];
-      }
-      
-      @weakify( intent );
-      
-      intent.stateChanged = ^
-      {
-         @strongify( intent );
+      if ( nil == aIntent ) {
          
-         callback( intent );
+         aIntent = [IDEAAppletIntent intent];
+         
+      } /* End if () */
+      
+      aIntent.action = szFragment;
+      
+   } /* End if () */
+   
+   if ( aCallback ) {
+      
+      if ( nil == aIntent ) {
+         
+         aIntent = [IDEAAppletIntent intent];
+         
+      } /* End if () */
+      
+      @weakify( aIntent );
+      
+      aIntent.stateChanged = ^ {
+         
+         @strongify( aIntent );
+         
+         aCallback( aIntent );
       };
    }
    
-   if ( query )
-   {
-      if ( nil == intent )
-      {
-         intent = [IDEAAppletIntent intent];
-      }
+   if ( szQuery ) {
       
-      NSArray * pairs = [query componentsSeparatedByString:@"&"];
-      
-      for ( NSString * string in pairs )
-      {
-         NSArray * pair = [string componentsSeparatedByString:@"="];
+      if ( nil == aIntent ) {
          
-         if ( pair && pair.count )
-         {
-            NSString * key = [pair safeObjectAtIndex:0];
-            NSString * value = [pair safeObjectAtIndex:1];
+         aIntent = [IDEAAppletIntent intent];
+         
+      } /* End if () */
+      
+      NSArray  *stPairs = [szQuery componentsSeparatedByString:@"&"];
+      
+      for ( NSString *szString in stPairs ) {
+         
+         NSArray  *stPair = [szString componentsSeparatedByString:@"="];
+         
+         if ( stPair && stPair.count ) {
             
-            [intent setObject:value forKey:key];
-         }
-      }
-   }
+            NSString *szKey   = [stPair safeObjectAtIndex:0];
+            NSString *szValue = [stPair safeObjectAtIndex:1];
+            
+            [aIntent setObject:szValue forKey:szKey];
+            
+         } /* End if () */
+         
+      } /* End for () */
+      
+   } /* End if () */
    
-   return activity;
+   return stActivity;
 }
 
 @end
 
 #pragma mark -
 
-@implementation IDEAAppletActivityStack
-{
+@implementation IDEAAppletActivityStack {
+   
    BOOL _inited;
 }
 
@@ -361,14 +438,14 @@ BASE_CLASS( IDEAAppletActivityStack )
 
 #pragma mark -
 
-- (NSArray *)activities
-{
+- (NSArray *)activities {
+   
    NSMutableArray * array = [NSMutableArray nonRetainingArray];
    
-   for ( UIViewController * activity in self.viewControllers )
-   {
-      if ( [activity isKindOfClass:[IDEAAppletActivity class]] )
-      {
+   for ( UIViewController * activity in self.viewControllers ) {
+      
+      if ( [activity isKindOfClass:[IDEAAppletActivity class]] ) {
+         
          [array addObject:activity];
       }
    }
@@ -376,16 +453,16 @@ BASE_CLASS( IDEAAppletActivityStack )
    return array;
 }
 
-- (IDEAAppletActivity *)activity
-{
+- (IDEAAppletActivity *)activity {
+   
    UIViewController * controller = self.topViewController;
-
+   
    if ( nil == controller )
       return nil;
-
+   
    if ( NO == [controller isKindOfClass:[IDEAAppletActivity class]] )
       return nil;
-
+   
    IDEAAppletActivity * board = (IDEAAppletActivity *)controller;
    UNUSED( board.view );
    return board;
@@ -393,21 +470,21 @@ BASE_CLASS( IDEAAppletActivityStack )
 
 #pragma mark -
 
-+ (IDEAAppletActivityStack *)stack
-{
++ (IDEAAppletActivityStack *)stack {
+   
    return [[IDEAAppletActivityStack alloc] init];
 }
 
-+ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)activity
-{
++ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)activity {
+   
    return [[IDEAAppletActivityStack alloc] initWithActivity:activity];
 }
 
-- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity
-{
+- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity {
+   
    self = [super initWithNavigationBarClass:nil toolbarClass:nil];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.navigationBarHidden = NO;
       self.view.backgroundColor = [UIColor whiteColor];
       self.viewControllers = [NSArray arrayWithObject:activity];
@@ -415,48 +492,48 @@ BASE_CLASS( IDEAAppletActivityStack )
    return self;
 }
 
-- (void)pushActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated
-{
+- (void)pushActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated {
+   
    if ( nil == activity )
       return;
-
-//   if ( activity.view )
-//   {
-      [self pushViewController:activity animated:animated];
-//   }
+   
+   //   if ( activity.view )
+   //   {
+   [self pushViewController:activity animated:animated];
+   //   }
 }
 
-- (void)popActivityAnimated:(BOOL)animated
-{
+- (void)popActivityAnimated:(BOOL)animated {
+   
    [self popViewControllerAnimated:animated];
 }
 
-- (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated
-{
+- (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated {
+   
    if ( nil == activity )
       return;
    
    [self popToViewController:activity animated:animated];
 }
 
-- (void)popToFirstActivityAnimated:(BOOL)animated
-{
+- (void)popToFirstActivityAnimated:(BOOL)animated {
+   
    [self popToViewController:self.topViewController animated:animated];
 }
 
-- (void)popAllActivities
-{
+- (void)popAllActivities {
+   
    self.viewControllers = [NSArray array];
 }
 
 #pragma mark -
 
-- (void)setView:(UIView *)newView
-{
+- (void)setView:(UIView *)newView {
+   
    [super setView:newView];
    
-   if ( IOS7_OR_LATER )
-   {
+   if ( IOS7_OR_LATER ) {
+      
       self.edgesForExtendedLayout = UIRectEdgeNone;
       self.extendedLayoutIncludesOpaqueBars = NO;
       self.modalPresentationCapturesStatusBarAppearance = NO;
@@ -468,144 +545,144 @@ BASE_CLASS( IDEAAppletActivityStack )
    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void)loadView
-{
+- (void)loadView {
+   
    [super loadView];
    
    self.view.backgroundColor = [UIColor whiteColor];
-//   self.navigationController.navigationBar.clipsToBounds = YES;
+   //   self.navigationController.navigationBar.clipsToBounds = YES;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+   
    [super viewDidLoad];
 }
 
-- (void)viewWillLayoutSubviews
-{
+- (void)viewWillLayoutSubviews {
+   
    [super viewWillLayoutSubviews];
 }
 
-- (void)viewDidLayoutSubviews
-{
+- (void)viewDidLayoutSubviews {
+   
    [super viewDidLayoutSubviews];
    
-   if ( self.topViewController )
-   {
-//      if ( [self.topViewController isViewLoaded] )
-//      {
-//         self.topViewController.view.frame = self.view.bounds;
-//      }
-
+   if ( self.topViewController ) {
+      
+      //      if ( [self.topViewController isViewLoaded] )
+      //      {
+      //         self.topViewController.view.frame = self.view.bounds;
+      //      }
+      
       [self.topViewController viewDidLayoutSubviews];
    }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+   
    [super viewWillAppear:animated];
    
-   if ( self.topViewController )
-   {
-//      if ( [self.topViewController isViewLoaded] )
-//      {
-//         self.topViewController.view.frame = self.view.bounds;
-//      }
-
+   if ( self.topViewController ) {
+      
+      //      if ( [self.topViewController isViewLoaded] )
+      //      {
+      //         self.topViewController.view.frame = self.view.bounds;
+      //      }
+      
       [self.topViewController viewWillAppear:animated];
    }
    
    [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+   
    [super viewDidAppear:animated];
    
-   if ( self.topViewController )
-   {
-//      if ( [self.topViewController isViewLoaded] )
-//      {
-//         self.topViewController.view.frame = self.view.bounds;
-//      }
-
+   if ( self.topViewController ) {
+      
+      //      if ( [self.topViewController isViewLoaded] )
+      //      {
+      //         self.topViewController.view.frame = self.view.bounds;
+      //      }
+      
       [self.topViewController viewDidAppear:animated];
    }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
+   
    [super viewWillDisappear:animated];
    
-   if ( self.topViewController )
-   {
+   if ( self.topViewController ) {
+      
       [self.topViewController viewWillDisappear:animated];
    }
 }
 
 // Called after the view was dismissed, covered or otherwise hidden. Default does nothing
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
+   
    [super viewDidDisappear:animated];
    
-   if ( self.topViewController )
-   {
+   if ( self.topViewController ) {
+      
       [self.topViewController viewDidDisappear:animated];
    }
 }
 
 #pragma mark -
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+   
    return YES;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+   
    return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
+   
    return YES;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-   if ( self.topViewController )
-   {
-//      if ( [self.topViewController isViewLoaded] )
-//      {
-//         self.topViewController.view.frame = self.view.bounds;
-//      }
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+   
+   if ( self.topViewController ) {
+      
+      //      if ( [self.topViewController isViewLoaded] )
+      //      {
+      //         self.topViewController.view.frame = self.view.bounds;
+      //      }
       
       [self.topViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
    }
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-   if ( self.topViewController )
-   {
-//      if ( [self.topViewController isViewLoaded] )
-//      {
-//         self.topViewController.view.frame = self.view.bounds;
-//      }
-
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+   
+   if ( self.topViewController ) {
+      
+      //      if ( [self.topViewController isViewLoaded] )
+      //      {
+      //         self.topViewController.view.frame = self.view.bounds;
+      //      }
+      
       [self.topViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
    }
 }
 
 #pragma mark -
 
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidden {
+   
    return NO;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
+   
    return UIStatusBarStyleLightContent;
 }
 
@@ -628,12 +705,12 @@ BASE_CLASS( IDEAAppletActivityStack )
 
 TEST_CASE( UI, ActivityStack )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

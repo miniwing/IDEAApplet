@@ -50,18 +50,18 @@
 
 @def_prop_dynamic( IDEAAppletActivityStackGroup *, rootStackGroup );
 
-- (IDEAAppletActivityStackGroup *)rootStackGroup
-{
-   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStackGroup class]] )
-   {
+- (IDEAAppletActivityStackGroup *)rootStackGroup {
+   
+   if ( self.rootViewController && [self.rootViewController isKindOfClass:[IDEAAppletActivityStackGroup class]] ) {
+      
       return (IDEAAppletActivityStackGroup *)self.rootViewController;
    }
    
    return nil;
 }
 
-- (void)setRootStackGroup:(IDEAAppletActivityStackGroup *)group
-{
+- (void)setRootStackGroup:(IDEAAppletActivityStackGroup *)group {
+   
    self.rootViewController = group;
 }
 
@@ -89,26 +89,26 @@
 @def_prop_strong( UIViewController *,   instance );
 @def_prop_strong( Class,            classType );
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.name = nil;
    self.instance = nil;
    self.classType = nil;
 }
 
-- (id)createInstance
-{
-   if ( nil == self.instance )
-   {
+- (id)createInstance {
+   
+   if ( nil == self.instance ) {
+      
       self.instance = [[self.classType alloc] init];
    }
    return self.instance;
@@ -118,8 +118,8 @@
 
 #pragma mark -
 
-@implementation IDEAAppletActivityStackGroup
-{
+@implementation IDEAAppletActivityStackGroup {
+   
    NSString *            _name;
    NSMutableDictionary *   _mapping;
 }
@@ -129,24 +129,24 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 @def_prop_dynamic( IDEAAppletActivity *,      activity );
 @def_prop_dynamic( IDEAAppletActivityStack *,   stack );
 
-+ (IDEAAppletActivityStackGroup *)stackGroup
-{
++ (IDEAAppletActivityStackGroup *)stackGroup {
+   
    return [[self alloc] init];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _name = nil;
       _mapping = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    _name = nil;
    
    [_mapping removeAllObjects];
@@ -155,8 +155,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 
 #pragma mark -
 
-- (IDEAAppletActivity *)activity
-{
+- (IDEAAppletActivity *)activity {
+   
    if ( nil == _name )
       return nil;
    
@@ -170,8 +170,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    return (IDEAAppletActivity *)item.instance;
 }
 
-- (IDEAAppletActivityStack *)stack
-{
+- (IDEAAppletActivityStack *)stack {
+   
    if ( nil == _name )
       return nil;
    
@@ -181,42 +181,42 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    
    if ( NO == [item.instance isKindOfClass:[IDEAAppletActivityStack class]] )
       return nil;
-
+   
    return (IDEAAppletActivityStack *)item.instance;
 }
 
 #pragma mark -
 
-- (void)map:(NSString *)name forClass:(Class)classType
-{
+- (void)map:(NSString *)name forClass:(Class)classType {
+   
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
    if ( nil == name || nil == classType )
       return;
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
-   if ( nil == item )
-   {
+   if ( nil == item ) {
+      
       item = [[IDEAAppletActivityStackGroupItem alloc] init];
-
+      
       item.order = _mapping.count;
       item.name = name;
       item.classType = classType;
-
+      
       [_mapping setObject:item forKey:name];
    }
 }
 
-- (void)map:(NSString *)name forActivity:(IDEAAppletActivity *)activity
-{
+- (void)map:(NSString *)name forActivity:(IDEAAppletActivity *)activity {
+   
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
    if ( nil == name || nil == activity )
       return;
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
-   if ( nil == item )
-   {
+   if ( nil == item ) {
+      
       item = [[IDEAAppletActivityStackGroupItem alloc] init];
       
       item.order = _mapping.count;
@@ -227,102 +227,102 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    }
 }
 
-- (void)map:(NSString *)name forActivityStack:(IDEAAppletActivityStack *)activityStack
-{
+- (void)map:(NSString *)name forActivityStack:(IDEAAppletActivityStack *)activityStack {
+   
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
    if ( nil == name || nil == activityStack )
       return;
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
-   if ( nil == item )
-   {
+   if ( nil == item ) {
+      
       item = [[IDEAAppletActivityStackGroupItem alloc] init];
       
       item.order = _mapping.count;
       item.name = name;
       item.instance = activityStack;
-
+      
       [_mapping setObject:item forKey:name];
    }
 }
 
-- (BOOL)open:(NSString *)name
-{
+- (BOOL)open:(NSString *)name {
+   
    INFO( @"StackGroup '%p', open '%@'", self, name );
    
    if ( 0 == name.length )
       return NO;
-
+   
    if ( _name && [_name isEqualToString:name] )
       return NO;
-
+   
    IDEAAppletActivityStackGroupItem * prevItem = _name ? [_mapping objectForKey:_name] : nil;
    IDEAAppletActivityStackGroupItem * currItem = [_mapping objectForKey:name];
-
+   
    if ( prevItem == currItem )
       return NO;
-
+   
    CATransition * transition = [CATransition animation];
    [transition setDuration:0.3f];
    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
    [transition setType:kCATransitionFade];
    [self.view.layer addAnimation:transition forKey:nil];
-
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
-      if ( NO == [item.name isEqualToString:name] )
-      {
+   
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
+      if ( NO == [item.name isEqualToString:name] ) {
+         
          UIViewController * controller = (UIViewController *)item.instance;
-         if ( controller )
-         {
+         if ( controller ) {
+            
             [controller.view setHidden:YES];
          }
       }
    }
-
-//   if ( prevItem )
-//   {
-//      UIViewController * prevController = (UIViewController *)prevItem.instance;
-//      if ( prevController )
-//      {
-//         [prevController viewWillDisappear:NO];
-//         [prevController viewDidDisappear:NO];
-//      }
-//   }
-
+   
+   //   if ( prevItem )
+   //   {
+   //      UIViewController * prevController = (UIViewController *)prevItem.instance;
+   //      if ( prevController )
+   //      {
+   //         [prevController viewWillDisappear:NO];
+   //         [prevController viewDidDisappear:NO];
+   //      }
+   //   }
+   
    _name = name;
-
-   if ( currItem )
-   {
+   
+   if ( currItem ) {
+      
       UIViewController * currController = (UIViewController *)[currItem createInstance];
-      if ( currController )
-      {
-         if ( currController.view != self.view )
-         {
-//            [currController.view removeFromSuperview];
+      if ( currController ) {
+         
+         if ( currController.view != self.view ) {
+            
+            //            [currController.view removeFromSuperview];
             [self.view addSubview:currController.view];
          }
          
-//         [currController viewWillAppear:NO];
-//         [currController viewDidAppear:NO];
+         //         [currController viewWillAppear:NO];
+         //         [currController viewDidAppear:NO];
       }
    }
    
-//   [self viewWillAppear:NO];
-//   [self viewDidAppear:NO];
+   //   [self viewWillAppear:NO];
+   //   [self viewDidAppear:NO];
    
    return YES;
 }
 
 #pragma mark -
 
-- (void)setView:(UIView *)newView
-{
+- (void)setView:(UIView *)newView {
+   
    [super setView:newView];
    
-   if ( IOS7_OR_LATER )
-   {
+   if ( IOS7_OR_LATER ) {
+      
       self.edgesForExtendedLayout = UIRectEdgeNone;
       self.extendedLayoutIncludesOpaqueBars = NO;
       self.modalPresentationCapturesStatusBarAppearance = NO;
@@ -334,104 +334,104 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void)loadView
-{
+- (void)loadView {
+   
    [super loadView];
    
    self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+   
    [super viewDidLoad];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+   
    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller )
-      {
+      if ( controller ) {
+         
          controller.view.frame = self.view.bounds;
          [controller willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
       }
    }
 }
 
-- (void)viewWillLayoutSubviews
-{
+- (void)viewWillLayoutSubviews {
+   
    [super viewWillLayoutSubviews];
 }
 
-- (void)viewDidLayoutSubviews
-{
+- (void)viewDidLayoutSubviews {
+   
    [super viewDidLayoutSubviews];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller && [controller isViewLoaded] )
-      {
+      if ( controller && [controller isViewLoaded] ) {
+         
          controller.view.frame = self.view.bounds;
          [controller viewDidLayoutSubviews];
       }
    }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+   
    [super viewWillAppear:animated];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller && [controller isViewLoaded] )
-      {
+      if ( controller && [controller isViewLoaded] ) {
+         
          [controller viewWillAppear:animated];
       }
    }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
+   
    [super viewDidAppear:animated];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller && [controller isViewLoaded] )
-      {
+      if ( controller && [controller isViewLoaded] ) {
+         
          [controller viewDidAppear:animated];
       }
    }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
+   
    [super viewWillDisappear:animated];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller && [controller isViewLoaded] )
-      {
+      if ( controller && [controller isViewLoaded] ) {
+         
          [controller viewWillDisappear:animated];
       }
    }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
+   
    [super viewDidDisappear:animated];
    
-   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues )
-   {
+   for ( IDEAAppletActivityStackGroupItem * item in _mapping.allValues ) {
+      
       UIViewController * controller = (UIViewController *)item.instance;
-      if ( controller && [controller isViewLoaded] )
-      {
+      if ( controller && [controller isViewLoaded] ) {
+         
          [controller viewDidDisappear:animated];
       }
    }
@@ -449,12 +449,12 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
 
 TEST_CASE( UI, ActivityStackGroup )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -42,17 +42,17 @@
 
 @implementation UIViewController(IDEAApplet)
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
 }
 
 @end
@@ -67,12 +67,12 @@
 
 TEST_CASE( UI, ViewController )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

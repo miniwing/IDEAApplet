@@ -46,8 +46,9 @@
 
 @implementation __ClassLoader_UI
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
+   return;
 }
 
 @end

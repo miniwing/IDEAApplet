@@ -51,247 +51,288 @@
 
 #pragma mark -
 
-@implementation IDEAAppletIntentBus
-{
+@implementation IDEAAppletIntentBus {
+   
    NSMutableDictionary * _handlers;
 }
 
 @def_singleton( IDEAAppletIntentBus )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   
+   if ( self ) {
+      
       _handlers = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_handlers removeAllObjects];
-   _handlers = nil;
+   _handlers   = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)routes:(IDEAAppletIntent *)intent target:(id)target
-{
-   if ( nil == target )
-   {
-//      ERROR( @"No intent target" );
-      return;
-   }
+- (void)routes:(IDEAAppletIntent *)aIntent target:(id)aTarget {
    
-   NSMutableArray * classes = [NSMutableArray nonRetainingArray];
-   
-   for ( Class clazz = [target class]; nil != clazz; clazz = class_getSuperclass(clazz) )
-   {
-      [classes addObject:clazz];
-   }
-   
-   NSString *   intentClass = nil;
-   NSString *   intentMethod = nil;
-
-   if ( intent.action )
-   {
-      if ( [intent.action hasPrefix:@"intent."] )
-      {
-         NSArray * array = [intent.action componentsSeparatedByString:@"."];
-
-         intentClass = (NSString *)[array safeObjectAtIndex:1];
-         intentMethod = (NSString *)[array safeObjectAtIndex:2];
-      }
-      else
-      {
-         NSArray * array = [intent.action componentsSeparatedByString:@"/"];
-
-         intentClass = (NSString *)[array safeObjectAtIndex:0];
-         intentMethod = (NSString *)[array safeObjectAtIndex:1];
-
-         if ( intentMethod )
-         {
-            intentMethod = [intentMethod stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-            intentMethod = [intentMethod stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-            intentMethod = [intentMethod stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-         }
-      }
-   }
-   
-   for ( Class targetClass in classes )
-   {
-      NSString * cacheName = [NSString stringWithFormat:@"%@/%@", intent.action, [targetClass description]];
-      NSString * cachedSelectorName = [_handlers objectForKey:cacheName];
+   if ( nil == aTarget ) {
       
-      if ( cachedSelectorName )
-      {
-         SEL cachedSelector = NSSelectorFromString( cachedSelectorName );
-         if ( cachedSelector )
-         {
-            BOOL hit = [self intent:intent perform:cachedSelector class:targetClass target:target];
-            if ( hit )
-            {
+      //      ERROR( @"No intent target" );
+      
+      return;
+      
+   } /* End if () */
+   
+   NSMutableArray *stClasses  = [NSMutableArray nonRetainingArray];
+   
+   for ( Class stClass = [aTarget class]; nil != stClass; stClass = class_getSuperclass(stClass) ) {
+      
+      [stClasses addObject:stClass];
+      
+   } /* End if () */
+   
+   NSString *szIntentClass    = nil;
+   NSString *szIntentMethod   = nil;
+   
+   if ( aIntent.action ) {
+      
+      if ( [aIntent.action hasPrefix:@"intent."] ) {
+         
+         NSArray * array = [aIntent.action componentsSeparatedByString:@"."];
+         
+         szIntentClass = (NSString *)[array safeObjectAtIndex:1];
+         szIntentMethod = (NSString *)[array safeObjectAtIndex:2];
+         
+      } /* End if () */
+      else {
+         
+         NSArray  *stArray = [aIntent.action componentsSeparatedByString:@"/"];
+         
+         szIntentClass  = (NSString *)[stArray safeObjectAtIndex:0];
+         szIntentMethod = (NSString *)[stArray safeObjectAtIndex:1];
+         
+         if ( szIntentMethod ) {
+            
+            szIntentMethod = [szIntentMethod stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+            szIntentMethod = [szIntentMethod stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+            szIntentMethod = [szIntentMethod stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            
+         } /* End if () */
+         
+      } /* End else */
+      
+   } /* End if () */
+   
+   for ( Class targetClass in stClasses ) {
+      
+      NSString *szCacheName            = [NSString stringWithFormat:@"%@/%@", aIntent.action, [targetClass description]];
+      NSString *szCachedSelectorName   = [_handlers objectForKey:szCacheName];
+      
+      if ( szCachedSelectorName ) {
+         
+         SEL    stCachedSelector = NSSelectorFromString( szCachedSelectorName );
+         if ( stCachedSelector ) {
+            
+            BOOL   bHit    = [self intent:aIntent perform:stCachedSelector class:targetClass target:aTarget];
+            if ( bHit ) {
+               
 //               continue;
                break;
-            }
-         }
-      }
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
+      } /* End if () */
       
-//      do
+      //      do
       {
-         NSString *   selectorName = nil;
-         SEL         selector = nil;
-         BOOL      performed = NO;
+         
+         NSString *szSelectorName   = nil;
+         SEL       stSelector       = nil;
+         BOOL      bPerformed       = NO;
          
          // eg. handleIntent( Class, Intent )
-
-         if ( intentClass && intentMethod )
-         {
-            selectorName = [NSString stringWithFormat:@"handleIntent____%@____%@:", intentClass, intentMethod];
-            selector = NSSelectorFromString( selectorName );
+         
+         if ( szIntentClass && szIntentMethod ) {
             
-            performed = [self intent:intent perform:selector class:targetClass target:target];
-            if ( performed )
-            {
-               [_handlers setObject:selectorName forKey:cacheName];
+            szSelectorName = [NSString stringWithFormat:@"handleIntent____%@____%@:", szIntentClass, szIntentMethod];
+            stSelector = NSSelectorFromString( szSelectorName );
+            
+            bPerformed = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+            if ( bPerformed ) {
+               
+               [_handlers setObject:szSelectorName forKey:szCacheName];
                break;
             }
-
+            
             // eg. handleIntent( intent )
             
-            if ( [[targetClass description] isEqualToString:intentClass] )
-            {
-               selectorName = [NSString stringWithFormat:@"handleIntent____%@:", intentMethod];
-               selector = NSSelectorFromString( selectorName );
+            if ( [[targetClass description] isEqualToString:szIntentClass] ) {
                
-               performed = [self intent:intent perform:selector class:targetClass target:target];
-               if ( performed )
-               {
-                  [_handlers setObject:selectorName forKey:cacheName];
+               szSelectorName = [NSString stringWithFormat:@"handleIntent____%@:", szIntentMethod];
+               stSelector = NSSelectorFromString( szSelectorName );
+               
+               bPerformed = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+               if ( bPerformed ) {
+                  
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
                   break;
                }
             }
          }
-
+         
          // eg. handleIntent( Class )
-
-         if ( intentClass )
-         {
-            selectorName = [NSString stringWithFormat:@"handleIntent____%@:", intentClass];
-            selector = NSSelectorFromString( selectorName );
+         
+         if ( szIntentClass ) {
             
-            performed = [self intent:intent perform:selector class:targetClass target:target];
-            if ( performed )
-            {
-               [_handlers setObject:selectorName forKey:cacheName];
+            szSelectorName = [NSString stringWithFormat:@"handleIntent____%@:", szIntentClass];
+            stSelector = NSSelectorFromString( szSelectorName );
+            
+            bPerformed = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+            if ( bPerformed ) {
+               
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
-
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
          // eg. handleIntent( helloWorld )
          
-         if ( [intent.action hasPrefix:@"intent____"] )
-         {
-            selectorName = [intent.action stringByReplacingOccurrencesOfString:@"intent____" withString:@"handleIntent____"];
-         }
-         else
-         {
-            selectorName = [NSString stringWithFormat:@"handleIntent____%@:", intent.action];
-         }
-
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+         if ( [aIntent.action hasPrefix:@"intent____"] ) {
+            
+            szSelectorName = [aIntent.action stringByReplacingOccurrencesOfString:@"intent____" withString:@"handleIntent____"];
+            
+         } /* End if () */
+         else {
+            
+            szSelectorName = [NSString stringWithFormat:@"handleIntent____%@:", aIntent.action];
+            
+         } /* End if () */
          
-         if ( NO == [selectorName hasSuffix:@":"] )
-         {
-            selectorName = [selectorName stringByAppendingString:@":"];
-         }
-
-         selector = NSSelectorFromString( selectorName );
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
          
-         performed = [self intent:intent perform:selector class:targetClass target:target];
-         if ( performed )
-         {
-            [_handlers setObject:selectorName forKey:cacheName];
+         if ( NO == [szSelectorName hasSuffix:@":"] ) {
+            
+            szSelectorName = [szSelectorName stringByAppendingString:@":"];
+            
+         } /* End if () */
+         
+         stSelector = NSSelectorFromString( szSelectorName );
+         
+         bPerformed = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+         if ( bPerformed ) {
+            
+            [_handlers setObject:szSelectorName forKey:szCacheName];
             break;
-         }
-
+            
+         } /* End if () */
+         
          // eg. handleIntent()
          
-         if ( NO == performed )
-         {
-            selectorName = @"handleIntent____:";
-            selector = NSSelectorFromString( selectorName );
+         if ( NO == bPerformed ) {
             
-            performed = [self intent:intent perform:selector class:targetClass target:target];
-            if ( performed )
-            {
-               [_handlers setObject:selectorName forKey:cacheName];
+            szSelectorName = @"handleIntent____:";
+            stSelector     = NSSelectorFromString( szSelectorName );
+            
+            bPerformed     = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+            
+            if ( bPerformed ) {
+               
+               [_handlers setObject:szSelectorName forKey:szCacheName];
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleIntent:
-
-         if ( NO == performed )
-         {
-            selectorName = @"handleIntent:";
-            selector = NSSelectorFromString( selectorName );
+         
+         if ( NO == bPerformed ) {
             
-            performed = [self intent:intent perform:selector class:targetClass target:target];
-            if ( performed )
-            {
-               [_handlers setObject:selectorName forKey:cacheName];
+            szSelectorName = @"handleIntent:";
+            stSelector = NSSelectorFromString( szSelectorName );
+            
+            bPerformed = [self intent:aIntent perform:stSelector class:targetClass target:aTarget];
+            if ( bPerformed ) {
+               
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
       }
-//      while ( 0 );
-   }
+      //      while ( 0 );
+   }  /* End for () */
+   
+   return;
 }
 
-- (BOOL)intent:(IDEAAppletIntent *)intent perform:(SEL)sel class:(Class)clazz target:(id)target
-{
-   ASSERT( nil != intent );
-   ASSERT( nil != target );
-   ASSERT( nil != sel );
-   ASSERT( nil != clazz );
+- (BOOL)intent:(IDEAAppletIntent *)aIntent perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget {
    
-   BOOL performed = NO;
+   ASSERT( nil != aIntent );
+   ASSERT( nil != aTarget );
+   ASSERT( nil != aSEL );
+   ASSERT( nil != aClass );
+   
+   BOOL   bPerformed    = NO;
    
    // try block
    
-   if ( NO == performed )
-   {
-      IDEAAppletHandler * handler = [target blockHandler];
-      if ( handler )
-      {
-         BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:intent];
-         if ( found )
-         {
-            performed = YES;
-         }
-      }
-   }
+   if ( NO == bPerformed ) {
+      
+      IDEAAppletHandler *stHandler  = [aTarget blockHandler];
+      if ( stHandler ) {
+         
+         BOOL bFound = [stHandler trigger:[NSString stringWithUTF8String:sel_getName(aSEL)] withObject:aIntent];
+         
+         if ( bFound ) {
+            
+            bPerformed = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    // try selector
    
-   if ( NO == performed )
-   {
-      Method method = class_getInstanceMethod( clazz, sel );
-      if ( method )
-      {
-         ImpFuncType imp = (ImpFuncType)method_getImplementation( method );
-         if ( imp )
-         {
-            imp( target, sel, (__bridge void *)intent );
-
-            performed = YES;
-         }
-      }
-   }
-
-   return performed;
+   if ( NO == bPerformed ) {
+      
+      Method stMethod = class_getInstanceMethod( aClass, aSEL );
+      if ( stMethod ) {
+         
+         ImpFuncType stIMP = (ImpFuncType)method_getImplementation( stMethod );
+         if ( stIMP ) {
+            
+            stIMP( aTarget, aSEL, (__bridge void *)aIntent );
+            
+            bPerformed = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
+   
+   return bPerformed;
 }
 
 @end
@@ -306,12 +347,12 @@
 
 TEST_CASE( UI, IntentBus )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

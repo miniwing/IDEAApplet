@@ -42,7 +42,7 @@
 
 @singleton( IDEAAppletIntentBus )
 
-- (void)routes:(IDEAAppletIntent *)intent target:(id)target;
+- (void)routes:(IDEAAppletIntent *)aIntent target:(id)aTarget;
 
 @end
 
