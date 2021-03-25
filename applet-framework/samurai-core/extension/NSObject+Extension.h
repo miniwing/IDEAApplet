@@ -82,7 +82,4 @@
 - (void)unserialize:(id)aObject; // override point
 - (void)zerolize;                // override point
 
-+ (NSString *)className;
-- (NSString *)className;
-
 @end
