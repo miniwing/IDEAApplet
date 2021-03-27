@@ -49,6 +49,7 @@
 - (id)init {
    
     self = [super init];
+   
     if (self) {
        
         _serial      = dispatch_queue_create( "com.idea.applet.serial", DISPATCH_QUEUE_SERIAL );

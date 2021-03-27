@@ -56,12 +56,12 @@
 
 #pragma mark -
 
-@interface NSObject(Singleton)
-
-+ (id)sharedInstance;
-- (id)sharedInstance;
-
-+ (id)sharedInstanceOrNew;
-- (id)sharedInstanceOrNew;
-
-@end
+//@interface NSObject(Singleton)
+//
+//+ (id)sharedInstance;
+//- (id)sharedInstance;
+//
+//+ (id)sharedInstanceOrNew;
+//- (id)sharedInstanceOrNew;
+//
+//@end

@@ -53,26 +53,35 @@
 
 @implementation NSObject(Loader)
 
-- (void)load
-{
+- (void)load {
+   
+   return;
 }
 
-- (void)unload
-{
+
+- (void)unload {
+   
+   return;
 }
 
-- (void)performLoad
-{
+
+- (void)performLoad {
+   
    [self performCallChainWithPrefix:@"before_load" reversed:NO];
    [self performCallChainWithSelector:@selector(load) reversed:NO];
    [self performCallChainWithPrefix:@"after_load" reversed:NO];
+   
+   return;
 }
 
-- (void)performUnload
-{
+
+- (void)performUnload {
+   
    [self performCallChainWithPrefix:@"before_unload" reversed:YES];
    [self performCallChainWithSelector:@selector(unload) reversed:YES];
-   [self performCallChainWithPrefix:@"after_unload" reversed:YES];   
+   [self performCallChainWithPrefix:@"after_unload" reversed:YES];
+   
+   return;
 }
 
 @end
@@ -81,194 +90,234 @@
 
 @implementation NSObject(Trigger)
 
-+ (void)performSelectorWithPrefix:(NSString *)prefixName
-{
-   unsigned int   methodCount = 0;
-   Method *      methodList = class_copyMethodList( self, &methodCount );
++ (void)performSelectorWithPrefix:(NSString *)aPrefixName {
    
-   if ( methodList && methodCount )
-   {
-      for ( NSUInteger i = 0; i < methodCount; ++i )
-      {
-         SEL sel = method_getName( methodList[i] );
+   unsigned int    unMethodCount = 0;
+   Method         *stMethodList  = class_copyMethodList(self, &unMethodCount);
+   
+   if (stMethodList && unMethodCount) {
+      
+      for (NSUInteger H = 0; H < unMethodCount; ++H) {
          
-         const char * name = sel_getName( sel );
-         const char * prefix = [prefixName UTF8String];
+         SEL    stSEL   = method_getName(stMethodList[H]);
          
-         if ( 0 == strcmp(prefix, name) )
-         {
+         const char  *cpcName    = sel_getName(stSEL);
+         const char  *cpcPrefix  = [aPrefixName UTF8String];
+         
+         if (0 == strcmp(cpcPrefix, cpcName)) {
+            
             continue;
-         }
+            
+         } /* End if () */
+         
+         if (0 == strncmp(cpcName, cpcPrefix, strlen(cpcPrefix))) {
+            
+            ImpFuncType stIMPL = (ImpFuncType)method_getImplementation(stMethodList[H]);
+            
+            if (stIMPL) {
+               
+               stIMPL(self, stSEL, nil);
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
+      } /* End for () */
+      
+   } /* End if () */
+   
+   FREE_IF(stMethodList);
+   
+   return;
+}
+
+- (void)performSelectorWithPrefix:(NSString *)aPrefixName {
+   
+   unsigned int    unMethodCount = 0;
+   Method         *stMethodList  = class_copyMethodList([self class], &unMethodCount);
+   
+   if (stMethodList && unMethodCount) {
+      
+      for (NSUInteger i = 0; i < unMethodCount; ++i) {
+         
+         SEL    stSEL   = method_getName(stMethodList[i]);
+         
+         const char *cpcName     = sel_getName(stSEL);
+         const char *cpcPrefix   = [aPrefixName UTF8String];
+         
+         if (0 == strcmp(cpcPrefix, cpcName)) {
+            
+            continue;
+            
+         } /* End if () */
+
+         if (0 == strncmp(cpcName, cpcPrefix, strlen(cpcPrefix))) {
+            
+            ImpFuncType stIMPL = (ImpFuncType)method_getImplementation(stMethodList[i]);
+            if (stIMPL) {
+               
+               stIMPL(self, stSEL, nil);
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
+      } /* End for () */
+      
+   } /* End if () */
+   
+   FREE_IF(stMethodList);
+   
+   return;
+}
+
+
+- (id)performCallChainWithSelector:(SEL)aSEL {
+   
+   return [self performCallChainWithSelector:aSEL reversed:NO];
+}
+
+
+- (id)performCallChainWithSelector:(SEL)aSEL reversed:(BOOL)aFlag {
+   
+   NSMutableArray *stClassStack  = [NSMutableArray nonRetainingArray];
+   
+   for (Class stThisClass = [self class]; nil != stThisClass; stThisClass = class_getSuperclass(stThisClass)) {
+      
+      if (aFlag) {
+         
+         [stClassStack addObject:stThisClass];
+         
+      } /* End if () */
+      else {
+         
+         [stClassStack insertObject:stThisClass atIndex:0];
+         
+      } /* End if () */
+      
+   } /* End for () */
+   
+   ImpFuncType  stPrevImpl    = NULL;
+   
+   for (Class stThisClass in stClassStack)
+   {
+      Method    stMethod   = class_getInstanceMethod(stThisClass, aSEL);
+      if (stMethod) {
+         
+         ImpFuncType stIMPL = (ImpFuncType)method_getImplementation(stMethod);
+         
+         if (stIMPL) {
+            
+            if (stIMPL == stPrevImpl) {
+               
+               continue;
+               
+            } /* End if () */
+
+            stIMPL(self, aSEL, nil);
+            
+            stPrevImpl = stIMPL;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End for () */
+   
+   return self;
+}
+
+
+- (id)performCallChainWithPrefix:(NSString *)aPrefix {
+   
+   return [self performCallChainWithPrefix:aPrefix reversed:YES];
+}
+
+
+- (id)performCallChainWithPrefix:(NSString *)aPrefixName reversed:(BOOL)aFlag {
+   
+   NSMutableArray *stClassStack  = [NSMutableArray nonRetainingArray];
+   
+   for (Class stThisClass = [self class]; nil != stThisClass; stThisClass = class_getSuperclass(stThisClass)) {
+      
+      if (aFlag) {
+         
+         [stClassStack addObject:stThisClass];
+         
+      } /* End if () */
+      else {
+         
+         [stClassStack insertObject:stThisClass atIndex:0];
+         
+      } /* End else */
+      
+   } /* End for () */
+   
+   for (Class stThisClass in stClassStack) {
+      
+      unsigned int    unMethodCount = 0;
+      Method         *stMethodList  = class_copyMethodList(stThisClass, &unMethodCount);
+      
+      if (stMethodList && unMethodCount) {
+         
+         for (NSUInteger H = 0; H < unMethodCount; ++H) {
+            
+            SEL    stSEL   = method_getName(stMethodList[H]);
+            
+            const char  *cpcName    = sel_getName(stSEL);
+            const char  *cpcPrefix  = [aPrefixName UTF8String];
+            
+            if (0 == strcmp(cpcPrefix, cpcName)) {
+               
+               continue;
+               
+            } /* End if () */
+            
+            if (0 == strncmp(cpcName, cpcPrefix, strlen(cpcPrefix))) {
+               
+               ImpFuncType stIMPL = (ImpFuncType)method_getImplementation(stMethodList[H]);
+               if (stIMPL) {
                   
-         if ( 0 == strncmp( name, prefix, strlen(prefix) ) )
-         {
-            ImpFuncType imp = (ImpFuncType)method_getImplementation( methodList[i] );
-            if ( imp )
-            {
-               imp( self, sel, nil );
-            }
-         }
-      }
-   }
-   
-   free( methodList );
-}
-
-- (void)performSelectorWithPrefix:(NSString *)prefixName
-{
-   unsigned int   methodCount = 0;
-   Method *      methodList = class_copyMethodList( [self class], &methodCount );
-   
-   if ( methodList && methodCount )
-   {
-      for ( NSUInteger i = 0; i < methodCount; ++i )
-      {
-         SEL sel = method_getName( methodList[i] );
-         
-         const char * name = sel_getName( sel );
-         const char * prefix = [prefixName UTF8String];
-         
-         if ( 0 == strcmp( prefix, name ) )
-         {
-            continue;
-         }
-         
-         if ( 0 == strncmp( name, prefix, strlen(prefix) ) )
-         {
-            ImpFuncType imp = (ImpFuncType)method_getImplementation( methodList[i] );
-            if ( imp )
-            {
-               imp( self, sel, nil );
-            }
-         }
-      }
-   }
-   
-   free( methodList );
-}
-
-- (id)performCallChainWithSelector:(SEL)sel
-{
-   return [self performCallChainWithSelector:sel reversed:NO];
-}
-
-- (id)performCallChainWithSelector:(SEL)sel reversed:(BOOL)flag
-{
-   NSMutableArray * classStack = [NSMutableArray nonRetainingArray];
-   
-   for ( Class thisClass = [self class]; nil != thisClass; thisClass = class_getSuperclass( thisClass ) )
-   {
-      if ( flag )
-      {
-         [classStack addObject:thisClass];
-      }
-      else
-      {
-         [classStack insertObject:thisClass atIndex:0];
-      }
-   }
-   
-   ImpFuncType prevImp = NULL;
-   
-   for ( Class thisClass in classStack )
-   {
-      Method method = class_getInstanceMethod( thisClass, sel );
-      if ( method )
-      {
-         ImpFuncType imp = (ImpFuncType)method_getImplementation( method );
-         if ( imp )
-         {
-            if ( imp == prevImp )
-            {
-               continue;
-            }
-
-            imp( self, sel, nil );
+                  stIMPL(self, stSEL, nil);
+                  
+               } /* End if () */
+               
+            } /* End if () */
             
-            prevImp = imp;
-         }
-      }
-   }
+         } /* End for () */
+         
+      } /* End if () */
+      
+      FREE_IF(stMethodList);
+      
+   } /* End for () */
    
    return self;
 }
 
-- (id)performCallChainWithPrefix:(NSString *)prefix
-{
-   return [self performCallChainWithPrefix:prefix reversed:YES];
+- (id)performCallChainWithName:(NSString *)aName {
+   
+   return [self performCallChainWithName:aName reversed:NO];
 }
 
-- (id)performCallChainWithPrefix:(NSString *)prefixName reversed:(BOOL)flag
-{
-   NSMutableArray * classStack = [NSMutableArray nonRetainingArray];
+
+- (id)performCallChainWithName:(NSString *)aName reversed:(BOOL)aFlag {
    
-   for ( Class thisClass = [self class]; nil != thisClass; thisClass = class_getSuperclass( thisClass ) )
-   {
-      if ( flag )
-      {
-         [classStack addObject:thisClass];
-      }
-      else
-      {
-         [classStack insertObject:thisClass atIndex:0];
-      }
-   }
-   
-   for ( Class thisClass in classStack )
-   {
-      unsigned int   methodCount = 0;
-      Method *      methodList = class_copyMethodList( thisClass, &methodCount );
+   SEL    stSelector = NSSelectorFromString(aName);
+   if (stSelector) {
       
-      if ( methodList && methodCount )
-      {
-         for ( NSUInteger i = 0; i < methodCount; ++i )
-         {
-            SEL sel = method_getName( methodList[i] );
-            
-            const char * name = sel_getName( sel );
-            const char * prefix = [prefixName UTF8String];
-            
-            if ( 0 == strcmp( prefix, name ) )
-            {
-               continue;
-            }
-            
-            if ( 0 == strncmp( name, prefix, strlen(prefix) ) )
-            {
-               ImpFuncType imp = (ImpFuncType)method_getImplementation( methodList[i] );
-               if ( imp )
-               {
-                  imp( self, sel, nil );
-               }
-            }
-         }
-      }
+      NSString *szPrefix1  = [NSString stringWithFormat:@"before_%@", aName];
+      NSString *szPrefix2  = [NSString stringWithFormat:@"after_%@", aName];
       
-      free( methodList );
-   }
+      [self performCallChainWithPrefix:szPrefix1 reversed:aFlag];
+      [self performCallChainWithSelector:stSelector reversed:aFlag];
+      [self performCallChainWithPrefix:szPrefix2 reversed:aFlag];
+      
+   } /* End if () */
    
    return self;
 }
 
-- (id)performCallChainWithName:(NSString *)name
-{
-   return [self performCallChainWithName:name reversed:NO];
-}
-
-- (id)performCallChainWithName:(NSString *)name reversed:(BOOL)flag
-{
-   SEL selector = NSSelectorFromString( name );
-   if ( selector )
-   {
-      NSString * prefix1 = [NSString stringWithFormat:@"before_%@", name];
-      NSString * prefix2 = [NSString stringWithFormat:@"after_%@", name];
-      
-      [self performCallChainWithPrefix:prefix1 reversed:flag];
-      [self performCallChainWithSelector:selector reversed:flag];
-      [self performCallChainWithPrefix:prefix2 reversed:flag];
-   }
-   return self;
-}
 
 @end
 
@@ -280,15 +329,15 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, Object )
+TEST_CASE(Core, Object)
 {
 }
 
-DESCRIBE( before )
+DESCRIBE(before)
 {
 }
 
-DESCRIBE( after )
+DESCRIBE(after)
 {
 }
 
