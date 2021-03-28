@@ -100,15 +100,15 @@ typedef enum
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource;
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
-- (IDEAAppletSignal *)postSignal:(NSString *)aName;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
+//- (IDEAAppletSignal *)postSignal:(NSString *)aName;
+//- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject;
+//- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource;
+//- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
 - (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue withObject:(NSObject *)aObject;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue from:(id)aSource withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue;
+- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
 
 @end
 
