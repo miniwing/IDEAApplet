@@ -41,7 +41,7 @@
 
 @interface UIViewController(NavigationBar)
 
-@prop_assign( BOOL,   navigationBarShown );
+@prop_assign( BOOL, navigationBarShown );
 @prop_strong( id,   navigationBarTitle );
 @prop_strong( id,   navigationBarBackButton );
 @prop_strong( id,   navigationBarDoneButton );
@@ -57,4 +57,4 @@
 
 @end
 
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
