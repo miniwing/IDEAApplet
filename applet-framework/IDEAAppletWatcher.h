@@ -39,10 +39,10 @@
 @prop_strong( NSMutableArray  *,    sourceFiles );
 @prop_strong( NSString        *,    sourcePath  );
 
-@notification( SourceFileDidChanged )
-@notification( SourceFileDidRemoved )
+@notification( SourceFileDidChanged );
+@notification( SourceFileDidRemoved );
 
-@singleton( IDEAAppletWatcher )
+@singleton( IDEAAppletWatcher );
 
 - (void)watch:(NSString *)path;
 
