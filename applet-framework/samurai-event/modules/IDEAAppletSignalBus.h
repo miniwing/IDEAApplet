@@ -38,11 +38,11 @@
 
 @singleton( IDEAAppletSignalBus )
 
-- (BOOL)send:(IDEAAppletSignal *)signal;
-- (BOOL)forward:(IDEAAppletSignal *)signal;
-- (BOOL)forward:(IDEAAppletSignal *)signal to:(id)target;
+- (BOOL)send   :(IDEAAppletSignal *)aSignal;
+- (BOOL)forward:(IDEAAppletSignal *)aSignal;
+- (BOOL)forward:(IDEAAppletSignal *)aSignal to:(id)aTarget;
 
-- (void)routes:(IDEAAppletSignal *)signal;
-- (void)routes:(IDEAAppletSignal *)signal to:(NSObject *)target forClasses:(NSArray *)classes;
+- (void)routes :(IDEAAppletSignal *)aSignal;
+- (void)routes :(IDEAAppletSignal *)aSignal to:(NSObject *)aTarget forClasses:(NSArray *)aClasses;
 
 @end

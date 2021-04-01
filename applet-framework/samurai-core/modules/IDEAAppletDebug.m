@@ -66,134 +66,148 @@
 @def_prop_strong( NSString *,      clazz );
 @def_prop_strong( NSString *,      method );
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _type = CallFrameType_Unknown;
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
-   self.process = nil;
-   self.clazz = nil;
+- (void)dealloc {
+   
+   self.process= nil;
+   self.clazz  = nil;
    self.method = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (NSString *)description
-{
-   if ( CallFrameType_ObjectC == _type )
-   {
+- (NSString *)description {
+   
+   if ( CallFrameType_ObjectC == _type ) {
+      
       return [NSString stringWithFormat:@"[O] %@(0x%08x + %llu) -> [%@ %@]", _process, (unsigned int)_entry, (unsigned long long)_offset, _clazz, _method];
    }
-   else if ( CallFrameType_NativeC == _type )
-   {
+   else if ( CallFrameType_NativeC == _type ) {
+      
       return [NSString stringWithFormat:@"[C] %@(0x%08x + %llu) -> %@", _process, (unsigned int)_entry, (unsigned long long)_offset, _method];
    }
-   else
-   {
+   else {
+      
       return [NSString stringWithFormat:@"[X] <unknown>(0x%08x + %llu)", (unsigned int)_entry, (unsigned long long)_offset];
-   }   
+   }
 }
 
-+ (NSUInteger)hexValueFromString:(NSString *)text
-{
++ (NSUInteger)hexValueFromString:(NSString *)aText {
+   
    unsigned int number = 0;
-   [[NSScanner scannerWithString:text] scanHexInt:&number];
+   [[NSScanner scannerWithString:aText] scanHexInt:&number];
    return (NSUInteger)number;
 }
 
-+ (id)parseFormat1:(NSString *)line
-{
-//   example: peeper  0x00001eca -[PPAppDelegate application:didFinishLaunchingWithOptions:] + 106
++ (id)parseFormat1:(NSString *)aLine {
+   
+   //   example: peeper  0x00001eca -[PPAppDelegate application:didFinishLaunchingWithOptions:] + 106
    
    static __strong NSRegularExpression * __regex = nil;
-
-   if ( nil == __regex )
-   {
-      NSError * error = NULL;
-      NSString * expr = @"^[0-9]*\\s*([a-z0-9_]+)\\s+(0x[0-9a-f]+)\\s+-\\[([a-z0-9_]+)\\s+([a-z0-9_:]+)]\\s+\\+\\s+([0-9]+)$";
+   
+   if ( nil == __regex ) {
+      
+      NSError  *error = NULL;
+      NSString *expr = @"^[0-9]*\\s*([a-z0-9_]+)\\s+(0x[0-9a-f]+)\\s+-\\[([a-z0-9_]+)\\s+([a-z0-9_:]+)]\\s+\\+\\s+([0-9]+)$";
       
       __regex = [NSRegularExpression regularExpressionWithPattern:expr options:NSRegularExpressionCaseInsensitive error:&error];
-   }
-
-   NSTextCheckingResult * result = [__regex firstMatchInString:line options:0 range:NSMakeRange(0, [line length])];
-
-   if ( result && (__regex.numberOfCaptureGroups + 1) == result.numberOfRanges )
-   {
-      IDEAAppletCallFrame * frame = [[IDEAAppletCallFrame alloc] init];
-      if ( frame )
-      {
-         frame.type = CallFrameType_ObjectC;
-         frame.process = [line substringWithRange:[result rangeAtIndex:1]];
-         frame.entry = [self hexValueFromString:[line substringWithRange:[result rangeAtIndex:2]]];
-         frame.clazz = [line substringWithRange:[result rangeAtIndex:3]];
-         frame.method = [line substringWithRange:[result rangeAtIndex:4]];
-         frame.offset = (NSUInteger)[[line substringWithRange:[result rangeAtIndex:5]] intValue];
+      
+   } /* End if () */
+   
+   NSTextCheckingResult *stResult   = [__regex firstMatchInString:aLine options:0 range:NSMakeRange(0, [aLine length])];
+   
+   if ( stResult && (__regex.numberOfCaptureGroups + 1) == stResult.numberOfRanges ) {
+      
+      IDEAAppletCallFrame  *stFrame = [[IDEAAppletCallFrame alloc] init];
+      if ( stFrame ) {
          
-         return frame;
-      }
-   }
+         stFrame.type      = CallFrameType_ObjectC;
+         stFrame.process   = [aLine substringWithRange:[stResult rangeAtIndex:1]];
+         stFrame.entry     = [self hexValueFromString:[aLine substringWithRange:[stResult rangeAtIndex:2]]];
+         stFrame.clazz     = [aLine substringWithRange:[stResult rangeAtIndex:3]];
+         stFrame.method    = [aLine substringWithRange:[stResult rangeAtIndex:4]];
+         stFrame.offset    = (NSUInteger)[[aLine substringWithRange:[stResult rangeAtIndex:5]] intValue];
+         
+         return stFrame;
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    return nil;
 }
 
-+ (id)parseFormat2:(NSString *)line
-{
-//   example: UIKit 0x0105f42e UIApplicationMain + 1160
++ (id)parseFormat2:(NSString *)aLine {
+   
+   //   example: UIKit 0x0105f42e UIApplicationMain + 1160
    
    static __strong NSRegularExpression * __regex = nil;
    
-   if ( nil == __regex )
-   {
-      NSError * error = NULL;
-      NSString * expr = @"^[0-9]*\\s*([a-z0-9_]+)\\s+(0x[0-9a-f]+)\\s+([a-z0-9_]+)\\s+\\+\\s+([0-9]+)$";
+   if ( nil == __regex ) {
+      
+      NSError  *error = NULL;
+      NSString *expr = @"^[0-9]*\\s*([a-z0-9_]+)\\s+(0x[0-9a-f]+)\\s+([a-z0-9_]+)\\s+\\+\\s+([0-9]+)$";
       
       __regex = [NSRegularExpression regularExpressionWithPattern:expr options:NSRegularExpressionCaseInsensitive error:&error];
-   }
+      
+   } /* End if () */
    
-   NSTextCheckingResult * result = [__regex firstMatchInString:line options:0 range:NSMakeRange(0, [line length])];
+   NSTextCheckingResult *stResult   = [__regex firstMatchInString:aLine options:0 range:NSMakeRange(0, [aLine length])];
    
-   if ( result && (__regex.numberOfCaptureGroups + 1) == result.numberOfRanges )
-   {
-      IDEAAppletCallFrame * frame = [[IDEAAppletCallFrame alloc] init];
-      if ( frame )
-      {
-         frame.type = CallFrameType_NativeC;
-         frame.process = [line substringWithRange:[result rangeAtIndex:1]];
-         frame.entry = [self hexValueFromString:[line substringWithRange:[result rangeAtIndex:2]]];
-         frame.clazz = nil;
-         frame.method = [line substringWithRange:[result rangeAtIndex:3]];
-         frame.offset = (NSUInteger)[[line substringWithRange:[result rangeAtIndex:4]] intValue];
+   if ( stResult && (__regex.numberOfCaptureGroups + 1) == stResult.numberOfRanges ) {
+      
+      IDEAAppletCallFrame  *stFrame = [[IDEAAppletCallFrame alloc] init];
+      if ( stFrame ) {
          
-         return frame;
-      }
-   }
-
+         stFrame.type = CallFrameType_NativeC;
+         stFrame.process = [aLine substringWithRange:[stResult rangeAtIndex:1]];
+         stFrame.entry = [self hexValueFromString:[aLine substringWithRange:[stResult rangeAtIndex:2]]];
+         stFrame.clazz = nil;
+         stFrame.method = [aLine substringWithRange:[stResult rangeAtIndex:3]];
+         stFrame.offset = (NSUInteger)[[aLine substringWithRange:[stResult rangeAtIndex:4]] intValue];
+         
+         return stFrame;
+         
+      } /* End if () */
+      
+   } /* End if () */
+   
    return nil;
 }
 
-+ (id)unknown
-{
++ (id)unknown {
+   
    return [[IDEAAppletCallFrame alloc] init];
 }
 
-+ (id)parse:(NSString *)line
-{
-   if ( 0 == [line length] )
-      return nil;
-
-   id frame1 = [IDEAAppletCallFrame parseFormat1:line];
-   if ( frame1 )
-      return frame1;
++ (id)parse:(NSString *)aLine {
    
-   id frame2 = [IDEAAppletCallFrame parseFormat2:line];
-   if ( frame2 )
+   if ( 0 == [aLine length] )
+      return nil;
+   
+   id frame1 = [IDEAAppletCallFrame parseFormat1:aLine];
+   if ( frame1 ) {
+      return frame1;
+   }
+   
+   id frame2 = [IDEAAppletCallFrame parseFormat2:aLine];
+   if ( frame2 ) {
       return frame2;
-
+   }
+   
    return nil;
 }
 
@@ -208,27 +222,27 @@
 @def_prop_readonly( NSArray *,   callstack );
 
 #if __SAMURAI_DEBUG__
-static void __uncaughtExceptionHandler( NSException * exception )
-{
+static void __uncaughtExceptionHandler( NSException * exception ) {
+   
    fprintf( stderr, "\nUncaught exception: %s\n%s",
-         [[exception description] UTF8String],
-         [[[exception callStackSymbols] description] UTF8String] );
-
+           [[exception description] UTF8String],
+           [[[exception callStackSymbols] description] UTF8String] );
+   
    TRAP();
 }
 #endif   // #if __SAMURAI_DEBUG__
 
 #if __SAMURAI_DEBUG__
-static void __uncaughtSignalHandler( int signal )
-{
+static void __uncaughtSignalHandler( int signal ) {
+   
    fprintf( stderr, "\nUncaught signal: %d", signal );
-
+   
    TRAP();
 }
 #endif   // #if __SAMURAI_DEBUG__
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
 #if __SAMURAI_DEBUG__
    NSSetUncaughtExceptionHandler( &__uncaughtExceptionHandler );
    
@@ -239,36 +253,36 @@ static void __uncaughtSignalHandler( int signal )
    signal( SIGBUS,      &__uncaughtSignalHandler );
    signal( SIGPIPE,   &__uncaughtSignalHandler );
 #endif
-
+   
    [IDEAAppletDebugger sharedInstance];
 }
 
-- (NSArray *)callstack
-{
+- (NSArray *)callstack {
+   
    return [[IDEAAppletDebugger sharedInstance] callstack:MAX_CALLSTACK_DEPTH];
 }
 
-- (NSArray *)callstack:(NSInteger)depth;
-{
+- (NSArray *)callstack:(NSInteger)depth; {
+   
    NSMutableArray * array = [[NSMutableArray alloc] init];
-
+   
    void * stacks[MAX_CALLSTACK_DEPTH] = { 0 };
-
+   
    int frameCount = backtrace( stacks, MIN((int)depth, MAX_CALLSTACK_DEPTH) );
-   if ( frameCount )
-   {
+   if ( frameCount ) {
+      
       char ** symbols = backtrace_symbols( stacks, (int)frameCount );
-      if ( symbols )
-      {
-         for ( int i = 0; i < frameCount; ++i )
-         {
+      if ( symbols ) {
+         
+         for ( int i = 0; i < frameCount; ++i ) {
+            
             NSString * line = [NSString stringWithUTF8String:(const char *)symbols[i]];
             if ( 0 == [line length] )
                continue;
             
             IDEAAppletCallFrame * frame = [IDEAAppletCallFrame parse:line];
-            if ( frame )
-            {
+            if ( frame ) {
+               
                [array addObject:frame];
             }
          }
@@ -280,8 +294,8 @@ static void __uncaughtSignalHandler( int signal )
    return array;
 }
 
-- (void)trap
-{
+- (void)trap {
+   
 #if __SAMURAI_DEBUG__
 #if defined(__ppc__)
    asm("trap");
@@ -291,17 +305,17 @@ static void __uncaughtSignalHandler( int signal )
 #endif
 }
 
-- (void)trace
-{
+- (void)trace {
+   
    [self trace:MAX_CALLSTACK_DEPTH];
 }
 
-- (void)trace:(NSInteger)depth
-{
+- (void)trace:(NSInteger)depth {
+   
    NSArray * callstack = [self callstack:depth];
-
-   if ( callstack && callstack.count )
-   {
+   
+   if ( callstack && callstack.count ) {
+      
       PRINT( [callstack description] );
    }
 }
@@ -312,14 +326,14 @@ static void __uncaughtSignalHandler( int signal )
 
 @implementation NSObject(Debug)
 
-- (id)debugQuickLookObject
-{
+- (id)debugQuickLookObject {
+   
 #if __SAMURAI_DEBUG__
    
    IDEAAppletLogger  *stLogger   = [IDEAAppletLogger sharedInstance];
    
    [stLogger outputCapture];
-
+   
    [self dump];
    
    [stLogger outputRelease];
@@ -333,8 +347,8 @@ static void __uncaughtSignalHandler( int signal )
 #endif   // #if __SAMURAI_DEBUG__
 }
 
-- (void)dump
-{
+- (void)dump {
+   
    return;
 }
 
@@ -348,16 +362,16 @@ static void __uncaughtSignalHandler( int signal )
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, Debug )
-{
+TEST_CASE( Core, Debug ) {
+   
 }
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( backtrace )
-{
+DESCRIBE( backtrace ) {
+   
    NSArray * emptyFrames = [[IDEAAppletDebugger sharedInstance] callstack:0];
    EXPECTED( emptyFrames );
    EXPECTED( emptyFrames.count == 0 );
@@ -371,15 +385,15 @@ DESCRIBE( backtrace )
    EXPECTED( [[frames objectAtIndex:0] isKindOfClass:[IDEAAppletCallFrame class]] );
    
    TRACE();
-
+   
    [[IDEAAppletDebugger sharedInstance] trace];
    [[IDEAAppletDebugger sharedInstance] trace:0];
    [[IDEAAppletDebugger sharedInstance] trace:1];
    [[IDEAAppletDebugger sharedInstance] trace:100000];
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

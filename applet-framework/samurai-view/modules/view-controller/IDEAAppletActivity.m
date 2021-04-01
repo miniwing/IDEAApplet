@@ -137,9 +137,9 @@ static NSMutableArray * __activities = nil;
       
       self.title = [[self class] description];
       
-      _state = ActivityState_Inited;
-      _orientation = [UIApplication sharedApplication].statusBarOrientation;
-      _orientationMask = UIInterfaceOrientationMaskPortrait;
+      _state   = ActivityState_Inited;
+      _orientation      = [UIApplication sharedApplication].statusBarOrientation;
+      _orientationMask  = UIInterfaceOrientationMaskPortrait;
       
       _inited = YES;
    }

@@ -53,11 +53,11 @@
 
 @interface IDEAAppletHandler : NSObject
 
-- (BOOL)trigger:(NSString *)name;
-- (BOOL)trigger:(NSString *)name withObject:(id)object;
+- (BOOL)trigger:(NSString *)aName;
+- (BOOL)trigger:(NSString *)aName withObject:(id)aObject;
 
-- (void)addHandler:(id)handler forName:(NSString *)name;
-- (void)removeHandlerForName:(NSString *)name;
+- (void)addHandler:(id)aHandler forName:(NSString *)aName;
+- (void)removeHandlerForName:(NSString *)aName;
 - (void)removeAllHandlers;
 
 @end

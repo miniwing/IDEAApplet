@@ -50,8 +50,8 @@
 #define MAX_BACKLOG      (64)
 
 #if __SAMURAI_LOGGING__
-static const char * __prefix[] =
-{
+static const char * __prefix[] = {
+   
 #if TARGET_IPHONE_SIMULATOR
    "<#[E]#>",
 #else
@@ -69,19 +69,19 @@ static const char * __prefix[] =
 
 #if __SAMURAI_DEBUG__
 
-static void __NSLogv(NSString * format, va_list args)
-{
+static void __NSLogv(NSString * format, va_list args) {
+   
    [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:format args:args];
 }
 
-static void __NSLog(NSString * format, ...)
-{
-   if (nil == format || NO == [format isKindOfClass:[NSString class]])
-   {
+static void __NSLog(NSString * format, ...) {
+   
+   if (nil == format || NO == [format isKindOfClass:[NSString class]]) {
+      
       return;
       
    } /* End if () */
-
+   
    va_list args;
    
    va_start(args, format);
@@ -95,8 +95,8 @@ static void __NSLog(NSString * format, ...)
 
 #pragma mark -
 
-@implementation IDEAAppletLogger
-{
+@implementation IDEAAppletLogger {
+   
    NSUInteger   _capture;
    NSUInteger   _indent;
 }
@@ -111,16 +111,16 @@ static void __NSLog(NSString * format, ...)
 
 @def_prop_copy(BlockType            ,    outputHandler);
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletLogger sharedInstance];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if (self)
-   {
+   if (self) {
+      
       self.enabled = YES;
       self.output = [NSMutableString string];
       self.buffer = [NSMutableArray array];
@@ -132,15 +132,15 @@ static void __NSLog(NSString * format, ...)
 #endif
       
 #if __SAMURAI_DEBUG__
-      struct rebinding r[] = {
-         {
-            (char *)"NSLog",
-            (void *)__NSLog
-         },
-         {
-            (char *)"NSLogv",
-            (void *)__NSLogv
-         }
+      struct rebinding r[] = { {
+         
+         (char *)"NSLog",
+         (void *)__NSLog
+      }, {
+         
+         (char *)"NSLogv",
+         (void *)__NSLogv
+      }
       };
       
       rebind_symbols(r, 2);
@@ -149,8 +149,8 @@ static void __NSLog(NSString * format, ...)
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
    
    self.output = nil;
@@ -159,78 +159,78 @@ static void __NSLog(NSString * format, ...)
    self.outputHandler = nil;
 }
 
-- (void)toggle
-{
+- (void)toggle {
+   
    _enabled = _enabled ? NO : YES;
 }
 
-- (void)enable
-{
+- (void)enable {
+   
    _enabled = YES;
 }
 
-- (void)disable
-{
+- (void)disable {
+   
    _enabled = NO;
 }
 
-- (void)indent
-{
+- (void)indent {
+   
    _indent += 1;
 }
 
-- (void)indent:(NSUInteger)tabs
-{
+- (void)indent:(NSUInteger)tabs {
+   
    _indent += tabs;
 }
 
-- (void)unindent
-{
-   if (_indent > 0)
-   {
+- (void)unindent {
+   
+   if (_indent > 0) {
+      
       _indent -= 1;
    }
 }
 
-- (void)unindent:(NSUInteger)tabs
-{
-   if (_indent < tabs)
-   {
+- (void)unindent:(NSUInteger)tabs {
+   
+   if (_indent < tabs) {
+      
       _indent = 0;
    }
-   else
-   {
+   else {
+      
       _indent -= tabs;
    }
 }
 
-- (void)outputCapture
-{
-   if (0 == _capture)
-   {
+- (void)outputCapture {
+   
+   if (0 == _capture) {
+      
       [self.output setString:@""];
    }
    
    _capture += 1;
 }
 
-- (void)outputRelease
-{
-   if (_capture > 0)
-   {
+- (void)outputRelease {
+   
+   if (_capture > 0) {
+      
       _capture -= 1;
    }
 }
 
-- (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format, ...
-{
+- (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format, ... {
+   
 #if __SAMURAI_LOGGING__
-   if (nil == format || NO == [format isKindOfClass:[NSString class]])
-   {
+   if (nil == format || NO == [format isKindOfClass:[NSString class]]) {
+      
       return;
       
    } /* End if () */
-
+   
    va_list args;
    va_start(args, format);
    
@@ -242,30 +242,30 @@ static void __NSLog(NSString * format, ...)
    return;
 }
 
-- (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format args:(va_list)params
-{
+- (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format args:(va_list)params {
+   
 #if __SAMURAI_LOGGING__
    
-   if (NO == _enabled || level > _filter)
-   {
+   if (NO == _enabled || level > _filter) {
+      
       return;
       
    } /* End if () */
-
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
    
-   @autoreleasepool
-   {
+   @autoreleasepool {
+      
       const char * prefix = __prefix[level];
-      if (NULL == prefix)
-      {
+      if (NULL == prefix) {
+         
          prefix = "";
          
       } /* End if () */
       
       char tabs[256] = { 0 };
-      for (NSUInteger i = 0; i < _indent; ++i)
-      {
+      for (NSUInteger i = 0; i < _indent; ++i) {
+         
          tabs[i] = '\t';
       }
       
@@ -273,16 +273,16 @@ static void __NSLog(NSString * format, ...)
       size_t diff = ((plen / 4 + 1) * 4) - plen;
       
       char padding[16] = { 0 };
-      for (size_t i = 0; i < diff; ++i)
-      {
+      for (size_t i = 0; i < diff; ++i) {
+         
          padding[i] = ' ';
       }
       
       NSMutableString * content = [[NSMutableString alloc] initWithFormat:(NSString *)format arguments:params];
-      if (content)
-      {
-         if ([content rangeOfString:@"\n"].length)
-         {
+      if (content) {
+         
+         if ([content rangeOfString:@"\n"].length) {
+            
             [content replaceOccurrencesOfString:@"\n"
                                      withString:[NSString stringWithFormat:@"\n%s", _indent ? tabs : "\t\t"]
                                         options:NSCaseInsensitiveSearch
@@ -290,29 +290,29 @@ static void __NSLog(NSString * format, ...)
          }
       }
       
-      if (content && content.length)
-      {
+      if (content && content.length) {
+         
          NSMutableString * text = [[NSMutableString alloc] init];
-         if (text)
-         {
+         if (text) {
+            
             [text appendFormat:@"%s%s%s", prefix, padding, tabs];
             [text appendString:content];
             
-            if ([text rangeOfString:@"%"].length)
-            {
+            if ([text rangeOfString:@"%"].length) {
+               
                [text replaceOccurrencesOfString:@"%"
                                      withString:@"%%"
                                         options:NSLiteralSearch
                                           range:NSMakeRange(0, text.length)];
             }
             
-            if (_capture)
-            {
+            if (_capture) {
+               
                [self.output appendString:text];
                [self.output appendString:@"\n"];
             }
-            else
-            {
+            else {
+               
                fprintf(stderr, "%s\n", [text UTF8String]);
                
                [self.buffer addObject:text];
@@ -323,20 +323,20 @@ static void __NSLog(NSString * format, ...)
 #  undef  MAX_CALLSTACK
 #  define MAX_CALLSTACK   (8)
             
-            if (LogLevel_Error == level)
-            {
+            if (LogLevel_Error == level) {
+               
                fprintf(stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String]);
                
                void *   stacks[MAX_CALLSTACK + 1];
                
                int depth = backtrace(stacks, MAX_CALLSTACK);
-               if (depth)
-               {
+               if (depth) {
+                  
                   char ** symbols = backtrace_symbols(stacks, (int)depth);
-                  if (symbols)
-                  {
-                     for (int i = 2; i < depth; ++i)
-                     {
+                  if (symbols) {
+                     
+                     for (int i = 2; i < depth; ++i) {
+                        
                         fprintf(stderr, "    | %s\n", (const char *)symbols[i]);
                      }
                      
@@ -355,14 +355,14 @@ static void __NSLog(NSString * format, ...)
 #endif
 }
 
-- (void)flush
-{
+- (void)flush {
+   
 #if __SAMURAI_DEBUG__
    
-   for (NSString * text in [self.buffer copy])
-   {
-      if (self.outputHandler)
-      {
+   for (NSString * text in [self.buffer copy]) {
+      
+      if (self.outputHandler) {
+         
          ((BlockTypeVarg)self.outputHandler)(text);
       }
    }
@@ -382,12 +382,12 @@ static void __NSLog(NSString * format, ...)
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE(Core, Log)
-{
+TEST_CASE(Core, Log) {
+   
 }
 
-DESCRIBE(info)
-{
+DESCRIBE(info) {
+   
    // INFO
    
    INFO(nil);
@@ -400,8 +400,8 @@ DESCRIBE(info)
    INFO(@"a", @"format %@", @"");
 }
 
-DESCRIBE(warn)
-{
+DESCRIBE(warn) {
+   
    // WARN
    
    WARN(nil);
@@ -414,8 +414,8 @@ DESCRIBE(warn)
    WARN(@"a", @"format %@", @"");
 }
 
-DESCRIBE(error)
-{
+DESCRIBE(error) {
+   
    // ERROR
    
    ERROR(nil);

@@ -42,28 +42,28 @@
 
 @implementation UIViewController(SignalHandling)
 
-- (NSString *)signalNamespace
-{
+- (NSString *)signalNamespace {
+   
    return [[self class] description];
 }
 
-- (NSString *)signalTag
-{
+- (NSString *)signalTag {
+   
    return nil;
 }
 
-- (NSString *)signalDescription
-{
+- (NSString *)signalDescription {
+   
    return [NSString stringWithFormat:@"%@", [[self class] description]];
 }
 
-- (id)signal_responders
-{
+- (id)signal_responders {
+   
    return nil;
 }
 
-- (id)signalAlias
-{
+- (id)signalAlias {
+   
    return nil;
 }
 
@@ -79,12 +79,12 @@
 
 TEST_CASE( UI, UIViewController_SignalHandling )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -47,85 +47,96 @@
 
 @implementation UIViewController(TemplateLoading)
 
-- (void)loadTemplate
-{
-   self.template = [[IDEAAppletTemplate alloc] init];
+- (void)loadTemplate {
+   
+   self.template  = [[IDEAAppletTemplate alloc] init];
    self.template.responder = self;
    
    [self.template loadClass:[self class]];
+   
+   return;
 }
 
-- (void)unloadTemplate
-{
+- (void)unloadTemplate {
+   
    [self.template stopLoading];
    [self.template.document.renderTree unbindOutletsFrom:self];
    
    self.template.responder = nil;
-   self.template = nil;
+   self.template  = nil;
+   
+   return;
 }
 
-- (void)handleTemplate:(IDEAAppletTemplate *)template
-{
-   ASSERT( template == self.template );
+- (void)handleTemplate:(IDEAAppletTemplate *)aTemplate {
    
-   if ( template.loading )
-   {
+   ASSERT( aTemplate == self.template );
+   
+   if ( aTemplate.loading ) {
+      
    #if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateLoading) reversed:YES];
    #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateLoading];
    #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
-   }
-   else if ( template.loaded )
-   {
-      if ( template.document.renderTree )
-      {
-         UIView * rootView = [self.template.document.renderTree createViewWithIdentifier:nil];
+      
+   } /* End if () */
+   else if ( aTemplate.loaded ) {
+      
+      if ( aTemplate.document.renderTree ) {
          
-         if ( rootView )
-         {
-            if ( [self isViewLoaded] )
-            {
-               rootView.frame = self.view.frame;
+         UIView   *stRootView = [self.template.document.renderTree createViewWithIdentifier:nil];
+         
+         if ( stRootView ) {
+            
+            if ( [self isViewLoaded] ) {
                
-               if ( [self.view isKindOfClass:[UIScrollView class]] )
-               {
-                  __unsafe_unretained UIScrollView * leftView = (UIScrollView *)rootView;
-                  __unsafe_unretained UIScrollView * rightView = (UIScrollView *)self.view;
+               stRootView.frame = self.view.frame;
+               
+               if ( [self.view isKindOfClass:[UIScrollView class]] ) {
                   
-                  leftView.bounces = rightView.bounces;
-                  leftView.contentSize = rightView.contentSize;
-                  leftView.contentInset = rightView.contentInset;
-                  leftView.contentOffset = rightView.contentOffset;
-                  leftView.alwaysBounceVertical = rightView.alwaysBounceVertical;
-                  leftView.alwaysBounceHorizontal = rightView.alwaysBounceHorizontal;
-                  leftView.pagingEnabled = rightView.pagingEnabled;
-                  leftView.scrollEnabled = rightView.scrollEnabled;
-                  leftView.showsHorizontalScrollIndicator = rightView.showsHorizontalScrollIndicator;
-                  leftView.showsVerticalScrollIndicator = rightView.showsVerticalScrollIndicator;
-                  leftView.scrollIndicatorInsets = rightView.scrollIndicatorInsets;
-                  leftView.indicatorStyle = rightView.indicatorStyle;
-                  leftView.decelerationRate = rightView.decelerationRate;
-               }
-            }
+                  __unsafe_unretained UIScrollView *stLeftView    = (UIScrollView *)stRootView;
+                  __unsafe_unretained UIScrollView *stRightView   = (UIScrollView *)self.view;
+                  
+                  stLeftView.bounces      = stRightView.bounces;
+                  stLeftView.contentSize  = stRightView.contentSize;
+                  stLeftView.contentInset = stRightView.contentInset;
+                  stLeftView.contentOffset= stRightView.contentOffset;
+                  stLeftView.alwaysBounceVertical  = stRightView.alwaysBounceVertical;
+                  stLeftView.alwaysBounceHorizontal= stRightView.alwaysBounceHorizontal;
+                  stLeftView.pagingEnabled   = stRightView.pagingEnabled;
+                  stLeftView.scrollEnabled   = stRightView.scrollEnabled;
+                  stLeftView.showsHorizontalScrollIndicator = stRightView.showsHorizontalScrollIndicator;
+                  stLeftView.showsVerticalScrollIndicator   = stRightView.showsVerticalScrollIndicator;
+                  stLeftView.scrollIndicatorInsets = stRightView.scrollIndicatorInsets;
+                  stLeftView.indicatorStyle  = stRightView.indicatorStyle;
+                  stLeftView.decelerationRate= stRightView.decelerationRate;
+                  
+               } /* End if () */
+               
+            } /* End if () */
 
-            self.view = rootView;
+            self.view = stRootView;
             
             [self.template.document.renderTree bindOutletsTo:self];
-         }
-         else
-         {
+            
+         } /* End if () */
+         else {
+            
             [self.template.document.renderTree unbindOutletsFrom:self];
-         }
+            
+         } /* End else */
       }
-      else
-      {
-         if ( [self isViewLoaded] )
-         {
+      else {
+         
+         if ( [self isViewLoaded] ) {
+            
             self.view.renderer = nil;
             self.view = nil;
-         }
-      }
+            
+         } /* End if () */
+         
+      } /* End else */
       
       [self.template.document configureForViewController:self];
       [self.template.document.renderTree rechain];
@@ -135,23 +146,27 @@
    #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateLoaded];
    #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
-   }
-   else if ( template.failed )
-   {
+   } /* End else if () */
+   else if ( aTemplate.failed ) {
+      
    #if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateFailed) reversed:YES];
    #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateFailed];
    #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
-   }
-   else if ( template.cancelled )
-   {
+      
+   } /* End else if () */
+   else if ( aTemplate.cancelled ) {
+      
    #if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateCancelled) reversed:YES];
    #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateCancelled];
    #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
-   }
+      
+   } /* End else if () */
+   
+   return;
 }
 
 #pragma mark -

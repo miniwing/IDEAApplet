@@ -46,32 +46,32 @@
 
 @implementation NSObject(Runtime)
 
-+ (NSArray *)loadedClassNames
-{
++ (NSArray *)loadedClassNames {
+   
    static dispatch_once_t   stOnceToken;
    static NSMutableArray   *stClassNames  = nil;
    
-   dispatch_once(&stOnceToken, ^
-                 {
+   dispatch_once(&stOnceToken, ^ {
+      
       stClassNames = [NSMutableArray array];
       
       unsigned int    unClassesCount   = 0;
       Class          *stClasses        = objc_copyClassList(&unClassesCount);
       
-      for (unsigned int H = 0; H < unClassesCount; ++H)
-      {
+      for (unsigned int H = 0; H < unClassesCount; ++H) {
+         
          Class  stClassType   = stClasses[H];
          
-         if (class_isMetaClass(stClassType))
-         {
+         if (class_isMetaClass(stClassType)) {
+            
             continue;
             
          } /* End if () */
          
          Class  stSuperClass  = class_getSuperclass(stClassType);
          
-         if (nil == stSuperClass)
-         {
+         if (nil == stSuperClass) {
+            
             continue;
             
          } /* End if () */
@@ -90,26 +90,26 @@
    return stClassNames;
 }
 
-+ (NSArray *)subClasses
-{
++ (NSArray *)subClasses {
+   
    int                            nErr                                     = EFAULT;
- 
+   
    NSMutableArray                *stResults                                = [NSMutableArray array];
-
+   
    __TRY;
-
-   for (NSString *szClassName in [self loadedClassNames])
-   {
+   
+   for (NSString *szClassName in [self loadedClassNames]) {
+      
       Class classType = NSClassFromString(szClassName);
       
-      if (classType == self)
-      {
+      if (classType == self) {
+         
          continue;
          
       } /* End if () */
       
-      if (NO == [classType isSubclassOfClass:self])
-      {
+      if (NO == [classType isSubclassOfClass:self]) {
+         
          continue;
          
       } /* End if () */
@@ -123,43 +123,43 @@
    return stResults;
 }
 
-+ (NSArray *)methods
-{
++ (NSArray *)methods {
+   
    return [self methodsUntilClass:[self superclass]];
 }
 
-+ (NSArray *)methodsUntilClass:(Class)aBaseClass
-{
++ (NSArray *)methodsUntilClass:(Class)aBaseClass {
+   
    int                            nErr                                     = EFAULT;
- 
+   
    NSMutableArray                *stMethodNames                            = [NSMutableArray array];
-
+   
    Class                          stThisClass                              = self;
-
+   
    __TRY;
-
+   
    aBaseClass  = aBaseClass ?: [NSObject class];
    
-   while (NULL != stThisClass)
-   {
+   while (NULL != stThisClass) {
+      
       unsigned int    unMethodCount = 0;
       Method         *stMethodList  = class_copyMethodList(stThisClass, &unMethodCount);
       
-      for (unsigned int H = 0; H < unMethodCount; ++H)
-      {
+      for (unsigned int H = 0; H < unMethodCount; ++H) {
+         
          SEL selector = method_getName(stMethodList[H]);
-         if (selector)
-         {
+         if (selector) {
+            
             const char *cstrName = sel_getName(selector);
-            if (NULL == cstrName)
-            {
+            if (NULL == cstrName) {
+               
                continue;
                
             } /* End if () */
             
             NSString    *szSelectorName   = [NSString stringWithUTF8String:cstrName];
-            if (NULL == szSelectorName)
-            {
+            if (NULL == szSelectorName) {
+               
                continue;
                
             } /* End if () */
@@ -174,8 +174,8 @@
       
       stThisClass = class_getSuperclass(stThisClass);
       
-      if (nil == stThisClass || aBaseClass == stThisClass)
-      {
+      if (nil == stThisClass || aBaseClass == stThisClass) {
+         
          break;
          
       } /* End if () */
@@ -183,46 +183,46 @@
    } /* End while () */
    
    __CATCH(nErr);
-
+   
    return stMethodNames;
 }
 
-+ (NSArray *)methodsWithPrefix:(NSString *)prefix
-{
++ (NSArray *)methodsWithPrefix:(NSString *)prefix {
+   
    return [self methodsWithPrefix:prefix untilClass:[self superclass]];
 }
 
-+ (NSArray *)methodsWithPrefix:(NSString *)aPrefix untilClass:(Class)baseClass
-{
++ (NSArray *)methodsWithPrefix:(NSString *)aPrefix untilClass:(Class)baseClass {
+   
    int                            nErr                                     = EFAULT;
-
+   
    NSArray                       *stMethods                                = nil;
    NSMutableArray                *stResult                                 = nil;
-
+   
    __TRY;
-
+   
    stMethods = [self methodsUntilClass:baseClass];
    
-   if (nil == stMethods || 0 == stMethods.count)
-   {
+   if (nil == stMethods || 0 == stMethods.count) {
+      
       break;
       
    } /* End if () */
    
-   if (nil == aPrefix)
-   {
+   if (nil == aPrefix) {
+      
       nErr  = noErr;
       
       break;
-
+      
    } /* End if () */
    
    stResult = [NSMutableArray array];
    
-   for (NSString *szSelectorName in stMethods)
-   {
-      if (NO == [szSelectorName hasPrefix:aPrefix])
-      {
+   for (NSString *szSelectorName in stMethods) {
+      
+      if (NO == [szSelectorName hasPrefix:aPrefix]) {
+         
          continue;
          
       } /* End if () */
@@ -242,39 +242,39 @@
    return stMethods;
 }
 
-+ (NSArray *)properties
-{
++ (NSArray *)properties {
+   
    return [self propertiesUntilClass:[self superclass]];
 }
 
-+ (NSArray *)propertiesUntilClass:(Class)aBaseClass
-{
++ (NSArray *)propertiesUntilClass:(Class)aBaseClass {
+   
    int                            nErr                                     = EFAULT;
- 
+   
    NSMutableArray                *stPropertyNames                          = [NSMutableArray array];
    Class                          stThisClass                              = self;
-
+   
    __TRY;
    
    aBaseClass = aBaseClass ?: [NSObject class];
    
-   while (NULL != stThisClass)
-   {
+   while (NULL != stThisClass) {
+      
       unsigned int       nPropertyCount   = 0;
       objc_property_t   *pstPropertyList  = class_copyPropertyList(stThisClass, &nPropertyCount);
       
-      for (unsigned int i = 0; i < nPropertyCount; ++i)
-      {
+      for (unsigned int i = 0; i < nPropertyCount; ++i) {
+         
          const char * cstrName = property_getName(pstPropertyList[i]);
-         if (NULL == cstrName)
-         {
+         if (NULL == cstrName) {
+            
             continue;
             
          } /* End if () */
          
          NSString * propName = [NSString stringWithUTF8String:cstrName];
-         if (NULL == propName)
-         {
+         if (NULL == propName) {
+            
             continue;
             
          } /* End if () */
@@ -287,8 +287,8 @@
       
       stThisClass = class_getSuperclass(stThisClass);
       
-      if (nil == stThisClass || aBaseClass == stThisClass)
-      {
+      if (nil == stThisClass || aBaseClass == stThisClass) {
+         
          break;
          
       } /* End if () */
@@ -300,31 +300,31 @@
    return stPropertyNames;
 }
 
-+ (NSArray *)propertiesWithPrefix:(NSString *)prefix
-{
++ (NSArray *)propertiesWithPrefix:(NSString *)prefix {
+   
    return [self propertiesWithPrefix:prefix untilClass:[self superclass]];
 }
 
-+ (NSArray *)propertiesWithPrefix:(NSString *)aPrefix untilClass:(Class)aBaseClass
-{
++ (NSArray *)propertiesWithPrefix:(NSString *)aPrefix untilClass:(Class)aBaseClass {
+   
    int                            nErr                                     = EFAULT;
-
+   
    NSArray                       *stProperties                             = nil;
-
+   
    __TRY;
    
    stProperties   = [self propertiesUntilClass:aBaseClass];
    
-   if (nil == stProperties || 0 == stProperties.count)
-   {
+   if (nil == stProperties || 0 == stProperties.count) {
+      
       nErr  = noErr;
       
       break;
       
    } /* End if () */
    
-   if (nil == aPrefix)
-   {
+   if (nil == aPrefix) {
+      
       nErr  = noErr;
       
       break;
@@ -333,15 +333,15 @@
    
    NSMutableArray *stResult = [NSMutableArray array];
    
-   for (NSString * propName in stProperties)
-   {
-      if (NO == [propName hasPrefix:aPrefix])
-      {
+   for (NSString *szPropName in stProperties) {
+      
+      if (NO == [szPropName hasPrefix:aPrefix]) {
+         
          continue;
          
       } /* End if () */
       
-      [stResult addObject:propName];
+      [stResult addObject:szPropName];
       
    } /* End for () */
    
@@ -356,21 +356,21 @@
    return stProperties;
 }
 
-+ (NSArray *)classesWithProtocolName:(NSString *)aProtocolName
-{
++ (NSArray *)classesWithProtocolName:(NSString *)aProtocolName {
+   
    NSMutableArray *results = [[NSMutableArray alloc] init];
    Protocol * protocol = NSProtocolFromString(aProtocolName);
-   for (NSString *szClassName in [self loadedClassNames])
-   {
+   for (NSString *szClassName in [self loadedClassNames]) {
+      
       Class classType = NSClassFromString(szClassName);
-      if (classType == self)
-      {
+      if (classType == self) {
+         
          continue;
          
       } /* End if () */
       
-      if (NO == [classType conformsToProtocol:protocol])
-      {
+      if (NO == [classType conformsToProtocol:protocol]) {
+         
          continue;
          
       } /* End if () */
@@ -382,16 +382,16 @@
    return results;
 }
 
-+ (void *)replaceSelector:(SEL)sel1 withSelector:(SEL)sel2
-{
-   Method method = class_getInstanceMethod(self, sel1);
++ (void *)replaceSelector:(SEL)aSEL1 withSelector:(SEL)aSEL2 {
    
-   IMP implement = (IMP)method_getImplementation(method);
-   IMP implement2 = class_getMethodImplementation(self, sel2);
+   Method    stMethod   = class_getInstanceMethod(self, aSEL1);
    
-   method_setImplementation(method, implement2);
+   IMP       stImplement   = (IMP)method_getImplementation(stMethod);
+   IMP       stImplement2  = class_getMethodImplementation(self, aSEL2);
    
-   return (void *)implement;
+   method_setImplementation(stMethod, stImplement2);
+   
+   return (void *)stImplement;
 }
 
 @end
@@ -406,12 +406,12 @@
 
 TEST_CASE(Core, Runtime)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
 }
 
 TEST_CASE_END

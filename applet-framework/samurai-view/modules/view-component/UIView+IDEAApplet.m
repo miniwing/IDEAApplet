@@ -47,66 +47,66 @@
 
 @implementation UIView(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
-   UIView * newView = [[self alloc] initWithFrame:CGRectZero];
-   newView.renderer = renderer;
-   return newView;
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
+   UIView   *stNewView = [[self alloc] initWithFrame:CGRectZero];
+   stNewView.renderer = renderer;
+   return stNewView;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)aSize
-{
+- (CGSize)computeSizeBySize:(CGSize)aSize {
+   
    return aSize;
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)aWidth
-{
+- (CGSize)computeSizeByWidth:(CGFloat)aWidth {
+   
    return CGSizeMake(aWidth, self.frame.size.height);
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)aHeight
-{
+- (CGSize)computeSizeByHeight:(CGFloat)aHeight {
+   
    return CGSizeMake(self.frame.size.width, aHeight);
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)aDom
-{
+- (void)applyDom:(IDEAAppletDomNode *)aDom {
+   
    return;
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)aStyle
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)aStyle {
+   
    return;
 }
 
-- (void)applyFrame:(CGRect)aNewFrame
-{
+- (void)applyFrame:(CGRect)aNewFrame {
+   
    // TODO: if animation
    
    aNewFrame.origin.x    = isnan(aNewFrame.origin.x) ? 0.0f : aNewFrame.origin.x;
@@ -121,18 +121,18 @@
 
 #pragma mark -
 
-- (BOOL)isCell
-{
+- (BOOL)isCell {
+   
    return NO;
 }
 
-- (BOOL)isCellContainer
-{
+- (BOOL)isCellContainer {
+   
    return NO;
 }
 
-- (NSIndexPath *)computeIndexPath
-{
+- (NSIndexPath *)computeIndexPath {
+   
    return nil;
 }
 

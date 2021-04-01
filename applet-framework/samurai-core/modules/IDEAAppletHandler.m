@@ -46,126 +46,147 @@ typedef void (^ __handlerBlockType )( id object );
 
 @implementation NSObject(BlockHandler)
 
-- (IDEAAppletHandler *)blockHandlerOrCreate
-{
+- (IDEAAppletHandler *)blockHandlerOrCreate {
+   
    IDEAAppletHandler * handler = [self getAssociatedObjectForKey:"blockHandler"];
    
-   if ( nil == handler )
-   {
+   if ( nil == handler ) {
+      
       handler = [[IDEAAppletHandler alloc] init];
       
       [self retainAssociatedObject:handler forKey:"blockHandler"];
-   }
+      
+   } /* End if () */
    
    return handler;
 }
 
-- (IDEAAppletHandler *)blockHandler
-{
+- (IDEAAppletHandler *)blockHandler {
+   
    return [self getAssociatedObjectForKey:"blockHandler"];
 }
 
-- (void)addBlock:(id)block forName:(NSString *)name
-{
-   IDEAAppletHandler * handler = [self blockHandlerOrCreate];
+- (void)addBlock:(id)aBlock forName:(NSString *)aName {
    
-   if ( handler )
-   {
-      [handler addHandler:block forName:name];
+   IDEAAppletHandler *stHandler  = [self blockHandlerOrCreate];
+   
+   if ( stHandler ) {
+      
+      [stHandler addHandler:aBlock forName:aName];
+      
+   } /* End if () */
+   
+   return;
+}
+
+- (void)removeBlockForName:(NSString *)aName {
+   
+   IDEAAppletHandler * handler = [self blockHandler];
+   
+   if ( handler ) {
+      
+      [handler removeHandlerForName:aName];
    }
 }
 
-- (void)removeBlockForName:(NSString *)name
-{
-   IDEAAppletHandler * handler = [self blockHandler];
+- (void)removeAllBlocks {
    
-   if ( handler )
-   {
-      [handler removeHandlerForName:name];
-   }
-}
-
-- (void)removeAllBlocks
-{
-   IDEAAppletHandler * handler = [self blockHandler];
+   IDEAAppletHandler *stHandler  = [self blockHandler];
    
-   if ( handler )
-   {
-      [handler removeAllHandlers];
-   }
+   if ( stHandler ) {
+      
+      [stHandler removeAllHandlers];
+      
+   } /* End if () */
    
    [self removeAssociatedObjectForKey:"blockHandler"];
+   
+   return;
 }
 
 @end
 
 #pragma mark -
 
-@implementation IDEAAppletHandler
-{
+@implementation IDEAAppletHandler {
+   
    NSMutableDictionary * _blocks;
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _blocks = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_blocks removeAllObjects];
    _blocks = nil;
 }
 
-- (BOOL)trigger:(NSString *)name
-{
+- (BOOL)trigger:(NSString *)name {
+   
    return [self trigger:name withObject:nil];
 }
 
-- (BOOL)trigger:(NSString *)name withObject:(id)object
-{
+- (BOOL)trigger:(NSString *)name withObject:(id)object {
+   
    if ( nil == name )
       return NO;
-
+   
    __handlerBlockType block = (__handlerBlockType)[_blocks objectForKey:name];
-   if ( nil == block )
+   
+   if ( nil == block ) {
       return NO;
-
+   }
+   
    block( object );
    return YES;
 }
 
-- (void)addHandler:(id)handler forName:(NSString *)name
-{
-   if ( nil == name )
+- (void)addHandler:(id)aHandler forName:(NSString *)aName {
+   
+   if ( nil == aName ) {
       return;
-
-   if ( nil == handler )
-   {
-      [_blocks removeObjectForKey:name];
    }
-   else
-   {
-      [_blocks setObject:handler forKey:name];
-   }
+   
+   if ( nil == aHandler ) {
+      
+      [_blocks removeObjectForKey:aName];
+      
+   } /* End if () */
+   else {
+      
+      [_blocks setObject:aHandler forKey:aName];
+      
+   } /* End else */
+   
+   return;
 }
 
-- (void)removeHandlerForName:(NSString *)name
-{
-   if ( nil == name )
+- (void)removeHandlerForName:(NSString *)aName {
+   
+   if ( nil == aName ) {
+      
       return;
-
-   [_blocks removeObjectForKey:name];
+      
+   } /* End if () */
+   
+   [_blocks removeObjectForKey:aName];
+   
+   return;
 }
 
-- (void)removeAllHandlers
-{
+- (void)removeAllHandlers {
+   
    [_blocks removeAllObjects];
+   
+   return;
 }
 
 @end
@@ -180,12 +201,12 @@ typedef void (^ __handlerBlockType )( id object );
 
 TEST_CASE( Core, Handler )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

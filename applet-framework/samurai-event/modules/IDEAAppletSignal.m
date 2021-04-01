@@ -59,11 +59,11 @@
       
       @strongify(self);
       
-      aName = [aName stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"signal."    withString:@"handleSignal____"];
       aName = [aName stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
-      aName = [aName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-      aName = [aName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-      aName = [aName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"-"          withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"."          withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"/"          withString:@"____"];
       aName = [aName stringByAppendingString:@":"];
       
       if (aSignalBlock) {
@@ -83,7 +83,6 @@
    return [stBlock copy];
 }
 
-
 #pragma mark -
 
 - (id)signalResponders {
@@ -91,36 +90,32 @@
    return [self userResponders];
 }
 
-
 - (id)signalAlias {
+   
    return nil;
 }
-
 
 - (NSString *)signalNamespace {
    
    return NSStringFromClass([self class]);
 }
 
-
 - (NSString *)signalTag {
    
    return nil;
 }
 
-
 - (NSString *)signalDescription {
+   
    return [NSString stringWithFormat:@"%@", [[self class] description]];
 }
 
-
 #pragma mark -
-
 
 - (id)userRespondersOrCreate {
    
-   const char     *cpcStoreKey   = "NSObject.userResponders";
-   NSMutableArray *stResponders  = [self getAssociatedObjectForKey:cpcStoreKey];
+   const char *cpcStoreKey   = "NSObject.userResponders";
+   NSMutableArray    *stResponders  = [self getAssociatedObjectForKey:cpcStoreKey];
    
    if (nil == stResponders) {
       
@@ -133,17 +128,14 @@
    return stResponders;
 }
 
-
 - (NSMutableArray *)userResponders {
    
-   const char  *cpcStoreKey   = "NSObject.userResponders";
+   const char *cpcStoreKey   = "NSObject.userResponders";
    
    return [self getAssociatedObjectForKey:cpcStoreKey];
 }
 
-
 #pragma mark -
-
 
 - (BOOL)hasSignalResponder:(id)aObject {
    
@@ -168,7 +160,6 @@
    return NO;
 }
 
-
 - (void)addSignalResponder:(id)aObject {
    
    NSMutableArray *stResponders  = [self userRespondersOrCreate];
@@ -182,7 +173,6 @@
    return;
 }
 
-
 - (void)removeSignalResponder:(id)aObject {
    
    NSMutableArray *stResponders  = [self userResponders];
@@ -194,7 +184,6 @@
    } /* End if () */
    return;
 }
-
 
 - (void)removeAllSignalResponders {
    
@@ -209,7 +198,6 @@
    return;
 }
 
-
 #pragma mark -
 
 - (void)handleSignal:(IDEAAppletSignal *)aThat {
@@ -219,31 +207,26 @@
    return;
 }
 
-
 @end
 
 #pragma mark -
 
 @implementation NSObject(SignalSender)
 
-
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName {
    
    return [self sendSignal:aName from:self withObject:nil];
 }
-
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject {
    
    return [self sendSignal:aName from:self withObject:aObject];
 }
 
-
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource {
    
    return [self sendSignal:aName from:aSource withObject:nil];
 }
-
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
    
@@ -259,14 +242,12 @@
    return stSignal;
 }
 
-
 //- (void)postSignal:(NSString *)aName {
 //
 //   [self postSignal:aName from:self withObject:nil];
 //
 //   return;
 //}
-//
 //
 //- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject {
 //
@@ -275,14 +256,12 @@
 //   return;
 //}
 //
-//
 //- (void)postSignal:(NSString *)aName from:(id)aSource {
 //
 //   [self postSignal:aName from:aSource withObject:nil];
 //
 //   return;
 //}
-//
 //
 //- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
 //
@@ -302,14 +281,12 @@
 //   return;
 //}
 
-
 - (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
    
    [self postSignal:aName from:self withObject:nil onQueue:aQueue];
    
    return;
 }
-
 
 - (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
@@ -318,14 +295,12 @@
    return;
 }
 
-
 - (void)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue {
    
    [self postSignal:aName from:aSource withObject:nil onQueue:aQueue];
    
    return;
 }
-
 
 - (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
@@ -347,10 +322,9 @@
       [stSignal send];
       
    });
-         
+   
    return;
 }
-
 
 @end
 
@@ -450,16 +424,16 @@ BASE_CLASS  (IDEAAppletSignal)
 
 - (void)deepCopyFrom:(IDEAAppletSignal *)aRight {
    
-//   [super deepCopyFrom:right];
-
-//   self.foreign         = aRight.foreign;
+   //   [super deepCopyFrom:right];
+   
+   //   self.foreign         = aRight.foreign;
    self.source          = aRight.source;
    self.target          = aRight.target;
    
    self.state           = aRight.state;
    
    self.name            = [aRight.name copy];
-//   self.prefix          = [aRight.prefix copy];
+   //   self.prefix          = [aRight.prefix copy];
    self.object          = aRight.object;
    
    self.initTimeStamp   = aRight.initTimeStamp;
@@ -472,8 +446,8 @@ BASE_CLASS  (IDEAAppletSignal)
    return;
 }
 
-- (NSString *)prettyName
-{
+- (NSString *)prettyName {
+   
    //   NSString * name = [self.name stringByReplacingOccurrencesOfString:@"signal." withString:@""];
    //   NSString * normalizedName = name;
    //   normalizedName = [normalizedName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
@@ -560,8 +534,8 @@ BASE_CLASS  (IDEAAppletSignal)
    return;
 }
 
-- (BOOL)changeState:(SignalState)aNewState
-{
+- (BOOL)changeState:(SignalState)aNewState {
+   
    //   static const char * __states[] = {
    //      "!Inited",
    //      "!Sending",
@@ -574,7 +548,7 @@ BASE_CLASS  (IDEAAppletSignal)
       return NO;
       
    } /* End if () */
-
+   
    triggerBefore(self, stateChanged);
    
    PERF(@"Signal '%@', state %d -> %d", self.prettyName, _state, newState);
@@ -652,7 +626,7 @@ BASE_CLASS  (IDEAAppletSignal)
       return;
       
    } /* End if () */
-
+   
 #if __SAMURAI_DEBUG__
    if (aTarget) {
       
@@ -665,9 +639,11 @@ BASE_CLASS  (IDEAAppletSignal)
       [self.jumpPath addObject:[aTarget signalDescription]];
       
    } /* End if () */
-#endif
+#endif /* __SAMURAI_DEBUG__ */
    
    _jumpCount += 1;
+   
+   return;
 }
 
 #pragma mark -
@@ -775,15 +751,15 @@ static NSInteger __value = 0;
 
 @def_signal(TEST)
 
-handleSignal(__TestSignal)
-{
+handleSignal(__TestSignal) {
+   
    UNUSED(signal);
    
    __value += 1;
 }
 
-handleSignal(__TestSignal, TEST)
-{
+handleSignal(__TestSignal, TEST) {
+   
    UNUSED(signal);
    
    __value += 1;
@@ -793,8 +769,8 @@ handleSignal(__TestSignal, TEST)
 
 @implementation __TestSignal2
 
-handleSignal(__TestSignal, TEST)
-{
+handleSignal(__TestSignal, TEST) {
+   
    UNUSED(signal);
    
    __value += 1;
@@ -804,8 +780,8 @@ handleSignal(__TestSignal, TEST)
 
 @implementation __TestSignal3
 
-handleSignal(__TestSignal, TEST)
-{
+handleSignal(__TestSignal, TEST) {
+   
    UNUSED(signal);
    
    __value += 1;
@@ -813,40 +789,40 @@ handleSignal(__TestSignal, TEST)
 
 @end
 
-TEST_CASE(Event, Signal)
-{
+TEST_CASE(Event, Signal) {
+   
 }
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
    EXPECTED(0 == __value);
 }
 
-DESCRIBE(Send signal)
-{
+DESCRIBE(Send signal) {
+   
    __TestSignal3 * obj = [[__TestSignal3 alloc] init];
    
    EXPECTED(0 == __value);
    
-   TIMES(100)
-   {
+   TIMES(100) {
+      
       [obj sendSignal:__TestSignal.TEST];
    }
    
    EXPECTED(100 == __value);
    
-   TIMES(100)
-   {
+   TIMES(100) {
+      
       [obj sendSignal:__TestSignal.TEST];
    }
    
    EXPECTED(200 == __value);
 }
 
-DESCRIBE(Handle signal)
-{
-   TIMES(100)
-   {
+DESCRIBE(Handle signal) {
+   
+   TIMES(100) {
+      
       __block BOOL block1Executed = NO;
       __block BOOL block2Executed = NO;
       
@@ -868,8 +844,8 @@ DESCRIBE(Handle signal)
    }
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
    
 }
 

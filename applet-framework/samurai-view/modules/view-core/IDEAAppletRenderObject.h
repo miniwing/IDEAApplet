@@ -78,20 +78,20 @@
 
 @interface NSObject(Renderer)
 
-@prop_strong( IDEAAppletRenderObject *, renderer ); // memory leak, but no crash
+@prop_strong( IDEAAppletRenderObject *, renderer );   // memory leak, but no crash
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer;   // override point
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier;   // override point
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer;   // override point
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier;   // override point
 
-- (void)prepareForRendering;                       // override point
+- (void)prepareForRendering;                          // override point
 
-- (CGSize)computeSizeBySize:(CGSize)size;          // override point
-- (CGSize)computeSizeByWidth:(CGFloat)width;       // override point
-- (CGSize)computeSizeByHeight:(CGFloat)height;     // override point
+- (CGSize)computeSizeBySize   :(CGSize) aSize;        // override point
+- (CGSize)computeSizeByWidth  :(CGFloat)aWidth;       // override point
+- (CGSize)computeSizeByHeight :(CGFloat)aHeight;      // override point
 
-- (void)applyDom:(IDEAAppletDomNode *)dom;         // override point
-- (void)applyStyle:(IDEAAppletRenderStyle *)style; // override point
-- (void)applyFrame:(CGRect)frame;                  // override point
+- (void)applyDom  :(IDEAAppletDomNode *)aDom;         // override point
+- (void)applyStyle:(IDEAAppletRenderStyle *)aStyle;   // override point
+- (void)applyFrame:(CGRect)aFrame;                    // override point
 
 @end
 

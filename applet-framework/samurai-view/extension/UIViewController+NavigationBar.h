@@ -41,10 +41,10 @@
 
 @interface UIViewController(NavigationBar)
 
-@prop_assign( BOOL, navigationBarShown );
-@prop_strong( id,   navigationBarTitle );
-@prop_strong( id,   navigationBarBackButton );
-@prop_strong( id,   navigationBarDoneButton );
+@prop_assign( BOOL,  navigationBarShown );
+@prop_strong( id  ,  navigationBarTitle );
+@prop_strong( id  ,  navigationBarBackButton );
+@prop_strong( id  ,  navigationBarDoneButton );
 
 - (void)showNavigationBar;
 - (void)showNavigationBarAnimated:(BOOL)animated;

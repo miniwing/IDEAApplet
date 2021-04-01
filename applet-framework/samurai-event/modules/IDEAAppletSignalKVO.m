@@ -45,97 +45,97 @@
 
 #pragma mark -
 
-@implementation IDEAAppletKVObserver
-{
+@implementation IDEAAppletKVObserver {
+   
    NSMutableDictionary * _properties;
 }
 
 @def_prop_unsafe( id, source );
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _properties = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self unobserveAllProperties];
    
    [_properties removeAllObjects];
    _properties = nil;
 }
 
-- (void)observeProperty:(NSString *)property
-{
+- (void)observeProperty:(NSString *)property {
+   
    if ( nil == property )
       return;
    
    if ( [_properties objectForKey:property] )
       return;
-
+   
    NSKeyValueObservingOptions options = 0;
-
+   
    NSArray * observerValues = [self.source extentionForProperty:property arrayValueWithKey:@"Observer"];
    
-   if ( observerValues )
-   {
-      for ( NSString * value in observerValues )
-      {
-         if ( [value isEqualToString:@"old"] )
-         {
+   if ( observerValues ) {
+      
+      for ( NSString * value in observerValues ) {
+         
+         if ( [value isEqualToString:@"old"] ) {
+            
             options |= NSKeyValueObservingOptionOld;
          }
-         else if ( [value isEqualToString:@"new"] )
-         {
+         else if ( [value isEqualToString:@"new"] ) {
+            
             options |= NSKeyValueObservingOptionOld;
          }
       }
    }
    
-   if ( 0 == options )
-   {
+   if ( 0 == options ) {
+      
       options = NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew;
    }
-
+   
    [self.source addObserver:self forKeyPath:property options:options context:NULL];
-
+   
    [_properties setObject:[NSNumber numberWithInt:(int)options] forKey:property];
 }
 
-- (void)unobserveProperty:(NSString *)property
-{
-   if ( [_properties objectForKey:property] )
-   {
+- (void)unobserveProperty:(NSString *)property {
+   
+   if ( [_properties objectForKey:property] ) {
+      
       [self.source removeObserver:self forKeyPath:property];
       
       [_properties removeObjectForKey:property];
    }
 }
 
-- (void)unobserveAllProperties
-{
-   for ( NSString * property in _properties.allKeys )
-   {
+- (void)unobserveAllProperties {
+   
+   for ( NSString * property in _properties.allKeys ) {
+      
       [self.source removeObserver:self forKeyPath:property];
    }
-
+   
    [_properties removeAllObjects];
 }
 
 #pragma mark - KVO
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+   
    NSObject * oldValue = [change objectForKey:@"old"];
    NSObject * newValue = [change objectForKey:@"new"];
    
-   if ( oldValue )
-   {
+   if ( oldValue ) {
+      
       IDEAAppletSignal * signal = [IDEAAppletSignal signal];
       
       signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[object class] description], keyPath];
@@ -146,15 +146,15 @@
       [signal send];
    }
    
-   if ( newValue )
-   {
+   if ( newValue ) {
+      
       IDEAAppletSignal * signal = [IDEAAppletSignal signal];
-
+      
       signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[object class] description], keyPath];
       signal.source = object;
       signal.target = self.source;
       signal.object = [newValue isKindOfClass:[NSNull class]] ? nil : newValue;
-
+      
       [signal send];
    }
 }
@@ -168,12 +168,12 @@
 @def_prop_dynamic( IDEAAppletKVOBlock, onValueChanging );
 @def_prop_dynamic( IDEAAppletKVOBlock, onValueChanged );
 
-- (IDEAAppletKVObserver *)KVObserverOrCreate
-{
+- (IDEAAppletKVObserver *)KVObserverOrCreate {
+   
    IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
    
-   if ( nil == observer )
-   {
+   if ( nil == observer ) {
+      
       observer = [[IDEAAppletKVObserver alloc] init];
       observer.source = self;
       
@@ -183,27 +183,27 @@
    return observer;
 }
 
-- (IDEAAppletKVObserver *)KVObserver
-{
+- (IDEAAppletKVObserver *)KVObserver {
+   
    return [self getAssociatedObjectForKey:"KVObserver"];
 }
 
 #pragma mark -
 
-- (IDEAAppletKVOBlock)onValueChanging
-{
+- (IDEAAppletKVOBlock)onValueChanging {
+   
    @weakify( self );
    
-   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
-   {
+   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... ) {
+      
       @strongify( self );
-
+      
       EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
-
-      if ( EncodingType_String == encoding )
-      {
+      
+      if ( EncodingType_String == encoding ) {
+         
          NSString * name = nameOrObject;
-
+         
          ASSERT( nil != name );
          
          name = [name stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
@@ -213,17 +213,17 @@
          name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
          name = [name stringByAppendingString:@"____valueChanging:"];
          
-         if ( propertyOrBlock )
-         {
+         if ( propertyOrBlock ) {
+            
             [self addBlock:propertyOrBlock forName:name];
          }
-         else
-         {
+         else {
+            
             [self removeBlockForName:name];
          }
       }
-      else
-      {
+      else {
+         
          va_list args;
          va_start( args, propertyOrBlock );
          
@@ -232,40 +232,40 @@
          
          ASSERT( nil != object );
          ASSERT( nil != property );
-
+         
          [object observeProperty:property];
          [object addSignalResponder:self];
          
          NSString *   signalName = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanging:", [[object class] description], property ];
          id         signalBlock = va_arg( args, id );
-
-         if ( signalBlock )
-         {
+         
+         if ( signalBlock ) {
+            
             [self addBlock:signalBlock forName:signalName];
          }
-         else
-         {
+         else {
+            
             [self removeBlockForName:signalName];
          }
       }
-
+      
       return self;
    };
    
    return [block copy];
 }
 
-- (IDEAAppletKVOBlock)onValueChanged
-{
+- (IDEAAppletKVOBlock)onValueChanged {
+   
    @weakify( self );
    
-   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... )
-   {
+   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... ) {
+      
       @strongify( self );
       
       EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
-      if ( EncodingType_String == encoding )
-      {
+      if ( EncodingType_String == encoding ) {
+         
          NSString * name = nameOrObject;
          
          ASSERT( nil != name );
@@ -277,17 +277,17 @@
          name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
          name = [name stringByAppendingString:@"____valueChanged:"];
          
-         if ( propertyOrBlock )
-         {
+         if ( propertyOrBlock ) {
+            
             [self addBlock:propertyOrBlock forName:name];
          }
-         else
-         {
+         else {
+            
             [self removeBlockForName:name];
          }
       }
-      else
-      {
+      else {
+         
          va_list args;
          va_start( args, propertyOrBlock );
          
@@ -302,13 +302,13 @@
          
          NSString *   signalName = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanged:", [[object class] description], property ];
          id         signalBlock = va_arg( args, id );
-
-         if ( signalBlock )
-         {
+         
+         if ( signalBlock ) {
+            
             [self addBlock:signalBlock forName:signalName];
          }
-         else
-         {
+         else {
+            
             [self removeBlockForName:signalName];
          }
       }
@@ -321,43 +321,43 @@
 
 #pragma mark -
 
-- (void)observeProperty:(NSString *)property
-{
+- (void)observeProperty:(NSString *)property {
+   
    IDEAAppletKVObserver * observer = [self KVObserverOrCreate];
-   if ( observer )
-   {
+   if ( observer ) {
+      
       [observer observeProperty:property];
    }
 }
 
-- (void)unobserveProperty:(NSString *)property
-{
+- (void)unobserveProperty:(NSString *)property {
+   
    IDEAAppletKVObserver * observer = [self KVObserver];
-   if ( observer )
-   {
+   if ( observer ) {
+      
       [observer unobserveProperty:property];
    }
 }
 
-- (void)unobserveAllProperties
-{
+- (void)unobserveAllProperties {
+   
    IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
    
-   if ( observer )
-   {
+   if ( observer ) {
+      
       [observer unobserveAllProperties];
       
       [self removeAssociatedObjectForKey:"KVObserver"];
    }
 }
 
-- (void)signalValueChanging:(NSString *)property
-{
+- (void)signalValueChanging:(NSString *)property {
+   
    [self signalValueChanging:property value:nil];
 }
 
-- (void)signalValueChanging:(NSString *)property value:(id)value
-{
+- (void)signalValueChanging:(NSString *)property value:(id)value {
+   
    IDEAAppletSignal * signal = [IDEAAppletSignal signal];
    
    signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[self class] description], property];
@@ -368,13 +368,13 @@
    [signal send];
 }
 
-- (void)signalValueChanged:(NSString *)property
-{
+- (void)signalValueChanged:(NSString *)property {
+   
    [self signalValueChanged:property value:nil];
 }
 
-- (void)signalValueChanged:(NSString *)property value:(id)value
-{
+- (void)signalValueChanged:(NSString *)property value:(id)value {
+   
    IDEAAppletSignal * signal = [IDEAAppletSignal signal];
    
    signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[self class] description], property];
@@ -420,18 +420,18 @@ static int __value2 = 0;
 @implementation __TestKVObserver
 @end
 
-TEST_CASE( Event, KVObserver )
-{
+TEST_CASE( Event, KVObserver ) {
+   
 }
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( Manually )
-{
-   @autoreleasepool
-   {
+DESCRIBE( Manually ) {
+   
+   @autoreleasepool {
+      
       __TestKVObject *   object = [[__TestKVObject alloc] init];
       __TestKVObserver *   observer = [[__TestKVObserver alloc] init];
       
@@ -449,24 +449,24 @@ DESCRIBE( Manually )
       .onValueChanged( makeSignal(__TestKVObject, text),   ^{ __value += 1; })
       .onValueChanged( makeSignal(__TestKVObject, array),   ^{ __value += 1; })
       .onValueChanged( makeSignal(__TestKVObject, dict),   ^{ __value += 1; });
-
+      
       object.text = @"123";
       object.array = @[];
       object.dict = @{};
       
       EXPECTED( 6 == __value );
-
+      
       [object unobserveAllProperties];
    };
 }
 
-DESCRIBE( Automatic )
-{
-   @autoreleasepool
-   {
+DESCRIBE( Automatic ) {
+   
+   @autoreleasepool {
+      
       __TestKVObject *   object = [[__TestKVObject alloc] init];
       __TestKVObserver *   observer = [[__TestKVObserver alloc] init];
-
+      
       observer
       
       .onValueChanging( object, @"text",   ^{ __value2 += 1; })
@@ -476,7 +476,7 @@ DESCRIBE( Automatic )
       .onValueChanged( object, @"text",   ^{ __value2 += 1; })
       .onValueChanged( object, @"array",   ^{ __value2 += 1; })
       .onValueChanged( object, @"dict",   ^{ __value2 += 1; });
-
+      
       object.text = @"123";
       object.array = @[];
       object.dict = @{};
@@ -487,8 +487,8 @@ DESCRIBE( Automatic )
    };
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

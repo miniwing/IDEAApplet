@@ -85,7 +85,36 @@
 - (void)handleIntent:(IDEAAppletIntent *)that {
    
    UNUSED( that );
+   
+   return;
 }
+
+- (void)broadcast:(NSString *)aAction {
+   
+   [self broadcast:aAction withParams:nil];
+   
+   return;
+}
+
+- (void)broadcast:(NSString *)aAction from:(id)aSource withParams:(NSDictionary *)aParams {
+   
+   IDEAAppletIntent  *stIntent   = [IDEAAppletIntent intent:aAction params:aParams];
+   
+   stIntent.source   = aSource ? aSource : self;
+   stIntent.target   = self;
+   
+   [stIntent broadcast];
+
+   return;
+}
+
+- (void)broadcast:(NSString *)aAction withParams:(NSDictionary *)aParams {
+   
+   [self broadcast:aAction from:nil withParams:aParams];
+
+   return;
+}
+
 
 @end
 
@@ -93,21 +122,21 @@
 
 @implementation IDEAAppletIntent
 
-@def_joint( stateChanged );
+@def_joint        ( stateChanged );
 
-@def_prop_strong( NSString *,               action );
-@def_prop_strong( NSMutableDictionary *,      input );
-@def_prop_strong( NSMutableDictionary *,      output );
+@def_prop_strong  ( NSString              *, action );
+@def_prop_strong  ( NSMutableDictionary   *, input );
+@def_prop_strong  ( NSMutableDictionary   *, output );
 
-@def_prop_unsafe( id,                     source );
-@def_prop_unsafe( id,                     target );
+@def_prop_unsafe  ( id, source );
+@def_prop_unsafe  ( id, target );
 
-@def_prop_copy( BlockType,                  stateChanged );
-@def_prop_assign( IntentState,               state );
-@def_prop_dynamic( BOOL,                  arrived );
-@def_prop_dynamic( BOOL,                  succeed );
-@def_prop_dynamic( BOOL,                  failed );
-@def_prop_dynamic( BOOL,                  cancelled );
+@def_prop_copy    ( BlockType    ,  stateChanged );
+@def_prop_assign  ( IntentState  ,  state );
+@def_prop_dynamic ( BOOL         ,  arrived );
+@def_prop_dynamic ( BOOL         ,  succeed );
+@def_prop_dynamic ( BOOL         ,  failed );
+@def_prop_dynamic ( BOOL         ,  cancelled );
 
 #pragma mark -
 
@@ -116,24 +145,25 @@
    return [[IDEAAppletIntent alloc] init];
 }
 
-+ (IDEAAppletIntent *)intent:(NSString *)action {
++ (IDEAAppletIntent *)intent:(NSString *)aAction {
    
-   IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
-   intent.action = action;
-   return intent;
+   IDEAAppletIntent  *stIntent = [[IDEAAppletIntent alloc] init];
+   stIntent.action   = aAction;
+   return stIntent;
 }
 
-+ (IDEAAppletIntent *)intent:(NSString *)action params:(NSDictionary *)params {
++ (IDEAAppletIntent *)intent:(NSString *)aAction params:(NSDictionary *)aParams {
    
-   IDEAAppletIntent * intent = [[IDEAAppletIntent alloc] init];
-   intent.action = action;
+   IDEAAppletIntent  *stIntent   = [[IDEAAppletIntent alloc] init];
+   stIntent.action = aAction;
    
-   if ( params ) {
+   if ( aParams ) {
       
-      [intent.input setDictionary:params];
-   }
+      [stIntent.input setDictionary:aParams];
+      
+   } /* End if () */
    
-   return intent;
+   return stIntent;
 }
 
 - (id)init {
@@ -144,11 +174,13 @@
    if ( self ) {
       
       self.action = [NSString stringWithFormat:@"intent-%lu", (unsigned long)__seed++];
-      self.input = [NSMutableDictionary dictionary];
+      self.input  = [NSMutableDictionary dictionary];
       self.output = [NSMutableDictionary dictionary];
       
       _state = IntentState_Inited;
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
@@ -157,8 +189,12 @@
    self.stateChanged = nil;
    
    self.action = nil;
-   self.input = nil;
+   self.input  = nil;
    self.output = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 - (NSString *)prettyName {
@@ -179,6 +215,8 @@
 - (void)setState:(IntentState)newState {
    
    [self changeState:newState];
+   
+   return;
 }
 
 - (BOOL)arrived {
@@ -191,7 +229,10 @@
    if ( flag ) {
       
       [self changeState:IntentState_Arrived];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (BOOL)succeed {
@@ -204,7 +245,10 @@
    if ( flag ) {
       
       [self changeState:IntentState_Succeed];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (BOOL)failed {
@@ -217,7 +261,10 @@
    if ( flag ) {
       
       [self changeState:IntentState_Failed];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (BOOL)cancelled {
@@ -225,12 +272,14 @@
    return IntentState_Cancelled == _state ? YES : NO;
 }
 
-- (void)setCancelled:(BOOL)flag {
+- (void)setCancelled:(BOOL)aFlag {
    
-   if ( flag ) {
+   if ( aFlag ) {
       
       [self changeState:IntentState_Cancelled];
-   }
+   } /* End if () */
+   
+   return;
 }
 
 - (BOOL)changeState:(IntentState)newState {
@@ -243,8 +292,11 @@
    //      "!Cancelled"
    //   };
    
-   if ( newState == _state )
+   if ( newState == _state ) {
+      
       return NO;
+      
+   } /* End if () */
    
    triggerBefore( self, stateChanged );
    
@@ -277,6 +329,16 @@
    triggerAfter( self, stateChanged );
    
    return YES;
+}
+
+- (void)broadcast {
+   
+   @autoreleasepool {
+      
+      [[IDEAAppletIntentBus sharedInstance] broadcast:self];
+      
+      return;
+   };
 }
 
 #pragma mark -

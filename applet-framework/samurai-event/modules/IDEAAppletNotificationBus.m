@@ -49,65 +49,65 @@
 
 #pragma mark -
 
-@implementation IDEAAppletNotificationBus
-{
+@implementation IDEAAppletNotificationBus {
+   
    NSMutableDictionary * _handlers;
 }
 
 @def_singleton( IDEAAppletNotificationBus )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _handlers = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_handlers removeAllObjects];
    _handlers = nil;
 }
 
-- (void)routes:(AppletNotification *)notification target:(id)target
-{
-   if ( nil == target )
-   {
+- (void)routes:(AppletNotification *)notification target:(id)target {
+   
+   if ( nil == target ) {
+      
       ERROR( @"No notification target" );
       return;
    }
-
+   
    NSMutableArray * classes = [NSMutableArray nonRetainingArray];
    
-   for ( Class clazz = [target class]; nil != clazz; clazz = class_getSuperclass(clazz) )
-   {
+   for ( Class clazz = [target class]; nil != clazz; clazz = class_getSuperclass(clazz) ) {
+      
       [classes addObject:clazz];
    }
    
    NSString *   notificationClass = nil;
    NSString *   notificationMethod = nil;
    
-   if ( notification.name )
-   {
-      if ( [notification.name hasPrefix:@"notification."] )
-      {
+   if ( notification.name ) {
+      
+      if ( [notification.name hasPrefix:@"notification."] ) {
+         
          NSArray * array = [notification.name componentsSeparatedByString:@"."];
-   
+         
          notificationClass = (NSString *)[array safeObjectAtIndex:1];
          notificationMethod = (NSString *)[array safeObjectAtIndex:2];
       }
-      else
-      {
+      else {
+         
          NSArray * array = [notification.name componentsSeparatedByString:@"/"];
          
          notificationClass = (NSString *)[array safeObjectAtIndex:0];
          notificationMethod = (NSString *)[array safeObjectAtIndex:1];
          
-         if ( notificationMethod )
-         {
+         if ( notificationMethod ) {
+            
             notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
             notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"." withString:@"_"];
             notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
@@ -115,26 +115,26 @@
       }
    }
    
-   for ( Class targetClass in classes )
-   {
+   for ( Class targetClass in classes ) {
+      
       NSString * cacheName = [NSString stringWithFormat:@"%@/%@", notification.name, [targetClass description]];
       NSString * cachedSelectorName = [_handlers objectForKey:cacheName];
       
-      if ( cachedSelectorName )
-      {
+      if ( cachedSelectorName ) {
+         
          SEL cachedSelector = NSSelectorFromString( cachedSelectorName );
-         if ( cachedSelector )
-         {
+         if ( cachedSelector ) {
+            
             BOOL hit = [self notification:notification perform:cachedSelector class:targetClass target:target];
-            if ( hit )
-            {
-//               continue;
+            if ( hit ) {
+               
+               //               continue;
                break;
             }
          }
       }
       
-//      do
+      //      do
       {
          NSString *   selectorName = nil;
          SEL         selector = nil;
@@ -142,28 +142,28 @@
          
          // eg. handleNotification( Class, Motification )
          
-         if ( notificationClass && notificationMethod )
-         {
+         if ( notificationClass && notificationMethod ) {
+            
             selectorName = [NSString stringWithFormat:@"handleNotification____%@____%@:", notificationClass, notificationMethod];
             selector = NSSelectorFromString( selectorName );
             
             performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed )
-            {
+            if ( performed ) {
+               
                [_handlers setObject:selectorName forKey:cacheName];
                break;
             }
             
             // eg. handleNotification( Notification )
             
-            if ( [[targetClass description] isEqualToString:notificationClass] )
-            {
+            if ( [[targetClass description] isEqualToString:notificationClass] ) {
+               
                selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notificationMethod];
                selector = NSSelectorFromString( selectorName );
                
                performed = [self notification:notification perform:selector class:targetClass target:target];
-               if ( performed )
-               {
+               if ( performed ) {
+                  
                   [_handlers setObject:selectorName forKey:cacheName];
                   break;
                }
@@ -172,14 +172,14 @@
          
          // eg. handleNotification( Class )
          
-         if ( notificationClass )
-         {
+         if ( notificationClass ) {
+            
             selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notificationClass];
             selector = NSSelectorFromString( selectorName );
             
             performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed )
-            {
+            if ( performed ) {
+               
                [_handlers setObject:selectorName forKey:cacheName];
                break;
             }
@@ -187,12 +187,12 @@
          
          // eg. handleNotification( helloWorld )
          
-         if ( [notification.name hasPrefix:@"notification____"] )
-         {
+         if ( [notification.name hasPrefix:@"notification____"] ) {
+            
             selectorName = [notification.name stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
          }
-         else
-         {
+         else {
+            
             selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notification.name];
          }
          
@@ -200,30 +200,30 @@
          selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
          selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
          
-         if ( NO == [selectorName hasSuffix:@":"] )
-         {
+         if ( NO == [selectorName hasSuffix:@":"] ) {
+            
             selectorName = [selectorName stringByAppendingString:@":"];
          }
          
          selector = NSSelectorFromString( selectorName );
          
          performed = [self notification:notification perform:selector class:targetClass target:target];
-         if ( performed )
-         {
+         if ( performed ) {
+            
             [_handlers setObject:selectorName forKey:cacheName];
             break;
          }
          
          // eg. handleNotification()
          
-         if ( NO == performed )
-         {
+         if ( NO == performed ) {
+            
             selectorName = @"handleNotification____:";
             selector = NSSelectorFromString( selectorName );
             
             performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed )
-            {
+            if ( performed ) {
+               
                [_handlers setObject:selectorName forKey:cacheName];
                break;
             }
@@ -231,25 +231,25 @@
          
          // eg. handleNotification:
          
-         if ( NO == performed )
-         {
+         if ( NO == performed ) {
+            
             selectorName = @"handleNotification:";
             selector = NSSelectorFromString( selectorName );
             
             performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed )
-            {
+            if ( performed ) {
+               
                [_handlers setObject:selectorName forKey:cacheName];
                break;
             }
          }
       }
-//      while ( 0 );
+      //      while ( 0 );
    }
 }
 
-- (BOOL)notification:(AppletNotification *)notification perform:(SEL)sel class:(Class)clazz target:(id)target
-{
+- (BOOL)notification:(AppletNotification *)notification perform:(SEL)sel class:(Class)clazz target:(id)target {
+   
    ASSERT( nil != notification );
    ASSERT( nil != target );
    ASSERT( nil != sel );
@@ -259,14 +259,14 @@
    
    // try block
    
-   if ( NO == performed )
-   {
+   if ( NO == performed ) {
+      
       IDEAAppletHandler * handler = [target blockHandler];
-      if ( handler )
-      {
+      if ( handler ) {
+         
          BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:notification];
-         if ( found )
-         {
+         if ( found ) {
+            
             performed = YES;
          }
       }
@@ -274,16 +274,16 @@
    
    // try selector
    
-   if ( NO == performed )
-   {
+   if ( NO == performed ) {
+      
       Method method = class_getInstanceMethod( clazz, sel );
-      if ( method )
-      {
+      if ( method ) {
+         
          ImpFuncType imp = (ImpFuncType)method_getImplementation( method );
-         if ( imp )
-         {
+         if ( imp ) {
+            
             imp( target, sel, (__bridge void *)notification );
-
+            
             performed = YES;
          }
       }
@@ -295,8 +295,8 @@
    NSString * selName = [NSString stringWithUTF8String:sel_getName(sel)];
    NSString * className = [clazz description];
    
-   if ( NSNotFound != [selName rangeOfString:@"____"].location )
-   {
+   if ( NSNotFound != [selName rangeOfString:@"____"].location ) {
+      
       selName = [selName stringByReplacingOccurrencesOfString:@"handleNotification____" withString:@"handleNotification( "];
       selName = [selName stringByReplacingOccurrencesOfString:@"____" withString:@", "];
       selName = [selName stringByReplacingOccurrencesOfString:@":" withString:@""];
@@ -307,7 +307,7 @@
    
 #endif
 #endif
-
+   
    return performed;
 }
 
@@ -323,12 +323,12 @@
 
 TEST_CASE( Event, NotificationBus )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -52,8 +52,8 @@
 @def_prop_strong( NSString *,   file );
 @def_prop_assign( NSInteger,   line );
 
-+ (IDEAAppletTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line
-{
++ (IDEAAppletTestFailure *)expr:(const char *)expr file:(const char *)file line:(int)line {
+   
    IDEAAppletTestFailure * failure = [[IDEAAppletTestFailure alloc] initWithName:@"UnitTest" reason:nil userInfo:nil];
    failure.expr = @(expr);
    failure.file = [@(file) lastPathComponent];
@@ -70,8 +70,8 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUnitTest
-{
+@implementation IDEAAppletUnitTest {
+   
    __strong NSMutableArray * _logs;
 }
 
@@ -80,72 +80,78 @@
 @def_prop_assign( NSUInteger,   failedCount );
 @def_prop_assign( NSUInteger,   succeedCount );
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _logs = [[NSMutableArray alloc] init];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    _logs = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)run
-{
+- (void)run {
+   
    fprintf( stderr, "  =============================================================\n" );
    fprintf( stderr, "   Unit testing ...\n" );
    fprintf( stderr, "  -------------------------------------------------------------\n" );
-
+   
    NSArray *   classes = [IDEAAppletTestCase subClasses];
    LogLevel   filter = [IDEAAppletLogger sharedInstance].filter;
-
+   
    [IDEAAppletLogger sharedInstance].filter = LogLevel_Warn;
-//   [IDEAAppletLogger sharedInstance].filter = LogLevel_All;
+   //   [IDEAAppletLogger sharedInstance].filter = LogLevel_All;
    
    CFTimeInterval beginTime = CACurrentMediaTime();
    
-   for ( NSString * className in classes )
-   {
+   for ( NSString * className in classes ) {
+      
       Class classType = NSClassFromString( className );
       
-      if ( nil == classType )
+      if ( nil == classType ) {
          continue;
-
+      }
+      
       NSString * testCaseName;
       testCaseName = [classType description];
       testCaseName = [testCaseName stringByReplacingOccurrencesOfString:@"__TestCase__" withString:@"  TEST_CASE( "];
       testCaseName = [testCaseName stringByAppendingString:@" )"];
-
+      
       NSString * formattedName = [testCaseName stringByPaddingToLength:48 withString:@" " startingAtIndex:0];
-
-//      [[IDEAAppletLogger sharedInstance] disable];
-
+      
+      //      [[IDEAAppletLogger sharedInstance] disable];
+      
       fprintf( stderr, "%s", [formattedName UTF8String] );
-
+      
       CFTimeInterval time1 = CACurrentMediaTime();
       
       BOOL testCasePassed = YES;
       
-   //   @autoreleasepool
+      //   @autoreleasepool
       {
-         @try
-         {
+         
+         @try {
+            
             IDEAAppletTestCase * testCase = [[classType alloc] init];
-
+            
             NSArray * selectorNames = [classType methodsWithPrefix:@"runTest_" untilClass:[IDEAAppletTestCase class]];
             
-            if ( selectorNames && [selectorNames count] )
-            {
-               for ( NSString * selectorName in selectorNames )
-               {
+            if ( selectorNames && [selectorNames count] ) {
+               
+               for ( NSString * selectorName in selectorNames ) {
+                  
                   SEL selector = NSSelectorFromString( selectorName );
-                  if ( selector && [testCase respondsToSelector:selector] )
-                  {
+                  if ( selector && [testCase respondsToSelector:selector] ) {
+                     
                      NSMethodSignature * signature = [testCase methodSignatureForSelector:selector];
                      NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
                      
@@ -156,51 +162,51 @@
                }
             }
          }
-         @catch ( NSException * e )
-         {
-            if ( [e isKindOfClass:[IDEAAppletTestFailure class]] )
-            {
+         @catch ( NSException * e ) {
+            
+            if ( [e isKindOfClass:[IDEAAppletTestFailure class]] ) {
+               
                IDEAAppletTestFailure * failure = (IDEAAppletTestFailure *)e;
                
                [self writeLog:
-                     @"                        \n"
-                     "    %@ (#%lu)           \n"
-                     "                        \n"
-                     "    {                   \n"
-                     "        EXPECTED( %@ ); \n"
-                     "                  ^^^^^^          \n"
-                     "                  Assertion failed\n"
-                     "    }                   \n"
-                     "                        \n", failure.file, failure.line, failure.expr];
+                @"                        \n"
+                "    %@ (#%lu)           \n"
+                "                        \n"
+                "    {                   \n"
+                "        EXPECTED( %@ ); \n"
+                "                  ^^^^^^          \n"
+                "                  Assertion failed\n"
+                "    }                   \n"
+                "                        \n", failure.file, failure.line, failure.expr];
             }
-            else
-            {
+            else {
+               
                [self writeLog:@"\nUnknown exception '%@'", e.reason];
                [self writeLog:@"%@", e.callStackSymbols];
             }
-
+            
             testCasePassed = NO;
          }
-         @finally
-         {
+         @finally {
+            
          }
       };
       
       CFTimeInterval time2 = CACurrentMediaTime();
       CFTimeInterval time = time2 - time1;
       
-//      [[IDEAAppletLogger sharedInstance] enable];
-
-      if ( testCasePassed )
-      {
+      //      [[IDEAAppletLogger sharedInstance] enable];
+      
+      if ( testCasePassed ) {
+         
          _succeedCount += 1;
-
+         
          fprintf( stderr, "[ OK ]   %.003fs\n", time );
       }
-      else
-      {
+      else {
+         
          _failedCount += 1;
-
+         
          fprintf( stderr, "[FAIL]   %.003fs\n", time );
       }
       
@@ -209,21 +215,23 @@
    
    CFTimeInterval endTime = CACurrentMediaTime();
    CFTimeInterval totalTime = endTime - beginTime;
-
+   
    float passRate = (_succeedCount * 1.0f) / ((_succeedCount + _failedCount) * 1.0f) * 100.0f;
    
    fprintf( stderr, "  -------------------------------------------------------------\n" );
    fprintf( stderr, "  Total %lu cases                               [%.0f%%]   %.003fs\n", (unsigned long)[classes count], passRate, totalTime );
    fprintf( stderr, "  =============================================================\n" );
    fprintf( stderr, "\n" );
-
+   
    [IDEAAppletLogger sharedInstance].filter = filter;
+   
+   return;
 }
 
-- (void)writeLog:(NSString *)format, ...
-{
-   if ( _logs.count >= MAX_UNITTEST_LOGS )
-   {
+- (void)writeLog:(NSString *)format, ... {
+   
+   if ( _logs.count >= MAX_UNITTEST_LOGS ) {
+      
       return;
    }
    
@@ -233,33 +241,37 @@
    va_list args;
    va_start( args, format );
    
-   @autoreleasepool
-   {
+   @autoreleasepool {
+      
       NSMutableString * content = [[NSMutableString alloc] initWithFormat:(NSString *)format arguments:args];
       [_logs addObject:content];
    };
    
    va_end( args );
+   
+   return;
 }
 
-- (void)flushLog
-{
-   if ( _logs.count )
-   {
-      for ( NSString * log in _logs )
-      {
+- (void)flushLog {
+   
+   if ( _logs.count ) {
+      
+      for ( NSString * log in _logs ) {
+         
          fprintf( stderr, "       %s\n", [log UTF8String] );
       }
       
-      if ( _logs.count >= MAX_UNITTEST_LOGS )
-      {
+      if ( _logs.count >= MAX_UNITTEST_LOGS ) {
+         
          fprintf( stderr, "       ...\n" );
       }
-
+      
       fprintf( stderr, "\n" );
    }
-
+   
    [_logs removeAllObjects];
+   
+   return;
 }
 
 @end
@@ -274,12 +286,12 @@
 
 TEST_CASE( Core, UnitTest )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

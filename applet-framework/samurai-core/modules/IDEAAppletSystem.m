@@ -69,13 +69,13 @@
 
 @def_prop_readonly( CGSize,            screenSize );
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletSystem sharedInstance];
 }
 
-- (NSString *)osVersion
-{
+- (NSString *)osVersion {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    return [NSString stringWithFormat:@"%@ %@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].systemVersion];
 #else
@@ -83,8 +83,8 @@
 #endif
 }
 
-- (OperationSystem)osType
-{
+- (OperationSystem)osType {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    return OperationSystem_iOS;
 #elif (TARGET_OS_MAC)
@@ -94,8 +94,8 @@
 #endif
 }
 
-- (NSString *)bundleVersion
-{
+- (NSString *)bundleVersion {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || TARGET_OS_MAC)
    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 #else
@@ -103,8 +103,8 @@
 #endif
 }
 
-- (NSString *)bundleShortVersion
-   {
+- (NSString *)bundleShortVersion {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || TARGET_OS_MAC)
    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 #else
@@ -112,8 +112,8 @@
 #endif
 }
 
-- (NSString *)bundleIdentifier
-{
+- (NSString *)bundleIdentifier {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
 #else
@@ -121,45 +121,45 @@
 #endif
 }
 
-- (NSString *)urlSchema
-{
+- (NSString *)urlSchema {
+   
    return [self urlSchemaWithName:nil];
 }
 
-- (NSString *)urlSchemaWithName:(NSString *)name
-{
+- (NSString *)urlSchemaWithName:(NSString *)name {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    NSArray * array = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleURLTypes"];
-   for ( NSDictionary * dict in array )
-   {
-      if ( name )
-      {
+   for ( NSDictionary * dict in array ) {
+      
+      if ( name ) {
+         
          NSString * URLName = [dict objectForKey:@"CFBundleURLName"];
-         if ( nil == URLName )
-         {
+         if ( nil == URLName ) {
+            
             continue;
          }
-
-         if ( NO == [URLName isEqualToString:name] )
-         {
+         
+         if ( NO == [URLName isEqualToString:name] ) {
+            
             continue;
          }
       }
-
+      
       NSArray * URLSchemes = [dict objectForKey:@"CFBundleURLSchemes"];
-      if ( nil == URLSchemes || 0 == URLSchemes.count )
-      {
+      if ( nil == URLSchemes || 0 == URLSchemes.count ) {
+         
          continue;
       }
-
+      
       NSString * schema = [URLSchemes objectAtIndex:0];
-      if ( schema && schema.length )
-      {
+      if ( schema && schema.length ) {
+         
          return schema;
       }
    }
-
+   
    return nil;
    
 #else
@@ -169,8 +169,8 @@
 #endif
 }
 
-- (NSString *)deviceModel
-{
+- (NSString *)deviceModel {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    return [UIDevice currentDevice].model;
 #else
@@ -178,75 +178,76 @@
 #endif
 }
 
-- (NSString *)deviceUDID
-{
+- (NSString *)deviceUDID {
+   
    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
 
-- (BOOL)isJailBroken
-{
+- (BOOL)isJailBroken {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   static const char * __jb_apps[] =
-   {
-      "/Application/Cydia.app", 
-      "/Application/limera1n.app", 
-      "/Application/greenpois0n.app", 
+   static const char * __jb_apps[] = {
+      
+      "/Application/Cydia.app",
+      "/Application/limera1n.app",
+      "/Application/greenpois0n.app",
       "/Application/blackra1n.app",
       "/Application/blacksn0w.app",
       "/Application/redsn0w.app",
+      
       NULL
    };
-
-// method 1
    
-    for ( int i = 0; __jb_apps[i]; ++i )
-    {
-        if ( [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:__jb_apps[i]]] )
-        {
+   // method 1
+   
+   for ( int i = 0; __jb_apps[i]; ++i ) {
+      
+      if ( [[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:__jb_apps[i]]] ) {
+         
          return YES;
-        }
-    }
+      }
+   }
    
-// method 2
+   // method 2
    
-   if ( [[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"] )
-   {
+   if ( [[NSFileManager defaultManager] fileExistsAtPath:@"/private/var/lib/apt/"] ) {
+      
       return YES;
    }
    
-// method 3
-
-//#ifdef __IPHONE_8_0
-//
-//   if ( 0 == posix_spawn("ls") )
-//   {
-//      return YES;
-//   }
-//   
-//#else
-//
-//   if ( 0 == system("ls") )
-//   {
-//      return YES;
-//   }
-//   
-//#endif
+   // method 3
+   
+   //#ifdef __IPHONE_8_0
+   //
+   //   if ( 0 == posix_spawn("ls") )
+   //   {
+   //      return YES;
+   //   }
+   //
+   //#else
+   //
+   //   if ( 0 == system("ls") )
+   //   {
+   //      return YES;
+   //   }
+   //
+   //#endif
    
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-    return NO;
+   return NO;
 }
 
-- (BOOL)runningOnPhone
-{
+- (BOOL)runningOnPhone {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    NSString * deviceType = [UIDevice currentDevice].model;
    if ( [deviceType rangeOfString:@"iPhone" options:NSCaseInsensitiveSearch].length > 0 ||
        [deviceType rangeOfString:@"iPod" options:NSCaseInsensitiveSearch].length > 0 ||
-       [deviceType rangeOfString:@"iTouch" options:NSCaseInsensitiveSearch].length > 0 )
-   {
+       [deviceType rangeOfString:@"iTouch" options:NSCaseInsensitiveSearch].length > 0 ) {
+      
       return YES;
    }
    
@@ -255,13 +256,13 @@
    return NO;
 }
 
-- (BOOL)runningOnPad
-{
+- (BOOL)runningOnPad {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    NSString * deviceType = [UIDevice currentDevice].model;
-   if ( [deviceType rangeOfString:@"iPad" options:NSCaseInsensitiveSearch].length > 0 )
-   {
+   if ( [deviceType rangeOfString:@"iPad" options:NSCaseInsensitiveSearch].length > 0 ) {
+      
       return YES;
    }
    
@@ -270,8 +271,8 @@
    return NO;
 }
 
-- (BOOL)requiresPhoneOS
-{
+- (BOOL)requiresPhoneOS {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    return [[[NSBundle mainBundle].infoDictionary objectForKey:@"LSRequiresIPhoneOS"] boolValue];
@@ -283,54 +284,54 @@
 #endif
 }
 
-- (BOOL)isScreenPhone
-{
-   if ( [self isScreen320x480] || [self isScreen640x960] || [self isScreen640x1136] || [self isScreen750x1334] || [self isScreen1242x2208] || [self isScreen1125x2001] )
-   {
+- (BOOL)isScreenPhone {
+   
+   if ( [self isScreen320x480] || [self isScreen640x960] || [self isScreen640x1136] || [self isScreen750x1334] || [self isScreen1242x2208] || [self isScreen1125x2001] ) {
+      
       return YES;
    }
    
    return NO;
 }
 
-- (BOOL)isScreen320x480
-{
+- (BOOL)isScreen320x480 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   if ( [self runningOnPad] )
-   {
-      if ( [self requiresPhoneOS] && [self isScreen768x1024] )
-      {
+   if ( [self runningOnPad] ) {
+      
+      if ( [self requiresPhoneOS] && [self isScreen768x1024] ) {
+         
          return YES;
       }
-
+      
       return NO;
    }
-   else
-   {
+   else {
+      
       return [self isScreenSizeEqualTo:CGSizeMake(320, 480)];
    }
-
+   
 #endif
    
    return NO;
 }
 
-- (BOOL)isScreen640x960
-{
+- (BOOL)isScreen640x960 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   if ( [self runningOnPad] )
-   {
-      if ( [self requiresPhoneOS] && [self isScreen1536x2048] )
-      {
+   if ( [self runningOnPad] ) {
+      
+      if ( [self requiresPhoneOS] && [self isScreen1536x2048] ) {
+         
          return YES;
       }
-
+      
       return NO;
    }
-   else
-   {
+   else {
+      
       return [self isScreenSizeEqualTo:CGSizeMake(640, 960)];
    }
    
@@ -339,90 +340,90 @@
    return NO;
 }
 
-- (BOOL)isScreen640x1136
-{
+- (BOOL)isScreen640x1136 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
-   if ( [self runningOnPad] )
-   {
+   if ( [self runningOnPad] ) {
+      
       return NO;
    }
-   else
-   {
+   else {
+      
       return [self isScreenSizeEqualTo:CGSizeMake(640, 1136)];
    }
-
+   
 #endif
    
    return NO;
 }
 
-- (BOOL)isScreen750x1334
-{
+- (BOOL)isScreen750x1334 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-    
-    if ( [self runningOnPad] )
-    {
-        return NO;
-    }
-    else
-    {
-        return [self isScreenSizeEqualTo:CGSizeMake(750, 1334)];
-    }
-    
+   
+   if ( [self runningOnPad] ) {
+      
+      return NO;
+   }
+   else {
+      
+      return [self isScreenSizeEqualTo:CGSizeMake(750, 1334)];
+   }
+   
 #endif
-    
-    return NO;
+   
+   return NO;
 }
 
-- (BOOL)isScreen1242x2208
-{
+- (BOOL)isScreen1242x2208 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-    
-    if ( [self runningOnPad] )
-    {
-        return NO;
-    }
-    else
-    {
-        return [self isScreenSizeEqualTo:CGSizeMake(1242, 2208)];
-    }
-    
+   
+   if ( [self runningOnPad] ) {
+      
+      return NO;
+   }
+   else {
+      
+      return [self isScreenSizeEqualTo:CGSizeMake(1242, 2208)];
+   }
+   
 #endif
-    
-    return NO;
+   
+   return NO;
 }
 
-- (BOOL)isScreen1125x2001
-{
+- (BOOL)isScreen1125x2001 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-    
-    if ( [self runningOnPad] )
-    {
-        return NO;
-    }
-    else
-    {
-        return [self isScreenSizeEqualTo:CGSizeMake(1125, 2001)];
-    }
-    
+   
+   if ( [self runningOnPad] ) {
+      
+      return NO;
+   }
+   else {
+      
+      return [self isScreenSizeEqualTo:CGSizeMake(1125, 2001)];
+   }
+   
 #endif
-    
-    return NO;
+   
+   return NO;
 }
 
-- (BOOL)isScreenPad
-{
-   if ( [self isScreen768x1024] || [self isScreen1536x2048] )
-   {
+- (BOOL)isScreenPad {
+   
+   if ( [self isScreen768x1024] || [self isScreen1536x2048] ) {
+      
       return YES;
    }
    
    return NO;
 }
 
-- (BOOL)isScreen768x1024
-{
+- (BOOL)isScreen768x1024 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    return [self isScreenSizeEqualTo:CGSizeMake(768, 1024)];
@@ -432,49 +433,49 @@
    return NO;
 }
 
-- (BOOL)isScreen1536x2048
-{
+- (BOOL)isScreen1536x2048 {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
-
+   
    return [self isScreenSizeEqualTo:CGSizeMake(1536, 2048)];
-
+   
 #endif
    
    return NO;
 }
 
-- (CGSize)screenSize
-{
+- (CGSize)screenSize {
+   
    return [UIScreen mainScreen].currentMode.size;
 }
 
-- (BOOL)isScreenSizeEqualTo:(CGSize)size
-{
+- (BOOL)isScreenSizeEqualTo:(CGSize)size {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    CGSize size2 = CGSizeMake( size.height, size.width );
    CGSize screenSize = [UIScreen mainScreen].currentMode.size;
    
-   if ( CGSizeEqualToSize(size, screenSize) || CGSizeEqualToSize(size2, screenSize) )
-   {
+   if ( CGSizeEqualToSize(size, screenSize) || CGSizeEqualToSize(size2, screenSize) ) {
+      
       return YES;
    }
-
+   
 #endif
    
    return NO;
 }
 
-- (BOOL)isScreenSizeSmallerThan:(CGSize)size
-{
+- (BOOL)isScreenSizeSmallerThan:(CGSize)size {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    CGSize size2 = CGSizeMake( size.height, size.width );
    CGSize screenSize = [UIScreen mainScreen].currentMode.size;
-
+   
    if ( (size.width > screenSize.width && size.height > screenSize.height) ||
-      (size2.width > screenSize.width && size2.height > screenSize.height) )
-   {
+       (size2.width > screenSize.width && size2.height > screenSize.height) ) {
+      
       return YES;
    }
    
@@ -483,16 +484,16 @@
    return NO;
 }
 
-- (BOOL)isScreenSizeBiggerThan:(CGSize)size
-{
+- (BOOL)isScreenSizeBiggerThan:(CGSize)size {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    CGSize size2 = CGSizeMake( size.height, size.width );
    CGSize screenSize = [UIScreen mainScreen].currentMode.size;
    
    if ( (size.width < screenSize.width && size.height < screenSize.height) ||
-      (size2.width < screenSize.width && size2.height < screenSize.height) )
-   {
+       (size2.width < screenSize.width && size2.height < screenSize.height) ) {
+      
       return YES;
    }
    
@@ -501,40 +502,40 @@
    return NO;
 }
 
-- (BOOL)isOsVersionOrEarlier:(NSString *)ver
-{
-   if ( [[self osVersion] compare:ver] != NSOrderedDescending )
-   {
+- (BOOL)isOsVersionOrEarlier:(NSString *)ver {
+   
+   if ( [[self osVersion] compare:ver] != NSOrderedDescending ) {
+      
       return YES;
    }
-   else
-   {
+   else {
+      
       return NO;
    }
 }
 
-- (BOOL)isOsVersionOrLater:(NSString *)ver
-{
-   if ( [[self osVersion] compare:ver] != NSOrderedAscending )
-   {
+- (BOOL)isOsVersionOrLater:(NSString *)ver {
+   
+   if ( [[self osVersion] compare:ver] != NSOrderedAscending ) {
+      
       return YES;
    }
-   else
-   {
+   else {
+      
       return NO;
    }
 }
 
-- (BOOL)isOsVersionEqualTo:(NSString *)ver
-{
-   if ( NSOrderedSame == [[self osVersion] compare:ver] )
-   {
+- (BOOL)isOsVersionEqualTo:(NSString *)ver {
+   
+   if ( NSOrderedSame == [[self osVersion] compare:ver] ) {
+      
       return YES;
    }
-   else
-   {
+   else {
+      
       return NO;
-   }   
+   }
 }
 
 @end
@@ -547,15 +548,15 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, System )
-{
+TEST_CASE( Core, System ) {
+   
 }
 
-DESCRIBE( system info )
-{
+DESCRIBE( system info ) {
+   
    EXPECTED( [IDEAAppletSystem sharedInstance].osVersion );
    EXPECTED( [IDEAAppletSystem sharedInstance].osType != OperationSystem_Unknown );
-
+   
    EXPECTED( [IDEAAppletSystem sharedInstance].deviceModel );
    EXPECTED( [IDEAAppletSystem sharedInstance].deviceUDID );
 }

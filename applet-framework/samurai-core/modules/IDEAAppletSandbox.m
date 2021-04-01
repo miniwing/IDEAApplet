@@ -49,61 +49,65 @@
 
 @def_singleton( IDEAAppletSandbox )
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletSandbox sharedInstance];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
-      NSString *   execName = [[NSBundle mainBundle] infoDictionary][@"CFBundleExecutable"];
-      NSString *   execPath = [[NSHomeDirectory() stringByAppendingPathComponent:execName] stringByAppendingPathExtension:@"app"];
-
-      NSArray *   docPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-      NSArray *   libPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-      NSString *   prefPath = [[libPaths objectAtIndex:0] stringByAppendingFormat:@"/Preference"];
-      NSString *   cachePath = [[libPaths objectAtIndex:0] stringByAppendingFormat:@"/Caches"];
-      NSString *   tmpPath = [[libPaths objectAtIndex:0] stringByAppendingFormat:@"/tmp"];
-
-      self.appPath = execPath;
-      self.docPath = [docPaths objectAtIndex:0];
-      self.tmpPath = tmpPath;
-
-      self.libPrefPath = prefPath;
-      self.libCachePath = cachePath;
+   
+   if ( self ) {
+      
+      NSString *szExecName = [[NSBundle mainBundle] infoDictionary][@"CFBundleExecutable"];
+      NSString *szExecPath = [[NSHomeDirectory() stringByAppendingPathComponent:szExecName] stringByAppendingPathExtension:@"app"];
+      
+      NSArray  *stDocPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+      NSArray  *stLibPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+      NSString *szPrefPath = [[stLibPaths objectAtIndex:0] stringByAppendingFormat:@"/Preference"];
+      NSString *szCachePath= [[stLibPaths objectAtIndex:0] stringByAppendingFormat:@"/Caches"];
+      NSString *szTmpPath  = [[stLibPaths objectAtIndex:0] stringByAppendingFormat:@"/tmp"];
+      
+      self.appPath   = szExecPath;
+      self.docPath   = [stDocPaths objectAtIndex:0];
+      self.tmpPath   = szTmpPath;
+      
+      self.libPrefPath  = szPrefPath;
+      self.libCachePath = szCachePath;
       
       [self touch:self.docPath];
       [self touch:self.tmpPath];
       [self touch:self.libPrefPath];
       [self touch:self.libCachePath];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (BOOL)touch:(NSString *)path
-{
-   if ( NO == [[NSFileManager defaultManager] fileExistsAtPath:path] )
-   {
-      return [[NSFileManager defaultManager] createDirectoryAtPath:path
-                               withIntermediateDirectories:YES
-                                            attributes:nil
-                                                error:NULL];
+- (BOOL)touch:(NSString *)aPath {
+   
+   if ( NO == [[NSFileManager defaultManager] fileExistsAtPath:aPath] ) {
+      
+      return [[NSFileManager defaultManager] createDirectoryAtPath:aPath
+                                       withIntermediateDirectories:YES
+                                                        attributes:nil
+                                                             error:NULL];
    }
    
    return YES;
 }
 
-- (BOOL)touchFile:(NSString *)file
-{
-   if ( NO == [[NSFileManager defaultManager] fileExistsAtPath:file] )
-   {
-      return [[NSFileManager defaultManager] createFileAtPath:file
-                                          contents:[NSData data]
-                                        attributes:nil];
-   }
+- (BOOL)touchFile:(NSString *)aFile {
+   
+   if ( NO == [[NSFileManager defaultManager] fileExistsAtPath:aFile] ) {
+      
+      return [[NSFileManager defaultManager] createFileAtPath:aFile
+                                                     contents:[NSData data]
+                                                   attributes:nil];
+      
+   } /* End if () */
    
    return YES;
 }
@@ -118,12 +122,12 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, Sandbox )
-{
+TEST_CASE( Core, Sandbox ) {
+   
 }
 
-DESCRIBE( paths )
-{
+DESCRIBE( paths ) {
+   
    EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] appPath] );
    EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] docPath] );
    EXPECTED( nil != [[IDEAAppletSandbox sharedInstance] libPrefPath] );

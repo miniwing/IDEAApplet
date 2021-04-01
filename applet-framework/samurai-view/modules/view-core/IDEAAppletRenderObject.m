@@ -60,45 +60,67 @@
 
 @def_prop_dynamic_strong(IDEAAppletRenderObject *, renderer, setRenderer);
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer {
+   
+   UNUSED(aRenderer);
+   
    return nil;
 }
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier {
+
+   UNUSED(aRenderer);
+   UNUSED(aIdentifier);
+
    return nil;
 }
 
-- (void)prepareForRendering
-{
+- (void)prepareForRendering {
+   
+   return;
 }
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)aSize {
+   
+//   UNUSED(aSize);
+
    return CGSizeZero;
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)aWidth {
+   
+   
+//   UNUSED(aWidth);
+
    return CGSizeZero;
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)aHeight {
+   
+//   UNUSED(aHeight);
+
    return CGSizeZero;
 }
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{   
+- (void)applyDom:(IDEAAppletDomNode *)aDom {
+   
+   UNUSED(aDom);
+
+   return;
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)aStyle {
+   
+   UNUSED(aStyle);
+
+   return;
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)aFrame {
+   
+//   UNUSED(aFrame);
+
+   return;
 }
 
 @end
@@ -107,12 +129,12 @@
 
 @implementation IDEAAppletRenderObject
 
-@def_prop_strong( NSNumber             *, id);
+@def_prop_strong( NSNumber                *, id);
 @def_prop_unsafe( IDEAAppletDomNode       *, dom);
 @def_prop_strong( IDEAAppletRenderStyle   *, style);
 
-@def_prop_strong( UIView               *, view);
-@def_prop_strong( Class                 , viewClass);
+@def_prop_strong( UIView   *, view);
+@def_prop_strong( Class     , viewClass);
 
 @def_prop_dynamic( IDEAAppletRenderObject *, root);
 @def_prop_dynamic( IDEAAppletRenderObject *, parent);
@@ -125,19 +147,19 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-+ (instancetype)renderObject
-{
++ (instancetype)renderObject {
+   
    return [[self alloc] init];
 }
 
-+ (instancetype)renderObjectWithDom:(IDEAAppletDomNode *)dom andStyle:(IDEAAppletRenderStyle *)style
-{
-   IDEAAppletRenderObject * renderObject = [[self alloc] init];
++ (instancetype)renderObjectWithDom:(IDEAAppletDomNode *)aDom andStyle:(IDEAAppletRenderStyle *)aStyle {
    
-   [renderObject bindDom:dom];
-   [renderObject bindStyle:style];
+   IDEAAppletRenderObject  *stRenderObject   = [[self alloc] init];
+   
+   [stRenderObject bindDom:aDom];
+   [stRenderObject bindStyle:aStyle];
 
-   return renderObject;
+   return stRenderObject;
 }
 
 #pragma mark -

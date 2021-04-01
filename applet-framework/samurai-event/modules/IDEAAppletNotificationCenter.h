@@ -38,13 +38,13 @@
 
 @singleton( IDEAAppletNotificationCenter )
 
-- (void)postNotification:(NSString *)name;
-- (void)postNotification:(NSString *)name object:(id)object;
+- (void)postNotification:(NSString *)aName;
+- (void)postNotification:(NSString *)aName object:(id)aObject;
 
-- (void)addObserver:(id)observer forNotification:(NSString *)name;
-- (void)removeObserver:(id)observer forNotification:(NSString *)name;
-- (void)removeObserver:(id)observer;
+- (void)addObserver   :(id)aObserver forNotification:(NSString *)aName;
+- (void)removeObserver:(id)aObserver forNotification:(NSString *)aName;
+- (void)removeObserver:(id)aObserver;
 
-- (void)handleNotification:(AppletNotification *)that;
+- (void)handleNotification:(AppletNotification *)aThat;
 
 @end

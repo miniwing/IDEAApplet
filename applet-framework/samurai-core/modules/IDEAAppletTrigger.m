@@ -58,12 +58,10 @@
    return;
 }
 
-
 - (void)unload {
    
    return;
 }
-
 
 - (void)performLoad {
    
@@ -73,7 +71,6 @@
    
    return;
 }
-
 
 - (void)performUnload {
    
@@ -150,7 +147,7 @@
             continue;
             
          } /* End if () */
-
+         
          if (0 == strncmp(cpcName, cpcPrefix, strlen(cpcPrefix))) {
             
             ImpFuncType stIMPL = (ImpFuncType)method_getImplementation(stMethodList[i]);
@@ -171,12 +168,10 @@
    return;
 }
 
-
 - (id)performCallChainWithSelector:(SEL)aSEL {
    
    return [self performCallChainWithSelector:aSEL reversed:NO];
 }
-
 
 - (id)performCallChainWithSelector:(SEL)aSEL reversed:(BOOL)aFlag {
    
@@ -199,8 +194,8 @@
    
    ImpFuncType  stPrevImpl    = NULL;
    
-   for (Class stThisClass in stClassStack)
-   {
+   for (Class stThisClass in stClassStack) {
+      
       Method    stMethod   = class_getInstanceMethod(stThisClass, aSEL);
       if (stMethod) {
          
@@ -213,7 +208,7 @@
                continue;
                
             } /* End if () */
-
+            
             stIMPL(self, aSEL, nil);
             
             stPrevImpl = stIMPL;
@@ -227,12 +222,10 @@
    return self;
 }
 
-
 - (id)performCallChainWithPrefix:(NSString *)aPrefix {
    
    return [self performCallChainWithPrefix:aPrefix reversed:YES];
 }
-
 
 - (id)performCallChainWithPrefix:(NSString *)aPrefixName reversed:(BOOL)aFlag {
    
@@ -300,7 +293,6 @@
    return [self performCallChainWithName:aName reversed:NO];
 }
 
-
 - (id)performCallChainWithName:(NSString *)aName reversed:(BOOL)aFlag {
    
    SEL    stSelector = NSSelectorFromString(aName);
@@ -318,7 +310,6 @@
    return self;
 }
 
-
 @end
 
 // ----------------------------------
@@ -329,16 +320,16 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE(Core, Object)
-{
+TEST_CASE(Core, Object) {
+   
 }
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
 }
 
 TEST_CASE_END

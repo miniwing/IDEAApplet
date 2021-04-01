@@ -86,12 +86,12 @@
 @def_singleton( __SingletonTest )
 @end
 
-TEST_CASE( Core, Singleton )
-{
+TEST_CASE( Core, Singleton ) {
+   
 }
 
-DESCRIBE( singleton )
-{
+DESCRIBE( singleton ) {
+   
    __SingletonTest * a = [__SingletonTest sharedInstance];
    __SingletonTest * b = [__SingletonTest sharedInstance];
    

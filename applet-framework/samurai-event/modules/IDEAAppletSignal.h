@@ -51,20 +51,21 @@
 
 #undef  handleSignal
 #define handleSignal( ... )               \
-        - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)signal
+        - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)aSignal
 
 #pragma mark -
 
-typedef NSObject * (^ IDEAAppletSignalBlock )( NSString * name, id object );
+typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, id aObject );
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+   
    SignalState_Inited = 0,
    SignalState_Sending,
    SignalState_Arrived,
    SignalState_Dead
+   
 } SignalState;
 
 #pragma mark -
@@ -74,7 +75,7 @@ typedef enum
 @interface NSObject(SignalResponder)
 
 @prop_readonly( IDEAAppletSignalBlock, onSignal );
-@prop_readonly( NSMutableArray   *, userResponders );
+@prop_readonly( NSMutableArray      *, userResponders );
 
 - (id)signalResponders;          // override point
 - (id)signalAlias;               // override point
@@ -105,10 +106,10 @@ typedef enum
 //- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource;
 //- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
-- (IDEAAppletSignal *)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue;
-- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
 
 @end
 
@@ -118,8 +119,8 @@ typedef enum
 
 @joint( stateChanged );
 
-//@prop_unsafe( id,                  foreign );
-//@prop_strong( NSString *,            prefix );
+//@prop_unsafe   ( id                  , foreign );
+//@prop_strong   ( NSString           *, prefix );
 
 @prop_unsafe   ( id                  , source );
 @prop_unsafe   ( id                  , target );

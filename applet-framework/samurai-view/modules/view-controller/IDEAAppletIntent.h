@@ -57,7 +57,7 @@
 
 #undef  handleIntent
 #define handleIntent( ... ) \
-        - (void) macro_join( handleIntent, __VA_ARGS__):(IDEAAppletIntent *)intent
+        - (void) macro_join( handleIntent, __VA_ARGS__):(IDEAAppletIntent *)aIntent
 
 #pragma mark -
 
@@ -65,8 +65,8 @@ typedef NSObject *   (^ IDEAAppletIntentObserverBlock )( NSString * name, id obj
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+   
    IntentState_Inited = 0,
    IntentState_Arrived,
    IntentState_Succeed,
@@ -81,9 +81,25 @@ typedef enum
 
 @interface NSObject(IntentResponder)
 
-@prop_readonly( IDEAAppletIntentObserverBlock, onIntent );
+@prop_readonly( IDEAAppletIntentObserverBlock , onIntent );
 
-- (void)handleIntent:(IDEAAppletIntent *)that;
+//@prop_readonly( NSMutableArray               *, userResponders );
+
+//- (id)intentResponders;          // override point
+//- (id)intentAlias;               // override point
+//- (NSString *)intentNamespace;   // override point
+//- (NSString *)intentTag;         // override point
+//- (NSString *)intentDescription; // override point
+//
+//- (BOOL)hasIntentResponder:(id)aObj;
+//- (void)addIntentResponder:(id)aObj;
+//- (void)removeIntentResponder:(id)aObj;
+//- (void)removeAllIntentResponders;
+
+- (void)handleIntent:(IDEAAppletIntent *)aIntent;
+
+- (void)broadcast:(NSString *)aAction;
+- (void)broadcast:(NSString *)aAction withParams:(NSDictionary *)aParams;
 
 @end
 
@@ -108,12 +124,12 @@ typedef enum
 @prop_assign( BOOL,  cancelled );
 
 + (IDEAAppletIntent *)intent;
-+ (IDEAAppletIntent *)intent:(NSString *)aName;
-+ (IDEAAppletIntent *)intent:(NSString *)aName params:(NSDictionary *)aParams;
++ (IDEAAppletIntent *)intent:(NSString *)aAction;
++ (IDEAAppletIntent *)intent:(NSString *)aAction params:(NSDictionary *)aParams;
 
-- (BOOL)is:(NSString *)aName;
-
+- (BOOL)is:(NSString *)aAction;
 - (BOOL)changeState:(IntentState)aNewState;
+- (void)broadcast;
 
 @end
 

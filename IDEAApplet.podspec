@@ -434,8 +434,8 @@ Pod::Spec.new do |spec|
 
 #define LOG_BUG_SIZE                               (1024 * 1)
 
-enum
-{
+enum {
+  
    LogLevelFatal = 0,
    LogLevelError,
    LogLevelWarn,
@@ -446,8 +446,8 @@ enum
 
 #ifdef __OBJC__
 
-NS_INLINE const char* __LogLevelToString(int _eLevel)
-{
+NS_INLINE const char* __LogLevelToString(int _eLevel) {
+  
    switch (_eLevel)
    {
       case LogLevelFatal:
@@ -468,15 +468,15 @@ NS_INLINE const char* __LogLevelToString(int _eLevel)
    return ("Unknown");
 }
 
-NS_INLINE void __Log(int _eLevel, const char *_cpszMsg)
-{
+NS_INLINE void __Log(int _eLevel, const char *_cpszMsg) {
+  
    printf("%s :: %s\\n", __LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
 
-NS_INLINE void LoggerFatal(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -491,8 +491,8 @@ NS_INLINE void LoggerFatal(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerError(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerError(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -507,8 +507,8 @@ NS_INLINE void LoggerError(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerWarn(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -523,8 +523,8 @@ NS_INLINE void LoggerWarn(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerInfo(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -539,8 +539,8 @@ NS_INLINE void LoggerInfo(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerDebug(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -554,12 +554,13 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...)
    
    return;
 }
+
 #else
 
 __BEGIN_DECLS
 
-static __inline void LoggerFatal(char *_Format, ...)
-{
+static __inline void LoggerFatal(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -574,8 +575,8 @@ static __inline void LoggerFatal(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerError(char *_Format, ...)
-{
+static __inline void LoggerError(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -590,8 +591,8 @@ static __inline void LoggerError(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerWarn(char *_Format, ...)
-{
+static __inline void LoggerWarn(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -606,8 +607,8 @@ static __inline void LoggerWarn(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerInfo(char *_Format, ...)
-{
+static __inline void LoggerInfo(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -622,8 +623,8 @@ static __inline void LoggerInfo(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerDebug(char *_Format, ...)
-{
+static __inline void LoggerDebug(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    

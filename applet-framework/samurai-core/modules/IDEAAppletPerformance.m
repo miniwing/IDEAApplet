@@ -43,50 +43,56 @@
 
 #pragma mark -
 
-@implementation IDEAAppletPerformance
-{
+@implementation IDEAAppletPerformance {
+   
    NSMutableDictionary * _tags;
 }
 
 @def_singleton( IDEAAppletPerformance );
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _tags = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)enter:(NSString *)tag
-{
+- (void)enter:(NSString *)aTag {
+   
    NSNumber * time = [NSNumber numberWithDouble:CACurrentMediaTime()];
-   NSString * name = [NSString stringWithFormat:@"%@ enter", tag];
+   NSString * name = [NSString stringWithFormat:@"%@ enter", aTag];
    
    [_tags setObject:time forKey:name];
+   
+   return;
 }
 
-- (void)leave:(NSString *)tag
-{
-   @autoreleasepool
-   {
-      NSString * name1 = [NSString stringWithFormat:@"%@ enter", tag];
-      NSString * name2 = [NSString stringWithFormat:@"%@ leave", tag];
+- (void)leave:(NSString *)aTag {
    
-   #if __SAMURAI_LOGGING__
+   @autoreleasepool {
+      
+      NSString * name1 = [NSString stringWithFormat:@"%@ enter", aTag];
+      NSString * name2 = [NSString stringWithFormat:@"%@ leave", aTag];
+      
+#if __SAMURAI_LOGGING__
       
       CFTimeInterval time1 = [[_tags objectForKey:name1] doubleValue];
       CFTimeInterval time2 = CACurrentMediaTime();
       
       PERF( @"Time '%@' = %.0f(ms)", tag, fabs(time2 - time1) );
-
-   #endif   // #if __SAMURAI_LOGGING__
-
+      
+#endif   // #if __SAMURAI_LOGGING__
+      
       [_tags removeObjectForKey:name1];
       [_tags removeObjectForKey:name2];
    }
+   
+   return;
 }
 
 @end
@@ -101,12 +107,12 @@
 
 TEST_CASE( Core, Performance )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

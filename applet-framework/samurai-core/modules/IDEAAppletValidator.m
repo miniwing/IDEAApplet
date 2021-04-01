@@ -47,13 +47,13 @@
 
 @implementation NSObject(Validation)
 
-- (BOOL)validate
-{
+- (BOOL)validate {
+   
    return [[IDEAAppletValidator sharedInstance] validateObject:self];
 }
 
-- (BOOL)validate:(NSString *)prop
-{
+- (BOOL)validate:(NSString *)prop {
+   
    return [[IDEAAppletValidator sharedInstance] validateObject:self property:prop];
 }
 
@@ -70,633 +70,638 @@
 
 static __strong NSMutableDictionary * __rules = nil;
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [[IDEAAppletValidator sharedInstance] loadRules];
+   
+   return;
 }
 
-- (void)loadRules
-{
-   if ( nil == __rules )
-   {
+- (void)loadRules {
+   
+   if ( nil == __rules ) {
+      
       __rules = [[NSMutableDictionary alloc] init];
-         
-      [__rules setObject:@(ValidatorRule_Regex)      forKey:@"regex"];
-      [__rules setObject:@(ValidatorRule_Accepted)   forKey:@"accepted"];
-      [__rules setObject:@(ValidatorRule_In)         forKey:@"in"];
-      [__rules setObject:@(ValidatorRule_NotIn)      forKey:@"notin"];
-      [__rules setObject:@(ValidatorRule_Alpha)      forKey:@"alpha"];
-      [__rules setObject:@(ValidatorRule_Numeric)      forKey:@"numeric"];
-      [__rules setObject:@(ValidatorRule_AlphaNum)   forKey:@"alpha_num"];
+      
+      [__rules setObject:@(ValidatorRule_Regex)       forKey:@"regex"];
+      [__rules setObject:@(ValidatorRule_Accepted)    forKey:@"accepted"];
+      [__rules setObject:@(ValidatorRule_In)          forKey:@"in"];
+      [__rules setObject:@(ValidatorRule_NotIn)       forKey:@"notin"];
+      [__rules setObject:@(ValidatorRule_Alpha)       forKey:@"alpha"];
+      [__rules setObject:@(ValidatorRule_Numeric)     forKey:@"numeric"];
+      [__rules setObject:@(ValidatorRule_AlphaNum)    forKey:@"alpha_num"];
       [__rules setObject:@(ValidatorRule_AlphaDash)   forKey:@"alpha_dash"];
       [__rules setObject:@(ValidatorRule_URL)         forKey:@"url"];
-      [__rules setObject:@(ValidatorRule_Email)      forKey:@"email"];
+      [__rules setObject:@(ValidatorRule_Email)       forKey:@"email"];
 //      [__rules setObject:@(ValidatorRule_Tel)         forKey:@"tel"];
-      [__rules setObject:@(ValidatorRule_Integer)      forKey:@"integer"];
-      [__rules setObject:@(ValidatorRule_IP)         forKey:@"ip"];
+      [__rules setObject:@(ValidatorRule_Integer)     forKey:@"integer"];
+      [__rules setObject:@(ValidatorRule_IP)          forKey:@"ip"];
       [__rules setObject:@(ValidatorRule_Before)      forKey:@"before"];
-      [__rules setObject:@(ValidatorRule_After)      forKey:@"after"];
-      [__rules setObject:@(ValidatorRule_Between)      forKey:@"between"];
-      [__rules setObject:@(ValidatorRule_Same)      forKey:@"same"];
-      [__rules setObject:@(ValidatorRule_Size)      forKey:@"size"];
-      [__rules setObject:@(ValidatorRule_Date)      forKey:@"date"];
-      [__rules setObject:@(ValidatorRule_DateFormat)   forKey:@"dateformat"];
+      [__rules setObject:@(ValidatorRule_After)       forKey:@"after"];
+      [__rules setObject:@(ValidatorRule_Between)     forKey:@"between"];
+      [__rules setObject:@(ValidatorRule_Same)        forKey:@"same"];
+      [__rules setObject:@(ValidatorRule_Size)        forKey:@"size"];
+      [__rules setObject:@(ValidatorRule_Date)        forKey:@"date"];
+      [__rules setObject:@(ValidatorRule_DateFormat)  forKey:@"dateformat"];
       [__rules setObject:@(ValidatorRule_Different)   forKey:@"different"];
       [__rules setObject:@(ValidatorRule_Min)         forKey:@"min"];
       [__rules setObject:@(ValidatorRule_Max)         forKey:@"max"];
-      [__rules setObject:@(ValidatorRule_Required)   forKey:@"required"];
-   }
+      [__rules setObject:@(ValidatorRule_Required)    forKey:@"required"];
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (ValidatorRule)typeFromString:(NSString *)string
-{
-   string = [[string trim] unwrap];
+- (ValidatorRule)typeFromString:(NSString *)aString {
    
-   NSNumber * ruleType = [__rules objectForKey:string];
-   if ( ruleType )
-   {
+   aString = [[aString trim] unwrap];
+   
+   NSNumber * ruleType = [__rules objectForKey:aString];
+   if ( ruleType ) {
+      
       return (ValidatorRule)ruleType.integerValue;
    }
    
    return ValidatorRule_Unknown;
 }
 
-- (BOOL)validate:(NSObject *)value rule:(NSString *)rule
-{
-   NSUInteger offset = 0;
+- (BOOL)validate:(NSObject *)value rule:(NSString *)aRule {
    
-   if ( NSNotFound != [rule rangeOfString:@":"].location )
-   {
-      NSString * ruleName = [[rule substringFromIndex:0 untilString:@":" endOffset:&offset] trim];
-      NSString * ruleValue = [[[rule substringFromIndex:offset] trim] unwrap];      
-
+   NSUInteger   offset  = 0;
+   
+   if ( NSNotFound != [aRule rangeOfString:@":"].location ) {
+      
+      NSString * ruleName = [[aRule substringFromIndex:0 untilString:@":" endOffset:&offset] trim];
+      NSString * ruleValue = [[[aRule substringFromIndex:offset] trim] unwrap];
+      
       return [self validate:value ruleName:ruleName ruleValue:ruleValue];
    }
-   else
-   {
-      return [self validate:value ruleName:rule ruleValue:nil];
+   else {
+      
+      return [self validate:value ruleName:aRule ruleValue:nil];
    }
 }
 
-- (BOOL)validate:(NSObject *)value ruleName:(NSString *)ruleName ruleValue:(NSString *)ruleValue
-{
-   ValidatorRule ruleType = [self typeFromString:ruleName];
+- (BOOL)validate:(NSObject *)value ruleName:(NSString *)aRuleName ruleValue:(NSString *)aRuleValue {
    
-   if ( ValidatorRule_Unknown == ruleType )
-   {
-   #if __ENABLE_STRICT_VALIDATION__
+   ValidatorRule ruleType = [self typeFromString:aRuleName];
+   
+   if ( ValidatorRule_Unknown == ruleType ) {
+      
+#if __ENABLE_STRICT_VALIDATION__
       return YES;
-   #else
+#else
       return NO;
-   #endif
+#endif
    }
-
-   return [self validate:value ruleType:ruleType ruleValue:ruleValue];
+   
+   return [self validate:value ruleType:ruleType ruleValue:aRuleValue];
 }
 
-- (BOOL)validate:(NSObject *)value ruleType:(ValidatorRule)ruleType ruleValue:(NSString *)ruleValue
-{
-   switch ( ruleType )
-   {
-   case ValidatorRule_Regex:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
+- (BOOL)validate:(NSObject *)aValue ruleType:(ValidatorRule)aRuleType ruleValue:(NSString *)aRuleValue {
+   
+   switch ( aRuleType ) {
+         
+      case ValidatorRule_Regex: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
-
-         BOOL matched = [textValue match:ruleValue];
-         if ( NO == matched )
-         {
+         
+         BOOL matched = [textValue match:aRuleValue];
+         if ( NO == matched ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_Accepted:
-      {
-         BOOL accepted = [[value toNumber] boolValue];
-         if ( NO == accepted )
-         {
+         break;
+         
+      case ValidatorRule_Accepted: {
+         
+         BOOL accepted = [[aValue toNumber] boolValue];
+         if ( NO == accepted ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_In:
-      {
-         BOOL         matched = NO;
-         EncodingType   encoding = [IDEAAppletEncoding typeOfObject:value];
+         break;
          
-         NSArray * list = [ruleValue componentsSeparatedByString:@","];
-         for ( NSString * item in list )
-         {
-            NSString * filter = [[item trim] unwrap];
-            NSObject * value2 = [filter converToType:encoding];
-
-            if ( value2 && [value2 isEqual:value] )
-            {
-               matched = YES;
-               break;
-            }
-         }
+      case ValidatorRule_In: {
          
-         if ( NO == matched )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_NotIn:
-      {
-         BOOL         matched = NO;
-         EncodingType   encoding = [IDEAAppletEncoding typeOfObject:value];
+         BOOL         matched    = NO;
+         EncodingType encoding   = [IDEAAppletEncoding typeOfObject:aValue];
          
-         NSArray * list = [ruleValue componentsSeparatedByString:@","];
-         for ( NSString * item in list )
-         {
+         NSArray * list = [aRuleValue componentsSeparatedByString:@","];
+         for ( NSString * item in list ) {
+            
             NSString * filter = [[item trim] unwrap];
             NSObject * value2 = [filter converToType:encoding];
             
-            if ( value2 && [value2 isEqual:value] )
-            {
+            if ( value2 && [value2 isEqual:aValue] ) {
+               
                matched = YES;
                break;
             }
          }
-
-         if ( matched )
-         {
+         
+         if ( NO == matched ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_Alpha:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
-            return NO;
+         break;
+         
+      case ValidatorRule_NotIn: {
+         
+         BOOL         matched = NO;
+         EncodingType   encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         NSArray * list = [aRuleValue componentsSeparatedByString:@","];
+         for ( NSString * item in list ) {
+            
+            NSString * filter = [[item trim] unwrap];
+            NSObject * value2 = [filter converToType:encoding];
+            
+            if ( value2 && [value2 isEqual:aValue] ) {
+               
+               matched = YES;
+               break;
+            }
          }
-
-         if ( NO == [textValue match:@"^([a-zA-Z]+)$"] )
-         {
+         
+         if ( matched ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_Numeric:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
+         break;
+         
+      case ValidatorRule_Alpha: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
          
-         if ( NO == [textValue match:@"^([+\\-\\.0-9]+)$"] )
-         {
+         if ( NO == [textValue match:@"^([a-zA-Z]+)$"] ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_AlphaNum:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
+         break;
+         
+      case ValidatorRule_Numeric: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
          
-         if ( NO == [textValue match:@"^([a-zA-Z0-9]+)$"] )
-         {
+         if ( NO == [textValue match:@"^([+\\-\\.0-9]+)$"] ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_AlphaDash:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
-            return NO;
-         }
-
-         if ( NO == [textValue match:@"^([a-zA-Z_]+)$"] )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_URL:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
+         break;
+         
+      case ValidatorRule_AlphaNum: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
          
-         if ( NO == [textValue isUrl] )
-         {
+         if ( NO == [textValue match:@"^([a-zA-Z0-9]+)$"] ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_Email:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
+         break;
+         
+      case ValidatorRule_AlphaDash: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
          
-         if ( NO == [textValue isEmail] )
-         {
+         if ( NO == [textValue match:@"^([a-zA-Z_]+)$"] ) {
+            
             return NO;
          }
       }
-      break;
-
-//   case ValidatorRule_Tel:
-//      {
-//         NSString * textValue = [value toString];
-//         if ( nil == textValue )
-//         {
-//            return NO;
-//         }
-//         
-//         if ( NO == [textValue isTelephone] )
-//         {
-//            return NO;
-//         }
-//      }
-//      break;
-
-   case ValidatorRule_Image:
-      {
-         if ( NO == [value isKindOfClass:[UIImage class]] )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_Integer:
-      {
-         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
-
-         if ( EncodingType_Number != encoding )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_IP:
-      {
-         NSString * textValue = [value toString];
-         if ( nil == textValue )
-         {
-            return NO;
-         }
-
-         if ( NO == [textValue isIPAddress] )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_Before:
-      {
-         NSDate * dateValue = [value toDate];
-         NSDate * dateValue2 = [ruleValue toDate];
+         break;
          
-         if ( nil == dateValue || nil == dateValue2 )
-         {
-            return NO;
-         }
-
-         if ( NSOrderedAscending != [dateValue compare:dateValue2] )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_After:
-      {
-         NSDate * dateValue = [value toDate];
-         NSDate * dateValue2 = [ruleValue toDate];
+      case ValidatorRule_URL: {
          
-         if ( nil == dateValue || nil == dateValue2 )
-         {
-            return NO;
-         }
-
-         if ( NSOrderedDescending != [dateValue compare:dateValue2] )
-         {
-            return NO;
-         }
-      }
-      break;
-
-   case ValidatorRule_Between:
-      {
-         NSNumber * numberValue = [value toNumber];
-         if ( nil == numberValue )
-         {
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
             return NO;
          }
          
-         NSArray *   array = [ruleValue componentsSeparatedByString:@","];
+         if ( NO == [textValue isUrl] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_Email: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
+            return NO;
+         }
+         
+         if ( NO == [textValue isEmail] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+         //   case ValidatorRule_Tel:
+         //      {
+         //         NSString * textValue = [value toString];
+         //         if ( nil == textValue )
+         //         {
+         //            return NO;
+         //         }
+         //
+         //         if ( NO == [textValue isTelephone] )
+         //         {
+         //            return NO;
+         //         }
+         //      }
+         //      break;
+         
+      case ValidatorRule_Image: {
+         
+         if ( NO == [aValue isKindOfClass:[UIImage class]] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_Integer: {
+         
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         if ( EncodingType_Number != encoding ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_IP: {
+         
+         NSString * textValue = [aValue toString];
+         if ( nil == textValue ) {
+            
+            return NO;
+         }
+         
+         if ( NO == [textValue isIPAddress] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_Before: {
+         
+         NSDate * dateValue = [aValue toDate];
+         NSDate * dateValue2 = [aRuleValue toDate];
+         
+         if ( nil == dateValue || nil == dateValue2 ) {
+            
+            return NO;
+         }
+         
+         if ( NSOrderedAscending != [dateValue compare:dateValue2] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_After: {
+         
+         NSDate * dateValue = [aValue toDate];
+         NSDate * dateValue2 = [aRuleValue toDate];
+         
+         if ( nil == dateValue || nil == dateValue2 ) {
+            
+            return NO;
+         }
+         
+         if ( NSOrderedDescending != [dateValue compare:dateValue2] ) {
+            
+            return NO;
+         }
+      }
+         break;
+         
+      case ValidatorRule_Between: {
+         
+         NSNumber * numberValue = [aValue toNumber];
+         if ( nil == numberValue ) {
+            
+            return NO;
+         }
+         
+         NSArray *   array = [aRuleValue componentsSeparatedByString:@","];
          NSNumber *   value1 = [[[array safeObjectAtIndex:0] trim] toNumber];
          NSNumber *   value2 = [[[array safeObjectAtIndex:1] trim] toNumber];
          
-         if ( nil == value1 || nil == value2 )
-         {
+         if ( nil == value1 || nil == value2 ) {
+            
             return NO;
          }
          
-         if ( NSOrderedDescending != [numberValue compare:value1] )
-         {
+         if ( NSOrderedDescending != [numberValue compare:value1] ) {
+            
             return NO;
          }
-
-         if ( NSOrderedAscending != [numberValue compare:value2] )
-         {
+         
+         if ( NSOrderedAscending != [numberValue compare:value2] ) {
+            
             return NO;
          }
       }
-      break;
-
-   case ValidatorRule_Same:
-      {
+         break;
+         
+      case ValidatorRule_Same: {
+         
          TODO( "same: xxx" );
       }
-      break;
-
-   case ValidatorRule_Size:
-      {
-         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
+         break;
          
-         if ( EncodingType_Number == encoding )
-         {
-            NSNumber * numberValue = (NSNumber *)value;
+      case ValidatorRule_Size: {
+         
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         if ( EncodingType_Number == encoding ) {
             
-            if ( NSOrderedSame != [numberValue compare:[[ruleValue trim] toNumber]] )
-            {
+            NSNumber * numberValue = (NSNumber *)aValue;
+            
+            if ( NSOrderedSame != [numberValue compare:[[aRuleValue trim] toNumber]] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_String == encoding )
-         {
-            NSString * stringValue = (NSString *)value;
+         else if ( EncodingType_String == encoding ) {
             
-            if ( [stringValue length] != (NSUInteger)[ruleValue integerValue] )
-            {
+            NSString * stringValue = (NSString *)aValue;
+            
+            if ( [stringValue length] != (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Data == encoding )
-         {
-            NSData * dataValue = (NSData *)value;
+         else if ( EncodingType_Data == encoding ) {
             
-            if ( [dataValue length] != (NSUInteger)[ruleValue integerValue] )
-            {
+            NSData * dataValue = (NSData *)aValue;
+            
+            if ( [dataValue length] != (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Url == encoding )
-         {
-            NSString * stringValue = [value toString];
-
-            if ( [stringValue length] != (NSUInteger)[ruleValue integerValue] )
-            {
+         else if ( EncodingType_Url == encoding ) {
+            
+            NSString * stringValue = [aValue toString];
+            
+            if ( [stringValue length] != (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Array == encoding )
-         {
-            NSArray * arrayValue = (NSArray *)value;
+         else if ( EncodingType_Array == encoding ) {
             
-            if ( [arrayValue count] != (NSUInteger)[ruleValue integerValue] )
-            {
+            NSArray * arrayValue = (NSArray *)aValue;
+            
+            if ( [arrayValue count] != (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Dict == encoding )
-         {
-            NSDictionary * dictValue = (NSDictionary *)value;
+         else if ( EncodingType_Dict == encoding ) {
             
-            if ( [dictValue count] != (NSUInteger)[ruleValue integerValue] )
-            {
+            NSDictionary * dictValue = (NSDictionary *)aValue;
+            
+            if ( [dictValue count] != (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
       }
-      break;
-
-   case ValidatorRule_Date:
-      {
-         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
-
-         if ( EncodingType_Date != encoding )
-         {
-            NSDate * date = [value toDate];
-            if ( nil == date )
-            {
+         break;
+         
+      case ValidatorRule_Date: {
+         
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         if ( EncodingType_Date != encoding ) {
+            
+            NSDate * date = [aValue toDate];
+            if ( nil == date ) {
+               
                return NO;
             }
          }
       }
-      break;
-
-   case ValidatorRule_DateFormat:
-      {
+         break;
+         
+      case ValidatorRule_DateFormat: {
+         
          TODO( "data_format: xxx" );
       }
-      break;
-
-   case ValidatorRule_Different:
-      {
+         break;
+         
+      case ValidatorRule_Different: {
+         
          TODO( "different: xxx" );
       }
-      break;
-
-   case ValidatorRule_Min:
-      {
-         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
+         break;
          
-         if ( EncodingType_Number == encoding )
-         {
-            NSNumber * numberValue = (NSNumber *)value;
+      case ValidatorRule_Min: {
+         
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         if ( EncodingType_Number == encoding ) {
             
-            if ( NSOrderedAscending == [numberValue compare:[[ruleValue trim] toNumber]] )
-            {
+            NSNumber * numberValue = (NSNumber *)aValue;
+            
+            if ( NSOrderedAscending == [numberValue compare:[[aRuleValue trim] toNumber]] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_String == encoding )
-         {
-            NSString * stringValue = (NSString *)value;
+         else if ( EncodingType_String == encoding ) {
             
-            if ( [stringValue length] < (NSUInteger)[ruleValue integerValue] )
-            {
+            NSString * stringValue = (NSString *)aValue;
+            
+            if ( [stringValue length] < (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Data == encoding )
-         {
-            NSData * dataValue = (NSData *)value;
+         else if ( EncodingType_Data == encoding ) {
             
-            if ( [dataValue length] < (NSUInteger)[ruleValue integerValue] )
-            {
+            NSData * dataValue = (NSData *)aValue;
+            
+            if ( [dataValue length] < (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Url == encoding )
-         {
-            NSString * stringValue = [value toString];
+         else if ( EncodingType_Url == encoding ) {
             
-            if ( [stringValue length] < (NSUInteger)[ruleValue integerValue] )
-            {
+            NSString * stringValue = [aValue toString];
+            
+            if ( [stringValue length] < (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Array == encoding )
-         {
-            NSArray * arrayValue = (NSArray *)value;
+         else if ( EncodingType_Array == encoding ) {
             
-            if ( [arrayValue count] < (NSUInteger)[ruleValue integerValue] )
-            {
+            NSArray * arrayValue = (NSArray *)aValue;
+            
+            if ( [arrayValue count] < (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Dict == encoding )
-         {
-            NSDictionary * dictValue = (NSDictionary *)value;
+         else if ( EncodingType_Dict == encoding ) {
             
-            if ( [dictValue count] < (NSUInteger)[ruleValue integerValue] )
-            {
+            NSDictionary * dictValue = (NSDictionary *)aValue;
+            
+            if ( [dictValue count] < (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
       }
-      break;
-
-   case ValidatorRule_Max:
-      {
-         EncodingType encoding = [IDEAAppletEncoding typeOfObject:value];
+         break;
          
-         if ( EncodingType_Number == encoding )
-         {
-            NSNumber * numberValue = (NSNumber *)value;
+      case ValidatorRule_Max: {
+         
+         EncodingType encoding = [IDEAAppletEncoding typeOfObject:aValue];
+         
+         if ( EncodingType_Number == encoding ) {
             
-            if ( NSOrderedDescending == [numberValue compare:[[ruleValue trim] toNumber]] )
-            {
+            NSNumber * numberValue = (NSNumber *)aValue;
+            
+            if ( NSOrderedDescending == [numberValue compare:[[aRuleValue trim] toNumber]] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_String == encoding )
-         {
-            NSString * stringValue = (NSString *)value;
+         else if ( EncodingType_String == encoding ) {
             
-            if ( [stringValue length] > (NSUInteger)[ruleValue integerValue] )
-            {
+            NSString * stringValue = (NSString *)aValue;
+            
+            if ( [stringValue length] > (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Data == encoding )
-         {
-            NSData * dataValue = (NSData *)value;
+         else if ( EncodingType_Data == encoding ) {
             
-            if ( [dataValue length] > (NSUInteger)[ruleValue integerValue] )
-            {
+            NSData * dataValue = (NSData *)aValue;
+            
+            if ( [dataValue length] > (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Url == encoding )
-         {
-            NSString * stringValue = [value toString];
+         else if ( EncodingType_Url == encoding ) {
             
-            if ( [stringValue length] > (NSUInteger)[ruleValue integerValue] )
-            {
+            NSString * stringValue = [aValue toString];
+            
+            if ( [stringValue length] > (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Array == encoding )
-         {
-            NSArray * arrayValue = (NSArray *)value;
+         else if ( EncodingType_Array == encoding ) {
             
-            if ( [arrayValue count] > (NSUInteger)[ruleValue integerValue] )
-            {
+            NSArray * arrayValue = (NSArray *)aValue;
+            
+            if ( [arrayValue count] > (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
-         else if ( EncodingType_Dict == encoding )
-         {
-            NSDictionary * dictValue = (NSDictionary *)value;
+         else if ( EncodingType_Dict == encoding ) {
             
-            if ( [dictValue count] > (NSUInteger)[ruleValue integerValue] )
-            {
+            NSDictionary * dictValue = (NSDictionary *)aValue;
+            
+            if ( [dictValue count] > (NSUInteger)[aRuleValue integerValue] ) {
+               
                return NO;
             }
          }
       }
-      break;
-
-   case ValidatorRule_Required:
-      {
-         if ( nil == value )
-         {
+         break;
+         
+      case ValidatorRule_Required: {
+         
+         if ( nil == aValue ) {
+            
             return NO;
          }
       }
-      break;
-
-   default:
-      break;
+         break;
+         
+      default:
+         break;
    }
    
    return YES;
 }
 
-- (BOOL)validateObject:(NSObject *)obj
-{
+- (BOOL)validateObject:(NSObject *)obj {
+   
    Class baseClass = [[obj class] baseClass];
-   if ( nil == baseClass )
-   {
+   if ( nil == baseClass ) {
+      
       baseClass = [NSObject class];
    }
    
-   for ( Class clazzType = [obj class]; clazzType != baseClass; )
-   {
+   for ( Class clazzType = [obj class]; clazzType != baseClass; ) {
+      
       unsigned int      propertyCount = 0;
       objc_property_t *   properties = class_copyPropertyList( clazzType, &propertyCount );
       
-      for ( NSUInteger i = 0; i < propertyCount; i++ )
-      {
+      for ( NSUInteger i = 0; i < propertyCount; i++ ) {
+         
          const char *   name = property_getName(properties[i]);
          NSString *      propertyName = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
          NSObject *      propertyValue = [obj valueForKey:propertyName];
          NSArray *      ruleValues = [obj extentionForProperty:propertyName arrayValueWithKey:@"Rule"];
          
-         for ( NSString * ruleValue in ruleValues )
-         {
+         for ( NSString * ruleValue in ruleValues ) {
+            
             BOOL passes = [self validate:propertyValue rule:ruleValue];
-            if ( NO == passes )
-            {
+            if ( NO == passes ) {
+               
                self.lastProperty   = propertyName;
                self.lastError      = @"Unknown";
-
+               
                return NO;
             }
          }
@@ -712,23 +717,23 @@ static __strong NSMutableDictionary * __rules = nil;
    return YES;
 }
 
-- (BOOL)validateObject:(NSObject *)obj property:(NSString *)property
-{
+- (BOOL)validateObject:(NSObject *)obj property:(NSString *)property {
+   
    if ( nil == property )
       return NO;
    
    NSString *      propertyName = property;
    NSObject *      propertyValue = [obj valueForKey:propertyName];
    NSArray *      ruleValues = [obj extentionForProperty:propertyName arrayValueWithKey:@"Rule"];
-
-   for ( NSString * ruleValue in ruleValues )
-   {
+   
+   for ( NSString * ruleValue in ruleValues ) {
+      
       BOOL passes = [self validate:propertyValue rule:ruleValue];
-      if ( NO == passes )
-      {
+      if ( NO == passes ) {
+         
          self.lastProperty   = propertyName;
          self.lastError      = @"Unknown";
-
+         
          return NO;
       }
    }
@@ -754,110 +759,110 @@ static __strong NSMutableDictionary * __rules = nil;
 @def_prop_strong( NSString *, value, Rule => required );
 @end
 
-TEST_CASE( Core, Validator )
-{
+TEST_CASE( Core, Validator ) {
+   
    __ValidatorTestClass * obj1;
    __ValidatorTestClass * obj2;
 }
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
    obj1 = [[__ValidatorTestClass alloc] init];
    obj2 = [[__ValidatorTestClass alloc] init];
 }
 
-DESCRIBE( validator )
-{
+DESCRIBE( validator ) {
+   
    obj1.value = nil;
    obj2.value = @"Hello";
-
+   
    EXPECTED( [obj1 validate] == NO );
    EXPECTED( [obj2 validate] == YES );
 }
 
-DESCRIBE( regex: )
-{
+DESCRIBE( regex: ) {
+   
    BOOL valid;
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"regex:^([0-9]+)$"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abcd" rule:@"regex:^([0-9]+)$"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( accepted )
-{
+DESCRIBE( accepted ) {
+   
    BOOL valid;
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"YES" rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"ON" rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"TRUE" rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1" rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(YES) rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"accepted"];
    EXPECTED( YES == valid );
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"accepted"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"NO" rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"OFF" rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"FALSE" rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"0" rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(NO) rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"accepted"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:obj1 rule:@"accepted"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( in: )
-{
+DESCRIBE( in: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"def" rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(123) rule:@"in:abc,123,def"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"456" rule:@"in:abc,123,def"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( notin: )
-{
+DESCRIBE( notin: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"notin:abc,123,def"];
@@ -876,22 +881,22 @@ DESCRIBE( notin: )
    EXPECTED( YES == valid );
 }
 
-DESCRIBE( alpha )
-{
+DESCRIBE( alpha ) {
+   
    BOOL valid;
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"alpha"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"123" rule:@"alpha"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( numberic )
-{
+DESCRIBE( numberic ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"numeric"];
@@ -904,59 +909,59 @@ DESCRIBE( numberic )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( alpha_num )
-{
+DESCRIBE( alpha_num ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc123" rule:@"alpha_num"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"123abc" rule:@"alpha_num"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_num"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( alpha_dash )
-{
+DESCRIBE( alpha_dash ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"_abc" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"_a_b_c_" rule:@"alpha_dash"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"!@#$%^" rule:@"alpha_dash"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( url )
-{
+DESCRIBE( url ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"http://qq" rule:@"url"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"http://qq.com" rule:@"url"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"http://www.qq.com" rule:@"url"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"https://www.qq.com" rule:@"url"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"https://www.qq.com?a=b&c=d" rule:@"url"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"qq" rule:@"url"];
    EXPECTED( NO == valid );
    
@@ -967,88 +972,88 @@ DESCRIBE( url )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( email )
-{
+DESCRIBE( email ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"a@b.c" rule:@"email"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"a@b.co" rule:@"email"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"gavinkwoe@gmail.com" rule:@"email"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc123!@gmail.com" rule:@"email"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc@123" rule:@"email"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"email"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( tel )
-{
+DESCRIBE( tel ) {
+   
    BOOL valid;
    
-//   valid = [[IDEAAppletValidator sharedInstance] validate:@"13520351350" rule:@"tel"];
-//   EXPECTED( YES == valid );
-//
-//   valid = [[IDEAAppletValidator sharedInstance] validate:@"02482510205" rule:@"tel"];
-//   EXPECTED( YES == valid );
-//
-//   valid = [[IDEAAppletValidator sharedInstance] validate:@"+86 024 82510205" rule:@"tel"];
-//   EXPECTED( NO == valid );
+   //   valid = [[IDEAAppletValidator sharedInstance] validate:@"13520351350" rule:@"tel"];
+   //   EXPECTED( YES == valid );
+   //
+   //   valid = [[IDEAAppletValidator sharedInstance] validate:@"02482510205" rule:@"tel"];
+   //   EXPECTED( YES == valid );
+   //
+   //   valid = [[IDEAAppletValidator sharedInstance] validate:@"+86 024 82510205" rule:@"tel"];
+   //   EXPECTED( NO == valid );
 }
 
-DESCRIBE( integer )
-{
+DESCRIBE( integer ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"integer"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(123) rule:@"integer"];
    EXPECTED( YES == valid );
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"integer"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:obj1 rule:@"integer"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( ip )
-{
+DESCRIBE( ip ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"0.0.0.0" rule:@"ip"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"10.0.0.0" rule:@"ip"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"255.255.255.255" rule:@"ip"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"123.456.789.124" rule:@"ip"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1" rule:@"ip"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1.1" rule:@"ip"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1.1.1" rule:@"ip"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1...1" rule:@"ip"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"ip"];
    EXPECTED( NO == valid );
    
@@ -1056,28 +1061,28 @@ DESCRIBE( ip )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( before:/after: )
-{
+DESCRIBE( before:/after: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/11 00:00:01"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/10 23:59:59"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/11 00:00:01"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"after:2014/05/10 23:59:59"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"before:2014/05/10 23:59:59"];
    EXPECTED( NO == valid );
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"2014/05/11 00:00:00" rule:@"after:2014/05/11 00:00:01"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[@"2014/05/11 00:00:00" toDate] rule:@"before:2014/05/10 23:59:59"];
    EXPECTED( NO == valid );
    
@@ -1091,8 +1096,8 @@ DESCRIBE( before:/after: )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( between: )
-{
+DESCRIBE( between: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"2" rule:@"between:1,3"];
@@ -1100,13 +1105,13 @@ DESCRIBE( between: )
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"between:1,3"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"between:1,3"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(3) rule:@"between:1,3"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(0) rule:@"between:1,3"];
    EXPECTED( NO == valid );
    
@@ -1114,32 +1119,32 @@ DESCRIBE( between: )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( same: )
-{
+DESCRIBE( same: ) {
+   
    BOOL valid;
    
    TODO( "same:xxx" );
 }
 
-DESCRIBE( size: )
-{
+DESCRIBE( size: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"size:1234"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1234) rule:@"size:123"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1234" rule:@"size:4"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"" rule:@"size:4"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[@"1234" toData] rule:@"size:4"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"size:4"];
    EXPECTED( NO == valid );
    
@@ -1148,16 +1153,16 @@ DESCRIBE( size: )
    
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://qq"] rule:@"size:17"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"size:32"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@[@1,@2,@3] rule:@"size:3"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"size:3"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@{@"1":@"1", @"2":@"2", @"3":@"3"} rule:@"size:3"];
    EXPECTED( YES == valid );
    
@@ -1165,54 +1170,54 @@ DESCRIBE( size: )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( date )
-{
+DESCRIBE( date ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSDate date] rule:@"date"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15 15:15:00 GMT+8" rule:@"date"];
    EXPECTED( YES == valid );
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15 15:15:00 GMT+8" rule:@"date"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15 15:15:00" rule:@"date"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15 15:15:00" rule:@"date"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983/08/15" rule:@"date"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"1983-08-15" rule:@"date"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"00:00:00" rule:@"date"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"" rule:@"date"];
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( dateformat: )
-{
+DESCRIBE( dateformat: ) {
+   
    BOOL valid;
    
    TODO( "dateformat:xxx" );
 }
 
-DESCRIBE( different: )
-{
+DESCRIBE( different: ) {
+   
    BOOL valid;
    
    TODO( "different:xxx" );
 }
 
-DESCRIBE( min: )
-{
+DESCRIBE( min: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"min:2"];
@@ -1223,13 +1228,13 @@ DESCRIBE( min: )
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@"abc" rule:@"min:2"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"ab" rule:@"min:2"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@"a" rule:@"min:2"];
    EXPECTED( NO == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSData data] rule:@"min:2"];
    EXPECTED( NO == valid );
    
@@ -1255,8 +1260,8 @@ DESCRIBE( min: )
    EXPECTED( NO == valid );
 }
 
-DESCRIBE( max: )
-{
+DESCRIBE( max: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(2) rule:@"max:2"];
@@ -1299,8 +1304,8 @@ DESCRIBE( max: )
    EXPECTED( YES == valid );
 }
 
-DESCRIBE( required: )
-{
+DESCRIBE( required: ) {
+   
    BOOL valid;
    
    valid = [[IDEAAppletValidator sharedInstance] validate:@(1) rule:@"required"];
@@ -1314,13 +1319,13 @@ DESCRIBE( required: )
    
    valid = [[IDEAAppletValidator sharedInstance] validate:[NSURL URLWithString:@"http://www.qq.com"] rule:@"required"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@[] rule:@"required"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:@{} rule:@"required"];
    EXPECTED( YES == valid );
-
+   
    valid = [[IDEAAppletValidator sharedInstance] validate:nil rule:@"required"];
    EXPECTED( NO == valid );
 }

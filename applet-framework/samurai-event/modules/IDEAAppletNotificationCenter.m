@@ -44,104 +44,132 @@
 
 #pragma mark - 
 
-@implementation IDEAAppletNotificationCenter
-{
+@implementation IDEAAppletNotificationCenter {
+   
    NSMutableDictionary * _map;
 }
 
 @def_singleton( IDEAAppletNotificationCenter )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       _map = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_map removeAllObjects];
    _map = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)postNotification:(NSString *)name
-{
-   [self postNotification:name object:nil];
+- (void)postNotification:(NSString *)aName {
+   
+   [self postNotification:aName object:nil];
+   
+   return;
 }
 
-- (void)postNotification:(NSString *)name object:(id)object
-{
+- (void)postNotification:(NSString *)aName object:(id)aObject {
+   
    INFO( @"Notification '%@'", [name stringByReplacingOccurrencesOfString:@"notification." withString:@""] );
    
-   [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+   [[NSNotificationCenter defaultCenter] postNotificationName:aName object:aObject];
+   
+   return;
 }
 
-- (void)addObserver:(id)observer forNotification:(NSString *)name
-{
-   if ( nil == observer )
+- (void)addObserver:(id)aObserver forNotification:(NSString *)aName {
+   
+   if ( nil == aObserver ) {
+      
       return;
+      
+   } /* End if () */
    
-   [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
-   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:name object:nil];
-
-   NSMutableArray * observers = [_map objectForKey:name];
+   [[NSNotificationCenter defaultCenter] removeObserver:self name:aName object:nil];
+   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:aName object:nil];
    
-   if ( nil == observers )
-   {
-      observers = [NSMutableArray nonRetainingArray];
-
-      [_map setObject:observers forKey:name];
-   }
+   NSMutableArray *stObservers   = [_map objectForKey:aName];
    
-   if ( NO == [observers containsObject:observer] )
-   {
-      [observers addObject:observer];
-   }
+   if ( nil == stObservers ) {
+      
+      stObservers = [NSMutableArray nonRetainingArray];
+      
+      [_map setObject:stObservers forKey:aName];
+      
+   } /* End if () */
+   
+   if ( NO == [stObservers containsObject:aObserver] ) {
+      
+      [stObservers addObject:aObserver];
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)removeObserver:(id)observer forNotification:(NSString *)name
-{
-   NSMutableArray * observers = [_map objectForKey:name];
+- (void)removeObserver:(id)aObserver forNotification:(NSString *)aName {
    
-   if ( observers )
-   {
-      [observers removeObject:observer];
-   }
+   NSMutableArray * observers = [_map objectForKey:aName];
    
-   if ( nil == observers || 0 == observers.count )
-   {
-      [_map removeObjectForKey:name];
-
-      [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
-   }
+   if ( observers ) {
+      
+      [observers removeObject:aObserver];
+      
+   } /* End if () */
+   
+   if ( nil == observers || 0 == observers.count ) {
+      
+      [_map removeObjectForKey:aName];
+      
+      [[NSNotificationCenter defaultCenter] removeObserver:self name:aName object:nil];
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)removeObserver:(id)observer
-{
-   for ( NSMutableArray * observers in _map.allValues )
-   {
-      [observers removeObject:observer];
-   }
-
-   [[NSNotificationCenter defaultCenter] removeObserver:observer];
+- (void)removeObserver:(id)aObserver {
+   
+   for ( NSMutableArray * observers in _map.allValues ) {
+      
+      [observers removeObject:aObserver];
+      
+   } /* End for () */
+   
+   [[NSNotificationCenter defaultCenter] removeObserver:aObserver];
+   
+   return;
 }
 
-- (void)handleNotification:(AppletNotification *)notification
-{
-   NSMutableArray * observers = [_map objectForKey:notification.name];
-
-   if ( observers && observers.count )
-   {
-      for ( NSObject * observer in observers )
-      {
-         [[IDEAAppletNotificationBus sharedInstance] routes:notification target:observer];
-      }
-   }
+- (void)handleNotification:(AppletNotification *)aNotification {
+   
+   NSMutableArray *stObservers   = [_map objectForKey:aNotification.name];
+   
+   if ( stObservers && stObservers.count ) {
+      
+      for ( NSObject * observer in stObservers ) {
+         
+         [[IDEAAppletNotificationBus sharedInstance] routes:aNotification target:observer];
+         
+      } /* End for () */
+      
+   } /* End if () */
+   
+   return;
 }
 
 @end
@@ -156,12 +184,12 @@
 
 TEST_CASE( Event, NotificationCenter )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

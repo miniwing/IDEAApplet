@@ -44,6 +44,8 @@
 
 - (void)routes:(IDEAAppletIntent *)aIntent target:(id)aTarget;
 
+- (void)broadcast:(IDEAAppletIntent *)aIntent;
+
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

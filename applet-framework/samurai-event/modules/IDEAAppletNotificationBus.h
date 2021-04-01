@@ -38,6 +38,6 @@
 
 @singleton( IDEAAppletNotificationBus )
 
-- (void)routes:(AppletNotification *)notification target:(id)target;
+- (void)routes:(AppletNotification *)aNotification target:(id)aTarget;
 
 @end

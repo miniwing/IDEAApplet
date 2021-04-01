@@ -48,56 +48,70 @@
 
 @def_prop_assign( BOOL,   enabled );
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletAsserter sharedInstance];
+   
+   return;
 }
 
 - (id)init
 {
    self = [super init];
-   if ( self )
-   {
+   
+   if ( self ) {
+      
       _enabled = YES;
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)toggle
-{
-   _enabled = _enabled ? NO : YES;
-}
-
-- (void)enable
-{
-   _enabled = YES;
-}
-
-- (void)disable
-{
-   _enabled = NO;
-}
-
-- (void)file:(const char *)file line:(NSUInteger)line func:(const char *)func flag:(BOOL)flag expr:(const char *)expr
-{
-   if ( NO == _enabled )
-      return;
-
-   if ( NO == flag )
-   {
-   #if __SAMURAI_DEBUG__
+- (void)toggle {
    
-      fprintf( stderr,
-            "                        \n"
-            "    %s @ %s (#%lu)       \n"
-            "    {                   \n"
-            "        ASSERT( %s );   \n"
-            "        ^^^^^^          \n"
-            "        Assertion failed\n"
-            "    }                   \n"
-            "                        \n", func, [[@(file) lastPathComponent] UTF8String], (unsigned long)line, expr );
+   _enabled = _enabled ? NO : YES;
+   
+   return;
+}
+
+- (void)enable {
+   
+   _enabled = YES;
+   
+   return;
+}
+
+- (void)disable {
+   
+   _enabled = NO;
+   
+   return;
+}
+
+- (void)file:(const char *)file line:(NSUInteger)line func:(const char *)func flag:(BOOL)flag expr:(const char *)expr {
+   
+   if ( NO == _enabled ) {
       
-   #endif
+      return;
+      
+   } /* End if () */
+   
+   if ( NO == flag ) {
+      
+#if __SAMURAI_DEBUG__
+      
+      fprintf( stderr,
+              "                        \n"
+              "    %s @ %s (#%lu)      \n"
+              "    {                   \n"
+              "        ASSERT( %s );   \n"
+              "        ^^^^^^          \n"
+              "        Assertion failed\n"
+              "    }                   \n"
+              "                        \n", func, [[@(file) lastPathComponent] UTF8String], (unsigned long)line, expr );
+      
+#endif
       
       abort();
    }
@@ -110,9 +124,11 @@
 #if __cplusplus
 extern "C"
 #endif
-void IDEAAppletAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr )
-{
+void IDEAAppletAssert( const char * file, NSUInteger line, const char * func, BOOL flag, const char * expr ) {
+   
    [[IDEAAppletAsserter sharedInstance] file:file line:line func:func flag:flag expr:expr];
+   
+   return;
 }
 
 // ----------------------------------
@@ -123,12 +139,12 @@ void IDEAAppletAssert( const char * file, NSUInteger line, const char * func, BO
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Core, Asserter )
-{
+TEST_CASE( Core, Asserter ) {
+   
 }
 
-DESCRIBE( enable/disable )
-{
+DESCRIBE( enable/disable ) {
+   
    [[IDEAAppletAsserter sharedInstance] enable];
    EXPECTED( [[IDEAAppletAsserter sharedInstance] enabled] );
 

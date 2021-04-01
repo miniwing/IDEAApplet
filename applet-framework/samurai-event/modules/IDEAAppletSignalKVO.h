@@ -41,8 +41,8 @@ typedef NSObject *   (^ IDEAAppletKVOBlock )( id nameOrObject, id propertyOrBloc
 
 @prop_unsafe( id, source );
 
-- (void)observeProperty:(NSString *)aProperty;
-- (void)unobserveProperty:(NSString *)aProperty;
+- (void)observeProperty    :(NSString *)aProperty;
+- (void)unobserveProperty  :(NSString *)aProperty;
 - (void)unobserveAllProperties;
 
 @end

@@ -284,6 +284,21 @@
    return;
 }
 
+- (void)broadcast:(IDEAAppletIntent *)aIntent {
+   
+   if (nil == aIntent) {
+      
+      ERROR( @"Intent Error" );
+      
+      return;
+      
+   } /* End if () */
+   
+   [self routes:aIntent target:aIntent.target];
+
+   return;
+}
+
 - (BOOL)intent:(IDEAAppletIntent *)aIntent perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget {
    
    ASSERT( nil != aIntent );

@@ -42,74 +42,95 @@
 
 @implementation UIView(SignalHandling)
 
-- (NSString *)signalNamespace
-{
-   IDEAAppletRenderObject * renderer = [self renderer];
+- (NSString *)signalNamespace {
    
-   if ( renderer )
-   {
-      return [renderer signalNamespace];
-   }
-   else
-   {
+   IDEAAppletRenderObject  *stRenderer = [self renderer];
+   
+   if ( stRenderer ) {
+      
+      return [stRenderer signalNamespace];
+      
+   } /* End if () */
+   else {
+      
       return [[self class] description];
-   }
+      
+   } /* End else */
 }
 
-- (NSString *)signalTag
-{
-   IDEAAppletRenderObject * renderer = [self renderer];
+- (NSString *)signalTag {
    
-   if ( renderer )
-   {
-      return [renderer signalTag];
-   }
-   else
-   {
+   IDEAAppletRenderObject  *stRenderer = [self renderer];
+   
+   if ( stRenderer ) {
+      
+      return [stRenderer signalTag];
+      
+   } /* End if () */
+   else {
+      
       return nil;
-   }
+      
+   } /* End else */
 }
 
-- (NSString *)signalDescription
-{
-   IDEAAppletRenderObject * renderer = [self renderer];
+- (NSString *)signalDescription {
    
-   if ( renderer )
-   {
-      return [renderer signalDescription];
-   }
-   else
-   {
+   IDEAAppletRenderObject  *stRenderer = [self renderer];
+   
+   if ( stRenderer ) {
+      
+      return [stRenderer signalDescription];
+      
+   } /* End if () */
+   else {
+      
       return [[self class] description];
-   }
+      
+   } /* End else */
 }
 
-- (id)signalResponders
-{
-   IDEAAppletRenderObject * renderer = [self renderer];
+- (id)signalResponders {
    
-   if ( renderer )
-   {
-      return [renderer signalResponders];
-   }
-   else
-   {
+   IDEAAppletRenderObject  *stRenderer = [self renderer];
+   
+   if ( stRenderer ) {
+      
+      return [stRenderer signalResponders];
+      
+   } /* End if () */
+   else {
+      
+      /**
+       修复动态注册的bug
+       */
+      NSObject *stResponder   = [self userResponders];
+      
+      if (stResponder) {
+         
+         return stResponder;
+         
+      } /* End if () */
+      
       return [self nextResponder];
-   }
+      
+   } /* End else */
 }
 
 - (id)signalAlias
 {
-   IDEAAppletRenderObject * renderer = [self renderer];
+   IDEAAppletRenderObject  *stRenderer = [self renderer];
    
-   if ( renderer )
-   {
-      return [renderer signalAlias];
-   }
-   else
-   {
+   if ( stRenderer ) {
+      
+      return [stRenderer signalAlias];
+      
+   } /* End if () */
+   else {
+      
       return nil;
-   }
+      
+   } /* End else */
 }
 
 @end
@@ -124,12 +145,12 @@
 
 TEST_CASE( UI, UIView_SignalHandling )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END
