@@ -40,71 +40,72 @@
 
 #pragma mark -
 
+#if __UIWebView__
 @implementation UIWebView(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
-   UIWebView * webView = [[self alloc] initWithFrame:CGRectZero];
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier {
    
-   webView.renderer = renderer;
-   webView.scalesPageToFit = NO;
-   webView.allowsInlineMediaPlayback = YES;
+   UIWebView   *stWebView = [[self alloc] initWithFrame:CGRectZero];
    
-   return webView;
+   stWebView.renderer = aRenderer;
+   stWebView.scalesPageToFit = NO;
+   stWebView.allowsInlineMediaPlayback = YES;
+   
+   return stWebView;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return NO;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [self.request.URL absoluteString];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    NSString * path = [obj toString];
    if ( nil == path )
       return;
    
-   if ( NO == [path hasPrefix:@"http://"] && NO == [path hasPrefix:@"https://"] )
-   {
+   if ( NO == [path hasPrefix:@"http://"] && NO == [path hasPrefix:@"https://"] ) {
+      
       path = [NSString stringWithFormat:@"http://%@", path];
    }
    
    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
    
-   for ( NSHTTPCookie * cookie in cookies )
-   {
+   for ( NSHTTPCookie * cookie in cookies ) {
+      
       [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
    }
    
    [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    [self stopLoading];
 }
 
@@ -112,39 +113,41 @@
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
 @end
+
+#endif /* __UIWebView__ */
 
 // ----------------------------------
 // Unit test
@@ -156,12 +159,12 @@
 
 TEST_CASE( UI, UIWebView )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -44,6 +44,7 @@
 
 #pragma mark -
 
+#if __UIWebView__
 @implementation UIWebView(Html)
 
 + (CSSViewHierarchy)style_viewHierarchy
@@ -112,6 +113,7 @@
 }
 
 @end
+#endif /* __UIWebView__ */
 
 // ----------------------------------
 // Unit test

@@ -42,36 +42,46 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUIToolbarAgent
-{
+@implementation IDEAAppletUIToolbarAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UIToolbar *,   toolbar );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self disableEvents];
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)enableEvents
-{
-   if ( NO == _enabled )
-   {
+- (void)enableEvents {
+   
+   if ( NO == _enabled ) {
+      
       TODO( "enable event" )
       
       _enabled = YES;
-   }
+      
+   } /* End if () */
+
+   return;
 }
 
-- (void)disableEvents
-{
-   if ( _enabled )
-   {
+- (void)disableEvents {
+   
+   if ( _enabled ) {
+      
       TODO( "disable events" )
       
       _enabled = NO;
-   }
+      
+   } /* End if () */
+
+   return;
 }
 
 @end
@@ -82,106 +92,107 @@
 
 //@def_signal( eventValueChanged )
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
-   UIToolbar * toolbar = [[self alloc] initWithFrame:CGRectZero];
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier {
    
-   toolbar.renderer = renderer;
+   UIToolbar   *stToolbar  = [[self alloc] initWithFrame:CGRectZero];
    
-   [[toolbar toolbarAgent] enableEvents];
-
-   return toolbar;
+   stToolbar.renderer      = aRenderer;
+   
+   [[stToolbar toolbarAgent] enableEvents];
+   
+   return stToolbar;
 }
 
 #pragma mark -
 
-- (IDEAAppletUIToolbarAgent *)toolbarAgent
-{
-   IDEAAppletUIToolbarAgent * agent = [self getAssociatedObjectForKey:"UIToolbar.agent"];
+- (IDEAAppletUIToolbarAgent *)toolbarAgent {
    
-   if ( nil == agent )
-   {
-      agent = [[IDEAAppletUIToolbarAgent alloc] init];
-      agent.toolbar = self;
-
-      [self retainAssociatedObject:agent forKey:"UIToolbar.agent"];
-   }
+   IDEAAppletUIToolbarAgent   *stAgent = [self getAssociatedObjectForKey:"UIToolbar.agent"];
    
-   return agent;
+   if ( nil == stAgent ) {
+      
+      stAgent = [[IDEAAppletUIToolbarAgent alloc] init];
+      stAgent.toolbar = self;
+      
+      [self retainAssociatedObject:stAgent forKey:"UIToolbar.agent"];
+      
+   } /* End if () */
+   
+   return stAgent;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    TODO( "serialize" )
    
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    TODO( "unserlize" )
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    TODO( "zerolize" )
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -197,12 +208,12 @@
 
 TEST_CASE( UI, UIToolbar )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

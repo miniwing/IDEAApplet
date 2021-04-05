@@ -33,9 +33,9 @@ Pod::Spec.new do |spec|
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
   }
   
-#  spec.pod_target_xcconfig  = {
-#    'GCC_PREPROCESSOR_DEFINITIONS'  => 'IDEAKIT_AFNETWORKING_OPERATIONS=1'
-#  }
+  spec.pod_target_xcconfig  = {
+    'GCC_PREPROCESSOR_DEFINITIONS'  => ' $(inherited) MODULE=\"IDEAApplet\" __UIWebView__=0 '
+  }
 
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'
@@ -470,7 +470,7 @@ NS_INLINE const char* __LogLevelToString(int _eLevel) {
 
 NS_INLINE void __Log(int _eLevel, const char *_cpszMsg) {
   
-   printf("%s :: %s\\n", __LogLevelToString(_eLevel), _cpszMsg);
+  printf("[%s] %s :: %s\\n", MODULE, __LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
@@ -570,7 +570,7 @@ static __inline void LoggerFatal(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Fatal", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Fatal", s_MSG);
    
    return;
 }
@@ -586,7 +586,7 @@ static __inline void LoggerError(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Error", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Error", s_MSG);
    
    return;
 }
@@ -602,7 +602,7 @@ static __inline void LoggerWarn(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Warning", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Warning", s_MSG);
    
    return;
 }
@@ -618,7 +618,7 @@ static __inline void LoggerInfo(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Info", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Info", s_MSG);
    
    return;
 }
@@ -634,7 +634,7 @@ static __inline void LoggerDebug(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Debug", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Debug", s_MSG);
    
    return;
 }

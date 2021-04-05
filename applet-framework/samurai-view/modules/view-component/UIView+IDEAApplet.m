@@ -47,11 +47,13 @@
 
 @implementation UIView(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier {
    
-   UIView   *stNewView = [[self alloc] initWithFrame:CGRectZero];
-   stNewView.renderer = renderer;
-   return stNewView;
+   LogDebug((@"%s :: identifier : %@", __func__, aIdentifier));
+   
+   UIView   *stView  = [[self alloc] initWithFrame:CGRectZero];
+   stView.renderer   = aRenderer;
+   return stView;
 }
 
 #pragma mark -
@@ -149,18 +151,22 @@
 //   return [IDEAAppletLogger sharedInstance].output;
 //}
 
-- (void)dump
-{
-   SEL selector = NSSelectorFromString( @"recursiveDescription" );
-   if ( selector && [self respondsToSelector:selector] )
-   {
-      NSMethodSignature * signature = [self methodSignatureForSelector:selector];
-      NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
+- (void)dump {
+   
+   SEL stSelector = NSSelectorFromString( @"recursiveDescription" );
+   
+   if ( stSelector && [self respondsToSelector:stSelector] ) {
       
-      [invocation setTarget:self];
-      [invocation setSelector:selector];
-      [invocation invoke];
-   }
+      NSMethodSignature *stSignature   = [self methodSignatureForSelector:stSelector];
+      NSInvocation      *stInvocation  = [NSInvocation invocationWithMethodSignature:stSignature];
+      
+      [stInvocation setTarget:self];
+      [stInvocation setSelector:stSelector];
+      [stInvocation invoke];
+      
+   } /* End if () */
+   
+   return;
 }
 
 

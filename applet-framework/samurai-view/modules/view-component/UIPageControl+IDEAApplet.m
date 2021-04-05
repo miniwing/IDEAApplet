@@ -46,99 +46,99 @@
 
 #pragma mark -
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UIPageControl * pageControl = [[self alloc] initWithFrame:CGRectZero];
-
+   
    pageControl.renderer = renderer;
    pageControl.numberOfPages = 1;
    pageControl.currentPage = 0;
    pageControl.hidesForSinglePage = YES;
-
+   
    return pageControl;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return NO;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [NSNumber numberWithInteger:self.currentPage];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    NSInteger currentPage = [obj integerValue];
    NSInteger numberOfPages = self.numberOfPages;
    
-   if ( numberOfPages )
-   {
-      if ( currentPage >= numberOfPages )
-      {
+   if ( numberOfPages ) {
+      
+      if ( currentPage >= numberOfPages ) {
+         
          currentPage = numberOfPages - 1;
       }
    }
-
+   
    self.currentPage = currentPage;
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.currentPage = 0;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -154,12 +154,12 @@
 
 TEST_CASE( UI, UIPageControl )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

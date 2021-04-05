@@ -42,32 +42,32 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUISwitchAgent
-{
+@implementation IDEAAppletUISwitchAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UISwitch *,   switchh );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self disableEvents];
 }
 
-- (void)enableEvents
-{
-   if ( NO == _enabled )
-   {
+- (void)enableEvents {
+   
+   if ( NO == _enabled ) {
+      
       [self.switchh addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
       
       _enabled = YES;
    }
 }
 
-- (void)disableEvents
-{
-   if ( _enabled )
-   {
+- (void)disableEvents {
+   
+   if ( _enabled ) {
+      
       [self.switchh removeTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
       
       _enabled = NO;
@@ -76,8 +76,8 @@
 
 #pragma mark -
 
-- (void)valueChanged:(id)sender
-{
+- (void)valueChanged:(id)sender {
+   
    [self.switchh sendSignal:UISwitch.eventValueChanged];
 }
 
@@ -89,28 +89,28 @@
 
 @def_signal( eventValueChanged )
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UISwitch * switchh = [[self alloc] initWithFrame:CGRectZero];
    
    switchh.renderer = renderer;
    
    [[switchh switchAgent] enableEvents];
-
+   
    return switchh;
 }
 
 #pragma mark -
 
-- (IDEAAppletUISwitchAgent *)switchAgent
-{
+- (IDEAAppletUISwitchAgent *)switchAgent {
+   
    IDEAAppletUISwitchAgent * agent = [self getAssociatedObjectForKey:"UISwitch.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUISwitchAgent alloc] init];
       agent.switchh = self;
-
+      
       [self retainAssociatedObject:agent forKey:"UISwitch.agent"];
    }
    
@@ -119,74 +119,74 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [NSNumber numberWithBool:self.on];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    self.on = [obj boolValue];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.on = NO;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -202,12 +202,12 @@
 
 TEST_CASE( UI, UISwitch )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

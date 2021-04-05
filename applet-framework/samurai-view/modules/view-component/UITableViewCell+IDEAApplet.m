@@ -43,127 +43,135 @@
 
 @implementation UITableViewCell(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
-   UITableViewCell * tableViewCell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)aRenderer identifier:(NSString *)aIdentifier {
    
-   tableViewCell.renderer = renderer;
-   tableViewCell.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-   tableViewCell.userInteractionEnabled = YES;
+   UITableViewCell   *stTableViewCell  = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aIdentifier];
    
-   return tableViewCell;
+   stTableViewCell.renderer   = aRenderer;
+   stTableViewCell.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+   stTableViewCell.userInteractionEnabled = YES;
+   
+   return stTableViewCell;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)dataWillChange
-{
-}
-
-- (void)dataDidChanged
-{
-}
-
-- (void)cellWillDisplay
-{
+- (void)dataWillChange {
    
 }
 
-- (void)cellDidDisplay
-{
+- (void)dataDidChanged {
+   
+}
+
+- (void)cellWillDisplay {
+   
+   
+}
+
+- (void)cellDidDisplay {
+   
    
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(__unused id)obj
-{
+- (void)unserialize:(__unused id)obj {
+   
+   return;
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
+
+   return;
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
+
+   return;
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
+
+   return;
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
 #pragma mark -
 
-- (BOOL)isCell
-{
+- (BOOL)isCell {
+   
    return YES;
 }
 
-- (BOOL)isCellContainer
-{
+- (BOOL)isCellContainer {
+   
    return NO;
 }
 
-- (NSIndexPath *)computeIndexPath
-{
-   for ( UIView * thisView = self.superview; nil != thisView; thisView = thisView.superview )
-   {
-      if ( [thisView isCellContainer] && [thisView isKindOfClass:[UITableView class]] )
-      {
-         return [(UITableView *)thisView indexPathForCell:self];
+- (NSIndexPath *)computeIndexPath {
+   
+   for ( UIView * stView = self.superview; nil != stView; stView = stView.superview ) {
+      
+      if ( [stView isCellContainer] && [stView isKindOfClass:[UITableView class]] ) {
+         
+         return [(UITableView *)stView indexPathForCell:self];
       }
    }
    
@@ -182,12 +190,12 @@
 
 TEST_CASE( UI, UITableViewCell )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

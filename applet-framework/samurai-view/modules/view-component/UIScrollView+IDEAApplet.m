@@ -48,112 +48,112 @@
 @def_prop_unsafe( UIScrollView *,   scrollView )
 
 // any offset changes
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidScroll];
    }
 }
 
 // any zoom scale changes
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidZoom];
    }
 }
 
 // called on start of dragging (may require some time and or distance to move)
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventWillBeginDragging];
    }
 }
 
 // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventWillEndDragging];
    }
 }
 
 // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidEndDragging];
    }
 }
 
 // called on finger up as we are moving
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventWillBeginDecelerating];
    }
 }
 
 // called when scroll view grinds to a halt
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidEndDecelerating];
    }
 }
 
 // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidEndScrolling];
    }
 }
 
 // return a view that will be scaled. if delegate returns nil, nothing happens
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+   
    return nil;
 }
 
 // called before the scroll view begins zooming its content
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventWillBeginZooming];
    }
 }
 
 // scale between minimum and maximum. called after any 'bounce' animations
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidEndZooming];
    }
 }
 
 // return a yes if you want to scroll to the top. if not defined, assumes YES
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
-{
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+   
    return YES;
 }
 
 // called when scrolling animation finished. may be called immediately if already at top
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
-{
-   if ( self.scrollEventsEnabled )
-   {
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+   
+   if ( self.scrollEventsEnabled ) {
+      
       [self.scrollView sendSignal:UIScrollView.eventDidScrollToTop];
    }
 }
@@ -181,8 +181,8 @@
 
 #pragma mark -
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UIScrollView * scrollView = [[self alloc] initWithFrame:CGRectZero];
    
    scrollView.renderer = renderer;
@@ -193,17 +193,17 @@
 
 #pragma mark -
 
-- (IDEAAppletUIScrollViewAgent *)scrollViewAgent
-{
+- (IDEAAppletUIScrollViewAgent *)scrollViewAgent {
+   
    IDEAAppletUIScrollViewAgent * agent = [self getAssociatedObjectForKey:"UIScrollView.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUIScrollViewAgent alloc] init];
       agent.scrollView = self;
-
+      
       self.delegate = agent;
-
+      
       [self retainAssociatedObject:agent forKey:"UIScrollView.agent"];
    }
    
@@ -212,72 +212,72 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -293,12 +293,12 @@
 
 TEST_CASE( UI, UIScrollView )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

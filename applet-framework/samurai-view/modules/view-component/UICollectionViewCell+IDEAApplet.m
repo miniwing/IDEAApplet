@@ -45,13 +45,13 @@
 
 #pragma mark -
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UICollectionViewCell * collectionViewCell = [[self alloc] initWithFrame:CGRectZero];
    
    collectionViewCell.renderer = renderer;
    
-//   collectionViewCell.reuseIdentifier = identifier;
+   //   collectionViewCell.reuseIdentifier = identifier;
    collectionViewCell.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
    collectionViewCell.userInteractionEnabled = YES;
    
@@ -60,117 +60,117 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)dataWillChange
-{
-}
-
-- (void)dataDidChanged
-{
-}
-
-- (void)cellWillDisplay
-{
+- (void)dataWillChange {
    
 }
 
-- (void)cellDidDisplay
-{
+- (void)dataDidChanged {
+   
+}
+
+- (void)cellWillDisplay {
+   
+   
+}
+
+- (void)cellDidDisplay {
+   
    
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
 #pragma mark -
 
-- (BOOL)isCell
-{
+- (BOOL)isCell {
+   
    return YES;
 }
 
-- (BOOL)isCellContainer
-{
+- (BOOL)isCellContainer {
+   
    return NO;
 }
 
-- (NSIndexPath *)computeIndexPath
-{
-   for ( UIView * thisView = self.superview; nil != thisView; thisView = thisView.superview )
-   {
-      if ( [thisView isCellContainer] && [thisView isKindOfClass:[UICollectionView class]] )
-      {
+- (NSIndexPath *)computeIndexPath {
+   
+   for ( UIView * thisView = self.superview; nil != thisView; thisView = thisView.superview ) {
+      
+      if ( [thisView isCellContainer] && [thisView isKindOfClass:[UICollectionView class]] ) {
+         
          return [(UICollectionView *)thisView indexPathForCell:self];
       }
    }
-
+   
    return nil;
 }
 
@@ -186,12 +186,12 @@
 
 TEST_CASE( UI, UICollectionViewCell )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

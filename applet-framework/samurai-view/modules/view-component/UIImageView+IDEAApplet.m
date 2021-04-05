@@ -45,8 +45,8 @@
 
 @implementation UIImageView(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UIImageView * imageView = [[self alloc] initWithFrame:CGRectZero];
    
    imageView.renderer = renderer;
@@ -58,43 +58,43 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return self.image;
 }
 
-- (void)unserialize:(id)obj
-{
-   if ( obj )
-   {
-      if ( [obj isKindOfClass:[UIImage class]] )
-      {
+- (void)unserialize:(id)obj {
+   
+   if ( obj ) {
+      
+      if ( [obj isKindOfClass:[UIImage class]] ) {
+         
          self.image = obj;
       }
-      else if ( [obj isKindOfClass:[NSString class]] )
-      {
+      else if ( [obj isKindOfClass:[NSString class]] ) {
+         
          UIImage * image = [UIImage imageNamed:obj];
          
          if ( nil == image )
@@ -105,70 +105,70 @@
          self.image = image;
          
       }
-      else
-      {
+      else {
+         
          self.image = nil;
       }
    }
-   else
-   {
+   else {
+      
       self.image = nil;
    }
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.image = nil;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
-   if ( INVALID_VALUE == size.width && INVALID_VALUE == size.height )
-   {
-   //   full size
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
+   if ( INVALID_VALUE == size.width && INVALID_VALUE == size.height ) {
       
-      if ( self.image )
-      {
+      //   full size
+      
+      if ( self.image ) {
+         
          CGSize result = self.image.size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          return CGSizeZero;
       }
    }
-   else
-   {
-      if ( INVALID_VALUE != size.width )
-      {
-      //   scale aspect fit by width
+   else {
+      
+      if ( INVALID_VALUE != size.width ) {
+         
+         //   scale aspect fit by width
          
          if ( self.image )
          {
             CGSize result = AspectFitSizeByWidth( self.image.size, size.width );
-//            result.width = ceilf( result.width );
-//            result.height = ceilf( result.height );
+            //            result.width = ceilf( result.width );
+            //            result.height = ceilf( result.height );
             return result;
          }
          else
@@ -179,15 +179,15 @@
             return result;
          }
       }
-      else if ( INVALID_VALUE != size.height )
-      {
-      //   scale aspect fit by height
+      else if ( INVALID_VALUE != size.height ) {
+         
+         //   scale aspect fit by height
          
          if ( self.image )
          {
             CGSize result = AspectFitSizeByHeight( self.image.size, size.height );
-//            result.width = ceilf( result.width );
-//            result.height = ceilf( result.height );
+            //            result.width = ceilf( result.width );
+            //            result.height = ceilf( result.height );
             return result;
          }
          else
@@ -198,40 +198,40 @@
             return result;
          }
       }
-      else
-      {
+      else {
+         
          return [super computeSizeBySize:size];
       }
    }
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
-   if ( INVALID_VALUE == width )
-   {
-      if ( self.image )
-      {
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
+   if ( INVALID_VALUE == width ) {
+      
+      if ( self.image ) {
+         
          CGSize result = self.image.size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          return CGSizeZero;
       }
    }
-   else
-   {
-      if ( self.image )
-      {
+   else {
+      
+      if ( self.image ) {
+         
          CGSize result = AspectFitSizeByWidth( self.image.size, width );
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          CGSize result;
          result.width = width;
          result.height = 0.0f;
@@ -240,33 +240,33 @@
    }
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
-   if ( INVALID_VALUE == height )
-   {
-      if ( self.image )
-      {
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
+   if ( INVALID_VALUE == height ) {
+      
+      if ( self.image ) {
+         
          CGSize result = self.image.size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          return CGSizeZero;
       }
    }
-   else
-   {
-      if ( self.image )
-      {
+   else {
+      
+      if ( self.image ) {
+         
          CGSize result = AspectFitSizeByHeight( self.image.size, height );
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          CGSize result;
          result.width = 0.0f;
          result.height = height;
@@ -287,12 +287,12 @@
 
 TEST_CASE( UI, UIImageView )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

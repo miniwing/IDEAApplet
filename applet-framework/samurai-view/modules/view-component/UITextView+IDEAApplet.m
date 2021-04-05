@@ -40,82 +40,82 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUITextViewAgent
-{
+@implementation IDEAAppletUITextViewAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UITextView *,   textView );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
    
    [self disableEvents];
 }
 
-- (void)enableEvents
-{
+- (void)enableEvents {
+   
    _enabled = YES;
 }
 
-- (void)disableEvents
-{
+- (void)disableEvents {
+   
    _enabled = NO;
 }
 
 #pragma mark -
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+   
    return YES;
 }
 
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+   
    return YES;
 }
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-   if ( _enabled )
-   {
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+   
+   if ( _enabled ) {
+      
       [self.textView sendSignal:UITextView.eventDidBeginEditing];
    }
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-   if ( _enabled )
-   {
+- (void)textViewDidEndEditing:(UITextView *)textView {
+   
+   if ( _enabled ) {
+      
       [self.textView sendSignal:UITextView.eventDidEndEditing];
    }
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+   
    return YES;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
-{
-   if ( _enabled )
-   {
+- (void)textViewDidChange:(UITextView *)textView {
+   
+   if ( _enabled ) {
+      
       [self.textView sendSignal:UITextView.eventChanged];
    }
 }
 
-- (void)textViewDidChangeSelection:(UITextView *)textView
-{
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+   
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
-{
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+   
    return YES;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange
-{
+- (BOOL)textView:(UITextView *)textView shouldInteractWithTextAttachment:(NSTextAttachment *)textAttachment inRange:(NSRange)characterRange {
+   
    return YES;
 }
 
@@ -129,8 +129,8 @@
 @def_signal( eventDidEndEditing );
 @def_signal( eventChanged );
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UITextView * textView = [[self alloc] initWithFrame:CGRectZero];
    
    textView.renderer = renderer;
@@ -141,7 +141,7 @@
    textView.clearsOnInsertion = NO;
    textView.editable = YES;
    textView.selectable = YES;
-
+   
    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
    textView.autocorrectionType = UITextAutocorrectionTypeNo;
    textView.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -157,12 +157,12 @@
    return textView;
 }
 
-- (IDEAAppletUITextViewAgent *)textViewAgent
-{
+- (IDEAAppletUITextViewAgent *)textViewAgent {
+   
    IDEAAppletUITextViewAgent * agent = [self getAssociatedObjectForKey:"UITextView.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUITextViewAgent alloc] init];
       agent.textView = self;
       
@@ -176,125 +176,125 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return NO;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return self.text;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    self.text = [obj toString];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.text = nil;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
-   if ( nil == self.text || 0 == self.text.length )
-   {
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
+   if ( nil == self.text || 0 == self.text.length ) {
+      
       return CGSizeZero;
    }
    
    NSDictionary *         attribute = [NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName];
    NSStringDrawingOptions   options = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading;
    
-   if ( INVALID_VALUE == size.width && INVALID_VALUE == size.height )
-   {
+   if ( INVALID_VALUE == size.width && INVALID_VALUE == size.height ) {
+      
       CGSize bound = CGSizeMake(HUGE_VALF, HUGE_VALF/*fmaxf(self.font.lineHeight, self.font.pointSize)*/);
       CGSize result = [self.text boundingRectWithSize:bound options:options attributes:attribute context:nil].size;
-//      result.width = ceilf( result.width );
-//      result.height = ceilf( result.height );
+      //      result.width = ceilf( result.width );
+      //      result.height = ceilf( result.height );
       return result;
    }
-   else if ( INVALID_VALUE != size.width && INVALID_VALUE != size.height )
-   {
+   else if ( INVALID_VALUE != size.width && INVALID_VALUE != size.height ) {
+      
       CGSize result = [self.text boundingRectWithSize:size options:options attributes:attribute context:nil].size;
-//      result.width = ceilf( result.width );
-//      result.height = ceilf( result.height );
+      //      result.width = ceilf( result.width );
+      //      result.height = ceilf( result.height );
       return result;
    }
-   else
-   {
-      if ( INVALID_VALUE != size.width )
-      {
+   else {
+      
+      if ( INVALID_VALUE != size.width ) {
+         
          CGSize bound = CGSizeMake(size.width, HUGE_VALF);
          CGSize result = [self.text boundingRectWithSize:bound options:options attributes:attribute context:nil].size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else if ( INVALID_VALUE != size.height )
-      {
+      else if ( INVALID_VALUE != size.height ) {
+         
          CGSize bound = CGSizeMake(HUGE_VALF, size.height);
          CGSize result = [self.text boundingRectWithSize:bound options:options attributes:attribute context:nil].size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
-      else
-      {
+      else {
+         
          CGSize result = [self.text boundingRectWithSize:size options:options attributes:attribute context:nil].size;
-//         result.width = ceilf( result.width );
-//         result.height = ceilf( result.height );
+         //         result.width = ceilf( result.width );
+         //         result.height = ceilf( result.height );
          return result;
       }
    }
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
-   if ( INVALID_VALUE == width )
-   {
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
+   if ( INVALID_VALUE == width ) {
+      
       return [self computeSizeBySize:CGSizeMake( width, INVALID_VALUE )];
    }
-   else
-   {
-      if ( nil == self.text || 0 == self.text.length )
-      {
+   else {
+      
+      if ( nil == self.text || 0 == self.text.length ) {
+         
          return CGSizeMake( 0.0f, 0.0f );
       }
       
@@ -302,22 +302,22 @@
       NSStringDrawingOptions   options = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading;
       
       CGSize result = [self.text boundingRectWithSize:CGSizeMake(width, HUGE_VALF) options:options attributes:attribute context:nil].size;
-//      result.width = ceilf( result.width );
-//      result.height = ceilf( result.height );
+      //      result.width = ceilf( result.width );
+      //      result.height = ceilf( result.height );
       return result;
    }
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
-   if ( INVALID_VALUE == height )
-   {
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
+   if ( INVALID_VALUE == height ) {
+      
       return [self computeSizeBySize:CGSizeMake( INVALID_VALUE, height )];
    }
-   else
-   {
-      if ( nil == self.text || 0 == self.text.length )
-      {
+   else {
+      
+      if ( nil == self.text || 0 == self.text.length ) {
+         
          return CGSizeMake( 0.0f, 0.0f );
       }
       
@@ -325,8 +325,8 @@
       NSStringDrawingOptions   options = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading;
       
       CGSize result = [self.text boundingRectWithSize:CGSizeMake(HUGE_VALF, height) options:options attributes:attribute context:nil].size;
-//      result.width = ceilf( result.width );
-//      result.height = ceilf( result.height );
+      //      result.width = ceilf( result.width );
+      //      result.height = ceilf( result.height );
       return result;
    }
 }
@@ -343,12 +343,12 @@
 
 TEST_CASE( UI, UITextView )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

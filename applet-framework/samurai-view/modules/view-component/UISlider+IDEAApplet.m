@@ -42,42 +42,42 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUISliderAgent
-{
+@implementation IDEAAppletUISliderAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UISlider *,   slider );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self disableEvents];
 }
 
-- (void)enableEvents
-{
-   if ( NO == _enabled )
-   {
+- (void)enableEvents {
+   
+   if ( NO == _enabled ) {
+      
       [self.slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
       
       _enabled = YES;
    }
 }
 
-- (void)disableEvents
-{
-   if ( _enabled )
-   {
+- (void)disableEvents {
+   
+   if ( _enabled ) {
+      
       [self.slider removeTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-
+      
       _enabled = NO;
    }
 }
 
 #pragma mark -
 
-- (void)valueChanged:(id)sender
-{
+- (void)valueChanged:(id)sender {
+   
    [self.slider sendSignal:UISlider.eventValueChanged];
 }
 
@@ -89,8 +89,8 @@
 
 @def_signal( eventValueChanged )
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UISlider * slider = [[self alloc] initWithFrame:CGRectZero];
    
    slider.renderer = renderer;
@@ -100,18 +100,18 @@
    slider.continuous = NO;
    
    [[slider sliderAgent] enableEvents];
-
+   
    return slider;
 }
 
 #pragma mark -
 
-- (IDEAAppletUISliderAgent *)sliderAgent
-{
+- (IDEAAppletUISliderAgent *)sliderAgent {
+   
    IDEAAppletUISliderAgent * agent = [self getAssociatedObjectForKey:"UISlider.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUISliderAgent alloc] init];
       agent.slider = self;
       
@@ -123,74 +123,74 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [NSNumber numberWithFloat:self.value];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    self.value = [obj floatValue];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.value = 0.0f;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -206,12 +206,12 @@
 
 TEST_CASE( UI, UISlider )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

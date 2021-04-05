@@ -42,7 +42,9 @@
 
 #pragma mark -
 
+#if __UIWebView__
 @interface UIWebView(IDEAApplet)
 @end
+#endif /* __UIWebView__ */
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

@@ -42,22 +42,22 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUIButtonAgent
-{
+@implementation IDEAAppletUIButtonAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UIButton *,   button );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self disableEvents];
 }
 
-- (void)enableEvents
-{
-   if ( NO == _enabled )
-   {
+- (void)enableEvents {
+   
+   if ( NO == _enabled ) {
+      
       [self.button addTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
       [self.button addTarget:self action:@selector(touchDownRepeat:) forControlEvents:UIControlEventTouchDownRepeat];
       [self.button addTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
@@ -72,10 +72,10 @@
    }
 }
 
-- (void)disableEvents
-{
-   if ( _enabled )
-   {
+- (void)disableEvents {
+   
+   if ( _enabled ) {
+      
       [self.button removeTarget:self action:@selector(touchDown:) forControlEvents:UIControlEventTouchDown];
       [self.button removeTarget:self action:@selector(touchDownRepeat:) forControlEvents:UIControlEventTouchDownRepeat];
       [self.button removeTarget:self action:@selector(touchDragInside:) forControlEvents:UIControlEventTouchDragInside];
@@ -92,55 +92,55 @@
 
 #pragma mark -
 
-- (void)touchDown:(__unused id)sender
-{
+- (void)touchDown:(__unused id)sender {
+   
    [self.button sendSignal:UIView.eventTapPressing];
 }
 
-- (void)touchDownRepeat:(__unused id)sender
-{
+- (void)touchDownRepeat:(__unused id)sender {
+   
    
 }
 
-- (void)touchDragInside:(__unused id)sender
-{
+- (void)touchDragInside:(__unused id)sender {
+   
    
 }
 
-- (void)touchDragOutside:(__unused id)sender
-{
+- (void)touchDragOutside:(__unused id)sender {
+   
    
 }
 
-- (void)touchDragEnter:(__unused id)sender
-{
+- (void)touchDragEnter:(__unused id)sender {
+   
    
 }
 
-- (void)touchDragExit:(__unused id)sender
-{
+- (void)touchDragExit:(__unused id)sender {
+   
    
 }
 
-- (void)touchUpInside:(__unused id)sender
-{
-   if ( self.button.tapSignalName )
-   {
+- (void)touchUpInside:(__unused id)sender {
+   
+   if ( self.button.tapSignalName ) {
+      
       [self.button sendSignal:self.button.tapSignalName];
    }
-   else
-   {
+   else {
+      
       [self.button sendSignal:UIView.eventTapRaised];
    }
 }
 
-- (void)touchUpOutside:(__unused id)sender
-{
+- (void)touchUpOutside:(__unused id)sender {
+   
    [self.button sendSignal:UIView.eventTapCancelled];
 }
 
-- (void)touchCancel:(__unused id)sender
-{
+- (void)touchCancel:(__unused id)sender {
+   
    [self.button sendSignal:UIView.eventTapCancelled];
 }
 
@@ -150,10 +150,10 @@
 
 @implementation UIButton(IDEAApplet)
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(__unused NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(__unused NSString *)identifier {
+   
    UIButton * button = [self buttonWithType:UIButtonTypeCustom];
-
+   
    button.renderer = renderer;
    
    [[button buttonAgent] enableEvents];
@@ -163,110 +163,110 @@
 
 #pragma mark -
 
-- (IDEAAppletUIButtonAgent *)buttonAgent
-{
+- (IDEAAppletUIButtonAgent *)buttonAgent {
+   
    IDEAAppletUIButtonAgent * agent = [self getAssociatedObjectForKey:"UIButton.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUIButtonAgent alloc] init];
       agent.button = self;
-
+      
       [self retainAssociatedObject:agent forKey:"UIButton.agent"];
    }
-
+   
    return agent;
 }
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return NO;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return NO;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [self currentTitle];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    [self setTitle:[[obj toString] normalize] forState:UIControlStateNormal];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    [self setTitle:nil forState:UIControlStateNormal];
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
 #pragma mark -
 
-- (void)enableTapGesture
-{
+- (void)enableTapGesture {
+   
    [self enableTapGestureWithSignal:nil];
 }
 
-- (void)enableTapGestureWithSignal:(NSString *)signal
-{
+- (void)enableTapGestureWithSignal:(NSString *)signal {
+   
    self.tapSignalName = signal;
-
+   
    [[self buttonAgent] enableEvents];
 }
 
-- (void)disableTapGesture
-{
+- (void)disableTapGesture {
+   
    [[self buttonAgent] disableEvents];
 }
 
@@ -282,12 +282,12 @@
 
 TEST_CASE( UI, UIButton )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

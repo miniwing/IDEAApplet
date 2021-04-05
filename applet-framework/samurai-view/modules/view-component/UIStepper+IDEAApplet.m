@@ -42,32 +42,32 @@
 
 #pragma mark -
 
-@implementation IDEAAppletUIStepperAgent
-{
+@implementation IDEAAppletUIStepperAgent {
+   
    BOOL _enabled;
 }
 
 @def_prop_unsafe( UIStepper *,   stepper );
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self disableEvents];
 }
 
-- (void)enableEvents
-{
-   if ( NO == _enabled )
-   {
+- (void)enableEvents {
+   
+   if ( NO == _enabled ) {
+      
       [self.stepper addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
       
       _enabled = YES;
    }
 }
 
-- (void)disableEvents
-{
-   if ( _enabled )
-   {
+- (void)disableEvents {
+   
+   if ( _enabled ) {
+      
       [self.stepper removeTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
       
       _enabled = NO;
@@ -76,8 +76,8 @@
 
 #pragma mark -
 
-- (void)valueChanged:(id)sender
-{
+- (void)valueChanged:(id)sender {
+   
    [self.stepper sendSignal:UIStepper.eventValueChanged];
 }
 
@@ -89,28 +89,28 @@
 
 @def_signal( eventValueChanged )
 
-+ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier
-{
++ (id)createInstanceWithRenderer:(IDEAAppletRenderObject *)renderer identifier:(NSString *)identifier {
+   
    UIStepper * stepper = [[self alloc] initWithFrame:CGRectZero];
    
    stepper.renderer = renderer;
    
    [[stepper stepperAgent] enableEvents];
-
+   
    return stepper;
 }
 
 #pragma mark -
 
-- (IDEAAppletUIStepperAgent *)stepperAgent
-{
+- (IDEAAppletUIStepperAgent *)stepperAgent {
+   
    IDEAAppletUIStepperAgent * agent = [self getAssociatedObjectForKey:"UIStepper.agent"];
    
-   if ( nil == agent )
-   {
+   if ( nil == agent ) {
+      
       agent = [[IDEAAppletUIStepperAgent alloc] init];
       agent.stepper = self;
-
+      
       [self retainAssociatedObject:agent forKey:"UIStepper.agent"];
    }
    
@@ -119,74 +119,74 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return [NSNumber numberWithDouble:self.value];
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    self.value = [obj doubleValue];
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    self.value = self.minimumValue;
 }
 
 #pragma mark -
 
-- (void)applyDom:(IDEAAppletDomNode *)dom
-{
+- (void)applyDom:(IDEAAppletDomNode *)dom {
+   
    [super applyDom:dom];
 }
 
-- (void)applyStyle:(IDEAAppletRenderStyle *)style
-{
+- (void)applyStyle:(IDEAAppletRenderStyle *)style {
+   
    [super applyStyle:style];
 }
 
-- (void)applyFrame:(CGRect)frame
-{
+- (void)applyFrame:(CGRect)frame {
+   
    [super applyFrame:frame];
 }
 
 #pragma mark -
 
-- (CGSize)computeSizeBySize:(CGSize)size
-{
+- (CGSize)computeSizeBySize:(CGSize)size {
+   
    return [super computeSizeBySize:size];
 }
 
-- (CGSize)computeSizeByWidth:(CGFloat)width
-{
+- (CGSize)computeSizeByWidth:(CGFloat)width {
+   
    return [super computeSizeByWidth:width];
 }
 
-- (CGSize)computeSizeByHeight:(CGFloat)height
-{
+- (CGSize)computeSizeByHeight:(CGFloat)height {
+   
    return [super computeSizeByHeight:height];
 }
 
@@ -202,12 +202,12 @@
 
 TEST_CASE( UI, UIStepper )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END
