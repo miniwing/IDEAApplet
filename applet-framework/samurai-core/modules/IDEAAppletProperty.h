@@ -36,6 +36,7 @@
 #undef  static_property
 #define static_property( __name )                                 \
         property (nonatomic, readonly, class)   NSString * __name;\
+        - (NSString *)__name;                                     \
         + (NSString *)__name;
 
 #undef  def_static_property
@@ -53,26 +54,31 @@
 #undef  def_static_property0
 #define def_static_property0( __name )                      \
         dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%s", #__name]; } \
         + (NSString *)__name { return [NSString stringWithFormat:@"%s", #__name]; }
 
 #undef  def_static_property1
 #define def_static_property1( __name, A )                   \
         dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%s", A, #__name]; } \
         + (NSString *)__name { return [NSString stringWithFormat:@"%@.%s", A, #__name]; }
 
 #undef  def_static_property2
 #define def_static_property2( __name, A, B )                \
         dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%s", A, B, #__name]; } \
         + (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%s", A, B, #__name]; }
 
 #undef  def_static_property3
 #define def_static_property3( __name, A, B, C )             \
         dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%@.%s", A, B, C, #__name]; } \
         + (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%@.%s", A, B, C, #__name]; }
 
 #undef  alias_static_property
 #define alias_static_property( __name, __alias )            \
         dynamic __name;                                     \
+        - (NSString *)__name { return __alias; }            \
         + (NSString *)__name { return __alias; }
 
 #pragma mark -
@@ -80,48 +86,56 @@
 #undef  integer
 #define integer( __name )                                   \
         property (nonatomic, readonly) NSInteger __name;    \
-        - (NSInteger)__name;
+        - (NSInteger)__name;                                \
+        + (NSInteger)__name;
 
 #undef  def_integer
 #define def_integer( __name, __value )                      \
         dynamic __name;                                     \
-        - (NSInteger)__name { return __value; }
+        - (NSInteger)__name { return __value; }             \
+        + (NSInteger)__name { return __value; }
 
 #pragma mark -
 
 #undef  unsigned_integer
 #define unsigned_integer( __name )                          \
         property (nonatomic, readonly) NSUInteger __name;   \
-        - (NSUInteger)__name;
+        - (NSUInteger)__name;                               \
+        + (NSUInteger)__name;
 
 #undef  def_unsigned_integer
 #define def_unsigned_integer( __name, __value )             \
         dynamic __name;                                     \
-        - (NSUInteger)__name { return __value; }
+        - (NSUInteger)__name { return __value; }            \
+        + (NSUInteger)__name { return __value; }
 
 #pragma mark -
 
 #undef  number
 #define number( __name )                                    \
         property (nonatomic, readonly) NSNumber * __name;   \
-        - (NSNumber *)__name;
+        - (NSNumber *)__name;                               \
+        + (NSNumber *)__name;
 
 #undef  def_number
 #define def_number( __name, __value )                       \
         dynamic __name;                                     \
-        - (NSNumber *)__name { return @(__value); }
+        - (NSNumber *)__name { return @(__value); }         \
+        + (NSNumber *)__name { return @(__value); }
 
 #pragma mark -
 
 #undef  string
 #define string( __name )                                    \
         property (nonatomic, readonly) NSString * __name;   \
-        - (NSString *)__name;
+        - (NSString *)__name;                               \
+        + (NSString *)__name;
 
 #undef  def_string
 #define def_string( __name, __value )                       \
         dynamic __name;                                     \
-        - (NSString *)__name { return __value; }
+        - (NSString *)__name { return __value; }            \
+        + (NSString *)__name { return __value; }
 
 #pragma mark -
 

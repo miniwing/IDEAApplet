@@ -50,8 +50,8 @@
         macro_string( macro_join(signal, __VA_ARGS__) )
 
 #undef  handleSignal
-#define handleSignal( ... )               \
-        - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)aSignal
+#define handleSignal( signal, ... )       \
+        - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)signal
 
 #pragma mark -
 
