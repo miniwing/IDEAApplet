@@ -436,29 +436,29 @@ Pod::Spec.new do |spec|
 
 enum {
   
-   LogLevelFatal = 0,
-   LogLevelError,
-   LogLevelWarn,
-   LogLevelInfo,
-   LogLevelDebug
-   
+  __LogLevelFatal   = 0,
+  __LogLevelError,
+  __LogLevelWarn,
+  __LogLevelInfo,
+  __LogLevelDebug
+
 };
 
 #ifdef __OBJC__
 
-NS_INLINE const char* __LogLevelToString(int _eLevel) {
+NS_INLINE const char* ____LogLevelToString(int _eLevel) {
   
    switch (_eLevel)
    {
-      case LogLevelFatal:
+      case __LogLevelFatal:
          return ("Fatal");
-      case LogLevelError:
+      case __LogLevelError:
          return ("Error");
-      case LogLevelWarn:
+      case __LogLevelWarn:
          return (" Warn");
-      case LogLevelInfo:
+      case __LogLevelInfo:
          return (" Info");
-      case LogLevelDebug:
+      case __LogLevelDebug:
          return ("Debug");
       default:
          break;
@@ -468,14 +468,14 @@ NS_INLINE const char* __LogLevelToString(int _eLevel) {
    return ("Unknown");
 }
 
-NS_INLINE void __Log(int _eLevel, const char *_cpszMsg) {
+NS_INLINE void ____Log(int _eLevel, const char *_cpszMsg) {
   
-  printf("[%s] %s :: %s\\n", MODULE, __LogLevelToString(_eLevel), _cpszMsg);
+  printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
 
-NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
+NS_INLINE void __LoggerFatal(NSString *aFormat, ...) {
   
    va_list      args;
    NSString    *szMSG   = nil;
@@ -484,14 +484,14 @@ NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelFatal, [szMSG UTF8String]);
+   ____Log(__LogLevelFatal, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerError(NSString *aFormat, ...) {
+NS_INLINE void __LoggerError(NSString *aFormat, ...) {
   
    va_list      args;
    NSString    *szMSG   = nil;
@@ -500,14 +500,14 @@ NS_INLINE void LoggerError(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelError, [szMSG UTF8String]);
+   ____Log(__LogLevelError, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
+NS_INLINE void __LoggerWarn(NSString *aFormat, ...) {
   
    va_list      args;
    NSString    *szMSG   = nil;
@@ -516,14 +516,14 @@ NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelWarn, [szMSG UTF8String]);
+   ____Log(__LogLevelWarn, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
+NS_INLINE void __LoggerInfo(NSString *aFormat, ...) {
   
    va_list      args;
    NSString    *szMSG   = nil;
@@ -532,14 +532,14 @@ NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelInfo, [szMSG UTF8String]);
+   ____Log(__LogLevelInfo, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
+NS_INLINE void __LoggerDebug(NSString *aFormat, ...) {
   
    va_list      args;
    NSString    *szMSG   = nil;
@@ -548,7 +548,7 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelDebug, [szMSG UTF8String]);
+   ____Log(__LogLevelDebug, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
@@ -559,7 +559,7 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
 
 __BEGIN_DECLS
 
-static __inline void LoggerFatal(char *_Format, ...) {
+static __inline void __LoggerFatal(char *_Format, ...) {
   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
@@ -575,7 +575,7 @@ static __inline void LoggerFatal(char *_Format, ...) {
    return;
 }
 
-static __inline void LoggerError(char *_Format, ...) {
+static __inline void __LoggerError(char *_Format, ...) {
   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
@@ -591,7 +591,7 @@ static __inline void LoggerError(char *_Format, ...) {
    return;
 }
 
-static __inline void LoggerWarn(char *_Format, ...) {
+static __inline void __LoggerWarn(char *_Format, ...) {
   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
@@ -607,7 +607,7 @@ static __inline void LoggerWarn(char *_Format, ...) {
    return;
 }
 
-static __inline void LoggerInfo(char *_Format, ...) {
+static __inline void __LoggerInfo(char *_Format, ...) {
   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
@@ -623,7 +623,7 @@ static __inline void LoggerInfo(char *_Format, ...) {
    return;
 }
 
-static __inline void LoggerDebug(char *_Format, ...) {
+static __inline void __LoggerDebug(char *_Format, ...) {
   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
@@ -660,8 +660,8 @@ __END_DECLS
 /******************************************************************************************************/
 
 #if (defined(DEBUG) && (1 == DEBUG))
-#  define LogDebug(x)                              LoggerDebug x
-#  define LogFunc(x)                               LoggerDebug x
+#  define LogDebug(x)                              __LoggerDebug x
+#  define LogFunc(x)                               __LoggerDebug x
 #else
 #  define LogDebug(x)
 #  define LogFunc(x)

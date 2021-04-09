@@ -112,11 +112,15 @@
 - (void)observeNotification:(NSString *)name {
    
    [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
+   
+   return;
 }
 
 - (void)unobserveNotification:(NSString *)name {
    
    [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+
+   return;
 }
 
 - (void)observeAllNotifications {

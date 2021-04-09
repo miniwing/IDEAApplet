@@ -172,18 +172,18 @@
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    return;
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    return;
 }
 
