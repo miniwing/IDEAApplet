@@ -59,51 +59,51 @@
 
 - (instancetype)initWithRule:(KatanaStyleRule *)rule
                     selector:(KatanaSelector *)selector
-                    position:(NSUInteger)position
-{
-    self = [super init];
-    if ( self )
-    {
-        _rule        = rule;
-        _selector    = selector;
-        _position    = position;
-        _specificity = -1;
+                    position:(NSUInteger)position {
+   
+   self = [super init];
+   if ( self ) {
+      
+      _rule        = rule;
+      _selector    = selector;
+      _position    = position;
+      _specificity = -1;
    }
-    return self;
+   return self;
 }
 
-- (NSInteger)specificity
-{
-    if ( _specificity == -1 ) {
-        _specificity = katana_calc_specificity_for_selector( self.selector );
-    }
-    
-    return _specificity;
+- (NSInteger)specificity {
+   
+   if ( _specificity == -1 ) {
+      _specificity = katana_calc_specificity_for_selector( self.selector );
+   }
+   
+   return _specificity;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.rule = nil;
    self.selector = nil;
 }
 
-- (NSString *)description
-{
-    if ( !self.selectorName )
-    {
-        KatanaParser parser;
-        parser.options = &kKatanaDefaultOptions;
-        KatanaParserString * string = katana_selector_to_string(&parser, self.selector, NULL);
-        const char* text = katana_string_to_characters(&parser, string);
-        katana_parser_deallocate(&parser, (void*) string->data);
-        katana_parser_deallocate(&parser, (void*) string);
-        NSString * selectorName = [NSString stringWithUTF8String:text];
-        katana_parser_deallocate(&parser, (void*) text);
-        
-        self.selectorName = selectorName;
-    }
+- (NSString *)description {
    
-    return [NSString stringWithFormat:@"%@: %ld %ld", self.selectorName, self.specificity, self.position];
+   if ( !self.selectorName ) {
+      
+      KatanaParser parser;
+      parser.options = &kKatanaDefaultOptions;
+      KatanaParserString * string = katana_selector_to_string(&parser, self.selector, NULL);
+      const char* text = katana_string_to_characters(&parser, string);
+      katana_parser_deallocate(&parser, (void*) string->data);
+      katana_parser_deallocate(&parser, (void*) string);
+      NSString * selectorName = [NSString stringWithUTF8String:text];
+      katana_parser_deallocate(&parser, (void*) text);
+      
+      self.selectorName = selectorName;
+   }
+   
+   return [NSString stringWithFormat:@"%@: %ld %ld", self.selectorName, self.specificity, self.position];
 }
 
 @end
@@ -118,12 +118,12 @@
 
 TEST_CASE( WebCore, CSSRule )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

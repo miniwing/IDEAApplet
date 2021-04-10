@@ -42,37 +42,38 @@
 
 @implementation IDEAAppletSignal(ViewController)
 
-@def_prop_dynamic( UIViewController *,      sourceViewController );
-@def_prop_dynamic( IDEAAppletActivity *,      sourceActivity );
+@def_prop_dynamic ( UIViewController   *, sourceViewController );
+@def_prop_dynamic ( IDEAAppletActivity *, sourceActivity       );
 
-- (UIViewController *)sourceViewController
-{
-   if ( nil == self.source )
-      return nil;
+- (UIViewController *)sourceViewController {
    
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( nil == self.source ) {
+      return nil;
+   }
+   
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       UIResponder * nextResponder = [(UIView *)self.source nextResponder];
       
-      if ( nextResponder && [nextResponder isKindOfClass:[UIViewController class]] )
-      {
+      if ( nextResponder && [nextResponder isKindOfClass:[UIViewController class]] ) {
+         
          return (UIViewController *)nextResponder;
       }
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       return (UIViewController *)self.source;
    }
 
    return nil;   
 }
 
-- (IDEAAppletActivity *)sourceActivity
-{
+- (IDEAAppletActivity *)sourceActivity {
+   
    UIViewController * controller = [self sourceViewController];
 
-   if ( controller && [controller isKindOfClass:[IDEAAppletActivity class]] )
-   {
+   if ( controller && [controller isKindOfClass:[IDEAAppletActivity class]] ) {
+      
       return (IDEAAppletActivity *)controller;
    }
    

@@ -44,28 +44,28 @@
 @def_singleton ( IDEAApplet );
 
 #if __IDEA_APPLET_AUTO_LOAD__
-+ (void)load
-{
-//   dispatch_async_background_serial(^{
-//      [IDEAApplet sharedInstance];
-//   });
-
++ (void)load {
+   
+   //   dispatch_async_background_serial(^{
+   //      [IDEAApplet sharedInstance];
+   //   });
+   
    [IDEAApplet sharedInstance];
-
+   
    return;
 }
 #endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       [self install];
       
    } /* End if () */
@@ -75,8 +75,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self uninstall];
    
    __SUPER_DEALLOC;
@@ -84,21 +84,22 @@
    return;
 }
 
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
-
+   
    struct utsname                 stSystemInfo                             = {0};
+   
+   const char                    * options[]                               = {
+                                                                              "[Off]",
+                                                                              "[On]"
+                                                                             };
 
    __TRY;
    
    uname(&stSystemInfo);
-   
-   const char * options[] = {
-      "[Off]",
-      "[On]"
-   };
-   
+      
+#if __Debug__
    fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "     ____    _                        __     _      _____                          \n");
    fprintf(stderr, "    / ___\\  /_\\     /\\/\\    /\\ /\\    /__\\   /_\\     \\_   \\               \n");
@@ -107,7 +108,7 @@
    fprintf(stderr, "  \\____/  \\_/ \\_/ \\/    \\/  \\___/  \\/ \\_/ \\_/ \\_/ \\____/                \n");
    fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "                                                                                   \n");
-   fprintf(stderr, "  version: %s\n", __SAMURAI_VERSION__);
+   fprintf(stderr, "    version: %s\n", __SAMURAI_VERSION__);
    fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "  - debug:   %s\n", options[__SAMURAI_DEBUG__]);
    fprintf(stderr, "  - logging: %s\n", options[__SAMURAI_LOGGING__]);
@@ -131,6 +132,7 @@
    fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
    fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "                                                                                   \n");
+#endif /* __Debug__ */
    
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
@@ -156,8 +158,8 @@
    return;
 }
 
-- (void)uninstall
-{
+- (void)uninstall {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    [[IDEAAppletServiceLoader sharedInstance] uninstallServices];
@@ -169,8 +171,8 @@
 
 #pragma mark -
 
-- (void)UIApplicationDidFinishLaunchingNotification
-{
+- (void)UIApplicationDidFinishLaunchingNotification {
+   
    [self startup];
    
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
@@ -184,8 +186,8 @@
    return;
 }
 
-- (void)UIApplicationWillTerminateNotification
-{
+- (void)UIApplicationWillTerminateNotification {
+   
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    [[IDEAAppletDockerManager sharedInstance] uninstallDockers];
@@ -197,8 +199,8 @@
 
 #pragma mark -
 
-- (void)startup
-{
+- (void)startup {
+   
    [[IDEAAppletClassLoader classLoader] loadClasses:@[
       @"__ClassLoader_Config",
       @"__ClassLoader_Core",

@@ -46,13 +46,13 @@
 
 BASE_CLASS( IDEAAppletRenderStyle )
 
-+ (instancetype)renderStyle
-{
++ (instancetype)renderStyle {
+   
    return [[self alloc] init];
 }
 
-+ (instancetype)renderStyle:(NSDictionary *)props
-{
++ (instancetype)renderStyle:(NSDictionary *)props {
+   
    IDEAAppletRenderStyle * style = [[self alloc] init];
 
    [style mergeProperties:props];
@@ -60,81 +60,101 @@ BASE_CLASS( IDEAAppletRenderStyle )
    return style;
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.properties = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self.properties removeAllObjects];
    self.properties = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)deepCopyFrom:(IDEAAppletRenderStyle *)right
-{
+- (void)deepCopyFrom:(IDEAAppletRenderStyle *)right {
+   
 //   [super deepCopyFrom:right];
    
    [self.properties addEntriesFromDictionary:right.properties];
+
+   return;
 }
 
 #pragma mark -
 
-- (id)objectForKey:(id)key
-{
+- (id)objectForKey:(id)key {
+   
    return [self.properties objectForKey:key];
 }
 
-- (BOOL)hasObjectForKey:(id)key
-{
+- (BOOL)hasObjectForKey:(id)key {
+   
    return [self.properties hasObjectForKey:key];
 }
 
-- (id)objectForKeyedSubscript:(id)key
-{
+- (id)objectForKeyedSubscript:(id)key {
+   
    return [self objectForKey:key];
 }
 
 #pragma mark -
 
-- (void)setObject:(id)object forKey:(id)key
-{
+- (void)setObject:(id)object forKey:(id)key {
+   
    [self.properties setObject:object forKey:key];
+
+   return;
 }
 
-- (void)removeObjectForKey:(id)key
-{
+- (void)removeObjectForKey:(id)key {
+   
    [self.properties removeObjectForKey:key];
+
+   return;
 }
 
-- (void)removeAllObjects
-{
+- (void)removeAllObjects {
+   
    [self.properties removeAllObjects];
+
+   return;
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
-{
+- (void)setObject:(id)obj forKeyedSubscript:(id)key {
+   
    [self setObject:obj forKey:key];
+
+   return;
 }
 
 #pragma mark -
 
-- (void)clearProperties
-{
+- (void)clearProperties {
+   
    [self removeAllObjects];
+
+   return;
 }
 
-- (void)mergeProperties:(NSDictionary *)properties
-{
-   for ( NSString * key in [properties.allKeys copy] )
-   {
+- (void)mergeProperties:(NSDictionary *)properties {
+   
+   for ( NSString * key in [properties.allKeys copy] ) {
+      
       [self setObject:[properties objectForKey:key] forKey:key];
    }   
+
+   return;
 }
 
 @end
@@ -149,12 +169,12 @@ BASE_CLASS( IDEAAppletRenderStyle )
 
 TEST_CASE( UI, RenderStyle )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

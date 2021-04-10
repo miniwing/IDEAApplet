@@ -40,8 +40,8 @@
 
 @implementation NSObject(ClassLoader)
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    return;
 }
 
@@ -51,26 +51,26 @@
 
 @implementation IDEAAppletClassLoader
 
-+ (instancetype)classLoader
-{
++ (instancetype)classLoader {
+   
    return [[IDEAAppletClassLoader alloc] init];
 }
 
-- (void)loadClasses:(NSArray *)stClassNames
-{
+- (void)loadClasses:(NSArray *)stClassNames {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
-   for (NSString *szClassName in stClassNames)
-   {
+   
+   for (NSString *szClassName in stClassNames) {
+      
       Class stClassType = NSClassFromString(szClassName);
       
-      if (stClassType)
-      {
+      if (stClassType) {
+         
 //         fprintf(stderr, "  Loading class '%s'\n", [[stClassType description] UTF8String]);
          LogDebug((@"Loading class '%s'\n", [[stClassType description] UTF8String]));
-
+         
          NSMethodSignature * signature = [stClassType methodSignatureForSelector:@selector(classAutoLoad)];
          NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];
          
@@ -84,9 +84,9 @@
       
    } /* End for () */
    
-//   fprintf(stderr, "\n");
+   //   fprintf(stderr, "\n");
    LogDebug((@"\n"));
-
+   
    __CATCH(nErr);
    
    return;

@@ -43,8 +43,8 @@
 
 #pragma mark -
 
-@implementation IDEAAppletCSSRuleSet
-{
+@implementation IDEAAppletCSSRuleSet {
+   
    NSUInteger _ruleSeed;
 }
 
@@ -59,31 +59,31 @@
 @def_prop_strong( NSMutableArray *,         privateUniversalRules );
 @def_prop_strong( NSMutableDictionary *,   shadowPseudoElementRules );
 
-- (id)init
-{
-    self = [super init];
-    
-    if ( self )
-    {
+- (id)init {
+   
+   self = [super init];
+   
+   if ( self ) {
+      
       _ruleSeed = 0;
-
-        self.idRules               = [NSMutableDictionary dictionary];
+      
+      self.idRules               = [NSMutableDictionary dictionary];
       self.tagRules               = [NSMutableDictionary dictionary];
-        self.classRules               = [NSMutableDictionary dictionary];
+      self.classRules               = [NSMutableDictionary dictionary];
       self.pseudoRules            = [NSMutableDictionary dictionary];
       self.fontFaceRules            = [NSMutableArray array];
       self.keyframesRules            = [NSMutableArray array];
-        self.privateUniversalRules      = [NSMutableArray array];
+      self.privateUniversalRules      = [NSMutableArray array];
       self.shadowPseudoElementRules   = [NSMutableDictionary dictionary];
-    }
+   }
    
-    return self;
+   return self;
 }
 
-- (void)dealloc
-{
-    [self clear];
-    
+- (void)dealloc {
+   
+   [self clear];
+   
    self.idRules               = nil;
    self.tagRules               = nil;
    self.classRules               = nil;
@@ -96,8 +96,8 @@
    self.shadowPseudoElementRules   = nil;
 }
 
-- (void)clear
-{
+- (void)clear {
+   
    [self.idRules removeAllObjects];
    [self.tagRules removeAllObjects];
    [self.classRules removeAllObjects];
@@ -110,225 +110,225 @@
    [self.shadowPseudoElementRules removeAllObjects];
 }
 
-- (NSArray *)universalRules
-{
-    return self.privateUniversalRules;
+- (NSArray *)universalRules {
+   
+   return self.privateUniversalRules;
 }
 
-- (NSArray *)idRulesWithKey:(NSString *)key
-{
+- (NSArray *)idRulesWithKey:(NSString *)key {
+   
    if ( nil == key )
       return nil;
    
-    return [self.idRules objectForKey:key];
+   return [self.idRules objectForKey:key];
 }
 
-- (NSArray *)tagRulesWithKey:(NSString *)key
-{
+- (NSArray *)tagRulesWithKey:(NSString *)key {
+   
    if ( nil == key )
       return nil;
-
-    return [self.tagRules objectForKey:key];
+   
+   return [self.tagRules objectForKey:key];
 }
 
-- (NSArray *)classRulesWithKey:(NSString *)key
-{
+- (NSArray *)classRulesWithKey:(NSString *)key {
+   
    if ( nil == key )
       return nil;
-
-    return [self.classRules objectForKey:key];
+   
+   return [self.classRules objectForKey:key];
 }
 
-- (NSArray *)pseudoRulesWithKey:(NSString *)key
-{
+- (NSArray *)pseudoRulesWithKey:(NSString *)key {
+   
    if ( nil == key )
       return nil;
-
-    return [self.pseudoRules objectForKey:key];
+   
+   return [self.pseudoRules objectForKey:key];
 }
 
-- (NSArray *)shadowPseudoElementRulesWithKey:(NSString *)key
-{
+- (NSArray *)shadowPseudoElementRulesWithKey:(NSString *)key {
+   
    if ( nil == key )
       return nil;
-
-    return [self.shadowPseudoElementRules objectForKey:key];
+   
+   return [self.shadowPseudoElementRules objectForKey:key];
 }
 
 #pragma mark -
 
-- (void)addStyleRule:(KatanaStyleRule *)rule
-{
-   for ( unsigned int i = 0; i < rule->selectors->length; i++ )
-   {
+- (void)addStyleRule:(KatanaStyleRule *)rule {
+   
+   for ( unsigned int i = 0; i < rule->selectors->length; i++ ) {
+      
       KatanaSelector * selector = rule->selectors->data[i];
-
+      
       IDEAAppletCSSRule * data = [[IDEAAppletCSSRule alloc] initWithRule:rule
-                                             selector:selector
-                                             position:_ruleSeed++];
-
+                                                                selector:selector
+                                                                position:_ruleSeed++];
+      
       TODO( "collect features from rule data" );
-
+      
       BOOL found = [self findBestRuleSetAndAddWithSelector:selector ruleData:data];
-      if ( NO == found )
-      {
+      if ( NO == found ) {
+         
          [self.privateUniversalRules addObject:data];
       }
    }
 }
 
-- (void)addStyleRules:(KatanaArray *)childRules
-{
-    for ( unsigned int i = 0; i < childRules->length; i++ )
-    {
-        KatanaRule * rule = childRules->data[i];
-        
-        switch ( rule->type )
-        {
-            case KatanaRuleStyle:
-         {
-                [self addStyleRule:(KatanaStyleRule *)rule];
-         }
-         break;
-            
-            case KatanaRuleImport:
-            {
-                KatanaImportRule * import = (KatanaImportRule *)rule;
-                
-                if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:import->medias] )
-                {
-                    // TODO: @(QFish) handle import rule
-                }
-            }
-         break;
-            
-            case KatanaRuleFontFace:
-            {
-                // TODO: @(QFish) handle font-face rule
-            }
-         break;
-            
-            case KatanaRuleKeyframes:
-            {
-                // TODO: @(QFish) handle keyframes rule
-            }
-         break;
-            
-            case KatanaRuleMedia:
-            {
-                KatanaMediaRule * mediaRule = (KatanaMediaRule *)rule;
-                
-                if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:mediaRule->medias] )
-                {
-                    [self addStyleRules:mediaRule->rules];
-                }
-            }
-         break;
+- (void)addStyleRules:(KatanaArray *)childRules {
    
-            case KatanaRuleSupports:
-            case KatanaRuleCharset:
-            case KatanaRuleHost:
-            case KatanaRuleUnkown:
+   for ( unsigned int i = 0; i < childRules->length; i++ ) {
+      
+      KatanaRule * rule = childRules->data[i];
+      
+      switch ( rule->type ) {
+            
+         case KatanaRuleStyle: {
+            
+            [self addStyleRule:(KatanaStyleRule *)rule];
+         }
+            break;
+            
+         case KatanaRuleImport: {
+            
+            KatanaImportRule * import = (KatanaImportRule *)rule;
+            
+            if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:import->medias] ) {
+               
+               // TODO: @(QFish) handle import rule
+            }
+         }
+            break;
+            
+         case KatanaRuleFontFace: {
+            
+            // TODO: @(QFish) handle font-face rule
+         }
+            break;
+            
+         case KatanaRuleKeyframes: {
+            
+            // TODO: @(QFish) handle keyframes rule
+         }
+            break;
+            
+         case KatanaRuleMedia: {
+            
+            KatanaMediaRule * mediaRule = (KatanaMediaRule *)rule;
+            
+            if ( [[IDEAAppletCSSMediaQuery sharedInstance] testMediaQueries:mediaRule->medias] ) {
+               
+               [self addStyleRules:mediaRule->rules];
+            }
+         }
+            break;
+            
+         case KatanaRuleSupports:
+         case KatanaRuleCharset:
+         case KatanaRuleHost:
+         case KatanaRuleUnkown:
          default:
-         break;
-        }
-    }
+            break;
+      }
+   }
 }
 
 #pragma mark -
 
-- (BOOL)findBestRuleSetAndAddWithSelector:(KatanaSelector *)selector ruleData:(IDEAAppletCSSRule *)ruleData
-{
-    if ( selector->match == KatanaSelectorMatchId )
-    {
-        [self addToRuleSet:self.idRules
-                  key:@(selector->data->value)
-              ruleData:ruleData
-              selector:selector];
+- (BOOL)findBestRuleSetAndAddWithSelector:(KatanaSelector *)selector ruleData:(IDEAAppletCSSRule *)ruleData {
+   
+   if ( selector->match == KatanaSelectorMatchId ) {
       
-        return YES;
-    }
-    
-    if ( selector->match == KatanaSelectorMatchClass )
-    {
-        [self addToRuleSet:self.classRules
-                  key:@(selector->data->value)
-              ruleData:ruleData
-              selector:selector];
+      [self addToRuleSet:self.idRules
+                     key:@(selector->data->value)
+                ruleData:ruleData
+                selector:selector];
       
-        return YES;
-    }
-    
-//    if ( [selector isCustomPseudoElement] )
-//    {
-//        [self addToRuleSet:self.shadowPseudoElementRules key:@(selector->data->value) ruleData:ruleData selector:selector];
-//        return YES;
-//    }
-//
-//    if ( [selector isCommonPseudoClassSelector] )
-//    {
-//        switch ( selector->pseudoType )
-//        {
-//            case KatanaSelectorPseudoLink:
-//            case KatanaSelectorPseudoVisited:
-//            case KatanaSelectorPseudoAnyLink:
-//                [self.linkPseudoClassRules addObject:ruleData];
-//                return true;
-//            case KatanaSelectorPseudoFocus:
-//                [self.focusPseudoClassRules addObject:ruleData];
-//                return true;
-//            default:
-//                return true;
-//        }
-//    }
-    
-    if ( selector->match == KatanaSelectorMatchTag )
-    {
-        // If this is part of a subselector chain, recurse ahead to find a narrower set (ID/class/:pseudo)
-        
-        if ( selector->relation == KatanaSelectorRelationSubSelector )
-        {
-            KatanaSelector * next = selector->tagHistory;
+      return YES;
+   }
+   
+   if ( selector->match == KatanaSelectorMatchClass ) {
+      
+      [self addToRuleSet:self.classRules
+                     key:@(selector->data->value)
+                ruleData:ruleData
+                selector:selector];
+      
+      return YES;
+   }
+   
+   //    if ( [selector isCustomPseudoElement] ) {
+   //
+   //        [self addToRuleSet:self.shadowPseudoElementRules key:@(selector->data->value) ruleData:ruleData selector:selector];
+   //        return YES;
+   //    }
+   //
+   //    if ( [selector isCommonPseudoClassSelector] )
+   //    {
+   //        switch ( selector->pseudoType )
+   //        {
+   //            case KatanaSelectorPseudoLink:
+   //            case KatanaSelectorPseudoVisited:
+   //            case KatanaSelectorPseudoAnyLink:
+   //                [self.linkPseudoClassRules addObject:ruleData];
+   //                return true;
+   //            case KatanaSelectorPseudoFocus:
+   //                [self.focusPseudoClassRules addObject:ruleData];
+   //                return true;
+   //            default:
+   //                return true;
+   //        }
+   //    }
+   
+   if ( selector->match == KatanaSelectorMatchTag ) {
+      
+      // If this is part of a subselector chain, recurse ahead to find a narrower set (ID/class/:pseudo)
+      
+      if ( selector->relation == KatanaSelectorRelationSubSelector ) {
          
-            if ( NULL != next && (next->match == KatanaSelectorMatchClass
-                          || next->match == KatanaSelectorMatchId
-            //                || [next isCommonPseudoClassSelector]
-                          ))
-            {
-                if ( [self findBestRuleSetAndAddWithSelector:next ruleData:ruleData] )
-                {
-                    return YES;
-                }
+         KatanaSelector * next = selector->tagHistory;
+         
+         if ( NULL != next && (next->match == KatanaSelectorMatchClass
+                               || next->match == KatanaSelectorMatchId
+                               //                || [next isCommonPseudoClassSelector]
+                               )) {
+            
+            if ( [self findBestRuleSetAndAddWithSelector:next ruleData:ruleData] ) {
+               
+               return YES;
             }
-        }
-
+         }
+      }
+      
       [self addToRuleSet:self.tagRules
-                  key:@(selector->tag->local)
-              ruleData:ruleData
-              selector:selector];
-    }
-    
-    return NO;
+                     key:@(selector->tag->local)
+                ruleData:ruleData
+                selector:selector];
+   }
+   
+   return NO;
 }
 
 - (void)addToRuleSet:(NSMutableDictionary *)map
                  key:(NSString *)key
             ruleData:(IDEAAppletCSSRule *)ruleData
-            selector:(KatanaSelector *)selector
-{
-    if ( nil == key || nil == map || nil == ruleData )
-        return;
-    
-    NSMutableArray * rules = [map objectForKey:key];
-
-   if ( nil == rules )
-    {
-        rules = [NSMutableArray array];
+            selector:(KatanaSelector *)selector {
+   
+   if ( nil == key || nil == map || nil == ruleData )
+      return;
+   
+   NSMutableArray * rules = [map objectForKey:key];
+   
+   if ( nil == rules ) {
       
-        [map setValue:rules forKey:key];
-    }
-
-    [rules addObject:ruleData];
+      rules = [NSMutableArray array];
+      
+      [map setValue:rules forKey:key];
+   }
+   
+   [rules addObject:ruleData];
 }
 
 @end
@@ -343,12 +343,12 @@
 
 TEST_CASE( WebCore, CSSRuleSet )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -44,8 +44,9 @@
 
 @implementation __ClassLoader_Event
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
+   return;
 }
 
 @end

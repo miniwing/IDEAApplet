@@ -50,74 +50,74 @@
 
 @def_singleton( IDEAAppletCSSParser )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
 }
 
 #pragma mark -
 
-- (KatanaOutput *)parseStylesheet:(NSString *)text
-{
-    return katana_parse(text.UTF8String, text.length, KatanaParserModeStylesheet);
+- (KatanaOutput *)parseStylesheet:(NSString *)text {
+   
+   return katana_parse(text.UTF8String, text.length, KatanaParserModeStylesheet);
 }
 
-- (KatanaOutput *)parseMedia:(NSString *)text
-{
-    return katana_parse(text.UTF8String, text.length, KatanaParserModeMediaList);
+- (KatanaOutput *)parseMedia:(NSString *)text {
+   
+   return katana_parse(text.UTF8String, text.length, KatanaParserModeMediaList);
 }
 
-- (KatanaOutput *)parseValue:(NSString *)text
-{
-    return katana_parse(text.UTF8String, text.length, KatanaParserModeValue);
+- (KatanaOutput *)parseValue:(NSString *)text {
+   
+   return katana_parse(text.UTF8String, text.length, KatanaParserModeValue);
 }
 
-- (KatanaOutput *)parseSelector:(NSString *)text
-{
-    return katana_parse(text.UTF8String, text.length, KatanaParserModeSelector);
+- (KatanaOutput *)parseSelector:(NSString *)text {
+   
+   return katana_parse(text.UTF8String, text.length, KatanaParserModeSelector);
 }
 
-- (KatanaOutput *)parseDeclaration:(NSString *)text
-{
+- (KatanaOutput *)parseDeclaration:(NSString *)text {
+   
    return katana_parse(text.UTF8String, text.length, KatanaParserModeDeclarationList);
 }
 
-- (NSDictionary *)parseDictionary:(NSString *)text
-{
+- (NSDictionary *)parseDictionary:(NSString *)text {
+   
    if ( nil == text || 0 == text.length )
       return nil;
    
    NSDictionary * result = nil;
    KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseDeclaration:text];
    
-   if ( NULL != output )
-   {
+   if ( NULL != output ) {
+      
       result = [self buildDictionary:output->declarations];
       
       katana_destroy_output( output );
    }
-
+   
    return result;
 }
 
-- (NSDictionary *)parseImportants:(NSString *)text
-{
+- (NSDictionary *)parseImportants:(NSString *)text {
+   
    if ( nil == text || 0 == text.length )
       return nil;
    
    NSDictionary * result = nil;
    KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseDeclaration:text];
    
-   if ( NULL != output )
-   {
+   if ( NULL != output ) {
+      
       result = [self buildImportants:output->declarations];
       
       katana_destroy_output( output );
@@ -126,15 +126,15 @@
    return result;
 }
 
-- (NSDictionary *)buildDictionary:(KatanaArray *)declarations
-{
+- (NSDictionary *)buildDictionary:(KatanaArray *)declarations {
+   
    if ( NULL == declarations || 0 == declarations->length )
       return nil;
    
    NSMutableDictionary * result = nil;
    
-   for ( size_t i = 0; i < declarations->length; i++ )
-   {
+   for ( size_t i = 0; i < declarations->length; i++ ) {
+      
       KatanaDeclaration * decl = declarations->data[i];
       
       if ( NULL == decl->property )
@@ -142,11 +142,11 @@
       
       NSString * key = [NSString stringWithUTF8String:decl->property];
       NSObject * val = [IDEAAppletCSSArray parseArray:decl->values];
-
-      if ( key && val )
-      {
-         if ( nil == result )
-         {
+      
+      if ( key && val ) {
+         
+         if ( nil == result ) {
+            
             result = [[NSMutableDictionary alloc] init];
          }
          
@@ -157,29 +157,29 @@
    return result;
 }
 
-- (NSDictionary *)buildImportants:(KatanaArray *)declarations
-{
+- (NSDictionary *)buildImportants:(KatanaArray *)declarations {
+   
    if ( NULL == declarations || 0 == declarations->length )
       return nil;
    
    NSMutableDictionary * result = nil;
    
-   for ( size_t i = 0; i < declarations->length; i++ )
-   {
+   for ( size_t i = 0; i < declarations->length; i++ ) {
+      
       KatanaDeclaration * decl = declarations->data[i];
       
       if ( NULL == decl->property )
          continue;
       
-      if ( decl->important )
-      {
+      if ( decl->important ) {
+         
          NSString * key = [NSString stringWithUTF8String:decl->property];
          NSObject * val = [IDEAAppletCSSArray parseArray:decl->values];
          
-         if ( key && val )
-         {
-            if ( nil == result )
-            {
+         if ( key && val ) {
+            
+            if ( nil == result ) {
+               
                result = [[NSMutableDictionary alloc] init];
             }
             
@@ -203,12 +203,12 @@
 
 TEST_CASE( WebCore, CSSParser )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

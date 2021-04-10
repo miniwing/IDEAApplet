@@ -44,17 +44,21 @@
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
    }
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+
+   return;
 }
 
 @end
@@ -69,12 +73,10 @@
 
 TEST_CASE( UI, DomWritter )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

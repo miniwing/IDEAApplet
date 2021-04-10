@@ -47,18 +47,19 @@
 
 @def_prop_dynamic( IDEAAppletModel *,   sourceModel );
 
-- (IDEAAppletModel *)sourceModel
-{
-   if ( nil == self.source )
-   {
+- (IDEAAppletModel *)sourceModel {
+   
+   if ( nil == self.source ) {
+      
       return nil;
       
    } /* End if () */
    
-   if ( [self.source isKindOfClass:[IDEAAppletModel class]] )
-   {
+   if ( [self.source isKindOfClass:[IDEAAppletModel class]] ) {
+      
       return (IDEAAppletModel *)self.source;
-   }
+      
+   } /* End if () */
    
    return nil;
 }

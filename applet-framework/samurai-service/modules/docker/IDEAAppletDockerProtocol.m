@@ -48,12 +48,10 @@
 
 TEST_CASE( Service, DockerProtocol )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

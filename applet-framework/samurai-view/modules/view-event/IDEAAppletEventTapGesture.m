@@ -60,64 +60,64 @@
 
 #pragma mark -
 
-+ (BOOL)supportTapGesture
-{
++ (BOOL)supportTapGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)__tapGestureInternalCallback:(__TapGestureRecognizer *)gesture
-{
-   if ( UIGestureRecognizerStatePossible == gesture.state )
-   {
+- (void)__tapGestureInternalCallback:(__TapGestureRecognizer *)gesture {
+   
+   if ( UIGestureRecognizerStatePossible == gesture.state ) {
+      
       // the recognizer has not yet recognized its gesture, but may be evaluating touch events. this is the default state
       
       [self sendSignal:UIView.eventTapPressing];
    }
-   else if ( UIGestureRecognizerStateBegan == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateBegan == gesture.state ) {
+      
       // the recognizer has received touches recognized as the gesture. the action method will be called at the next turn of the run loop
    }
-   else if ( UIGestureRecognizerStateChanged == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateChanged == gesture.state ) {
+      
       // the recognizer has received touches recognized as a change to the gesture. the action method will be called at the next turn of the run loop
       
    }
-   else if ( UIGestureRecognizerStateEnded == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateEnded == gesture.state ) {
+      
       // the recognizer has received touches recognized as the end of the gesture. the action method will be called at the next turn of the run loop and the recognizer will be reset to UIGestureRecognizerStatePossible
       
-      if ( self.tapSignalName )
-      {
+      if ( self.tapSignalName ) {
+         
          [self sendSignal:self.tapSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventTapRaised];
       }
    }
-   else if ( UIGestureRecognizerStateCancelled == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
+      
       // the recognizer has received touches resulting in the cancellation of the gesture. the action method will be called at the next turn of the run loop. the recognizer will be reset to UIGestureRecognizerStatePossible
       
       [self sendSignal:UIView.eventTapCancelled];
    }
-   else if ( UIGestureRecognizerStateFailed == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateFailed == gesture.state ) {
+      
       // the recognizer has received a touch sequence that can not be recognized as the gesture. the action method will not be called and the recognizer will be reset to UIGestureRecognizerStatePossible
       
    }
 }
 
-- (__TapGestureRecognizer *)tapGesture
-{
+- (__TapGestureRecognizer *)tapGesture {
+   
    __TapGestureRecognizer * tapGesture = nil;
    
-   for ( UIGestureRecognizer * gesture in self.gestureRecognizers )
-   {
-      if ( [gesture isKindOfClass:[__TapGestureRecognizer class]] )
-      {
+   for ( UIGestureRecognizer * gesture in self.gestureRecognizers ) {
+      
+      if ( [gesture isKindOfClass:[__TapGestureRecognizer class]] ) {
+         
          tapGesture = (__TapGestureRecognizer *)gesture;
          break;
       }
@@ -128,51 +128,51 @@
 
 #pragma mark -
 
-- (void)enableTapGesture
-{
+- (void)enableTapGesture {
+   
    [self enableTapGestureWithSignal:nil];
 }
 
-- (void)enableTapGestureWithSignal:(NSString *)signal
-{
-   if ( NO == [[self class] supportTapGesture] )
-   {
+- (void)enableTapGestureWithSignal:(NSString *)signal {
+   
+   if ( NO == [[self class] supportTapGesture] ) {
+      
       return;
    }
    
    __TapGestureRecognizer * tapGesture = [self tapGesture];
-
-   if ( nil == tapGesture )
-   {
+   
+   if ( nil == tapGesture ) {
+      
       tapGesture = [[__TapGestureRecognizer alloc] initWithTarget:self action:@selector(__tapGestureInternalCallback:)];
       
       tapGesture.numberOfTouchesRequired = 1;
       tapGesture.cancelsTouchesInView = NO;
       tapGesture.delaysTouchesBegan = NO;
       tapGesture.delaysTouchesEnded = NO;
-
+      
       [self addGestureRecognizer:tapGesture];
    }
-
-   if ( tapGesture )
-   {
-      tapGesture.enabled = YES;
    
+   if ( tapGesture ) {
+      
+      tapGesture.enabled = YES;
+      
       self.tapSignalName = signal;
-
-      if ( NO == self.userInteractionEnabled )
-      {
+      
+      if ( NO == self.userInteractionEnabled ) {
+         
          self.userInteractionEnabled = YES;
       }
    }
 }
 
-- (void)disableTapGesture
-{
-   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] )
-   {
-      if ( [gesture isKindOfClass:[__TapGestureRecognizer class]] )
-      {
+- (void)disableTapGesture {
+   
+   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] ) {
+      
+      if ( [gesture isKindOfClass:[__TapGestureRecognizer class]] ) {
+         
          gesture.enabled = NO;
       }
    }
@@ -190,12 +190,12 @@
 
 TEST_CASE( UI, EventTapGesture )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

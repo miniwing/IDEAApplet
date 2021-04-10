@@ -34,24 +34,42 @@
 #pragma mark -
 
 #undef  signal
-#define signal( name )                    \
+#define signal( name )                       \
         static_property( name )
 
 #undef  def_signal
-#define def_signal( name )                \
+#define def_signal( name )                   \
         def_static_property2( name, @"signal", NSStringFromClass([self class]) )
 
 #undef  def_signal_alias
-#define def_signal_alias( name, alias )   \
+#define def_signal_alias( name, alias )      \
         alias_static_property( name, alias )
 
 #undef  makeSignal
-#define makeSignal( ... )                 \
+#define makeSignal( ... )                    \
         macro_string( macro_join(signal, __VA_ARGS__) )
 
 #undef  handleSignal
-#define handleSignal( signal, ... )       \
+#define handleSignal( signal, ... )          \
         - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)signal
+
+#pragma mark -
+
+#undef  IDEA_MAKE_SIGNAL
+#define IDEA_MAKE_SIGNAL( ... )              \
+        macro_string(macro_join(signal, __VA_ARGS__))
+
+#undef  IDEA_SIGNAL
+#define IDEA_SIGNAL( ... )                   \
+        static_property(macro_join(__VA_ARGS__))
+
+#undef  IDEA_DEF_SIGNAL
+#define IDEA_DEF_SIGNAL( ... )               \
+        def_static_property2(macro_join(__VA_ARGS__), @"signal", NSStringFromClass([self class]))
+
+#undef  IDEA_HANDLE_SIGNAL
+#define IDEA_HANDLE_SIGNAL( ... )            \
+        - (void) macro_join(handleNotification, macro_join(__VA_ARGS__)):(NSNotification *)aNotification
 
 #pragma mark -
 

@@ -42,14 +42,14 @@
 
 @implementation IDEAAppletService(Docker)
 
-- (void)openDocker
-{
+- (void)openDocker {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   if ([self conformsToProtocol:@protocol(ManagedDocker)])
-   {
+   if ([self conformsToProtocol:@protocol(ManagedDocker)]) {
+      
       [[IDEAAppletDockerManager sharedInstance] openDockerForService:(IDEAAppletService<ManagedDocker> *)self];
       
    } /* End if () */
@@ -59,14 +59,14 @@
    return;
 }
 
-- (void)closeDocker
-{
+- (void)closeDocker {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   if ([self conformsToProtocol:@protocol(ManagedDocker)])
-   {
+   if ([self conformsToProtocol:@protocol(ManagedDocker)]) {
+      
       [[IDEAAppletDockerManager sharedInstance] closeDockerForService:(IDEAAppletService<ManagedDocker> *)self];
       
    } /* End if () */
@@ -80,22 +80,21 @@
 
 #pragma mark -
 
-@implementation IDEAAppletDockerManager
-{
+@implementation IDEAAppletDockerManager {
+   
    IDEAAppletDockerWindow * _dockerWindow;
 }
 
 @def_singleton ( IDEAAppletDockerManager )
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
    self = [super init];
-   if (self)
-   {
+   if (self) {
       
    } /* End if () */
    
@@ -105,9 +104,9 @@
 }
 
 
-- (void)dealloc
-{
-   _dockerWindow  = nil;
+- (void)dealloc {
+   
+   __RELEASE(_dockerWindow);
    
    __SUPER_DEALLOC;
    
@@ -115,8 +114,8 @@
 }
 
 
-- (void)installDockers
-{
+- (void)installDockers {
+   
    int                            nErr                                     = EFAULT;
    
    NSArray                       *stServices                               = nil;
@@ -125,18 +124,18 @@
    
    stServices  = [IDEAAppletServiceLoader sharedInstance].services;
    
-   for (IDEAAppletService *stService in stServices)
-   {
-      if ([stService conformsToProtocol:@protocol(ManagedDocker)])
-      {
-         if (NO == [stService respondsToSelector:@selector(isAutoLoad)])
-         {
+   for (IDEAAppletService *stService in stServices) {
+      
+      if ([stService conformsToProtocol:@protocol(ManagedDocker)]) {
+         
+         if (NO == [stService respondsToSelector:@selector(isAutoLoad)]) {
+            
             continue;
             
          } /* End if () */
          
-         if (NO == [stService performSelector:@selector(isAutoLoad)])
-         {
+         if (NO == [stService performSelector:@selector(isAutoLoad)]) {
+            
             continue;
             
          } /* End if () */
@@ -146,8 +145,8 @@
          [stDockerView setImageClosed:[stService.bundle imageForResource:@"docker-close.png"]];
          [stDockerView setService:(IDEAAppletService<ManagedDocker> *)stService];
          
-         if (nil == _dockerWindow)
-         {
+         if (nil == _dockerWindow) {
+            
             _dockerWindow = [[IDEAAppletDockerWindow alloc] init];
             _dockerWindow.alpha  = 0.0f;
             _dockerWindow.hidden = NO;
@@ -160,8 +159,8 @@
       
    } /* End for () */
    
-   if (_dockerWindow)
-   {
+   if (_dockerWindow) {
+      
       [_dockerWindow relayoutAllDockerViews];
       //   [_dockerWindow setHidden:NO];
       
@@ -173,12 +172,10 @@
 //      [UIView commitAnimations];
       
       [UIView animateWithDuration:0.25f
-                       animations:^()
-      {
-         _dockerWindow.alpha   = 1.0f;
+                       animations:^() {
+         _dockerWindow.alpha  = 1.0f;
       }
-                       completion:^(BOOL aFinished)
-       {
+                       completion:^(BOOL aFinished) {
          [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
          [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsFocusUpdate];
          [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
@@ -192,8 +189,8 @@
 }
 
 
-- (void)uninstallDockers
-{
+- (void)uninstallDockers {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -206,19 +203,19 @@
 }
 
 
-- (void)openDockerForService:(IDEAAppletService<ManagedDocker> *)aService
-{
+- (void)openDockerForService:(IDEAAppletService<ManagedDocker> *)aService {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   for (UIView * stSubview in _dockerWindow.subviews)
-   {
-      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]])
-      {
+   for (UIView * stSubview in _dockerWindow.subviews) {
+      
+      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]]) {
+         
          IDEAAppletDockerView * stDockerView = (IDEAAppletDockerView *)stSubview;
-         if (stDockerView.service == aService)
-         {
+         if (stDockerView.service == aService) {
+            
             [stDockerView open];
             
          } /* End if () */
@@ -233,19 +230,19 @@
 }
 
 
-- (void)closeDockerForService:(IDEAAppletService<ManagedDocker> *)aService
-{
+- (void)closeDockerForService:(IDEAAppletService<ManagedDocker> *)aService {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   for (UIView * stSubview in _dockerWindow.subviews)
-   {
-      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]])
-      {
+   for (UIView * stSubview in _dockerWindow.subviews) {
+      
+      if ([stSubview isKindOfClass:[IDEAAppletDockerView class]]) {
+         
          IDEAAppletDockerView * stDockerView = (IDEAAppletDockerView *)stSubview;
-         if (stDockerView.service == aService)
-         {
+         if (stDockerView.service == aService) {
+            
             [stDockerView close];
             
          } /* End if () */
@@ -272,12 +269,10 @@
 
 TEST_CASE(Service, DockerManager)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

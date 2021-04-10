@@ -58,7 +58,9 @@
    if ( self ) {
       
       _properties = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
@@ -68,95 +70,122 @@
    
    [_properties removeAllObjects];
    _properties = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)observeProperty:(NSString *)property {
+- (void)observeProperty:(NSString *)aProperty {
    
-   if ( nil == property )
-      return;
-   
-   if ( [_properties objectForKey:property] )
-      return;
-   
-   NSKeyValueObservingOptions options = 0;
-   
-   NSArray * observerValues = [self.source extentionForProperty:property arrayValueWithKey:@"Observer"];
-   
-   if ( observerValues ) {
+   if ( nil == aProperty ) {
       
-      for ( NSString * value in observerValues ) {
+      return;
+      
+   } /* End if () */
+   
+   if ( [_properties objectForKey:aProperty] ) {
+      
+      return;
+      
+   } /* End if () */
+   
+   NSKeyValueObservingOptions  eOptions         = 0;
+   
+   NSArray                    *stObserverValues = [self.source extentionForProperty:aProperty arrayValueWithKey:@"Observer"];
+   
+   if ( stObserverValues ) {
+      
+      for ( NSString *szValue in stObserverValues ) {
          
-         if ( [value isEqualToString:@"old"] ) {
+         if ( [szValue isEqualToString:@"old"] ) {
             
-            options |= NSKeyValueObservingOptionOld;
-         }
-         else if ( [value isEqualToString:@"new"] ) {
+            eOptions |= NSKeyValueObservingOptionOld;
             
-            options |= NSKeyValueObservingOptionOld;
-         }
-      }
-   }
-   
-   if ( 0 == options ) {
+         } /* End if () */
+         else if ( [szValue isEqualToString:@"new"] ) {
+            
+            eOptions |= NSKeyValueObservingOptionOld;
+            
+         } /* End else if () */
+         
+      } /* End for () */
       
-      options = NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew;
-   }
+   } /* End if () */
    
-   [self.source addObserver:self forKeyPath:property options:options context:NULL];
+   if ( 0 == eOptions ) {
+      
+      eOptions = NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew;
+      
+   } /* End if () */
    
-   [_properties setObject:[NSNumber numberWithInt:(int)options] forKey:property];
+   [self.source addObserver:self forKeyPath:aProperty options:eOptions context:NULL];
+   
+   [_properties setObject:[NSNumber numberWithInt:(int)eOptions] forKey:aProperty];
+   
+   return;
 }
 
-- (void)unobserveProperty:(NSString *)property {
+- (void)unobserveProperty:(NSString *)aProperty {
    
-   if ( [_properties objectForKey:property] ) {
+   if ( [_properties objectForKey:aProperty] ) {
       
-      [self.source removeObserver:self forKeyPath:property];
+      [self.source removeObserver:self forKeyPath:aProperty];
       
-      [_properties removeObjectForKey:property];
-   }
+      [_properties removeObjectForKey:aProperty];
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (void)unobserveAllProperties {
    
-   for ( NSString * property in _properties.allKeys ) {
+   for ( NSString *szProperty in _properties.allKeys ) {
       
-      [self.source removeObserver:self forKeyPath:property];
-   }
+      [self.source removeObserver:self forKeyPath:szProperty];
+      
+   } /* End for () */
    
    [_properties removeAllObjects];
+   
+   return;
 }
 
 #pragma mark - KVO
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary *)aChange context:(void *)aContext {
    
-   NSObject * oldValue = [change objectForKey:@"old"];
-   NSObject * newValue = [change objectForKey:@"new"];
+   NSObject *stOldValue = [aChange objectForKey:@"old"];
+   NSObject *stNewValue = [aChange objectForKey:@"new"];
    
-   if ( oldValue ) {
+   if ( stOldValue ) {
       
-      IDEAAppletSignal * signal = [IDEAAppletSignal signal];
+      IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
       
-      signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[object class] description], keyPath];
-      signal.source = object;
-      signal.target = self.source;
-      signal.object = [oldValue isKindOfClass:[NSNull class]] ? nil : oldValue;
+      stSignal.name     = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[aObject class] description], aKeyPath];
+      stSignal.source   = aObject;
+      stSignal.target   = self.source;
+      stSignal.object   = [stOldValue isKindOfClass:[NSNull class]] ? nil : stOldValue;
       
-      [signal send];
-   }
+      [stSignal send];
+      
+   } /* End if () */
    
-   if ( newValue ) {
+   if ( stNewValue ) {
       
-      IDEAAppletSignal * signal = [IDEAAppletSignal signal];
+      IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
       
-      signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[object class] description], keyPath];
-      signal.source = object;
-      signal.target = self.source;
-      signal.object = [newValue isKindOfClass:[NSNull class]] ? nil : newValue;
+      stSignal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[aObject class] description], aKeyPath];
+      stSignal.source = aObject;
+      stSignal.target = self.source;
+      stSignal.object = [stNewValue isKindOfClass:[NSNull class]] ? nil : stNewValue;
       
-      [signal send];
-   }
+      [stSignal send];
+      
+   } /* End if () */
+   
+   return;
 }
 
 @end
@@ -170,17 +199,18 @@
 
 - (IDEAAppletKVObserver *)KVObserverOrCreate {
    
-   IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
+   IDEAAppletKVObserver *stObserver = [self getAssociatedObjectForKey:"KVObserver"];
    
-   if ( nil == observer ) {
+   if ( nil == stObserver ) {
       
-      observer = [[IDEAAppletKVObserver alloc] init];
-      observer.source = self;
+      stObserver = [[IDEAAppletKVObserver alloc] init];
+      stObserver.source = self;
       
-      [self retainAssociatedObject:observer forKey:"KVObserver"];
-   }
+      [self retainAssociatedObject:stObserver forKey:"KVObserver"];
+      
+   } /* End if () */
    
-   return observer;
+   return stObserver;
 }
 
 - (IDEAAppletKVObserver *)KVObserver {
@@ -194,195 +224,223 @@
    
    @weakify( self );
    
-   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... ) {
+   IDEAAppletKVOBlock   stBlock  = ^ NSObject * ( id aNameOrObject, id aPropertyOrBlock, ... ) {
       
       @strongify( self );
       
-      EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
+      EncodingType eEncoding = [IDEAAppletEncoding typeOfObject:aNameOrObject];
       
-      if ( EncodingType_String == encoding ) {
+      if ( EncodingType_String == eEncoding ) {
          
-         NSString * name = nameOrObject;
+         NSString *szName  = aNameOrObject;
          
-         ASSERT( nil != name );
+         ASSERT( nil != szName );
          
-         name = [name stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
-         name = [name stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
-         name = [name stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-         name = [name stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-         name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
-         name = [name stringByAppendingString:@"____valueChanging:"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+         szName = [szName stringByAppendingString:@"____valueChanging:"];
          
-         if ( propertyOrBlock ) {
+         if ( aPropertyOrBlock ) {
             
-            [self addBlock:propertyOrBlock forName:name];
-         }
+            [self addBlock:aPropertyOrBlock forName:szName];
+            
+         } /* End if () */
          else {
             
-            [self removeBlockForName:name];
-         }
-      }
+            [self removeBlockForName:szName];
+            
+         } /* End else */
+         
+      } /* End if () */
       else {
          
-         va_list args;
-         va_start( args, propertyOrBlock );
+         va_list   stArgs;
+         va_start( stArgs, aPropertyOrBlock );
          
-         NSObject *   object = (NSObject *)nameOrObject;
-         NSString *   property = (NSString *)propertyOrBlock;
+         NSObject *stObject   = (NSObject *)aNameOrObject;
+         NSString *szProperty = (NSString *)aPropertyOrBlock;
          
-         ASSERT( nil != object );
-         ASSERT( nil != property );
+         ASSERT( nil != stObject );
+         ASSERT( nil != szProperty );
          
-         [object observeProperty:property];
-         [object addSignalResponder:self];
+         [stObject observeProperty:szProperty];
+         [stObject addSignalResponder:self];
          
-         NSString *   signalName = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanging:", [[object class] description], property ];
-         id         signalBlock = va_arg( args, id );
+         NSString *szSignalName  = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanging:", [[stObject class] description], szProperty ];
+         id        stSignalBlock = va_arg( stArgs, id );
          
-         if ( signalBlock ) {
+         if ( stSignalBlock ) {
             
-            [self addBlock:signalBlock forName:signalName];
-         }
+            [self addBlock:stSignalBlock forName:szSignalName];
+            
+         } /* End if () */
          else {
             
-            [self removeBlockForName:signalName];
-         }
-      }
+            [self removeBlockForName:szSignalName];
+            
+         } /* End else */
+         
+      } /* End else */
       
       return self;
    };
    
-   return [block copy];
+   return [stBlock copy];
 }
 
 - (IDEAAppletKVOBlock)onValueChanged {
    
    @weakify( self );
    
-   IDEAAppletKVOBlock block = ^ NSObject * ( id nameOrObject, id propertyOrBlock, ... ) {
+   IDEAAppletKVOBlock   stBlock     = ^ NSObject * ( id aNameOrObject, id aPropertyOrBlock, ... ) {
       
       @strongify( self );
       
-      EncodingType encoding = [IDEAAppletEncoding typeOfObject:nameOrObject];
-      if ( EncodingType_String == encoding ) {
+      EncodingType       eEncoding  = [IDEAAppletEncoding typeOfObject:aNameOrObject];
+      if ( EncodingType_String == eEncoding ) {
          
-         NSString * name = nameOrObject;
+         NSString *szName  = aNameOrObject;
          
-         ASSERT( nil != name );
+         ASSERT( nil != szName );
          
-         name = [name stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
-         name = [name stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
-         name = [name stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-         name = [name stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-         name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
-         name = [name stringByAppendingString:@"____valueChanged:"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"signal." withString:@"handleSignal____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+         szName = [szName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+         szName = [szName stringByAppendingString:@"____valueChanged:"];
          
-         if ( propertyOrBlock ) {
+         if ( aPropertyOrBlock ) {
             
-            [self addBlock:propertyOrBlock forName:name];
-         }
+            [self addBlock:aPropertyOrBlock forName:szName];
+            
+         } /* End if () */
          else {
             
-            [self removeBlockForName:name];
-         }
-      }
+            [self removeBlockForName:szName];
+            
+         } /* End else */
+         
+      } /* End if () */
       else {
          
-         va_list args;
-         va_start( args, propertyOrBlock );
+         va_list   stArgs;
+         va_start( stArgs, aPropertyOrBlock );
          
-         NSObject *   object = (NSObject *)nameOrObject;
-         NSString *   property = (NSString *)propertyOrBlock;
+         NSObject *stObject   = (NSObject *)aNameOrObject;
+         NSString *szProperty = (NSString *)aPropertyOrBlock;
          
-         ASSERT( nil != object );
-         ASSERT( nil != property );
+         ASSERT( nil != stObject );
+         ASSERT( nil != szProperty );
          
-         [object observeProperty:property];
-         [object addSignalResponder:self];
+         [stObject observeProperty:szProperty];
+         [stObject addSignalResponder:self];
          
-         NSString *   signalName = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanged:", [[object class] description], property ];
-         id         signalBlock = va_arg( args, id );
+         NSString *szSignalName  = [NSString stringWithFormat:@"handleSignal____%@____%@____valueChanged:", [[stObject class] description], szProperty ];
+         id        stSignalBlock = va_arg( stArgs, id );
          
-         if ( signalBlock ) {
+         if ( stSignalBlock ) {
             
-            [self addBlock:signalBlock forName:signalName];
-         }
+            [self addBlock:stSignalBlock forName:szSignalName];
+            
+         } /* End if () */
          else {
             
-            [self removeBlockForName:signalName];
-         }
+            [self removeBlockForName:szSignalName];
+            
+         } /* End else */
       }
       
       return self;
    };
    
-   return [block copy];
+   return [stBlock copy];
 }
 
 #pragma mark -
 
-- (void)observeProperty:(NSString *)property {
+- (void)observeProperty:(NSString *)aProperty {
    
-   IDEAAppletKVObserver * observer = [self KVObserverOrCreate];
-   if ( observer ) {
+   IDEAAppletKVObserver *stObserver = [self KVObserverOrCreate];
+   if ( stObserver ) {
       
-      [observer observeProperty:property];
-   }
+      [stObserver observeProperty:aProperty];
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)unobserveProperty:(NSString *)property {
+- (void)unobserveProperty:(NSString *)aProperty {
    
-   IDEAAppletKVObserver * observer = [self KVObserver];
-   if ( observer ) {
+   IDEAAppletKVObserver *stObserver = [self KVObserver];
+   if ( stObserver ) {
       
-      [observer unobserveProperty:property];
-   }
+      [stObserver unobserveProperty:aProperty];
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (void)unobserveAllProperties {
    
-   IDEAAppletKVObserver * observer = [self getAssociatedObjectForKey:"KVObserver"];
+   IDEAAppletKVObserver *stObserver = [self getAssociatedObjectForKey:"KVObserver"];
    
-   if ( observer ) {
+   if ( stObserver ) {
       
-      [observer unobserveAllProperties];
+      [stObserver unobserveAllProperties];
       
       [self removeAssociatedObjectForKey:"KVObserver"];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)signalValueChanging:(NSString *)property {
+- (void)signalValueChanging:(NSString *)aProperty {
    
-   [self signalValueChanging:property value:nil];
+   [self signalValueChanging:aProperty value:nil];
+   
+   return;
 }
 
-- (void)signalValueChanging:(NSString *)property value:(id)value {
+- (void)signalValueChanging:(NSString *)aProperty value:(id)aValue {
    
-   IDEAAppletSignal * signal = [IDEAAppletSignal signal];
+   IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
    
-   signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[self class] description], property];
-   signal.source = self;
-   signal.target = self;
-   signal.object = [value isKindOfClass:[NSNull class]] ? nil : value;
+   stSignal.name     = [NSString stringWithFormat:@"signal.%@.%@.valueChanging", [[self class] description], aProperty];
+   stSignal.source   = self;
+   stSignal.target   = self;
+   stSignal.object   = [aValue isKindOfClass:[NSNull class]] ? nil : aValue;
    
-   [signal send];
+   [stSignal send];
+   
+   return;
 }
 
-- (void)signalValueChanged:(NSString *)property {
+- (void)signalValueChanged:(NSString *)aProperty {
    
-   [self signalValueChanged:property value:nil];
+   [self signalValueChanged:aProperty value:nil];
+   
+   return;
 }
 
-- (void)signalValueChanged:(NSString *)property value:(id)value {
+- (void)signalValueChanged:(NSString *)aProperty value:(id)aValue {
    
-   IDEAAppletSignal * signal = [IDEAAppletSignal signal];
+   IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
    
-   signal.name = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[self class] description], property];
-   signal.source = self;
-   signal.target = self;
-   signal.object = [value isKindOfClass:[NSNull class]] ? nil : value;
+   stSignal.name     = [NSString stringWithFormat:@"signal.%@.%@.valueChanged", [[self class] description], aProperty];
+   stSignal.source   = self;
+   stSignal.target   = self;
+   stSignal.object   = [aValue isKindOfClass:[NSNull class]] ? nil : aValue;
    
-   [signal send];
+   [stSignal send];
+   
+   return;
 }
 
 @end

@@ -483,12 +483,14 @@ BASE_CLASS( IDEAAppletActivityStack )
 - (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity {
    
    self = [super initWithNavigationBarClass:nil toolbarClass:nil];
+   
    if ( self ) {
       
       self.navigationBarHidden = NO;
       self.view.backgroundColor = [UIColor whiteColor];
       self.viewControllers = [NSArray arrayWithObject:activity];
    }
+   
    return self;
 }
 
@@ -501,29 +503,42 @@ BASE_CLASS( IDEAAppletActivityStack )
    //   {
    [self pushViewController:activity animated:animated];
    //   }
+   
+   return;
 }
 
 - (void)popActivityAnimated:(BOOL)animated {
    
    [self popViewControllerAnimated:animated];
+
+   return;
 }
 
 - (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated {
    
-   if ( nil == activity )
+   if ( nil == activity ) {
+      
       return;
+      
+   } /* End if () */
    
    [self popToViewController:activity animated:animated];
+
+   return;
 }
 
 - (void)popToFirstActivityAnimated:(BOOL)animated {
    
    [self popToViewController:self.topViewController animated:animated];
+   
+   return;
 }
 
 - (void)popAllActivities {
    
    self.viewControllers = [NSArray array];
+   
+   return;
 }
 
 #pragma mark -
@@ -534,15 +549,18 @@ BASE_CLASS( IDEAAppletActivityStack )
    
    if ( IOS7_OR_LATER ) {
       
-      self.edgesForExtendedLayout = UIRectEdgeNone;
-      self.extendedLayoutIncludesOpaqueBars = NO;
-      self.modalPresentationCapturesStatusBarAppearance = NO;
-      self.automaticallyAdjustsScrollViewInsets = YES;
-   }
+      self.edgesForExtendedLayout                        = UIRectEdgeNone;
+      self.extendedLayoutIncludesOpaqueBars              = NO;
+      self.modalPresentationCapturesStatusBarAppearance  = NO;
+      self.automaticallyAdjustsScrollViewInsets          = YES;
+      
+   } /* End if () */
    
    self.view.userInteractionEnabled = YES;
-   self.view.backgroundColor = [UIColor whiteColor];
-   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+   self.view.backgroundColor        = [UIColor whiteColor];
+   self.view.autoresizingMask       = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+   
+   return;
 }
 
 - (void)loadView {
@@ -551,16 +569,22 @@ BASE_CLASS( IDEAAppletActivityStack )
    
    self.view.backgroundColor = [UIColor whiteColor];
    //   self.navigationController.navigationBar.clipsToBounds = YES;
+   
+   return;
 }
 
 - (void)viewDidLoad {
    
    [super viewDidLoad];
+   
+   return;
 }
 
 - (void)viewWillLayoutSubviews {
    
    [super viewWillLayoutSubviews];
+   
+   return;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -576,6 +600,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController viewDidLayoutSubviews];
    }
+
+   return;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -593,6 +619,8 @@ BASE_CLASS( IDEAAppletActivityStack )
    }
    
    [self setNeedsStatusBarAppearanceUpdate];
+
+   return;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -608,6 +636,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController viewDidAppear:animated];
    }
+
+   return;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -618,6 +648,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController viewWillDisappear:animated];
    }
+
+   return;
 }
 
 // Called after the view was dismissed, covered or otherwise hidden. Default does nothing
@@ -629,6 +661,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController viewDidDisappear:animated];
    }
+
+   return;
 }
 
 #pragma mark -
@@ -659,6 +693,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
    }
+
+   return;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -672,6 +708,8 @@ BASE_CLASS( IDEAAppletActivityStack )
       
       [self.topViewController didRotateFromInterfaceOrientation:fromInterfaceOrientation];
    }
+
+   return;
 }
 
 #pragma mark -

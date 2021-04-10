@@ -123,15 +123,15 @@
 
 - (void)removeObserver:(id)aObserver forNotification:(NSString *)aName {
    
-   NSMutableArray * observers = [_map objectForKey:aName];
+   NSMutableArray *stObservers   = [_map objectForKey:aName];
    
-   if ( observers ) {
+   if ( stObservers ) {
       
-      [observers removeObject:aObserver];
+      [stObservers removeObject:aObserver];
       
    } /* End if () */
    
-   if ( nil == observers || 0 == observers.count ) {
+   if ( nil == stObservers || 0 == stObservers.count ) {
       
       [_map removeObjectForKey:aName];
       
@@ -144,9 +144,9 @@
 
 - (void)removeObserver:(id)aObserver {
    
-   for ( NSMutableArray * observers in _map.allValues ) {
+   for ( NSMutableArray *stObservers in _map.allValues ) {
       
-      [observers removeObject:aObserver];
+      [stObservers removeObject:aObserver];
       
    } /* End for () */
    

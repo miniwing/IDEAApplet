@@ -49,157 +49,176 @@
 
 #pragma mark -
 
-- (void)loadTemplate
-{
+- (void)loadTemplate {
+   
    self.template = [[IDEAAppletTemplate alloc] init];
    self.template.responder = self;
    
    [self.template loadClass:[self class]];
+   
+   return;
 }
 
-- (void)unloadTemplate
-{
+- (void)unloadTemplate {
+   
    [self.template stopLoading];
    [self.template.document.renderTree unbindOutletsFrom:self];
    [self.template.document.renderTree.view removeFromSuperview];
 
    self.template.responder = nil;
    self.template = nil;
+   
+   return;
 }
 
-- (void)handleTemplate:(IDEAAppletTemplate *)template
-{
-   ASSERT( template == self.template );
+- (void)handleTemplate:(IDEAAppletTemplate *)aTemplate {
    
-   if ( template.loading )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
-      [self performCallChainWithSelector:@selector(onTemplateLoading) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
-      [self onTemplateLoading];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
-   }
-   else if ( template.loaded )
-   {
-      [template.document configureForView:self];
-
-      IDEAAppletRenderObject * rootRender = template.document.renderTree;
+   ASSERT( aTemplate == self.template );
+   
+   if ( aTemplate.loading ) {
       
-      if ( rootRender )
-      {
-         if ( self.renderer )
-         {
-            for ( IDEAAppletRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] )
-            {
+#if __SAMURAI_UI_USE_CALLCHAIN__
+      [self performCallChainWithSelector:@selector(onTemplateLoading) reversed:YES];
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+      [self onTemplateLoading];
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+   }
+   else if ( aTemplate.loaded ) {
+      
+      [aTemplate.document configureForView:self];
+      
+      IDEAAppletRenderObject * rootRender = aTemplate.document.renderTree;
+      
+      if ( rootRender ) {
+         
+         if ( self.renderer ) {
+            
+            for ( IDEAAppletRenderObject * childRender in [rootRender.childs reverseObjectEnumerator] ) {
+               
                [self.renderer appendNode:childRender];
                
                UIView * childView = [childRender createViewWithIdentifier:nil];
-
-               if ( childView )
-               {
+               
+               if ( childView ) {
+                  
                   [self addSubview:childView];
                   
                   [childRender bindOutletsTo:self];
                }
             }
          }
-         else
-         {
-//            self.renderer = rootRender;
+         else {
+            
+            //            self.renderer = rootRender;
          }
-
+         
          [rootRender rechain];
-      //   [rootRender relayout];
-
-      #if __SAMURAI_UI_USE_CALLCHAIN__
+         //   [rootRender relayout];
+         
+#if __SAMURAI_UI_USE_CALLCHAIN__
          [self performCallChainWithSelector:@selector(onTemplateLoaded) reversed:YES];
-      #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
          [self onTemplateLoaded];
-      #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
       }
-      else
-      {
-      #if __SAMURAI_UI_USE_CALLCHAIN__
+      else {
+         
+#if __SAMURAI_UI_USE_CALLCHAIN__
          [self performCallChainWithSelector:@selector(onTemplateFailed) reversed:YES];
-      #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
          [self onTemplateFailed];
-      #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
       }
    }
-   else if ( template.failed )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( aTemplate.failed ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateFailed) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateFailed];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
-   else if ( template.cancelled )
-   {
-   #if __SAMURAI_UI_USE_CALLCHAIN__
+   else if ( aTemplate.cancelled ) {
+      
+#if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateCancelled) reversed:YES];
-   #else   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#else   // #if __SAMURAI_UI_USE_CALLCHAIN__
       [self onTemplateCancelled];
-   #endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
+#endif   // #if __SAMURAI_UI_USE_CALLCHAIN__
    }
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)onTemplateLoading
-{
+- (void)onTemplateLoading {
+   
+   return;
 }
 
-- (void)onTemplateLoaded
-{
+- (void)onTemplateLoaded {
+   
    [self relayout];
+   
+   return;
 }
 
-- (void)onTemplateFailed
-{
+- (void)onTemplateFailed {
+   
    [self relayout];
+   
+   return;
 }
 
-- (void)onTemplateCancelled
-{
+- (void)onTemplateCancelled {
+   
    [self relayout];
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)rechain
-{
-   if ( self.renderer )
-   {
+- (void)rechain {
+   
+   if ( self.renderer ) {
+      
       [self.renderer rechain];
    }
+   
+   return;
 }
 
-- (void)relayout
-{
+- (void)relayout {
+   
    CGSize viewSize = self.frame.size;
    
-   if ( CGSizeEqualToSize( viewSize, CGSizeZero ) )
-   {
+   if ( CGSizeEqualToSize( viewSize, CGSizeZero ) ) {
+      
       self.layer.hidden = YES;
    }
-   else
-   {
+   else {
+      
       self.layer.hidden = NO;
 
-      if ( self.renderer )
-      {
+      if ( self.renderer ) {
+         
          [self.renderer relayout];
       }
    }
+   
+   return;
 }
 
-- (void)restyle
-{
-   if ( self.renderer )
-   {
+- (void)restyle {
+   
+   if ( self.renderer ) {
+      
       [self.renderer restyle];
    }
+   
+   return;
 }
 
 @end
@@ -214,12 +233,10 @@
 
 TEST_CASE( UI, UIView_TemplateLoading )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

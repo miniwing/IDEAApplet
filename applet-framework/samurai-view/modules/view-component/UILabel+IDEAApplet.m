@@ -376,8 +376,8 @@
       return CGSizeZero;
    }
    
-   NSDictionary *         attribute = [NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName];
-   NSStringDrawingOptions   options = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading;
+   NSDictionary            *attribute  = [NSDictionary dictionaryWithObject:self.font forKey:NSFontAttributeName];
+   NSStringDrawingOptions   options    = NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading;
    
    CGSize result = CGSizeZero;
    

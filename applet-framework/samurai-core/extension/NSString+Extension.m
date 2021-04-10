@@ -46,688 +46,808 @@
 
 @implementation NSString(Extension)
 
-@def_prop_dynamic( NSString *,            MD5String );
-@def_prop_dynamic( NSData *,            MD5Data );
+@def_prop_dynamic ( NSString  *, MD5String );
+@def_prop_dynamic ( NSData    *, MD5Data );
 
-@def_prop_dynamic( NSString *,            SHA1String );
-@def_prop_dynamic( NSData *,            SHA1Data );
+@def_prop_dynamic ( NSString  *, SHA1String );
+@def_prop_dynamic ( NSData    *, SHA1Data );
 
-@def_prop_dynamic( NSData *,            BASE64Decrypted );
+@def_prop_dynamic ( NSData    *, BASE64Decrypted );
 
-- (NSString *)MD5String
-{
+- (NSString *)MD5String {
+   
    return [[NSData dataWithBytes:[self UTF8String] length:[self length]] MD5String];
 }
 
-- (NSData *)MD5Data
-{
+- (NSData *)MD5Data {
+   
    return [[NSData dataWithBytes:[self UTF8String] length:[self length]] MD5Data];
 }
 
-- (NSString *)SHA1String
-{
+- (NSString *)SHA1String {
+   
    return [[NSData dataWithBytes:[self UTF8String] length:[self length]] SHA1String];
 }
 
-- (NSData *)SHA1Data
-{
+- (NSData *)SHA1Data {
+   
    return [[NSData dataWithBytes:[self UTF8String] length:[self length]] SHA1Data];
 }
 
-- (NSData *)BASE64Decrypted
-{
+- (NSData *)BASE64Decrypted {
+   
    static char * __base64EncodingTable = (char *)"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
    static char * __base64DecodingTable = nil;
-
+   
    // copy from THREE20
    
-   if ( 0 == [self length] )
-   {
+   if ( 0 == [self length] ) {
+      
       return [NSData data];
-   }
+      
+   } /* End if () */
    
-   if ( NULL == __base64DecodingTable )
-   {
+   if ( NULL == __base64DecodingTable ) {
+      
       __base64DecodingTable = (char *)malloc( 256 );
-      if ( NULL == __base64DecodingTable )
-      {
+      
+      if ( NULL == __base64DecodingTable ) {
+         
          return nil;
-      }
+         
+      } /* End if () */
       
       memset( __base64DecodingTable, CHAR_MAX, 256 );
       
-      for ( int i = 0; i < 64; i++)
-      {
-         __base64DecodingTable[(short)__base64EncodingTable[i]] = (char)i;
-      }
-   }
-   
-   const char * characters = [self cStringUsingEncoding:NSASCIIStringEncoding];
-   if ( NULL == characters )     //  Not an ASCII string!
-   {
-      return nil;
-   }
-   
-   char * bytes = (char *)malloc( ([self length] + 3) * 3 / 4 );
-   if ( NULL == bytes )
-   {
-      return nil;
-   }
-   
-   NSUInteger length = 0;
-   NSUInteger i = 0;
-   
-   while ( 1 )
-   {
-      char   buffer[4] = { 0 };
-      short   bufferLength = 0;
+      for ( int H = 0; H < 64; H++) {
+         
+         __base64DecodingTable[(short)__base64EncodingTable[H]] = (char)H;
+         
+      } /* End for () */
       
-      for ( bufferLength = 0; bufferLength < 4; i++ )
-      {
-         if ( characters[i] == '\0' )
-         {
+   } /* End if () */
+   
+   const char  *cpcCharacters = [self cStringUsingEncoding:NSASCIIStringEncoding];
+   if ( NULL == cpcCharacters ) { //  Not an ASCII string!
+      
+      return nil;
+      
+   } /* End if () */
+   
+   char  *pcBytes = (char *)malloc( ([self length] + 3) * 3 / 4 );
+   if ( NULL == pcBytes ) {
+      
+      return nil;
+      
+   } /* End if () */
+   
+   memset(pcBytes, 0, ([self length] + 3) * 3 / 4 );
+   
+   NSUInteger   unLength   = 0;
+   NSUInteger   H          = 0;
+   
+   while ( 1 ) {
+      
+      char   acBuffer[4]   = { 0 };
+      short  sBufferLength = 0;
+      
+      for ( sBufferLength = 0; sBufferLength < 4; H++ ) {
+         
+         if ( cpcCharacters[H] == '\0' ) {
+            
             break;
-         }
+            
+         } /* End if () */
          
-         if ( isspace(characters[i]) || characters[i] == '=' )
-         {
+         if ( isspace(cpcCharacters[H]) || cpcCharacters[H] == '=' ) {
+            
             continue;
-         }
+            
+         } /* End if () */
          
-         buffer[bufferLength] = __base64DecodingTable[(short)characters[i]];
-         if ( CHAR_MAX == buffer[bufferLength++] )
-         {
-            free(bytes);
+         acBuffer[sBufferLength] = __base64DecodingTable[(short)cpcCharacters[H]];
+         if ( CHAR_MAX == acBuffer[sBufferLength++] ) {
+            
+            free(pcBytes);
             return nil;
-         }
-      }
+            
+         } /* End if () */
+         
+      } /* End for () */
       
-      if ( 0 == bufferLength )
-      {
+      if ( 0 == sBufferLength ) {
+         
          break;
       }
       
-      if ( 1 == bufferLength )
-      {
+      if ( 1 == sBufferLength ) {
+         
          // At least two characters are needed to produce one byte!
          
-         free(bytes);
+         free(pcBytes);
+         
          return nil;
-      }
+         
+      } /* End if () */
       
-        //  Decode the characters in the buffer to bytes.
+      //  Decode the characters in the buffer to bytes.
       
-      bytes[length++] = (char)((buffer[0] << 2) | (buffer[1] >> 4));
+      pcBytes[unLength++] = (char)((acBuffer[0] << 2) | (acBuffer[1] >> 4));
       
-      if (bufferLength > 2)
-      {
-         bytes[length++] = (char)((buffer[1] << 4) | (buffer[2] >> 2));
-      }
+      if (sBufferLength > 2) {
+         
+         pcBytes[unLength++] = (char)((acBuffer[1] << 4) | (acBuffer[2] >> 2));
+         
+      } /* End if () */
       
-      if (bufferLength > 3)
-      {
-         bytes[length++] = (char)((buffer[2] << 6) | buffer[3]);
-      }
-   }
+      if (sBufferLength > 3) {
+         
+         pcBytes[unLength++] = (char)((acBuffer[2] << 6) | acBuffer[3]);
+         
+      } /* End if () */
+      
+   } /* End while ( 1 ) */
    
-   realloc( bytes, length );
+   realloc( pcBytes, unLength );
    
-   return [NSData dataWithBytesNoCopy:bytes length:length];
+   return [NSData dataWithBytesNoCopy:pcBytes length:unLength];
 }
 
-- (NSArray *)allURLs
-{
-   NSMutableArray * array = [NSMutableArray array];
-   NSCharacterSet * charSet = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$-_.+!*'():/"] invertedSet];
-
-   for ( NSUInteger stringIndex = 0; stringIndex < self.length; )
-   {
-      NSRange searchRange = NSMakeRange(stringIndex, self.length - stringIndex);
-      NSRange httpRange = [self rangeOfString:@"http://" options:NSCaseInsensitiveSearch range:searchRange];
-      NSRange httpsRange = [self rangeOfString:@"https://" options:NSCaseInsensitiveSearch range:searchRange];
+- (NSArray *)allURLs {
+   
+   NSMutableArray *stArray    = [NSMutableArray array];
+   NSCharacterSet *stCharSet  = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$-_.+!*'():/"] invertedSet];
+   
+   for ( NSUInteger nStringIndex = 0; nStringIndex < self.length; ) {
       
-      NSRange startRange;
-      if ( httpRange.location == NSNotFound )
-      {
-         startRange = httpsRange;
-      }
-      else if ( httpsRange.location == NSNotFound )
-      {
-         startRange = httpRange;
-      }
-      else
-      {
-         startRange = (httpRange.location < httpsRange.location) ? httpRange : httpsRange;
-      }
+      NSRange   stSearchRange = NSMakeRange(nStringIndex, self.length - nStringIndex);
+      NSRange   stHttpRange   = [self rangeOfString:@"http://" options:NSCaseInsensitiveSearch range:stSearchRange];
+      NSRange   stHttpsRange  = [self rangeOfString:@"https://" options:NSCaseInsensitiveSearch range:stSearchRange];
       
-      if (startRange.location == NSNotFound)
-      {
-         break;         
-      }
-      else
-      {
-         NSRange beforeRange = NSMakeRange( searchRange.location, startRange.location - searchRange.location );
-         if ( beforeRange.length )
-         {
+      NSRange   stStartRange;
+      
+      if ( stHttpRange.location == NSNotFound ) {
+         
+         stStartRange = stHttpsRange;
+         
+      } /* End if () */
+      else if ( stHttpsRange.location == NSNotFound ) {
+         
+         stStartRange = stHttpRange;
+         
+      } /* End else if () */
+      else {
+         
+         stStartRange = (stHttpRange.location < stHttpsRange.location) ? stHttpRange : stHttpsRange;
+         
+      } /* End else */
+      
+      if (stStartRange.location == NSNotFound) {
+         
+         break;
+         
+      } /* End if () */
+      else {
+         
+         NSRange   stBeforeRange    = NSMakeRange( stSearchRange.location, stStartRange.location - stSearchRange.location );
+         if ( stBeforeRange.length ) {
+            
 //            NSString * text = [string substringWithRange:beforeRange];
 //            [array addObject:text];
-         }
-
-         NSRange subSearchRange = NSMakeRange(startRange.location, self.length - startRange.location);
-//         NSRange endRange = [self rangeOfString:@" " options:NSCaseInsensitiveSearch range:subSearchRange];
-         NSRange endRange = [self rangeOfCharacterFromSet:charSet options:NSCaseInsensitiveSearch range:subSearchRange];
-         if ( endRange.location == NSNotFound)
-         {
-            NSString * url = [self substringWithRange:subSearchRange];
-            [array addObject:url];
-            break;            
-         }
-         else
-         {
-            NSRange URLRange = NSMakeRange(startRange.location, endRange.location - startRange.location);
-            NSString * url = [self substringWithRange:URLRange];
-            [array addObject:url];
             
-            stringIndex = endRange.location;
-         }
-      }
-   }
-   
-   return array;
-}
-
-+ (NSString *)queryStringFromDictionary:(NSDictionary *)dict
-{
-    return [self queryStringFromDictionary:dict encoding:YES];
-}
-
-+ (NSString *)queryStringFromDictionary:(NSDictionary *)dict encoding:(BOOL)encoding
-{
-    NSMutableArray * pairs = [NSMutableArray array];
-   for ( NSString * key in dict.allKeys )
-   {
-      NSString * value = [((NSObject *)[dict objectForKey:key]) toString];
-      NSString * urlEncoding = encoding ? [value URLEncoding] : value;
-      [pairs addObject:[NSString stringWithFormat:@"%@=%@", key, urlEncoding]];
-   }
-   
-   return [pairs componentsJoinedByString:@"&"];
-}
-
-+ (NSString *)queryStringFromArray:(NSArray *)array
-{
-    return [self queryStringFromArray:array encoding:YES];
-}
-
-+ (NSString *)queryStringFromArray:(NSArray *)array encoding:(BOOL)encoding
-{
-   NSMutableArray *pairs = [NSMutableArray array];
-   
-   for ( NSUInteger i = 0; i < [array count]; i += 2 )
-   {
-      NSObject * obj1 = [array objectAtIndex:i];
-      NSObject * obj2 = [array objectAtIndex:i + 1];
+         } /* End if () */
+         
+         NSRange   stSubSearchRange = NSMakeRange(stStartRange.location, self.length - stStartRange.location);
+//         NSRange endRange = [self rangeOfString:@" " options:NSCaseInsensitiveSearch range:subSearchRange];
+         NSRange   stEndRange       = [self rangeOfCharacterFromSet:stCharSet options:NSCaseInsensitiveSearch range:stSubSearchRange];
+         if ( stEndRange.location == NSNotFound) {
+            
+            NSString * url = [self substringWithRange:stSubSearchRange];
+            [stArray addObject:url];
+            break;
+            
+         } /* End if () */
+         else {
+            
+            NSRange   stURLRange = NSMakeRange(stStartRange.location, stEndRange.location - stStartRange.location);
+            NSString *szURL      = [self substringWithRange:stURLRange];
+            [stArray addObject:szURL];
+            
+            nStringIndex = stEndRange.location;
+            
+         } /* End else */
+         
+      } /* End else */
       
-      NSString * key = nil;
-      NSString * value = nil;
+   } /* End for ( NSUInteger nStringIndex = 0; nStringIndex < self.length; ) */
+   
+   return stArray;
+}
+
++ (NSString *)queryStringFromDictionary:(NSDictionary *)aDict {
+   
+   return [self queryStringFromDictionary:aDict encoding:YES];
+}
+
++ (NSString *)queryStringFromDictionary:(NSDictionary *)aDict encoding:(BOOL)aEncoding {
+   
+   NSMutableArray *stPairs = [NSMutableArray array];
+   for ( NSString *szKey in aDict.allKeys ) {
       
-      if ( [obj1 isKindOfClass:[NSNumber class]] )
-      {
-         key = [(NSNumber *)obj1 stringValue];
-      }
-      else if ( [obj1 isKindOfClass:[NSString class]] )
-      {
-         key = (NSString *)obj1;
-      }
-      else
-      {
+      NSString *szValue       = [((NSObject *)[aDict objectForKey:szKey]) toString];
+      NSString *szURLEncoding = aEncoding ? [szValue URLEncoding] : szValue;
+      [stPairs addObject:[NSString stringWithFormat:@"%@=%@", szKey, szURLEncoding]];
+      
+   } /* End for ( NSString *szKey in aDict.allKeys ) */
+   
+   return [stPairs componentsJoinedByString:@"&"];
+}
+
++ (NSString *)queryStringFromArray:(NSArray *)aArray {
+   
+   return [self queryStringFromArray:aArray encoding:YES];
+}
+
++ (NSString *)queryStringFromArray:(NSArray *)aArray encoding:(BOOL)aEncoding {
+   
+   NSMutableArray *stPairs = [NSMutableArray array];
+   
+   for ( NSUInteger H = 0; H < [aArray count]; H += 2 ) {
+      
+      NSObject *stObj1  = [aArray objectAtIndex:H];
+      NSObject *stObj2  = [aArray objectAtIndex:H + 1];
+      
+      NSString *szKey   = nil;
+      NSString *szValue = nil;
+      
+      if ( [stObj1 isKindOfClass:[NSNumber class]] ) {
+         
+         szKey = [(NSNumber *)stObj1 stringValue];
+         
+      } /* End if ( [stObj1 isKindOfClass:[NSNumber class]] ) */
+      else if ( [stObj1 isKindOfClass:[NSString class]] ) {
+         
+         szKey = (NSString *)stObj1;
+         
+      } /* End else if ( [stObj1 isKindOfClass:[NSString class]] ) */
+      else {
+         
          continue;
-      }
+         
+      } /* End else */
       
-      if ( [obj2 isKindOfClass:[NSNumber class]] )
-      {
-         value = [(NSNumber *)obj2 stringValue];
-      }
-      else if ( [obj1 isKindOfClass:[NSString class]] )
-      {
-         value = (NSString *)obj2;
-      }
-      else
-      {
+      if ( [stObj2 isKindOfClass:[NSNumber class]] ) {
+         
+         szValue = [(NSNumber *)stObj2 stringValue];
+         
+      } /* End if ( [stObj2 isKindOfClass:[NSNumber class]] ) */
+      else if ( [stObj1 isKindOfClass:[NSString class]] ) {
+         
+         szValue = (NSString *)stObj2;
+         
+      } /* End else if ( [stObj1 isKindOfClass:[NSString class]] ) */
+      else {
+         
          continue;
-      }
+         
+      } /* End else */
       
-      NSString * urlEncoding = encoding ? [value URLEncoding] : value;
-      [pairs addObject:[NSString stringWithFormat:@"%@=%@", key, urlEncoding]];
-   }
-   
-   return [pairs componentsJoinedByString:@"&"];
-}
-
-+ (NSString *)queryStringFromKeyValues:(id)first, ...
-{
-   NSMutableDictionary * dict = [NSMutableDictionary dictionary];
-   
-   va_list args;
-   va_start( args, first );
-   
-   for ( ;; )
-   {
-      NSObject<NSCopying> * key = [dict count] ? va_arg( args, NSObject * ) : first;
-      if ( nil == key )
-         break;
+      NSString *szURLEncoding = aEncoding ? [szValue URLEncoding] : szValue;
+      [stPairs addObject:[NSString stringWithFormat:@"%@=%@", szKey, szURLEncoding]];
       
-      NSObject * value = va_arg( args, NSObject * );
-      if ( nil == value )
-         break;
-      
-      [dict setObject:value forKey:key];
-   }
-   va_end( args );
-   return [NSString queryStringFromDictionary:dict];
-}
-
-- (NSString *)urlByAppendingDict:(NSDictionary *)params
-{
-    return [self urlByAppendingDict:params encoding:YES];
-}
-
-- (NSString *)urlByAppendingDict:(NSDictionary *)params encoding:(BOOL)encoding
-{
-    NSURL * parsedURL = [NSURL URLWithString:self];
-   NSString * queryPrefix = parsedURL.query ? @"&" : @"?";
-   NSString * query = [NSString queryStringFromDictionary:params encoding:encoding];
-   return [NSString stringWithFormat:@"%@%@%@", self, queryPrefix, query];   
-}
-
-- (NSString *)urlByAppendingArray:(NSArray *)params
-{
-    return [self urlByAppendingArray:params encoding:YES];
-}
-
-- (NSString *)urlByAppendingArray:(NSArray *)params encoding:(BOOL)encoding
-{
-    NSURL * parsedURL = [NSURL URLWithString:self];
-   NSString * queryPrefix = parsedURL.query ? @"&" : @"?";
-   NSString * query = [NSString queryStringFromArray:params encoding:encoding];
-   return [NSString stringWithFormat:@"%@%@%@", self, queryPrefix, query];      
-}
-
-- (NSString *)urlByAppendingKeyValues:(id)first, ...
-{
-   NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+   } /* End for ( NSUInteger H = 0; H < [aArray count]; H += 2 ) */
    
-   va_list args;
-   va_start( args, first );
-   
-   for ( ;; )
-   {
-      NSObject<NSCopying> * key = [dict count] ? va_arg( args, NSObject * ) : first;
-      if ( nil == key )
-         break;
-      
-      NSObject * value = va_arg( args, NSObject * );
-      if ( nil == value )
-         break;
-
-      [dict setObject:value forKey:key];
-   }
-    va_end( args );
-   return [self urlByAppendingDict:dict];
+   return [stPairs componentsJoinedByString:@"&"];
 }
 
-- (NSString *)URLEncoding
-{
++ (NSString *)queryStringFromKeyValues:(id)aFirst, ... {
+   
+   NSMutableDictionary     *stDict  = [NSMutableDictionary dictionary];
+   
+   va_list   stArgs;
+   va_start( stArgs, aFirst );
+   
+   for ( ;; ) {
+      
+      NSObject<NSCopying>  *stKey   = [stDict count] ? va_arg( stArgs, NSObject * ) : aFirst;
+      if ( nil == stKey ) {
+         
+         break;
+         
+      } /* End if ( nil == stKey ) */
+      
+      NSObject *stValue = va_arg( stArgs, NSObject * );
+      if ( nil == stValue ) {
+         
+         break;
+         
+      } /* End if ( nil == stValue ) */
+      
+      [stDict setObject:stValue forKey:stKey];
+      
+   } /* End for ( ;; ) */
+   
+   va_end( stArgs );
+   
+   return [NSString queryStringFromDictionary:stDict];
+}
+
+- (NSString *)urlByAppendingDict:(NSDictionary *)aParams {
+   
+   return [self urlByAppendingDict:aParams encoding:YES];
+}
+
+- (NSString *)urlByAppendingDict:(NSDictionary *)aParams encoding:(BOOL)aEncoding {
+   
+   NSURL    *stParsedURL   = [NSURL URLWithString:self];
+   NSString *szQueryPrefix = stParsedURL.query ? @"&" : @"?";
+   NSString *szQuery       = [NSString queryStringFromDictionary:aParams encoding:aEncoding];
+   
+   return [NSString stringWithFormat:@"%@%@%@", self, szQueryPrefix, szQuery];
+}
+
+- (NSString *)urlByAppendingArray:(NSArray *)aParams {
+   
+   return [self urlByAppendingArray:aParams encoding:YES];
+}
+
+- (NSString *)urlByAppendingArray:(NSArray *)aParams encoding:(BOOL)aEncoding {
+   
+   NSURL    *stParsedURL   = [NSURL URLWithString:self];
+   NSString *szQueryPrefix = stParsedURL.query ? @"&" : @"?";
+   NSString *szQuery       = [NSString queryStringFromArray:aParams encoding:aEncoding];
+   
+   return [NSString stringWithFormat:@"%@%@%@", self, szQueryPrefix, szQuery];
+}
+
+- (NSString *)urlByAppendingKeyValues:(id)aFirst, ... {
+   
+   NSMutableDictionary     *stDict  = [NSMutableDictionary dictionary];
+   
+   va_list   stArgs;
+   va_start( stArgs, aFirst );
+   
+   for ( ;; ) {
+      
+      NSObject<NSCopying>  *stKey   = [stDict count] ? va_arg( stArgs, NSObject * ) : aFirst;
+      if ( nil == stKey ) {
+         break;
+         
+      } /* End if ( nil == stKey ) */
+      
+      NSObject *stValue = va_arg( stArgs, NSObject * );
+      if ( nil == stValue ) {
+         
+         break;
+         
+      } /* End if ( nil == stValue ) */
+      
+      [stDict setObject:stValue forKey:stKey];
+      
+   } /* End for ( ;; ) */
+   
+   va_end( stArgs );
+   
+   return [self urlByAppendingDict:stDict];
+}
+
+- (NSString *)URLEncoding {
+   
    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"]];
 }
 
-- (NSString *)URLDecoding
-{
-   NSMutableString * string = [NSMutableString stringWithString:self];
-
-   [string replaceOccurrencesOfString:@"+"
-                     withString:@" "  
-                        options:NSLiteralSearch  
-                         range:NSMakeRange(0, [string length])];
-
-   return [string stringByRemovingPercentEncoding];
+- (NSString *)URLDecoding {
+   
+   NSMutableString   *stString   = [NSMutableString stringWithString:self];
+   
+   [stString replaceOccurrencesOfString:@"+"
+                             withString:@" "
+                                options:NSLiteralSearch
+                                  range:NSMakeRange(0, [stString length])];
+   
+   return [stString stringByRemovingPercentEncoding];
 }
 
-- (NSString *)trim
-{
+- (NSString *)trim {
+   
    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
-- (NSString *)flat
-{
+- (NSString *)flat {
+   
    return [self stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 }
 
-- (NSString *)unwrap
-{
-   if ( self.length >= 2 )
-   {
-      if ( [self hasPrefix:@"\""] && [self hasSuffix:@"\""] )
-      {
+- (NSString *)unwrap {
+   
+   if ( self.length >= 2 ) {
+      
+      if ( [self hasPrefix:@"\""] && [self hasSuffix:@"\""] ) {
+         
          return [self substringWithRange:NSMakeRange(1, self.length - 2)];
       }
-
-      if ( [self hasPrefix:@"'"] && [self hasSuffix:@"'"] )
-      {
+      
+      if ( [self hasPrefix:@"'"] && [self hasSuffix:@"'"] ) {
+         
          return [self substringWithRange:NSMakeRange(1, self.length - 2)];
       }
    }
-
+   
    return self;
 }
 
-- (NSString *)normalize
-{
-//   return [self stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-//   return [self stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-
-   NSArray * lines = [self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+- (NSString *)normalize {
    
-   if ( lines && lines.count )
-   {
-      NSMutableString * mergedString = [NSMutableString string];
+   //   return [self stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
+   //   return [self stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+   
+   NSArray  *stLines = [self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+   
+   if ( stLines && stLines.count ) {
       
-      for ( NSString * line in lines )
-      {
-         NSString * trimed = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+      NSMutableString   *stMergedString   = [NSMutableString string];
+      
+      for ( NSString *szLine in stLines ) {
          
-         if ( trimed && trimed.length )
-         {
-            [mergedString appendString:trimed];
-         }
-      }
+         NSString *szTrimed = [szLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+         
+         if ( szTrimed && szTrimed.length ) {
+            
+            [stMergedString appendString:szTrimed];
+            
+         } /* End if ( szTrimed && szTrimed.length ) */
+         
+      } /* End for ( NSString *szLine in stLines ) */
       
-      return mergedString;
-   }
-
+      return stMergedString;
+      
+   } /* End if ( stLines && stLines.count ) */
+   
    return nil;
 }
 
-- (NSString *)repeat:(NSUInteger)count
-{
-   if ( 0 == count )
+- (NSString *)repeat:(NSUInteger)aCount {
+   
+   if ( 0 == aCount ) {
+      
       return @"";
-
-   NSMutableString * text = [NSMutableString string];
+      
+   } /* End if ( 0 == aCount ) */
    
-   for ( NSUInteger i = 0; i < count; ++i )
-   {
-      [text appendString:self];
-   }
+   NSMutableString   *aText   = [NSMutableString string];
    
-   return text;
+   for ( NSUInteger H = 0; H < aCount; ++H ) {
+      
+      [aText appendString:self];
+      
+   } /* End for ( NSUInteger H = 0; H < aCount; ++H ) */
+   
+   return aText;
 }
 
-- (NSString *)strongify
-{
+- (NSString *)strongify {
+   
    return [self stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
 }
 
-- (BOOL)match:(NSString *)expression
-{
-   NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:expression
-                                                         options:NSRegularExpressionCaseInsensitive
-                                                           error:nil];
-   if ( nil == regex )
-      return NO;
+- (BOOL)match:(NSString *)aExpression {
    
-   NSUInteger numberOfMatches = [regex numberOfMatchesInString:self
-                                          options:0
-                                            range:NSMakeRange(0, self.length)];
-   if ( 0 == numberOfMatches )
+   NSRegularExpression  *stRegex = [NSRegularExpression regularExpressionWithPattern:aExpression
+                                                                             options:NSRegularExpressionCaseInsensitive
+                                                                               error:nil];
+   if ( nil == stRegex ) {
+      
       return NO;
+      
+   } /* End for ( nil == stRegex ) */
+   
+   NSUInteger   nNumberOfMatches = [stRegex numberOfMatchesInString:self
+                                                            options:0
+                                                              range:NSMakeRange(0, self.length)];
+   if ( 0 == nNumberOfMatches ) {
+      
+      return NO;
+      
+   } /* End if ( 0 == numberOfMatches ) */
    
    return YES;
 }
 
-- (BOOL)matchAnyOf:(NSArray *)array
-{
-   for ( NSString * str in array )
-   {
-      if ( NSOrderedSame == [self compare:str options:NSCaseInsensitiveSearch] )
-      {
+- (BOOL)matchAnyOf:(NSArray *)aArray {
+   
+   for ( NSString * szString in aArray ) {
+      
+      if ( NSOrderedSame == [self compare:szString options:NSCaseInsensitiveSearch] ) {
+         
          return YES;
-      }
-   }
+         
+      } /* End if ( NSOrderedSame == [self compare:szString options:NSCaseInsensitiveSearch] ) */
+      
+   } /* End fo ( NSString * szString in aArray ) */
    
    return NO;
 }
 
-- (BOOL)empty
-{
+- (BOOL)empty {
+   
    return [self length] > 0 ? NO : YES;
 }
 
-- (BOOL)notEmpty
-{
+- (BOOL)notEmpty {
+   
    return [self length] > 0 ? YES : NO;
 }
 
-- (BOOL)eq:(NSString *)other
-{
-   return [self isEqualToString:other];
-}
-
-- (BOOL)equal:(NSString *)other
-{
-   return [self isEqualToString:other];
-}
-
-- (BOOL)is:(NSString *)other
-{
-   return [self isEqualToString:other];
-}
-
-- (BOOL)isNot:(NSString *)other
-{
-   return NO == [self isEqualToString:other];
-}
-
-- (BOOL)isValueOf:(NSArray *)array
-{
-   return [self isValueOf:array caseInsens:NO];
-}
-
-- (BOOL)isValueOf:(NSArray *)array caseInsens:(BOOL)caseInsens
-{
-   NSStringCompareOptions option = caseInsens ? NSCaseInsensitiveSearch : 0;
+- (BOOL)eq:(NSString *)aOther {
    
-   for ( NSObject * obj in array )
-   {
-      if ( NO == [obj isKindOfClass:[NSString class]] )
-         continue;
+   return [self isEqualToString:aOther];
+}
+
+- (BOOL)equal:(NSString *)aOther {
+   
+   return [self isEqualToString:aOther];
+}
+
+- (BOOL)is:(NSString *)aOther {
+   
+   return [self isEqualToString:aOther];
+}
+
+- (BOOL)isNot:(NSString *)aOther {
+   
+   return NO == [self isEqualToString:aOther];
+}
+
+- (BOOL)isValueOf:(NSArray *)aArray {
+   
+   return [self isValueOf:aArray caseInsens:NO];
+}
+
+- (BOOL)isValueOf:(NSArray *)aArray caseInsens:(BOOL)aCaseInsens {
+   
+   NSStringCompareOptions   eOption = aCaseInsens ? NSCaseInsensitiveSearch : 0;
+   
+   for ( NSObject *stObject in aArray ) {
       
-      if ( NSOrderedSame == [(NSString *)obj compare:self options:option] )
+      if ( NO == [stObject isKindOfClass:[NSString class]] ) {
+         
+         continue;
+         
+      } /* End if ( NO == [stObject isKindOfClass:[NSString class]] ) */
+      
+      if ( NSOrderedSame == [(NSString *)stObject compare:self options:eOption] ) {
+         
          return YES;
-   }
+         
+      } /* End if ( NSOrderedSame == [(NSString *)stObject compare:self options:eOption] ) */
+      
+   } /* End for ( NSObject *stObject in aArray ) */
    
    return NO;
 }
 
-- (BOOL)isNumber
-{
-   NSString *      regex = @"-?[0-9.]+";
-   NSPredicate *   pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+- (BOOL)isNumber {
    
-   return [pred evaluateWithObject:self];
-}
-
-- (BOOL)isNumberWithUnit:(NSString *)unit
-{
-   NSString *      regex = [NSString stringWithFormat:@"-?[0-9.]+%@", unit];
-   NSPredicate *   pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+   NSString    *szRegex       = @"-?[0-9.]+";
+   NSPredicate *stPredicate   = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", szRegex];
    
-   return [pred evaluateWithObject:self];
+   return [stPredicate evaluateWithObject:self];
 }
 
-- (BOOL)isEmail
-{
-   NSString *      regex = @"[A-Z0-9a-z._\%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}";
-   NSPredicate *   pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-
-   return [pred evaluateWithObject:[self lowercaseString]];
+- (BOOL)isNumberWithUnit:(NSString *)aUnit {
+   
+   NSString    *szRegex       = [NSString stringWithFormat:@"-?[0-9.]+%@", aUnit];
+   NSPredicate *stPredicate   = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", szRegex];
+   
+   return [stPredicate evaluateWithObject:self];
 }
 
-- (BOOL)isUrl
-{
+- (BOOL)isEmail {
+   
+   NSString    *szRegex       = @"[A-Z0-9a-z._\%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}";
+   NSPredicate *stPredicate   = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", szRegex];
+   
+   return [stPredicate evaluateWithObject:[self lowercaseString]];
+}
+
+- (BOOL)isUrl {
+   
    return ([self hasPrefix:@"http://"] || [self hasPrefix:@"https://"]) ? YES : NO;
 }
 
-- (BOOL)isIPAddress
-{
-   NSArray *         components = [self componentsSeparatedByString:@"."];
-   NSCharacterSet *   invalidCharacters = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
-
-   if ( [components count] == 4 )
-   {
-      NSString *part1 = [components objectAtIndex:0];
-      NSString *part2 = [components objectAtIndex:1];
-      NSString *part3 = [components objectAtIndex:2];
-      NSString *part4 = [components objectAtIndex:3];
+- (BOOL)isIPAddress {
+   
+   NSArray        *stComponents        = [self componentsSeparatedByString:@"."];
+   NSCharacterSet *stInvalidCharacters = [[NSCharacterSet characterSetWithCharactersInString:@"1234567890"] invertedSet];
+   
+   if ( [stComponents count] == 4 ) {
       
-      if ( 0 == [part1 length] ||
-         0 == [part2 length] ||
-         0 == [part3 length] ||
-         0 == [part4 length] )
-      {
+      NSString *szPart1 = [stComponents objectAtIndex:0];
+      NSString *szPart2 = [stComponents objectAtIndex:1];
+      NSString *szPart3 = [stComponents objectAtIndex:2];
+      NSString *szPart4 = [stComponents objectAtIndex:3];
+      
+      if ( 0 == [szPart1 length] ||
+           0 == [szPart2 length] ||
+           0 == [szPart3 length] ||
+           0 == [szPart4 length] ) {
+         
          return NO;
-      }
+         
+      } /* End if () */
       
-      if ( [part1 rangeOfCharacterFromSet:invalidCharacters].location == NSNotFound &&
-         [part2 rangeOfCharacterFromSet:invalidCharacters].location == NSNotFound &&
-         [part3 rangeOfCharacterFromSet:invalidCharacters].location == NSNotFound &&
-         [part4 rangeOfCharacterFromSet:invalidCharacters].location == NSNotFound )
-      {
-         if ( [part1 intValue] <= 255 &&
-            [part2 intValue] <= 255 &&
-            [part3 intValue] <= 255 &&
-            [part4 intValue] <= 255 )
-         {
+      if ( [szPart1 rangeOfCharacterFromSet:stInvalidCharacters].location == NSNotFound &&
+           [szPart2 rangeOfCharacterFromSet:stInvalidCharacters].location == NSNotFound &&
+           [szPart3 rangeOfCharacterFromSet:stInvalidCharacters].location == NSNotFound &&
+           [szPart4 rangeOfCharacterFromSet:stInvalidCharacters].location == NSNotFound ) {
+         
+         if ( [szPart1 intValue] <= 255 &&
+              [szPart2 intValue] <= 255 &&
+              [szPart3 intValue] <= 255 &&
+              [szPart4 intValue] <= 255 ) {
+            
             return YES;
-         }
-      }
-   }
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    return NO;
 }
 
-- (NSString *)substringFromIndex:(NSUInteger)from untilString:(NSString *)string
-{
-   return [self substringFromIndex:from untilString:string endOffset:NULL];
+- (NSString *)substringFromIndex:(NSUInteger)aFrom untilString:(NSString *)aString {
+   
+   return [self substringFromIndex:aFrom untilString:aString endOffset:NULL];
 }
 
-- (NSString *)substringFromIndex:(NSUInteger)from untilString:(NSString *)string endOffset:(NSUInteger *)endOffset
-{
-   if ( 0 == self.length )
-      return nil;
+- (NSString *)substringFromIndex:(NSUInteger)aFrom untilString:(NSString *)aString endOffset:(NSUInteger *)aEndOffset {
    
-   if ( from >= self.length )
-      return nil;
-   
-   NSRange range = NSMakeRange( from, self.length - from );
-   NSRange range2 = [self rangeOfString:string options:NSCaseInsensitiveSearch range:range];
-   
-   if ( NSNotFound == range2.location )
-   {
-      if ( endOffset )
-      {
-         *endOffset = range.location + range.length;
-      }
+   if ( 0 == self.length ) {
       
-      return [self substringWithRange:range];
-   }
-   else
-   {
-      if ( endOffset )
-      {
-         *endOffset = range2.location + range2.length;
-      }
-      
-      return [self substringWithRange:NSMakeRange(from, range2.location - from)];
-   }
-}
-
-- (NSString *)substringFromIndex:(NSUInteger)from untilCharset:(NSCharacterSet *)charset
-{
-   return [self substringFromIndex:from untilCharset:charset endOffset:NULL];
-}
-
-- (NSString *)substringFromIndex:(NSUInteger)from untilCharset:(NSCharacterSet *)charset endOffset:(NSUInteger *)endOffset
-{
-   if ( 0 == self.length )
       return nil;
+      
+   } /* End if () */
    
-   if ( from >= self.length )
-      return nil;
-
-   NSRange range = NSMakeRange( from, self.length - from );
-   NSRange range2 = [self rangeOfCharacterFromSet:charset options:NSCaseInsensitiveSearch range:range];
-
-   if ( NSNotFound == range2.location )
-   {
-      if ( endOffset )
-      {
-         *endOffset = range.location + range.length;
-      }
+   if ( aFrom >= self.length ) {
       
-      return [self substringWithRange:range];
-   }
-   else
-   {
-      if ( endOffset )
-      {
-         *endOffset = range2.location + range2.length;
-      }
-
-      return [self substringWithRange:NSMakeRange(from, range2.location - from)];
-   }
+      return nil;
+      
+   } /* End if () */
+   
+   NSRange   stRange    = NSMakeRange( aFrom, self.length - aFrom );
+   NSRange   stRange2   = [self rangeOfString:aString options:NSCaseInsensitiveSearch range:stRange];
+   
+   if ( NSNotFound == stRange2.location ) {
+      
+      if ( aEndOffset ) {
+         
+         *aEndOffset = stRange.location + stRange.length;
+         
+      } /* End if () */
+      
+      return [self substringWithRange:stRange];
+      
+   } /* End if () */
+   else {
+      
+      if ( aEndOffset ) {
+         
+         *aEndOffset = stRange2.location + stRange2.length;
+         
+      } /* End if () */
+      
+      return [self substringWithRange:NSMakeRange(aFrom, stRange2.location - aFrom)];
+      
+   }  /* End else */
 }
 
-- (NSUInteger)countFromIndex:(NSUInteger)from inCharset:(NSCharacterSet *)charset
-{
-   if ( 0 == self.length )
+- (NSString *)substringFromIndex:(NSUInteger)aFrom untilCharset:(NSCharacterSet *)aCharset {
+   
+   return [self substringFromIndex:aFrom untilCharset:aCharset endOffset:NULL];
+}
+
+- (NSString *)substringFromIndex:(NSUInteger)aFrom untilCharset:(NSCharacterSet *)aCharset endOffset:(NSUInteger *)aEndOffset {
+   
+   if ( 0 == self.length ) {
+      
+      return nil;
+      
+   } /* End if () */
+   
+   if ( aFrom >= self.length ) {
+      
+      return nil;
+      
+   }  /* End if () */
+   
+   NSRange   stRange    = NSMakeRange( aFrom, self.length - aFrom );
+   NSRange   stRange2   = [self rangeOfCharacterFromSet:aCharset options:NSCaseInsensitiveSearch range:stRange];
+   
+   if ( NSNotFound == stRange2.location ) {
+      
+      if ( aEndOffset ) {
+         
+         *aEndOffset = stRange.location + stRange.length;
+         
+      } /* End if () */
+      
+      return [self substringWithRange:stRange];
+      
+   } /* End if () */
+   else {
+      
+      if ( aEndOffset ) {
+         
+         *aEndOffset = stRange2.location + stRange2.length;
+         
+      } /* End if () */
+      
+      return [self substringWithRange:NSMakeRange(aFrom, stRange2.location - aFrom)];
+      
+   }  /* End else */
+}
+
+- (NSUInteger)countFromIndex:(NSUInteger)aFrom inCharset:(NSCharacterSet *)aCharset {
+   
+   if ( 0 == self.length ) {
+      
       return 0;
+      
+   } /* End if () */
    
-   if ( from >= self.length )
+   if ( aFrom >= self.length ) {
+      
       return 0;
+      
+   } /* End if () */
    
-   NSCharacterSet * reversedCharset = [charset invertedSet];
-
-   NSRange range = NSMakeRange( from, self.length - from );
-   NSRange range2 = [self rangeOfCharacterFromSet:reversedCharset options:NSCaseInsensitiveSearch range:range];
-
-   if ( NSNotFound == range2.location )
-   {
-      return self.length - from;
-   }
-   else
-   {
-      return range2.location - from;      
-   }
+   NSCharacterSet *stReversedCharset   = [aCharset invertedSet];
+   
+   NSRange   stRange    = NSMakeRange( aFrom, self.length - aFrom );
+   NSRange   stRange2   = [self rangeOfCharacterFromSet:stReversedCharset options:NSCaseInsensitiveSearch range:stRange];
+   
+   if ( NSNotFound == stRange2.location ) {
+      
+      return self.length - aFrom;
+      
+   } /* End if () */
+   else {
+      
+      return stRange2.location - aFrom;
+      
+   } /* End else */
 }
 
-- (NSArray *)pairSeparatedByString:(NSString *)separator
-{
-   if ( nil == separator )
-      return nil;
+- (NSArray *)pairSeparatedByString:(NSString *)aSeparator {
    
-   NSUInteger   offset = 0;
-   NSString *   key = [self substringFromIndex:0 untilCharset:[NSCharacterSet characterSetWithCharactersInString:separator] endOffset:&offset];
-   NSString *   val = nil;
-
-   if ( nil == key || offset >= self.length )
+   if ( nil == aSeparator ) {
+      
       return nil;
+      
+   } /* End if () */
    
-   val = [self substringFromIndex:offset];
-   if ( nil == val )
+   NSUInteger   nOffset = 0;
+   NSString    *szKey   = [self substringFromIndex:0
+                                      untilCharset:[NSCharacterSet characterSetWithCharactersInString:aSeparator]
+                                         endOffset:&nOffset];
+   NSString    *szVal   = nil;
+   
+   if ( nil == szKey || nOffset >= self.length ) {
+      
       return nil;
-
-   return [NSArray arrayWithObjects:key, val, nil];
+      
+   }  /* End if () */
+   
+   szVal = [self substringFromIndex:nOffset];
+   if ( nil == szVal ) {
+      
+      return nil;
+      
+   }  /* End if () */
+   
+   return [NSArray arrayWithObjects:szKey, szVal, nil];
 }
 
 @end
@@ -742,12 +862,12 @@
 
 TEST_CASE( Core, NSString_Extension )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -63,6 +63,8 @@
 - (void)setRootStackGroup:(IDEAAppletActivityStackGroup *)group {
    
    self.rootViewController = group;
+
+   return;
 }
 
 @end
@@ -71,10 +73,10 @@
 
 @interface IDEAAppletActivityStackGroupItem : NSObject
 
-@prop_assign( NSUInteger,            order );
-@prop_strong( NSString *,            name );
-@prop_strong( UIViewController *,      instance );
-@prop_strong( Class,               classType );
+@prop_assign( NSUInteger          , order    );
+@prop_strong( NSString           *, name     );
+@prop_strong( UIViewController   *, instance );
+@prop_strong( Class               , classType);
 
 - (id)createInstance;
 
@@ -84,10 +86,10 @@
 
 @implementation IDEAAppletActivityStackGroupItem
 
-@def_prop_assign( NSUInteger,         order );
-@def_prop_strong( NSString *,         name );
-@def_prop_strong( UIViewController *,   instance );
-@def_prop_strong( Class,            classType );
+@def_prop_assign( NSUInteger         , order    );
+@def_prop_strong( NSString          *, name     );
+@def_prop_strong( UIViewController  *, instance );
+@def_prop_strong( Class              , classType);
 
 - (id)init {
    
@@ -95,14 +97,19 @@
    if ( self ) {
       
    }
+   
    return self;
 }
 
 - (void)dealloc {
    
-   self.name = nil;
-   self.instance = nil;
+   self.name      = nil;
+   self.instance  = nil;
    self.classType = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 - (id)createInstance {
@@ -110,7 +117,9 @@
    if ( nil == self.instance ) {
       
       self.instance = [[self.classType alloc] init];
+      
    }
+   
    return self.instance;
 }
 
@@ -120,8 +129,8 @@
 
 @implementation IDEAAppletActivityStackGroup {
    
-   NSString *            _name;
-   NSMutableDictionary *   _mapping;
+   NSString             * _name;
+   NSMutableDictionary  * _mapping;
 }
 
 BASE_CLASS( IDEAAppletActivityStackGroup )
@@ -141,46 +150,58 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
       
       _name = nil;
       _mapping = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
 - (void)dealloc {
    
-   _name = nil;
+   _name    = nil;
    
    [_mapping removeAllObjects];
    _mapping = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
 - (IDEAAppletActivity *)activity {
    
-   if ( nil == _name )
+   if ( nil == _name ) {
       return nil;
+   }
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:_name];
-   if ( nil == item || nil == item.instance )
+   if ( nil == item || nil == item.instance ) {
       return nil;
+   }
    
-   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivity class]] )
+   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivity class]] ) {
       return nil;
+   }
    
    return (IDEAAppletActivity *)item.instance;
 }
 
 - (IDEAAppletActivityStack *)stack {
    
-   if ( nil == _name )
+   if ( nil == _name ) {
       return nil;
+   }
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:_name];
-   if ( nil == item || nil == item.instance )
+   if ( nil == item || nil == item.instance ) {
       return nil;
+   }
    
-   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivityStack class]] )
+   if ( NO == [item.instance isKindOfClass:[IDEAAppletActivityStack class]] ) {
       return nil;
+   }
    
    return (IDEAAppletActivityStack *)item.instance;
 }
@@ -191,8 +212,9 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
-   if ( nil == name || nil == classType )
+   if ( nil == name || nil == classType ) {
       return;
+   }
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item ) {
@@ -204,15 +226,19 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
       item.classType = classType;
       
       [_mapping setObject:item forKey:name];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (void)map:(NSString *)name forActivity:(IDEAAppletActivity *)activity {
    
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
-   if ( nil == name || nil == activity )
+   if ( nil == name || nil == activity ) {
       return;
+   }
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item ) {
@@ -225,14 +251,17 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
       
       [_mapping setObject:item forKey:name];
    }
+   
+   return;
 }
 
 - (void)map:(NSString *)name forActivityStack:(IDEAAppletActivityStack *)activityStack {
    
    INFO( @"StackGroup '%p', map '%@'", self, name );
    
-   if ( nil == name || nil == activityStack )
+   if ( nil == name || nil == activityStack ) {
       return;
+   }
    
    IDEAAppletActivityStackGroupItem * item = [_mapping objectForKey:name];
    if ( nil == item ) {
@@ -245,23 +274,28 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
       
       [_mapping setObject:item forKey:name];
    }
+   
+   return;
 }
 
 - (BOOL)open:(NSString *)name {
    
    INFO( @"StackGroup '%p', open '%@'", self, name );
    
-   if ( 0 == name.length )
+   if ( 0 == name.length ) {
       return NO;
+   }
    
-   if ( _name && [_name isEqualToString:name] )
+   if ( _name && [_name isEqualToString:name] ) {
       return NO;
+   }
    
    IDEAAppletActivityStackGroupItem * prevItem = _name ? [_mapping objectForKey:_name] : nil;
    IDEAAppletActivityStackGroupItem * currItem = [_mapping objectForKey:name];
    
-   if ( prevItem == currItem )
+   if ( prevItem == currItem ) {
       return NO;
+   }
    
    CATransition * transition = [CATransition animation];
    [transition setDuration:0.3f];
@@ -323,15 +357,17 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    
    if ( IOS7_OR_LATER ) {
       
-      self.edgesForExtendedLayout = UIRectEdgeNone;
-      self.extendedLayoutIncludesOpaqueBars = NO;
-      self.modalPresentationCapturesStatusBarAppearance = NO;
-      self.automaticallyAdjustsScrollViewInsets = YES;
+      self.edgesForExtendedLayout                        = UIRectEdgeNone;
+      self.extendedLayoutIncludesOpaqueBars              = NO;
+      self.modalPresentationCapturesStatusBarAppearance  = NO;
+      self.automaticallyAdjustsScrollViewInsets          = YES;
    }
    
    self.view.userInteractionEnabled = YES;
-   self.view.backgroundColor = [UIColor whiteColor];
-   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+   self.view.backgroundColor        = [UIColor whiteColor];
+   self.view.autoresizingMask       = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+   
+   return;
 }
 
 - (void)loadView {
@@ -339,11 +375,15 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    [super loadView];
    
    self.view.backgroundColor = [UIColor whiteColor];
+   
+   return;
 }
 
 - (void)viewDidLoad {
    
    [super viewDidLoad];
+   
+   return;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -359,11 +399,15 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
       }
    }
+
+   return;
 }
 
 - (void)viewWillLayoutSubviews {
    
    [super viewWillLayoutSubviews];
+
+   return;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -379,6 +423,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller viewDidLayoutSubviews];
       }
    }
+
+   return;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -393,6 +439,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller viewWillAppear:animated];
       }
    }
+
+   return;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -407,6 +455,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller viewDidAppear:animated];
       }
    }
+
+   return;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -421,6 +471,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller viewWillDisappear:animated];
       }
    }
+
+   return;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -435,6 +487,8 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
          [controller viewDidDisappear:animated];
       }
    }
+
+   return;
 }
 
 @end

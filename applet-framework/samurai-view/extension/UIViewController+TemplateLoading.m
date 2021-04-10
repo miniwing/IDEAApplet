@@ -171,93 +171,107 @@
 
 #pragma mark -
 
-- (void)onTemplateLoading
-{
+- (void)onTemplateLoading {
+   
+   return;
 }
 
-- (void)onTemplateLoaded
-{
+- (void)onTemplateLoaded {
+   
    [self relayout];
+
+   return;
 }
 
-- (void)onTemplateFailed
-{
+- (void)onTemplateFailed {
+   
    [self relayout];
+
+   return;
 }
 
-- (void)onTemplateCancelled
-{
+- (void)onTemplateCancelled {
+   
    [self relayout];
+
+   return;
 }
 
 #pragma mark -
 
-- (void)rechain
-{
-   if ( [self isViewLoaded] )
-   {
-      if ( self.template )
-      {
-         if ( self.template.document && self.template.document.renderTree )
-         {
+- (void)rechain {
+   
+   if ( [self isViewLoaded] ) {
+      
+      if ( self.template ) {
+         
+         if ( self.template.document && self.template.document.renderTree ) {
             [self.template.document.renderTree rechain];
          }
       }
    }
+
+   return;
 }
 
-- (void)relayout
-{
-   if ( [self isViewLoaded] )
-   {
+- (void)relayout {
+   
+   if ( [self isViewLoaded] ) {
+      
       CGSize viewSize = self.view.frame.size;
       
-      if ( CGSizeEqualToSize( viewSize, CGSizeZero ) )
-      {
+      if ( CGSizeEqualToSize( viewSize, CGSizeZero ) ) {
+         
          self.view.layer.hidden = YES;
       }
-      else
-      {
+      else {
+         
          self.view.layer.hidden = NO;
          
-         if ( self.template )
-         {
-            if ( self.template.document && self.template.document.renderTree )
-            {
+         if ( self.template ) {
+            
+            if ( self.template.document && self.template.document.renderTree ) {
+               
                [self.template.document.renderTree relayout];
             }
          }
       }
    }
+   
+   return;
 }
 
-- (void)restyle
-{
-   if ( [self isViewLoaded] )
-   {
-      if ( self.template )
-      {
-         if ( self.template.document && self.template.document.renderTree )
-         {
+- (void)restyle {
+   
+   if ( [self isViewLoaded] ) {
+      
+      if ( self.template ) {
+         
+         if ( self.template.document && self.template.document.renderTree ) {
+            
             [self.template.document.renderTree restyle];
          }
       }
    }
+
+   return;
 }
 
 #pragma mark -
 
-- (NSArray*)keyCommands
-{
-   UIKeyCommand * command = [UIKeyCommand keyCommandWithInput:@"r"
-                                     modifierFlags:UIKeyModifierCommand
-                                          action:@selector(handleCommandR:)];
-   return [NSArray arrayWithObject:command];
+- (NSArray*)keyCommands {
+   
+   UIKeyCommand   *stCommand  = [UIKeyCommand keyCommandWithInput:@"r"
+                                                    modifierFlags:UIKeyModifierCommand
+                                                           action:@selector(handleCommandR:)];
+   return [NSArray arrayWithObject:stCommand];
 }
 
-- (void)handleCommandR:(UIKeyCommand *)command
-{
+- (void)handleCommandR:(UIKeyCommand *)aCommand {
+   
    int __break = 0;
+   
+   return;
 }
 
 @end
@@ -272,12 +286,10 @@
 
 TEST_CASE( UI, UIViewController_TemplateLoading )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

@@ -82,28 +82,28 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-+ (instancetype)sharedInstance
-{
++ (instancetype)sharedInstance {
+   
    return __applicationInstance;
 }
 
-- (instancetype)sharedInstance
-{
+- (instancetype)sharedInstance {
+   
    return __applicationInstance;
 }
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       [self load];
       
    } /* End if () */
@@ -113,8 +113,8 @@ static __strong id __applicationInstance = nil;
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self unload];
    
    self.window          = nil;
@@ -131,34 +131,34 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (void)load
-{
+- (void)load {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)unload
-{
+- (void)unload {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)main
-{
+- (void)main {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    __CATCH(nErr);
    
    return;
@@ -166,43 +166,43 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (BOOL)active
-{
+- (BOOL)active {
+   
    return (UIApplicationStateActive == [UIApplication sharedApplication].applicationState) ? YES : NO;
 }
 
-- (BOOL)inactive
-{
+- (BOOL)inactive {
+   
    return (UIApplicationStateInactive == [UIApplication sharedApplication].applicationState) ? YES : NO;
 }
 
-- (BOOL)background
-{
+- (BOOL)background {
+   
    return (UIApplicationStateBackground == [UIApplication sharedApplication].applicationState) ? YES : NO;
 }
 
 #pragma mark -
 
-- (IDEAAppletActivity *)activityFromString:(NSString *)aString
-{
+- (IDEAAppletActivity *)activityFromString:(NSString *)aString {
+   
    int                            nErr                                     = EFAULT;
    
    IDEAAppletActivity               *stActivity                               = nil;
    
    __TRY;
-
+   
    aString = [aString trim];
    
    INFO(@"Application '%p', create activity '%@'", self, aString);
    
    stActivity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:aString];
    
-   if (nil == stActivity)
-   {
+   if (nil == stActivity) {
+      
       Class stRuntimeClass = NSClassFromString(aString);
       
-      if (stRuntimeClass && [stRuntimeClass isSubclassOfClass:[IDEAAppletActivity class]])
-      {
+      if (stRuntimeClass && [stRuntimeClass isSubclassOfClass:[IDEAAppletActivity class]]) {
+         
          stActivity = (IDEAAppletActivity *)[[stRuntimeClass alloc] init];
          
       } /* End if () */
@@ -214,23 +214,23 @@ static __strong id __applicationInstance = nil;
    return stActivity;
 }
 
-- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)aArray
-{
+- (IDEAAppletActivityStack *)activityStackFromArray:(NSArray *)aArray {
+   
    int                            nErr                                     = EFAULT;
    
    IDEAAppletActivityStack       *stStack                                  = nil;
    
    __TRY;
-
+   
    INFO(@"Application '%p', create stack", self, [[self class] description]);
-
+   
    stStack  = [IDEAAppletActivityStack stack];
    
-   for (NSString * name in aArray)
-   {
+   for (NSString * name in aArray) {
+      
       IDEAAppletActivity   *stActivity = [self activityFromString:name];
-      if (stActivity)
-      {
+      if (stActivity) {
+         
          [stStack pushActivity:stActivity animated:NO];
          
       } /* End if () */
@@ -242,45 +242,45 @@ static __strong id __applicationInstance = nil;
    return stStack;
 }
 
-- (IDEAAppletActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDictionary
-{
+- (IDEAAppletActivityStackGroup *)activityStackGroupFromDictionary:(NSDictionary *)aDictionary {
+   
    int                            nErr                                     = EFAULT;
    
-   IDEAAppletActivityStackGroup     *stStackGroup                             = nil;
+   IDEAAppletActivityStackGroup  *stStackGroup                             = nil;
    
    __TRY;
-
+   
    INFO(@"Application '%p', create stack-group", self, [[self class] description]);
-
+   
    stStackGroup   = [IDEAAppletActivityStackGroup stackGroup];
    
-   for (NSString *szKey in aDictionary.allKeys)
-   {
+   for (NSString *szKey in aDictionary.allKeys) {
+      
       NSObject *stValue = [aDictionary objectForKey:szKey];
-      if (nil == stValue)
-      {
+      if (nil == stValue) {
+         
          continue;
          
       } /* End if () */
       
       INFO(@"Application '%p', create stackGroup item '%@'", self, [[self class] description], szKey);
       
-      if ([stValue isKindOfClass:[NSString class]])
-      {
+      if ([stValue isKindOfClass:[NSString class]]) {
+         
          IDEAAppletActivity   *stActivity = [self activityFromString:(NSString *)stValue];
          
-         if (stActivity)
-         {
+         if (stActivity) {
+            
             [stStackGroup map:(NSString *)szKey forActivity:stActivity];
             
          }  /* End if () */
          
       }  /* End if () */
-      else if ([stValue isKindOfClass:[NSArray class]])
-      {
+      else if ([stValue isKindOfClass:[NSArray class]]) {
+         
          IDEAAppletActivityStack * activityStack = [self activityStackFromArray:(NSArray *)stValue];
-         if (activityStack)
-         {
+         if (activityStack) {
+            
             [stStackGroup map:(NSString *)szKey forActivityStack:activityStack];
             
          }  /* End if () */
@@ -296,14 +296,14 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (void)loadWindow
-{
+- (void)loadWindow {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
-   if (nil == self.window)
-   {
+   
+   if (nil == self.window) {
+      
       self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
       self.window.alpha = 1.0f;
       self.window.backgroundColor   = [UIColor whiteColor];
@@ -311,14 +311,14 @@ static __strong id __applicationInstance = nil;
    } /* End if () */
    
    NSString *szFileName       = [NSString stringWithFormat:@"%@.manifest", [[self class] description]];
-
+   
    NSString *szFileExt        = @"json";
    
    NSString *szManifestPath   = [[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt];
    NSString *szManifestData   = [NSString stringWithContentsOfFile:szManifestPath encoding:NSUTF8StringEncoding error:NULL];
    
-   if (nil == szManifestData)
-   {
+   if (nil == szManifestData) {
+      
       szFileName     = @"app.manifest";
       szFileExt      = @"json";
       
@@ -327,23 +327,23 @@ static __strong id __applicationInstance = nil;
       
    } /* End if () */
    
-   if (szManifestData)
-   {
+   if (szManifestData) {
+      
       NSDictionary      *stManifest          = [szManifestData JSONDecoded];
       
-      if (stManifest)
-      {
+      if (stManifest) {
+         
          NSDictionary   *stApplicationRoutes = [stManifest objectAtPath:@"application.routes"];
          NSObject       *stApplicationMain   = [stManifest objectAtPath:@"application.main"];
          
-         if (stApplicationRoutes)
-         {
-            for (NSString *szKey in stApplicationRoutes.allKeys)
-            {
+         if (stApplicationRoutes) {
+            
+            for (NSString *szKey in stApplicationRoutes.allKeys) {
+               
                Class  stClassType   = NSClassFromString([stApplicationRoutes objectForKey:szKey]);
                
-               if (stClassType)
-               {
+               if (stClassType) {
+                  
                   [[IDEAAppletActivityRouter sharedInstance] mapURL:szKey toActivityClass:stClassType];
                   
                } /* End if () */
@@ -352,27 +352,27 @@ static __strong id __applicationInstance = nil;
             
          } /* End if () */
          
-         if (stApplicationMain)
-         {
-            if ([stApplicationMain isKindOfClass:[NSString class]])
-            {
+         if (stApplicationMain) {
+            
+            if ([stApplicationMain isKindOfClass:[NSString class]]) {
+               
                self.window.rootViewController   = [self activityFromString:(NSString *)stApplicationMain];
                
             } /* End if () */
-            else if ([stApplicationMain isKindOfClass:[NSArray class]])
-            {
+            else if ([stApplicationMain isKindOfClass:[NSArray class]]) {
+               
                self.window.rootViewController   = [self activityStackFromArray:(NSArray *)stApplicationMain];
                
             } /* End else if () */
-            else if ([stApplicationMain isKindOfClass:[NSDictionary class]])
-            {
+            else if ([stApplicationMain isKindOfClass:[NSDictionary class]]) {
+               
                self.window.rootViewController   = [self activityStackGroupFromDictionary:(NSDictionary *)stApplicationMain];
                
             } /* End else if () */
             
          } /* End if () */
-         else
-         {
+         else {
+            
             self.window.rootViewController = [IDEAAppletActivityStack stackWithActivity:[self activityFromString:@"/"]];
             
          } /* End else () */
@@ -381,8 +381,8 @@ static __strong id __applicationInstance = nil;
       
    } /* End if () */
    
-   if (self.window.rootViewController)
-   {
+   if (self.window.rootViewController) {
+      
       UNUSED(self.window.rootViewController.view);
       
    } /* End if () */
@@ -396,20 +396,20 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application
-{
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+   
    [self application:application didFinishLaunchingWithOptions:nil];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+   
    int                            nErr                                     = EFAULT;
    
    UILocalNotification           *stLocalNotification                      = nil;
    NSDictionary                  *stRemoteNotification                     = nil;
-
+   
    __TRY;
-
+   
    __applicationInstance = self;
    
    UNUSED(application);
@@ -417,9 +417,9 @@ static __strong id __applicationInstance = nil;
    [self loadWindow];
    
    [self main];
+   
+   if (nil != launchOptions) { // 从通知启动
       
-   if (nil != launchOptions) // 从通知启动
-   {
       self.sourceUrl       = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
       self.sourceBundleId  = [launchOptions objectForKey:UIApplicationLaunchOptionsSourceApplicationKey];
       
@@ -430,14 +430,14 @@ static __strong id __applicationInstance = nil;
    
    [self notify:IDEAAppletApp.Ready];
    
-   if (stLocalNotification)
-   {
+   if (stLocalNotification) {
+      
       [self notify:IDEAAppletApp.LocalNotification withObject:stLocalNotification.userInfo];
       
    } /* End if () */
    
-   if (stRemoteNotification)
-   {
+   if (stRemoteNotification) {
+      
       [self notify:IDEAAppletApp.RemoteNotification withObject:stRemoteNotification];
       
    } /* End if () */
@@ -448,19 +448,19 @@ static __strong id __applicationInstance = nil;
 }
 
 // Will be deprecated at some point, please replace with application:openURL:sourceApplication:annotation:
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+   
    return [self application:application openURL:url sourceApplication:nil annotation:nil];
 }
 
 // no equiv. notification. return NO if the application can't open for some reason
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+   
    return [self application:application openURL:url options:nil];
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary *)options
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary *)options {
+   
    self.sourceUrl = url.absoluteString;
    //   self.sourceBundleId = sourceApplication;
    
@@ -469,12 +469,12 @@ static __strong id __applicationInstance = nil;
    return YES;
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
    
    //   [self.window.rootViewController viewWillAppear:NO];
@@ -485,12 +485,12 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
    
    //   [self.window.rootViewController viewWillDisappear:NO];
@@ -501,27 +501,27 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
-{
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
@@ -529,53 +529,53 @@ static __strong id __applicationInstance = nil;
 
 #pragma mark -
 
-- (void)application:(UIApplication *)application willChangeStatusBarOrientation:(UIInterfaceOrientation)newStatusBarOrientation duration:(NSTimeInterval)duration
-{
+- (void)application:(UIApplication *)application willChangeStatusBarOrientation:(UIInterfaceOrientation)newStatusBarOrientation duration:(NSTimeInterval)duration {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation
-{
+- (void)application:(UIApplication *)application didChangeStatusBarOrientation:(UIInterfaceOrientation)oldStatusBarOrientation {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame
-{
+- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame
-{
+- (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
@@ -584,14 +584,14 @@ static __strong id __applicationInstance = nil;
 #pragma mark -
 
 // one of these will be called after calling -registerForRemoteNotifications
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken
-{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)aDeviceToken {
+   
    int                            nErr                                     = EFAULT;
-
+   
    NSString                      *szToken                                  = [aDeviceToken description];
-
+   
    __TRY;
-
+   
    UNUSED(application)
    
    szToken = [aDeviceToken description];
@@ -608,12 +608,12 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)aError
-{
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)aError {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application)
    
    self.pushError = aError;
@@ -625,12 +625,12 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application)
    
    [self notify:IDEAAppletApp.RemoteNotification withObject:userInfo];
@@ -640,12 +640,12 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application)
    
    [self notify:IDEAAppletApp.RemoteNotification withObject:notification.userInfo];
@@ -655,12 +655,12 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application)
    
    [self notify:IDEAAppletApp.EnterBackground];
@@ -670,8 +670,8 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -684,27 +684,27 @@ static __strong id __applicationInstance = nil;
    return;
 }
 
-- (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application
-{
+- (void)applicationProtectedDataWillBecomeUnavailable:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;
 }
 
-- (void)applicationProtectedDataDidBecomeAvailable:(UIApplication *)application
-{
+- (void)applicationProtectedDataDidBecomeAvailable:(UIApplication *)application {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    UNUSED(application);
-      
+   
    __CATCH(nErr);
    
    return;

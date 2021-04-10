@@ -50,41 +50,47 @@
 
 BASE_CLASS( IDEAAppletModel )
 
-+ (instancetype)model
-{
++ (instancetype)model {
+   
    return [[self alloc] init];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       [[IDEAAppletModelManager sharedInstance] addModel:self];
 
-   //   [self modelLoad];
-   }
+//   [self modelLoad];
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
 //   [self modelSave];
    
    [[IDEAAppletModelManager sharedInstance] removeModel:self];
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (id)valueForUndefinedKey:(NSString *)key
-{
+- (id)valueForUndefinedKey:(NSString *)key {
+   
    UNUSED( key )
    
    return nil;
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+   
    UNUSED( value )
    
    ERROR( @"undefined key '%@'", key );
@@ -92,63 +98,65 @@ BASE_CLASS( IDEAAppletModel )
 
 #pragma mark -
 
-- (BOOL)hasObjectForKey:(id)key
-{
+- (BOOL)hasObjectForKey:(id)key {
+   
    return [self objectForKey:key] ? YES : NO;
 }
 
-- (id)objectForKey:(id)key
-{
+- (id)objectForKey:(id)key {
+   
    INFO( @"Model '%p', read '%@'", self, key );
    
    Class baseClass = [[self class] baseClass];
-   if ( nil == baseClass )
-   {
+   if ( nil == baseClass ) {
+      
       baseClass = [NSObject class];
    }
    
    id result = nil;
    
-   for ( Class clazzType = [self class]; clazzType != baseClass; )
-   {
+   for ( Class clazzType = [self class]; clazzType != baseClass; ) {
+      
       objc_property_t prop = class_getProperty( clazzType, [key UTF8String] );
-      if ( prop )
-      {
+      if ( prop ) {
+         
          result = [self valueForKey:key];
          
          free( prop );
+         
          break;
-      }
+         
+      } /* End if () */
    }
 
    return result;
 }
 
-- (void)setObject:(id)object forKey:(id)key
-{
+- (void)setObject:(id)object forKey:(id)key {
+   
    if ( nil == key || nil == object )
       return;
    
    INFO( @"Model '%p', write '%@'", self, key );
 
    Class baseClass = [[self class] baseClass];
-   if ( nil == baseClass )
-   {
+   if ( nil == baseClass ) {
+      
       baseClass = [NSObject class];
    }
    
    BOOL changed = NO;
    
-   for ( Class clazzType = [self class]; clazzType != baseClass; )
-   {
+   for ( Class clazzType = [self class]; clazzType != baseClass; ) {
+      
       objc_property_t prop = class_getProperty( clazzType, [key UTF8String] );
-      if ( prop )
-      {
+      if ( prop ) {
+         
          const char * attr = property_getAttributes( prop );
-         if ( attr )
-         {
-            if ( NO == [IDEAAppletEncoding isReadOnly:attr] )
-            {
+         if ( attr ) {
+            
+            if ( NO == [IDEAAppletEncoding isReadOnly:attr] ) {
+               
                [self setValue:object forKey:key];
                
                changed = YES;
@@ -160,80 +168,96 @@ BASE_CLASS( IDEAAppletModel )
       }
    }
 
-   if ( changed )
-   {
+   if ( changed ) {
+      
    //   [self modelSave];
-   }
+   } /* End if () */
+   
+   return;
 }
 
-- (void)removeObjectForKey:(NSString *)key
-{
+- (void)removeObjectForKey:(NSString *)key {
+   
    INFO( @"Model '%p', remove '%@'", self, key );
    
    Class baseClass = [[self class] baseClass];
-   if ( nil == baseClass )
-   {
+   if ( nil == baseClass ) {
+      
       baseClass = [NSObject class];
-   }
+      
+   } /* End if () */
    
    BOOL changed = NO;
 
-   for ( Class clazzType = [self class]; clazzType != baseClass; )
-   {
+   for ( Class clazzType = [self class]; clazzType != baseClass; ) {
+      
       objc_property_t prop = class_getProperty( clazzType, [key UTF8String] );
-      if ( prop )
-      {
+      if ( prop ) {
+         
          const char * attr = property_getAttributes( prop );
-         if ( attr )
-         {
-            if ( NO == [IDEAAppletEncoding isReadOnly:attr] )
-            {
+         if ( attr ) {
+            
+            if ( NO == [IDEAAppletEncoding isReadOnly:attr] ) {
+               
                [self setValue:nil forKey:key];
                
                changed = YES;
-            }
-         }
+            }  /* End if () */
+            
+         } /* End if () */
 
          free( prop );
          break;
-      }
-   }
+         
+      } /* End if () */
+      
+   } /* End for () */
 
-   if ( changed )
-   {
+   if ( changed ) {
+      
    //   [self modelSave];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)removeAllObjects
-{
+- (void)removeAllObjects {
+   
    [self modelClear];
+   
+   return;
 }
 
 #pragma mark -
 
-- (id)objectForKeyedSubscript:(id)key
-{
+- (id)objectForKeyedSubscript:(id)key {
+   
    return [self objectForKey:key];
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
-{
+- (void)setObject:(id)obj forKeyedSubscript:(id)key {
+   
    [self setObject:obj forKey:key];
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)modelLoad
-{
+- (void)modelLoad {
+   
+   return;
 }
 
-- (void)modelSave
-{
+- (void)modelSave {
+   
+   return;
 }
 
-- (void)modelClear
-{
+- (void)modelClear {
+   
+   return;
 }
 
 @end
@@ -268,14 +292,13 @@ BASE_CLASS( IDEAAppletModel )
 
 TEST_CASE( Model, ModelInstance )
 
-DESCRIBE( becore )
-{
+DESCRIBE( becore ) {
+   
 }
 
-DESCRIBE( test )
-{
-   @autoreleasepool
-   {
+DESCRIBE( test ) {
+   @autoreleasepool {
+      
       __TestModel * model = [[__TestModel alloc] init];
       
       [model modelClear];
@@ -288,8 +311,7 @@ DESCRIBE( test )
    }
 }
    
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

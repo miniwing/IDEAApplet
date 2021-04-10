@@ -43,8 +43,8 @@
 
 @implementation NSObject(ResourceFetcher)
 
-- (void)handleResourceLoaded:(IDEAAppletResource *)aResource
-{
+- (void)handleResourceLoaded:(IDEAAppletResource *)aResource {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -54,8 +54,8 @@
    return;
 }
 
-- (void)handleResourceFailed:(IDEAAppletResource *)aResource
-{
+- (void)handleResourceFailed:(IDEAAppletResource *)aResource {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -65,8 +65,8 @@
    return;
 }
 
-- (void)handleResourceCancelled:(IDEAAppletResource *)aResource
-{
+- (void)handleResourceCancelled:(IDEAAppletResource *)aResource {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -80,29 +80,29 @@
 
 #pragma mark -
 
-@implementation IDEAAppletResourceFetcher
-{
+@implementation IDEAAppletResourceFetcher {
+   
    NSMutableArray       * _operations;
    AFURLSessionManager  * _sessionManager;
 }
 
 @def_prop_unsafe(id,   responder);
 
-+ (IDEAAppletResourceFetcher *)resourceFetcher
-{
++ (IDEAAppletResourceFetcher *)resourceFetcher {
+   
    return [[IDEAAppletResourceFetcher alloc] init];
 }
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       _operations       = [NSMutableArray nonRetainingArray];
       _sessionManager   = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
       
@@ -114,8 +114,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self cancel];
    
    self.responder = nil;
@@ -130,8 +130,8 @@
    return;
 }
 
-- (void)queue:(IDEAAppletResource *)aResource
-{
+- (void)queue:(IDEAAppletResource *)aResource {
+   
    int                            nErr                                     = EFAULT;
    
    NSURL                         *stURL                                    = nil;
@@ -144,15 +144,15 @@
    __TRY;
    
    stURL = [NSURL URLWithString:aResource.resPath];
-   if (nil == stURL)
-   {
+   if (nil == stURL) {
+      
       break;
       
    } /* End if () */
    
    stRequest = [NSURLRequest requestWithURL:stURL];
-   if (nil == stRequest)
-   {
+   if (nil == stRequest) {
+      
       break;
 
    } /* End if () */
@@ -167,8 +167,8 @@
                         {
       LogDebug((@"-[IDEAAppletResourceFetcher queue] : Error : %@", aError));
       
-      if (nil == aError)
-      {
+      if (nil == aError) {
+         
          @strongify(self);
 
          //   NSString *   requestURL = nil;
@@ -182,19 +182,19 @@
          aResource.resContent = [stResponseData toString];
 
          BOOL succeed = [aResource parse];
-         if (NO == succeed)
-         {
-            if (self.responder)
-            {
+         if (NO == succeed) {
+            
+            if (self.responder) {
+               
                [self.responder handleResourceFailed:aResource];
 
             }  /* End if () */
 
          }  /* End if () */
-         else
-         {
-            if (self.responder)
-            {
+         else {
+            
+            if (self.responder) {
+               
                [self.responder handleResourceLoaded:aResource];
 
             }  /* End if () */
@@ -204,8 +204,8 @@
 //         [_operations removeObject:operation];
          
       } /* End if () */
-      else
-      {
+      else {
+         
          @strongify(self);
 
          [self handleResourceFailed:aResource];
@@ -277,8 +277,8 @@
    return;
 }
 
-- (void)cancel
-{
+- (void)cancel {
+   
 //   for (AFHTTPRequestOperation * operation in [_operations copy])
 //   {
 //      [operation cancel];

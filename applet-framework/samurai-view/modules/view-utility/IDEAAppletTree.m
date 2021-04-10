@@ -42,64 +42,69 @@
 
 @implementation IDEAAppletTreeNode
 
-@def_prop_readonly( IDEAAppletTreeNode *,      root );
-@def_prop_unsafe( IDEAAppletTreeNode *,      parent );
-@def_prop_unsafe( IDEAAppletTreeNode *,      prev );
-@def_prop_unsafe( IDEAAppletTreeNode *,      next );
-@def_prop_strong( NSMutableArray *,         childs );
+@def_prop_readonly( IDEAAppletTreeNode *, root );
+
+@def_prop_unsafe  ( IDEAAppletTreeNode *, parent );
+@def_prop_unsafe  ( IDEAAppletTreeNode *, prev );
+@def_prop_unsafe  ( IDEAAppletTreeNode *, next );
+@def_prop_strong  ( NSMutableArray     *, childs );
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.childs = [NSMutableArray array];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.parent = nil;
-   self.prev = nil;
-   self.next = nil;
-
+   self.prev   = nil;
+   self.next   = nil;
+   
    [self.childs removeAllObjects];
    self.childs = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (id)clone
-{
+- (id)clone {
+   
    id newObject = [super clone];
    
-   for ( id child in self.childs )
-   {
+   for ( id child in self.childs ) {
+      
       id newChild = [child clone];
       
-      if ( newChild )
-      {
+      if ( newChild ) {
+         
          [newObject appendNode:newChild];
       }
    }
-
+   
    return newObject;
 }
 
 #pragma mark -
 
-+ (instancetype)treeNode
-{
++ (instancetype)treeNode {
+   
    return [[self alloc] init];
 }
 
-- (IDEAAppletTreeNode *)root
-{
+- (IDEAAppletTreeNode *)root {
+   
    IDEAAppletTreeNode * object = self;
    
-   for ( ;; )
-   {
+   for ( ;; ) {
+      
       if ( nil == object.parent )
          break;
       
@@ -111,37 +116,37 @@
 
 #pragma mark -
 
-- (instancetype)createChild
-{
+- (instancetype)createChild {
+   
    return [self createChild:[self class]];
 }
 
-- (instancetype)createChild:(Class)nodeClass
-{
+- (instancetype)createChild:(Class)nodeClass {
+   
    IDEAAppletTreeNode * node = [[nodeClass alloc] init];
    
-    [self appendNode:node];
+   [self appendNode:node];
    
    return node;
 }
 
-- (instancetype)createSibling
-{
+- (instancetype)createSibling {
+   
    return [self createSibling:[self class]];
 }
 
-- (instancetype)createSibling:(Class)nodeClass
-{
+- (instancetype)createSibling:(Class)nodeClass {
+   
    IDEAAppletTreeNode * node = [[nodeClass alloc] init];
-
+   
    node.parent = self.parent;
    node.prev = self;
    node.next = nil;
-
-//   [node relation]
-//   prev self -> *node
-
-    self.next = node;
+   
+   //   [node relation]
+   //   prev self -> *node
+   
+   self.next = node;
    
    [self.parent.childs addObject:node];
    
@@ -150,30 +155,30 @@
 
 #pragma mark -
 
-- (void)appendNode:(IDEAAppletTreeNode *)node
-{
+- (void)appendNode:(IDEAAppletTreeNode *)node {
+   
    if ( nil == node )
       return;
-
+   
    if ( [self.childs containsObject:node] )
       return;
    
-    node.parent = self;
-    node.prev = [self.childs lastObject];
-    node.next = nil;
-    
-//    [node relation]
-//         self
-//   /       |        \
-// ...   node.prev -> *node
-    
-    node.prev.next = node;
-
-    [self.childs addObject:node];
+   node.parent = self;
+   node.prev = [self.childs lastObject];
+   node.next = nil;
+   
+   //    [node relation]
+   //         self
+   //   /       |        \
+   // ...   node.prev -> *node
+   
+   node.prev.next = node;
+   
+   [self.childs addObject:node];
 }
 
-- (void)insertNode:(IDEAAppletTreeNode *)node beforeNode:(IDEAAppletTreeNode *)oldNode
-{
+- (void)insertNode:(IDEAAppletTreeNode *)node beforeNode:(IDEAAppletTreeNode *)oldNode {
+   
    if ( nil == node || nil == oldNode )
       return;
    
@@ -189,12 +194,12 @@
    
    oldNode.prev.next = node;
    oldNode.prev = node;
-
+   
    [self.childs addObject:node];
 }
 
-- (void)insertNode:(IDEAAppletTreeNode *)node afterNode:(IDEAAppletTreeNode *)oldNode
-{
+- (void)insertNode:(IDEAAppletTreeNode *)node afterNode:(IDEAAppletTreeNode *)oldNode {
+   
    if ( nil == node )
       return;
    
@@ -207,15 +212,15 @@
    node.prev = oldNode;
    node.next = oldNode.next;
    node.parent = self;
-
+   
    oldNode.next.prev = node;
    oldNode.next = node;
-
+   
    [self.childs addObject:node];
 }
 
-- (void)changeNode:(IDEAAppletTreeNode *)node withNode:(IDEAAppletTreeNode *)newNode
-{
+- (void)changeNode:(IDEAAppletTreeNode *)node withNode:(IDEAAppletTreeNode *)newNode {
+   
    if ( nil == node || nil == newNode )
       return;
    
@@ -225,7 +230,7 @@
    newNode.parent = node.parent;
    newNode.prev = node.prev;
    newNode.next = node.next;
-
+   
    node.parent = nil;
    node.prev = nil;
    node.next = nil;
@@ -233,40 +238,40 @@
    [self.childs replaceObjectAtIndex:[self.childs indexOfObject:node] withObject:newNode];
 }
 
-- (void)removeNode:(IDEAAppletTreeNode *)node
-{
+- (void)removeNode:(IDEAAppletTreeNode *)node {
+   
    if ( nil == node )
       return;
    
    if ( NO == [self.childs containsObject:node] )
       return;
    
-   if ( node.prev )
-   {
+   if ( node.prev ) {
+      
       node.prev.next = node.next;
    }
    
-   if ( node.next )
-   {
+   if ( node.next ) {
+      
       node.next.prev = node.prev;
    }
-
+   
    node.parent = nil;
    node.prev = nil;
    node.next = nil;
-
+   
    [self.childs removeObject:node];
 }
 
-- (void)removeAllNodes
-{
-   for ( IDEAAppletTreeNode * node in self.childs )
-   {
+- (void)removeAllNodes {
+   
+   for ( IDEAAppletTreeNode * node in self.childs ) {
+      
       node.parent = nil;
       node.prev = nil;
-      node.next = nil;      
+      node.next = nil;
    }
-
+   
    [self.childs removeAllObjects];
 }
 
@@ -282,12 +287,12 @@
 
 TEST_CASE( UI, Tree )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

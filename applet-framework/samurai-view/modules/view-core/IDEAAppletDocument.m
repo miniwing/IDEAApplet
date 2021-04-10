@@ -43,39 +43,39 @@
 
 @implementation IDEAAppletDocument
 
-@def_prop_strong( NSString *,            href );
-@def_prop_strong( NSString *,            type );
-@def_prop_strong( NSString *,            media );
+@def_prop_strong( NSString *, href );
+@def_prop_strong( NSString *, type );
+@def_prop_strong( NSString *, media );
 
-@def_prop_strong( IDEAAppletDomNode *,         domTree );
-@def_prop_strong( IDEAAppletStyleSheet *,      styleTree );
-@def_prop_strong( IDEAAppletRenderObject *,   renderTree );
+@def_prop_strong( IDEAAppletDomNode       *, domTree );
+@def_prop_strong( IDEAAppletStyleSheet    *, styleTree );
+@def_prop_strong( IDEAAppletRenderObject  *, renderTree );
 
-@def_prop_strong( NSMutableArray *,         externalImports );
-@def_prop_strong( NSMutableArray *,         externalScripts );
-@def_prop_strong( NSMutableArray *,         externalStylesheets );
+@def_prop_strong( NSMutableArray *, externalImports );
+@def_prop_strong( NSMutableArray *, externalScripts );
+@def_prop_strong( NSMutableArray *, externalStylesheets );
 
 BASE_CLASS( IDEAAppletDocument )
 
-+ (IDEAAppletDocument *)document
-{
++ (IDEAAppletDocument *)document {
+   
    return [[self alloc] init];
 }
 
-+ (IDEAAppletDocument *)document:(IDEAAppletDomNode *)domNode
-{
++ (IDEAAppletDocument *)document:(IDEAAppletDomNode *)domNode {
+   
    IDEAAppletDocument * document = [[self alloc] init];
    document.domTree = domNode;
    return document;
 }
 
-- (IDEAAppletDocument *)childDocument
-{
+- (IDEAAppletDocument *)childDocument {
+   
    return [[[self class] alloc] init];
 }
 
-- (IDEAAppletDocument *)childDocument:(IDEAAppletDomNode *)domNode
-{
+- (IDEAAppletDocument *)childDocument:(IDEAAppletDomNode *)domNode {
+   
    IDEAAppletDocument * document = [[[self class] alloc] init];
    document.domTree = domNode;
    [self appendNode:document];
@@ -84,73 +84,82 @@ BASE_CLASS( IDEAAppletDocument )
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.externalImports = [[NSMutableArray alloc] init];
       self.externalScripts = [[NSMutableArray alloc] init];
       self.externalStylesheets = [[NSMutableArray alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
 - (void)dealloc
 {
-   self.href = nil;
-   self.type = nil;
-   self.media = nil;
+   self.href   = nil;
+   self.type   = nil;
+   self.media  = nil;
    
-   self.domTree = nil;
+   self.domTree   = nil;
    self.styleTree = nil;
-   self.renderTree = nil;
+   self.renderTree= nil;
 
-   self.externalImports = nil;
-   self.externalScripts = nil;
-   self.externalStylesheets = nil;
+   self.externalImports    = nil;
+   self.externalScripts    = nil;
+   self.externalStylesheets= nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)deepCopyFrom:(id)obj
-{
+- (void)deepCopyFrom:(id)aObj {
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)clear
-{
-   self.domTree = nil;
-   self.renderTree = nil;
+- (void)clear {
+   
+   self.domTree   = nil;
+   self.renderTree= nil;
+   
+   return;
 }
 
-- (BOOL)parse
-{
+- (BOOL)parse {
+   
    return [super parse];
 }
 
-- (BOOL)reflow
-{
+- (BOOL)reflow {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)configureForView:(UIView *)view
-{
+- (void)configureForView:(UIView *)view {
    
+   return;
 }
 
-- (void)configureForViewController:(UIViewController *)viewController
-{
+- (void)configureForViewController:(UIViewController *)viewController {
    
+   return;
 }
 
 #pragma mark -
 
-- (NSString *)uniqueIdentifier
-{
+- (NSString *)uniqueIdentifier {
+   
    return nil;
 }
 
@@ -166,12 +175,10 @@ BASE_CLASS( IDEAAppletDocument )
 
 TEST_CASE( UI, Document )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

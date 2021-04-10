@@ -62,158 +62,158 @@
 
 #pragma mark -
 
-+ (BOOL)supportPinchGesture
-{
++ (BOOL)supportPinchGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)__pinchGestureInternalCallback:(__PinchGestureRecognizer *)gesture
-{
-   if ( UIGestureRecognizerStatePossible == gesture.state )
-   {
+- (void)__pinchGestureInternalCallback:(__PinchGestureRecognizer *)gesture {
+   
+   if ( UIGestureRecognizerStatePossible == gesture.state ) {
+      
       // the recognizer has not yet recognized its gesture, but may be evaluating touch events. this is the default state
    }
-   else if ( UIGestureRecognizerStateBegan == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateBegan == gesture.state ) {
+      
       // the recognizer has received touches recognized as the gesture. the action method will be called at the next turn of the run loop
-
-      if ( self.pinchSignalName )
-      {
+      
+      if ( self.pinchSignalName ) {
+         
          [self sendSignal:self.pinchSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPinchBegin];
       }
    }
-   else if ( UIGestureRecognizerStateChanged == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateChanged == gesture.state ) {
+      
       // the recognizer has received touches recognized as a change to the gesture. the action method will be called at the next turn of the run loop
-
-      if ( self.pinchSignalName )
-      {
+      
+      if ( self.pinchSignalName ) {
+         
          [self sendSignal:self.pinchSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPinchChanged];
       }
    }
-   else if ( UIGestureRecognizerStateEnded == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateEnded == gesture.state ) {
+      
       // the recognizer has received touches recognized as the end of the gesture. the action method will be called at the next turn of the run loop and the recognizer will be reset to UIGestureRecognizerStatePossible
-
-      if ( self.pinchSignalName )
-      {
+      
+      if ( self.pinchSignalName ) {
+         
          [self sendSignal:self.pinchSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPinchEnded];
       }
    }
-   else if ( UIGestureRecognizerStateCancelled == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
+      
       // the recognizer has received touches resulting in the cancellation of the gesture. the action method will be called at the next turn of the run loop. the recognizer will be reset to UIGestureRecognizerStatePossible
-
-      if ( self.pinchSignalName )
-      {
+      
+      if ( self.pinchSignalName ) {
+         
          [self sendSignal:self.pinchSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPinchCancelled];
       }
    }
-   else if ( UIGestureRecognizerStateFailed == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateFailed == gesture.state ) {
+      
       // the recognizer has received a touch sequence that can not be recognized as the gesture. the action method will not be called and the recognizer will be reset to UIGestureRecognizerStatePossible
    }
 }
 
-- (CGFloat)pinchScale
-{
+- (CGFloat)pinchScale {
+   
    __PinchGestureRecognizer * pinchGesture = [self pinchGesture];
    
    if ( nil == pinchGesture )
       return 0.0f;
-
+   
    return pinchGesture.scale;
 }
 
-- (CGFloat)pinchVelocity
-{
+- (CGFloat)pinchVelocity {
+   
    __PinchGestureRecognizer * pinchGesture = [self pinchGesture];
    
    if ( nil == pinchGesture )
       return 0.0f;
-
+   
    return pinchGesture.velocity;
 }
 
-- (__PinchGestureRecognizer *)pinchGesture
-{
+- (__PinchGestureRecognizer *)pinchGesture {
+   
    __PinchGestureRecognizer * pinchGesture = nil;
    
-   for ( UIGestureRecognizer * gesture in self.gestureRecognizers )
-   {
-      if ( [gesture isKindOfClass:[__PinchGestureRecognizer class]] )
-      {
+   for ( UIGestureRecognizer * gesture in self.gestureRecognizers ) {
+      
+      if ( [gesture isKindOfClass:[__PinchGestureRecognizer class]] ) {
+         
          pinchGesture = (__PinchGestureRecognizer *)gesture;
          break;
       }
    }
-
+   
    return pinchGesture;
 }
 
 #pragma mark -
 
-- (void)enablePinchGesture
-{
+- (void)enablePinchGesture {
+   
    [self enablePinchGestureWithSignal:nil];
 }
 
-- (void)enablePinchGestureWithSignal:(NSString *)signal
-{
-   if ( NO == [[self class] supportPinchGesture] )
-   {
+- (void)enablePinchGestureWithSignal:(NSString *)signal {
+   
+   if ( NO == [[self class] supportPinchGesture] ) {
+      
       return;
    }
-
+   
    __PinchGestureRecognizer * pinchGesture = [self pinchGesture];
    
-   if ( nil == pinchGesture )
-   {
+   if ( nil == pinchGesture ) {
+      
       pinchGesture = [[__PinchGestureRecognizer alloc] initWithTarget:self action:@selector(__pinchGestureInternalCallback:)];
       pinchGesture.cancelsTouchesInView = NO;
       pinchGesture.delaysTouchesBegan = NO;
       pinchGesture.delaysTouchesEnded = NO;
-
+      
       [self addGestureRecognizer:pinchGesture];
    }
    
-   if ( pinchGesture )
-   {
+   if ( pinchGesture ) {
+      
       pinchGesture.enabled = YES;
-
+      
       self.pinchSignalName = signal;
-
-      if ( NO == self.userInteractionEnabled )
-      {
+      
+      if ( NO == self.userInteractionEnabled ) {
+         
          self.userInteractionEnabled = YES;
       }
    }
 }
 
-- (void)disablePinchGesture
-{
-   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] )
-   {
-      if ( [gesture isKindOfClass:[__PinchGestureRecognizer class]] )
-      {
+- (void)disablePinchGesture {
+   
+   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] ) {
+      
+      if ( [gesture isKindOfClass:[__PinchGestureRecognizer class]] ) {
+         
          gesture.enabled = NO;
       }
    }
@@ -231,12 +231,12 @@
 
 TEST_CASE( UI, EventPinchGesture )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

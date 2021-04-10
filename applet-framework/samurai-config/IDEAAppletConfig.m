@@ -45,8 +45,8 @@
 
 @implementation __ClassLoader_Config
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletNamespace classAutoLoad];
    
    return;

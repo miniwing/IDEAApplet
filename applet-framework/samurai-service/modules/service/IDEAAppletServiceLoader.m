@@ -39,26 +39,25 @@
 
 #pragma mark -
 
-@implementation IDEAAppletServiceLoader
-{
+@implementation IDEAAppletServiceLoader {
+   
    NSMutableDictionary * _services;
 }
 
-@def_singleton(IDEAAppletServiceLoader)
+@def_singleton    ( IDEAAppletServiceLoader );
 
-@def_prop_dynamic(NSArray *, services);
+@def_prop_dynamic ( NSArray *, services     );
 
-
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       _services = [[NSMutableDictionary alloc] init];
       
    } /* End if () */
@@ -68,9 +67,8 @@
    return self;
 }
 
-
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_services removeAllObjects];
    _services = nil;
    
@@ -79,20 +77,19 @@
    return;
 }
 
-
-- (void)installServices
-{
+- (void)installServices {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
 #if __SAMURAI_SERVICE__
    
-   for (NSString *szClassName in [IDEAAppletService subClasses])
-   {
+   for (NSString *szClassName in [IDEAAppletService subClasses]) {
+      
       Class stClassType = NSClassFromString(szClassName);
-      if (nil == stClassType)
-      {
+      if (nil == stClassType) {
+         
          continue;
          
       } /* End if () */
@@ -101,16 +98,16 @@
       LogDebug((@"Loading service '%s'\n", [[stClassType description] UTF8String]));
       
       IDEAAppletService *stService = [self service:stClassType];
-      if (stService)
-      {
-         if (NO == [stService respondsToSelector:@selector(isAutoLoad)])
-         {
+      if (stService) {
+         
+         if (NO == [stService respondsToSelector:@selector(isAutoLoad)]) {
+            
             continue;
             
          } /* End if () */
          
-         if (NO == [stService performSelector:@selector(isAutoLoad)])
-         {
+         if (NO == [stService performSelector:@selector(isAutoLoad)]) {
+            
             continue;
             
          } /* End if () */
@@ -134,45 +131,43 @@
    return;
 }
 
-
-- (void)uninstallServices
-{
-   for (IDEAAppletService * service in _services)
-   {
+- (void)uninstallServices {
+   
+   for (IDEAAppletService * service in _services) {
+      
       [service uninstall];
    }
    
    [_services removeAllObjects];
+   
+   return;
 }
 
-
-- (NSArray *)services
-{
+- (NSArray *)services {
+   
    return [_services allValues];
 }
 
-
-- (id)service:(Class)classType
-{
+- (id)service:(Class)classType {
+   
    IDEAAppletService * service = [_services objectForKey:[classType description]];
    
-   if (nil == service)
-   {
+   if (nil == service) {
+      
       service = [[classType alloc] init];
-      if (service)
-      {
+      if (service) {
+         
          [_services setObject:service forKey:[classType description]];
       }
       
-      if ([service conformsToProtocol:@protocol(ManagedService)])
-      {
+      if ([service conformsToProtocol:@protocol(ManagedService)]) {
+         
          [service powerOn];
       }
    }
    
    return service;
 }
-
 
 @end
 
@@ -186,12 +181,10 @@
 
 TEST_CASE(Service, Loader)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

@@ -48,15 +48,15 @@
 
 @def_singleton    ( IDEAAppletWatcher );
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
    self = [super init];
-   if (self)
-   {
+   if (self) {
+      
       
    } /* End if () */
    
@@ -65,8 +65,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self.sourceFiles removeAllObjects];
    self.sourceFiles = nil;
    
@@ -77,9 +77,9 @@
 
 #pragma mark -
 
-- (void)watch:(NSString *)path
-{
-   self.sourcePath = [[NSString stringWithFormat:@"%@/../", path] stringByStandardizingPath];
+- (void)watch:(NSString *)aPath {
+   
+   self.sourcePath = [[NSString stringWithFormat:@"%@/../", aPath] stringByStandardizingPath];
    
 #if (TARGET_IPHONE_SIMULATOR)
    [self scanSourceFiles];
@@ -90,115 +90,135 @@
 
 #if (TARGET_IPHONE_SIMULATOR)
 
-- (void)scanSourceFiles
-{
+- (void)scanSourceFiles {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
-   if (nil == self.sourceFiles)
-   {
-      self.sourceFiles = [[NSMutableArray alloc] init];
-   }
+   
+   if (nil == self.sourceFiles) {
+      
+      self.sourceFiles  = [[NSMutableArray alloc] init];
+      
+   } /* End if () */
    
    [self.sourceFiles removeAllObjects];
    
-   NSString * basePath = [[self.sourcePath stringByStandardizingPath] copy];
-   if (nil == basePath)
+   NSString *szBasePath = [[self.sourcePath stringByStandardizingPath] copy];
+   if (nil == szBasePath) {
+      
       return;
+      
+   } /* End if () */
    
-   NSDirectoryEnumerator *   enumerator = [[NSFileManager defaultManager] enumeratorAtPath:basePath];
-   if (enumerator)
-   {
-      for (;;)
-      {
-         NSString * filePath = [enumerator nextObject];
-         if (nil == filePath)
+   NSDirectoryEnumerator   *stEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:szBasePath];
+   if (stEnumerator) {
+      
+      for (;;) {
+         
+         NSString *szFilePath = [stEnumerator nextObject];
+         if (nil == szFilePath) {
+            
             break;
+            
+         } /* End if () */
          
-         NSString * fileName = [filePath lastPathComponent];
-         NSString * fileExt = [fileName pathExtension];
-         NSString * fullPath = [basePath stringByAppendingPathComponent:filePath];
+         NSString *szFileName    = [szFilePath lastPathComponent];
+         NSString *szFileExt     = [szFileName pathExtension];
+         NSString *szFullPath    = [szBasePath stringByAppendingPathComponent:szFilePath];
          
-         BOOL isDirectory = NO;
-         BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDirectory];
-         if (exists && NO == isDirectory)
-         {
+         BOOL      bIsDirectory  = NO;
+         BOOL      bExists       = [[NSFileManager defaultManager] fileExistsAtPath:szFullPath isDirectory:&bIsDirectory];
+         
+         if (bExists && NO == bIsDirectory) {
+            
             BOOL isValid = NO;
             
-            for (NSString * extension in @[ @"xml", @"html", @"htm", @"css" ])
-            {
-               if (NSOrderedSame == [fileExt compare:extension])
-               {
+            for (NSString *szExtension in @[ @"xml", @"html", @"htm", @"css" ]) {
+               
+               if (NSOrderedSame == [szFileExt compare:szExtension]) {
+                  
                   isValid = YES;
                   break;
-               }
-            }
+                  
+               } /* End if (NSOrderedSame == [szFileExt compare:szExtension]) */
+               
+            } /* End for (NSString *szExtension in @[ @"xml", @"html", @"htm", @"css" ]) */
             
-            if (isValid)
-            {
-               [self.sourceFiles addObject:fullPath];
-            }
-         }
-      }
-   }
-   
-   for (NSString * file in self.sourceFiles)
-   {
-      [self watchSourceFile:file];
+            if (isValid) {
+               
+               [self.sourceFiles addObject:szFullPath];
+               
+            } /* End if (isValid) */
+            
+         } /* End if (bExists && NO == bIsDirectory) */
+         
+      } /* End for (;;) */
       
-   } /* End for () */
+   } /* End if (stEnumerator) */
+   
+   for (NSString *szFile in self.sourceFiles) {
+      
+      [self watchSourceFile:szFile];
+      
+   } /* End for (NSString *szFile in self.sourceFiles) */
    
    __CATCH(nErr);
    
    return;
 }
 
-- (void)watchSourceFile:(NSString *)filePath
-{
-   int fileHandle = open([filePath UTF8String], O_EVTONLY);
-   if (fileHandle)
-   {
-      unsigned long            mask = DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND;
-      __block dispatch_queue_t   queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-      __block dispatch_source_t   source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fileHandle, mask, queue);
+- (void)watchSourceFile:(NSString *)aFilePath {
+   
+   int    nFileHandle   = open([aFilePath UTF8String], O_EVTONLY);
+   if (nFileHandle) {
+      
+      unsigned long               ulMask  = DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND;
+      __block dispatch_queue_t    stQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+      __block dispatch_source_t   stSource= dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, nFileHandle, ulMask, stQueue);
       
       @weakify(self)
       
-      __block id eventHandler = ^
-      {
+      __block id stEventHandler = ^ {
+         
          @strongify(self)
          
-         unsigned long flags = dispatch_source_get_data(source);
-         if (flags)
-         {
-            dispatch_source_cancel(source);
-            dispatch_async(dispatch_get_main_queue(), ^
-                           {
-               BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:NULL];
-               if (exists)
-               {
-                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidChanged withObject:filePath];
-               }
-               else
-               {
-                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidRemoved withObject:filePath];
-               }
+         unsigned long ulFlags = dispatch_source_get_data(stSource);
+         if (ulFlags) {
+            
+            dispatch_source_cancel(stSource);
+            dispatch_async(dispatch_get_main_queue(), ^ {
+               
+               BOOL bExists = [[NSFileManager defaultManager] fileExistsAtPath:aFilePath isDirectory:NULL];
+               if (bExists) {
+                  
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidChanged withObject:aFilePath];
+                  
+               } /* End if (bExists) */
+               else {
+                  
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidRemoved withObject:aFilePath];
+                  
+               } /* End else (!bExists) */
             });
             
-            [self watchSourceFile:filePath];
-         }
+            [self watchSourceFile:aFilePath];
+            
+         } /* End if () */
       };
       
-      __block id cancelHandler = ^
-      {
-         close(fileHandle);
+      __block id   stCancelHandler  = ^ {
+         
+         close(nFileHandle);
       };
       
-      dispatch_source_set_event_handler(source, eventHandler);
-      dispatch_source_set_cancel_handler(source, cancelHandler);
-      dispatch_resume(source);
-   }
+      dispatch_source_set_event_handler(stSource, stEventHandler);
+      dispatch_source_set_cancel_handler(stSource, stCancelHandler);
+      dispatch_resume(stSource);
+      
+   } /* End if () */
+   
+   return;
 }
 
 #endif // #if (TARGET_IPHONE_SIMULATOR)

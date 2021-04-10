@@ -51,7 +51,7 @@
 
 @implementation IDEAAppletNotificationBus {
    
-   NSMutableDictionary * _handlers;
+   NSMutableDictionary  * _handlers;
 }
 
 @def_singleton( IDEAAppletNotificationBus )
@@ -62,7 +62,9 @@
    if ( self ) {
       
       _handlers = [[NSMutableDictionary alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
@@ -70,245 +72,282 @@
    
    [_handlers removeAllObjects];
    _handlers = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)routes:(AppletNotification *)notification target:(id)target {
+- (void)routes:(AppletNotification *)aNotification target:(id)aTarget {
    
-   if ( nil == target ) {
+   if ( nil == aTarget ) {
       
       ERROR( @"No notification target" );
+      
       return;
-   }
-   
-   NSMutableArray * classes = [NSMutableArray nonRetainingArray];
-   
-   for ( Class clazz = [target class]; nil != clazz; clazz = class_getSuperclass(clazz) ) {
       
-      [classes addObject:clazz];
-   }
+   } /* End if () */
    
-   NSString *   notificationClass = nil;
-   NSString *   notificationMethod = nil;
+   NSMutableArray *stClasses  = [NSMutableArray nonRetainingArray];
    
-   if ( notification.name ) {
+   for ( Class stClazz = [aTarget class]; nil != stClazz; stClazz = class_getSuperclass(stClazz) ) {
       
-      if ( [notification.name hasPrefix:@"notification."] ) {
+      [stClasses addObject:stClazz];
+      
+   } /* End if () */
+   
+   NSString *szNotificationClass    = nil;
+   NSString *szNotificationMethod   = nil;
+   
+   if ( aNotification.name ) {
+      
+      if ( [aNotification.name hasPrefix:@"notification."] ) {
          
-         NSArray * array = [notification.name componentsSeparatedByString:@"."];
+         NSArray  *stArray = [aNotification.name componentsSeparatedByString:@"."];
          
-         notificationClass = (NSString *)[array safeObjectAtIndex:1];
-         notificationMethod = (NSString *)[array safeObjectAtIndex:2];
-      }
+         szNotificationClass = (NSString *)[stArray safeObjectAtIndex:1];
+         szNotificationMethod = (NSString *)[stArray safeObjectAtIndex:2];
+         
+      } /* End if () */
       else {
          
-         NSArray * array = [notification.name componentsSeparatedByString:@"/"];
+         NSArray  *stArray = [aNotification.name componentsSeparatedByString:@"/"];
          
-         notificationClass = (NSString *)[array safeObjectAtIndex:0];
-         notificationMethod = (NSString *)[array safeObjectAtIndex:1];
+         szNotificationClass = (NSString *)[stArray safeObjectAtIndex:0];
+         szNotificationMethod = (NSString *)[stArray safeObjectAtIndex:1];
          
-         if ( notificationMethod ) {
+         if ( szNotificationMethod ) {
             
-            notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-            notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-            notificationMethod = [notificationMethod stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-         }
-      }
-   }
+            szNotificationMethod = [szNotificationMethod stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+            szNotificationMethod = [szNotificationMethod stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+            szNotificationMethod = [szNotificationMethod stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            
+         }  /* End if () */
+         
+      } /* End else */
+      
+   } /* End if () */
    
-   for ( Class targetClass in classes ) {
+   for ( Class stTargetClass in stClasses ) {
       
-      NSString * cacheName = [NSString stringWithFormat:@"%@/%@", notification.name, [targetClass description]];
-      NSString * cachedSelectorName = [_handlers objectForKey:cacheName];
+      NSString *szCacheName            = [NSString stringWithFormat:@"%@/%@", aNotification.name, [stTargetClass description]];
+      NSString *szCachedSelectorName   = [_handlers objectForKey:szCacheName];
       
-      if ( cachedSelectorName ) {
+      if ( szCachedSelectorName ) {
          
-         SEL cachedSelector = NSSelectorFromString( cachedSelectorName );
-         if ( cachedSelector ) {
+         SEL    stCachedSelector = NSSelectorFromString( szCachedSelectorName );
+         
+         if ( stCachedSelector ) {
             
-            BOOL hit = [self notification:notification perform:cachedSelector class:targetClass target:target];
-            if ( hit ) {
+            BOOL bHit = [self notification:aNotification perform:stCachedSelector class:stTargetClass target:aTarget];
+            if ( bHit ) {
                
                //               continue;
                break;
-            }
-         }
-      }
+               
+            } /* End if () */
+            
+         } /* End if () */
+         
+      } /* End if () */
       
       //      do
       {
-         NSString *   selectorName = nil;
-         SEL         selector = nil;
-         BOOL      performed = NO;
+         NSString *szSelectorName   = nil;
+         SEL       stSelector       = nil;
+         BOOL      bPerformed       = NO;
          
          // eg. handleNotification( Class, Motification )
          
-         if ( notificationClass && notificationMethod ) {
+         if ( szNotificationClass && szNotificationMethod ) {
             
-            selectorName = [NSString stringWithFormat:@"handleNotification____%@____%@:", notificationClass, notificationMethod];
-            selector = NSSelectorFromString( selectorName );
+            szSelectorName = [NSString stringWithFormat:@"handleNotification____%@____%@:", szNotificationClass, szNotificationMethod];
+            stSelector     = NSSelectorFromString( szSelectorName );
             
-            performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed ) {
+            bPerformed     = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+            if ( bPerformed ) {
                
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
+               
                break;
-            }
+               
+            } /* End if () */
             
             // eg. handleNotification( Notification )
             
-            if ( [[targetClass description] isEqualToString:notificationClass] ) {
+            if ( [[stTargetClass description] isEqualToString:szNotificationClass] ) {
                
-               selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notificationMethod];
-               selector = NSSelectorFromString( selectorName );
+               szSelectorName = [NSString stringWithFormat:@"handleNotification____%@:", szNotificationMethod];
+               stSelector = NSSelectorFromString( szSelectorName );
                
-               performed = [self notification:notification perform:selector class:targetClass target:target];
-               if ( performed ) {
+               bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+               if ( bPerformed ) {
                   
-                  [_handlers setObject:selectorName forKey:cacheName];
+                  [_handlers setObject:szSelectorName forKey:szCacheName];
                   break;
-               }
-            }
-         }
+                  
+               } /* End if () */
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleNotification( Class )
          
-         if ( notificationClass ) {
+         if ( szNotificationClass ) {
             
-            selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notificationClass];
-            selector = NSSelectorFromString( selectorName );
+            szSelectorName = [NSString stringWithFormat:@"handleNotification____%@:", szNotificationClass];
+            stSelector = NSSelectorFromString( szSelectorName );
             
-            performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed ) {
+            bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+            if ( bPerformed ) {
                
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleNotification( helloWorld )
          
-         if ( [notification.name hasPrefix:@"notification____"] ) {
+         if ( [aNotification.name hasPrefix:@"notification____"] ) {
             
-            selectorName = [notification.name stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
-         }
+            szSelectorName = [aNotification.name stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
+            
+         } /* End if () */
          else {
             
-            selectorName = [NSString stringWithFormat:@"handleNotification____%@:", notification.name];
-         }
-         
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-         selectorName = [selectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-         
-         if ( NO == [selectorName hasSuffix:@":"] ) {
+            szSelectorName = [NSString stringWithFormat:@"handleNotification____%@:", aNotification.name];
             
-            selectorName = [selectorName stringByAppendingString:@":"];
-         }
+         } /* End else */
          
-         selector = NSSelectorFromString( selectorName );
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+         szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
          
-         performed = [self notification:notification perform:selector class:targetClass target:target];
-         if ( performed ) {
+         if ( NO == [szSelectorName hasSuffix:@":"] ) {
             
-            [_handlers setObject:selectorName forKey:cacheName];
+            szSelectorName = [szSelectorName stringByAppendingString:@":"];
+            
+         } /* End if () */
+         
+         stSelector = NSSelectorFromString( szSelectorName );
+         
+         bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+         if ( bPerformed ) {
+            
+            [_handlers setObject:szSelectorName forKey:szCacheName];
             break;
-         }
+            
+         } /* End if () */
          
          // eg. handleNotification()
          
-         if ( NO == performed ) {
+         if ( NO == bPerformed ) {
             
-            selectorName = @"handleNotification____:";
-            selector = NSSelectorFromString( selectorName );
+            szSelectorName = @"handleNotification____:";
+            stSelector = NSSelectorFromString( szSelectorName );
             
-            performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed ) {
+            bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+            if ( bPerformed ) {
                
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          
          // eg. handleNotification:
          
-         if ( NO == performed ) {
+         if ( NO == bPerformed ) {
             
-            selectorName = @"handleNotification:";
-            selector = NSSelectorFromString( selectorName );
+            szSelectorName = @"handleNotification:";
+            stSelector = NSSelectorFromString( szSelectorName );
             
-            performed = [self notification:notification perform:selector class:targetClass target:target];
-            if ( performed ) {
+            bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
+            if ( bPerformed ) {
                
-               [_handlers setObject:selectorName forKey:cacheName];
+               [_handlers setObject:szSelectorName forKey:szCacheName];
                break;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
       }
       //      while ( 0 );
    }
+   
+   return;
 }
 
-- (BOOL)notification:(AppletNotification *)notification perform:(SEL)sel class:(Class)clazz target:(id)target {
+- (BOOL)notification:(AppletNotification *)aNotification perform:(SEL)aSEL class:(Class)aClazz target:(id)aTarget {
    
-   ASSERT( nil != notification );
-   ASSERT( nil != target );
-   ASSERT( nil != sel );
-   ASSERT( nil != clazz );
+   ASSERT( nil != aNotification );
+   ASSERT( nil != aTarget );
+   ASSERT( nil != aSEL );
+   ASSERT( nil != aClazz );
    
-   BOOL performed = NO;
+   BOOL   bPerformed       = NO;
    
    // try block
    
-   if ( NO == performed ) {
+   if ( NO == bPerformed ) {
       
-      IDEAAppletHandler * handler = [target blockHandler];
-      if ( handler ) {
+      IDEAAppletHandler *stHandler  = [aTarget blockHandler];
+      if ( stHandler ) {
          
-         BOOL found = [handler trigger:[NSString stringWithUTF8String:sel_getName(sel)] withObject:notification];
+         BOOL found = [stHandler trigger:[NSString stringWithUTF8String:sel_getName(aSEL)] withObject:aNotification];
          if ( found ) {
             
-            performed = YES;
-         }
-      }
-   }
+            bPerformed = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
    // try selector
    
-   if ( NO == performed ) {
+   if ( NO == bPerformed ) {
       
-      Method method = class_getInstanceMethod( clazz, sel );
-      if ( method ) {
+      Method stMethod = class_getInstanceMethod( aClazz, aSEL );
+      if ( stMethod ) {
          
-         ImpFuncType imp = (ImpFuncType)method_getImplementation( method );
-         if ( imp ) {
+         ImpFuncType stImp = (ImpFuncType)method_getImplementation( stMethod );
+         if ( stImp ) {
             
-            imp( target, sel, (__bridge void *)notification );
+            stImp( aTarget, aSEL, (__bridge void *)aNotification );
             
-            performed = YES;
-         }
-      }
-   }
+            bPerformed = YES;
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
    
 #if __SAMURAI_DEBUG__
-#if __NOTIFICATION_CALLSTACK__
+#  if __NOTIFICATION_CALLSTACK__
+   NSString *szSelName = [NSString stringWithUTF8String:sel_getName(aSEL)];
+   NSString *szClassName = [aClazz description];
    
-   NSString * selName = [NSString stringWithUTF8String:sel_getName(sel)];
-   NSString * className = [clazz description];
-   
-   if ( NSNotFound != [selName rangeOfString:@"____"].location ) {
+   if ( NSNotFound != [szSelName rangeOfString:@"____"].location ) {
       
-      selName = [selName stringByReplacingOccurrencesOfString:@"handleNotification____" withString:@"handleNotification( "];
-      selName = [selName stringByReplacingOccurrencesOfString:@"____" withString:@", "];
-      selName = [selName stringByReplacingOccurrencesOfString:@":" withString:@""];
-      selName = [selName stringByAppendingString:@" )"];
-   }
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@"handleNotification____" withString:@"handleNotification( "];
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@"____" withString:@", "];
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@":" withString:@""];
+      szSelName = [szSelName stringByAppendingString:@" )"];
+      
+   } /* End if () */
    
-   PERF( @"  %@ %@::%@", performed ? @"✔" : @"✖", className, selName );
-   
+   PERF( @"  %@ %@::%@", bPerformed ? @"✔" : @"✖", szClassName, szSelName );
+#  endif
 #endif
-#endif
    
-   return performed;
+   return bPerformed;
 }
 
 @end

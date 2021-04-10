@@ -38,48 +38,48 @@
 // Source code
 // ----------------------------------
 
-NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol> element)
-{
-    NSMutableString * desc = [NSMutableString string];
-    
-    if ( element.cssTag ) {
-        [desc appendFormat:@"<%@", element.cssTag];
-    }
-    
-//    if ( element.cssId ) {
-//        [desc appendFormat:@" id=\"%@\"", element.cssId];
-//    }
-    
-//    if ( element.cssClasses.count ) {
-//        [desc appendString:@" class=\""];
-//        [element.cssClasses enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL *stop) {
-//            [desc appendFormat:@"%@", obj];
-//            if ( idx != element.cssClasses.count - 1 ) {
-//                [desc appendString:@" "];
-//            }
-//        }];
-//        [desc appendString:@"\""];
-//    }
-//    
-    if ( element.cssAttributes && element.cssAttributes.count ) {
-        [element.cssAttributes enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL *stop) {
-            if ( key && obj && obj.length ) {
-                [desc appendFormat:@" %@=\"%@\"", key, obj];
-            } else if ( key ) {
-                [desc appendFormat:@" %@",key];
-            }
-        }];
-    }
-    
-    if ( element.cssTag ) {
-        [desc appendString:@">"];
-    }
-    
-    if ( desc.length == 0 ) {
-        
-    }
-    
-    return desc;
+NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol> element) {
+   
+   NSMutableString * desc = [NSMutableString string];
+   
+   if ( element.cssTag ) {
+      [desc appendFormat:@"<%@", element.cssTag];
+   }
+   
+   //    if ( element.cssId ) {
+   //        [desc appendFormat:@" id=\"%@\"", element.cssId];
+   //    }
+   
+   //    if ( element.cssClasses.count ) {
+   //        [desc appendString:@" class=\""];
+   //        [element.cssClasses enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL *stop) {
+   //            [desc appendFormat:@"%@", obj];
+   //            if ( idx != element.cssClasses.count - 1 ) {
+   //                [desc appendString:@" "];
+   //            }
+   //        }];
+   //        [desc appendString:@"\""];
+   //    }
+   //    
+   if ( element.cssAttributes && element.cssAttributes.count ) {
+      [element.cssAttributes enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * obj, BOOL *stop) {
+         if ( key && obj && obj.length ) {
+            [desc appendFormat:@" %@=\"%@\"", key, obj];
+         } else if ( key ) {
+            [desc appendFormat:@" %@",key];
+         }
+      }];
+   }
+   
+   if ( element.cssTag ) {
+      [desc appendString:@">"];
+   }
+   
+   if ( desc.length == 0 ) {
+      
+   }
+   
+   return desc;
 }
 
 #pragma mark -
@@ -93,38 +93,38 @@ NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol> el
 @def_prop_strong( NSArray *,      cssClasses );
 @def_prop_strong( NSDictionary *,   cssAttributes );
 
-- (id<IDEAAppletCSSProtocol>)cssParent
-{
+- (id<IDEAAppletCSSProtocol>)cssParent {
+   
    return nil;
 }
 
-- (id<IDEAAppletCSSProtocol>)cssPreviousSibling
-{
+- (id<IDEAAppletCSSProtocol>)cssPreviousSibling {
+   
    return nil;
 }
 
-- (id<IDEAAppletCSSProtocol>)cssFollowingSibling
-{
+- (id<IDEAAppletCSSProtocol>)cssFollowingSibling {
+   
    return nil;
 }
 
-- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index
-{
+- (id<IDEAAppletCSSProtocol>)cssSiblingAtIndex:(NSInteger)index {
+   
    return nil;
 }
 
-- (NSArray *)cssChildren
-{
+- (NSArray *)cssChildren {
+   
    return nil;
 }
 
-- (NSArray *)cssPreviousSiblings
-{
+- (NSArray *)cssPreviousSiblings {
+   
    return nil;
 }
 
-- (NSArray *)cssFollowingSiblings
-{
+- (NSArray *)cssFollowingSiblings {
+   
    return nil;
 }
 
@@ -140,12 +140,12 @@ NSString * NSStringFromIDEAAppletCSSProtocolElement(id<IDEAAppletCSSProtocol> el
 
 TEST_CASE( WebCore, CSSProtocol )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

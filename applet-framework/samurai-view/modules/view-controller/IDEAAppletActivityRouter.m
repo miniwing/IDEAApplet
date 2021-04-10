@@ -69,6 +69,10 @@
    
    [_map removeAllObjects];
    _map = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -

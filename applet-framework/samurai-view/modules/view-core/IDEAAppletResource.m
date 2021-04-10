@@ -49,47 +49,74 @@
 
 @implementation IDEAAppletResource
 
-@def_prop_assign(ResourcePolicy,   resPolicy);
-@def_prop_strong(NSString *,      resPath);
-@def_prop_strong(NSString *,      resType);
-@def_prop_strong(NSString *,      resContent);
+@def_prop_assign  ( ResourcePolicy  , resPolicy);
+@def_prop_strong  ( NSString  *, resPath);
+@def_prop_strong  ( NSString  *, resType);
+@def_prop_strong  ( NSString  *, resContent);
 
 BASE_CLASS(IDEAAppletResource)
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if (self)
-   {
+   if (self) {
+      
       self.resPolicy = ResourcePolicy_Default;
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
 - (void)dealloc
 {
-   self.resPath = nil;
-   self.resType = nil;
-   self.resContent = nil;
+   self.resPath   = nil;
+   self.resType   = nil;
+   self.resContent= nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-+ (Class)instanceClassForType:(NSString *)type
-{
-   if (nil == type)
-   {
++ (Class)instanceClassForType:(NSString *)type {
+   
+   if (nil == type) {
+      
       return self;
    }
    
-   for (NSString * className in [IDEAAppletResource subClasses])
-   {
+   for (NSString * className in [IDEAAppletResource subClasses]) {
+      
       Class classType = NSClassFromString(className);
       
-      if (classType && [classType supportType:type])
-      {
+      if (classType && [classType supportType:type]) {
+         
+         return classType;
+      }
+      
+   }
+   
+   return nil;
+}
+
++ (Class)instanceClassForExtension:(NSString *)extension {
+   
+   if (nil == extension) {
+      
+      return self;
+   }
+   
+   for (NSString * className in [IDEAAppletResource subClasses]) {
+      
+      Class classType = NSClassFromString(className);
+      
+      if (classType && [classType supportExtension:extension]) {
+         
          return classType;
       }
    }
@@ -97,66 +124,50 @@ BASE_CLASS(IDEAAppletResource)
    return nil;
 }
 
-+ (Class)instanceClassForExtension:(NSString *)extension
-{
-   if (nil == extension)
-   {
-      return self;
-   }
-   
-   for (NSString * className in [IDEAAppletResource subClasses])
-   {
-      Class classType = NSClassFromString(className);
-      
-      if (classType && [classType supportExtension:extension])
-      {
-         return classType;
-      }
-   }
-   
-   return nil;
-}
-
 #pragma mark -
 
-+ (id)resource
-{
++ (id)resource {
+   
    return [[self alloc] init];
 }
 
-+ (id)resourceForType:(NSString *)type
-{
++ (id)resourceForType:(NSString *)type {
+   
    Class resourceClass = [self instanceClassForType:type];
    
-   if (nil == resourceClass)
+   if (nil == resourceClass) {
       return nil;
+   }
    
    return [[resourceClass alloc] init];
 }
 
-+ (id)resourceForExtension:(NSString *)extension
-{
++ (id)resourceForExtension:(NSString *)extension {
+   
    Class resourceClass = [self instanceClassForExtension:extension];
    
-   if (nil == resourceClass)
+   if (nil == resourceClass) {
       return nil;
+   }
    
    return [[resourceClass alloc] init];
 }
 
-+ (id)resourceWithData:(NSData *)data type:(NSString *)type baseURL:(NSString *)baseURL
-{
++ (id)resourceWithData:(NSData *)data type:(NSString *)type baseURL:(NSString *)baseURL {
+   
    return [self resourceWithString:[data toString] type:type baseURL:baseURL];
 }
 
-+ (id)resourceWithString:(NSString *)string type:(NSString *)type baseURL:(NSString *)baseURL
-{
-   if (nil == string || 0 == string.length)
++ (id)resourceWithString:(NSString *)string type:(NSString *)type baseURL:(NSString *)baseURL {
+   
+   if (nil == string || 0 == string.length) {
       return nil;
+   }
    
    IDEAAppletResource * resource = [self resourceForType:type];
-   if (nil == resource)
+   if (nil == resource) {
       return nil;
+   }
    
    resource.resPolicy = ResourcePolicy_Default;
    resource.resType = type;
@@ -164,58 +175,61 @@ BASE_CLASS(IDEAAppletResource)
    resource.resContent = string;
    
    BOOL succeed = [resource parse];
-   if (NO == succeed)
+   if (NO == succeed) {
       return nil;
+   }
    
    return resource;
 }
 
-+ (id)resourceWithURL:(NSString *)string
-{
++ (id)resourceWithURL:(NSString *)string {
+   
    return [self resourceWithURL:string type:nil];
 }
 
-+ (id)resourceWithURL:(NSString *)string type:(NSString *)type
-{
-   if (nil == string)
++ (id)resourceWithURL:(NSString *)string type:(NSString *)type {
+   
+   if (nil == string) {
       return nil;
+   }
    
    IDEAAppletResource * resource = nil;
    
    if (nil == type)
    {
       NSURL * url = [NSURL URLWithString:string];
-      if (nil == url)
+      if (nil == url) {
          return nil;
+      }
       
       NSString * extension = [[url.path lastPathComponent] pathExtension];
       
-      if (nil == extension || 0 == [extension length])
-      {
+      if (nil == extension || 0 == [extension length]) {
+         
          resource = [self resourceForType:@"text/html"];
       }
-      else
-      {
+      else {
+         
          resource = [self resourceForExtension:extension];
       }
    }
-   else
-   {
+   else {
+      
       resource = [self resourceForType:type];
    }
    
-   resource.resPolicy = ResourcePolicy_Default;
-   resource.resType = nil;
-   resource.resPath = string;
-   resource.resContent = nil;
+   resource.resPolicy   = ResourcePolicy_Default;
+   resource.resType     = nil;
+   resource.resPath     = string;
+   resource.resContent  = nil;
    
    return resource;
 }
 
-+ (id)resourceAtPath:(NSString *)aPath inBundle:(NSString *)aBundleName
-{
-   if (nil == aPath)
-   {
++ (id)resourceAtPath:(NSString *)aPath inBundle:(NSString *)aBundleName {
+   
+   if (nil == aPath) {
+      
       return nil;
       
    } /* End if () */
@@ -225,8 +239,8 @@ BASE_CLASS(IDEAAppletResource)
    NSString    *szPathComponent  = [aPath lastPathComponent];
    NSUInteger   nPathDotIndex    = [szPathComponent rangeOfString:@"."].location;
    
-   if (NSNotFound == nPathDotIndex)
-   {
+   if (NSNotFound == nPathDotIndex) {
+      
       ERROR(@"Unknown resource type");
       
       return nil;
@@ -238,8 +252,8 @@ BASE_CLASS(IDEAAppletResource)
    NSString    *szFilePath    = nil;
    NSString    *szFileContent = nil;
    
-   if (nil == szFileExt)
-   {
+   if (nil == szFileExt) {
+      
       ERROR(@"Unknown resource type");
       
       return nil;
@@ -247,8 +261,8 @@ BASE_CLASS(IDEAAppletResource)
    } /* End if () */
    
    IDEAAppletResource   *stResource = [self resourceForExtension:szFileExt];
-   if (nil == stResource)
-   {
+   if (nil == stResource) {
+      
       ERROR(@"Unknown resource type");
       
       return nil;
@@ -257,35 +271,35 @@ BASE_CLASS(IDEAAppletResource)
    
    NSError *stError = nil;
    
-   do
-   {
+   do {
+      
 #if TARGET_IPHONE_SIMULATOR
       
-      if ([IDEAAppletWatcher sharedInstance].sourcePath)
-      {
+      if ([IDEAAppletWatcher sharedInstance].sourcePath) {
+         
          NSString *srcPath = nil;
          
-         if ([aPath hasPrefix:[IDEAAppletWatcher sharedInstance].sourcePath])
-         {
+         if ([aPath hasPrefix:[IDEAAppletWatcher sharedInstance].sourcePath]) {
+            
             srcPath = aPath;
          }
-         else
-         {
+         else {
+            
             srcPath = [[[IDEAAppletWatcher sharedInstance].sourcePath stringByAppendingPathComponent:aPath] stringByStandardizingPath];
          }
          
-         if (srcPath)
-         {
+         if (srcPath) {
+            
             szFileContent = [NSString stringWithContentsOfFile:srcPath encoding:NSUTF8StringEncoding error:&stError];
             
-            if (nil == szFileContent)
-            {
+            if (nil == szFileContent) {
+               
                szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSISOLatin2StringEncoding error:&stError];
                
             } /* End if () */
             
-            if (szFileContent)
-            {
+            if (szFileContent) {
+               
                szFilePath  = srcPath;
                
                break;
@@ -309,13 +323,13 @@ BASE_CLASS(IDEAAppletResource)
       
       NSBundle       *stBundle      = nil;
       
-      if (nil == stBundleURL)
-      {
+      if (nil == stBundleURL) {
+         
          stBundle = [NSBundle mainBundle];
          
       } /* End if () */
-      else
-      {
+      else {
+         
          stBundle = [NSBundle bundleWithURL:stBundleURL];
          
       } /* End else */
@@ -324,25 +338,25 @@ BASE_CLASS(IDEAAppletResource)
       NSString       *szResPath     = [[stBundle pathForResource:szFileName ofType:szFileExt] stringByStandardizingPath];
       NSString       *szWWWPath     = [[stBundle pathForResource:szFileName ofType:szFileExt inDirectory:[[stResource class] baseDirectory]] stringByStandardizingPath];
       
-      if ((NO == [stFileManager fileExistsAtPath:szDocPath isDirectory:&bDir]) || (YES == bDir))
-      {
+      if ((NO == [stFileManager fileExistsAtPath:szDocPath isDirectory:&bDir]) || (YES == bDir)) {
+         
          szDocPath   = [[[NSBundle mainBundle] pathForResource:szFileName
                                                         ofType:szFileExt inDirectory:[aPath stringByDeletingLastPathComponent]] stringByStandardizingPath];
          
       } /* End if () */
       
-      if (szDocPath)
-      {
+      if (szDocPath) {
+         
          szFileContent = [NSString stringWithContentsOfFile:szDocPath encoding:NSUTF8StringEncoding error:&stError];
          
-         if (nil == szFileContent)
-         {
+         if (nil == szFileContent) {
+            
             szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSISOLatin2StringEncoding error:&stError];
             
          } /* End if () */
          
-         if (szFileContent)
-         {
+         if (szFileContent) {
+            
             szFilePath = szDocPath;
             
             break;
@@ -352,24 +366,24 @@ BASE_CLASS(IDEAAppletResource)
       } /* End if () */
       
       bDir  = NO;
-      if ((NO == [stFileManager fileExistsAtPath:szResPath isDirectory:&bDir]) || (YES == bDir))
-      {
+      if ((NO == [stFileManager fileExistsAtPath:szResPath isDirectory:&bDir]) || (YES == bDir)) {
+         
          szResPath   = [[[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt] stringByStandardizingPath];
          
       } /* End if () */
       
-      if (szResPath)
-      {
+      if (szResPath) {
+         
          szFileContent = [NSString stringWithContentsOfFile:szResPath encoding:NSUTF8StringEncoding error:&stError];
          
-         if (nil == szFileContent)
-         {
+         if (nil == szFileContent) {
+            
             szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSISOLatin2StringEncoding error:&stError];
             
          } /* End if () */
          
-         if (szFileContent)
-         {
+         if (szFileContent) {
+            
             szFilePath = szResPath;
             
             break;
@@ -379,24 +393,24 @@ BASE_CLASS(IDEAAppletResource)
       } /* End if () */
       
       bDir  = NO;
-      if ((NO == [stFileManager fileExistsAtPath:szWWWPath isDirectory:&bDir]) || (YES == bDir))
-      {
+      if ((NO == [stFileManager fileExistsAtPath:szWWWPath isDirectory:&bDir]) || (YES == bDir)) {
+         
          szResPath   = [[[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt inDirectory:[[stResource class] baseDirectory]] stringByStandardizingPath];
          
       } /* End if () */
       
-      if (szWWWPath)
-      {
+      if (szWWWPath) {
+         
          szFileContent = [NSString stringWithContentsOfFile:szWWWPath encoding:NSUTF8StringEncoding error:&stError];
          
-         if (nil == szFileContent)
-         {
+         if (nil == szFileContent) {
+            
             szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSISOLatin2StringEncoding error:&stError];
             
          } /* End if () */
          
-         if (szFileContent)
-         {
+         if (szFileContent) {
+            
             szFilePath = szWWWPath;
             
             break;
@@ -405,18 +419,18 @@ BASE_CLASS(IDEAAppletResource)
          
       } /* End if () */
       
-      if (aPath)
-      {
+      if (aPath) {
+         
          szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSUTF8StringEncoding error:&stError];
          
-         if (nil == szFileContent)
-         {
+         if (nil == szFileContent) {
+            
             szFileContent = [NSString stringWithContentsOfFile:aPath encoding:NSISOLatin2StringEncoding error:&stError];
             
          } /* End if () */
          
-         if (szFileContent)
-         {
+         if (szFileContent) {
+            
             szFilePath = aPath;
             
             break;
@@ -427,8 +441,8 @@ BASE_CLASS(IDEAAppletResource)
       
    } while (0); /* End do while (0) */
    
-   if (nil == szFileContent)
-   {
+   if (nil == szFileContent) {
+      
       ERROR(@"Failed to resource\n%@", [stError description]);
       
       return nil;
@@ -443,34 +457,34 @@ BASE_CLASS(IDEAAppletResource)
    return stResource;
 }
 
-+ (id)resourceForClass:(Class)aClass
-{
-   if (nil == aClass)
-   {
++ (id)resourceForClass:(Class)aClass {
+   
+   if (nil == aClass) {
+      
       return nil;
       
    } /* End if () */
    
    Class stBaseClass = [self baseClass];
    
-   if (nil == stBaseClass)
-   {
+   if (nil == stBaseClass) {
+      
       stBaseClass = [NSObject class];
       
    } /* End if () */
    
-   for (Class stThisClass = self; stThisClass != stBaseClass; )
-   {
+   for (Class stThisClass = self; stThisClass != stBaseClass; ) {
+      
       NSArray  *stExtensions = [self supportedExtensionsForClass:stThisClass];
       
-      for (NSString *szExtension in stExtensions)
-      {
+      for (NSString *szExtension in stExtensions) {
+         
          NSString          *szFileName = [NSString stringWithFormat:@"%s.%@", class_getName(stThisClass), szExtension];
          
          IDEAAppletResource   *stResource = [self resourceAtPath:szFileName inBundle:nil];
          
-         if (stResource)
-         {
+         if (stResource) {
+            
             return stResource;
             
          } /* End if () */
@@ -479,8 +493,8 @@ BASE_CLASS(IDEAAppletResource)
       
       stThisClass = class_getSuperclass(stThisClass);
       
-      if (nil == stThisClass)
-      {
+      if (nil == stThisClass) {
+         
          break;
          
       } /* End if () */
@@ -492,63 +506,67 @@ BASE_CLASS(IDEAAppletResource)
 
 #pragma mark -
 
-+ (NSArray *)supportedTypesForClass:(Class)clazz
-{
++ (NSArray *)supportedTypesForClass:(Class)clazz {
+   
    NSMutableArray * types = [NSMutableArray array];
    
    Class baseClass = [self baseClass];
    
-   if (nil == baseClass)
-   {
+   if (nil == baseClass) {
+      
       baseClass = [NSObject class];
    }
    
-   for (Class thisClass = self; thisClass != baseClass;)
-   {
+   for (Class thisClass = self; thisClass != baseClass; ) {
+      
       [types addObjectsFromArray:[thisClass supportedTypes]];
       
       thisClass = class_getSuperclass(thisClass);
-      if (nil == thisClass)
+      if (nil == thisClass) {
          break;
-   }
+      }
+      
+   } /* End for () */
    
    return types;
 }
 
-+ (NSArray *)supportedExtensionsForClass:(Class)clazz
-{
++ (NSArray *)supportedExtensionsForClass:(Class)clazz {
+   
    NSMutableArray * types = [NSMutableArray array];
    
    Class baseClass = [self baseClass];
    
-   if (nil == baseClass)
-   {
+   if (nil == baseClass) {
+      
       baseClass = [NSObject class];
    }
    
-   for (Class thisClass = self; thisClass != baseClass;)
-   {
+   for (Class thisClass = self; thisClass != baseClass;) {
+      
       [types addObjectsFromArray:[thisClass supportedExtensions]];
       
       thisClass = class_getSuperclass(thisClass);
-      if (nil == thisClass)
+      if (nil == thisClass) {
          break;
+      }
    }
    
    return types;
 }
 
-+ (BOOL)supportType:(NSString *)type
-{
-   if (nil == type)
++ (BOOL)supportType:(NSString *)type {
+   
+   if (nil == type) {
       return NO;
+   }
    
    NSArray * supportedTypes = [self supportedTypes];
    
-   for (NSString * supportedType in supportedTypes)
-   {
-      if (NSOrderedSame == [type compare:supportedType options:NSCaseInsensitiveSearch])
-      {
+   for (NSString * supportedType in supportedTypes) {
+      
+      if (NSOrderedSame == [type compare:supportedType options:NSCaseInsensitiveSearch]) {
+         
          return YES;
       }
    }
@@ -556,17 +574,18 @@ BASE_CLASS(IDEAAppletResource)
    return NO;
 }
 
-+ (BOOL)supportExtension:(NSString *)extension
-{
-   if (nil == extension)
++ (BOOL)supportExtension:(NSString *)extension {
+   
+   if (nil == extension) {
       return NO;
+   }
    
    NSArray * supportedExtensions = [self supportedExtensions];
    
-   for (NSString * supportedExtension in supportedExtensions)
-   {
-      if (NSOrderedSame == [extension compare:supportedExtension options:NSCaseInsensitiveSearch])
-      {
+   for (NSString * supportedExtension in supportedExtensions) {
+      
+      if (NSOrderedSame == [extension compare:supportedExtension options:NSCaseInsensitiveSearch]) {
+         
          return YES;
       }
    }
@@ -576,27 +595,27 @@ BASE_CLASS(IDEAAppletResource)
 
 #pragma mark -
 
-+ (NSArray *)supportedTypes
-{
++ (NSArray *)supportedTypes {
+   
    return @[];
 }
 
-+ (NSArray *)supportedExtensions
-{
++ (NSArray *)supportedExtensions {
+   
    return @[];
 }
 
-+ (NSString *)baseDirectory
-{
++ (NSString *)baseDirectory {
+   
    return nil;
 }
 
-- (BOOL)isRemote
-{
-   if (self.resPath)
-   {
-      if ([self.resPath hasPrefix:@"http://"] || [self.resPath hasPrefix:@"https://"])
-      {
+- (BOOL)isRemote {
+   
+   if (self.resPath) {
+      
+      if ([self.resPath hasPrefix:@"http://"] || [self.resPath hasPrefix:@"https://"]) {
+         
          return YES;
       }
    }
@@ -604,17 +623,19 @@ BASE_CLASS(IDEAAppletResource)
    return NO;
 }
 
-- (BOOL)parse
-{
+- (BOOL)parse {
+   
    return NO;
 }
 
-- (void)merge:(IDEAAppletResource *)another
-{
+- (void)merge:(IDEAAppletResource *)another {
+   
+   return;
 }
 
-- (void)clear
-{
+- (void)clear {
+
+   return;
 }
 
 @end
@@ -629,12 +650,10 @@ BASE_CLASS(IDEAAppletResource)
 
 TEST_CASE(UI, Resource)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

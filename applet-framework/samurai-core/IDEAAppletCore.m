@@ -57,8 +57,8 @@
 
 @implementation __ClassLoader_Core
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletAsserter  classAutoLoad];
    [IDEAAppletDebugger  classAutoLoad];
    [IDEAAppletLogger    classAutoLoad];

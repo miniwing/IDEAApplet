@@ -46,22 +46,21 @@
 
 @def_singleton( IDEAAppletModelManager )
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
    [IDEAAppletModelManager sharedInstance];
    
-   for (NSString *szClassName in [IDEAAppletModel subClasses])
-   {
+   for (NSString *szClassName in [IDEAAppletModel subClasses]) {
+      
       Class  stClassType   = NSClassFromString(szClassName);
       
-      if (nil == stClassType)
-      {
+      if (nil == stClassType) {
+         
          continue;
          
       } /* End if () */
       
-      if ([stClassType instancesRespondToSelector:@selector(sharedInstance)])
-      {
+      if ([stClassType instancesRespondToSelector:@selector(sharedInstance)]) {
+         
          [stClassType sharedInstance];
          
       } /* End if () */
@@ -71,12 +70,12 @@
    return;
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       _models = [NSMutableArray nonRetainingArray];
       
    } /* End if () */
@@ -84,8 +83,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_models removeAllObjects];
    _models = nil;
    
@@ -94,27 +93,27 @@
    return;
 }
 
-- (NSArray *)loadedModels
-{
+- (NSArray *)loadedModels {
+   
    NSMutableArray *stArray = [NSMutableArray nonRetainingArray];
    [stArray addObjectsFromArray:_models];
    return stArray;
 }
 
-- (NSArray *)loadedModelsByClass:(Class)clazz
-{
-   if (0 == _models.count)
-   {
+- (NSArray *)loadedModelsByClass:(Class)clazz {
+   
+   if (0 == _models.count) {
+      
       return nil;
       
    } /* End if () */
    
    NSMutableArray *stArray = [NSMutableArray nonRetainingArray];
    
-   for (IDEAAppletModel *stModel in _models)
-   {
-      if ([stModel isKindOfClass:clazz])
-      {
+   for (IDEAAppletModel *stModel in _models) {
+      
+      if ([stModel isKindOfClass:clazz]) {
+         
          [stArray addObject:stModel];
          
       } /* End if () */
@@ -124,17 +123,22 @@
    return stArray;
 }
 
-- (void)addModel:(id)model
-{
-   if (NO == [_models containsObject:model])
-   {
+- (void)addModel:(id)model {
+   
+   if (NO == [_models containsObject:model]) {
+      
       [_models addObject:model];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)removeModel:(id)model
-{
+- (void)removeModel:(id)model {
+   
    [_models removeObject:model];
+   
+   return;
 }
 
 @end
@@ -149,12 +153,10 @@
 
 TEST_CASE(Model, ModelManager)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

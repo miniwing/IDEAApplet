@@ -49,64 +49,64 @@
 
 @implementation IDEAAppletCSSRuleCollector
 
-- (NSDictionary *)collectFromRuleSet:(IDEAAppletCSSRuleSet *)ruleSet forElement:(id<IDEAAppletCSSProtocol>)element
-{
+- (NSDictionary *)collectFromRuleSet:(IDEAAppletCSSRuleSet *)ruleSet forElement:(id<IDEAAppletCSSProtocol>)element {
+   
    if ( nil == element || nil == ruleSet )
       return nil;
    
    NSMutableArray * matchedRules = [NSMutableArray array];
-
-// pseudoId
+   
+   // pseudoId
    
    [self collectMatchingRules:[ruleSet shadowPseudoElementRulesWithKey:[element cssShadowPseudoId]]
-               forElement:element
-            toMatchedRules:matchedRules];
-
-// #id
-
-   [self collectMatchingRules:[ruleSet idRulesWithKey:[element cssId]]
-               forElement:element
-            toMatchedRules:matchedRules];
-   
-// .Class
-   
-   for ( NSString * className in [element cssClasses] )
-   {
-      [self collectMatchingRules:[ruleSet classRulesWithKey:className]
-                  forElement:element
+                   forElement:element
                toMatchedRules:matchedRules];
+   
+   // #id
+   
+   [self collectMatchingRules:[ruleSet idRulesWithKey:[element cssId]]
+                   forElement:element
+               toMatchedRules:matchedRules];
+   
+   // .Class
+   
+   for ( NSString * className in [element cssClasses] ) {
+      
+      [self collectMatchingRules:[ruleSet classRulesWithKey:className]
+                      forElement:element
+                  toMatchedRules:matchedRules];
    }
    
-//    if (element.isLink())
-//        collectMatchingRules(matchRequest.ruleSet->linkPseudoClassRules(), cascadeOrder, matchRequest, ruleRange);
-
-//    if (SelectorChecker::matchesFocusPseudoClass(element))
-//        collectMatchingRules(matchRequest.ruleSet->focusPseudoClassRules(), cascadeOrder, matchRequest, ruleRange);
-
-// Tag
+   //    if (element.isLink())
+   //        collectMatchingRules(matchRequest.ruleSet->linkPseudoClassRules(), cascadeOrder, matchRequest, ruleRange);
+   
+   //    if (SelectorChecker::matchesFocusPseudoClass(element))
+   //        collectMatchingRules(matchRequest.ruleSet->focusPseudoClassRules(), cascadeOrder, matchRequest, ruleRange);
+   
+   // Tag
    
    [self collectMatchingRules:[ruleSet tagRulesWithKey:[element cssTag]]
-               forElement:element
-            toMatchedRules:matchedRules];
+                   forElement:element
+               toMatchedRules:matchedRules];
    
-// Universal
+   // Universal
    
    [self collectMatchingRules:[ruleSet universalRules]
-               forElement:element
-            toMatchedRules:matchedRules];
-
-    return [self buildResultFromMatchedRules:matchedRules forElement:element];;
+                   forElement:element
+               toMatchedRules:matchedRules];
+   
+   return [self buildResultFromMatchedRules:matchedRules forElement:element];;
 }
 
 #pragma mark -
 
-- (void)collectMatchingRules:(NSArray *)rules forElement:(id<IDEAAppletCSSProtocol>)element toMatchedRules:(NSMutableArray *)matchedRules
-{
-    if ( nil == rules )
-        return;
-
-    for ( IDEAAppletCSSRule * ruleData in rules )
-   {
+- (void)collectMatchingRules:(NSArray *)rules forElement:(id<IDEAAppletCSSProtocol>)element toMatchedRules:(NSMutableArray *)matchedRules {
+   
+   if ( nil == rules )
+      return;
+   
+   for ( IDEAAppletCSSRule * ruleData in rules ) {
+      
       KatanaStyleRule *   rule = ruleData.rule;
       KatanaArray *      declarations = rule->declarations;
       
@@ -119,86 +119,86 @@
       
       context.selector = ruleData.selector;
       context.element = element;
-
-//    context.pseudo =
-//    SelectorChecker checker(m_mode);
-//    SelectorChecker::SelectorCheckingContext context(ruleData.selector(), m_context.element(), SelectorChecker::VisitedMatchEnabled);
-//    context.elementStyle = m_style.get();
-//    context.scope = scope;
-//    context.pseudoId = m_pseudoStyleRequest.pseudoId;
-//    context.scrollbar = m_pseudoStyleRequest.scrollbar;
-//    context.scrollbarPart = m_pseudoStyleRequest.scrollbarPart;
-//    context.isUARule = m_matchingUARules;
-//    context.scopeContainsLastMatchedElement = m_scopeContainsLastMatchedElement;
-
+      
+      //    context.pseudo =
+      //    SelectorChecker checker(m_mode);
+      //    SelectorChecker::SelectorCheckingContext context(ruleData.selector(), m_context.element(), SelectorChecker::VisitedMatchEnabled);
+      //    context.elementStyle = m_style.get();
+      //    context.scope = scope;
+      //    context.pseudoId = m_pseudoStyleRequest.pseudoId;
+      //    context.scrollbar = m_pseudoStyleRequest.scrollbar;
+      //    context.scrollbarPart = m_pseudoStyleRequest.scrollbarPart;
+      //    context.isUARule = m_matchingUARules;
+      //    context.scopeContainsLastMatchedElement = m_scopeContainsLastMatchedElement;
+      
       IDEAAppletCSSSelectorMatch match = [checker match:context result:matchResult];
-      if ( IDEAAppletCSSSelectorMatches == match )
-      {
+      if ( IDEAAppletCSSSelectorMatches == match ) {
          
-// TODO: @(QFish) 检查伪类的逻辑
-//    if (m_pseudoStyleRequest.pseudoId != NOPSEUDO && m_pseudoStyleRequest.pseudoId != result->dynamicPseudo)
-//        return;
-
-//      IDEAAppletCSSPseudoId dynamicPseudo = result.dynamicPseudo;
-//      TODO: (@QFish) 检查 dynamicPseudo 来判断是否满足
-//      addMatchedRule(&ruleData, result.specificity, cascadeOrder, matchRequest.styleSheetIndex, matchRequest.styleSheet);
-
+         
+         // TODO: @(QFish) 检查伪类的逻辑
+         //    if (m_pseudoStyleRequest.pseudoId != NOPSEUDO && m_pseudoStyleRequest.pseudoId != result->dynamicPseudo)
+         //        return;
+         
+         //      IDEAAppletCSSPseudoId dynamicPseudo = result.dynamicPseudo;
+         //      TODO: (@QFish) 检查 dynamicPseudo 来判断是否满足
+         //      addMatchedRule(&ruleData, result.specificity, cascadeOrder, matchRequest.styleSheetIndex, matchRequest.styleSheet);
+         
          [matchedRules addObject:ruleData];
       }
    }
 }
 
-- (NSDictionary *)buildResultFromMatchedRules:(NSMutableArray *)matchedRules forElement:(id<IDEAAppletCSSProtocol>)element
-{
+- (NSDictionary *)buildResultFromMatchedRules:(NSMutableArray *)matchedRules forElement:(id<IDEAAppletCSSProtocol>)element {
+   
    [matchedRules sortUsingComparator:^NSComparisonResult( IDEAAppletCSSRule * obj1, IDEAAppletCSSRule * obj2 ) {
       
       NSUInteger specificity1 = obj1.specificity;
       NSUInteger specificity2 = obj2.specificity;
-
-        return (specificity1 == specificity2) ? obj1.position > obj2.position : specificity1 > specificity2;
+      
+      return (specificity1 == specificity2) ? obj1.position > obj2.position : specificity1 > specificity2;
    }];
-
+   
    NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
    NSMutableDictionary * importants = [[NSMutableDictionary alloc] init];
-
-    for ( IDEAAppletCSSRule * ruleData in matchedRules )
-    {
+   
+   for ( IDEAAppletCSSRule * ruleData in matchedRules ) {
+      
       NSDictionary * dict1 = [[IDEAAppletCSSParser sharedInstance] buildDictionary:ruleData.rule->declarations];
       NSDictionary * dict2 = [[IDEAAppletCSSParser sharedInstance] buildImportants:ruleData.rule->declarations];
       
-      for ( NSString * key in dict1 )
-      {
+      for ( NSString * key in dict1 ) {
+         
          NSObject * value = [dict1 objectForKey:key];
          
-         if ( value )
-         {
+         if ( value ) {
+            
             [result setObject:value forKey:key];
          }
       }
-
-      for ( NSString * key in dict2 )
-      {
+      
+      for ( NSString * key in dict2 ) {
+         
          NSObject * value = [dict2 objectForKey:key];
          
-         if ( value )
-         {
+         if ( value ) {
+            
             [importants setObject:value forKey:key];
          }
       }
-    }
+   }
    
-// !important
+   // !important
    
-   for ( NSString * key in importants )
-   {
+   for ( NSString * key in importants ) {
+      
       NSObject * value = [importants objectForKey:key];
       
-      if ( value )
-      {
+      if ( value ) {
+         
          [result setObject:value forKey:key];
       }
    }
-
+   
    return result;
 }
 
@@ -214,12 +214,12 @@
 
 TEST_CASE( WebCore, CSSRuleCollector )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

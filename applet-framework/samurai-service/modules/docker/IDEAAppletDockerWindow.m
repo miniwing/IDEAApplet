@@ -41,16 +41,15 @@
 
 @implementation IDEAAppletDockerWindow
 
-
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
    self = [super init];
-   if (self)
-   {
+   if (self) {
+      
       //   self.alpha = 0.75f;
       self.backgroundColor    = [UIColor clearColor];
       self.windowLevel        = UIWindowLevelStatusBar + 2.0f;
@@ -73,23 +72,17 @@
    return self;
 }
 
-
-- (void)dealloc
-{
-   int                            nErr                                     = EFAULT;
-   
-   __TRY;
+- (void)dealloc {
    
    [[NSNotificationCenter defaultCenter] removeObserver:self];
-   
-   __CATCH(nErr);
+
+   __SUPER_DEALLOC;
    
    return;
 }
 
-
-- (void)addDockerView:(IDEAAppletDockerView *)aDocker
-{
+- (void)addDockerView:(IDEAAppletDockerView *)aDocker {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -101,15 +94,14 @@
    return;
 }
 
-
-- (void)removeDockerView:(IDEAAppletDockerView *)aDocker
-{
+- (void)removeDockerView:(IDEAAppletDockerView *)aDocker {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   if (aDocker.superview == self)
-   {
+   if (aDocker.superview == self) {
+      
       [aDocker removeFromSuperview];
       
    } /* End if () */
@@ -119,9 +111,8 @@
    return;
 }
 
-
-- (void)removeAllDockerViews
-{
+- (void)removeAllDockerViews {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -133,9 +124,8 @@
    return;
 }
 
-
-- (void)relayoutAllDockerViews
-{
+- (void)relayoutAllDockerViews {
+   
    int                            nErr                                     = EFAULT;
    
    NSMutableArray                *stDockerViews                            = [NSMutableArray nonRetainingArray];
@@ -145,10 +135,10 @@
    __TRY;
    
    
-   for (UIView * subview in self.subviews)
-   {
-      if ([subview isKindOfClass:[IDEAAppletDockerView class]])
-      {
+   for (UIView * subview in self.subviews) {
+      
+      if ([subview isKindOfClass:[IDEAAppletDockerView class]]) {
+         
          [stDockerViews addObject:subview];
          
       } /* End if () */
@@ -165,8 +155,8 @@
    stWindowBound.origin.x     = [UIScreen mainScreen].bounds.size.width - stWindowBound.size.width - DOCKER_RIGHT;
    stWindowBound.origin.y     = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - DOCKER_BOTTOM;
    
-   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]])
-   {
+   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+      
       UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
       
       stWindowBound.origin.y  = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - stTabBarController.tabBar.frame.size.height - DOCKER_BOTTOM;
@@ -175,8 +165,8 @@
    
    self.frame = stWindowBound;
    
-   for (IDEAAppletDockerView * stDockerView in stDockerViews)
-   {
+   for (IDEAAppletDockerView * stDockerView in stDockerViews) {
+      
       CGRect stDockerFrame;
       stDockerFrame.size.width   = DOCKER_HEIGHT;
       stDockerFrame.size.height  = DOCKER_HEIGHT;
@@ -191,30 +181,26 @@
    return;
 }
 
-
-- (void)setFrame:(CGRect)newFrame
-{
+- (void)setFrame:(CGRect)newFrame {
+   
    [super setFrame:newFrame];
    
    return;
 }
 
-
-- (void)orientationWillChange
-{
+- (void)orientationWillChange {
+   
    [self relayoutAllDockerViews];
    
    return;
 }
 
-
-- (void)orientationDidChanged
-{
+- (void)orientationDidChanged {
+   
    [self relayoutAllDockerViews];
    
    return;
 }
-
 
 @end
 
@@ -228,12 +214,10 @@
 
 TEST_CASE(Service, DockerWindow)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

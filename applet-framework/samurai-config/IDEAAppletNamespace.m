@@ -44,8 +44,8 @@ __strong IDEAAppletNamespace * APPLET = nil;
 
 @implementation IDEAAppletNamespace
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    APPLET = [[IDEAAppletNamespace alloc] init];
    
    return;

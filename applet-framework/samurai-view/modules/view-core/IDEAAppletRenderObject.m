@@ -89,7 +89,6 @@
 
 - (CGSize)computeSizeByWidth:(CGFloat)aWidth {
    
-   
 //   UNUSED(aWidth);
 
    return CGSizeZero;
@@ -164,18 +163,19 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if (self)
-   {
+   if (self) {
+      
       self.id = [NSNumber numberWithUnsignedInteger:__objectSeed++];      
    }
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
    self.viewClass = nil;
@@ -192,8 +192,8 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (void)deepCopyFrom:(IDEAAppletRenderObject *)right
-{
+- (void)deepCopyFrom:(IDEAAppletRenderObject *)right {
+   
 //   [super deepCopyFrom:right];
    
    [self bindDom:right.dom];
@@ -206,109 +206,113 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (CGSize)computeSize:(CGSize)bound
-{
+- (CGSize)computeSize:(CGSize)bound {
+   
    return CGSizeZero;
 }
 
-- (CGFloat)computeWidth:(CGFloat)height
-{
+- (CGFloat)computeWidth:(CGFloat)height {
+   
    return [self computeSize:CGSizeMake(INVALID_VALUE, height)].width;
 }
 
-- (CGFloat)computeHeight:(CGFloat)width
-{
+- (CGFloat)computeHeight:(CGFloat)width {
+   
    return [self computeSize:CGSizeMake(width, INVALID_VALUE)].width;
 }
 
 #pragma mark -
 
-- (IDEAAppletRenderObject *)prevObject
-{
+- (IDEAAppletRenderObject *)prevObject {
+   
    return nil;
 }
 
-- (IDEAAppletRenderObject *)nextObject
-{
-   return nil;
-}
-
-#pragma mark -
-
-- (NSString *)signalNamespace
-{
-   return nil;
-}
-
-- (NSString *)signalTag
-{
-   return nil;
-}
-
-- (NSString *)signalDescription
-{
-   return nil;
-}
-
-- (id)signalResponders
-{
-   return nil;
-}
-
-- (id)signalAlias
-{
+- (IDEAAppletRenderObject *)nextObject {
+   
    return nil;
 }
 
 #pragma mark -
 
-- (void)relayout
-{
+- (NSString *)signalNamespace {
+   
+   return nil;
 }
 
-- (void)restyle
-{
+- (NSString *)signalTag {
+   
+   return nil;
 }
 
-- (void)rechain
-{
+- (NSString *)signalDescription {
+   
+   return nil;
+}
+
+- (id)signalResponders {
+   
+   return nil;
+}
+
+- (id)signalAlias {
+   
+   return nil;
 }
 
 #pragma mark -
 
-- (UIView *)createViewWithIdentifier:(NSString *)identifier
-{
+- (void)relayout {
+   
+   return;
+}
+
+- (void)restyle {
+
+   return;
+}
+
+- (void)rechain {
+
+   return;
+}
+
+#pragma mark -
+
+- (UIView *)createViewWithIdentifier:(NSString *)aIdentifier {
+   
 //   if (nil == self.dom)
 //      return nil;
    
-   if (nil == self.viewClass)
+   if (nil == self.viewClass) {
       return nil;
+   }
 
-   self.view = [self.viewClass createInstanceWithRenderer:self identifier:identifier];
+   self.view = [self.viewClass createInstanceWithRenderer:self identifier:aIdentifier];
 
-   if (self.view)
-   {
+   if (self.view) {
+      
       self.view.renderer = self;
 
       UIView * contentView = nil;
 
-      if ([self.view respondsToSelector:@selector(contentView)])
-      {
+      if ([self.view respondsToSelector:@selector(contentView)]) {
+         
          contentView = [self.view performSelector:@selector(contentView) withObject:nil];
       }
-      else
-      {
+      else {
+         
          contentView = self.view;
       }
       
-      for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator])
-      {
-         if (nil == child.view)
-         {
+      for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator]) {
+         
+         if (nil == child.view) {
+            
             UIView * childView = [child createViewWithIdentifier:nil];
             
-            if (childView)
-            {
+            if (childView) {
+               
                [contentView addSubview:childView];
             }
 
@@ -328,48 +332,50 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
-- (void)bindOutletsTo:(NSObject *)container
-{
+- (void)bindOutletsTo:(NSObject *)container {
+   
+   return;
 }
 
-- (void)unbindOutletsFrom:(NSObject *)container
-{
+- (void)unbindOutletsFrom:(NSObject *)container {
+
+   return;
 }
 
-- (void)bindView:(UIView *)view
-{
-   if (nil == view)
-   {
+- (void)bindView:(UIView *)view {
+   
+   if (nil == view) {
+      
       [self unbindView];
    }
-   else
-   {
+   else {
+      
       self.view = view;
       self.viewClass = [view class];
       
-      if (self.view)
-      {
+      if (self.view) {
+         
          self.view.renderer = self;
          
          UIView * contentView = nil;
          
-         if ([self.view respondsToSelector:@selector(contentView)])
-         {
+         if ([self.view respondsToSelector:@selector(contentView)]) {
+            
             contentView = [self.view performSelector:@selector(contentView) withObject:nil];
          }
-         else
-         {
+         else {
+            
             contentView = self.view;
          }
          
-         for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator])
-         {
-            if (nil == child.view)
-            {
+         for (IDEAAppletRenderObject * child in [self.childs reverseObjectEnumerator]) {
+            
+            if (nil == child.view) {
+               
                UIView * childView = [child createViewWithIdentifier:nil];
                
-               if (childView)
-               {
+               if (childView) {
+                  
                   [contentView addSubview:childView];
                }
                
@@ -380,53 +386,68 @@ static NSUInteger __objectSeed = 0;
          [self.view prepareForRendering];
       }
    }
+
+   return;
 }
 
-- (void)unbindView
-{
+- (void)unbindView {
+   
    self.view = nil;
+
+   return;
 }
 
-- (void)bindDom:(IDEAAppletDomNode *)newDom
-{
+- (void)bindDom:(IDEAAppletDomNode *)newDom {
+   
    self.dom = newDom;
+
+   return;
 }
 
-- (void)unbindDom
-{
+- (void)unbindDom {
+   
    self.dom = nil;
+
+   return;
 }
 
-- (void)bindStyle:(IDEAAppletRenderStyle *)newStyle
-{
+- (void)bindStyle:(IDEAAppletRenderStyle *)newStyle {
+   
    self.style = newStyle;
+
+   return;
 }
 
-- (void)unbindStyle
-{
+- (void)unbindStyle {
+   
    self.style = nil;
+
+   return;
 }
 
 #pragma mark -
 
-- (id)serialize
-{
+- (id)serialize {
+   
    return nil;
 }
 
-- (void)unserialize:(id)obj
-{
+- (void)unserialize:(id)obj {
+   
    UNUSED(obj);
+
+   return;
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
+   return;
 }
 
 #pragma mark -
 
-- (NSString *)description
-{
+- (NSString *)description {
+   
    [[IDEAAppletLogger sharedInstance] outputCapture];
    
    [self dump];
@@ -436,20 +457,20 @@ static NSUInteger __objectSeed = 0;
    return [IDEAAppletLogger sharedInstance].output;
 }
 
-- (void)dump
-{
-   if (DomNodeType_Text == self.dom.type)
-   {
+- (void)dump {
+   
+   if (DomNodeType_Text == self.dom.type) {
+      
       PRINT(@"\"%@ ...\", [%@]", self.dom.text, [self.viewClass description]);
    }
-   else
-   {
+   else {
+      
       PRINT(@"<%@>, [%@]", self.dom.tag ?: @"", [self.viewClass description]);
       
       [[IDEAAppletLogger sharedInstance] indent];
       
-      for (IDEAAppletRenderObject * child in self.childs)
-      {
+      for (IDEAAppletRenderObject * child in self.childs) {
+         
          [child dump];
       }
       
@@ -457,6 +478,8 @@ static NSUInteger __objectSeed = 0;
 
       PRINT(@"</%@>", self.dom.tag ?: @"");
    }
+
+   return;
 }
 
 @end
@@ -471,12 +494,12 @@ static NSUInteger __objectSeed = 0;
 
 TEST_CASE(UI, RenderObject)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
 }
 
 TEST_CASE_END

@@ -50,61 +50,61 @@
 @def_prop_dynamic( NSString *,   bundleName );
 @def_prop_dynamic( NSString *,   extensionName );
 
-- (NSString *)bundleName
-{
+- (NSString *)bundleName {
+   
    return [[self.resourcePath lastPathComponent] stringByDeletingPathExtension];
 }
 
-- (NSString *)extensionName
-{
+- (NSString *)extensionName {
+   
    return [self.resourcePath pathExtension];
 }
 
-- (id)dataForResource:(NSString *)aResName
-{
+- (id)dataForResource:(NSString *)aResName {
+   
    NSString *szPath  = [NSString stringWithFormat:@"%@/%@", self.resourcePath, aResName];
    NSData   *stData  = [NSData dataWithContentsOfFile:szPath];
 
    return stData;
 }
 
-- (id)textForResource:(NSString *)aResName
-{
+- (id)textForResource:(NSString *)aResName {
+   
    NSString *szPath  = [NSString stringWithFormat:@"%@/%@", self.resourcePath, aResName];
    NSString *stData  = [NSString stringWithContentsOfFile:szPath encoding:NSUTF8StringEncoding error:NULL];
    
    return stData;
 }
 
-- (id)imageForResource:(NSString *)aResName
-{
+- (id)imageForResource:(NSString *)aResName {
+   
    NSString *szExtensionName  = [aResName pathExtension];
    NSString *szResourceName   = [aResName substringToIndex:(aResName.length - szExtensionName.length - 1)];
    
    UIImage  *stImage          = nil;
    
-   if ( nil == stImage && [[IDEAAppletSystem sharedInstance] isScreen640x1136] )
-   {
+   if ( nil == stImage && [[IDEAAppletSystem sharedInstance] isScreen640x1136] ) {
+      
       NSString *szPath  = [NSString stringWithFormat:@"%@/%@-568h@2x.%@", self.resourcePath, szResourceName, szExtensionName];
       NSString *szPath2 = [NSString stringWithFormat:@"%@/%@-568h.%@", self.resourcePath, szResourceName, szExtensionName];
       
       stImage = [[UIImage alloc] initWithContentsOfFile:szPath];
-      if ( nil == stImage )
-      {
+      if ( nil == stImage ) {
+         
          stImage = [[UIImage alloc] initWithContentsOfFile:szPath2];
          
       } /* End if () */
       
    } /* End if () */
    
-   if ( nil == stImage )
-   {
+   if ( nil == stImage ) {
+      
       NSString *szPath  = [NSString stringWithFormat:@"%@/%@@2x.%@", self.resourcePath, szResourceName, szExtensionName];
       NSString *szPath2 = [NSString stringWithFormat:@"%@/%@.%@", self.resourcePath, szResourceName, szExtensionName];
       
       stImage = [[UIImage alloc] initWithContentsOfFile:szPath];
-      if ( nil == stImage )
-      {
+      if ( nil == stImage ) {
+         
          stImage = [[UIImage alloc] initWithContentsOfFile:szPath2];
          
       } /* End if () */
@@ -126,12 +126,10 @@
 
 TEST_CASE( Core, NSBundle_Extension )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

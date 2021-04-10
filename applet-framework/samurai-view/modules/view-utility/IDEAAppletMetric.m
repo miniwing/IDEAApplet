@@ -40,20 +40,20 @@
 
 #pragma mark -
 
-CGSize AspectFitSizeByWidth( CGSize size, CGFloat width )
-{
+CGSize AspectFitSizeByWidth( CGSize size, CGFloat width ) {
+   
    float scale = size.width / width;
    return CGSizeMake( size.width / scale, size.height / scale );
 }
 
-CGSize AspectFitSizeByHeight( CGSize size, CGFloat height )
-{
+CGSize AspectFitSizeByHeight( CGSize size, CGFloat height ) {
+   
    float scale = size.height / height;
    return CGSizeMake( size.width / scale, size.height / scale );
 }
 
-CGSize AspectFillSizeByWidth( CGSize size, CGFloat width )
-{
+CGSize AspectFillSizeByWidth( CGSize size, CGFloat width ) {
+   
    float scale = width / size.width;
    
    size.width *= scale;
@@ -64,8 +64,8 @@ CGSize AspectFillSizeByWidth( CGSize size, CGFloat width )
    return size;
 }
 
-CGSize AspectFillSizeByHeight( CGSize size, CGFloat height )
-{
+CGSize AspectFillSizeByHeight( CGSize size, CGFloat height ) {
+   
    float scale = height / size.height;
    
    size.width *= scale;
@@ -76,8 +76,8 @@ CGSize AspectFillSizeByHeight( CGSize size, CGFloat height )
    return size;
 }
 
-CGSize AspectFitSize( CGSize size, CGSize bound )
-{
+CGSize AspectFitSize( CGSize size, CGSize bound ) {
+   
    if ( size.width == 0 || size.height == 0 )
       return CGSizeZero;
    
@@ -98,8 +98,8 @@ CGSize AspectFitSize( CGSize size, CGSize bound )
    return newSize;
 }
 
-CGRect AspectFitRect( CGRect rect, CGRect bound )
-{
+CGRect AspectFitRect( CGRect rect, CGRect bound ) {
+   
    CGSize newSize = AspectFitSize( rect.size, bound.size );
    newSize.width = newSize.width;
    newSize.height = newSize.height;
@@ -113,8 +113,8 @@ CGRect AspectFitRect( CGRect rect, CGRect bound )
    return newRect;
 }
 
-CGSize AspectFillSize( CGSize size, CGSize bound )
-{
+CGSize AspectFillSize( CGSize size, CGSize bound ) {
+   
    CGSize newSize = size;
    CGFloat newScale = 1.0f;
    
@@ -131,8 +131,8 @@ CGSize AspectFillSize( CGSize size, CGSize bound )
    return newSize;
 }
 
-CGRect AspectFillRect( CGRect rect, CGRect bound )
-{
+CGRect AspectFillRect( CGRect rect, CGRect bound ) {
+   
    CGSize newSize = AspectFillSize( rect.size, bound.size );
    newSize.width = newSize.width;
    newSize.height = newSize.height;
@@ -156,12 +156,12 @@ CGRect AspectFillRect( CGRect rect, CGRect bound )
 
 TEST_CASE( UI, Metric )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

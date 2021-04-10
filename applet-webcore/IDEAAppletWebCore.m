@@ -42,9 +42,11 @@
 
 @implementation IDEAAppletWebcore
 
-+ (void)load
-{
-   fprintf( stderr, "  Starting WebCore ...\n" );
++ (void)load {
+   
+//   fprintf( stderr, "  Starting WebCore ...\n" );
+   
+   LogDebug((@"  Starting WebCore ... "));
    
    return;
 }
@@ -61,12 +63,10 @@
 
 TEST_CASE( Samurai, WebCore )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

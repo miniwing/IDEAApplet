@@ -38,24 +38,24 @@
 
 #pragma mark -
 
-@implementation IDEAAppletDockerView
-{
+@implementation IDEAAppletDockerView {
+   
    UIButton *   _open;
    UIButton *   _close;
 }
 
 @def_prop_unsafe  ( IDEAAppletService<ManagedDocker>  *,   service );
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       self.backgroundColor = [UIColor clearColor];
       
       _open = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -79,9 +79,8 @@
    return self;
 }
 
-
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_open removeFromSuperview];
    _open    = nil;
    
@@ -93,9 +92,8 @@
    return;
 }
 
-
-- (void)setFrame:(CGRect)frame
-{
+- (void)setFrame:(CGRect)frame {
+   
    [super setFrame:frame];
    
    CGRect buttonFrame;
@@ -109,25 +107,22 @@
    return;
 }
 
-
-- (void)setImageOpened:(UIImage *)image
-{
-   [_open setImage:image forState:UIControlStateNormal];
+- (void)setImageOpened:(UIImage *)aImage {
+   
+   [_open setImage:aImage forState:UIControlStateNormal];
    
    return;
 }
 
-
-- (void)setImageClosed:(UIImage *)image
-{
-   [_close setImage:image forState:UIControlStateNormal];
+- (void)setImageClosed:(UIImage *)aImage {
+   
+   [_close setImage:aImage forState:UIControlStateNormal];
    
    return;
 }
 
-
-- (void)open
-{
+- (void)open {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -135,8 +130,8 @@
    _open.hidden   = YES;
    _close.hidden  = NO;
    
-   if ([self.service respondsToSelector:@selector(didDockerOpen)])
-   {
+   if ([self.service respondsToSelector:@selector(didDockerOpen)]) {
+      
       [self.service didDockerOpen];
       
    } /* End if () */
@@ -146,9 +141,8 @@
    return;
 }
 
-
-- (void)close
-{
+- (void)close {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -156,8 +150,8 @@
    _open.hidden   = NO;
    _close.hidden  = YES;
    
-   if ([self.service respondsToSelector:@selector(didDockerClose)])
-   {
+   if ([self.service respondsToSelector:@selector(didDockerClose)]) {
+      
       [self.service didDockerClose];
       
    } /* End if () */
@@ -166,7 +160,6 @@
    
    return;
 }
-
 
 @end
 
@@ -180,12 +173,10 @@
 
 TEST_CASE(Service, DockerView)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
 }
 
 TEST_CASE_END

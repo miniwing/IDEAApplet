@@ -42,51 +42,57 @@
 
 @implementation IDEAAppletStyleSheet
 
-@def_prop_strong( NSString *,            href );
-@def_prop_strong( NSString *,            type );
-@def_prop_strong( NSString *,            media );
+@def_prop_strong  ( NSString  *, href  );
+@def_prop_strong  ( NSString  *, type  );
+@def_prop_strong  ( NSString  *, media );
 
-+ (instancetype)styleSheet
-{
++ (instancetype)styleSheet {
+   
    return [[self alloc] init];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
    }
+   
    return self;
 }
 
-- (void)dealloc
-{
-   self.href = nil;
-   self.type = nil;
-   self.media = nil;
+- (void)dealloc {
+   
+   self.href   = nil;
+   self.type   = nil;
+   self.media  = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (NSDictionary *)queryForObject:(NSObject *)object
-{
+- (NSDictionary *)queryForObject:(NSObject *)object {
+   
    return nil;
 }
 
-- (NSDictionary *)queryForString:(NSString *)string
-{
+- (NSDictionary *)queryForString:(NSString *)string {
+   
    return nil;
 }
 
 #pragma mark -
 
-- (void)merge:(IDEAAppletStyleSheet *)styleSheet
-{
+- (void)merge:(IDEAAppletStyleSheet *)styleSheet {
+
+   return;
 }
 
-- (void)clear
-{
+- (void)clear {
+
+   return;
 }
 
 @end
@@ -101,12 +107,12 @@
 
 TEST_CASE( UI, StyleSheet )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -722,9 +722,9 @@ static __strong NSMutableDictionary * __rules = nil;
    if ( nil == property )
       return NO;
    
-   NSString *      propertyName = property;
-   NSObject *      propertyValue = [obj valueForKey:propertyName];
-   NSArray *      ruleValues = [obj extentionForProperty:propertyName arrayValueWithKey:@"Rule"];
+   NSString * propertyName    = property;
+   NSObject * propertyValue   = [obj valueForKey:propertyName];
+   NSArray  * ruleValues      = [obj extentionForProperty:propertyName arrayValueWithKey:@"Rule"];
    
    for ( NSString * ruleValue in ruleValues ) {
       

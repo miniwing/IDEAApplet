@@ -35,17 +35,17 @@
 
 #undef  BASE_CLASS
 #define BASE_CLASS( __class ) \
-      + (Class)baseClass \
-      { \
-         return NSClassFromString( @(#__class) ); \
-      }
+        + (Class)baseClass \
+        { \
+           return NSClassFromString( @(#__class) ); \
+        }
 
 #undef  CONVERT_CLASS
 #define CONVERT_CLASS( __name, __class ) \
-      + (Class)convertClass_##__name \
-      { \
-         return NSClassFromString( @(#__class) ); \
-      }
+        + (Class)convertClass_##__name \
+        { \
+           return NSClassFromString( @(#__class) ); \
+        }
 
 #pragma mark -
 

@@ -45,85 +45,97 @@
 
 #pragma mark -
 
-- (void)onBackPressed
-{
+- (void)onBackPressed {
+   
+   return;
 }
 
-- (void)onDonePressed
-{
+- (void)onDonePressed {
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)showNavigationBar
-{
+- (void)showNavigationBar {
+   
    [self.navigationController setNavigationBarHidden:NO animated:YES];
+   
+   return;
 }
 
-- (void)showNavigationBarAnimated:(BOOL)animated
-{
+- (void)showNavigationBarAnimated:(BOOL)animated {
+   
    [self.navigationController setNavigationBarHidden:NO animated:animated];
+   
+   return;
 }
 
-- (void)hideNavigationBar
-{
+- (void)hideNavigationBar {
+   
    [self.navigationController setNavigationBarHidden:YES animated:YES];
+   
+   return;
 }
 
-- (void)hideNavigationBarAnimated:(BOOL)animated
-{
+- (void)hideNavigationBarAnimated:(BOOL)animated {
+   
    [self.navigationController setNavigationBarHidden:YES animated:animated];
+   
+   return;
 }
 
-- (BOOL)navigationBarShown
-{
+- (BOOL)navigationBarShown {
+   
    return self.navigationController.navigationBarHidden ? NO : YES;
 }
 
-- (void)setNavigationBarShown:(BOOL)flag
-{
-   if ( [self isViewLoaded] && self.view.window )
-   {
-      if ( flag )
-      {
+- (void)setNavigationBarShown:(BOOL)flag {
+   
+   if ( [self isViewLoaded] && self.view.window ) {
+      
+      if ( flag ) {
+         
          [self showNavigationBarAnimated:YES];
       }
-      else
-      {
+      else {
+         
          [self hideNavigationBarAnimated:YES];
       }
    }
-   else
-   {
-      if ( flag )
-      {
+   else {
+      
+      if ( flag ) {
+         
          [self showNavigationBarAnimated:NO];
       }
-      else
-      {
+      else {
+         
          [self hideNavigationBarAnimated:NO];
       }
    }
+   
+   return;
 }
 
 #pragma mark -
 
-- (id)navigationBarTitle
-{
+- (id)navigationBarTitle {
+   
    return self.navigationItem.titleView ?: self.navigationItem.title;
 }
 
-- (void)setNavigationBarTitle:(id)content
-{
-   if ( content )
-   {
-      if ( [content isKindOfClass:[NSString class]] )
-      {
+- (void)setNavigationBarTitle:(id)content {
+   
+   if ( content ) {
+      
+      if ( [content isKindOfClass:[NSString class]] ) {
+         
          self.navigationItem.titleView = nil;
          self.navigationItem.title = content;
       }
-      else if ( [content isKindOfClass:[UIImage class]] )
-      {
+      else if ( [content isKindOfClass:[UIImage class]] ) {
+         
          UIImageView * imageView = [[UIImageView alloc] initWithImage:content];
          imageView.contentMode = UIViewContentModeScaleAspectFit;
          imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -131,79 +143,84 @@
          self.navigationItem.title = nil;
          self.navigationItem.titleView = imageView;
       }
-      else if ( [content isKindOfClass:[UIView class]] )
-      {
+      else if ( [content isKindOfClass:[UIView class]] ) {
+         
          self.navigationItem.title = nil;
          self.navigationItem.titleView = content;
       }
-      else
-      {
+      else {
+         
          self.navigationItem.titleView = nil;
          self.navigationItem.title = nil;         
       }
    }
-   else
-   {
+   else {
       self.navigationItem.titleView = nil;
       self.navigationItem.title = nil;
    }
+   
+   return;
 }
 
-- (id)navigationBarBackButton
-{
+- (id)navigationBarBackButton {
+   
     return self.navigationItem.leftBarButtonItem.customView;
 }
 
-- (void)setNavigationBarBackButton:(id)content
-{
+- (void)setNavigationBarBackButton:(id)content {
+   
    self.navigationItem.leftBarButtonItem = [self createBarButtonItemForContent:content action:@selector(onBackPressed)];
+   
+   return;
 }
 
-- (id)navigationBarDoneButton
-{
+- (id)navigationBarDoneButton {
+   
     return self.navigationItem.rightBarButtonItem;
 }
 
-- (void)setNavigationBarDoneButton:(id)content
-{
+- (void)setNavigationBarDoneButton:(id)content {
+   
    self.navigationItem.rightBarButtonItem = [self createBarButtonItemForContent:content action:@selector(onDonePressed)];
+   
+   return;
 }
 
 #pragma mark -
 
-- (UIBarButtonItem *)createBarButtonItemForContent:(id)content action:(SEL)action
-{
-   UIBarButtonItem * item = nil;
+- (UIBarButtonItem *)createBarButtonItemForContent:(id)aContent action:(SEL)aAction {
    
-   if ( content )
-   {
-      if ( [content isKindOfClass:[NSString class]] )
-      {
-         item = [[UIBarButtonItem alloc] initWithTitle:content style:UIBarButtonItemStylePlain target:self action:action];
+   UIBarButtonItem   *stBarButtonItem  = nil;
+   
+   if ( aContent ) {
+      
+      if ( [aContent isKindOfClass:[NSString class]] ) {
+         
+         stBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:aContent style:UIBarButtonItemStylePlain target:self action:aAction];
       }
-      else if ( [content isKindOfClass:[UIImage class]] )
-      {
-         item = [[UIBarButtonItem alloc] initWithImage:content style:UIBarButtonItemStylePlain target:self action:action];
+      else if ( [aContent isKindOfClass:[UIImage class]] ) {
+         
+         stBarButtonItem = [[UIBarButtonItem alloc] initWithImage:aContent style:UIBarButtonItemStylePlain target:self action:aAction];
       }
-      else if ( [content isKindOfClass:[NSNumber class]] )
-      {
-         item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:[content intValue] target:self action:action];
+      else if ( [aContent isKindOfClass:[NSNumber class]] ) {
+         
+         stBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:[aContent intValue] target:self action:aAction];
       }
-      else if ( [content isKindOfClass:[UIView class]] )
-      {
-         item = [[UIBarButtonItem alloc] initWithCustomView:content];
+      else if ( [aContent isKindOfClass:[UIView class]] ) {
+         
+         stBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:aContent];
       }
    }
    
-   if ( item )
-   {
-      if ( item.width < 64.0f )
-      {
-         item.width = 64.0f;
+   if ( stBarButtonItem ) {
+      
+      if ( stBarButtonItem.width < 64.0f ) {
+         
+         stBarButtonItem.width = 64.0f;
       }
    }
    
-   return item;
+   return stBarButtonItem;
 }
 
 @end
@@ -218,12 +235,10 @@
 
 TEST_CASE( UI, UIViewController_NavigationBar )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

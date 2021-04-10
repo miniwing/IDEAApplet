@@ -40,19 +40,20 @@
 
 #pragma mark -
 
-static const void *   __RetainFunc( CFAllocatorRef allocator, const void * value ) { return value; }
+static const void * __RetainFunc ( CFAllocatorRef allocator, const void * value ) { return value; }
 static void         __ReleaseFunc( CFAllocatorRef allocator, const void * value ) { }
 
 #pragma mark -
 
 @implementation NSMutableSet(Extension)
 
-+ (NSMutableSet *)nonRetainingSet
-{
-   CFSetCallBacks callbacks = kCFTypeSetCallBacks;
-   callbacks.retain = __RetainFunc;
-   callbacks.release = __ReleaseFunc;
-   return (__bridge_transfer NSMutableSet *)CFSetCreateMutable( nil, 0, &callbacks );
++ (NSMutableSet *)nonRetainingSet {
+   
+   CFSetCallBacks  stCallbacks   = kCFTypeSetCallBacks;
+   stCallbacks.retain   = __RetainFunc;
+   stCallbacks.release  = __ReleaseFunc;
+   
+   return (__bridge_transfer NSMutableSet *)CFSetCreateMutable( nil, 0, &stCallbacks );
 }
 
 @end
@@ -67,12 +68,12 @@ static void         __ReleaseFunc( CFAllocatorRef allocator, const void * value 
 
 TEST_CASE( Core, NSMutableSet_Extension )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

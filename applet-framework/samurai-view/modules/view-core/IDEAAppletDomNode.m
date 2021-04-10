@@ -44,16 +44,16 @@
 
 @implementation IDEAAppletDomNode
 
-@def_prop_strong( NSNumber *,            id );
-@def_prop_strong( NSString *,            tag );
-@def_prop_strong( NSString *,            text );
-@def_prop_assign( DomNodeType,            type );
-@def_prop_strong( NSMutableDictionary *,   attr );
+@def_prop_strong  ( NSNumber           *, id       );
+@def_prop_strong  ( NSString           *, tag      );
+@def_prop_strong  ( NSString           *, text     );
+@def_prop_assign  ( DomNodeType         , type     );
+@def_prop_strong  ( NSMutableDictionary*, attr     );
 
-@def_prop_unsafe( IDEAAppletDocument *,      document );
-@def_prop_dynamic( IDEAAppletDomNode *,      parent );
-@def_prop_dynamic( IDEAAppletDomNode *,      prev );
-@def_prop_dynamic( IDEAAppletDomNode *,      next );
+@def_prop_unsafe  ( IDEAAppletDocument *, document );
+@def_prop_dynamic ( IDEAAppletDomNode  *, parent   );
+@def_prop_dynamic ( IDEAAppletDomNode  *, prev     );
+@def_prop_dynamic ( IDEAAppletDomNode  *, next     );
 
 BASE_CLASS( IDEAAppletDomNode )
 
@@ -61,44 +61,50 @@ static NSUInteger __domSeed = 0;
 
 #pragma mark -
 
-+ (instancetype)domNode
-{
++ (instancetype)domNode {
+   
    return [[self alloc] init];
 }
 
 #pragma mark -
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
-      self.id = [NSNumber numberWithUnsignedInteger:__domSeed++];
+   if ( self ) {
+      
+      self.id  = [NSNumber numberWithUnsignedInteger:__domSeed++];
       self.tag = nil;
-      self.text = nil;
-      self.type = DomNodeType_Unknown;
-      self.attr = [[NSMutableDictionary alloc] init];
-   }
+      self.text= nil;
+      self.type= DomNodeType_Unknown;
+      self.attr= [[NSMutableDictionary alloc] init];
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
-   self.id = nil;
-   self.tag = nil;
-   self.text = nil;
-   self.attr = nil;
+- (void)dealloc {
+   
+   self.id     = nil;
+   self.tag    = nil;
+   self.text   = nil;
+   self.attr   = nil;
 
-   self.document = nil;
-   self.parent = nil;
-   self.prev = nil;
-   self.next = nil;
+   self.document  = nil;
+   self.parent    = nil;
+   self.prev      = nil;
+   self.next      = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)deepCopyFrom:(IDEAAppletDomNode *)right
-{
+- (void)deepCopyFrom:(IDEAAppletDomNode *)right {
+   
 //   [super deepCopyFrom:right];
 
    self.tag = right.tag;
@@ -107,78 +113,92 @@ static NSUInteger __domSeed = 0;
    self.document = right.document;
 
    [self.attr setDictionary:right.attr];
+
+   return;
 }
 
 #pragma mark -
 
-- (void)attach:(IDEAAppletDocument *)document
-{
+- (void)attach:(IDEAAppletDocument *)document {
+   
    self.document = document;
    
-   for ( IDEAAppletDomNode * child in self.childs )
-   {
+   for ( IDEAAppletDomNode * child in self.childs ) {
+      
       [child attach:document];
    }
+
+   return;
 }
 
 - (void)detach
 {
    self.document = nil;
    
-   for ( IDEAAppletDomNode * child in self.childs )
-   {
+   for ( IDEAAppletDomNode * child in self.childs ) {
+      
       [child detach];
    }
+
+   return;
 }
 
 #pragma mark -
 
-- (id)objectForKey:(id)key
-{
+- (id)objectForKey:(id)key {
+   
    return [self.attr objectForKey:key];
 }
 
-- (BOOL)hasObjectForKey:(id)key
-{
+- (BOOL)hasObjectForKey:(id)key {
+   
    return [self.attr hasObjectForKey:key];
 }
 
-- (id)objectForKeyedSubscript:(id)key
-{
+- (id)objectForKeyedSubscript:(id)key {
+   
    return [self objectForKey:key];
 }
 
 #pragma mark -
 
-- (void)setObject:(id)object forKey:(id)key
-{
+- (void)setObject:(id)object forKey:(id)key {
+   
    [self.attr setObject:object forKey:key];
+
+   return;
 }
 
-- (void)removeObjectForKey:(id)key
-{
+- (void)removeObjectForKey:(id)key {
+   
    [self.attr removeObjectForKey:key];
+
+   return;
 }
 
-- (void)removeAllObjects
-{
+- (void)removeAllObjects {
+   
    [self.attr removeAllObjects];
+
+   return;
 }
 
-- (void)setObject:(id)obj forKeyedSubscript:(id)key
-{
+- (void)setObject:(id)obj forKeyedSubscript:(id)key {
+   
    [self setObject:obj forKey:key];
+
+   return;
 }
 
 #pragma mark -
 
-- (NSString *)description
-{
+- (NSString *)description {
+   
    return [self.attr description];
 }
 
-- (void)dump
-{
+- (void)dump {
+   
    return;
 }
 
@@ -194,12 +214,10 @@ static NSUInteger __domSeed = 0;
 
 TEST_CASE( UI, DomNode )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

@@ -117,8 +117,8 @@
    } /* End else */
 }
 
-- (id)signalAlias
-{
+- (id)signalAlias {
+   
    IDEAAppletRenderObject  *stRenderer = [self renderer];
    
    if ( stRenderer ) {

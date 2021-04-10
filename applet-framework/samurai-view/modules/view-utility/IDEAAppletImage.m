@@ -44,15 +44,15 @@
 
 #if __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h")
 #else /* __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
-+ (UIImage *)applet_imageWithColor:(UIColor *)color
-{
++ (UIImage *)applet_imageWithColor:(UIColor *)color {
+   
    return [self applet_imageWithColor:color size:CGSizeMake(1.0f, 1.0f)];
 }
 
-+ (UIImage *)applet_imageWithColor:(UIColor *)color size:(CGSize)size
-{
++ (UIImage *)applet_imageWithColor:(UIColor *)color size:(CGSize)size {
+   
    CGRect rect = CGRectMake( 0.0f, 0.0f, size.width, size.height );
-
+   
    UIGraphicsBeginImageContext( rect.size );
    
    CGContextRef context = UIGraphicsGetCurrentContext();
@@ -63,7 +63,7 @@
    UIImage * result = UIGraphicsGetImageFromCurrentImageContext();
    
    UIGraphicsEndImageContext();
-
+   
    return result;
 }
 #endif /* !__has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
@@ -80,12 +80,12 @@
 
 TEST_CASE( UI, Image )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

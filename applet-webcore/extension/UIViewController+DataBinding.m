@@ -44,38 +44,38 @@
 
 @def_prop_dynamic( IDEAAppletHtmlRenderStoreScope *,   scope )
 
-- (IDEAAppletHtmlRenderStoreScope *)scope
-{
+- (IDEAAppletHtmlRenderStoreScope *)scope {
+   
    return [IDEAAppletHtmlRenderStoreScope scope:[self.view renderer]];
 }
 
-- (id)getViewData
-{
+- (id)getViewData {
+   
    return [self.scope getData];
 }
 
-- (id)getViewDataWithPath:(NSString *)path
-{
+- (id)getViewDataWithPath:(NSString *)path {
+   
    return [self.scope getDataWithPath:path];
 }
 
-- (void)setViewData:(NSObject *)data
-{
+- (void)setViewData:(NSObject *)data {
+   
    [self.scope setData:data];
 }
 
-- (void)setViewData:(NSObject *)data withPath:(NSString *)path
-{
+- (void)setViewData:(NSObject *)data withPath:(NSString *)path {
+   
    [self.scope setData:data withPath:path];
 }
 
-- (void)clearViewData
-{
+- (void)clearViewData {
+   
    [self.scope clearData];
 }
 
-- (void)clearViewDataWithPath:(NSString *)path
-{
+- (void)clearViewDataWithPath:(NSString *)path {
+   
    [self.scope clearDataWithPath:path];
 }
 
@@ -91,12 +91,12 @@
 
 TEST_CASE( WebCore, UIViewController_DataBinding )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

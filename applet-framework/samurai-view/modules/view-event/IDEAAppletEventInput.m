@@ -59,12 +59,10 @@
 
 TEST_CASE( UI, ViewEventInput )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

@@ -44,8 +44,8 @@
 
 @implementation __ClassLoader_Service
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    return;
 }
 

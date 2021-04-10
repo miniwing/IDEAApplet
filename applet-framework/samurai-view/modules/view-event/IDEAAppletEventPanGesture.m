@@ -62,152 +62,152 @@
 
 #pragma mark -
 
-+ (BOOL)supportPanGesture
-{
++ (BOOL)supportPanGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)__panGestureInternalCallback:(__PanGestureRecognizer *)gesture
-{
-   if ( UIGestureRecognizerStatePossible == gesture.state )
-   {
+- (void)__panGestureInternalCallback:(__PanGestureRecognizer *)gesture {
+   
+   if ( UIGestureRecognizerStatePossible == gesture.state ) {
+      
       // the recognizer has not yet recognized its gesture, but may be evaluating touch events. this is the default state
    }
-   else if ( UIGestureRecognizerStateBegan == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateBegan == gesture.state ) {
+      
       // the recognizer has received touches recognized as the gesture. the action method will be called at the next turn of the run loop
-
-      if ( self.panSignalName )
-      {
+      
+      if ( self.panSignalName ) {
+         
          [self sendSignal:self.panSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPanBegin];
       }
    }
-   else if ( UIGestureRecognizerStateChanged == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateChanged == gesture.state ) {
+      
       // the recognizer has received touches recognized as a change to the gesture. the action method will be called at the next turn of the run loop
       
-      if ( self.panSignalName )
-      {
+      if ( self.panSignalName ) {
+         
          [self sendSignal:self.panSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPanChanged];
       }
    }
-   else if ( UIGestureRecognizerStateEnded == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateEnded == gesture.state ) {
+      
       // the recognizer has received touches recognized as the end of the gesture. the action method will be called at the next turn of the run loop and the recognizer will be reset to UIGestureRecognizerStatePossible
       
-      if ( self.panSignalName )
-      {
+      if ( self.panSignalName ) {
+         
          [self sendSignal:self.panSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPanEnded];
       }
    }
-   else if ( UIGestureRecognizerStateCancelled == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
+      
       // the recognizer has received touches resulting in the cancellation of the gesture. the action method will be called at the next turn of the run loop. the recognizer will be reset to UIGestureRecognizerStatePossible
       
-      if ( self.panSignalName )
-      {
+      if ( self.panSignalName ) {
+         
          [self sendSignal:self.panSignalName];
       }
-      else
-      {
+      else {
+         
          [self sendSignal:UIView.eventPanCancelled];
       }
    }
-   else if ( UIGestureRecognizerStateFailed == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateFailed == gesture.state ) {
+      
       // the recognizer has received a touch sequence that can not be recognized as the gesture. the action method will not be called and the recognizer will be reset to UIGestureRecognizerStatePossible
    }
 }
 
-- (CGPoint)panOffset
-{
+- (CGPoint)panOffset {
+   
    __PanGestureRecognizer * panGesture = [self panGesture];
    
    return [panGesture translationInView:self];
 }
 
-- (CGPoint)panVelocity
-{
+- (CGPoint)panVelocity {
+   
    __PanGestureRecognizer * panGesture = [self panGesture];
    
    return [panGesture velocityInView:self];
 }
 
-- (__PanGestureRecognizer *)panGesture
-{
+- (__PanGestureRecognizer *)panGesture {
+   
    __PanGestureRecognizer * panGesture = nil;
    
-   for ( UIGestureRecognizer * gesture in self.gestureRecognizers )
-   {
-      if ( [gesture isKindOfClass:[__PanGestureRecognizer class]] )
-      {
+   for ( UIGestureRecognizer * gesture in self.gestureRecognizers ) {
+      
+      if ( [gesture isKindOfClass:[__PanGestureRecognizer class]] ) {
+         
          panGesture = (__PanGestureRecognizer *)gesture;
          break;
       }
    }
-
+   
    return panGesture;
 }
 
 #pragma mark -
 
-- (void)enablePanGesture
-{
+- (void)enablePanGesture {
+   
    [self enablePanGestureWithSignal:nil];
 }
 
-- (void)enablePanGestureWithSignal:(NSString *)signal
-{
-   if ( NO == [[self class] supportPanGesture] )
-   {
+- (void)enablePanGestureWithSignal:(NSString *)signal {
+   
+   if ( NO == [[self class] supportPanGesture] ) {
+      
       return;
    }
-
+   
    __PanGestureRecognizer * panGesture = [self panGesture];
    
-   if ( nil == panGesture )
-   {
+   if ( nil == panGesture ) {
+      
       panGesture = [[__PanGestureRecognizer alloc] initWithTarget:self action:@selector(__panGestureInternalCallback:)];
       panGesture.cancelsTouchesInView = NO;
       panGesture.delaysTouchesBegan = NO;
       panGesture.delaysTouchesEnded = NO;
-
+      
       [self addGestureRecognizer:panGesture];
    }
    
-   if ( panGesture )
-   {
+   if ( panGesture ) {
+      
       panGesture.enabled = YES;
       
       self.panSignalName = signal;
-
-      if ( NO == self.userInteractionEnabled )
-      {
+      
+      if ( NO == self.userInteractionEnabled ) {
+         
          self.userInteractionEnabled = YES;
       }
    }
 }
 
-- (void)disablePanGesture
-{
-   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] )
-   {
-      if ( [gesture isKindOfClass:[__PanGestureRecognizer class]] )
-      {
+- (void)disablePanGesture {
+   
+   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] ) {
+      
+      if ( [gesture isKindOfClass:[__PanGestureRecognizer class]] ) {
+         
          gesture.enabled = NO;
       }
    }
@@ -225,12 +225,12 @@
 
 TEST_CASE( UI, EventPanGesture )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

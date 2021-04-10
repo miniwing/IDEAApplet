@@ -56,19 +56,21 @@
 
 #pragma mark -
 
-#undef  notification_name
-#define notification_name( class, ... )               \
-        property (nonatomic, readonly) NSString * macro_join(class, __VA_ARGS__);   \
-        + (NSString *)macro_join(class, __VA_ARGS__);
+#undef  IDEA_MAKE_NOTIFICATION
+#define IDEA_MAKE_NOTIFICATION( ... )              \
+        macro_string(macro_join(notification, __VA_ARGS__))
 
-#undef  def_notification_name
-#define def_notification_name( class, ... )           \
-        dynamic macro_join(class, __VA_ARGS__);       \
-        + (NSString *)macro_join(class, __VA_ARGS__) { return macro_string( macro_join(class, __VA_ARGS__) ); }
+#undef  IDEA_NOTIFICATION
+#define IDEA_NOTIFICATION( ... )   \
+        static_property(macro_join(__VA_ARGS__))
 
-#undef  handleNotificationName
-#define handleNotificationName( class, ... )          \
-        - (void) macro_join( handleNotification, class, __VA_ARGS__):(NSNotification *)aNotification
+#undef  IDEA_DEF_NOTIFICATION
+#define IDEA_DEF_NOTIFICATION( ... )             \
+        def_static_property2(macro_join(__VA_ARGS__), @"notification", NSStringFromClass([self class]))
+
+#undef  IDEA_HANDLE_NOTIFICATION
+#define IDEA_HANDLE_NOTIFICATION( ... )            \
+        - (void) macro_join(handleNotification, macro_join(__VA_ARGS__)):(NSNotification *)aNotification
 
 #pragma mark -
 
@@ -109,10 +111,25 @@ typedef NSNotification AppletNotification;
 
 @interface NSObject(NotificationSender)
 
+/**
+ Synchronous
+ */
 + (void)notify:(NSString *)aName;
 - (void)notify:(NSString *)aName;
 
 + (void)notify:(NSString *)aName withObject:(NSObject *)aObject;
 - (void)notify:(NSString *)aName withObject:(NSObject *)aObject;
+
+/**
+ Asynchronous
+ */
++ (void)postNotify:(NSString *)aName;
+- (void)postNotify:(NSString *)aName;
+
++ (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
+- (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
+
++ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
 
 @end

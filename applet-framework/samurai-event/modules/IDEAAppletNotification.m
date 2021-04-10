@@ -46,7 +46,7 @@
 
 @implementation NSNotification(Extension)
 
-@def_prop_dynamic( NSString   *,   prettyName );
+@def_prop_dynamic( NSString   *, prettyName );
 
 #pragma mark -
 
@@ -74,104 +74,117 @@
    
    @weakify(self);
    
-   IDEAAppletNotificationBlock block = ^ NSObject * (NSString * name, id notificationBlock) {
+   IDEAAppletNotificationBlock stBlock = ^ NSObject * (NSString * aName, id aNotificationBlock) {
       
       @strongify(self);
       
-      if (notificationBlock) {
+      if (aNotificationBlock) {
          
-         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
+         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:aName];
       }
       else {
          
-         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:aName];
       }
       
-      name = [name stringByReplacingOccurrencesOfString:@"notification." withString:@"handleNotification____"];
-      name = [name stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
-      name = [name stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-      name = [name stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-      name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
-      name = [name stringByAppendingString:@":"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"notification." withString:@"handleNotification____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+      aName = [aName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+      aName = [aName stringByAppendingString:@":"];
       
-      if (notificationBlock) {
+      if (aNotificationBlock) {
          
-         [self addBlock:notificationBlock forName:name];
-      }
+         [self addBlock:aNotificationBlock forName:aName];
+         
+      } /* End if () */
       else {
          
-         [self removeBlockForName:name];
-      }
+         [self removeBlockForName:aName];
+         
+      } /* End else */
       
       return self;
    };
    
-   return [block copy];
+   return [stBlock copy];
 }
 
-- (void)observeNotification:(NSString *)name {
+- (void)observeNotification:(NSString *)aName {
    
-   [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:name];
+   [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:aName];
    
    return;
 }
 
-- (void)unobserveNotification:(NSString *)name {
+- (void)unobserveNotification:(NSString *)aName {
    
-   [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
+   [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:aName];
 
    return;
 }
 
 - (void)observeAllNotifications {
    
-   NSArray * methods = [[self class] methodsWithPrefix:@"handleNotification____" untilClass:[NSObject class]];
+   NSArray  *stMethods  = [[self class] methodsWithPrefix:@"handleNotification____" untilClass:[NSObject class]];
    
-   if (methods && methods.count) {
+   if (stMethods && stMethods.count) {
       
-      NSMutableArray * names = [NSMutableArray array];
+      NSMutableArray *stNames = [NSMutableArray array];
       
-      for (NSString * method in methods) {
+      for (NSString *szMethod in stMethods) {
          
-         NSString * notificationName = method;
+         NSString *szNotificationName  = szMethod;
          
-         notificationName = [notificationName stringByReplacingOccurrencesOfString:@"handleNotification" withString:@"notification"];
-         notificationName = [notificationName stringByReplacingOccurrencesOfString:@"____" withString:@"."];
+         szNotificationName = [szNotificationName stringByReplacingOccurrencesOfString:@"handleNotification" withString:@"notification"];
+         szNotificationName = [szNotificationName stringByReplacingOccurrencesOfString:@"____" withString:@"."];
          
-         if ([notificationName hasSuffix:@":"]) {
+         if ([szNotificationName hasSuffix:@":"]) {
             
-            notificationName = [notificationName substringToIndex:(notificationName.length - 1)];
-         }
+            szNotificationName = [szNotificationName substringToIndex:(szNotificationName.length - 1)];
+            
+         } /* End if () */
          
-         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:notificationName];
+         [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:szNotificationName];
          
-         [names addObject:notificationName];
-      }
+         [stNames addObject:szNotificationName];
+         
+      } /* End for () */
       
-      [self retainAssociatedObject:names forKey:"notificationNames"];
-   }
+      [self retainAssociatedObject:stNames forKey:"notificationNames"];
+      
+   } /* End if () */
+   
+   return;
 }
 
 - (void)unobserveAllNotifications {
    
-   NSArray * names = [self getAssociatedObjectForKey:"notificationNames"];
+   NSArray  *stNames = [self getAssociatedObjectForKey:"notificationNames"];
    
-   if (names && names.count) {
+   if (stNames && stNames.count) {
       
-      for (NSString * name in names) {
+      for (NSString *szName in stNames) {
          
-         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:name];
-      }
+         [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:szName];
+         
+      } /* End for () */
       
       [self removeAssociatedObjectForKey:"notificationNames"];
-   }
+      
+   } /* End if () */
    
    [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self];
+   
+   return;
 }
 
-- (void)handleNotification:(AppletNotification *)notification {
+- (void)handleNotification:(AppletNotification *)aNotification {
    
-   UNUSED(notification)
+   UNUSED(aNotification);
+   
+   return;
 }
 
 @end
@@ -180,24 +193,91 @@
 
 @implementation NSObject(NotificationSender)
 
-+ (void)notify:(NSString *)name {
++ (void)notify:(NSString *)aName {
    
-   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:nil];
+   [self notify:aName withObject:nil];
+   
+   return;
 }
 
-- (void)notify:(NSString *)name {
+- (void)notify:(NSString *)aName {
    
-   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:nil];
+   [self notify:aName withObject:nil];
+
+   return;
 }
 
-+ (void)notify:(NSString *)name withObject:(NSObject *)object {
++ (void)notify:(NSString *)aName withObject:(NSObject *)aObject {
    
-   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:object];
+   @autoreleasepool {
+
+      [[IDEAAppletNotificationCenter sharedInstance] postNotification:aName object:aObject];
+
+   }; /* @autoreleasepool */
+   
+   return;
 }
 
-- (void)notify:(NSString *)name withObject:(NSObject *)object {
+- (void)notify:(NSString *)aName withObject:(NSObject *)aObject {
    
-   [[IDEAAppletNotificationCenter sharedInstance] postNotification:name object:object];
+   [NSObject notify:aName withObject:aObject];
+   
+   return;
+}
+
++ (void)postNotify:(NSString *)aName {
+   
+   [self postNotify:aName withObject:nil onQueue:NULL];
+      
+   return;
+}
+
+- (void)postNotify:(NSString *)aName {
+
+   [self postNotify:aName withObject:nil onQueue:NULL];
+
+   return;
+}
+
++ (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postNotify:aName withObject:nil onQueue:aQueue];
+
+   return;
+}
+- (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postNotify:aName withObject:nil onQueue:aQueue];
+
+   return;
+}
+
++ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue
+{
+   if (NULL == aQueue) {
+      
+      aQueue   = [IDEAAppletQueue sharedInstance].concurrent;
+      
+   } /* End if () */
+   
+   dispatch_async(aQueue, ^{
+      
+      @autoreleasepool {
+
+         [[IDEAAppletNotificationCenter sharedInstance] postNotification:aName object:aObject];
+
+      }; /* @autoreleasepool */
+
+   });
+
+   return;
+}
+
+- (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
+   
+   [NSObject postNotify:aName withObject:aObject onQueue:aQueue];
+
+   return;
 }
 
 @end
@@ -225,7 +305,6 @@ static NSInteger __value = 0;
 @end
 
 TEST_CASE(Event, Notification) {
-   
    
 }
 

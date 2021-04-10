@@ -43,18 +43,18 @@
 
 @implementation NSArray(Extension)
 
-- (id)serialize
-{
-   if (0 == [self count])
-   {
+- (id)serialize {
+   
+   if (0 == [self count]) {
+      
       return nil;
       
    } /* End if () */
    
    NSMutableArray *stArray = [NSMutableArray array];
    
-   for (NSObject * element in self)
-   {
+   for (NSObject * element in self) {
+      
       [stArray addObject:[element serialize]];
       
    } /* End for () */
@@ -62,26 +62,26 @@
    return stArray;
 }
 
-- (void)unserialize:(id)aObject
-{
+- (void)unserialize:(id)aObject {
+   
    return;
 }
 
-- (void)zerolize
-{
+- (void)zerolize {
+   
    return;
 }
 
-- (NSArray *)head:(NSUInteger)aCount
-{
-   if (0 == self.count || 0 == aCount)
-   {
+- (NSArray *)head:(NSUInteger)aCount {
+   
+   if (0 == self.count || 0 == aCount) {
+      
       return nil;
       
    } /* End if () */
    
-   if (self.count < aCount)
-   {
+   if (self.count < aCount) {
+      
       return self;
       
    } /* End if () */
@@ -95,14 +95,14 @@
 
 - (NSArray *)tail:(NSUInteger)aCount
 {   
-   if (0 == self.count || 0 == aCount)
-   {
+   if (0 == self.count || 0 == aCount) {
+      
       return nil;
       
    } /* End if () */
    
-   if (self.count < aCount)
-   {
+   if (self.count < aCount) {
+      
       return self;
       
    } /* End if () */
@@ -114,35 +114,35 @@
    return [self subarrayWithRange:stRange];
 }
 
-- (NSString *)join
-{
+- (NSString *)join {
+   
    return [self join:nil];
 }
 
-- (NSString *)join:(NSString *)aDelimiter
-{
-   if (0 == self.count)
-   {
+- (NSString *)join:(NSString *)aDelimiter {
+   
+   if (0 == self.count) {
+      
       return @"";
       
    } /* End if () */
-   else if (1 == self.count)
-   {
+   else if (1 == self.count) {
+      
       return [[self objectAtIndex:0] description];
       
    } /* End else if () */
-   else
-   {
+   else {
+      
       NSMutableString   *stResult   = [NSMutableString string];
       
-      for (NSUInteger H = 0; H < self.count; ++H)
-      {
+      for (NSUInteger H = 0; H < self.count; ++H) {
+         
          [stResult appendString:[[self objectAtIndex:H] description]];
          
-         if (aDelimiter)
-         {
-            if (H + 1 < self.count)
-            {
+         if (aDelimiter) {
+            
+            if (H + 1 < self.count) {
+               
                [stResult appendString:aDelimiter];
                
             }  /* End if () */
@@ -157,10 +157,10 @@
 
 #pragma mark -
 
-- (id)safeObjectAtIndex:(NSUInteger)index
-{
-   if (index >= self.count)
-   {
+- (id)safeObjectAtIndex:(NSUInteger)index {
+   
+   if (index >= self.count) {
+      
       return nil;
       
    } /* End if () */
@@ -168,23 +168,23 @@
    return [self objectAtIndex:index];
 }
 
-- (id)safeSubarrayWithRange:(NSRange)aRange
-{
-   if (0 == self.count)
-   {
+- (id)safeSubarrayWithRange:(NSRange)aRange {
+   
+   if (0 == self.count) {
+      
       return [NSArray array];
       
    } /* End if () */
    
-   if (aRange.location >= self.count)
-   {
+   if (aRange.location >= self.count) {
+      
       return [NSArray array];
       
    } /* End if () */
    
    aRange.length = MIN(aRange.length, self.count - aRange.location);
-   if (0 == aRange.length)
-   {
+   if (0 == aRange.length) {
+      
       return [NSArray array];
       
    } /* End if () */
@@ -192,16 +192,16 @@
    return [self subarrayWithRange:NSMakeRange(aRange.location, aRange.length)];
 }
 
-- (id)safeSubarrayFromIndex:(NSUInteger)aIndex
-{
-   if (0 == self.count)
-   {
+- (id)safeSubarrayFromIndex:(NSUInteger)aIndex {
+   
+   if (0 == self.count) {
+      
       return [NSArray array];
       
    } /* End if () */
    
-   if (aIndex >= self.count)
-   {
+   if (aIndex >= self.count) {
+      
       return [NSArray array];
       
    } /* End if () */
@@ -209,10 +209,10 @@
    return [self safeSubarrayWithRange:NSMakeRange(aIndex, self.count - aIndex)];
 }
 
-- (id)safeSubarrayWithCount:(NSUInteger)aCount
-{
-   if (0 == self.count)
-   {
+- (id)safeSubarrayWithCount:(NSUInteger)aCount {
+   
+   if (0 == self.count) {
+      
       return [NSArray array];
       
    } /* End if () */
@@ -230,18 +230,18 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE(Core, NSArray_Extension)
-{
+TEST_CASE(Core, NSArray_Extension) {
+   
    NSArray * _testArray;
 }
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
    _testArray = @[ @"1", @"2", @"3", @"4", @"5", @"6" ];
 }
 
-DESCRIBE(head/tail)
-{
+DESCRIBE(head/tail) {
+   
    NSArray * head4 = [_testArray head:4];
    
    EXPECTED(head4.count == 4);
@@ -259,8 +259,8 @@ DESCRIBE(head/tail)
    EXPECTED([tail4[3] isEqualToString:@"6"]);
 }
 
-DESCRIBE(join)
-{
+DESCRIBE(join) {
+   
    NSString * string = [_testArray join];
    
    EXPECTED(string.length == 6);
@@ -272,16 +272,16 @@ DESCRIBE(join)
    EXPECTED([string2 isEqualToString:@"1_2_3_4_5_6"]);
 }
 
-DESCRIBE(empty)
-{
+DESCRIBE(empty) {
+   
    NSArray * empty = [NSArray array];
    
    EXPECTED(nil == [empty safeObjectAtIndex:0]);
    EXPECTED(nil == [empty safeObjectAtIndex:99]);
 }
 
-DESCRIBE(sub array)
-{
+DESCRIBE(sub array) {
+   
    EXPECTED(nil != [_testArray safeObjectAtIndex:0]);
    EXPECTED(nil != [_testArray safeObjectAtIndex:1]);
    EXPECTED(nil != [_testArray safeObjectAtIndex:2]);
@@ -326,8 +326,8 @@ DESCRIBE(sub array)
    EXPECTED(subArray5.count == 0);
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
    _testArray = nil;
 }
 

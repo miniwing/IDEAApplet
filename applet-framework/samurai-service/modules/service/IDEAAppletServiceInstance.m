@@ -45,21 +45,20 @@
 @def_prop_strong( NSBundle *,      bundle );
 @def_prop_assign( BOOL,            running );
 
-+ (instancetype)instance
-{
++ (instancetype)instance {
+   
    return [[IDEAAppletServiceLoader sharedInstance] service:[self class]];
 }
 
-
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
 
    __TRY;
 
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.name   = NSStringFromClass([self class]);
 //      self.bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:[[self class] description] ofType:@"bundle"] ];
       self.bundle = [NSBundle bundleWithPath:[[NSBundle bundleForClass:[self class]]
@@ -73,21 +72,23 @@
    return self;
 }
 
-
-- (void)dealloc
-{
-   if ( _running )
-   {
+- (void)dealloc {
+   
+   if ( _running ) {
+      
       [self powerOff];
    }
 
    self.bundle = nil;
-   self.name = nil;
+   self.name   = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
 
    __TRY;
@@ -97,9 +98,8 @@
    return;
 }
 
-
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
 
    __TRY;
@@ -109,9 +109,8 @@
    return;
 }
 
-
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
 
    __TRY;
@@ -121,9 +120,8 @@
    return;
 }
 
-
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
 
    __TRY;
@@ -132,7 +130,6 @@
 
    return;
 }
-
 
 @end
 
@@ -146,12 +143,10 @@
 
 TEST_CASE( Service, ServiceInstance )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

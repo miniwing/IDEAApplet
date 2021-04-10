@@ -45,24 +45,29 @@
 @def_prop_strong( NSString *,   href );
 @def_prop_strong( NSString *,   type );
 
-+ (IDEAAppletScript *)script
-{
++ (IDEAAppletScript *)script {
+   
    return [[self alloc] init];
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
-   }
+   if ( self ) {
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.href = nil;
    self.type = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 @end
@@ -77,12 +82,10 @@
 
 TEST_CASE( UI, Script )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

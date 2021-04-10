@@ -47,15 +47,15 @@
 
 @implementation IDEAAppletViewWorklet
 
-+ (instancetype)worklet
-{
++ (instancetype)worklet {
+   
    return [[self alloc] init];
 }
 
-- (BOOL)processWithContext:(id)context
-{
+- (BOOL)processWithContext:(id)context {
+   
    UNUSED( context );
-
+   
    return YES;
 }
 
@@ -65,61 +65,61 @@
 
 @implementation IDEAAppletWorkflow
 
-@def_prop_unsafe( NSObject *,      context );
-@def_prop_strong( NSMutableArray *,   worklets );
+@def_prop_unsafe  ( NSObject        *, context  );
+@def_prop_strong  ( NSMutableArray  *, worklets );
 
-+ (instancetype)workflow
-{
++ (instancetype)workflow {
+   
    return [[self alloc] init];
 }
 
-+ (instancetype)workflowWithContext:(NSObject *)context
-{
++ (instancetype)workflowWithContext:(NSObject *)context {
+   
    IDEAAppletWorkflow * workflow = [[self alloc] init];
    workflow.context = context;
    return workflow;
 }
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.worklets = [NSMutableArray array];
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self.worklets removeAllObjects];
    self.worklets = nil;
 }
 
-- (BOOL)process
-{
+- (BOOL)process {
+   
    INFO( @" " );
    INFO( @"Workflow '%@', start", [[self class] description] );
-
-   for ( IDEAAppletViewWorklet * worklet in self.worklets )
-   {
+   
+   for ( IDEAAppletViewWorklet * worklet in self.worklets ) {
+      
       INFO( @"  [%@]", [[worklet class] description] );
-
+      
       [[IDEAAppletLogger sharedInstance] indent:2];
-   //   [[IDEAAppletLogger sharedInstance] disable];
-
+      //   [[IDEAAppletLogger sharedInstance] disable];
+      
       BOOL succeed = [worklet processWithContext:self.context];
-
-   //   [[IDEAAppletLogger sharedInstance] enable];
+      
+      //   [[IDEAAppletLogger sharedInstance] enable];
       [[IDEAAppletLogger sharedInstance] unindent:2];
       
       if ( NO == succeed )
          break;
    }
-
+   
    INFO( @"workflow '%@', done", [[self class] description] );
    INFO( @" " );
-
+   
    return YES;
 }
 
@@ -135,12 +135,12 @@
 
 TEST_CASE( UI, Workflow )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

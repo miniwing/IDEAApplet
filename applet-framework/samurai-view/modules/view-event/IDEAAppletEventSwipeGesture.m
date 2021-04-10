@@ -62,96 +62,96 @@
 
 #pragma mark -
 
-+ (BOOL)supportSwipeGesture
-{
++ (BOOL)supportSwipeGesture {
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)__swipeGestureInternalCallback:(__SwipeGestureRecognizer *)gesture
-{
-   if ( UIGestureRecognizerStatePossible == gesture.state )
-   {
+- (void)__swipeGestureInternalCallback:(__SwipeGestureRecognizer *)gesture {
+   
+   if ( UIGestureRecognizerStatePossible == gesture.state ) {
+      
       // the recognizer has not yet recognized its gesture, but may be evaluating touch events. this is the default state
    }
-   else if ( UIGestureRecognizerStateBegan == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateBegan == gesture.state ) {
+      
       // the recognizer has received touches recognized as the gesture. the action method will be called at the next turn of the run loop
    }
-   else if ( UIGestureRecognizerStateChanged == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateChanged == gesture.state ) {
+      
       // the recognizer has received touches recognized as a change to the gesture. the action method will be called at the next turn of the run loop
       
    }
-   else if ( UIGestureRecognizerStateEnded == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateEnded == gesture.state ) {
+      
       // the recognizer has received touches recognized as the end of the gesture. the action method will be called at the next turn of the run loop and the recognizer will be reset to UIGestureRecognizerStatePossible
-
-      if ( UISwipeGestureRecognizerDirectionUp == gesture.direction )
-      {
-         if ( self.swipeUpSignalName )
-         {
+      
+      if ( UISwipeGestureRecognizerDirectionUp == gesture.direction ) {
+         
+         if ( self.swipeUpSignalName ) {
+            
             [self sendSignal:self.swipeUpSignalName];
          }
-         else
-         {
+         else {
+            
             [self sendSignal:UIView.eventSwipeUp];
          }
       }
-      else if ( UISwipeGestureRecognizerDirectionDown == gesture.direction )
-      {
-         if ( self.swipeDownSignalName )
-         {
+      else if ( UISwipeGestureRecognizerDirectionDown == gesture.direction ) {
+         
+         if ( self.swipeDownSignalName ) {
+            
             [self sendSignal:self.swipeDownSignalName];
          }
-         else
-         {
+         else {
+            
             [self sendSignal:UIView.eventSwipeDown];
          }
       }
-      else if ( UISwipeGestureRecognizerDirectionLeft == gesture.direction )
-      {
-         if ( self.swipeLeftSignalName )
-         {
+      else if ( UISwipeGestureRecognizerDirectionLeft == gesture.direction ) {
+         
+         if ( self.swipeLeftSignalName ) {
+            
             [self sendSignal:self.swipeLeftSignalName];
          }
-         else
-         {
+         else {
+            
             [self sendSignal:UIView.eventSwipeLeft];
          }
       }
-      else if ( UISwipeGestureRecognizerDirectionRight == gesture.direction )
-      {
-         if ( self.swipeRightSignalName )
-         {
+      else if ( UISwipeGestureRecognizerDirectionRight == gesture.direction ) {
+         
+         if ( self.swipeRightSignalName ) {
+            
             [self sendSignal:self.swipeRightSignalName];
          }
-         else
-         {
+         else {
+            
             [self sendSignal:UIView.eventSwipeRight];
          }
       }
    }
-   else if ( UIGestureRecognizerStateCancelled == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
+      
       // the recognizer has received touches resulting in the cancellation of the gesture. the action method will be called at the next turn of the run loop. the recognizer will be reset to UIGestureRecognizerStatePossible
    }
-   else if ( UIGestureRecognizerStateFailed == gesture.state )
-   {
+   else if ( UIGestureRecognizerStateFailed == gesture.state ) {
+      
       // the recognizer has received a touch sequence that can not be recognized as the gesture. the action method will not be called and the recognizer will be reset to UIGestureRecognizerStatePossible
       
    }
 }
 
-- (__SwipeGestureRecognizer *)swipeGesture
-{
+- (__SwipeGestureRecognizer *)swipeGesture {
+   
    __SwipeGestureRecognizer * swipeGesture = nil;
    
-   for ( UIGestureRecognizer * gesture in self.gestureRecognizers )
-   {
-      if ( [gesture isKindOfClass:[__SwipeGestureRecognizer class]] )
-      {
+   for ( UIGestureRecognizer * gesture in self.gestureRecognizers ) {
+      
+      if ( [gesture isKindOfClass:[__SwipeGestureRecognizer class]] ) {
+         
          swipeGesture = (__SwipeGestureRecognizer *)gesture;
          break;
       }
@@ -162,90 +162,90 @@
 
 #pragma mark -
 
-- (void)enableSwipeDirection:(UISwipeGestureRecognizerDirection)direction withSignal:(NSString *)signal
-{
-   if ( NO == [[self class] supportSwipeGesture] )
-   {
+- (void)enableSwipeDirection:(UISwipeGestureRecognizerDirection)direction withSignal:(NSString *)signal {
+   
+   if ( NO == [[self class] supportSwipeGesture] ) {
+      
       return;
    }
    
    __SwipeGestureRecognizer * swipeGesture = [self swipeGesture];
-
-   if ( nil == swipeGesture )
-   {
+   
+   if ( nil == swipeGesture ) {
+      
       swipeGesture = [[__SwipeGestureRecognizer alloc] initWithTarget:self action:@selector(__swipeGestureInternalCallback:)];
-
+      
       swipeGesture.direction = direction;
       swipeGesture.numberOfTouchesRequired = 1;
       swipeGesture.cancelsTouchesInView = NO;
       swipeGesture.delaysTouchesBegan = NO;
       swipeGesture.delaysTouchesEnded = NO;
-
+      
       [self addGestureRecognizer:swipeGesture];
    }
-
-   if ( swipeGesture )
-   {
+   
+   if ( swipeGesture ) {
+      
       swipeGesture.enabled = YES;
-
-      if ( UISwipeGestureRecognizerDirectionUp == swipeGesture.direction )
-      {
+      
+      if ( UISwipeGestureRecognizerDirectionUp == swipeGesture.direction ) {
+         
          self.swipeUpSignalName = signal;
       }
-      else if ( UISwipeGestureRecognizerDirectionDown == swipeGesture.direction )
-      {
+      else if ( UISwipeGestureRecognizerDirectionDown == swipeGesture.direction ) {
+         
          self.swipeDownSignalName = signal;
       }
-      else if ( UISwipeGestureRecognizerDirectionLeft == swipeGesture.direction )
-      {
+      else if ( UISwipeGestureRecognizerDirectionLeft == swipeGesture.direction ) {
+         
          self.swipeLeftSignalName = signal;
       }
-      else if ( UISwipeGestureRecognizerDirectionRight == swipeGesture.direction )
-      {
+      else if ( UISwipeGestureRecognizerDirectionRight == swipeGesture.direction ) {
+         
          self.swipeRightSignalName = signal;
       }
       
-      if ( NO == self.userInteractionEnabled )
-      {
+      if ( NO == self.userInteractionEnabled ) {
+         
          self.userInteractionEnabled = YES;
       }
    }
 }
 
-- (void)enableSwipeGesture:(UISwipeGestureRecognizerDirection)direction
-{
+- (void)enableSwipeGesture:(UISwipeGestureRecognizerDirection)direction {
+   
    [self enableSwipeGesture:direction withSignal:nil];
 }
 
-- (void)enableSwipeGesture:(UISwipeGestureRecognizerDirection)direction withSignal:(NSString *)signal
-{
-   if ( direction & UISwipeGestureRecognizerDirectionUp )
-   {
+- (void)enableSwipeGesture:(UISwipeGestureRecognizerDirection)direction withSignal:(NSString *)signal {
+   
+   if ( direction & UISwipeGestureRecognizerDirectionUp ) {
+      
       [self enableSwipeDirection:UISwipeGestureRecognizerDirectionUp withSignal:signal];
    }
-
-   if ( direction & UISwipeGestureRecognizerDirectionDown )
-   {
+   
+   if ( direction & UISwipeGestureRecognizerDirectionDown ) {
+      
       [self enableSwipeDirection:UISwipeGestureRecognizerDirectionDown withSignal:signal];
    }
-
-   if ( direction & UISwipeGestureRecognizerDirectionLeft )
-   {
+   
+   if ( direction & UISwipeGestureRecognizerDirectionLeft ) {
+      
       [self enableSwipeDirection:UISwipeGestureRecognizerDirectionLeft withSignal:signal];
    }
-
-   if ( direction & UISwipeGestureRecognizerDirectionRight )
-   {
+   
+   if ( direction & UISwipeGestureRecognizerDirectionRight ) {
+      
       [self enableSwipeDirection:UISwipeGestureRecognizerDirectionRight withSignal:signal];
    }
 }
 
-- (void)disableSwipeGesture
-{
-   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] )
-   {
-      if ( [gesture isKindOfClass:[__SwipeGestureRecognizer class]] )
-      {
+- (void)disableSwipeGesture {
+   
+   for ( UIGestureRecognizer * gesture in [self.gestureRecognizers copy] ) {
+      
+      if ( [gesture isKindOfClass:[__SwipeGestureRecognizer class]] ) {
+         
          gesture.enabled = NO;
       }
    }
@@ -263,12 +263,12 @@
 
 TEST_CASE( UI, EventSwipeGesture )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

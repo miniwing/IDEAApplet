@@ -50,12 +50,10 @@
 
 TEST_CASE( UI, ViewUtility )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
 }
 
 TEST_CASE_END

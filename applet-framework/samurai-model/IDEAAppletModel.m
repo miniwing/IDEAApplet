@@ -44,9 +44,11 @@
 
 @implementation __ClassLoader_Module
 
-+ (void)classAutoLoad
-{
++ (void)classAutoLoad {
+   
    [IDEAAppletModelManager classAutoLoad];
+   
+   return;
 }
 
 @end

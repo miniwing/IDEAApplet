@@ -42,52 +42,54 @@
 
 @implementation IDEAAppletSignal(View)
 
-@def_prop_dynamic( UIView *,            sourceView );
-@def_prop_dynamic( UIView *,            sourceCell );
-@def_prop_dynamic( UITableViewCell *,      sourceTableCell );
-@def_prop_dynamic( UICollectionViewCell *,   sourceCollectionCell );
+@def_prop_dynamic ( UIView                *, sourceView           );
+@def_prop_dynamic ( UIView                *, sourceCell           );
+@def_prop_dynamic ( UITableViewCell       *, sourceTableCell      );
+@def_prop_dynamic ( UICollectionViewCell  *, sourceCollectionCell );
 
-@def_prop_dynamic( IDEAAppletDomNode *,      sourceDom );
-@def_prop_dynamic( IDEAAppletRenderObject *,   sourceRender );
-@def_prop_dynamic( NSIndexPath *,         sourceIndexPath );
+@def_prop_dynamic ( IDEAAppletDomNode     *, sourceDom            );
+@def_prop_dynamic ( IDEAAppletRenderObject*, sourceRender         );
+@def_prop_dynamic ( NSIndexPath           *, sourceIndexPath      );
 
 - (UIView *)sourceView
 {
-   if ( nil == self.source )
+   if ( nil == self.source ) {
       return nil;
+   }
 
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       return (UIView *)self.source;
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       return ((UIViewController *)self.source).view;
    }
 
    return nil;
 }
 
-- (UIView *)sourceCell
-{
-   if ( nil == self.source )
+- (UIView *)sourceCell {
+   
+   if ( nil == self.source ) {
       return nil;
+   }
    
    UIView * thisView = nil;
    
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       thisView = (UIView *)self.source;
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       thisView = ((UIViewController *)self.source).view;
    }
    
-   while ( nil != thisView )
-   {
-      if ( [thisView isKindOfClass:[UITableViewCell class]] || [thisView isKindOfClass:[UICollectionViewCell class]] )
-      {
+   while ( nil != thisView ) {
+      
+      if ( [thisView isKindOfClass:[UITableViewCell class]] || [thisView isKindOfClass:[UICollectionViewCell class]] ) {
+         
          return thisView;
       }
       
@@ -99,24 +101,25 @@
 
 - (UITableViewCell *)sourceTableCell
 {
-   if ( nil == self.source )
+   if ( nil == self.source ) {
       return nil;
+   }
    
    UIView * thisView = nil;
    
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       thisView = (UIView *)self.source;
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       thisView = ((UIViewController *)self.source).view;
    }
 
-   while ( nil != thisView )
-   {
-      if ( [thisView isKindOfClass:[UITableViewCell class]] )
-      {
+   while ( nil != thisView ) {
+      
+      if ( [thisView isKindOfClass:[UITableViewCell class]] ) {
+         
          return (UITableViewCell *)thisView;
       }
       
@@ -126,26 +129,27 @@
    return nil;
 }
 
-- (UICollectionViewCell *)sourceCollectionCell
-{
-   if ( nil == self.source )
+- (UICollectionViewCell *)sourceCollectionCell {
+   
+   if ( nil == self.source ) {
       return nil;
+   }
    
    UIView * thisView = nil;
    
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       thisView = (UIView *)self.source;
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       thisView = ((UIViewController *)self.source).view;
    }
 
-   while ( nil != thisView )
-   {
-      if ( [thisView isKindOfClass:[UICollectionViewCell class]] )
-      {
+   while ( nil != thisView ) {
+      
+      if ( [thisView isKindOfClass:[UICollectionViewCell class]] ) {
+         
          return (UICollectionViewCell *)thisView;
       }
       
@@ -155,42 +159,45 @@
    return nil;
 }
 
-- (IDEAAppletDomNode *)sourceDom
-{
-   if ( nil == self.source )
+- (IDEAAppletDomNode *)sourceDom {
+   
+   if ( nil == self.source ) {
       return nil;
+   }
    
    return [[self.source renderer] dom];
 }
 
-- (IDEAAppletRenderObject *)sourceRender
-{
-   if ( nil == self.source )
+- (IDEAAppletRenderObject *)sourceRender {
+   
+   if ( nil == self.source ) {
       return nil;
+   }
    
    return [self.source renderer];
 }
 
-- (NSIndexPath *)sourceIndexPath
-{
-   if ( nil == self.source )
+- (NSIndexPath *)sourceIndexPath {
+   
+   if ( nil == self.source ) {
       return nil;
+   }
    
    UIView * thisView = nil;
 
-   if ( [self.source isKindOfClass:[UIView class]] )
-   {
+   if ( [self.source isKindOfClass:[UIView class]] ) {
+      
       thisView = (UIView *)self.source;
    }
-   else if ( [self.source isKindOfClass:[UIViewController class]] )
-   {
+   else if ( [self.source isKindOfClass:[UIViewController class]] ) {
+      
       thisView = ((UIViewController *)self.source).view;
    }
    
-   while ( nil != thisView )
-   {
-      if ( [thisView isCell] )
-      {
+   while ( nil != thisView ) {
+      
+      if ( [thisView isCell] ) {
+         
          return [thisView computeIndexPath];
       }
       
