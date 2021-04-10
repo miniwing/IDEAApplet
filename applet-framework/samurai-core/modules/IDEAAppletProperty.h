@@ -35,7 +35,7 @@
 
 #undef  static_property
 #define static_property( __name )                                 \
-        property (nonatomic, readonly, class)   NSString * __name;\
+        property (nonatomic, readonly)   NSString * __name;       \
         - (NSString *)__name;                                     \
         + (NSString *)__name;
 

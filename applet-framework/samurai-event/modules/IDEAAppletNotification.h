@@ -35,24 +35,40 @@
 #pragma mark -
 
 #undef  notification
-#define notification( name )                 \
+#define notification( name )                          \
         static_property( name )
 
 #undef  def_notification
-#define def_notification( name )             \
+#define def_notification( name )                      \
         def_static_property2( name, @"notification", NSStringFromClass([self class]) )
 
 #undef  def_notification_alias
-#define def_notification_alias( name, alias )\
+#define def_notification_alias( name, alias )         \
         alias_static_property( name, alias )
 
 #undef  makeNotification
-#define makeNotification( ... )              \
+#define makeNotification( ... )                       \
         macro_string( macro_join(notification, __VA_ARGS__) )
 
 #undef  handleNotification
-#define handleNotification( ... )            \
+#define handleNotification( ... )                     \
         - (void) macro_join( handleNotification, __VA_ARGS__):(NSNotification *)aNotification
+
+#pragma mark -
+
+#undef  notification_name
+#define notification_name( class, ... )               \
+        property (nonatomic, readonly) NSString * macro_join(class, __VA_ARGS__);   \
+        + (NSString *)macro_join(class, __VA_ARGS__);
+
+#undef  def_notification_name
+#define def_notification_name( class, ... )           \
+        dynamic macro_join(class, __VA_ARGS__);       \
+        + (NSString *)macro_join(class, __VA_ARGS__) { return macro_string( macro_join(class, __VA_ARGS__) ); }
+
+#undef  handleNotificationName
+#define handleNotificationName( class, ... )          \
+        - (void) macro_join( handleNotification, class, __VA_ARGS__):(NSNotification *)aNotification
 
 #pragma mark -
 
