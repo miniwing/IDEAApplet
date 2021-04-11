@@ -89,6 +89,7 @@
    return;
 }
 
+#if APPLET_DESCRIPTION
 - (NSString *)description {
    
    if ( CallFrameType_ObjectC == _type ) {
@@ -104,6 +105,7 @@
       return [NSString stringWithFormat:@"[X] <unknown>(0x%08x + %llu)", (unsigned int)_entry, (unsigned long long)_offset];
    }
 }
+#endif /* APPLET_DESCRIPTION */
 
 + (NSUInteger)hexValueFromString:(NSString *)aText {
    

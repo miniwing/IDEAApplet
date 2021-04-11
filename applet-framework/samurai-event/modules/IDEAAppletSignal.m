@@ -457,6 +457,7 @@ BASE_CLASS  (IDEAAppletSignal)
    return self.name;
 }
 
+#if APPLET_DESCRIPTION
 - (NSString *)description {
    
 #if __SAMURAI_DEBUG__
@@ -465,6 +466,7 @@ BASE_CLASS  (IDEAAppletSignal)
    return self.name;
 #endif
 }
+#endif /* APPLET_DESCRIPTION */
 
 - (BOOL)is:(NSString *)aName {
    

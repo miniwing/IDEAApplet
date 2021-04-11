@@ -57,58 +57,58 @@
 
 @interface IDEAAppletHtmlRenderObject : IDEAAppletRenderObject<IDEAAppletCSSProtocol>
 
-@prop_strong( NSMutableArray *,            customClasses );
-@prop_strong( IDEAAppletHtmlRenderStyle *,      customStyle );
+@prop_strong( NSMutableArray              *, customClasses );
+@prop_strong( IDEAAppletHtmlRenderStyle   *, customStyle   );
 
-@prop_assign( CSSWrap,                  wrap );
-@prop_assign( CSSAlign,                  align );
-@prop_assign( CSSClear,                  clear );
-@prop_assign( CSSDisplay,               display );
-@prop_assign( CSSFloating,               floating );
-@prop_assign( CSSPosition,               position );
-@prop_assign( CSSVerticalAlign,            verticalAlign );
+@prop_assign( CSSWrap         ,  wrap          );
+@prop_assign( CSSAlign        ,  align         );
+@prop_assign( CSSClear        ,  clear         );
+@prop_assign( CSSDisplay      ,  display       );
+@prop_assign( CSSFloating     ,  floating      );
+@prop_assign( CSSPosition     ,  position      );
+@prop_assign( CSSVerticalAlign,  verticalAlign );
 
-@prop_assign( CSSBoxAlign,               boxAlign );
-@prop_assign( CSSBoxOrient,               boxOrient );
-@prop_assign( CSSBoxDirection,            boxDirection );
-@prop_assign( CSSBoxLines,               boxLines );
-@prop_assign( CSSBoxPack,               boxPack );
+@prop_assign( CSSBoxAlign     ,  boxAlign     );
+@prop_assign( CSSBoxOrient    ,  boxOrient    );
+@prop_assign( CSSBoxDirection ,  boxDirection );
+@prop_assign( CSSBoxLines     ,  boxLines     );
+@prop_assign( CSSBoxPack      ,  boxPack      );
 
-@prop_assign( CSSFlexWrap,               flexWrap );
-@prop_assign( CSSFlexDirection,            flexDirection );
+@prop_assign( CSSFlexWrap     ,  flexWrap       );
+@prop_assign( CSSFlexDirection,  flexDirection  );
 
-@prop_assign( CSSAlignSelf,               alignSelf );
-@prop_assign( CSSAlignItems,            alignItems );
-@prop_assign( CSSAlignContent,            alignContent );
-@prop_assign( CSSJustifyContent,         justifyContent );
+@prop_assign( CSSAlignSelf       ,  alignSelf      );
+@prop_assign( CSSAlignItems      ,  alignItems     );
+@prop_assign( CSSAlignContent    ,  alignContent   );
+@prop_assign( CSSJustifyContent  ,  justifyContent );
 
-@prop_assign( CGFloat,                  zIndex );
-@prop_assign( CGFloat,                  order );
+@prop_assign( CGFloat   ,  zIndex   );
+@prop_assign( CGFloat   ,  order    );
 
-@prop_assign( CGFloat,                  flexGrow );
-@prop_assign( CGFloat,                  flexBasis );
-@prop_assign( CGFloat,                  flexShrink );
+@prop_assign( CGFloat   ,  flexGrow     );
+@prop_assign( CGFloat   ,  flexBasis    );
+@prop_assign( CGFloat   ,  flexShrink   );
 
-@prop_assign( NSInteger,               tableRow );
-@prop_assign( NSInteger,               tableCol );
-@prop_assign( NSInteger,               tableRowSpan );
-@prop_assign( NSInteger,               tableColSpan );
+@prop_assign( NSInteger ,  tableRow     );
+@prop_assign( NSInteger ,  tableCol     );
+@prop_assign( NSInteger ,  tableRowSpan );
+@prop_assign( NSInteger ,  tableColSpan );
 
-@prop_unsafe( IDEAAppletHtmlDomNode *,         dom );      // overrided
-@prop_strong( IDEAAppletHtmlRenderStyle *,      style );   // overrided
-@prop_strong( IDEAAppletHtmlLayoutObject *,   layout );
+@prop_unsafe( IDEAAppletHtmlDomNode       *, dom );      // overrided
+@prop_strong( IDEAAppletHtmlRenderStyle   *, style );    // overrided
+@prop_strong( IDEAAppletHtmlLayoutObject  *, layout );
 
-@prop_readonly( IDEAAppletHtmlRenderObject *,   root );      // overrided
-@prop_unsafe( IDEAAppletHtmlRenderObject *,   parent );   // overrided
-@prop_unsafe( IDEAAppletHtmlRenderObject *,   prev );      // overrided
-@prop_unsafe( IDEAAppletHtmlRenderObject *,   next );      // overrided
+@prop_readonly( IDEAAppletHtmlRenderObject*, root );     // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject  *, parent );   // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject  *, prev );     // overrided
+@prop_unsafe( IDEAAppletHtmlRenderObject  *, next );     // overrided
 
-+ (Class)defaultLayoutClass;                     // override point
-+ (Class)defaultViewClass;                        // override point
++ (Class)defaultLayoutClass;     // override point
++ (Class)defaultViewClass;       // override point
 
-- (void)renderWillLoad;                           // override point
-- (void)renderDidLoad;                           // override point
-- (void)computeProperties;                        // override point
+- (void)renderWillLoad;          // override point
+- (void)renderDidLoad;           // override point
+- (void)computeProperties;       // override point
 
 - (IDEAAppletHtmlRenderObject *)queryById:(NSString *)domId;
 - (IDEAAppletHtmlRenderObject *)queryByDom:(IDEAAppletDomNode *)domNode;

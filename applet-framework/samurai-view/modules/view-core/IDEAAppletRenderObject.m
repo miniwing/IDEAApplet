@@ -446,6 +446,7 @@ static NSUInteger __objectSeed = 0;
 
 #pragma mark -
 
+#if APPLET_DESCRIPTION
 - (NSString *)description {
    
    [[IDEAAppletLogger sharedInstance] outputCapture];
@@ -456,6 +457,7 @@ static NSUInteger __objectSeed = 0;
    
    return [IDEAAppletLogger sharedInstance].output;
 }
+#endif /* APPLET_DESCRIPTION */
 
 - (void)dump {
    

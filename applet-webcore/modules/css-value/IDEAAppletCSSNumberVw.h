@@ -36,7 +36,7 @@
 
 #pragma mark -
 
-#undef   cssVw
+#undef  cssVw
 #define cssVw( n )   [IDEAAppletCSSNumberVw vw:n]
 
 #pragma mark -

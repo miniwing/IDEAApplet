@@ -476,6 +476,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
 
 #pragma mark -
 
+#if APPLET_DESCRIPTION
 - (NSString *)description
 {
    [[IDEAAppletLogger sharedInstance] outputCapture];
@@ -486,6 +487,7 @@ BASE_CLASS( IDEAAppletHtmlRenderStoreScope )
    
    return [IDEAAppletLogger sharedInstance].output;
 }
+#endif /* APPLET_DESCRIPTION */
 
 - (void)dump
 {

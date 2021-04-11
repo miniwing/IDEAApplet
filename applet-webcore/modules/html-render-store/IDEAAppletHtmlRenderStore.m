@@ -161,6 +161,7 @@
 
 #pragma mark -
 
+#if APPLET_DESCRIPTION
 - (NSString *)description
 {
    [[IDEAAppletLogger sharedInstance] outputCapture];
@@ -171,6 +172,7 @@
    
    return [IDEAAppletLogger sharedInstance].output;
 }
+#endif /* APPLET_DESCRIPTION */
 
 - (void)dump
 {
