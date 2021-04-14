@@ -50,7 +50,7 @@
         macro_string( macro_join(signal, __VA_ARGS__) )
 
 #undef  handleSignal
-#define handleSignal( ... )          \
+#define handleSignal( ... )                  \
         - (void) macro_join( handleSignal, __VA_ARGS__):(IDEAAppletSignal *)aSignal
 
 #pragma mark -
@@ -61,11 +61,11 @@
 
 #undef  IDEA_SIGNAL
 #define IDEA_SIGNAL( ... )                   \
-        static_property(macro_join(__VA_ARGS__))
+        static_property(macro_join(signal, __VA_ARGS__))
 
 #undef  IDEA_DEF_SIGNAL
 #define IDEA_DEF_SIGNAL( ... )               \
-        def_static_property2(macro_join(__VA_ARGS__), @"signal", NSStringFromClass([self class]))
+        IDEA_DEF_STATIC_PROPERTY2(macro_join(signal, __VA_ARGS__), @"signal", NSStringFromClass([self class]))
 
 #undef  IDEA_HANDLE_SIGNAL
 #define IDEA_HANDLE_SIGNAL( ... )            \

@@ -57,19 +57,19 @@
 #pragma mark -
 
 #undef  IDEA_MAKE_NOTIFICATION
-#define IDEA_MAKE_NOTIFICATION( ... )              \
+#define IDEA_MAKE_NOTIFICATION( ... )                 \
         macro_string(macro_join(notification, __VA_ARGS__))
 
 #undef  IDEA_NOTIFICATION
-#define IDEA_NOTIFICATION( ... )   \
-        static_property(macro_join(__VA_ARGS__))
+#define IDEA_NOTIFICATION( ... )                      \
+        static_property(macro_join(notification, __VA_ARGS__))
 
 #undef  IDEA_DEF_NOTIFICATION
-#define IDEA_DEF_NOTIFICATION( ... )             \
-        def_static_property2(macro_join(__VA_ARGS__), @"notification", NSStringFromClass([self class]))
+#define IDEA_DEF_NOTIFICATION( ... )                  \
+        IDEA_DEF_STATIC_PROPERTY2(macro_join(notification, __VA_ARGS__), @"notification", NSStringFromClass([self class]))
 
 #undef  IDEA_HANDLE_NOTIFICATION
-#define IDEA_HANDLE_NOTIFICATION( ... )            \
+#define IDEA_HANDLE_NOTIFICATION( ... )               \
         - (void) macro_join(handleNotification, macro_join(__VA_ARGS__)):(NSNotification *)aNotification
 
 #pragma mark -

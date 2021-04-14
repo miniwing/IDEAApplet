@@ -212,6 +212,32 @@
 
 #pragma mark -
 
+#undef  IDEA_DEF_STATIC_PROPERTY0
+#define IDEA_DEF_STATIC_PROPERTY0( __name )                 \
+        dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%s", macro_cstr(__name)]; } \
+        + (NSString *)__name { return [NSString stringWithFormat:@"%s", macro_cstr(__name)]; }
+
+#undef  IDEA_DEF_STATIC_PROPERTY1
+#define IDEA_DEF_STATIC_PROPERTY1( __name, A )              \
+        dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%s", A, macro_cstr(__name)]; } \
+        + (NSString *)__name { return [NSString stringWithFormat:@"%@.%s", A, macro_cstr(__name)]; }
+
+#undef  IDEA_DEF_STATIC_PROPERTY2
+#define IDEA_DEF_STATIC_PROPERTY2( __name, A, B )           \
+        dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%s", A, B, macro_cstr(__name)]; } \
+        + (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%s", A, B, macro_cstr(__name)]; }
+
+#undef  IDEA_DEF_STATIC_PROPERTY3
+#define IDEA_DEF_STATIC_PROPERTY3( __name, A, B, C )        \
+        dynamic __name;                                     \
+        - (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%@.%s", A, B, C, macro_cstr(__name)]; } \
+        + (NSString *)__name { return [NSString stringWithFormat:@"%@.%@.%@.%s", A, B, C, macro_cstr(__name)]; }
+
+#pragma mark -
+
 @interface NSObject(Property)
 
 + (const char *)attributesForProperty:(NSString *)aProperty;
