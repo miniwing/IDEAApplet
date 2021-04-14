@@ -22,8 +22,8 @@
 //  IN THE SOFTWARE.
 //
 
-#import <IDEAApplet.h>
-
+//#import <IDEAApplet.h>
+#import <IDEAApplet/IDEAApplet.h>
 
 typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
     
@@ -32,16 +32,15 @@ typedef NS_ENUM(NSInteger, ServiceConsoleCommandType) {
     
 };
 
-
 @protocol ServiceConsoleCommand <NSObject>
 
 @optional
 
-+(NSString *) serviceConsoleCommandSee:(NSString *)cmd;
-+(NSString *) serviceConsoleCommandAction:(NSString *)cmd;
++ (NSString *) serviceConsoleCommandSee:(NSString *)cmd;
++ (NSString *) serviceConsoleCommandAction:(NSString *)cmd;
 
--(NSString *) serviceConsoleCommandSee:(NSString *)cmd;
--(NSString *) serviceConsoleCommandAction:(NSString *)cmd;
+- (NSString *) serviceConsoleCommandSee:(NSString *)cmd;
+- (NSString *) serviceConsoleCommandAction:(NSString *)cmd;
 
 @end
 

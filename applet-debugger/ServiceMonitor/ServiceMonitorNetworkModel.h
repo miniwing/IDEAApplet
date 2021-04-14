@@ -28,17 +28,18 @@
 //   THE SOFTWARE.
 //
 
-#import <IDEAApplet.h>
+//#import <IDEAApplet.h>
+#import <IDEAApplet/IDEAApplet.h>
 
 #pragma mark -
 
 @interface ServiceMonitorNetworkModel : NSObject
 
-@prop_assign( NSUInteger,      uploadBytes );
-@prop_strong( NSMutableArray *,   uploadHistory );
+@prop_assign( NSUInteger       , uploadBytes );
+@prop_strong( NSMutableArray  *, uploadHistory );
 
-@prop_assign( NSUInteger,      downloadBytes );
-@prop_strong( NSMutableArray *,   downloadHistory );
+@prop_assign( NSUInteger       , downloadBytes );
+@prop_strong( NSMutableArray  *, downloadHistory );
 
 @singleton( ServiceMonitorNetworkModel )
 

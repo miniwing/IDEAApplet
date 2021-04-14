@@ -44,15 +44,16 @@
 
 @def_prop_unsafe( UIView *,   container )
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
-   if ( self )
-   {
+   
+   if ( self ) {
+      
       self.opaque    = NO;
       self.opacity   = 1.0f;
       
@@ -79,8 +80,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [[NSNotificationCenter defaultCenter] removeObserver:self];
    
    __SUPER_DEALLOC;
@@ -88,8 +89,8 @@
    return;
 }
 
-- (void)show
-{
+- (void)show {
+   
    self.hidden = NO;
    self.frame  = CGRectInset( CGRectMake( 0, 0, self.container.bounds.size.width, self.container.bounds.size.height ), 0.1f, 0.1f );
    self.masksToBounds   = YES;
@@ -97,8 +98,8 @@
    return;
 }
 
-- (void)hide
-{
+- (void)hide {
+   
    self.hidden = YES;
    
    return;

@@ -43,18 +43,15 @@
 
 #pragma mark - ManagedService
 
-
-- (BOOL)isAutoLoad
-{
+- (BOOL)isAutoLoad {
+   
    return YES;
 }
 
-
 #pragma mark -
 
-
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -66,9 +63,8 @@
    return;
 }
 
-
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -78,9 +74,8 @@
    return;
 }
 
-
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -90,9 +85,8 @@
    return;
 }
 
-
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -102,9 +96,8 @@
    return;
 }
 
-
-- (void)didDockerOpen
-{
+- (void)didDockerOpen {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -116,9 +109,8 @@
    return;
 }
 
-
-- (void)didDockerClose
-{
+- (void)didDockerClose {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;

@@ -39,89 +39,101 @@
 
 #pragma mark -
 
-@implementation ServiceGestureViewClick
-{
-   BOOL                  _animating;
-   UITapGestureRecognizer *   _gesture;
-   UIImageView *            _circle;
-   UIImageView *            _finger;
+@implementation ServiceGestureViewClick {
+   
+   BOOL                      _animating;
+   UITapGestureRecognizer  * _gesture;
+   UIImageView             * _circle;
+   UIImageView             * _finger;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+   
    self = [super initWithFrame:frame];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.layer.masksToBounds = NO;
       
-      _circle = [[UIImageView alloc] init];
+      _circle  = [[UIImageView alloc] init];
       _circle.backgroundColor = [UIColor clearColor];
-      _circle.contentMode = UIViewContentModeScaleAspectFit;
-      _circle.alpha = 0.0f;
+      _circle.contentMode     = UIViewContentModeScaleAspectFit;
+      _circle.alpha           = 0.0f;
       [self addSubview:_circle];
 
-      _finger = [[UIImageView alloc] init];
+      _finger  = [[UIImageView alloc] init];
       _finger.backgroundColor = [UIColor clearColor];
-      _finger.contentMode = UIViewContentModeScaleAspectFit;
-      _finger.alpha = 0.0f;
+      _finger.contentMode     = UIViewContentModeScaleAspectFit;
+      _finger.alpha           = 0.0f;
       [self addSubview:_finger];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_finger removeFromSuperview];
    _finger = nil;
 
    [_circle removeFromSuperview];
    _circle = nil;
+
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)setFrame:(CGRect)newFrame
-{
+- (void)setFrame:(CGRect)newFrame {
+   
    [super setFrame:newFrame];
    
    CGRect circleFrame;
-   circleFrame.origin = CGPointZero;
-   circleFrame.size = newFrame.size;
-   _circle.frame = circleFrame;
+   circleFrame.origin   = CGPointZero;
+   circleFrame.size     = newFrame.size;
+   _circle.frame  = circleFrame;
    
    CGRect fingerFrame;
-   fingerFrame.origin = CGPointZero;
-   fingerFrame.size = newFrame.size;
-   _finger.frame = CGRectInset( fingerFrame, -20.0f, -20.0f );
+   fingerFrame.origin   = CGPointZero;
+   fingerFrame.size     = newFrame.size;
+   _finger.frame  = CGRectInset( fingerFrame, -20.0f, -20.0f );
+
+   return;
 }
 
-- (void)setGesture:(UIGestureRecognizer *)gesture
-{
+- (void)setGesture:(UIGestureRecognizer *)gesture {
+   
    _gesture = (UITapGestureRecognizer *)gesture;
 
    _circle.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-circle.png"];
 
-   if ( _gesture && _gesture.numberOfTapsRequired <= 1 )
-   {
+   if ( _gesture && _gesture.numberOfTapsRequired <= 1 ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-single-click.png"];
    }
-   else if ( _gesture && 2 == _gesture.numberOfTapsRequired )
-   {
+   else if ( _gesture && 2 == _gesture.numberOfTapsRequired ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-double-click.png"];
    }
-   else
-   {
+   else {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-single-click.png"];
    }
+
+   return;
 }
 
-- (void)startAnimation
-{
+- (void)startAnimation {
+   
    [self performSelector:@selector(startAnimationStep1) withObject:nil afterDelay:0.6f];
+
+   return;
 }
 
-- (void)startAnimationStep1
-{
-   if ( NO == _animating )
-   {
+- (void)startAnimationStep1 {
+   
+   if ( NO == _animating ) {
+      
       CGAffineTransform transform;
       transform = CGAffineTransformIdentity;
       _finger.transform = transform;
@@ -130,12 +142,12 @@
       [UIView beginAnimations:nil context:nil];
       [UIView setAnimationDuration:0.2f];
       
-      if ( _gesture && _gesture.numberOfTapsRequired )
-      {
+      if ( _gesture && _gesture.numberOfTapsRequired ) {
+         
          [UIView setAnimationRepeatCount:_gesture.numberOfTapsRequired];
       }
-      else
-      {
+      else {
+         
          [UIView setAnimationRepeatCount:1];
       }
       
@@ -151,11 +163,14 @@
       [UIView commitAnimations];
 
       _animating = YES;
-   }
+      
+   } /* End if () */
+
+   return;
 }
 
-- (void)startAnimationStep2
-{
+- (void)startAnimationStep2 {
+   
    CGAffineTransform transform;
  
    transform = CGAffineTransformIdentity;
@@ -175,10 +190,12 @@
    _circle.alpha = 0.6f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep3
-{
+- (void)startAnimationStep3 {
+   
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationDuration:0.2f];
    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -190,18 +207,24 @@
    _circle.alpha = 0.0f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep4
-{
+- (void)startAnimationStep4 {
+   
    _animating = NO;
    
    [self startAnimation];
+
+   return;
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+   return;
 }
 
 @end

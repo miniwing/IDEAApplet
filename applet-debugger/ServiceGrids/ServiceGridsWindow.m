@@ -36,47 +36,56 @@
 
 @def_singleton( ServiceGridsWindow )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super initWithFrame:[UIScreen mainScreen].bounds];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.hidden = YES;
       self.backgroundColor       = [UIColor clearColor];
       self.windowLevel           = UIWindowLevelStatusBar + 2.0f;
       self.userInteractionEnabled= NO;
       self.rootViewController    = [[ServiceRootController alloc] init];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)show
-{
+- (void)show {
+   
    self.hidden = NO;
+
+   return;
 }
 
-- (void)hide
-{
+- (void)hide {
+   
    self.hidden = YES;
+
+   return;
 }
 
 #pragma mark -
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
+   
    CGFloat a = 30.0f;
    CGFloat i = 5.0f;
 //   CGFloat n = [UIScreen mainScreen].bounds.size.width / (a + i);
 
    CGContextRef context = UIGraphicsGetCurrentContext();
-   if ( context )
-   {
+   if ( context ) {
+      
       CGContextSaveGState( context );
 
       CGContextSetFillColorWithColor( context, [[UIColor clearColor] CGColor] );
@@ -84,8 +93,8 @@
 
       CGFloat x = 0;
       
-      while ( x < [UIScreen mainScreen].bounds.size.width )
-      {
+      while ( x < [UIScreen mainScreen].bounds.size.width ) {
+         
          x += i;
          
          CGRect column;
@@ -107,6 +116,8 @@
    }
    
    [super drawRect:rect];
+
+   return;
 }
 
 @end

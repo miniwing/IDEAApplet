@@ -37,24 +37,22 @@
 
 #pragma mark -
 
-@implementation ServiceInspector
-{
-   ServiceInspectorWindow * _window;
+@implementation ServiceInspector {
+   
+   ServiceInspectorWindow  * _window;
 }
-
 
 #pragma mark - ManagedService
 
-- (BOOL)isAutoLoad
-{
+- (BOOL)isAutoLoad {
+   
    return YES;
 }
 
-
 #pragma mark -
 
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -73,9 +71,8 @@
    return;
 }
 
-
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -89,12 +86,10 @@
    return;
 }
 
-
 #pragma mark -
 
-
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -104,9 +99,8 @@
    return;
 }
 
-
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -116,17 +110,16 @@
    return;
 }
 
-
 #pragma mark -
 
-- (void)didApplicationLaunched
-{
+- (void)didApplicationLaunched {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   if ( nil == _window )
-   {
+   if ( nil == _window ) {
+      
       _window  = [[ServiceInspectorWindow alloc] init];
       _window.hidden = YES;
       
@@ -137,9 +130,8 @@
    return;
 }
 
-
-- (void)willApplicationTerminate
-{
+- (void)willApplicationTerminate {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -151,11 +143,10 @@
    return;
 }
 
-
 #pragma mark -
 
-- (void)didDockerOpen
-{
+- (void)didDockerOpen {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -169,9 +160,8 @@
    return;
 }
 
-
-- (void)didDockerClose
-{
+- (void)didDockerClose {
+   
    int                            nErr                                     = EFAULT;
    
    UIWindow                      *stKeyWindow                              = nil;
@@ -182,10 +172,10 @@
    
 //   [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
 
-   for (UIWindow *stWindow in [UIApplication sharedApplication].windows)
-   {
-      if ([stWindow isMemberOfClass:[UIWindow class]])
-      {
+   for (UIWindow *stWindow in [UIApplication sharedApplication].windows) {
+      
+      if ([stWindow isMemberOfClass:[UIWindow class]]) {
+         
          stKeyWindow  = stWindow;
 
          break;
@@ -194,8 +184,8 @@
       
    } /* End for () */
 
-   if (nil == stKeyWindow)
-   {
+   if (nil == stKeyWindow) {
+      
       stKeyWindow = [UIApplication sharedApplication].delegate.window;
       
    } /* End if () */

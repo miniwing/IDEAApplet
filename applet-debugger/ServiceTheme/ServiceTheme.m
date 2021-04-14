@@ -28,12 +28,101 @@
 //   THE SOFTWARE.
 //
 
-//#import <IDEAApplet.h>
-#import <IDEAApplet/IDEAApplet.h>
+#import "ServiceTheme.h"
+
+// ----------------------------------
+// Private
+// ----------------------------------
+
+@interface ServiceTheme ()
+
+@end
+
+// ----------------------------------
+// Source code
+// ----------------------------------
 
 #pragma mark -
 
-@interface ServiceGesture : IDEAAppletService < ManagedService, ManagedDocker >
+@implementation ServiceTheme
 
+#pragma mark - ManagedService
+
+- (BOOL)isAutoLoad {
+   
+   return YES;
+}
+
+#pragma mark -
+
+- (void)install {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)uninstall {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)powerOn {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)powerOff {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)didDockerOpen {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   [[DKNightVersionManager sharedManager] nightFalling];
+   
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)didDockerClose {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   [[DKNightVersionManager sharedManager] dawnComing];
+
+   __CATCH(nErr);
+   
+   return;
+}
 
 @end

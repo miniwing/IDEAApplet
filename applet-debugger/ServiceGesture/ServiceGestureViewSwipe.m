@@ -39,19 +39,19 @@
 
 #pragma mark -
 
-@implementation ServiceGestureViewSwipe
-{
-   BOOL                  _animating;
-   UISwipeGestureRecognizer *   _gesture;
-   UIImageView *            _circle;
-   UIImageView *            _finger;
+@implementation ServiceGestureViewSwipe {
+   
+   BOOL                         _animating;
+   UISwipeGestureRecognizer   * _gesture;
+   UIImageView                * _circle;
+   UIImageView                * _finger;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+   
    self = [super initWithFrame:frame];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.layer.masksToBounds = NO;
 
       _circle = [[UIImageView alloc] init];
@@ -65,45 +65,53 @@
       _finger.contentMode = UIViewContentModeScaleAspectFit;
       _finger.alpha = 0.0f;
       [self addSubview:_finger];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_finger removeFromSuperview];
    _finger = nil;
    
    [_circle removeFromSuperview];
    _circle = nil;
+
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)setGesture:(UIGestureRecognizer *)gesture
-{
+- (void)setGesture:(UIGestureRecognizer *)gesture {
+   
    _gesture = (UISwipeGestureRecognizer *)gesture;
    
    _circle.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-circle.png"];
-
-   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
-   {
+   
+   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-left.png"];
    }
-   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-right.png"];
    }
-   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-up.png"];
    }
-   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction ) {
+      
       _finger.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-swipe-down.png"];
    }
+   
+   return;
 }
 
-- (void)setFrame:(CGRect)newFrame
-{
+- (void)setFrame:(CGRect)newFrame {
+   
    [super setFrame:newFrame];
 
    CGRect circleFrame;
@@ -115,17 +123,21 @@
    fingerFrame.origin = CGPointZero;
    fingerFrame.size = newFrame.size;
    _finger.frame = CGRectInset( fingerFrame, -20.0f, -20.0f );
+
+   return;
 }
 
-- (void)startAnimation
-{
+- (void)startAnimation {
+   
    [self performSelector:@selector(startAnimationStep1) withObject:nil afterDelay:0.6f];
+
+   return;
 }
 
-- (void)startAnimationStep1
-{
-   if ( NO == _animating )
-   {
+- (void)startAnimationStep1 {
+   
+   if ( NO == _animating ) {
+      
       _finger.transform = CGAffineTransformIdentity;
       _finger.alpha = 0.0f;
 
@@ -144,11 +156,14 @@
       [UIView commitAnimations];
 
       _animating = YES;
-   }
+      
+   } /* End if () */
+
+   return;
 }
 
-- (void)startAnimationStep2
-{
+- (void)startAnimationStep2 {
+   
    CGAffineTransform transform;
  
    [UIView beginAnimations:nil context:nil];
@@ -157,8 +172,8 @@
    [UIView setAnimationDelegate:self];
    [UIView setAnimationDidStopSelector:@selector(startAnimationStep3)];
    
-   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction )
-   {
+   if ( UISwipeGestureRecognizerDirectionLeft & _gesture.direction ) {
+      
       transform = CGAffineTransformIdentity;
       transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
       _finger.transform = transform;
@@ -167,8 +182,8 @@
       transform = CGAffineTransformTranslate( transform, -(self.frame.size.width / 2.0f - 7.0f), 0.0f );
       _circle.transform = transform;
    }
-   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionRight & _gesture.direction ) {
+      
       transform = CGAffineTransformIdentity;
       transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
       _finger.transform = transform;
@@ -177,8 +192,8 @@
       transform = CGAffineTransformTranslate( transform, (self.frame.size.width / 2.0f - 7.0f), 0.0f );
       _circle.transform = transform;
    }
-   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionUp & _gesture.direction ) {
+      
       transform = CGAffineTransformIdentity;
       transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
       _finger.transform = transform;
@@ -187,8 +202,8 @@
       transform = CGAffineTransformTranslate( transform, 0.0f, -(self.frame.size.height / 2.0f - 7.0f) );
       _circle.transform = transform;
    }
-   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction )
-   {
+   else if ( UISwipeGestureRecognizerDirectionDown & _gesture.direction ) {
+      
       transform = CGAffineTransformIdentity;
       transform = CGAffineTransformTranslate( transform, 0.0f, (self.frame.size.height / 2.0f - 7.0f) );
       _finger.transform = transform;
@@ -201,10 +216,12 @@
    _circle.alpha = 0.6f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep3
-{
+- (void)startAnimationStep3 {
+   
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationDuration:0.3f];
    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -215,18 +232,24 @@
    _circle.alpha = 0.0f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep4
-{
+- (void)startAnimationStep4 {
+   
    _animating = NO;
    
    [self startAnimation];
+
+   return;
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+   return;
 }
 
 @end

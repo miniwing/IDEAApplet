@@ -27,26 +27,20 @@
 #import "ServiceConsole.h"
 #import "ServiceConsoleWindow.h"
 
-
 static NSMutableDictionary * __commandCache = nil;
 
-
 #pragma mark -
-
 
 @interface ServiceCommandCache ()
 
 @end
 
-
 #pragma mark -
-
 
 @implementation ServiceCommandCache
 
-
--(NSString *)cmdDescription
-{
+-(NSString *)cmdDescription {
+   
    if ( !_cmdDescription || ![_cmdDescription isKindOfClass:[NSString class]] ) {
       
       return @"";
@@ -63,26 +57,23 @@ static NSMutableDictionary * __commandCache = nil;
    return _cmdDescription;
 }
 
-
 @end
 
-
 #pragma mark -
-
 
 @implementation ServiceConsole
 
 #pragma mark - ManagedService
 
-- (BOOL)isAutoLoad
-{
+- (BOOL)isAutoLoad {
+   
    return NO;
 }
 
 #pragma mark -
 
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -107,8 +98,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-- (void)installDelay
-{
+- (void)installDelay {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -120,8 +111,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -131,8 +122,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -142,8 +133,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -153,8 +144,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-- (void)didDockerOpen
-{
+- (void)didDockerOpen {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -166,9 +157,8 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-
-- (void)didDockerClose
-{
+- (void)didDockerClose {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -180,12 +170,10 @@ static NSMutableDictionary * __commandCache = nil;
    return;
 }
 
-
 #pragma mark -
 
-
-+ (NSMutableDictionary *)commandCache
-{
++ (NSMutableDictionary *)commandCache {
+   
    if ( !__commandCache ) {
       
       __commandCache = [NSMutableDictionary dictionary];
@@ -194,12 +182,10 @@ static NSMutableDictionary * __commandCache = nil;
    return __commandCache;
 }
 
-
 #pragma mark -
 
-
-+ (BOOL)analysisCommand:(NSString *)command
-{
++ (BOOL)analysisCommand:(NSString *)command {
+   
    if ( command.length <= 0 ) {
       
       return NO;
@@ -249,8 +235,8 @@ static NSMutableDictionary * __commandCache = nil;
    return NO;
 }
 
-+ (void)execute:(ServiceCommandCache *)cache
-{
++ (void)execute:(ServiceCommandCache *)cache {
+   
    if ( cache.class ) {
       
       if ( cache.cmdType == ServiceConsoleCommandTypeSee ) {
@@ -299,8 +285,7 @@ static NSMutableDictionary * __commandCache = nil;
 + (BOOL)addClassCommand:(NSString *)command
             commandType:(ServiceConsoleCommandType)commandType
                impClass:(Class<ServiceConsoleCommand>)impClass
-     commandDescription:(NSString *)cmdDescription
-{
+     commandDescription:(NSString *)cmdDescription {
    
    if ( !command || command.length <= 0 ) {
       
@@ -323,8 +308,8 @@ static NSMutableDictionary * __commandCache = nil;
 + (BOOL)addObjectCommand:(NSString *)command
              commandType:(ServiceConsoleCommandType)commandType
                impObject:(NSObject<ServiceConsoleCommand> *)impObject
-          CMDDescription:(NSString *)cmdDescription
-{
+          CMDDescription:(NSString *)cmdDescription {
+   
    if (!command || command.length <= 0) {
       
       WARN(@"Can't add command, Because it is invalid.");
@@ -343,12 +328,11 @@ static NSMutableDictionary * __commandCache = nil;
    return YES;
 }
 
-#pragma mark - 
-
+#pragma mark -
 
 // Default cmd
-+ (NSString *)serviceConsoleCommandAction:(NSString *)command
-{
++ (NSString *)serviceConsoleCommandAction:(NSString *)command {
+   
    if ([command isEqualToString:@"exit"]) {
       
       exit(0);
@@ -357,8 +341,8 @@ static NSMutableDictionary * __commandCache = nil;
    return nil;
 }
 
-+ (NSString *)serviceConsoleCommandSee:(NSString *)command
-{
++ (NSString *)serviceConsoleCommandSee:(NSString *)command {
+   
    if ([command isEqualToString:@"help"]) {
       
       

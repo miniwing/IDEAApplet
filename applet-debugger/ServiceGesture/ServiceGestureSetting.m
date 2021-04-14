@@ -36,8 +36,8 @@
 
 #pragma mark -
 
-@implementation ServiceGestureSetting
-{
+@implementation ServiceGestureSetting {
+   
    BOOL _enabled;
 }
 
@@ -46,23 +46,27 @@
 @def_notification( Enabled )
 @def_notification( Disabled )
 
-- (BOOL)isEnabled
-{
+- (BOOL)isEnabled {
+   
    return _enabled;
 }
 
-- (void)enable
-{
+- (void)enable {
+   
    _enabled = YES;
    
    [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.Enabled object:nil];
+   
+   return;
 }
 
-- (void)disable
-{
+- (void)disable {
+   
    _enabled = NO;
    
    [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.Disabled object:nil];
+   
+   return;
 }
 
 @end

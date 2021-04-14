@@ -17,8 +17,8 @@
 
 @implementation ServiceConsoleInputView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
+   
    if ( self = [super initWithFrame:frame] ) {
       
       self.backgroundColor   = [UIColor clearColor];
@@ -37,13 +37,14 @@
       self.textField.placeholder          = @"Input command. ( You could input 'see help' to see the all cmd. )";
       
       [self addSubview:self.textField];
-   }
+      
+   } /* End if () */
    
    return self;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+   
    [textField resignFirstResponder];
    
    [ServiceConsole analysisCommand:[textField.text lowercaseString]];
@@ -51,8 +52,8 @@
    return YES;
 }
 
--(BOOL) resignFirstResponder
-{
+-(BOOL) resignFirstResponder {
+   
    [self.textField resignFirstResponder];
    
    return [super resignFirstResponder];

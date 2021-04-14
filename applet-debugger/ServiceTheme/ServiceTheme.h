@@ -28,12 +28,10 @@
 //   THE SOFTWARE.
 //
 
-//#import <IDEAApplet.h>
 #import <IDEAApplet/IDEAApplet.h>
 
 #pragma mark -
 
-@interface ServiceGesture : IDEAAppletService < ManagedService, ManagedDocker >
-
+@interface ServiceTheme : IDEAAppletService < ManagedService, ManagedDocker >
 
 @end

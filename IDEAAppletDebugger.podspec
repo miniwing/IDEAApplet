@@ -6,9 +6,14 @@ Pod::Spec.new do |spec|
   spec.homepage             = "https://github.com/miniwing"
   spec.license              = "MIT"
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
-  spec.platform             = :ios, "10.0"
+#  spec.platform             = :ios, "10.0"
   
-  spec.ios.pod_target_xcconfig     = {
+  spec.ios.deployment_target        = '10.0'
+  spec.watchos.deployment_target    = '4.3'
+  spec.osx.deployment_target        = '10.10'
+  spec.tvos.deployment_target       = '10.0'
+
+  spec.ios.pod_target_xcconfig      = {
                                         'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger',
                                         'ENABLE_BITCODE'            => 'NO',
                                         'SWIFT_VERSION'             => '5.0',
@@ -20,18 +25,24 @@ Pod::Spec.new do |spec|
   spec.watchos.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger-watchOS' }
   spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger' }
 
-#  spec.requires_arc = true
-#  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
+  spec.xcconfig                     = {
+    'HEADER_SEARCH_PATHS'               => [
+                                              "${PODS_TARGET_SRCROOT}/",
+                                              "${PODS_TARGET_SRCROOT}/../",
+#                                              '"${PODS_TARGET_SRCROOT}/applet-framework"/**',
+#                                              '"${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/**',
+                                              "${PODS_ROOT}/Headers/Public/IDEAApplet/",
+                                              "${PODS_ROOT}/Headers/Public/IDEANightVersion"
+                                            ]
+                                        }
 
-  spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
+#  spec.requires_arc                 = true
+#  spec.non_arc_files                = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
-#  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
-  spec.source               = { :path => "." }
+#  spec.source                       = { :git => "https://github.com/miniwing/Idea.Applets.git" }
+  spec.source                       = { :path => "." }
 
-  spec.xcconfig             = {
-    'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/applet-framework"/** "${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/** ',
-#    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
-  }
+  spec.frameworks                   = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
   
 #  spec.pod_target_xcconfig  = {
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'IDEAKIT_AFNETWORKING_OPERATIONS=1'
@@ -39,13 +50,12 @@ Pod::Spec.new do |spec|
 
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'
- 
-  spec.ios.deployment_target      = '10.0'
-  spec.ios.private_header_files   = 'applet-debugger/*.{h,hpp}'
-  spec.ios.source_files           = 'applet-debugger/*.{h,m,c}'
-  
+  spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
 
+  spec.ios.private_header_files         = 'applet-debugger/*.{h,hpp}'
+  spec.ios.source_files                 = 'applet-debugger/*.{h,m,c}'
+  
   spec.subspec 'ServiceBorder' do |border|
     border.ios.private_header_files     = 'applet-debugger/ServiceBorder/*.{h}'
     border.ios.source_files             = 'applet-debugger/ServiceBorder/*.{h,m,c}'
@@ -88,6 +98,12 @@ Pod::Spec.new do |spec|
   spec.subspec 'ServiceTapspot' do |tapspot|
     tapspot.ios.private_header_files    = 'applet-debugger/ServiceTapspot/*.{h}'
     tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m,c}'
+  end
+
+  spec.subspec 'ServiceTheme' do |theme|
+    theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
+    theme.ios.source_files              = 'applet-debugger/ServiceTheme/*.{h,m,c}'
+    theme.resource                      = 'applet-debugger/ServiceTheme/ServiceTheme.bundle'
   end
 
 #  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
@@ -193,6 +209,19 @@ Pod::Spec.new do |spec|
 #  import "AFNetworkActivityIndicatorManager.h"
 #else
 #  define AF_NETWORKING                                                 (0)
+#endif
+
+#if __has_include(<IDEANightVersion/DKNightVersion.h>)
+# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
+# import <IDEANightVersion/DKNightVersion.h>
+#elif __has_include("IDEANightVersion/DKNightVersion.h")
+# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
+# import "IDEANightVersion/DKNightVersion.h"
+#elif __has_include("DKNightVersion.h")
+# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
+# import "DKNightVersion.h"
+#else
+# define IDEA_NIGHT_VERSION_MANAGER                                     (0)
 #endif
 
 /******************************************************************************************************/

@@ -11,9 +11,7 @@
 #import "ServiceConsoleWindow.h"
 #import "ServiceConsoleLogView.h"
 
-
 #pragma mark -
-
 
 @interface ServiceConsoleWindow ()
 
@@ -21,16 +19,14 @@
 
 @end
 
-
 #pragma mark -
-
 
 @implementation ServiceConsoleWindow
 
 @def_singleton( ServiceConsoleWindow )
 
-- (id)init
-{
+- (id)init {
+   
    self = [super initWithFrame:[UIScreen mainScreen].bounds];
    
    if ( self )
@@ -51,8 +47,6 @@
       self.logView = [[ServiceConsoleLogView alloc] initWithFrame:CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50)];
       [self addSubview:self.logView];
       
-      
-      
       [IDEAAppletLogger sharedInstance].outputHandler = ^(NSString * text){
          
          [self.logView appendLogString:text];
@@ -64,18 +58,20 @@
 
 - (void)dealloc
 {
+   __SUPER_DEALLOC;
    
+   return;
 }
 
 #pragma mark -
 
-- (void)show
-{
+- (void)show {
+   
    self.hidden = NO;
 }
 
-- (void)hide
-{
+- (void)hide {
+   
    self.hidden = YES;
 }
 

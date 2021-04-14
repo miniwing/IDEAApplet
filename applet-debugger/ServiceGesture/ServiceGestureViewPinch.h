@@ -28,7 +28,9 @@
 //   THE SOFTWARE.
 //
 
-#import <IDEAApplet.h>
+//#import <IDEAApplet.h>
+#import <IDEAApplet/IDEAApplet.h>
+
 #import "ServiceGestureView.h"
 
 #pragma mark -

@@ -50,8 +50,8 @@ static void (*__setNeedsDisplay) (id, SEL) = NULL;
 
 static BOOL __enabled = NO;
 
-+ (void)borderEnable
-{
++ (void)borderEnable {
+   
    __enabled = YES;
    
    [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BORDER_SHOW object:nil];
@@ -59,8 +59,8 @@ static BOOL __enabled = NO;
    return;
 }
 
-+ (void)borderDisable
-{
++ (void)borderDisable {
+   
    __enabled = NO;
    
    [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BORDER_HIDE object:nil];
@@ -68,8 +68,8 @@ static BOOL __enabled = NO;
    return;
 }
 
-+ (void)borderHook
-{
++ (void)borderHook {
+   
    __layoutSubviews  = [UIView replaceSelector:@selector(layoutSubviews) withSelector:@selector(__layoutSubviews)];
    __setNeedsLayout  = [UIView replaceSelector:@selector(setNeedsLayout) withSelector:@selector(__setNeedsLayout)];
    __setNeedsDisplay = [UIView replaceSelector:@selector(setNeedsDisplay) withSelector:@selector(__setNeedsDisplay)];
@@ -77,12 +77,12 @@ static BOOL __enabled = NO;
    return;
 }
 
-- (void)__layoutSubviews
-{
-   if ([self isKindOfClass:[UIView class]])
-   {
-      for (UIView *stSubview in [(UIView *)self subviews])
-      {
+- (void)__layoutSubviews {
+   
+   if ([self isKindOfClass:[UIView class]]) {
+      
+      for (UIView *stSubview in [(UIView *)self subviews]) {
+         
          [self borderPresent:stSubview];
          
       } /* End for () */
@@ -90,8 +90,8 @@ static BOOL __enabled = NO;
 //      [self borderPresent:(UIView *)self];
    }
    
-   if (__layoutSubviews)
-   {
+   if (__layoutSubviews) {
+      
       __layoutSubviews(self, _cmd);
       
    } /* End if () */
@@ -99,12 +99,12 @@ static BOOL __enabled = NO;
    return;
 }
 
-- (void)__setNeedsLayout
-{
-   if ([self isKindOfClass:[UIView class]])
-   {
-      for (UIView *stSubview in [(UIView *)self subviews])
-      {
+- (void)__setNeedsLayout {
+   
+   if ([self isKindOfClass:[UIView class]]) {
+      
+      for (UIView *stSubview in [(UIView *)self subviews]) {
+         
          [self borderPresent:stSubview];
          
       } /* End for () */
@@ -113,8 +113,8 @@ static BOOL __enabled = NO;
       
    } /* End if () */
    
-   if (__setNeedsLayout)
-   {
+   if (__setNeedsLayout) {
+      
       __setNeedsLayout(self, _cmd);
       
    } /* End if () */
@@ -122,39 +122,42 @@ static BOOL __enabled = NO;
    return;
 }
 
-- (void)__setNeedsDisplay
-{
-   if ([self isKindOfClass:[UIView class]])
-   {
-      for (UIView *stSubview in [(UIView *)self subviews])
-      {
+- (void)__setNeedsDisplay {
+   
+   if ([self isKindOfClass:[UIView class]]) {
+      
+      for (UIView *stSubview in [(UIView *)self subviews]) {
+         
          [self borderPresent:stSubview];
          
       } /* End for () */
       
-      //      [self borderPresent:(UIView *)self];
+//      [self borderPresent:(UIView *)self];
    }
    
-   if (__setNeedsDisplay)
-   {
+   if (__setNeedsDisplay) {
+      
       __setNeedsDisplay(self, _cmd);
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)borderPresent:(UIView *)aContainer
-{
-   if (nil == aContainer.renderer)
-   {
+- (void)borderPresent:(UIView *)aContainer {
+   
+   if (nil == aContainer.renderer) {
+      
       return;
       
    } /* End if () */
 
    ServiceBorderLayer   *stBorderLayer    = nil;
    
-   for (CALayer *stSublayer in aContainer.layer.sublayers)
-   {
-      if ([stSublayer isKindOfClass:[ServiceBorderLayer class]])
-      {
+   for (CALayer *stSublayer in aContainer.layer.sublayers) {
+      
+      if ([stSublayer isKindOfClass:[ServiceBorderLayer class]]) {
+         
          stBorderLayer = (ServiceBorderLayer *)stSublayer;
          
          break;
@@ -163,8 +166,8 @@ static BOOL __enabled = NO;
       
    } /* End for () */
    
-   if (nil == stBorderLayer)
-   {
+   if (nil == stBorderLayer) {
+      
       stBorderLayer  = [[ServiceBorderLayer alloc] init];
       stBorderLayer.container = aContainer;
       
@@ -172,7 +175,7 @@ static BOOL __enabled = NO;
       stBorderLayer.frame     = CGRectInset(CGRectMake(0, 0, aContainer.bounds.size.width, aContainer.bounds.size.height), 0.1f, 0.1f);
       
       stBorderLayer.masksToBounds = YES;
-      //   borderLayer.cornerRadius = container.layer.cornerRadius;
+//   borderLayer.cornerRadius = container.layer.cornerRadius;
       
       [aContainer.layer insertSublayer:stBorderLayer atIndex:0];
       
@@ -180,40 +183,40 @@ static BOOL __enabled = NO;
    
    IDEAAppletRenderObject  *stRenderer = aContainer.renderer;
    
-   if (stRenderer)
-   {
-      if (DomNodeType_Document == stRenderer.dom.type)
-      {
+   if (stRenderer) {
+      
+      if (DomNodeType_Document == stRenderer.dom.type) {
+         
          stBorderLayer.borderColor = [HEX_RGBA(0x000000, 1.0f) CGColor];
          stBorderLayer.borderWidth = 2.0f;
       }
-      else if (DomNodeType_Element == stRenderer.dom.type)
-      {
+      else if (DomNodeType_Element == stRenderer.dom.type) {
+         
          stBorderLayer.borderColor = [HEX_RGBA(0xd22042, 1.0f) CGColor];
          stBorderLayer.borderWidth = 2.0f;
       }
-      else if (DomNodeType_Text == stRenderer.dom.type)
-      {
+      else if (DomNodeType_Text == stRenderer.dom.type) {
+         
          stBorderLayer.borderColor = [HEX_RGBA(0x666666, 1.0f) CGColor];
          stBorderLayer.borderWidth = 2.0f;
       }
-      else
-      {
+      else {
+         
          stBorderLayer.borderColor = [HEX_RGBA(0xcccccc, 1.0f) CGColor];
          stBorderLayer.borderWidth = 2.0f;
       }
       
-      if ([stRenderer.childs count])
-      {
+      if ([stRenderer.childs count]) {
+         
          stBorderLayer.backgroundColor = [[UIColor clearColor] CGColor];
       }
-      else
-      {
+      else {
+         
          stBorderLayer.backgroundColor = [HEX_RGBA(0x00bff3, 0.2f) CGColor];
       }
    }
-   else
-   {
+   else {
+      
       stBorderLayer.backgroundColor = [[UIColor clearColor] CGColor];
       stBorderLayer.borderColor = [HEX_RGBA(0xcccccc, 1.0f) CGColor];
       stBorderLayer.borderWidth = 2.0f;

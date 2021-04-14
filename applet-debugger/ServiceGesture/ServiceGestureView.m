@@ -41,11 +41,11 @@
 
 @implementation ServiceGestureView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+   
    self = [super initWithFrame:frame];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.userInteractionEnabled = NO;
       self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
       self.alpha = 0.85f;
@@ -65,39 +65,50 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   
+   return;
 }
 
-- (void)setGesture:(UIGestureRecognizer *)gesture
-{   
+- (void)setGesture:(UIGestureRecognizer *)gesture {
+   
+   return;
 }
 
-- (void)setFrame:(CGRect)frame
-{
+- (void)setFrame:(CGRect)frame {
+   
    [super setFrame:frame];
    
    self.layer.masksToBounds = YES;
    self.layer.cornerRadius = fminf( frame.size.width, frame.size.height ) / 2.0f;
+   
+   return;
 }
 
-- (void)startAnimation
-{
+- (void)startAnimation {
+
+   return;
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
+
+   return;
 }
 
-- (void)didEnabled
-{
+- (void)didEnabled {
+   
    self.hidden = NO;
+
+   return;
 }
 
-- (void)didDisabled
-{
+- (void)didDisabled {
+
    self.hidden = YES;
+
+   return;
 }
 
 @end

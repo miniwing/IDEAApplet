@@ -39,20 +39,20 @@
 
 #pragma mark -
 
-@implementation ServiceGestureViewPinch
-{
-   BOOL                  _animating;
-   UIPinchGestureRecognizer *   _gesture;
-   UIImageView *            _circle;
-   UIImageView *            _finger1;
-   UIImageView *            _finger2;
+@implementation ServiceGestureViewPinch {
+   
+   BOOL                         _animating;
+   UIPinchGestureRecognizer   * _gesture;
+   UIImageView                * _circle;
+   UIImageView                * _finger1;
+   UIImageView                * _finger2;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+   
    self = [super initWithFrame:frame];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.layer.masksToBounds = NO;
 
       _circle = [[UIImageView alloc] init];
@@ -72,12 +72,14 @@
       _finger2.contentMode = UIViewContentModeScaleAspectFit;
       _finger2.alpha = 0.0f;
       [self addSubview:_finger2];
+      
    }
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [_circle removeFromSuperview];
    _circle = nil;
    
@@ -86,19 +88,25 @@
 
    [_finger2 removeFromSuperview];
    _finger2 = nil;
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)setGesture:(UIGestureRecognizer *)gesture
-{
+- (void)setGesture:(UIGestureRecognizer *)gesture {
+   
    _gesture = (UIPinchGestureRecognizer *)gesture;
    
    _circle.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-circle.png"];
    _finger1.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-pinch.png"];
    _finger2.image = [[ServiceGesture instance].bundle imageForResource:@"gesture-spread.png"];
+
+   return;
 }
 
-- (void)setFrame:(CGRect)newFrame
-{
+- (void)setFrame:(CGRect)newFrame {
+   
    [super setFrame:newFrame];
 
    CGRect circleFrame;
@@ -115,17 +123,20 @@
    fingerFrame2.origin = CGPointZero;
    fingerFrame2.size = newFrame.size;
    _finger2.frame = CGRectInset( fingerFrame2, -20.0f, -20.0f );
+
+   return;
 }
 
-- (void)startAnimation
-{
+- (void)startAnimation {
    [self performSelector:@selector(startAnimationStep1) withObject:nil afterDelay:0.6f];
+
+   return;
 }
 
-- (void)startAnimationStep1
-{
-   if ( NO == _animating )
-   {
+- (void)startAnimationStep1 {
+   
+   if ( NO == _animating ) {
+      
       CGAffineTransform transform;
       
       transform = CGAffineTransformIdentity;
@@ -153,10 +164,12 @@
       
       _animating = YES;
    }
+
+   return;
 }
 
-- (void)startAnimationStep2
-{
+- (void)startAnimationStep2 {
+   
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationDuration:0.6f];
    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -173,10 +186,12 @@
    _finger2.alpha = 1.0f;
 
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep3
-{
+- (void)startAnimationStep3 {
+   
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationDuration:0.6f];
    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -193,10 +208,12 @@
    _finger2.alpha = 0.0f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep4
-{
+- (void)startAnimationStep4 {
+   
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationDuration:0.6f];
    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
@@ -208,18 +225,24 @@
    _finger2.alpha = 0.0f;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)startAnimationStep5
-{
+- (void)startAnimationStep5 {
+   
    _animating = NO;
    
    [self startAnimation];
+
+   return;
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
+   
    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+   return;
 }
 
 @end

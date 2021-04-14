@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <IDEAApplet.h>
+//#import <IDEAApplet.h>
+#import <IDEAApplet/IDEAApplet.h>
 
 @interface ServiceConsoleWindow : UIWindow
 

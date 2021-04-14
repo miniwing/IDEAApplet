@@ -115,9 +115,13 @@ typedef enum {
 @interface NSObject(SignalSender)
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName input:(NSDictionary *)aInput;
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput;
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput;
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput;
 
 //- (IDEAAppletSignal *)postSignal:(NSString *)aName;
 //- (IDEAAppletSignal *)postSignal:(NSString *)aName withObject:(NSObject *)aObject;
@@ -125,9 +129,16 @@ typedef enum {
 //- (IDEAAppletSignal *)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject;
 
 - (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue;
+
 - (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue;
+
 - (void)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue;
+
 - (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue;
 
 @end
 

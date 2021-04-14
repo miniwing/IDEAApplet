@@ -114,7 +114,7 @@
 
 - (id)userRespondersOrCreate {
    
-   const char *cpcStoreKey   = "NSObject.userResponders";
+   const char        *cpcStoreKey   = "NSObject.userResponders";
    NSMutableArray    *stResponders  = [self getAssociatedObjectForKey:cpcStoreKey];
    
    if (nil == stResponders) {
@@ -182,6 +182,7 @@
       [stResponders removeObject:aObject];
       
    } /* End if () */
+   
    return;
 }
 
@@ -200,9 +201,9 @@
 
 #pragma mark -
 
-- (void)handleSignal:(IDEAAppletSignal *)aThat {
+- (void)handleSignal:(IDEAAppletSignal *)aSignal {
    
-   UNUSED(aThat);
+   UNUSED(aSignal);
    
    return;
 }
@@ -215,20 +216,51 @@
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName {
    
-   return [self sendSignal:aName from:self withObject:nil];
+   return [self sendSignal:aName from:self withObject:nil input:nil];
 }
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject {
    
-   return [self sendSignal:aName from:self withObject:aObject];
+   return [self sendSignal:aName from:self withObject:aObject input:nil];
+}
+
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput {
+   
+   return [self sendSignal:aName from:self withObject:aObject input:aInput];
+}
+
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName input:(NSDictionary *)aInput {
+   
+   return [self sendSignal:aName from:self withObject:nil input:aInput];
 }
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource {
    
-   return [self sendSignal:aName from:aSource withObject:nil];
+   return [self sendSignal:aName from:aSource withObject:nil input:nil];
+}
+
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput {
+   
+   return [self sendSignal:aName from:aSource withObject:nil input:aInput];
 }
 
 - (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
+   
+//   IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
+//
+//   stSignal.source   = aSource ? aSource : self;
+//   stSignal.target   = self;
+//   stSignal.name     = aName;
+//   stSignal.object   = aObject;
+//
+//   [stSignal send];
+//
+//   return stSignal;
+
+   return [self sendSignal:aName from:aSource withObject:aObject input:nil];
+}
+
+- (IDEAAppletSignal *)sendSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput {
    
    IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
    
@@ -236,6 +268,7 @@
    stSignal.target   = self;
    stSignal.name     = aName;
    stSignal.object   = aObject;
+   stSignal.input    = aInput ? [aInput mutableCopy] : nil;
    
    [stSignal send];
    
@@ -283,14 +316,28 @@
 
 - (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:nil onQueue:aQueue];
+   [self postSignal:aName from:self withObject:nil input:nil onQueue:aQueue];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName from:self withObject:nil input:aInput onQueue:aQueue];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:aObject onQueue:aQueue];
+   [self postSignal:aName from:self withObject:aObject input:nil onQueue:aQueue];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName from:self withObject:aObject input:aInput onQueue:aQueue];
    
    return;
 }
@@ -302,7 +349,21 @@
    return;
 }
 
+- (void)postSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName from:aSource withObject:nil input:aInput onQueue:aQueue];
+   
+   return;
+}
+
 - (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue];
+
+   return;
+}
+
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
    
    if (NULL == aQueue) {
       
@@ -318,7 +379,8 @@
       stSignal.target   = self;
       stSignal.name     = aName;
       stSignal.object   = aObject;
-      
+      stSignal.input    = aInput ? [aInput mutableCopy] : nil;
+
       [stSignal send];
       
    });

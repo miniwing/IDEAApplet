@@ -42,8 +42,8 @@
 
 #pragma mark -
 
-@implementation ServiceMonitor
-{
+@implementation ServiceMonitor {
+   
    NSTimer                    *     _timer;
    ServiceMonitorCPUModel     *     _model1;
    ServiceMonitorMemoryModel  *     _model2;
@@ -52,20 +52,17 @@
    ServiceMonitorStatusBar    *     _bar;
 }
 
-
 #pragma mark - ManagedService
 
-- (BOOL)isAutoLoad
-{
+- (BOOL)isAutoLoad {
+   
    return YES;
 }
 
-
 #pragma mark -
 
-
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -97,9 +94,8 @@
    return;
 }
 
-
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -120,9 +116,8 @@
    return;
 }
 
-
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -132,9 +127,8 @@
    return;
 }
 
-
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -143,13 +137,11 @@
    
    return;
 }
-
 
 #pragma mark -
 
-
-- (void)didApplicationLaunched
-{
+- (void)didApplicationLaunched {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -162,9 +154,8 @@
    return;
 }
 
-
-- (void)willApplicationTerminate
-{
+- (void)willApplicationTerminate {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -176,9 +167,8 @@
    return;
 }
 
-
-- (void)didTimeout
-{
+- (void)didTimeout {
+   
    [_model1 update];
    [_model2 update];
    [_model3 update];

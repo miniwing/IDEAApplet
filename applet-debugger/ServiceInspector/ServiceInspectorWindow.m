@@ -49,32 +49,34 @@
 
 @implementation UIView(Capture)
 
-- (UIImage *)capture
-{
+- (UIImage *)capture {
+   
    NSMutableArray * temp = [NSMutableArray nonRetainingArray];
    
-   for (UIView * subview in self.subviews)
-   {
-      if (NO == subview.hidden)
-      {
+   for (UIView * subview in self.subviews) {
+      
+      if (NO == subview.hidden) {
+         
          subview.hidden = YES;
          
          [temp addObject:subview];
-      }
-   }
+         
+      } /* End if () */
+      
+   } /* End for () */
    
    CGSize screenSize = [UIScreen mainScreen].bounds.size;
    CGRect captureBounds = CGRectZero;
    
    captureBounds.size = self.bounds.size;
    
-   if (captureBounds.size.width > screenSize.width)
-   {
+   if (captureBounds.size.width > screenSize.width) {
+      
       captureBounds.size.width = screenSize.width;
    }
    
-   if (captureBounds.size.height > screenSize.height)
-   {
+   if (captureBounds.size.height > screenSize.height) {
+      
       captureBounds.size.height = screenSize.height;
    }
    
@@ -83,8 +85,8 @@
    UIGraphicsBeginImageContextWithOptions(captureBounds.size, NO, [UIScreen mainScreen].scale);
    
    CGContextRef context = UIGraphicsGetCurrentContext();
-   if (context)
-   {
+   if (context) {
+      
       CGContextTranslateCTM(context, -captureBounds.origin.x, -captureBounds.origin.y);
       
 //      CGContextScaleCTM(context, 0.5, 0.5);
@@ -121,8 +123,8 @@
    
    UIGraphicsEndImageContext();
    
-   for (UIView * subview in temp)
-   {
+   for (UIView * subview in temp) {
+      
       subview.hidden = NO;
    }
    
@@ -135,9 +137,9 @@
 
 @interface ServiceImageView : UIImageView
 
-@prop_assign(NSUInteger,   depth);
-@prop_assign(UIView *,      view);
-@prop_assign(CGRect,         viewFrame);
+@prop_assign(NSUInteger  , depth);
+@prop_assign(UIView     *, view);
+@prop_assign(CGRect      , viewFrame);
 
 @end
 
@@ -145,29 +147,32 @@
 
 @implementation ServiceImageView
 
-@def_prop_assign(NSUInteger,  depth);
-@def_prop_assign(UIView *,      view);
-@def_prop_assign(CGRect,      viewFrame);
+@def_prop_assign(NSUInteger , depth);
+@def_prop_assign(UIView    *, view);
+@def_prop_assign(CGRect     , viewFrame);
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+   
    self = [super initWithFrame:frame];
-   if (self)
-   {
+   if (self) {
+      
    }
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+
+   __SUPER_DEALLOC;
+
+   return;
 }
 
 @end
 
 #pragma mark -
 
-@implementation ServiceInspectorWindow
-{
+@implementation ServiceInspectorWindow {
+   
    BOOL                          _dragging;
    NSTimer                    * _timer;
    
@@ -181,13 +186,13 @@
    UIPinchGestureRecognizer   * _pinchGesture;
 }
 
-- (id)init
-{
+- (id)init {
+   
    CGRect screenBound = [UIScreen mainScreen].bounds;
    
    self = [super initWithFrame:screenBound];
-   if (self)
-   {
+   if (self) {
+      
       self.backgroundColor    = [UIColor blackColor];
       self.windowLevel        = UIWindowLevelStatusBar + 1.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
@@ -197,12 +202,14 @@
       
       _pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(didPinch:)];
       [self addGestureRecognizer:_pinchGesture];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self removeLayers];
    
    [self removeGestureRecognizer:_panGesture];
@@ -210,22 +217,26 @@
    
    _panGesture = nil;
    _pinchGesture = nil;
+
+   __SUPER_DEALLOC;
+
+   return;
 }
 
-- (UIView *)findContainerView:(UIView *)view
-{
-   for (UIView * subview in view.subviews)
-   {
-      if ([subview isKindOfClass:NSClassFromString(@"UILayoutContainerView")])
-      {
+- (UIView *)findContainerView:(UIView *)view {
+   
+   for (UIView * subview in view.subviews) {
+      
+      if ([subview isKindOfClass:NSClassFromString(@"UILayoutContainerView")]) {
+         
          return subview;
          
       } /* End if () */
-      else
-      {
+      else {
+         
          UIView * result = [self findContainerView:subview];
-         if (result)
-         {
+         if (result) {
+            
             return result;
             
          } /* End if () */
@@ -237,20 +248,20 @@
    return nil;
 }
 
-- (UIView *)findWrapperView:(UIView *)view
-{
-   for (UIView * subview in view.subviews)
-   {
-      if ([subview isKindOfClass:NSClassFromString(@"UIViewControllerWrapperView")])
-      {
+- (UIView *)findWrapperView:(UIView *)view {
+   
+   for (UIView * subview in view.subviews) {
+      
+      if ([subview isKindOfClass:NSClassFromString(@"UIViewControllerWrapperView")]) {
+         
          return subview;
          
       } /* End if () */
-      else
-      {
+      else {
+         
          UIView * result = [self findWrapperView:subview];
-         if (result)
-         {
+         if (result) {
+            
             return result;
             
          } /* End if () */
@@ -262,20 +273,20 @@
    return nil;
 }
 
-- (UIView *)findNavigationBar:(UIView *)view
-{
-   for (UIView * subview in view.subviews)
-   {
-      if ([subview isKindOfClass:NSClassFromString(@"UINavigationBar")])
-      {
+- (UIView *)findNavigationBar:(UIView *)view {
+   
+   for (UIView * subview in view.subviews) {
+      
+      if ([subview isKindOfClass:NSClassFromString(@"UINavigationBar")]) {
+         
          return subview;
          
       } /* End if () */
-      else
-      {
+      else {
+         
          UIView * result = [self findNavigationBar:subview];
-         if (result)
-         {
+         if (result) {
+            
             return result;
             
          } /* End if () */
@@ -287,8 +298,8 @@
    return nil;
 }
 
-- (void)buildLayers
-{
+- (void)buildLayers {
+   
    int                            nErr                                     = EFAULT;
    
    UIView                        *stKeyWindow                              = nil;
@@ -344,16 +355,16 @@
    return;
 }
 
-- (CGFloat)buildSublayersForView:(UIView *)aView origin:(CGPoint)aOrigin depth:(CGFloat)aDepth
-{
-   if (aDepth >= MAX_DEPTH)
-   {
+- (CGFloat)buildSublayersForView:(UIView *)aView origin:(CGPoint)aOrigin depth:(CGFloat)aDepth {
+   
+   if (aDepth >= MAX_DEPTH) {
+      
       return aDepth;
       
    } /* End if () */
    
-   if (aView.hidden)
-   {
+   if (aView.hidden) {
+      
       return aDepth;
       
    } /* End if () */
@@ -366,8 +377,8 @@
    stViewFrame.size.width  = aView.frame.size.width;
    stViewFrame.size.height = aView.frame.size.height;
    
-   if ([aView isKindOfClass:[UIScrollView class]])
-   {
+   if ([aView isKindOfClass:[UIScrollView class]]) {
+      
       __unsafe_unretained UIScrollView * scrollView = (UIScrollView *)aView;
       
       stViewFrame.origin.x -= scrollView.contentOffset.x;
@@ -377,8 +388,8 @@
    
    CGFloat fNextDepth = aDepth;
    
-   if (aView.frame.size.width && aView.frame.size.height)
-   {
+   if (aView.frame.size.width && aView.frame.size.height) {
+      
       ServiceImageView *stCapturedView = [[ServiceImageView alloc] init];
       
       stCapturedView.layer.cornerRadius   = aView.layer.cornerRadius;
@@ -398,10 +409,10 @@
       stCapturedView.layer.anchorPoint = stAnchor;
       stCapturedView.layer.anchorPointZ= aDepth * (-40.0f);
       
-      if (aView.renderer)
-      {
-         if ([aView.renderer.childs count])
-         {
+      if (aView.renderer) {
+         
+         if ([aView.renderer.childs count]) {
+            
             fNextDepth += 0.75f;
             
             stCapturedView.alpha = 0.5f;
@@ -410,8 +421,8 @@
             stCapturedView.layer.borderWidth = 1.0f;
             
          }  /* End if () */
-         else
-         {
+         else {
+            
             fNextDepth += 1.0f;
             
             stCapturedView.alpha = 1.0f;
@@ -422,8 +433,8 @@
          } /* End else */
          
       } /* End if () */
-      else
-      {
+      else {
+         
          fNextDepth += 0.5f;
          
          stCapturedView.alpha = 1.0f;
@@ -436,8 +447,8 @@
       [self addSubview:stCapturedView];
       
       UITapGestureRecognizer  *stTapGesture  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didClicked:)];
-      if (stTapGesture)
-      {
+      if (stTapGesture) {
+         
          [stCapturedView setUserInteractionEnabled:YES];
          [stCapturedView addGestureRecognizer:stTapGesture];
          
@@ -446,12 +457,12 @@
    
    CGFloat fMaxDepth    = aDepth;
    
-   for (UIView *stSubview in [aView.subviews reverseObjectEnumerator])
-   {
+   for (UIView *stSubview in [aView.subviews reverseObjectEnumerator]) {
+      
       CGFloat fSubDepth = [self buildSublayersForView:stSubview origin:stViewFrame.origin depth:fNextDepth];
       
-      if (fSubDepth > fMaxDepth)
-      {
+      if (fSubDepth > fMaxDepth) {
+         
          fMaxDepth = fSubDepth;
          
       } /* End if () */
@@ -469,10 +480,10 @@
    
    NSArray * subviewsCopy = [NSArray arrayWithArray:self.subviews];
    
-   for (UIView * subview in subviewsCopy)
-   {
-      if ([subview isKindOfClass:[ServiceImageView class]])
-      {
+   for (UIView * subview in subviewsCopy) {
+      
+      if ([subview isKindOfClass:[ServiceImageView class]]) {
+         
          [subview removeFromSuperview];
          
       } /* End if () */
@@ -484,8 +495,8 @@
    return;
 }
 
-- (void)transformLayers:(BOOL)setFrames
-{
+- (void)transformLayers:(BOOL)setFrames {
+   
    CATransform3D   stTransform2  = CATransform3DIdentity;
    stTransform2.m34 = -0.002;
    stTransform2 = CATransform3DTranslate(stTransform2, _rotateY * -3.0f, 0, 0);
@@ -500,19 +511,19 @@
    
    NSArray * stSubviews = [NSArray arrayWithArray:self.subviews];
    
-   for (ServiceImageView * stSubview in stSubviews)
-   {
-      if ([stSubview isKindOfClass:[ServiceImageView class]])
-      {
+   for (ServiceImageView * stSubview in stSubviews) {
+      
+      if ([stSubview isKindOfClass:[ServiceImageView class]]) {
+         
          stSubview.frame = CGRectInset(stSubview.viewFrame, 1, 1);
          
-         if (_animating)
-         {
+         if (_animating) {
+            
             stSubview.layer.transform = CATransform3DIdentity;
             
          } /* End if () */
-         else
-         {
+         else {
+            
             stSubview.layer.transform = stTransform;
             
          } /* End else */
@@ -520,12 +531,14 @@
          [stSubview setNeedsDisplay];
       }
    }
+
+   return;
 }
 
 #pragma mark -
 
-- (void)show
-{
+- (void)show {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -537,8 +550,8 @@
    return;
 }
 
-- (void)showStep1
-{
+- (void)showStep1 {
+   
    _rotateX    = 0.0f;
    _rotateY    = 0.0f;
    _distance   = 0.0f;
@@ -563,10 +576,12 @@
    self.hidden = NO;
    
    [UIView commitAnimations];
+
+   return;
 }
 
-- (void)showStep2
-{
+- (void)showStep2 {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
@@ -592,22 +607,22 @@
    return;
 }
 
-- (void)showStep3
-{
+- (void)showStep3 {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
 
    _animating  = NO;
    
-   if (nil == _timer)
-   {
+   if (nil == _timer) {
+      
       _timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
                                                 target:self
                                               selector:@selector(refreshLayers)
                                               userInfo:nil
                                                repeats:YES];
-   }
+   } /* End if () */
 
    __CATCH(nErr);
    
@@ -616,18 +631,19 @@
 
 #pragma mark -
 
-- (void)hide
-{
+- (void)hide {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
 
-   if (_timer)
-   {
+   if (_timer) {
+      
       [_timer invalidate];
       
       _timer = nil;
-   }
+      
+   } /* End if () */
    
    [self hideStep1];
 
@@ -636,8 +652,8 @@
    return;
 }
 
-- (void)hideStep1
-{
+- (void)hideStep1 {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
@@ -663,8 +679,8 @@
    return;
 }
 
-- (void)hideStep2
-{
+- (void)hideStep2 {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
@@ -687,8 +703,8 @@
    return;
 }
 
-- (void)hideStep3
-{
+- (void)hideStep3 {
+   
    int                            nErr                                     = EFAULT;
       
    __TRY;
@@ -710,19 +726,19 @@
 
 #pragma mark -
 
-- (void)refreshLayers
-{
+- (void)refreshLayers {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
    
-   if (_dragging)
-   {
+   if (_dragging) {
+      
       return;
    }
    
-   if (_animating)
-   {
+   if (_animating) {
+      
       return;
    }
    
@@ -736,8 +752,8 @@
 
 #pragma mark -
 
-- (void)didClicked:(UITapGestureRecognizer *)tapGesture
-{
+- (void)didClicked:(UITapGestureRecognizer *)tapGesture {
+   
 //   if (UIGestureRecognizerStateEnded == tapGesture.state)
 //   {
 //      if (tapGesture.view && [tapGesture.view isKindOfClass:[ServiceImageView class]])
@@ -749,17 +765,17 @@
    return;
 }
 
-- (void)didPan:(UIPanGestureRecognizer *)panGesture
-{
-   if (UIGestureRecognizerStateBegan == panGesture.state)
-   {
+- (void)didPan:(UIPanGestureRecognizer *)panGesture {
+   
+   if (UIGestureRecognizerStateBegan == panGesture.state) {
+      
       _dragging = YES;
       
       _panOffset.x = _rotateY;
       _panOffset.y = _rotateX * -1.0f;
    }
-   else if (UIGestureRecognizerStateChanged == panGesture.state)
-   {
+   else if (UIGestureRecognizerStateChanged == panGesture.state) {
+      
       _dragging = YES;
       
       CGPoint offset = [panGesture translationInView:self];
@@ -769,30 +785,32 @@
       
       [self transformLayers:NO];
    }
-   else if (UIGestureRecognizerStateEnded == panGesture.state)
-   {
+   else if (UIGestureRecognizerStateEnded == panGesture.state) {
+      
       _dragging = NO;
       
       [self transformLayers:NO];
    }
-   else if (UIGestureRecognizerStateCancelled == panGesture.state)
-   {
+   else if (UIGestureRecognizerStateCancelled == panGesture.state) {
+      
       _dragging = NO;
       
       [self transformLayers:NO];
    }
+
+   return;
 }
 
-- (void)didPinch:(UIPinchGestureRecognizer *)pinchGesture
-{
-   if (UIGestureRecognizerStateBegan == pinchGesture.state)
-   {
+- (void)didPinch:(UIPinchGestureRecognizer *)pinchGesture {
+   
+   if (UIGestureRecognizerStateBegan == pinchGesture.state) {
+      
       _dragging = YES;
       
       _pinchOffset = _distance;
    }
-   else if (UIGestureRecognizerStateChanged == pinchGesture.state)
-   {
+   else if (UIGestureRecognizerStateChanged == pinchGesture.state) {
+      
       _dragging = YES;
       
       _distance = _pinchOffset + (pinchGesture.scale - 1.0f);
@@ -800,18 +818,20 @@
       
       [self transformLayers:NO];
    }
-   else if (UIGestureRecognizerStateEnded == pinchGesture.state)
-   {
+   else if (UIGestureRecognizerStateEnded == pinchGesture.state) {
+      
       _dragging = NO;
       
       [self transformLayers:NO];
    }
-   else if (UIGestureRecognizerStateCancelled == pinchGesture.state)
-   {
+   else if (UIGestureRecognizerStateCancelled == pinchGesture.state) {
+      
       _dragging = NO;
       
       [self transformLayers:NO];
    }
+
+   return;
 }
 
 @end

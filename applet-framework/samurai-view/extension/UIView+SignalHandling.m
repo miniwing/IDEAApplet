@@ -102,6 +102,7 @@
    else {
       
       /**
+       Harry FIXED:
        修复动态注册的bug
        */
       NSObject *stResponder   = [self userResponders];

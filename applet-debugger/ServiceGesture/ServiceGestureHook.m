@@ -50,26 +50,29 @@ static void (* __setFrame)( id, SEL, CGRect ) = NULL;
 
 @implementation NSObject(Wireframe)
 
-+ (void)gestureHook
-{
++ (void)gestureHook {
+   
    __setFrame = [UIView replaceSelector:@selector(setFrame:) withSelector:@selector(__setFrame:)];
+   
+   return;
 }
 
-- (ServiceGestureView *)createGestureView:(Class)clazz forContainer:(UIView *)container
-{
+- (ServiceGestureView *)createGestureView:(Class)clazz forContainer:(UIView *)container {
+   
    UIView * gestureView = nil;
    
-   for ( UIView * subview in container.subviews )
-   {
-      if ( [subview isKindOfClass:clazz] )
-      {
+   for ( UIView * subview in container.subviews ) {
+      
+      if ( [subview isKindOfClass:clazz] ) {
+         
          gestureView = subview;
+         
          break;
       }
    }
    
-   if ( nil == gestureView )
-   {
+   if ( nil == gestureView ) {
+      
       gestureView = [[clazz alloc] init];
       
       [container addSubview:gestureView];
@@ -79,48 +82,52 @@ static void (* __setFrame)( id, SEL, CGRect ) = NULL;
    return (ServiceGestureView *)gestureView;
 }
 
-- (void)__setFrame:(CGRect)newFrame
-{
-   if ( __setFrame )
-   {
+- (void)__setFrame:(CGRect)newFrame {
+   
+   if ( __setFrame ) {
+      
       __setFrame( self, _cmd, newFrame );
    }
    
-   if ( NO == [self isKindOfClass:[UIView class]] )
+   if ( NO == [self isKindOfClass:[UIView class]] ) {
       return;
+   }
    
-   if ( [self isKindOfClass:[ServiceGestureView class]] )
+   if ( [self isKindOfClass:[ServiceGestureView class]] ) {
       return;
+   }
 
    UIView * container = (UIView *)self;
    
-   if ( container.window != [UIApplication sharedApplication].keyWindow )
+   if ( container.window != [UIApplication sharedApplication].keyWindow ) {
       return;
+   }
    
-   if ( nil == container.renderer )
+   if ( nil == container.renderer ) {
       return;
+   }
    
-   if ( container.gestureRecognizers && container.gestureRecognizers.count )
-   {
-      for ( UIGestureRecognizer * gesture in container.gestureRecognizers )
-      {
+   if ( container.gestureRecognizers && container.gestureRecognizers.count ) {
+      
+      for ( UIGestureRecognizer * gesture in container.gestureRecognizers ) {
+         
          ServiceGestureView * gestureView = nil;
 
-         if ( [gesture isKindOfClass:[UITapGestureRecognizer class]] )
-         {
+         if ( [gesture isKindOfClass:[UITapGestureRecognizer class]] ) {
+            
             gestureView = [self createGestureView:[ServiceGestureViewClick class] forContainer:container];
          }
-         else if ( [gesture isKindOfClass:[UISwipeGestureRecognizer class]] )
-         {
+         else if ( [gesture isKindOfClass:[UISwipeGestureRecognizer class]] ) {
+            
             gestureView = [self createGestureView:[ServiceGestureViewSwipe class] forContainer:container];
          }
-         else if ( [gesture isKindOfClass:[UIPinchGestureRecognizer class]] )
-         {
+         else if ( [gesture isKindOfClass:[UIPinchGestureRecognizer class]] ) {
+            
             gestureView = [self createGestureView:[ServiceGestureViewPinch class] forContainer:container];
          }
          
-         if ( gestureView )
-         {
+         if ( gestureView ) {
+            
             CGRect gestureFrame;
             gestureFrame.size.width = fminf( fminf( container.frame.size.width, container.frame.size.height ), 60.0f );
             gestureFrame.size.height = gestureFrame.size.width;
@@ -133,6 +140,8 @@ static void (* __setFrame)( id, SEL, CGRect ) = NULL;
          }
       }
    }
+   
+   return;
 }
 
 @end

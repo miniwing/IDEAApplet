@@ -28,7 +28,8 @@
 //   THE SOFTWARE.
 //
 
-#import <IDEAApplet.h>
+//#import <IDEAApplet.h>
+#import <IDEAApplet/IDEAApplet.h>
 
 #pragma mark -
 
