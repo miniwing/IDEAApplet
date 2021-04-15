@@ -98,6 +98,28 @@
    
    __TRY;
    
+#if __Debug__
+   NSArray<NSString *>           *stClazzes                                = @[
+                                                                                 @"ServiceBorder",
+                                                                                 @"ServiceConsole",
+                                                                                 @"ServiceGesture",
+                                                                                 @"ServiceGrids",
+                                                                                 @"ServiceInspector",
+                                                                                 @"ServiceMonitor",
+                                                                                 @"ServiceTapspot",
+                                                                                 @"ServiceTheme"
+                                                                              ];
+   
+   for (NSString *szClazz in stClazzes) {
+      
+      if (NSClassFromString(szClazz)) {
+         
+         [stResults addObject:szClazz];
+         
+      } /* End if () */
+      
+   } /* End for () */
+#else /* __Debug__ */
    for (NSString *szClassName in [self loadedClassNames]) {
       
       Class stClassType = NSClassFromString(szClassName);
@@ -137,6 +159,9 @@
 //      [stResults addObject:[stClassType class]];
 
    } /* End for () */
+#endif /* !__Debug__ */
+   
+   LogDebug((@"+[NSObject subClasses] : %@", stResults));
    
    __CATCH(nErr);
    

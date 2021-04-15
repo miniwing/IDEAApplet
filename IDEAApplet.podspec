@@ -426,9 +426,11 @@ Pod::Spec.new do |spec|
 
 #if defined(DEBUG) && (1==DEBUG)
 #  define __AUTO__         (1)
-#else
+#  define __Debug__        (1)
+#else // defined(DEBUG) && (1==DEBUG)
 #  define __AUTO__         (0)
-#endif
+#  define __Debug__        (0)
+#endif // defined(DEBUG) && (1==DEBUG)
 
 /******************************************************************************************************/
 

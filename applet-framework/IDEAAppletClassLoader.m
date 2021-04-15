@@ -69,7 +69,7 @@
       if (stClassType) {
          
 //         fprintf(stderr, "  Loading class '%s'\n", [[stClassType description] UTF8String]);
-         LogDebug((@"Loading class '%s'\n", [[stClassType description] UTF8String]));
+         LogDebug((@"Loading class '%s'", [[stClassType description] UTF8String]));
          
          NSMethodSignature * signature = [stClassType methodSignatureForSelector:@selector(classAutoLoad)];
          NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:signature];

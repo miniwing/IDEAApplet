@@ -84,7 +84,6 @@
    __TRY;
 
 #if __SAMURAI_SERVICE__
-   
    for (NSString *szClassName in [IDEAAppletService subClasses]) {
       
       Class stClassType = NSClassFromString(szClassName);
@@ -95,7 +94,7 @@
       } /* End if () */
       
 //      fprintf(stderr, "  Loading service '%s'\n", [[classType description] UTF8String]);
-      LogDebug((@"Loading service '%s'\n", [[stClassType description] UTF8String]));
+      LogDebug((@"Loading service '%s'", [[stClassType description] UTF8String]));
       
       IDEAAppletService *stService = [self service:stClassType];
       if (stService) {
@@ -122,9 +121,9 @@
       
    } /* End for () */
    
-   fprintf(stderr, "\n");
-   
-#endif
+//   fprintf(stderr, "\n");
+   LogDebug((@"\n"));
+#endif /* __SAMURAI_SERVICE__ */
    
    __CATCH(nErr);
    
@@ -148,25 +147,25 @@
    return [_services allValues];
 }
 
-- (id)service:(Class)classType {
+- (id)service:(Class)aClassType {
    
-   IDEAAppletService * service = [_services objectForKey:[classType description]];
+   IDEAAppletService * stService = [_services objectForKey:[aClassType description]];
    
-   if (nil == service) {
+   if (nil == stService) {
       
-      service = [[classType alloc] init];
-      if (service) {
+      stService = [[aClassType alloc] init];
+      if (stService) {
          
-         [_services setObject:service forKey:[classType description]];
+         [_services setObject:stService forKey:[aClassType description]];
       }
       
-      if ([service conformsToProtocol:@protocol(ManagedService)]) {
+      if ([stService conformsToProtocol:@protocol(ManagedService)]) {
          
-         [service powerOn];
+         [stService powerOn];
       }
    }
    
-   return service;
+   return stService;
 }
 
 @end

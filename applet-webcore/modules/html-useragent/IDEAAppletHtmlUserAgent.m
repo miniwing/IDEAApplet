@@ -130,9 +130,9 @@
 
 @def_singleton  (IDEAAppletHtmlUserAgent);
 
-#if __IDEA_APPLET_AUTO_LOAD__
+#if __SAMURAI_WEBCORE__
 + (void)load {
-   
+
 //   dispatch_async_background_serial(^{
 //      [IDEAAppletHtmlUserAgent sharedInstance];
 //   });
@@ -141,7 +141,7 @@
    
    return;
 }
-#endif /* __IDEA_APPLET_AUTO_LOAD__ */
+#endif /* __SAMURAI_WEBCORE__ */
 
 - (id)init {
    
