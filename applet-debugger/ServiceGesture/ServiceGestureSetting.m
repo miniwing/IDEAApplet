@@ -41,10 +41,10 @@
    BOOL _enabled;
 }
 
-@def_singleton( ServiceGestureSetting )
+@def_singleton    ( ServiceGestureSetting )
 
-@def_notification( Enabled )
-@def_notification( Disabled )
+@def_notification ( Enabled )
+@def_notification ( Disabled )
 
 - (BOOL)isEnabled {
    

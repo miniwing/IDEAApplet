@@ -55,71 +55,81 @@
 
 @implementation IDEAAppletHtmlRenderWorklet_30UpdateFrame
 
-- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   if ( NO == CGSizeEqualToSize( renderObject.view.frame.size, CGSizeZero ) )
-   {
-      renderObject.layout.bounds      = renderObject.view.frame.size,
-      renderObject.layout.origin      = renderObject.view.frame.origin;
-      renderObject.layout.stretch      = CGSizeMake( INVALID_VALUE, INVALID_VALUE );
-      renderObject.layout.collapse   = UIEdgeInsetsZero;
-
-      if ( [renderObject.layout begin:YES] )
-      {
-         [renderObject.layout layout];
-         [renderObject.layout finish];
-      }
-
-      if ( NO == CGRectEqualToRect( renderObject.layout.computedBounds, CGRectZero ) )
-      {
-         [self applyViewFrameForRender:renderObject];
-      }
-      else
-      {
-         [self clearViewFrameForRender:renderObject];
-      }
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   if ( NO == CGSizeEqualToSize( aRenderObject.view.frame.size, CGSizeZero ) ) {
       
-   #if __SAMURAI_DEBUG__
+      aRenderObject.layout.bounds   = aRenderObject.view.frame.size,
+      aRenderObject.layout.origin   = aRenderObject.view.frame.origin;
+      aRenderObject.layout.stretch  = CGSizeMake( INVALID_VALUE, INVALID_VALUE );
+      aRenderObject.layout.collapse = UIEdgeInsetsZero;
+      
+      if ( [aRenderObject.layout begin:YES] ) {
+         
+         [aRenderObject.layout layout];
+         [aRenderObject.layout finish];
+         
+      } // if ( [aRenderObject.layout begin:YES] )
+      
+      if ( NO == CGRectEqualToRect( aRenderObject.layout.computedBounds, CGRectZero ) ) {
+         
+         [self applyViewFrameForRender:aRenderObject];
+         
+      } // if ( NO == CGRectEqualToRect( aRenderObject.layout.computedBounds, CGRectZero ) )
+      else {
+         
+         [self clearViewFrameForRender:aRenderObject];
+         
+      } /* End else */
+      
+#if __SAMURAI_DEBUG__
       [renderObject dump];
-   #endif   // #if __SAMURAI_DEBUG__
-   }
-
+#endif   // #if __SAMURAI_DEBUG__
+      
+   } // if ( NO == CGSizeEqualToSize( aRenderObject.view.frame.size, CGSizeZero ) )
+   
    return YES;
 }
 
 #pragma mark -
 
-- (void)applyViewFrameForRender:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   if ( renderObject.view )
-   {
-      DEBUG_RENDERER_FRAME( renderObject );
-
-      [renderObject.view html_applyFrame:renderObject.layout.frame];
-      
-      DEBUG_RENDERER_STYLE( renderObject );
-
-      [renderObject.view html_applyStyle:renderObject.style];
-   }
+- (void)applyViewFrameForRender:(IDEAAppletHtmlRenderObject *)aRenderObject {
    
-   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
-   {
+   if ( aRenderObject.view ) {
+      
+      DEBUG_RENDERER_FRAME( aRenderObject );
+
+      [aRenderObject.view html_applyFrame:aRenderObject.layout.frame];
+      
+      DEBUG_RENDERER_STYLE( aRenderObject );
+
+      [aRenderObject.view html_applyStyle:aRenderObject.style];
+      
+   } // if ( aRenderObject.view )
+   
+   for ( IDEAAppletHtmlRenderObject * childRender in aRenderObject.childs ) {
+      
       [self applyViewFrameForRender:childRender];
-   }
+      
+   } // for ( IDEAAppletHtmlRenderObject * childRender in aRenderObject.childs )
+   
+   return;
 }
 
-- (void)clearViewFrameForRender:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   if ( renderObject.view )
-   {
-      [renderObject.view html_applyFrame:CGRectZero];
-      [renderObject.view html_applyStyle:renderObject.style];
+- (void)clearViewFrameForRender:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   if ( aRenderObject.view ) {
+      
+      [aRenderObject.view html_applyFrame:CGRectZero];
+      [aRenderObject.view html_applyStyle:aRenderObject.style];
    }
    
-   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
-   {
+   for ( IDEAAppletHtmlRenderObject * childRender in aRenderObject.childs ) {
+      
       [self applyViewFrameForRender:childRender];
    }
+   
+   return;
 }
 
 @end
@@ -134,12 +144,12 @@
 
 TEST_CASE( WebCore, HtmlRenderWorklet_30UpdateFrame )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

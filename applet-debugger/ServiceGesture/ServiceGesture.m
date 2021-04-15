@@ -45,7 +45,7 @@
 
 - (BOOL)isAutoLoad {
    
-   return YES;
+   return SERVICE_GESTURE;
 }
 
 #pragma mark -

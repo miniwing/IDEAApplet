@@ -62,12 +62,15 @@
                                         name:ServiceGestureSetting.Disabled
                                        object:nil];
    }
+   
    return self;
 }
 
 - (void)dealloc {
    
    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   
+   __SUPER_DEALLOC;
    
    return;
 }

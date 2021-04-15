@@ -67,7 +67,7 @@ static NSMutableDictionary * __commandCache = nil;
 
 - (BOOL)isAutoLoad {
    
-   return NO;
+   return SERVICE_CONSOLE;
 }
 
 #pragma mark -
@@ -184,26 +184,26 @@ static NSMutableDictionary * __commandCache = nil;
 
 #pragma mark -
 
-+ (BOOL)analysisCommand:(NSString *)command {
++ (BOOL)analysisCommand:(NSString *)aCommand {
    
-   if ( command.length <= 0 ) {
+   if ( aCommand.length <= 0 ) {
       
       return NO;
    }
    
-   command = [command lowercaseString];
+   aCommand = [aCommand lowercaseString];
    
    INFO(@"[ ServiceCommand ] - %@",command);
    
-   NSString * errorString = [NSString stringWithFormat:@"Invalid command : %@. ( You can input 'see help' to see all command. )",command];
+   NSString * errorString = [NSString stringWithFormat:@"Invalid command : %@. ( You can input 'see help' to see all command. )",aCommand];
    
-   NSMutableArray * commandArray = [[command componentsSeparatedByString:@" "] mutableCopy];
+   NSMutableArray * commandArray = [[aCommand componentsSeparatedByString:@" "] mutableCopy];
    
    if ( commandArray.count == 1 ) {
       
       [commandArray insertObject:@"sim" atIndex:0];
    }
-   else if ( !commandArray || commandArray.count <= 1 || ![command isKindOfClass:[NSString class]] ) {
+   else if ( !commandArray || commandArray.count <= 1 || ![aCommand isKindOfClass:[NSString class]] ) {
       
       INFO(errorString);
       return NO;

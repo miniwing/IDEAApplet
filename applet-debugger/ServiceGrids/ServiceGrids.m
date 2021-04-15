@@ -43,7 +43,7 @@
 
 - (BOOL)isAutoLoad {
    
-   return NO;
+   return SERVICE_GRIDS;
 }
 
 #pragma mark -

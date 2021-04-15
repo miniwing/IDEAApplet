@@ -131,8 +131,8 @@
 @def_singleton  (IDEAAppletHtmlUserAgent);
 
 #if __IDEA_APPLET_AUTO_LOAD__
-+ (void)load
-{
++ (void)load {
+   
 //   dispatch_async_background_serial(^{
 //      [IDEAAppletHtmlUserAgent sharedInstance];
 //   });
@@ -143,16 +143,16 @@
 }
 #endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
    
-   if (self)
-   {
+   if (self) {
+      
       self.thinSize     = 1.0f;
       self.mediumSize   = 2.0f;
       self.thickSize    = 3.0f;
@@ -171,8 +171,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    self.defaultFont        = nil;
    self.defaultElements    = nil;
    self.defaultStyleSheets = nil;
@@ -185,8 +185,8 @@
    return;
 }
 
-- (void)loadStyleSheets
-{
+- (void)loadStyleSheets {
+   
    int                            nErr                                     = EFAULT;
    
    IDEAAppletCSSStyleSheet       *stStyleSheet                             = nil;;
@@ -197,24 +197,24 @@
       
    stStyleSheet   = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
    
-   if (stStyleSheet && [stStyleSheet parse])
-   {
+   if (stStyleSheet && [stStyleSheet parse]) {
+      
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
    
    stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:@"IDEAApplet"];
    
-   if (stStyleSheet && [stStyleSheet parse])
-   {
+   if (stStyleSheet && [stStyleSheet parse]) {
+      
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
    
    stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:@"IDEAApplet"];
    
-   if (stStyleSheet && [stStyleSheet parse])
-   {
+   if (stStyleSheet && [stStyleSheet parse]) {
+      
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
@@ -224,8 +224,8 @@
    return;
 }
 
-- (void)loadElements
-{
+- (void)loadElements {
+   
    self.defaultElements = [NSMutableDictionary dictionary];
    
    self.defaultElements[@"html"] = [IDEAAppletHtmlElementHtml class];
@@ -233,8 +233,8 @@
    return;
 }
 
-- (void)loadCSSValue
-{
+- (void)loadCSSValue {
+   
    self.defaultCSSValue = [NSMutableDictionary dictionary];
    
    //   self.defaultCSSValue[@"animation"]               = @"none 0 ease 0 1 normal";
@@ -410,8 +410,8 @@
    return;
 }
 
-- (void)loadCSSInheration
-{
+- (void)loadCSSInheration {
+   
    self.defaultCSSInherition = [NSMutableArray arrayWithObjects:
                                 @"border-collapse",
                                 @"border-spacing",
@@ -474,8 +474,8 @@
    return;
 }
 
-- (void)loadDOMAttributedStyle
-{
+- (void)loadDOMAttributedStyle {
+   
    self.defaultDOMAttributedStyle = [NSMutableArray arrayWithObjects:
                                      //   DOM               CSS
                                      @[   @"width",         @"width"                ],
@@ -498,16 +498,16 @@
    return;
 }
 
-- (void)importStyleSheet:(NSString *)aPath
-{
+- (void)importStyleSheet:(NSString *)aPath {
+   
    int                            nErr                                     = EFAULT;
    
    IDEAAppletCSSStyleSheet          *stStyleSheet                             = nil;
    
    __TRY;
 
-   if (nil == aPath)
-   {
+   if (nil == aPath) {
+      
       nErr  = noErr;
       
       break;
@@ -516,8 +516,8 @@
    
    stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:aPath inBundle:nil];
    
-   if (stStyleSheet && [stStyleSheet parse])
-   {
+   if (stStyleSheet && [stStyleSheet parse]) {
+      
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
@@ -539,12 +539,12 @@
 
 TEST_CASE(WebCore, HtmlUserAgent)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
 }
 
 TEST_CASE_END

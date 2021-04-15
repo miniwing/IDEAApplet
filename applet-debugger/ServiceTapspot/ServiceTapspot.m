@@ -44,15 +44,15 @@
 
 #pragma mark - ManagedService
 
-- (BOOL)isAutoLoad
-{
-   return YES;
+- (BOOL)isAutoLoad {
+   
+   return SERVICE_TAPSPOT;
 }
 
 #pragma mark -
 
-- (void)install
-{
+- (void)install {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -64,9 +64,8 @@
    return;
 }
 
-
-- (void)uninstall
-{
+- (void)uninstall {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -76,9 +75,8 @@
    return;
 }
 
-
-- (void)powerOn
-{
+- (void)powerOn {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -88,9 +86,8 @@
    return;
 }
 
-
-- (void)powerOff
-{
+- (void)powerOff {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -99,6 +96,5 @@
    
    return;
 }
-
 
 @end

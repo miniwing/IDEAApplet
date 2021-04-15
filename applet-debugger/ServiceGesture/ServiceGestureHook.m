@@ -57,29 +57,29 @@ static void (* __setFrame)( id, SEL, CGRect ) = NULL;
    return;
 }
 
-- (ServiceGestureView *)createGestureView:(Class)clazz forContainer:(UIView *)container {
+- (ServiceGestureView *)createGestureView:(Class)aClazz forContainer:(UIView *)aContainer {
    
-   UIView * gestureView = nil;
+   UIView   * stGestureView   = nil;
    
-   for ( UIView * subview in container.subviews ) {
+   for ( UIView * subview in aContainer.subviews ) {
       
-      if ( [subview isKindOfClass:clazz] ) {
+      if ( [subview isKindOfClass:aClazz] ) {
          
-         gestureView = subview;
+         stGestureView = subview;
          
          break;
       }
    }
    
-   if ( nil == gestureView ) {
+   if ( nil == stGestureView ) {
       
-      gestureView = [[clazz alloc] init];
+      stGestureView = [[aClazz alloc] init];
       
-      [container addSubview:gestureView];
-      [container bringSubviewToFront:gestureView];
+      [aContainer addSubview:stGestureView];
+      [aContainer bringSubviewToFront:stGestureView];
    }
 
-   return (ServiceGestureView *)gestureView;
+   return (ServiceGestureView *)stGestureView;
 }
 
 - (void)__setFrame:(CGRect)newFrame {

@@ -46,9 +46,9 @@
 
 @implementation IDEAAppletHtmlRenderWorklet_10Begin
 
-- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   UNUSED( renderObject );
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   UNUSED( aRenderObject );
 
    return YES;
 }
@@ -65,12 +65,12 @@
 
 TEST_CASE( WebCore, HtmlRenderWorklet_10Begin )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

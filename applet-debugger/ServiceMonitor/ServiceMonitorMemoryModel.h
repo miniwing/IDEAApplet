@@ -35,11 +35,11 @@
 
 @interface ServiceMonitorMemoryModel : NSObject
 
-@prop_assign( int64_t,         usedBytes );
-@prop_assign( int64_t,         totalBytes );
-@prop_strong( NSMutableArray *,   history );
+@prop_assign( int64_t          , usedBytes );
+@prop_assign( int64_t          , totalBytes );
+@prop_strong( NSMutableArray  *, history );
 
-@singleton( ServiceMonitorMemoryModel )
+@singleton  ( ServiceMonitorMemoryModel )
 
 - (void)update;
 

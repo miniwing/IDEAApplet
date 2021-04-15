@@ -51,46 +51,46 @@
 
 - (UIImage *)capture {
    
-   NSMutableArray * temp = [NSMutableArray nonRetainingArray];
+   NSMutableArray * stTemp = [NSMutableArray nonRetainingArray];
    
-   for (UIView * subview in self.subviews) {
+   for (UIView * stSubview in self.subviews) {
       
-      if (NO == subview.hidden) {
+      if (NO == stSubview.hidden) {
          
-         subview.hidden = YES;
+         stSubview.hidden = YES;
          
-         [temp addObject:subview];
+         [stTemp addObject:stSubview];
          
       } /* End if () */
       
    } /* End for () */
    
-   CGSize screenSize = [UIScreen mainScreen].bounds.size;
-   CGRect captureBounds = CGRectZero;
+   CGSize stScreenSize     = [UIScreen mainScreen].bounds.size;
+   CGRect stCaptureBounds  = CGRectZero;
    
-   captureBounds.size = self.bounds.size;
+   stCaptureBounds.size = self.bounds.size;
    
-   if (captureBounds.size.width > screenSize.width) {
+   if (stCaptureBounds.size.width > stScreenSize.width) {
       
-      captureBounds.size.width = screenSize.width;
+      stCaptureBounds.size.width = stScreenSize.width;
    }
    
-   if (captureBounds.size.height > screenSize.height) {
+   if (stCaptureBounds.size.height > stScreenSize.height) {
       
-      captureBounds.size.height = screenSize.height;
+      stCaptureBounds.size.height = stScreenSize.height;
    }
    
-   UIImage * image = nil;
+   UIImage  * stImage   = nil;
    
-   UIGraphicsBeginImageContextWithOptions(captureBounds.size, NO, [UIScreen mainScreen].scale);
+   UIGraphicsBeginImageContextWithOptions(stCaptureBounds.size, NO, [UIScreen mainScreen].scale);
    
-   CGContextRef context = UIGraphicsGetCurrentContext();
-   if (context) {
+   CGContextRef    stContext  = UIGraphicsGetCurrentContext();
+   if (stContext) {
       
-      CGContextTranslateCTM(context, -captureBounds.origin.x, -captureBounds.origin.y);
+      CGContextTranslateCTM(stContext, -stCaptureBounds.origin.x, -stCaptureBounds.origin.y);
       
 //      CGContextScaleCTM(context, 0.5, 0.5);
-      [self.layer renderInContext:context];
+      [self.layer renderInContext:stContext];
       
 //      if (self.renderer)
 //      {
@@ -118,17 +118,17 @@
 //         }
 //      }
       
-      image = UIGraphicsGetImageFromCurrentImageContext();
+      stImage = UIGraphicsGetImageFromCurrentImageContext();
    }
    
    UIGraphicsEndImageContext();
    
-   for (UIView * subview in temp) {
+   for (UIView * subview in stTemp) {
       
       subview.hidden = NO;
    }
    
-   return image;
+   return stImage;
 }
 
 @end

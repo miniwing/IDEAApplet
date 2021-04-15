@@ -54,29 +54,37 @@
    return [self.scope getData];
 }
 
-- (id)getViewDataWithPath:(NSString *)path {
+- (id)getViewDataWithPath:(NSString *)aPath {
    
-   return [self.scope getDataWithPath:path];
+   return [self.scope getDataWithPath:aPath];
 }
 
-- (void)setViewData:(NSObject *)data {
+- (void)setViewData:(NSObject *)aData {
    
-   [self.scope setData:data];
+   [self.scope setData:aData];
+
+   return;
 }
 
-- (void)setViewData:(NSObject *)data withPath:(NSString *)path {
+- (void)setViewData:(NSObject *)aData withPath:(NSString *)aPath {
    
-   [self.scope setData:data withPath:path];
+   [self.scope setData:aData withPath:aPath];
+
+   return;
 }
 
 - (void)clearViewData {
    
    [self.scope clearData];
+
+   return;
 }
 
-- (void)clearViewDataWithPath:(NSString *)path {
+- (void)clearViewDataWithPath:(NSString *)aPath {
    
-   [self.scope clearDataWithPath:path];
+   [self.scope clearDataWithPath:aPath];
+
+   return;
 }
 
 @end

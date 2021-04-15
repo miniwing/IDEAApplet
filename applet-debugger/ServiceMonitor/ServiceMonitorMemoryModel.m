@@ -38,11 +38,11 @@
 
 @implementation ServiceMonitorMemoryModel
 
-@def_prop_assign( int64_t,         usedBytes );
-@def_prop_assign( int64_t,         totalBytes );
-@def_prop_strong( NSMutableArray *,   history );
+@def_prop_assign  ( int64_t         , usedBytes );
+@def_prop_assign  ( int64_t         , totalBytes );
+@def_prop_strong  ( NSMutableArray *, history );
 
-@def_singleton( ServiceMonitorMemoryModel )
+@def_singleton    ( ServiceMonitorMemoryModel )
 
 - (id)init
 {

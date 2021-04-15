@@ -77,19 +77,19 @@
 
 #pragma mark -
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)aRect {
    
    CGFloat a = 30.0f;
    CGFloat i = 5.0f;
 //   CGFloat n = [UIScreen mainScreen].bounds.size.width / (a + i);
 
-   CGContextRef context = UIGraphicsGetCurrentContext();
-   if ( context ) {
+   CGContextRef    stContext  = UIGraphicsGetCurrentContext();
+   if ( stContext ) {
       
-      CGContextSaveGState( context );
+      CGContextSaveGState( stContext );
 
-      CGContextSetFillColorWithColor( context, [[UIColor clearColor] CGColor] );
-      CGContextFillRect( context, rect );
+      CGContextSetFillColorWithColor( stContext, [[UIColor clearColor] CGColor] );
+      CGContextFillRect( stContext, aRect );
 
       CGFloat x = 0;
       
@@ -103,19 +103,19 @@
          column.size.width = a;
          column.size.height = [UIScreen mainScreen].bounds.size.height;
 
-         CGContextSetFillColorWithColor( context, [HEX_RGBA( 0xc3ebfa, 0.4f ) CGColor] );
-         CGContextFillRect( context, column );
+         CGContextSetFillColorWithColor( stContext, [HEX_RGBA( 0xc3ebfa, 0.4f ) CGColor] );
+         CGContextFillRect( stContext, column );
 
-         CGContextSetStrokeColorWithColor( context, [HEX_RGBA( 0x0097ff, 0.8f ) CGColor] );
-         CGContextStrokeRect( context, column );
+         CGContextSetStrokeColorWithColor( stContext, [HEX_RGBA( 0x0097ff, 0.8f ) CGColor] );
+         CGContextStrokeRect( stContext, column );
 
          x += a;
       }
 
-      CGContextRestoreGState( context );
+      CGContextRestoreGState( stContext );
    }
    
-   [super drawRect:rect];
+   [super drawRect:aRect];
 
    return;
 }

@@ -42,30 +42,37 @@
 
 @implementation ServiceTapspotView
 
-- (id)initWithFrame:(CGRect)frame
-{
-   self = [super initWithFrame:frame];
-   if ( self )
-   {
-      self.backgroundColor = [UIColor clearColor];
-      self.userInteractionEnabled = NO;
-      self.contentMode = UIViewContentModeCenter;
+- (id)initWithFrame:(CGRect)aFrame {
+   
+   self = [super initWithFrame:aFrame];
+   if ( self ) {
+      
+      self.backgroundColor          = [UIColor clearColor];
+      self.userInteractionEnabled   = NO;
+      self.contentMode              = UIViewContentModeCenter;
+      
    }
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
-- (void)didAppearingAnimationStopped
-{
+- (void)didAppearingAnimationStopped {
+   
    [self removeFromSuperview];
+   
+   return;
 }
 
-- (void)startAnimation
-{
-   self.alpha = 1.0f;
+- (void)startAnimation {
+   
+   self.alpha     = 1.0f;
    self.transform = CGAffineTransformMakeScale( 0.5f, 0.5f );
    
    [UIView beginAnimations:nil context:nil];
@@ -78,38 +85,45 @@
    self.transform = CGAffineTransformIdentity;
    
    [UIView commitAnimations];
+   
+   return;
 }
 
-- (void)stopAnimation
-{
+- (void)stopAnimation {
+   
+   return;
 }
 
-- (void)drawRect:(CGRect)rect
-{
-   CGContextRef context = UIGraphicsGetCurrentContext();
-   if ( context )
-   {
-      CGContextSaveGState( context );
+- (void)drawRect:(CGRect)aRect {
+   
+   CGContextRef stContext = UIGraphicsGetCurrentContext();
+   
+   if ( stContext ) {
       
-      CGContextSetFillColorWithColor( context, [[UIColor clearColor] CGColor] );
-      CGContextFillRect( context, rect );
+      CGContextSaveGState( stContext );
       
-      CGRect bound;
-      bound.origin = CGPointZero;
-      bound.size = rect.size;
+      CGContextSetFillColorWithColor( stContext, [[UIColor clearColor] CGColor] );
+      CGContextFillRect( stContext, aRect );
       
-      CGContextAddEllipseInRect( context, bound );
-      CGContextSetFillColorWithColor( context, [[UIColor lightGrayColor] CGColor] );
-      CGContextFillPath( context );
+      CGRect stBound;
+      stBound.origin = CGPointZero;
+      stBound.size   = aRect.size;
+      
+      CGContextAddEllipseInRect( stContext, stBound );
+      CGContextSetFillColorWithColor( stContext, [[UIColor lightGrayColor] CGColor] );
+      CGContextFillPath( stContext );
 
-      CGContextAddEllipseInRect( context, CGRectInset(bound, 5, 5) );
-      CGContextSetFillColorWithColor( context, [[UIColor whiteColor] CGColor] );
-      CGContextFillPath( context );
+      CGContextAddEllipseInRect( stContext, CGRectInset(stBound, 5, 5) );
+      CGContextSetFillColorWithColor( stContext, [[UIColor whiteColor] CGColor] );
+      CGContextFillPath( stContext );
 
-      CGContextRestoreGState( context );
+      CGContextRestoreGState( stContext );
+      
    }
    
-   [super drawRect:rect];
+   [super drawRect:aRect];
+   
+   return;
 }
 
 @end

@@ -45,7 +45,7 @@
 
 - (BOOL)isAutoLoad {
    
-   return NO;
+   return SERVICE_BORDER;
 }
 
 #pragma mark -

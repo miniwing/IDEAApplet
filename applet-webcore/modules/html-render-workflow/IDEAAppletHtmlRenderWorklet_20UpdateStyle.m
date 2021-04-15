@@ -55,109 +55,120 @@
 
 @implementation IDEAAppletHtmlRenderWorklet_20UpdateStyle
 
-- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   [self updateStyleForRenderObject:renderObject];
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   [self updateStyleForRenderObject:aRenderObject];
    
    return YES;
 }
 
-- (NSMutableSet *)diffStyle:(NSDictionary *)style1 withStyle:(NSDictionary *)style2
+- (NSMutableSet *)diffStyle:(NSDictionary *)aStyle1 withStyle:(NSDictionary *)aStyle2
 {
-   NSMutableSet * diffKeys = [NSMutableSet set];
-   NSMutableSet * allKeys = [NSMutableSet set];
+   NSMutableSet   *stDiffKeys = [NSMutableSet set];
+   NSMutableSet   *stAllKeys  = [NSMutableSet set];
    
-   [allKeys addObjectsFromArray:style1.allKeys];
-   [allKeys addObjectsFromArray:style2.allKeys];
+   [stAllKeys addObjectsFromArray:aStyle1.allKeys];
+   [stAllKeys addObjectsFromArray:aStyle2.allKeys];
    
-   for ( NSString * key in allKeys )
-   {
-      NSString * value1 = [style1 objectForKey:key];
-      NSString * value2 = [style2 objectForKey:key];
+   for ( NSString *szKey in stAllKeys ) {
       
-      if ( NO == [[value1 description] isEqualToString:[value2 description]] )
-      {
-         [diffKeys addObject:key];
-      }
-   }
+      NSString *szValue1   = [aStyle1 objectForKey:szKey];
+      NSString *szValue2   = [aStyle2 objectForKey:szKey];
+      
+      if ( NO == [[szValue1 description] isEqualToString:[szValue2 description]] ) {
+         
+         [stDiffKeys addObject:szKey];
+         
+      } // if ( NO == [[value1 description] isEqualToString:[value2 description]] )
+      
+   } // for ( NSString * key in stAllKeys )
    
-   return diffKeys;
+   return stDiffKeys;
 }
 
-- (void)updateStyleForRenderObject:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   if ( renderObject.view )
-   {
-      NSDictionary * mergedStyle = [self computeStyleForForRenderObject:renderObject];
+- (void)updateStyleForRenderObject:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   if ( aRenderObject.view ) {
+      
+      NSDictionary   *stMergedStyle = [self computeStyleForForRenderObject:aRenderObject];
 
-      [renderObject.style clearProperties];
-      [renderObject.style mergeProperties:mergedStyle];
+      [aRenderObject.style clearProperties];
+      [aRenderObject.style mergeProperties:stMergedStyle];
 
-      [renderObject computeProperties];
+      [aRenderObject computeProperties];
 
       DEBUG_RENDERER_STYLE( renderObject );
 
-      [renderObject.view html_applyStyle:renderObject.style];
-   }
+      [aRenderObject.view html_applyStyle:aRenderObject.style];
+      
+   } // if ( aRenderObject.view )
 
-   for ( IDEAAppletHtmlRenderObject * child in renderObject.childs )
-   {
-      [self updateStyleForRenderObject:child];
-   }
+   for ( IDEAAppletHtmlRenderObject *stChild in aRenderObject.childs ) {
+      
+      [self updateStyleForRenderObject:stChild];
+      
+   } // for ( IDEAAppletHtmlRenderObject * child in aRenderObject.childs )
+   
+   return;
 }
 
 #pragma mark -
 
-- (NSMutableDictionary *)computeStyleForForRenderObject:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   NSMutableDictionary * styleProperties = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)computeStyleForForRenderObject:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   NSMutableDictionary  *stStyleProperties = [[NSMutableDictionary alloc] init];
 
 // default dom style
 
-   [styleProperties addEntriesFromDictionary:renderObject.dom.computedStyle];
+   [stStyleProperties addEntriesFromDictionary:aRenderObject.dom.computedStyle];
    
 // match style - tag {} / .class {} / #id {}
    
-   NSDictionary * matchedStyle = [renderObject.dom.document.styleTree queryForObject:renderObject];
+   NSDictionary   *stMatchedStyle   = [aRenderObject.dom.document.styleTree queryForObject:aRenderObject];
    
-   for ( NSString * key in matchedStyle )
-   {
-      NSObject * value = [matchedStyle objectForKey:key];
+   for ( NSString * szKey in stMatchedStyle ) {
       
-      if ( value )
-      {
-         [styleProperties setObject:value forKey:key];
+      NSObject * stValue = [stMatchedStyle objectForKey:szKey];
+      
+      if ( stValue ) {
+         
+         [stStyleProperties setObject:stValue forKey:szKey];
       }
-   }
+      
+   } // for ( NSString * szKey in stMatchedStyle )
 
 // inherits from parent
 
-   if ( renderObject.parent )
-   {
-      for ( NSString * key in [IDEAAppletHtmlUserAgent sharedInstance].defaultCSSInherition )
-      {
-         NSString * value = [renderObject.parent.customStyle objectForKey:key];
+   if ( aRenderObject.parent ) {
+      
+      for ( NSString *szKey in [IDEAAppletHtmlUserAgent sharedInstance].defaultCSSInherition ) {
+         
+         NSString *szValue = [aRenderObject.parent.customStyle objectForKey:szKey];
 
-         if ( value )
-         {
-            [styleProperties setObject:value forKey:key];
+         if ( szValue ) {
+            
+            [stStyleProperties setObject:szValue forKey:szKey];
+            
          }
-      }
+         
+      } // for ( NSString * key in [IDEAAppletHtmlUserAgent sharedInstance].defaultCSSInherition )
    }
 
 // custom style properties
 
-   for ( NSString * key in renderObject.customStyle.properties )
-   {
-      NSObject * value = [renderObject.customStyle.properties objectForKey:key];
+   for ( NSString * szKey in aRenderObject.customStyle.properties ) {
       
-      if ( value )
-      {
-         [styleProperties setObject:value forKey:key];
-      }
-   }
+      NSObject *stValue = [aRenderObject.customStyle.properties objectForKey:szKey];
+      
+      if ( stValue ) {
+         
+         [stStyleProperties setObject:stValue forKey:szKey];
+         
+      } /* End if () */
+      
+   } // for ( NSString * szKey in aRenderObject.customStyle.properties )
 
-   return styleProperties;
+   return stStyleProperties;
 }
 
 @end
@@ -172,12 +183,12 @@
 
 TEST_CASE( WebCore, HtmlRenderWorklet_20UpdateStyle )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

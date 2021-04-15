@@ -33,7 +33,7 @@
 #define __SAMURAI_DEBUG__           (__OFF__ )  /// 调试模式
 #define __SAMURAI_LOGGING__         (__OFF__ )  /// 日志模式
 #define __SAMURAI_TESTING__         (__OFF__ )  /// 单元测试
-#define __SAMURAI_SERVICE__         (__OFF__ )  /// 后台服务
+#define __SAMURAI_SERVICE__         (__AUTO__)  /// 后台服务
 
 #define __IDEA_APPLET_AUTO_LOAD__   (__AUTO__)  /// 自动启动
 

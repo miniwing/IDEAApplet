@@ -42,13 +42,13 @@
    NSUInteger   _downloadStartBytes;
 }
 
-@def_prop_assign( NSUInteger,      uploadBytes );
-@def_prop_strong( NSMutableArray *,   uploadHistory );
+@def_prop_assign  ( NSUInteger       , uploadBytes     );
+@def_prop_strong  ( NSMutableArray  *, uploadHistory   );
 
-@def_prop_assign( NSUInteger,      downloadBytes );
-@def_prop_strong( NSMutableArray *,   downloadHistory );
+@def_prop_assign  ( NSUInteger       , downloadBytes   );
+@def_prop_strong  ( NSMutableArray  *, downloadHistory );
 
-@def_singleton( ServiceMonitorNetworkModel )
+@def_singleton    ( ServiceMonitorNetworkModel )
 
 - (id)init
 {

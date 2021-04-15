@@ -52,22 +52,27 @@
 
 @implementation IDEAAppletHtmlRenderWorkflow_All
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_20UpdateStyle worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_30UpdateFrame worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_40UpdateChain worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 @end
@@ -76,20 +81,25 @@
 
 @implementation IDEAAppletHtmlRenderWorkflow_UpdateStyle
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_20UpdateStyle worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 @end
@@ -98,20 +108,25 @@
 
 @implementation IDEAAppletHtmlRenderWorkflow_UpdateFrame
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_30UpdateFrame worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+
+   return;
 }
 
 @end
@@ -120,20 +135,25 @@
 
 @implementation IDEAAppletHtmlRenderWorkflow_UpdateChain
 
-- (id)init
-{
+- (id)init {
+   
    self = [super init];
-   if ( self )
-   {
+   if ( self ) {
+      
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_10Begin worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_40UpdateChain worklet]];
       [self.worklets addObject:[IDEAAppletHtmlRenderWorklet_50Finish worklet]];
-   }
+      
+   } /* End if () */
+   
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 @end
@@ -148,12 +168,12 @@
 
 TEST_CASE( WebCore, HtmlRenderWorkflow )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

@@ -50,7 +50,7 @@
 
 - (BOOL)isAutoLoad {
    
-   return YES;
+   return SERVICE_THEME;
 }
 
 #pragma mark -

@@ -46,7 +46,7 @@
 
 - (BOOL)isAutoLoad {
    
-   return YES;
+   return SERVICE_INSPECTOR;
 }
 
 #pragma mark -

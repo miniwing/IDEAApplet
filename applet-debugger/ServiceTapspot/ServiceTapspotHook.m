@@ -46,19 +46,24 @@
 
 static void (*__sendEvent)( id, SEL, UIEvent * ) = NULL;
 
-+ (void)tapspotHook
-{
++ (void)tapspotHook {
+   
    __sendEvent = [UIWindow replaceSelector:@selector(sendEvent:) withSelector:@selector(__sendEvent:)];
+   
+   return;
 }
 
-- (void)__sendEvent:(UIEvent *)event
-{
-   [[ServiceTapspotManager sharedInstance] handleUIEvent:event];
+- (void)__sendEvent:(UIEvent *)aEvent {
+   
+   [[ServiceTapspotManager sharedInstance] handleUIEvent:aEvent];
 
-   if ( __sendEvent )
-   {
-      __sendEvent( self, _cmd, event );
-   }
+   if ( __sendEvent ) {
+      
+      __sendEvent( self, _cmd, aEvent );
+      
+   } /* End if () */
+   
+   return;
 }
 
 @end

@@ -25,6 +25,20 @@ Pod::Spec.new do |spec|
   spec.watchos.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger-watchOS' }
   spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger' }
 
+  spec.pod_target_xcconfig          = {
+    'GCC_PREPROCESSOR_DEFINITIONS'      => [
+                                              ' MODULE=\"IDEAViewAnimator\" ',
+                                              ' SERVICE_BORDER=0 ',
+                                              ' SERVICE_CONSOLE=0 ',
+                                              ' SERVICE_GESTURE=0 ',
+                                              ' SERVICE_GRIDS=0 ',
+                                              ' SERVICE_INSPECTOR=0 ',
+                                              ' SERVICE_MONITOR=0 ',
+                                              ' SERVICE_TAPSPOT=1 ',
+                                              ' SERVICE_THEME=1 ',
+                                           ]
+                                      }
+
   spec.xcconfig                     = {
     'HEADER_SEARCH_PATHS'               => [
                                               "${PODS_TARGET_SRCROOT}/",

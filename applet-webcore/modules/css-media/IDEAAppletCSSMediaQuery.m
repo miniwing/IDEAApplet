@@ -45,133 +45,148 @@
 
 @def_singleton( IDEAAppletCSSMediaQuery )
 
-- (BOOL)test:(NSString *)condition {
+- (BOOL)test:(NSString *)aCondition {
    
-   if ( nil == condition ) {
+   if ( nil == aCondition ) {
       
       return YES;
-   }
+      
+   } /* End if () */
    
-   KatanaOutput * output = [[IDEAAppletCSSParser sharedInstance] parseMedia:condition];
+   KatanaOutput   *stOutput   = [[IDEAAppletCSSParser sharedInstance] parseMedia:aCondition];
    
-   if ( NULL != output ) {
+   if ( NULL != stOutput ) {
       
-      BOOL passed = [self testMediaQueries:output->medias];
+      BOOL bPassed = [self testMediaQueries:stOutput->medias];
       
-      katana_destroy_output(output);
+      katana_destroy_output(stOutput);
       
-      return passed;
-   }
+      return bPassed;
+      
+   } /* End if () */
    
    return NO;
 }
 
-- (BOOL)testMediaQueries:(KatanaArray *)medias {
+- (BOOL)testMediaQueries:(KatanaArray *)aMedias {
    
-   if ( medias == NULL ) {
+   if ( aMedias == NULL ) {
       
       return YES;
-   }
-   
-   BOOL passed = YES;
-   
-   for ( int i = 0; i < medias->length; i++ ) {
       
-      KatanaMediaQuery * mediaQuery = medias->data[i];
+   } /* End if () */
+   
+   BOOL bPassed = YES;
+   
+   for ( int H = 0; H < aMedias->length; H++ ) {
       
-      if ( NULL == mediaQuery->expressions || 0 == mediaQuery->expressions->length ) {
+      KatanaMediaQuery  *stMediaQuery = aMedias->data[H];
+      
+      if ( NULL == stMediaQuery->expressions || 0 == stMediaQuery->expressions->length ) {
          
-         if ( mediaQuery->type ) {
+         if ( stMediaQuery->type ) {
             
-            BOOL matches = [self testMediaQueryType:mediaQuery->type];
+            BOOL bMatches = [self testMediaQueryType:stMediaQuery->type];
             
-            if ( KatanaMediaQueryRestrictorNot == mediaQuery->restrictor ) {
+            if ( KatanaMediaQueryRestrictorNot == stMediaQuery->restrictor ) {
                
-               passed = passed && !matches;
-            }
+               bPassed = bPassed && !bMatches;
+               
+            } /* End if () */
             else {
                
-               passed = passed && matches;
-            }
+               bPassed = bPassed && bMatches;
+               
+            } /* End else */
             
-            if ( NO == passed ) {
+            if ( NO == bPassed ) {
                
                return NO;
-            }
-         }
+               
+            } /* End if () */
+            
+         } /* End if () */
          else {
             
             return YES;
-         }
-      }
+            
+         } /* End else */
+         
+      } /* End if () */
       else {
          
-         for ( int i = 0; i < mediaQuery->expressions->length; i++ ) {
+         for ( int H = 0; H < stMediaQuery->expressions->length; H++ ) {
             
-            BOOL matches = [self testMediaQueryExpression:mediaQuery->expressions->data[i]];
+            BOOL matches = [self testMediaQueryExpression:stMediaQuery->expressions->data[H]];
             
-            if ( KatanaMediaQueryRestrictorNot == mediaQuery->restrictor ) {
+            if ( KatanaMediaQueryRestrictorNot == stMediaQuery->restrictor ) {
                
-               passed = passed && !matches;
+               bPassed = bPassed && !matches;
             }
             else {
                
-               passed = passed && matches;
+               bPassed = bPassed && matches;
             }
             
-            if ( NO == passed ) {
+            if ( NO == bPassed ) {
                
                return NO;
-            }
-         }
-      }
-   }
+               
+            } /* End if () */
+            
+         } /* End for ( int H = 0; H < stMediaQuery->expressions->length; H++ ) */
+         
+      } /* End else */
+      
+   } /* End for ( int H = 0; H < aMedias->length; H++ ) */
    
    return YES;
 }
 
-- (BOOL)testMediaQueryType:(const char *)mediaQueryType {
+- (BOOL)testMediaQueryType:(const char *)aMediaQueryType {
    
-   if ( NULL == mediaQueryType )
+   if ( NULL == aMediaQueryType ) {
+      
       return YES;
+   }
    
-   if ( 0 == strcasecmp( mediaQueryType, "all" ) ) {
+   if ( 0 == strcasecmp( aMediaQueryType, "all" ) ) {
       
       return YES;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "aural" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "aural" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "braille" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "braille" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "handheld" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "handheld" ) ) {
       
       return YES;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "print" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "print" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "projection" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "projection" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "screen" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "screen" ) ) {
       
       return YES;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "tty" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "tty" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "tv" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "tv" ) ) {
       
       return NO;
    }
-   else if ( 0 == strcasecmp( mediaQueryType, "embossed" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryType, "embossed" ) ) {
       
       return NO;
    }
@@ -181,66 +196,68 @@
    }
 }
 
-- (BOOL)testMediaQueryExpression:(KatanaMediaQueryExp *)mediaQueryExp {
+- (BOOL)testMediaQueryExpression:(KatanaMediaQueryExp *)aMediaQueryExp {
    
-   if ( NULL == mediaQueryExp )
+   if ( NULL == aMediaQueryExp ) {
       return YES;
+   }
    
-   KatanaValue * value = mediaQueryExp->values->length ? mediaQueryExp->values->data[0] : NULL;
+   KatanaValue *stValue = aMediaQueryExp->values->length ? aMediaQueryExp->values->data[0] : NULL;
    
-   if ( NULL == value )
+   if ( NULL == stValue )
       return NO;
    
-   if ( 0 == strcasecmp( mediaQueryExp->feature, "device-width" ) ) {
+   if ( 0 == strcasecmp( aMediaQueryExp->feature, "device-width" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.width == value->fValue;
+      return [[UIScreen mainScreen] bounds].size.width == stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "min-device-width" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "min-device-width" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.width >= value->fValue;
+      return [[UIScreen mainScreen] bounds].size.width >= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "max-device-width" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "max-device-width" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.width <= value->fValue;
+      return [[UIScreen mainScreen] bounds].size.width <= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "device-height" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "device-height" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.height == value->fValue;
+      return [[UIScreen mainScreen] bounds].size.height == stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "min-device-height" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "min-device-height" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.height >= value->fValue;
+      return [[UIScreen mainScreen] bounds].size.height >= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "max-device-height" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "max-device-height" ) ) {
       
-      return [[UIScreen mainScreen] bounds].size.height <= value->fValue;
+      return [[UIScreen mainScreen] bounds].size.height <= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "scale" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "scale" ) ) {
       
-      return [[UIScreen mainScreen] scale] == value->fValue;
+      return [[UIScreen mainScreen] scale] == stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "min-scale" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "min-scale" ) ) {
       
-      return [[UIScreen mainScreen] scale] >= value->fValue;
+      return [[UIScreen mainScreen] scale] >= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "max-scale" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "max-scale" ) ) {
       
-      return [[UIScreen mainScreen] scale] <= value->fValue;
+      return [[UIScreen mainScreen] scale] <= stValue->fValue;
    }
-   else if ( 0 == strcasecmp( mediaQueryExp->feature, "orientation" ) ) {
+   else if ( 0 == strcasecmp( aMediaQueryExp->feature, "orientation" ) ) {
       
-      if ( NULL == value->string )
+      if ( NULL == stValue->string ) {
          return NO;
-      
-      UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-      
-      if ( UIInterfaceOrientationLandscapeLeft == orientation || UIInterfaceOrientationLandscapeRight == orientation ) {
-         
-         return (0 == strcasecmp(value->string, "landscape")) ? YES : NO;
       }
-      else if ( UIInterfaceOrientationPortrait == orientation || UIDeviceOrientationPortraitUpsideDown == orientation ) {
+      
+      UIInterfaceOrientation   eOrientation  = [[UIApplication sharedApplication] statusBarOrientation];
+      
+      if ( UIInterfaceOrientationLandscapeLeft == eOrientation || UIInterfaceOrientationLandscapeRight == eOrientation ) {
          
-         return (0 == strcasecmp(value->string, "portrait")) ? YES : NO;
+         return (0 == strcasecmp(stValue->string, "landscape")) ? YES : NO;
+      }
+      else if ( UIInterfaceOrientationPortrait == eOrientation || UIDeviceOrientationPortraitUpsideDown == eOrientation ) {
+         
+         return (0 == strcasecmp(stValue->string, "portrait")) ? YES : NO;
       }
       else {
          

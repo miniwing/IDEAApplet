@@ -50,38 +50,40 @@
 
 @implementation IDEAAppletHtmlRenderWorklet_40UpdateChain
 
-- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   [self applyChainForRender:renderObject];
+- (BOOL)processWithContext:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   [self applyChainForRender:aRenderObject];
 
    return YES;
 }
 
 #pragma mark -
 
-- (void)applyChainForRender:(IDEAAppletHtmlRenderObject *)renderObject
-{
-   if ( renderObject.view )
-   {
+- (void)applyChainForRender:(IDEAAppletHtmlRenderObject *)aRenderObject {
+   
+   if ( aRenderObject.view ) {
+      
    // for="id"
 
-      NSArray * forIds = [renderObject.dom.attrFor componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+      NSArray  *stForIDs = [aRenderObject.dom.attrFor componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
-      for ( NSString * targetId in forIds )
-      {
-         IDEAAppletHtmlRenderObject * targetRender = (IDEAAppletHtmlRenderObject *)[renderObject.root queryById:targetId];
+      for ( NSString * szTargetId in stForIDs ) {
          
-         if ( targetRender && targetRender.view )
-         {
-            [renderObject.view html_forView:targetRender.view];
+         IDEAAppletHtmlRenderObject * targetRender = (IDEAAppletHtmlRenderObject *)[aRenderObject.root queryById:szTargetId];
+         
+         if ( targetRender && targetRender.view ) {
+            
+            [aRenderObject.view html_forView:targetRender.view];
          }
       }
    }
 
-   for ( IDEAAppletHtmlRenderObject * childRender in renderObject.childs )
-   {
-      [self applyChainForRender:childRender];
+   for ( IDEAAppletHtmlRenderObject * stChildRender in aRenderObject.childs ) {
+      
+      [self applyChainForRender:stChildRender];
    }
+   
+   return;
 }
 
 @end
@@ -96,12 +98,12 @@
 
 TEST_CASE( WebCore, HtmlRenderWorklet_40UpdateChain )
 
-DESCRIBE( before )
-{
+DESCRIBE( before ) {
+   
 }
 
-DESCRIBE( after )
-{
+DESCRIBE( after ) {
+   
 }
 
 TEST_CASE_END

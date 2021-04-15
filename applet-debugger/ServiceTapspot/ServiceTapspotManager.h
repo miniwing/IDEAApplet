@@ -39,7 +39,7 @@
 
 @singleton( ServiceTapspotManager )
 
-- (void)handleUIEvent:(UIEvent *)event;
+- (void)handleUIEvent:(UIEvent *)aEvent;
 
 @end
 

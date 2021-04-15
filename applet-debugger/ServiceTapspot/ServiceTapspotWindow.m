@@ -43,13 +43,13 @@
 
 @implementation ServiceTapspotWindow
 
-- (id)init
-{
-   CGRect screenBound = [UIScreen mainScreen].bounds;
+- (id)init {
    
-   self = [super initWithFrame:screenBound];
-   if ( self )
-   {
+   CGRect stScreenBound = [UIScreen mainScreen].bounds;
+   
+   self = [super initWithFrame:stScreenBound];
+   if ( self ) {
+      
       self.backgroundColor    = [UIColor blackColor];
       self.windowLevel        = UIWindowLevelStatusBar + 1.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
@@ -59,16 +59,19 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)show
-{
+- (void)show {
+   
    self.hidden = NO;
-   self.alpha = 0.0f;
+   self.alpha  = 0.0f;
    
    [UIView beginAnimations:nil context:nil];
    [UIView setAnimationBeginsFromCurrentState:YES];
@@ -79,12 +82,14 @@
    self.hidden = NO;
    
    [UIView commitAnimations];
+   
+   return;
 }
 
 #pragma mark -
 
-- (void)hide
-{
+- (void)hide {
+   
    [UIView beginAnimations:@"showStep2" context:nil];
    [UIView setAnimationBeginsFromCurrentState:YES];
    [UIView setAnimationDuration:0.3f];
@@ -95,12 +100,16 @@
    self.alpha = 0.0f;
    
    [UIView commitAnimations];
+   
+   return;
 }
 
-- (void)didHidden
-{
+- (void)didHidden {
+   
    self.alpha = 0.0f;
    self.hidden = YES;
+   
+   return;
 }
 
 @end

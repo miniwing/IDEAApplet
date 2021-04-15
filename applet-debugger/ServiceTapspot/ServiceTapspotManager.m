@@ -45,23 +45,26 @@
 
 @def_singleton( ServiceTapspotManager )
 
-- (void)handleUIEvent:(UIEvent *)event
-{
-   UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+- (void)handleUIEvent:(UIEvent *)aEvent {
    
-   if ( keyWindow )
-   {
-      if ( UIEventTypeTouches == event.type )
+   UIWindow *stKeyWindow   = [UIApplication sharedApplication].keyWindow;
+   
+   if ( stKeyWindow ) {
+      
+      if ( UIEventTypeTouches == aEvent.type )
       {
-         NSSet * allTouches = [event allTouches];
+         NSSet * stAllTouches  = [aEvent allTouches];
          
-         for ( UITouch * touch in allTouches )
-         {
-            if ( nil == touch.view || touch.view.window != keyWindow )
+         for ( UITouch * stTouch in stAllTouches ) {
+            
+            if ( nil == stTouch.view || stTouch.view.window != stKeyWindow ) {
+               
                continue;
+               
+            } /* End if () */
 
-            if ( UITouchPhaseBegan == touch.phase )
-            {
+            if ( UITouchPhaseBegan == stTouch.phase ) {
+               
                INFO( @"View '%@ %p', touch began", [[touch.view class] description], touch.view );
 
 //               if ( NO == [touch.view isKindOfClass:[UIScrollView class]] )
@@ -114,12 +117,12 @@
 //                  }
 //               }
             }
-            else if ( UITouchPhaseMoved == touch.phase )
-            {
+            else if ( UITouchPhaseMoved == stTouch.phase ) {
+               
                INFO( @"View '%@ %p', touch moved", [[touch.view class] description], touch.view );
             }
-            else if ( UITouchPhaseEnded == touch.phase )
-            {
+            else if ( UITouchPhaseEnded == stTouch.phase ) {
+               
                INFO( @"View '%@ %p', touch ended", [[touch.view class] description], touch.view );
 
 //               [touch.view.layer removeAnimationForKey:@"alpha"];
@@ -135,13 +138,13 @@
 
                ServiceTapspotView * spotView = [[ServiceTapspotView alloc] init];
                spotView.frame = CGRectMake( 0, 0, 50.0f, 50.0f );
-               spotView.center = [touch locationInView:keyWindow];
-               [keyWindow addSubview:spotView];
-               [keyWindow bringSubviewToFront:spotView];
+               spotView.center = [stTouch locationInView:stKeyWindow];
+               [stKeyWindow addSubview:spotView];
+               [stKeyWindow bringSubviewToFront:spotView];
                [spotView startAnimation];
             }
-            else if ( UITouchPhaseCancelled == touch.phase )
-            {
+            else if ( UITouchPhaseCancelled == stTouch.phase ) {
+               
             }
          }
       }

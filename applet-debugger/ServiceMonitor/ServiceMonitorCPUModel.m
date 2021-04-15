@@ -41,10 +41,10 @@
 
 @implementation ServiceMonitorCPUModel
 
-@def_prop_assign( float,         percent );
-@def_prop_strong( NSMutableArray *,   history );
+@def_prop_assign  ( float            , percent );
+@def_prop_strong  ( NSMutableArray  *, history );
 
-@def_singleton( ServiceMonitorCPUModel )
+@def_singleton    ( ServiceMonitorCPUModel )
 
 - (id)init
 {

@@ -61,6 +61,9 @@
 
 - (void)dealloc {
    
+   __SUPER_DEALLOC;
+   
+   return;
 }
 
 #pragma mark -

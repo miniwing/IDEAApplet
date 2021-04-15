@@ -44,11 +44,10 @@
    NSUInteger          _frameCount;
 }
 
-@def_prop_assign( NSUInteger,      fps );
-@def_prop_strong( NSMutableArray *,   history );
+@def_prop_assign  ( NSUInteger       , fps );
+@def_prop_strong  ( NSMutableArray  *, history );
 
-@def_singleton( ServiceMonitorFPSModel )
-
+@def_singleton    ( ServiceMonitorFPSModel )
 
 - (id)init
 {
