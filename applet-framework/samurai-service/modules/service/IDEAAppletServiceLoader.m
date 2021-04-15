@@ -112,11 +112,11 @@
             
          } /* End if () */
          
-//         if ([stService isAutoLoad])
-         {
-            [stService install];
-            
-         } /* End if () */
+//         if ([stService isAutoLoad]) {
+  
+         [stService install];
+
+//         } /* End if () */
          
       } /* End if () */
       

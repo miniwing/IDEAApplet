@@ -80,8 +80,8 @@
          
       } /* End for () */
       
-      [stClassNames sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-         return [obj1 compare:obj2];
+      [stClassNames sortUsingComparator:^NSComparisonResult(id aObject1, id aObject2) {
+         return [aObject1 compare:aObject2];
       }];
       
       FREE_IF(stClasses);
@@ -100,22 +100,42 @@
    
    for (NSString *szClassName in [self loadedClassNames]) {
       
-      Class classType = NSClassFromString(szClassName);
+      Class stClassType = NSClassFromString(szClassName);
       
-      if (classType == self) {
+      if (stClassType == self) {
          
          continue;
          
       } /* End if () */
       
-      if (NO == [classType isSubclassOfClass:self]) {
+//      if ([NSStringFromClass(stClassType) isEqualToString:@"WKNSError"]) {
+//
+//         continue;
+//
+//      } /* End if () */
+
+      if ([NSStringFromClass(stClassType) hasPrefix:@"WKNS"]) {
+         
+         continue;
+
+      } /* End if () */
+
+      if ([stClassType isKindOfClass:[NSProxy class]]) {
          
          continue;
          
       } /* End if () */
       
-      [stResults addObject:[classType description]];
-      
+      if (NO == [stClassType isSubclassOfClass:self]) {
+         
+         continue;
+         
+      } /* End if () */
+   
+//      Harry FIXED :
+      [stResults addObject:[stClassType description]];
+//      [stResults addObject:[stClassType class]];
+
    } /* End for () */
    
    __CATCH(nErr);
