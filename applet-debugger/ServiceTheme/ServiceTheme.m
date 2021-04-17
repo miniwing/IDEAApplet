@@ -105,8 +105,8 @@
    
    __TRY;
 
-   [[DKNightVersionManager sharedManager] nightFalling];
-   
+   [self themeVersionChange];
+
    __CATCH(nErr);
    
    return;
@@ -118,7 +118,29 @@
    
    __TRY;
 
-   [[DKNightVersionManager sharedManager] dawnComing];
+   [self themeVersionChange];
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)themeVersionChange {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
+      
+      [[DKNightVersionManager sharedManager] dawnComing];
+
+   } /* End if () */
+   else {
+
+      [[DKNightVersionManager sharedManager] nightFalling];
+
+   } /* End else */
 
    __CATCH(nErr);
    

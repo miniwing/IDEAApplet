@@ -6,9 +6,17 @@ Pod::Spec.new do |spec|
   spec.homepage             = "https://github.com/miniwing"
   spec.license              = "MIT"
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
-  spec.platform             = :ios, "10.0"
+#  spec.platform             = :ios, "10.0"
   
-  spec.ios.pod_target_xcconfig     = {
+#  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
+  spec.source               = { :path => "." }
+
+  spec.ios.deployment_target        = '10.0'
+  spec.watchos.deployment_target    = '4.3'
+#  spec.osx.deployment_target        = '10.10'
+#  spec.tvos.deployment_target       = '10.0'
+
+  spec.ios.pod_target_xcconfig      = {
                                         'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet',
                                         'ENABLE_BITCODE'            => 'NO',
                                         'SWIFT_VERSION'             => '5.0',
@@ -23,19 +31,23 @@ Pod::Spec.new do |spec|
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
-  spec.frameworks           = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
-
-#  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
-  spec.source               = { :path => "." }
-
-  spec.xcconfig             = {
-    'HEADER_SEARCH_PATHS'   => ' "${PODS_TARGET_SRCROOT}/" "${PODS_TARGET_SRCROOT}/../" "${PODS_TARGET_SRCROOT}/"/** "${PODS_ROOT}/Headers/Public/AFNetworking/" ',
-#    'GCC_PREPROCESSOR_DEFINITIONS'  => 'HAVE_AV_CONFIG_H=1 USE_VAR_BIT_DEPTH=1 USE_PRED=1'
-  }
+  spec.frameworks                   = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
   
-  spec.pod_target_xcconfig  = {
-    'GCC_PREPROCESSOR_DEFINITIONS'  => ' $(inherited) MODULE=\"IDEAApplet\" __UIWebView__=0 '
-  }
+  spec.xcconfig                     = {
+    'HEADER_SEARCH_PATHS'               => [
+                                            '${PODS_TARGET_SRCROOT}/',
+                                            '${PODS_TARGET_SRCROOT}/../',
+                                            '"${PODS_TARGET_SRCROOT}/"/**',
+                                            '${PODS_ROOT}/Headers/Public/AFNetworking/'
+                                           ]
+                                      }
+
+  spec.pod_target_xcconfig          = {
+    'GCC_PREPROCESSOR_DEFINITIONS'      => [
+                                            'MODULE=\"IDEAApplet\"',
+                                            '__UIWebView__=0'
+                                           ]
+                                      }
 
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'

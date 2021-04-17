@@ -39,7 +39,18 @@
 
 #pragma mark -
 
+@interface IDEAAppletDockerWindow ()
+
+@prop_assign( CGPoint , originPoint );
+
+@end
+
+#pragma mark -
+
 @implementation IDEAAppletDockerWindow
+
+@def_prop_assign  ( CGPoint , originPoint );
+
 
 - (id)init {
    
@@ -65,6 +76,21 @@
                                                    name:UIApplicationDidChangeStatusBarOrientationNotification
                                                  object:nil];
       
+      [[UIApplication sharedApplication].delegate.window addObserver:self
+                                                          forKeyPath:@"rootViewController"
+                                                             options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                                                             context:nil];
+
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(onKeyboardWillShowNotification:)
+                                                   name:UIKeyboardWillShowNotification
+                                                 object:nil];
+
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(onKeyboardWillHideNotification:)
+                                                   name:UIKeyboardWillHideNotification
+                                                 object:nil];
+
    } /* End if () */
    
    __CATCH(nErr);
@@ -74,9 +100,55 @@
 
 - (void)dealloc {
    
+   [[UIApplication sharedApplication].delegate.window removeObserver:self
+                                                          forKeyPath:@"rootViewController"
+                                                             context:nil];
    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
    __SUPER_DEALLOC;
+   
+   return;
+}
+
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary<NSString *,id> *)aChange context:(void *)aContext {
+   
+   int                            nErr                                     = EFAULT;
+   
+   UIViewController              *stViewControllerOld                      = nil;
+   UIViewController              *stViewControllerNew                      = nil;
+
+   __TRY;
+
+   LogDebug((@"-[IDEAAppletDockerWindow observeValueForKeyPath:ofObject:change:context] : KeyPath : %@", aKeyPath));
+
+   if ([aKeyPath isEqualToString:@"rootViewController"]) {
+
+      stViewControllerOld  = [aChange objectForKey:NSKeyValueChangeOldKey];
+      LogDebug((@"-[IDEAAppletDockerWindow observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeOldKey : %@", stViewControllerOld));
+
+      stViewControllerNew  = [aChange objectForKey:NSKeyValueChangeNewKey];
+      LogDebug((@"-[IDEAAppletDockerWindow observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeNewKey : %@", stViewControllerNew));
+
+      if (![stViewControllerOld isEqual:stViewControllerNew]) {
+         
+         if ([stViewControllerNew isKindOfClass:[UITabBarController class]]) {
+            
+            dispatch_async_foreground(^{
+
+               [UIView animateWithDuration:0.25
+                                animations:^{
+                  
+                  [self relayoutAllDockerViews];
+               }];
+            });
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
+      
+   __CATCH(nErr);
    
    return;
 }
@@ -134,7 +206,6 @@
    
    __TRY;
    
-   
    for (UIView * subview in self.subviews) {
       
       if ([subview isKindOfClass:[IDEAAppletDockerView class]]) {
@@ -145,10 +216,10 @@
       
    } /* End for () */
    
-#define DOCKER_RIGHT    10.0f
-#define DOCKER_BOTTOM   64.0f
-#define DOCKER_MARGIN   4.0f
-#define DOCKER_HEIGHT   30.0f
+#define DOCKER_RIGHT    (10.0f)
+#define DOCKER_BOTTOM   (0)
+#define DOCKER_MARGIN   (4.0f)
+#define DOCKER_HEIGHT   (30.0f)
    
    stWindowBound.size.width   = DOCKER_HEIGHT;
    stWindowBound.size.height  = stDockerViews.count * (DOCKER_HEIGHT + DOCKER_MARGIN);
@@ -160,6 +231,12 @@
       UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
       
       stWindowBound.origin.y  = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - stTabBarController.tabBar.frame.size.height - DOCKER_BOTTOM;
+      
+   } /* End if () */
+   
+   if (@available(iOS 11, *)) {
+      
+//      stWindowBound.origin.y  = stWindowBound.origin.y - [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
       
    } /* End if () */
    
@@ -175,6 +252,8 @@
       stDockerView.frame         = stDockerFrame;
       
    } /* End for () */
+   
+   self.originPoint  = self.frame.origin;
    
    __CATCH(nErr);
    
@@ -198,6 +277,105 @@
 - (void)orientationDidChanged {
    
    [self relayoutAllDockerViews];
+   
+   return;
+}
+
+#pragma mark - Keyboard
+- (void)onKeyboardWillShowNotification:(NSNotification *)aNotification {
+   
+   int                            nErr                                     = EFAULT;
+   
+   NSDictionary                  *stUserInfo                               = nil;
+   
+   NSInteger                     nAnimationCurve                           = 0;
+   NSTimeInterval                tAnimationDuration                        = 0;
+   
+   NSValue                       *stValue                                  = nil;
+   CGRect                         stKeyboardEndFrame                       = CGRectZero;
+   CGFloat                        fKeyboardHeight                          = 0;
+
+   CGRect                         stFrame                                  = CGRectZero;
+
+   __TRY;
+   
+   stUserInfo  = [aNotification userInfo];
+   nAnimationCurve      = [[stUserInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+   tAnimationDuration   = [[stUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+   
+   stValue  = [stUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+   
+   if (stValue) {
+      
+      stKeyboardEndFrame   = [stValue CGRectValue];
+      fKeyboardHeight      = stKeyboardEndFrame.size.height;
+      
+      stFrame  = self.frame;
+      stFrame.origin.y  = self.originPoint.y - fKeyboardHeight;
+      
+      [UIView beginAnimations:nil context:nil];
+      [UIView setAnimationDuration:tAnimationDuration];
+      [UIView setAnimationCurve:nAnimationCurve];
+      
+//      [UIView setAnimationDelegate:self];
+//      [UIView setAnimationDidStopSelector:@selector(startAnimationStep2)];
+
+      [self setFrame:stFrame];
+
+      [UIView commitAnimations];
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)onKeyboardWillHideNotification:(NSNotification *)aNotification {
+   
+   int                            nErr                                     = EFAULT;
+   
+   NSDictionary                  *stUserInfo                               = nil;
+   
+   NSInteger                     nAnimationCurve                           = 0;
+   NSTimeInterval                tAnimationDuration                        = 0;
+   
+   NSValue                       *stValue                                  = nil;
+   CGRect                         stKeyboardEndFrame                       = CGRectZero;
+   CGFloat                        fKeyboardHeight                          = 0;
+
+   CGRect                         stFrame                                  = CGRectZero;
+
+   __TRY;
+   
+   stUserInfo  = [aNotification userInfo];
+   nAnimationCurve      = [[stUserInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+   tAnimationDuration   = [[stUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+   
+   stValue  = [stUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+   
+   if (stValue) {
+      
+      stKeyboardEndFrame   = [stValue CGRectValue];
+      fKeyboardHeight      = stKeyboardEndFrame.size.height;
+      
+      stFrame  = self.frame;
+      stFrame.origin = self.originPoint;
+      
+      [UIView beginAnimations:nil context:nil];
+      [UIView setAnimationDuration:tAnimationDuration];
+      [UIView setAnimationCurve:nAnimationCurve];
+      
+//      [UIView setAnimationDelegate:self];
+//      [UIView setAnimationDidStopSelector:@selector(startAnimationStep2)];
+
+      [self setFrame:stFrame];
+
+      [UIView commitAnimations];
+      
+   } /* End if () */
+   
+   __CATCH(nErr);
    
    return;
 }

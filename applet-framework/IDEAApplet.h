@@ -45,7 +45,7 @@
 
 @interface IDEAApplet : NSObject
 
-@singleton  ( IDEAApplet );
+@singleton     ( IDEAApplet );
 
 - (void)startup; // Applet will startup itself automaticlly, DO NOT call this again
 

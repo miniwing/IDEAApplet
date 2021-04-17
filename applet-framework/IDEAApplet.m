@@ -41,7 +41,7 @@
 
 @implementation IDEAApplet
 
-@def_singleton ( IDEAApplet );
+@def_singleton    ( IDEAApplet );
 
 #if __IDEA_APPLET_AUTO_LOAD__
 + (void)load {
@@ -76,7 +76,7 @@
 }
 
 - (void)dealloc {
-   
+      
    [self uninstall];
    
    __SUPER_DEALLOC;
@@ -137,11 +137,12 @@
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    [[IDEAAppletServiceLoader sharedInstance] installServices];
-   
+      
    [[NSNotificationCenter defaultCenter] addObserver:self
                                             selector:@selector(UIApplicationDidFinishLaunchingNotification)
                                                 name:UIApplicationDidFinishLaunchingNotification
                                               object:nil];
+   
    [[NSNotificationCenter defaultCenter] addObserver:self
                                             selector:@selector(UIApplicationWillTerminateNotification)
                                                 name:UIApplicationWillTerminateNotification

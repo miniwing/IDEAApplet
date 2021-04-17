@@ -39,7 +39,7 @@
 
 @prop_readonly( NSArray *, services );
 
-- (id)service:(Class)classType;
+- (id)service:(Class)aClassType;
 
 - (void)installServices;
 - (void)uninstallServices;

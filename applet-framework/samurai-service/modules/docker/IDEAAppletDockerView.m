@@ -40,8 +40,8 @@
 
 @implementation IDEAAppletDockerView {
    
-   UIButton *   _open;
-   UIButton *   _close;
+   UIButton    * _open;
+   UIButton    * _close;
 }
 
 @def_prop_unsafe  ( IDEAAppletService<ManagedDocker>  *,   service );
