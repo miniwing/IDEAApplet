@@ -63,8 +63,9 @@
       }
       
       clazzType = class_getSuperclass( clazzType );
-      if ( nil == clazzType )
+      if ( nil == clazzType ) {
          break;
+      }
    }
    
    return NULL;
@@ -90,7 +91,7 @@
       [invocation invoke];
       [invocation getReturnValue:&field];
       
-      //      field = [self performSelector:fieldSelector];
+//      field = [self performSelector:fieldSelector];
       
       if ( field && [field length] ) {
          
@@ -124,8 +125,9 @@
 + (NSString *)extentionForProperty:(NSString *)property stringValueWithKey:(NSString *)key {
    
    NSDictionary * extension = [self extentionForProperty:property];
-   if ( nil == extension )
+   if ( nil == extension ) {
       return nil;
+   }
    
    return [extension objectForKey:key];
 }
@@ -138,12 +140,14 @@
 + (NSArray *)extentionForProperty:(NSString *)property arrayValueWithKey:(NSString *)key {
    
    NSDictionary * extension = [self extentionForProperty:property];
-   if ( nil == extension )
+   if ( nil == extension ) {
       return nil;
+   }
    
    NSString * value = [extension objectForKey:key];
-   if ( nil == value )
+   if ( nil == value ) {
       return nil;
+   }
    
    return [value componentsSeparatedByString:@"|"];
 }
@@ -167,6 +171,7 @@
    
    id oldValue = objc_getAssociatedObject( self, propName );
    objc_setAssociatedObject( self, propName, obj, OBJC_ASSOCIATION_COPY );
+   
    return oldValue;
 }
 
@@ -176,6 +181,7 @@
    
    id oldValue = objc_getAssociatedObject( self, propName );
    objc_setAssociatedObject( self, propName, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC );
+   
    return oldValue;
 }
 
@@ -185,6 +191,7 @@
    
    id oldValue = objc_getAssociatedObject( self, propName );
    objc_setAssociatedObject( self, propName, obj, OBJC_ASSOCIATION_ASSIGN );
+   
    return oldValue;
 }
 
@@ -193,11 +200,15 @@
    const char * propName = key; // [[NSString stringWithFormat:@"%@.%s", NSStringFromClass([self class]), key] UTF8String];
    
    objc_setAssociatedObject( self, propName, nil, OBJC_ASSOCIATION_ASSIGN );
+   
+   return;
 }
 
 - (void)removeAllAssociatedObjects {
    
    objc_removeAssociatedObjects( self );
+   
+   return;
 }
 
 @end

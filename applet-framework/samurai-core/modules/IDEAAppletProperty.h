@@ -168,47 +168,59 @@
 #pragma mark -
 
 #define def_prop_readonly( type, name, ... ) \
-        synthesize name = _##name;
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_assign( type, name, ... )   \
-        synthesize name = _##name;
+#define def_prop_assign( type, name, ... ) \
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_strong( type, name, ... )   \
-        synthesize name = _##name;
+#define def_prop_strong( type, name, ... ) \
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_weak( type, name, ... )     \
-        synthesize name = _##name;
+#define def_prop_weak( type, name, ... ) \
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_unsafe( type, name, ... )   \
-        synthesize name = _##name;
+#define def_prop_unsafe( type, name, ... ) \
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_copy( type, name, ... )     \
-        synthesize name = _##name;
+#define def_prop_copy( type, name, ... ) \
+      synthesize name = _##name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_dynamic( type, name, ... )  \
-        dynamic name;
+#define def_prop_dynamic( type, name, ... ) \
+      dynamic name; \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_dynamic_copy( type, name, setName, ... )   \
-        def_prop_custom( type, name, setName, copy )
+#define def_prop_dynamic_copy( type, name, setName, ... ) \
+      def_prop_custom( type, name, setName, copy ) \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
 #define def_prop_dynamic_strong( type, name, setName, ... ) \
-        def_prop_custom( type, name, setName, retain )
+      def_prop_custom( type, name, setName, retain ) \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
 #define def_prop_dynamic_unsafe( type, name, setName, ... ) \
-        def_prop_custom( type, name, setName, assign )
+      def_prop_custom( type, name, setName, assign ) \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_dynamic_weak( type, name, setName, ... )   \
-        def_prop_custom( type, name, setName, assign )
+#define def_prop_dynamic_weak( type, name, setName, ... ) \
+      def_prop_custom( type, name, setName, assign ) \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
 #define def_prop_dynamic_pod( type, name, setName, pod_type ... ) \
-        dynamic name;                                       \
-        - (type)name { return (type)[[self getAssociatedObjectForKey:#name] pod_type##Value]; } \
-        - (void)setName:(type)obj { [self assignAssociatedObject:@((pod_type)obj) forKey:#name]; }
+      dynamic name; \
+      - (type)name { return (type)[[self getAssociatedObjectForKey:#name] pod_type##Value]; } \
+      - (void)setName:(type)obj { [self assignAssociatedObject:@((pod_type)obj) forKey:#name]; } \
+      + (NSString *)property_##name { return macro_string( macro_join(__VA_ARGS__) ); }
 
-#define def_prop_custom( type, name, setName, attr )        \
-        dynamic name;                                       \
-        - (type)name { return [self getAssociatedObjectForKey:#name]; } \
-        - (void)setName:(type)obj { [self attr##AssociatedObject:obj forKey:#name]; }
+#define def_prop_custom( type, name, setName, attr ) \
+      dynamic name; \
+      - (type)name { return [self getAssociatedObjectForKey:#name]; } \
+      - (void)setName:(type)obj { [self attr##AssociatedObject:obj forKey:#name]; }
 
 #pragma mark -
 
