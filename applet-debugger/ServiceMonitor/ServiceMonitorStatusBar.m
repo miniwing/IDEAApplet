@@ -49,8 +49,8 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 #pragma mark -
 
-@implementation ServiceMonitorStatusBar
-{
+@implementation ServiceMonitorStatusBar {
+   
    BOOL                      _inited;
    UILabel                 * _label;
    JBLineChartView         * _chart1;     // cpu
@@ -59,8 +59,8 @@ static const CGFloat             kBarHeight              = 20.0f;
    ServiceMonitorFPSModel  * _fpsModel;
 }
 
-- (id)init
-{
+- (id)init {
+   
    CGRect stBarFrame;
    stBarFrame.origin.x    = 0.0f;
    stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - kBarHeight;
@@ -122,10 +122,10 @@ static const CGFloat             kBarHeight              = 20.0f;
    [super setFrame:stBarFrame];
 }
 
-- (void)update
-{
-   if ( NO == self.hidden )
-   {
+- (void)update {
+   
+   if ( NO == self.hidden ) {
+      
       [_chart1 reloadData];
       [_chart2 reloadData];
 
@@ -156,12 +156,15 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
+#if UI_AVAILABLE_SDK_IOS(13_0)
       if (@available(iOS 13, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
 
       } /* End if () */
-      else {
+      else
+#endif /* #if UI_AVAILABLE_SDK_IOS(13_0) */
+      {
          
 //         _label.font             = [UIFont fontWithName:@"Menlo-Bold" size:12.0f];
          _label.font             = [UIFont fontWithName:@"Menlo" size:12.0f];
