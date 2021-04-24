@@ -28,6 +28,14 @@ Pod::Spec.new do |spec|
   spec.watchos.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet-watchOS' }
   spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet' }
 
+  spec.pod_target_xcconfig          = {
+    'GCC_PREPROCESSOR_DEFINITIONS'      => [
+                                            'MODULE=\"IDEAApplet\"',
+                                            '__UIWebView__=0'
+                                           ]
+                                      }
+
+
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
@@ -39,14 +47,10 @@ Pod::Spec.new do |spec|
                                             '${PODS_TARGET_SRCROOT}/../',
                                             '"${PODS_TARGET_SRCROOT}/"/**',
                                             '${PODS_ROOT}/Headers/Public/AFNetworking/'
-                                           ]
-                                      }
-
-  spec.pod_target_xcconfig          = {
-    'GCC_PREPROCESSOR_DEFINITIONS'      => [
-                                            'MODULE=\"IDEAApplet\"',
-                                            '__UIWebView__=0'
-                                           ]
+                                           ],
+#    'FRAMEWORK_SEARCH_PATHS'            => [
+#                                            "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking",
+#                                           ]
                                       }
 
 #  spec.dependency 'FoundationExtension'

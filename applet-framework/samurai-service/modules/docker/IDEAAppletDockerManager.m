@@ -167,8 +167,6 @@
 //      [UIView beginAnimations:nil context:nil];
 //      [UIView setAnimationDuration:0.5f];
 //      [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-//
-//
 //      [UIView commitAnimations];
       
       [UIView animateWithDuration:0.25f
@@ -178,7 +176,8 @@
                        completion:^(BOOL aFinished) {
          [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
          [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsFocusUpdate];
-         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+//         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+         [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsStatusBarAppearanceUpdate];
       }];
             
    } /* End if () */

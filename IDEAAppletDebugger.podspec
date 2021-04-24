@@ -47,7 +47,10 @@ Pod::Spec.new do |spec|
 #                                              '"${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/**',
                                               "${PODS_ROOT}/Headers/Public/IDEAApplet/",
                                               "${PODS_ROOT}/Headers/Public/IDEANightVersion"
-                                            ]
+                                            ],
+#  'FRAMEWORK_SEARCH_PATHS'              =>  [
+#                                              "${PODS_CONFIGURATION_BUILD_DIR}/IDEANightVersion",
+#                                            ]
                                         }
 
 #  spec.requires_arc                 = true
