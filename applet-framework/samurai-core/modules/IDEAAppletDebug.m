@@ -328,26 +328,26 @@ static void __uncaughtSignalHandler( int signal ) {
 
 @implementation NSObject(Debug)
 
-- (id)debugQuickLookObject {
-   
-#if __SAMURAI_DEBUG__
-   
-   IDEAAppletLogger  *stLogger   = [IDEAAppletLogger sharedInstance];
-   
-   [stLogger outputCapture];
-   
-   [self dump];
-   
-   [stLogger outputRelease];
-   
-   return stLogger.output;
-   
-#else   // #if __SAMURAI_DEBUG__
-   
-   return nil;
-   
-#endif   // #if __SAMURAI_DEBUG__
-}
+//- (id)debugQuickLookObject {
+//   
+//#if __SAMURAI_DEBUG__
+//   
+//   IDEAAppletLogger  *stLogger   = [IDEAAppletLogger sharedInstance];
+//   
+//   [stLogger outputCapture];
+//   
+//   [self dump];
+//   
+//   [stLogger outputRelease];
+//   
+//   return stLogger.output;
+//   
+//#else   // #if __SAMURAI_DEBUG__
+//   
+//   return nil;
+//   
+//#endif   // #if __SAMURAI_DEBUG__
+//}
 
 - (void)dump {
    
