@@ -184,6 +184,7 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wdeprecated-implementations"
 #  pragma clang diagnostic ignored                 "-Wmismatched-parameter-types"
 #  pragma clang diagnostic ignored                 "-Wobjc-redundant-literal-use"
+#  pragma clang diagnostic ignored                 "-Wno-nullability-completeness"
 #  pragma clang diagnostic ignored                 "-Wblock-capture-autoreleasing"
 #  pragma clang diagnostic ignored                 "-Wtautological-pointer-compare"
 #  pragma clang diagnostic ignored                 "-Wimplicit-function-declaration"

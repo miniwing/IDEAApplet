@@ -29,16 +29,6 @@
 //
 
 // ----------------------------------
-// Version
-// ----------------------------------
-
-#define __MUST_ON__        (1)
-#define __MUST_OFF__       (0)
-
-#define __ON__             (1)
-#define __OFF__            (0)
-
-// ----------------------------------
 // Unix include headers
 // ----------------------------------
 
@@ -143,6 +133,26 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #endif  // #ifdef __OBJC__
+
+// ----------------------------------
+// Version
+// ----------------------------------
+
+#ifndef __MUST_ON__
+#  define __MUST_ON__            (1)
+#endif /* __MUST_ON__ */
+
+#ifndef __MUST_OFF__
+#  define __MUST_OFF__           (1)
+#endif /* __MUST_OFF__ */
+
+#ifndef __ON__
+#  define __ON__                 (1)
+#endif /* __ON__ */
+
+#ifndef __OFF__
+#  define __OFF__                (0)
+#endif /* __OFF__ */
 
 // ----------------------------------
 // Common use macros
