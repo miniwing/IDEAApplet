@@ -382,7 +382,6 @@
       stSignal.input    = aInput ? [aInput mutableCopy] : nil;
 
       [stSignal send];
-      
    });
    
    return;
