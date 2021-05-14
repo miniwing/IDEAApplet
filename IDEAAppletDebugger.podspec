@@ -34,7 +34,7 @@ Pod::Spec.new do |spec|
                                               ' SERVICE_GRIDS=0 ',
                                               ' SERVICE_INSPECTOR=0 ',
                                               ' SERVICE_MONITOR=0 ',
-                                              ' SERVICE_TAPSPOT=1 ',
+                                              ' SERVICE_TAPSPOT=0 ',
                                               ' SERVICE_THEME=1 ',
                                            ]
                                       }
