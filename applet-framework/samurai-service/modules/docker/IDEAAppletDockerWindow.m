@@ -133,7 +133,7 @@
          
          if ([stViewControllerNew isKindOfClass:[UITabBarController class]]) {
             
-            dispatch_async_foreground(^{
+            dispatch_async_foreground(^() {
 
                [UIView animateWithDuration:0.25
                                 animations:^{

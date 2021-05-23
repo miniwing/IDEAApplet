@@ -133,7 +133,7 @@
 #if __SAMURAI_WEBCORE__
 + (void)load {
 
-//   dispatch_async_background_serial(^{
+//   dispatch_async_background_serial(^() {
 //      [IDEAAppletHtmlUserAgent sharedInstance];
 //   });
 

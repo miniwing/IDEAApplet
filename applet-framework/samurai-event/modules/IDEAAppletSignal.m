@@ -298,7 +298,7 @@
 //
 //- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject {
 //
-//   dispatch_async_background_concurrent(^{
+//   dispatch_async_background_concurrent(^() {
 //
 //      IDEAAppletSignal  *stSignal   = [IDEAAppletSignal signal];
 //

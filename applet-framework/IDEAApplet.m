@@ -46,7 +46,7 @@
 #if __IDEA_APPLET_AUTO_LOAD__
 + (void)load {
    
-   //   dispatch_async_background_serial(^{
+   //   dispatch_async_background_serial(^() {
    //      [IDEAApplet sharedInstance];
    //   });
    
