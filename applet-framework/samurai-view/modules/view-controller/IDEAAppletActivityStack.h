@@ -45,13 +45,13 @@
 
 @interface UIWindow(ActivityStack)
 
-@prop_strong( IDEAAppletActivityStack *,   rootStack );
+@prop_strong( IDEAAppletActivityStack *,  rootStack );
 
 @end
 
 #pragma mark -
 
-typedef void (^ IntentCallback )( IDEAAppletIntent * intent );
+typedef void (^ IntentCallback )( IDEAAppletIntent * aIntent );
 
 #pragma mark -
 
@@ -59,23 +59,23 @@ typedef void (^ IntentCallback )( IDEAAppletIntent * intent );
 
 - (IDEAAppletActivityStack *)stack;
 
-- (void)startActivity:(IDEAAppletActivity *)activity;
-- (void)startActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params;
-- (void)startActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent;
+- (void)startActivity:(IDEAAppletActivity *)aActivity;
+- (void)startActivity:(IDEAAppletActivity *)aActivity params:(NSDictionary *)aParams;
+- (void)startActivity:(IDEAAppletActivity *)aActivity intent:(IDEAAppletIntent *)intent;
 
-- (void)presentActivity:(IDEAAppletActivity *)activity;
-- (void)presentActivity:(IDEAAppletActivity *)activity params:(NSDictionary *)params;
-- (void)presentActivity:(IDEAAppletActivity *)activity intent:(IDEAAppletIntent *)intent;
+- (void)presentActivity:(IDEAAppletActivity *)aActivity;
+- (void)presentActivity:(IDEAAppletActivity *)aActivity params:(NSDictionary *)aParams;
+- (void)presentActivity:(IDEAAppletActivity *)aActivity intent:(IDEAAppletIntent *)intent;
 
-- (void)startURL:(NSString *)url, ...;
-- (void)startURL:(NSString *)url params:(NSDictionary *)params;
-- (void)startURL:(NSString *)url intent:(IDEAAppletIntent *)intent;
-- (void)startURL:(NSString *)url callback:(IntentCallback)callback;
+- (void)startURL:(NSString *)aURL, ...;
+- (void)startURL:(NSString *)aURL params:(NSDictionary *)aParams;
+- (void)startURL:(NSString *)aURL intent:(IDEAAppletIntent *)intent;
+- (void)startURL:(NSString *)aURL callback:(IntentCallback)callback;
 
-- (void)presentURL:(NSString *)url, ...;
-- (void)presentURL:(NSString *)url params:(NSDictionary *)params;
-- (void)presentURL:(NSString *)url intent:(IDEAAppletIntent *)intent;
-- (void)presentURL:(NSString *)url callback:(IntentCallback)callback;
+- (void)presentURL:(NSString *)aURL, ...;
+- (void)presentURL:(NSString *)aURL params:(NSDictionary *)aParams;
+- (void)presentURL:(NSString *)aURL intent:(IDEAAppletIntent *)intent;
+- (void)presentURL:(NSString *)aURL callback:(IntentCallback)callback;
 
 @end
 
@@ -83,18 +83,18 @@ typedef void (^ IntentCallback )( IDEAAppletIntent * intent );
 
 @interface IDEAAppletActivityStack : UINavigationController
 
-@prop_readonly( NSArray *,         activities );
-@prop_readonly( IDEAAppletActivity *,   activity );
+@prop_readonly( NSArray             *, activities );
+@prop_readonly( IDEAAppletActivity  *, activity );
 
 + (IDEAAppletActivityStack *)stack;
-+ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)activity;
++ (IDEAAppletActivityStack *)stackWithActivity:(IDEAAppletActivity *)aActivity;
 
-- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)activity;
+- (IDEAAppletActivityStack *)initWithActivity:(IDEAAppletActivity *)aActivity;
 
-- (void)pushActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated;
-- (void)popActivityAnimated:(BOOL)animated;
-- (void)popToActivity:(IDEAAppletActivity *)activity animated:(BOOL)animated;
-- (void)popToFirstActivityAnimated:(BOOL)animated;
+- (void)pushActivity:(IDEAAppletActivity *)aActivity animated:(BOOL)aAnimated;
+- (void)popActivityAnimated:(BOOL)aAnimated;
+- (void)popToActivity:(IDEAAppletActivity *)aActivity animated:(BOOL)aAnimated;
+- (void)popToFirstActivityAnimated:(BOOL)aAnimated;
 - (void)popAllActivities;
 
 @end

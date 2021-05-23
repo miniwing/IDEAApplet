@@ -51,8 +51,8 @@
 @def_prop_dynamic ( IDEAAppletRenderObject*, sourceRender         );
 @def_prop_dynamic ( NSIndexPath           *, sourceIndexPath      );
 
-- (UIView *)sourceView
-{
+- (UIView *)sourceView {
+   
    if ( nil == self.source ) {
       return nil;
    }
@@ -99,8 +99,8 @@
    return nil;
 }
 
-- (UITableViewCell *)sourceTableCell
-{
+- (UITableViewCell *)sourceTableCell {
+   
    if ( nil == self.source ) {
       return nil;
    }

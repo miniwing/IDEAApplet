@@ -43,8 +43,8 @@
 
 @interface IDEAAppletSignal(ViewController)
 
-@prop_readonly(   UIViewController *,      sourceViewController );
-@prop_readonly(   IDEAAppletActivity *,      sourceActivity );
+@prop_readonly( UIViewController  *,   sourceViewController );
+@prop_readonly( IDEAAppletActivity*,   sourceActivity );
 
 @end
 
