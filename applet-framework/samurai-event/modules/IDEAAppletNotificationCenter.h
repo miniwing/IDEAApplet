@@ -45,6 +45,6 @@
 - (void)removeObserver:(id)aObserver forNotification:(NSString *)aName;
 - (void)removeObserver:(id)aObserver;
 
-- (void)handleNotification:(AppletNotification *)aThat;
+- (void)handleNotification:(IDEAAppletNotification *)aThat;
 
 @end

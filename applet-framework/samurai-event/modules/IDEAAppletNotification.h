@@ -81,7 +81,7 @@ typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, id object 
 @protocol ManagedNotification <NSObject>
 @end
 
-typedef NSNotification AppletNotification;
+typedef NSNotification IDEAAppletNotification;
 
 #pragma mark -
 
@@ -103,7 +103,7 @@ typedef NSNotification AppletNotification;
 - (void)unobserveNotification:(NSString *)aName;
 - (void)unobserveAllNotifications;
 
-- (void)handleNotification:(AppletNotification *)aNotification;
+- (void)handleNotification:(IDEAAppletNotification *)aNotification;
 
 @end
 

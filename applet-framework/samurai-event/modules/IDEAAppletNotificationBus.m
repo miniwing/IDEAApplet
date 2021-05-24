@@ -78,7 +78,7 @@
    return;
 }
 
-- (void)routes:(AppletNotification *)aNotification target:(id)aTarget {
+- (void)routes:(IDEAAppletNotification *)aNotification target:(id)aTarget {
    
    if ( nil == aTarget ) {
       
@@ -282,7 +282,7 @@
    return;
 }
 
-- (BOOL)notification:(AppletNotification *)aNotification perform:(SEL)aSEL class:(Class)aClazz target:(id)aTarget {
+- (BOOL)notification:(IDEAAppletNotification *)aNotification perform:(SEL)aSEL class:(Class)aClazz target:(id)aTarget {
    
    ASSERT( nil != aNotification );
    ASSERT( nil != aTarget );

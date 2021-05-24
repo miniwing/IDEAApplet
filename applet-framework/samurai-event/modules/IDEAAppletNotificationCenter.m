@@ -155,7 +155,7 @@
    return;
 }
 
-- (void)handleNotification:(AppletNotification *)aNotification {
+- (void)handleNotification:(IDEAAppletNotification *)aNotification {
    
    NSMutableArray *stObservers   = [_map objectForKey:aNotification.name];
    

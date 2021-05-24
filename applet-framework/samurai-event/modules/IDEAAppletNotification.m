@@ -180,7 +180,7 @@
    return;
 }
 
-- (void)handleNotification:(AppletNotification *)aNotification {
+- (void)handleNotification:(IDEAAppletNotification *)aNotification {
    
    UNUSED(aNotification);
    
@@ -350,12 +350,12 @@ DESCRIBE(Handle notification) {
       __block BOOL block1Executed = NO;
       __block BOOL block2Executed = NO;
       
-      self.onNotification(__TestNotification.TEST, ^(AppletNotification * notification){
+      self.onNotification(__TestNotification.TEST, ^(IDEAAppletNotification * notification){
          UNUSED(notification);
          block1Executed = YES;
       });
       
-      self.onNotification(makeNotification(__TestNotification,xxx), ^(AppletNotification * notification){
+      self.onNotification(makeNotification(__TestNotification,xxx), ^(IDEAAppletNotification * notification){
          UNUSED(notification);
          block2Executed = YES;
       });
