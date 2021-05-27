@@ -75,6 +75,7 @@
 #pragma mark -
 
 typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, id object );
+//typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, HandlerBlockType object );
 
 #pragma mark -
 
@@ -104,6 +105,7 @@ typedef NSNotification IDEAAppletNotification;
 - (void)unobserveAllNotifications;
 
 - (void)handleNotification:(IDEAAppletNotification *)aNotification;
+- (void)setOnNotification:(IDEAAppletNotificationBlock)aAppletNotificationBlock;
 
 @end
 

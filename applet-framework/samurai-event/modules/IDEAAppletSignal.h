@@ -73,7 +73,8 @@
 
 #pragma mark -
 
-typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, id aObject );
+//typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, id aObject );
+typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, HandlerBlockType aObject );
 
 #pragma mark -
 

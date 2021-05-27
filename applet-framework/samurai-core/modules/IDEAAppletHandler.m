@@ -38,9 +38,9 @@
 // Source code
 // ----------------------------------
 
-#pragma mark -
-
-typedef void (^ __handlerBlockType )( id object );
+//#pragma mark -
+//
+//typedef void (^ HandlerBlockType )( id object );
 
 #pragma mark -
 
@@ -136,16 +136,18 @@ typedef void (^ __handlerBlockType )( id object );
 
 - (BOOL)trigger:(NSString *)name withObject:(id)object {
    
-   if ( nil == name )
-      return NO;
-   
-   __handlerBlockType block = (__handlerBlockType)[_blocks objectForKey:name];
-   
-   if ( nil == block ) {
+   if ( nil == name ) {
       return NO;
    }
    
-   block( object );
+   HandlerBlockType   stBlock = (HandlerBlockType)[_blocks objectForKey:name];
+   
+   if ( nil == stBlock ) {
+      return NO;
+   }
+   
+   stBlock( object );
+   
    return YES;
 }
 

@@ -36,6 +36,10 @@
 
 #pragma mark -
 
+typedef void (^ HandlerBlockType )( id object );
+
+#pragma mark -
+
 @class IDEAAppletHandler;
 
 @interface NSObject(BlockHandler)
