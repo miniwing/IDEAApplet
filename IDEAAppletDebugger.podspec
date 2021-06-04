@@ -32,7 +32,7 @@ Pod::Spec.new do |spec|
                                               ' SERVICE_CONSOLE=0 ',
                                               ' SERVICE_GESTURE=0 ',
                                               ' SERVICE_GRIDS=0 ',
-                                              ' SERVICE_INSPECTOR=0 ',
+                                              ' SERVICE_INSPECTOR=1 ',
                                               ' SERVICE_MONITOR=0 ',
                                               ' SERVICE_TAPSPOT=0 ',
                                               ' SERVICE_THEME=1 ',
