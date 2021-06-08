@@ -259,7 +259,7 @@ Pod::Spec.new do |spec|
 #endif
 
 #define __ON__                                     (1)
-#define __OFF__                                    (1)
+#define __OFF__                                    (0)
 
 #if defined(DEBUG) && (1==DEBUG)
 #  define __AUTO__                                 (1)

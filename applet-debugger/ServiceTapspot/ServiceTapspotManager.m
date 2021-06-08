@@ -65,21 +65,21 @@
 
             if ( UITouchPhaseBegan == stTouch.phase ) {
                
-               INFO( @"View '%@ %p', touch began", [[touch.view class] description], touch.view );
+               INFO( @"View '%@ %p', touch began", [[stTouch.view class] description], stTouch.view );
 
-//               if ( NO == [touch.view isKindOfClass:[UIScrollView class]] )
-//               {
+//               if ( NO == [touch.view isKindOfClass:[UIScrollView class]] ) {
+//
 //                  BOOL      clicked = NO;
 //                  UIView *   clickedView = nil;
 //                  
-//                  for ( UIView * view = touch.view; nil != view; view = view.superview )
-//                  {
-//                     if ( view.gestureRecognizers && view.gestureRecognizers.count )
-//                     {
-//                        for ( UIGestureRecognizer * gesture in view.gestureRecognizers )
-//                        {
-//                           if ( [gesture isKindOfClass:[UITapGestureRecognizer class]] )
-//                           {
+//                  for ( UIView * view = touch.view; nil != view; view = view.superview ) {
+//
+//                     if ( view.gestureRecognizers && view.gestureRecognizers.count ) {
+               
+//                        for ( UIGestureRecognizer * gesture in view.gestureRecognizers ) {
+//
+//                           if ( [gesture isKindOfClass:[UITapGestureRecognizer class]] ) {
+//
 //                              clicked = YES;
 //                              clickedView = view;
 //                              break;
@@ -87,23 +87,23 @@
 //                        }
 //                     }
 //                     
-//                     if ( [view isKindOfClass:[UIControl class]] )
-//                     {
+//                     if ( [view isKindOfClass:[UIControl class]] ) {
+//
 //                        clicked = YES;
 //                        clickedView = view;
 //                        break;
 //                     }
 //                     
-//                     if ( [view.renderer isClickable] )
-//                     {
+//                     if ( [view.renderer isClickable] ) {
+//
 //                        clicked = YES;
 //                        clickedView = view;
 //                        break;
 //                     }
 //                  }
 //
-//                  if ( clicked )
-//                  {
+//                  if ( clicked ) {
+//               
 //                     [clickedView.layer removeAnimationForKey:@"scale"];
 //                     
 //                     CABasicAnimation * animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
