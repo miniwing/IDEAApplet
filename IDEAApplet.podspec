@@ -494,8 +494,8 @@ enum {
 
 NS_INLINE const char* ____LogLevelToString(int _eLevel) {
   
-   switch (_eLevel)
-   {
+   switch (_eLevel) {
+     
       case __LogLevelFatal:
          return ("Fatal");
       case __LogLevelError:

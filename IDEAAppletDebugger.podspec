@@ -27,15 +27,15 @@ Pod::Spec.new do |spec|
 
   spec.pod_target_xcconfig          = {
     'GCC_PREPROCESSOR_DEFINITIONS'      => [
-                                              ' MODULE=\"IDEAViewAnimator\" ',
-                                              ' SERVICE_BORDER=0 ',
-                                              ' SERVICE_CONSOLE=0 ',
-                                              ' SERVICE_GESTURE=0 ',
-                                              ' SERVICE_GRIDS=0 ',
-                                              ' SERVICE_INSPECTOR=1 ',
-                                              ' SERVICE_MONITOR=0 ',
-                                              ' SERVICE_TAPSPOT=0 ',
-                                              ' SERVICE_THEME=1 ',
+                                              ' MODULE=\"IDEAAppletDebugger\" ',
+#                                              ' SERVICE_BORDER=0 ',
+#                                              ' SERVICE_CONSOLE=0 ',
+#                                              ' SERVICE_GESTURE=0 ',
+#                                              ' SERVICE_GRIDS=0 ',
+#                                              ' SERVICE_INSPECTOR=0 ',
+#                                              ' SERVICE_MONITOR=0 ',
+#                                              ' SERVICE_TAPSPOT=0 ',
+#                                              ' SERVICE_THEME=1 ',
                                            ]
                                       }
 
@@ -258,6 +258,17 @@ Pod::Spec.new do |spec|
 #  define __dispatch_release(x)                    dispatch_release((x))
 #endif
 
+#define __ON__                                     (1)
+#define __OFF__                                    (1)
+
+#if defined(DEBUG) && (1==DEBUG)
+#  define __AUTO__                                 (1)
+#  define __Debug__                                (1)
+#else
+#  define __AUTO__                                 (0)
+#  define __Debug__                                (0)
+#endif
+
 /******************************************************************************************************/
 
 #define LOG_BUG_SIZE                               (1024 * 1)
@@ -274,10 +285,10 @@ enum
 
 #ifdef __OBJC__
 
-NS_INLINE const char* __LogLevelToString(int _eLevel)
-{
-   switch (_eLevel)
-   {
+NS_INLINE const char* __LogLevelToString(int _eLevel) {
+  
+   switch (_eLevel) {
+     
       case LogLevelFatal:
          return ("Fatal");
       case LogLevelError:
@@ -296,15 +307,15 @@ NS_INLINE const char* __LogLevelToString(int _eLevel)
    return ("Unknown");
 }
 
-NS_INLINE void __Log(int _eLevel, const char *_cpszMsg)
-{
+NS_INLINE void __Log(int _eLevel, const char *_cpszMsg) {
+  
    printf("%s :: %s\\n", __LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
 
-NS_INLINE void LoggerFatal(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -319,8 +330,8 @@ NS_INLINE void LoggerFatal(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerError(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerError(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -335,8 +346,8 @@ NS_INLINE void LoggerError(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerWarn(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -351,8 +362,8 @@ NS_INLINE void LoggerWarn(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerInfo(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -367,8 +378,8 @@ NS_INLINE void LoggerInfo(NSString *aFormat, ...)
    return;
 }
 
-NS_INLINE void LoggerDebug(NSString *aFormat, ...)
-{
+NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
+  
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -382,12 +393,13 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...)
    
    return;
 }
+
 #else
 
 __BEGIN_DECLS
 
-static __inline void LoggerFatal(char *_Format, ...)
-{
+static __inline void LoggerFatal(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -402,8 +414,8 @@ static __inline void LoggerFatal(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerError(char *_Format, ...)
-{
+static __inline void LoggerError(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -418,8 +430,8 @@ static __inline void LoggerError(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerWarn(char *_Format, ...)
-{
+static __inline void LoggerWarn(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -434,8 +446,8 @@ static __inline void LoggerWarn(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerInfo(char *_Format, ...)
-{
+static __inline void LoggerInfo(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -450,8 +462,8 @@ static __inline void LoggerInfo(char *_Format, ...)
    return;
 }
 
-static __inline void LoggerDebug(char *_Format, ...)
-{
+static __inline void LoggerDebug(char *_Format, ...) {
+  
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -536,6 +548,40 @@ __END_DECLS
                                                    ((__IPHONE_##_ios != 0) &&                          \\
                                                     (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_##_ios))
    
+/******************************************************************************************************/
+
+#ifndef SERVICE_BORDER
+#  define SERVICE_BORDER            (__OFF__)
+#endif /* SERVICE_BORDER */
+
+#ifndef SERVICE_CONSOLE
+#  define SERVICE_CONSOLE           (__OFF__)
+#endif /* SERVICE_CONSOLE */
+
+#ifndef SERVICE_GESTURE
+#  define SERVICE_GESTURE           (__OFF__)
+#endif /* SERVICE_GESTURE */
+
+#ifndef SERVICE_GRIDS
+#  define SERVICE_GRIDS             (__OFF__)
+#endif /* SERVICE_GRIDS */
+
+#ifndef SERVICE_INSPECTOR
+#  define SERVICE_INSPECTOR         (__OFF__)
+#endif /* SERVICE_INSPECTOR */
+
+#ifndef SERVICE_MONITOR
+#  define SERVICE_MONITOR           (__OFF__)
+#endif /* SERVICE_MONITOR */
+
+#ifndef SERVICE_TAPSPOT
+#  define SERVICE_TAPSPOT           (__OFF__)
+#endif /* SERVICE_TAPSPOT */
+
+#ifndef SERVICE_THEME
+#  define SERVICE_THEME             (__AUTO__)
+#endif /* SERVICE_THEME */
+
 /******************************************************************************************************/
 
   EOS

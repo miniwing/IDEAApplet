@@ -33,10 +33,10 @@
 
 #pragma mark -
 
-#undef   Degree2Radian
+#undef  Degree2Radian
 #define Degree2Radian( __degree ) (M_PI / 180.0f * __degree)
 
-#undef   MAX_DEPTH
+#undef  MAX_DEPTH
 #define MAX_DEPTH   (36)
 
 #pragma mark -
@@ -92,10 +92,10 @@
 //      CGContextScaleCTM(context, 0.5, 0.5);
       [self.layer renderInContext:stContext];
       
-//      if (self.renderer)
-//      {
-//         if (self.renderer.dom.domId)
-//         {
+//      if (self.renderer) {
+//
+//         if (self.renderer.dom.domId) {
+//
 //            NSString *      renderTips = [NSString stringWithFormat:@" #%@ ", self.renderer.dom.domId];
 //            NSDictionary *   renderAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                   [UIFont systemFontOfSize:12.0f], NSFontAttributeName,
@@ -105,8 +105,8 @@
 //
 //            [renderTips drawAtPoint:CGPointZero withAttributes:renderAttr];
 //         }
-//         else if (self.renderer.dom.domTag)
-//         {
+//         else if (self.renderer.dom.domTag) {
+//
 //            NSString *      renderTips = [NSString stringWithFormat:@" <%@/> ", self.renderer.dom.domTag];
 //            NSDictionary *   renderAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                   [UIFont systemFontOfSize:12.0f], NSFontAttributeName,
@@ -215,8 +215,8 @@
    [self removeGestureRecognizer:_panGesture];
    [self removeGestureRecognizer:_pinchGesture];
    
-   _panGesture = nil;
-   _pinchGesture = nil;
+   _panGesture    = nil;
+   _pinchGesture  = nil;
 
    __SUPER_DEALLOC;
 
@@ -369,8 +369,8 @@
       
    } /* End if () */
    
-   CGRect stScreenBound = [UIScreen mainScreen].bounds;
-   CGRect stViewFrame   = CGRectZero;
+   CGRect stScreenBound    = [UIScreen mainScreen].bounds;
+   CGRect stViewFrame      = CGRectZero;
    
    stViewFrame.origin.x    = aOrigin.x + aView.frame.origin.x;
    stViewFrame.origin.y    = aOrigin.y + aView.frame.origin.y;
@@ -472,8 +472,8 @@
    return fMaxDepth;
 }
 
-- (void)removeLayers
-{
+- (void)removeLayers {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
@@ -805,28 +805,28 @@
    
    if (UIGestureRecognizerStateBegan == pinchGesture.state) {
       
-      _dragging = YES;
+      _dragging      = YES;
       
-      _pinchOffset = _distance;
+      _pinchOffset   = _distance;
    }
    else if (UIGestureRecognizerStateChanged == pinchGesture.state) {
       
-      _dragging = YES;
+      _dragging   = YES;
       
-      _distance = _pinchOffset + (pinchGesture.scale - 1.0f);
-      _distance = (_distance < -5.0f ? -5.0f : (_distance > 0.5f ? 0.5f : _distance));
+      _distance   = _pinchOffset + (pinchGesture.scale - 1.0f);
+      _distance   = (_distance < -5.0f ? -5.0f : (_distance > 0.5f ? 0.5f : _distance));
       
       [self transformLayers:NO];
    }
    else if (UIGestureRecognizerStateEnded == pinchGesture.state) {
       
-      _dragging = NO;
+      _dragging   = NO;
       
       [self transformLayers:NO];
    }
    else if (UIGestureRecognizerStateCancelled == pinchGesture.state) {
       
-      _dragging = NO;
+      _dragging   = NO;
       
       [self transformLayers:NO];
    }

@@ -27,6 +27,10 @@
 #import "ServiceConsole.h"
 #import "ServiceConsoleWindow.h"
 
+// ----------------------------------
+// Source code
+// ----------------------------------
+
 static NSMutableDictionary * __commandCache = nil;
 
 #pragma mark -
@@ -47,12 +51,12 @@ static NSMutableDictionary * __commandCache = nil;
    }
    
    
-   /*
-    if (!self.new || [self.cmd isEqualToString:@"exit"] || [self.cmd isEqualToString:@"help"] || [self.cmd isEqualToString:@"lcs"]) {
+/*
+   if (!self.new || [self.cmd isEqualToString:@"exit"] || [self.cmd isEqualToString:@"help"] || [self.cmd isEqualToString:@"lcs"]) {
     
-    return [NSString stringWithFormat:@"%@ (*)",_cmdDescription];
-    }
-    */
+      return [NSString stringWithFormat:@"%@ (*)",_cmdDescription];
+   }
+*/
    
    return _cmdDescription;
 }
