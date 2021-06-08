@@ -63,12 +63,13 @@ static const CGFloat             kBarHeight              = 20.0f;
    
    CGRect stBarFrame;
    stBarFrame.origin.x    = 0.0f;
+//   stBarFrame.origin.y    = 0.0f;
    stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - kBarHeight;
    stBarFrame.size.width  = [UIScreen mainScreen].bounds.size.width;
    stBarFrame.size.height = kBarHeight;
       
-   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]])
-   {
+   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+      
       UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
       
       stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - kBarHeight;
@@ -76,8 +77,8 @@ static const CGFloat             kBarHeight              = 20.0f;
    } /* End if () */
    
    self = [super initWithFrame:stBarFrame];
-   if ( self )
-   {
+   if ( self ) {
+      
       self.hidden             = YES;
       self.backgroundColor    = [UIColor clearColor]; // [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
       self.windowLevel        = UIWindowLevelStatusBar + 5.0f;
@@ -88,11 +89,20 @@ static const CGFloat             kBarHeight              = 20.0f;
       
    } /* End if () */
    
+   [[UIApplication sharedApplication].delegate.window addObserver:self
+                                                       forKeyPath:@"rootViewController"
+                                                          options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                                                          context:nil];
+
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
+   [[UIApplication sharedApplication].delegate.window removeObserver:self
+                                                          forKeyPath:@"rootViewController"
+                                                             context:nil];
+
    [_label removeFromSuperview];
    _label = nil;
    
@@ -101,26 +111,30 @@ static const CGFloat             kBarHeight              = 20.0f;
 
    [_chart2 removeFromSuperview];
    _chart2 = nil;
+   
+   return;
 }
 
-- (void)setFrame:(CGRect)aFrame
-{
-   CGRect stBarFrame;
-   stBarFrame.origin.x     = 0.0f;
-   stBarFrame.origin.y     = [UIScreen mainScreen].bounds.size.height - kBarHeight;
-   stBarFrame.size.width   = [UIScreen mainScreen].bounds.size.width;
-   stBarFrame.size.height  = kBarHeight;
-
-   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]])
-   {
-      UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
-      
-      stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - kBarHeight;
-
-   } /* End if () */
-
-   [super setFrame:stBarFrame];
-}
+//- (void)setFrame:(CGRect)aFrame {
+//   
+//   CGRect stBarFrame;
+//   stBarFrame.origin.x     = 0.0f;
+//   stBarFrame.origin.y     = [UIScreen mainScreen].bounds.size.height - kBarHeight;
+//   stBarFrame.size.width   = [UIScreen mainScreen].bounds.size.width;
+//   stBarFrame.size.height  = kBarHeight;
+//
+//   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+//      
+//      UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
+//      
+//      stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - kBarHeight;
+//
+//   } /* End if () */
+//
+//   [super setFrame:stBarFrame];
+//   
+//   return;
+//}
 
 - (void)update {
    
@@ -156,15 +170,12 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
-#if UI_AVAILABLE_SDK_IOS(13_0)
       if (@available(iOS 13, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
 
       } /* End if () */
-      else
-#endif /* #if UI_AVAILABLE_SDK_IOS(13_0) */
-      {
+      else {
          
 //         _label.font             = [UIFont fontWithName:@"Menlo-Bold" size:12.0f];
          _label.font             = [UIFont fontWithName:@"Menlo" size:12.0f];
@@ -194,113 +205,167 @@ static const CGFloat             kBarHeight              = 20.0f;
    self.hidden = YES;
 }
 
+- (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary<NSString *,id> *)aChange context:(void *)aContext {
+   
+   int                            nErr                                     = EFAULT;
+   
+   UIViewController              *stViewControllerOld                      = nil;
+   UIViewController              *stViewControllerNew                      = nil;
+
+   __TRY;
+
+   LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : KeyPath : %@", aKeyPath));
+
+   if ([aKeyPath isEqualToString:@"rootViewController"]) {
+
+      stViewControllerOld  = [aChange objectForKey:NSKeyValueChangeOldKey];
+      LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeOldKey : %@", stViewControllerOld));
+
+      stViewControllerNew  = [aChange objectForKey:NSKeyValueChangeNewKey];
+      LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeNewKey : %@", stViewControllerNew));
+
+      if (![stViewControllerOld isEqual:stViewControllerNew]) {
+         
+         if ([stViewControllerNew isKindOfClass:[UITabBarController class]]) {
+            
+            dispatch_async_foreground(^() {
+
+               [UIView animateWithDuration:0.25
+                                animations:^{
+                  
+                  if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+                     
+                     UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
+                     
+                     [self setFrame:CGRectMake(0,
+                                               [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - self.frame.size.height,
+                                               self.frame.size.width,
+                                               self.frame.size.height)];
+
+                  } /* End if () */
+               }];
+            });
+            
+         } /* End if () */
+         
+      } /* End if () */
+      
+   } /* End if () */
+      
+   __CATCH(nErr);
+   
+   return;
+}
+
 #pragma mark - JBLineChartViewDataSource
 
-- (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
-{
+- (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView {
+   
    return 1;
 }
 
-- (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
-{
-   if ( _chart1 == lineChartView )
-   {
+- (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex {
+   
+   if ( _chart1 == lineChartView ) {
+      
       return _cpuModel.history.count;
    }
-   else if ( _chart2 == lineChartView )
-   {
+   else if ( _chart2 == lineChartView ) {
+      
       return _fpsModel.history.count;
    }
    
    return 0;
 }
 
-- (BOOL)lineChartView:(JBLineChartView *)lineChartView showsDotsForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (BOOL)lineChartView:(JBLineChartView *)lineChartView showsDotsForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return NO;
 }
 
-- (BOOL)lineChartView:(JBLineChartView *)lineChartView smoothLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (BOOL)lineChartView:(JBLineChartView *)lineChartView smoothLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return YES;
 }
 
 #pragma mark - JBLineChartViewDelegate
 
-- (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
-{
-   if ( _chart1 == lineChartView )
-   {
+- (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
+   
+   if ( _chart1 == lineChartView ) {
+      
       return [[_cpuModel.history objectAtIndex:horizontalIndex] floatValue];
    }
-   else if ( _chart2 == lineChartView )
-   {
+   else if ( _chart2 == lineChartView ) {
+      
       return [[_fpsModel.history objectAtIndex:horizontalIndex] floatValue];
    }
    
    return 0;
 }
 
-- (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex touchPoint:(CGPoint)touchPoint
-{
+- (void)lineChartView:(JBLineChartView *)lineChartView didSelectLineAtIndex:(NSUInteger)lineIndex horizontalIndex:(NSUInteger)horizontalIndex touchPoint:(CGPoint)touchPoint {
+   
+   return;
 }
 
-- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView
-{
+- (void)didDeselectLineInLineChartView:(JBLineChartView *)lineChartView {
+   
+   return;
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
-{
-   if ( _chart1 == lineChartView )
-   {
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex {
+   
+   if ( _chart1 == lineChartView ) {
+      
       return [HEX_RGB(0xff002d) colorWithAlphaComponent:1.0f];
    }
-   else if ( _chart2 == lineChartView )
-   {
+   else if ( _chart2 == lineChartView ) {
+      
       return [HEX_RGB(0x00a651) colorWithAlphaComponent:1.0f];
    }
    
    return [UIColor grayColor];
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return [[self lineChartView:lineChartView colorForLineAtLineIndex:lineIndex] colorWithAlphaComponent:0.2f];
 //   return [UIColor clearColor];
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
+   
    return [UIColor whiteColor];
 }
 
-- (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return 1.0f;
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return [UIColor whiteColor];
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return [UIColor whiteColor];
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionFillColorForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionFillColorForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return [[self lineChartView:lineChartView selectionColorForLineAtLineIndex:lineIndex] colorWithAlphaComponent:0.9f];
 }
 
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
-{
+- (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
+   
    return [UIColor lightGrayColor];
 }
 
-- (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView lineStyleForLineAtLineIndex:(NSUInteger)lineIndex
-{
+- (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView lineStyleForLineAtLineIndex:(NSUInteger)lineIndex {
+   
    return JBLineChartViewLineStyleSolid;
 }
 
