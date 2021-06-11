@@ -53,13 +53,13 @@
 
 @interface __HtmlTableViewSection : IDEAAppletUITableViewSection
 
-@prop_assign( NSUInteger,               index );
-@prop_strong( IDEAAppletHtmlDocument *,      document );
-@prop_assign( CGFloat,                  rowHeight );
-@prop_unsafe( UITableView *,            tableView );
-@prop_strong( NSString *,               reuseIdentifier );
+@prop_assign( NSUInteger,                 index );
+@prop_strong( IDEAAppletHtmlDocument *,   document );
+@prop_assign( CGFloat,                    rowHeight );
+@prop_unsafe( UITableView *,              tableView );
+@prop_strong( NSString *,                 reuseIdentifier );
 
-@prop_strong( NSObject *,               cachedData );
+@prop_strong( NSObject *,                 cachedData );
 @prop_strong( NSMutableDictionary *,      cachedHeight );
 
 - (BOOL)parseDocument:(IDEAAppletHtmlDocument *)document;
@@ -70,14 +70,14 @@
 
 @implementation __HtmlTableViewSection
 
-@def_prop_assign( NSUInteger,            index );
-@def_prop_strong( IDEAAppletHtmlDocument *,   document );
-@def_prop_assign( CGFloat,               rowHeight );
-@def_prop_unsafe( UITableView *,         tableView );
-@def_prop_strong( NSString *,            reuseIdentifier );
+@def_prop_assign( NSUInteger,                index );
+@def_prop_strong( IDEAAppletHtmlDocument *,  document );
+@def_prop_assign( CGFloat,                   rowHeight );
+@def_prop_unsafe( UITableView *,             tableView );
+@def_prop_strong( NSString *,                reuseIdentifier );
 
-@def_prop_strong( NSObject *,            cachedData );
-@def_prop_strong( NSMutableDictionary *,   cachedHeight );
+@def_prop_strong( NSObject *,                cachedData );
+@def_prop_strong( NSMutableDictionary *,     cachedHeight );
 
 #pragma mark -
 

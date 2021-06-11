@@ -13,8 +13,9 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target        = '10.0'
   spec.watchos.deployment_target    = '4.3'
-#  spec.osx.deployment_target        = '10.10'
-#  spec.tvos.deployment_target       = '10.0'
+    
+  spec.osx.deployment_target        = '10.10'
+  spec.tvos.deployment_target       = '10.0'
 
   spec.ios.pod_target_xcconfig      = {
                                         'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet',
