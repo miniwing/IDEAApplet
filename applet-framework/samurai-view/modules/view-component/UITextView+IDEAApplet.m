@@ -80,7 +80,7 @@
    
    if ( _enabled ) {
       
-      [self.textView sendSignal:UITextView.eventDidBeginEditing];
+      [self.textView sendSignal:UITextView.eventDidBeginEditingSignal];
    }
 }
 
@@ -88,7 +88,7 @@
    
    if ( _enabled ) {
       
-      [self.textView sendSignal:UITextView.eventDidEndEditing];
+      [self.textView sendSignal:UITextView.eventDidEndEditingSignal];
    }
 }
 
@@ -101,7 +101,7 @@
    
    if ( _enabled ) {
       
-      [self.textView sendSignal:UITextView.eventChanged];
+      [self.textView sendSignal:UITextView.eventChangedSignal];
    }
 }
 

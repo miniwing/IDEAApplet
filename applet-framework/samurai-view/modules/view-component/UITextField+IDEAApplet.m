@@ -86,7 +86,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventDidBeginEditing];
+      [self.textField sendSignal:UITextField.eventDidBeginEditingSignal];
    }
 }
 
@@ -94,7 +94,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventChanged];
+      [self.textField sendSignal:UITextField.eventChangedSignal];
    }
 }
 
@@ -102,7 +102,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventDidEndEditing];
+      [self.textField sendSignal:UITextField.eventDidEndEditingSignal];
    }
 }
 
@@ -110,7 +110,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventDidEndEditing];
+      [self.textField sendSignal:UITextField.eventDidEndEditingSignal];
    }
 }
 
@@ -150,7 +150,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventClear];
+      [self.textField sendSignal:UITextField.eventClearSignal];
    }
    
    return YES;
@@ -161,7 +161,7 @@
    
    if ( _enabled ) {
       
-      [self.textField sendSignal:UITextField.eventReturn];
+      [self.textField sendSignal:UITextField.eventReturnSignal];
    }
    
    return YES;

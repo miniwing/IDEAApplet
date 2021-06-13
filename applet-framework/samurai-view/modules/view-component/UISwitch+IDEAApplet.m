@@ -78,7 +78,7 @@
 
 - (void)valueChanged:(id)sender {
    
-   [self.switchh sendSignal:UISwitch.eventValueChanged];
+   [self.switchh sendSignal:UISwitch.eventValueChangedSignal];
 }
 
 @end

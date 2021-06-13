@@ -37,8 +37,8 @@
 
 @interface NSObject(Border)
 
-@notification( BORDER_SHOW );
-@notification( BORDER_HIDE );
+@notification( BorderShow );
+@notification( BorderHide );
 
 + (void)borderEnable;
 + (void)borderDisable;

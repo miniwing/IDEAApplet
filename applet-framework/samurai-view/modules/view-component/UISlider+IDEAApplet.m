@@ -78,7 +78,7 @@
 
 - (void)valueChanged:(id)sender {
    
-   [self.slider sendSignal:UISlider.eventValueChanged];
+   [self.slider sendSignal:UISlider.eventValueChangedSignal];
 }
 
 @end

@@ -55,7 +55,7 @@
    
    _enabled = YES;
    
-   [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.Enabled object:nil];
+   [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.EnabledNotification object:nil];
    
    return;
 }
@@ -64,7 +64,7 @@
    
    _enabled = NO;
    
-   [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.Disabled object:nil];
+   [[NSNotificationCenter defaultCenter] postNotificationName:ServiceGestureSetting.DisabledNotification object:nil];
    
    return;
 }

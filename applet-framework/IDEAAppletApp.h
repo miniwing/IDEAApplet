@@ -41,8 +41,8 @@
 @notification( PushEnabled )
 @notification( PushError   )
 
-@notification( LocalNotification  )
-@notification( RemoteNotification )
+@notification( Local  )
+@notification( Remote )
 
 @notification( EnterBackground );
 @notification( EnterForeground );

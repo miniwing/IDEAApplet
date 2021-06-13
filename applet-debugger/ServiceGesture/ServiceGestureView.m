@@ -55,11 +55,11 @@
 
       [[NSNotificationCenter defaultCenter] addObserver:self
                                      selector:@selector(didEnabled)
-                                        name:ServiceGestureSetting.Enabled
+                                        name:ServiceGestureSetting.EnabledNotification
                                        object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self
                                      selector:@selector(didDisabled)
-                                        name:ServiceGestureSetting.Disabled
+                                        name:ServiceGestureSetting.DisabledNotification
                                        object:nil];
    }
    

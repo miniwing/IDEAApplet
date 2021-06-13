@@ -85,7 +85,7 @@
       }
       else {
          
-         [self sendSignal:UIView.eventPinchBegin];
+         [self sendSignal:UIView.eventPinchBeginSignal];
       }
    }
    else if ( UIGestureRecognizerStateChanged == gesture.state ) {
@@ -98,7 +98,7 @@
       }
       else {
          
-         [self sendSignal:UIView.eventPinchChanged];
+         [self sendSignal:UIView.eventPinchChangedSignal];
       }
    }
    else if ( UIGestureRecognizerStateEnded == gesture.state ) {
@@ -111,7 +111,7 @@
       }
       else {
          
-         [self sendSignal:UIView.eventPinchEnded];
+         [self sendSignal:UIView.eventPinchEndedSignal];
       }
    }
    else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
@@ -124,7 +124,7 @@
       }
       else {
          
-         [self sendSignal:UIView.eventPinchCancelled];
+         [self sendSignal:UIView.eventPinchCancelledSignal];
       }
    }
    else if ( UIGestureRecognizerStateFailed == gesture.state ) {

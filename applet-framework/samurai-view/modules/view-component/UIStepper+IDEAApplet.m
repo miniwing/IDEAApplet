@@ -78,7 +78,7 @@
 
 - (void)valueChanged:(id)sender {
    
-   [self.stepper sendSignal:UIStepper.eventValueChanged];
+   [self.stepper sendSignal:UIStepper.eventValueChangedSignal];
 }
 
 @end

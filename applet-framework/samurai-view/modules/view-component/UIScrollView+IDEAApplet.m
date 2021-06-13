@@ -52,7 +52,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidScroll];
+      [self.scrollView sendSignal:UIScrollView.eventDidScrollSignal];
    }
 }
 
@@ -61,7 +61,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidZoom];
+      [self.scrollView sendSignal:UIScrollView.eventDidZoomSignal];
    }
 }
 
@@ -70,7 +70,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventWillBeginDragging];
+      [self.scrollView sendSignal:UIScrollView.eventWillBeginDraggingSignal];
    }
 }
 
@@ -79,7 +79,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventWillEndDragging];
+      [self.scrollView sendSignal:UIScrollView.eventWillEndDraggingSignal];
    }
 }
 
@@ -88,7 +88,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidEndDragging];
+      [self.scrollView sendSignal:UIScrollView.eventDidEndDraggingSignal];
    }
 }
 
@@ -97,7 +97,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventWillBeginDecelerating];
+      [self.scrollView sendSignal:UIScrollView.eventWillBeginDeceleratingSignal];
    }
 }
 
@@ -106,7 +106,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidEndDecelerating];
+      [self.scrollView sendSignal:UIScrollView.eventDidEndDeceleratingSignal];
    }
 }
 
@@ -115,7 +115,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidEndScrolling];
+      [self.scrollView sendSignal:UIScrollView.eventDidEndScrollingSignal];
    }
 }
 
@@ -130,7 +130,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventWillBeginZooming];
+      [self.scrollView sendSignal:UIScrollView.eventWillBeginZoomingSignal];
    }
 }
 
@@ -139,7 +139,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidEndZooming];
+      [self.scrollView sendSignal:UIScrollView.eventDidEndZoomingSignal];
    }
 }
 
@@ -154,7 +154,7 @@
    
    if ( self.scrollEventsEnabled ) {
       
-      [self.scrollView sendSignal:UIScrollView.eventDidScrollToTop];
+      [self.scrollView sendSignal:UIScrollView.eventDidScrollToTopSignal];
    }
 }
 

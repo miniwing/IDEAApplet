@@ -36,15 +36,19 @@
 
 #undef  notification
 #define notification( name )                          \
-        static_property( name )
+        static_property( name##Notification )
 
 #undef  def_notification
 #define def_notification( name )                      \
-        def_static_property2( name, @"notification", NSStringFromClass([self class]) )
+        def_static_property2( name##Notification, @"notification", NSStringFromClass([self class]) )
 
 #undef  def_notification_alias
 #define def_notification_alias( name, alias )         \
-        alias_static_property( name, alias )
+        alias_static_property( name##Notification, alias )
+
+#undef  notificationName
+#define notificationName( name )                      \
+        name##Notification
 
 #undef  makeNotification
 #define makeNotification( ... )                       \

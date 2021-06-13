@@ -62,8 +62,8 @@ static __strong id __applicationInstance = nil;
 @def_notification( PushEnabled );
 @def_notification( PushError   );
 
-@def_notification( LocalNotification  );
-@def_notification( RemoteNotification );
+@def_notification( Local  );
+@def_notification( Remote );
 
 @def_notification( EnterBackground );
 @def_notification( EnterForeground );
@@ -428,7 +428,7 @@ static __strong id __applicationInstance = nil;
       
    } /* End if () */
    
-   [self notify:IDEAAppletApp.Ready];
+   [self notify:IDEAAppletApp.ReadyNotification];
    
    if (stLocalNotification) {
       
@@ -464,7 +464,7 @@ static __strong id __applicationInstance = nil;
    self.sourceUrl = url.absoluteString;
    //   self.sourceBundleId = sourceApplication;
    
-   [self notify:IDEAAppletApp.Ready];
+   [self notify:IDEAAppletApp.ReadyNotification];
    
    return YES;
 }
@@ -601,7 +601,7 @@ static __strong id __applicationInstance = nil;
    
    self.pushToken = szToken;
    
-   [self notify:IDEAAppletApp.PushEnabled];
+   [self notify:IDEAAppletApp.PushEnabledNotification];
    
    __CATCH(nErr);
    
@@ -618,7 +618,7 @@ static __strong id __applicationInstance = nil;
    
    self.pushError = aError;
    
-   [self notify:IDEAAppletApp.PushError];
+   [self notify:IDEAAppletApp.PushErrorNotification];
    
    __CATCH(nErr);
    
@@ -663,7 +663,7 @@ static __strong id __applicationInstance = nil;
    
    UNUSED(application)
    
-   [self notify:IDEAAppletApp.EnterBackground];
+   [self notify:IDEAAppletApp.EnterBackgroundNotification];
    
    __CATCH(nErr);
    
@@ -677,7 +677,7 @@ static __strong id __applicationInstance = nil;
    __TRY;
    UNUSED(application)
    
-   [self notify:IDEAAppletApp.EnterForeground];
+   [self notify:IDEAAppletApp.EnterForegroundNotification];
    
    __CATCH(nErr);
    

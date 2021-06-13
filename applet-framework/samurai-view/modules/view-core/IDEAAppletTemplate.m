@@ -147,8 +147,8 @@
       
       _resourceFetcher.responder = self;
       
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:IDEAAppletWatcher.SourceFileDidChanged object:nil];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileRemoved:) name:IDEAAppletWatcher.SourceFileDidRemoved object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileChanged:) name:IDEAAppletWatcher.SourceFileDidChangedNotification object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFileRemoved:) name:IDEAAppletWatcher.SourceFileDidRemovedNotification object:nil];
       
    } /* End if () */
    

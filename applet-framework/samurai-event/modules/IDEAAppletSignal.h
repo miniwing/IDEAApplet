@@ -35,15 +35,19 @@
 
 #undef  signal
 #define signal( name )                       \
-        static_property( name )
+        static_property( name##Signal )
 
 #undef  def_signal
 #define def_signal( name )                   \
-        def_static_property2( name, @"signal", NSStringFromClass([self class]) )
+        def_static_property2( name##Signal, @"signal", NSStringFromClass([self class]) )
 
 #undef  def_signal_alias
 #define def_signal_alias( name, alias )      \
-        alias_static_property( name, alias )
+        alias_static_property( name##Signal, alias )
+
+#undef  signalName
+#define signalName( name )                      \
+        name##Signal
 
 #undef  makeSignal
 #define makeSignal( ... )                    \

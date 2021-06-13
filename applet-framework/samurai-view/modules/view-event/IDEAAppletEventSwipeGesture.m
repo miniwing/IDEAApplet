@@ -96,7 +96,7 @@
          }
          else {
             
-            [self sendSignal:UIView.eventSwipeUp];
+            [self sendSignal:UIView.eventSwipeUpSignal];
          }
       }
       else if ( UISwipeGestureRecognizerDirectionDown == gesture.direction ) {
@@ -107,7 +107,7 @@
          }
          else {
             
-            [self sendSignal:UIView.eventSwipeDown];
+            [self sendSignal:UIView.eventSwipeDownSignal];
          }
       }
       else if ( UISwipeGestureRecognizerDirectionLeft == gesture.direction ) {
@@ -118,7 +118,7 @@
          }
          else {
             
-            [self sendSignal:UIView.eventSwipeLeft];
+            [self sendSignal:UIView.eventSwipeLeftSignal];
          }
       }
       else if ( UISwipeGestureRecognizerDirectionRight == gesture.direction ) {
@@ -129,7 +129,7 @@
          }
          else {
             
-            [self sendSignal:UIView.eventSwipeRight];
+            [self sendSignal:UIView.eventSwipeRightSignal];
          }
       }
    }

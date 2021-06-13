@@ -49,7 +49,7 @@
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    self = [super init];
    
    if ( self ) {
@@ -66,11 +66,11 @@
       
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(show)
-                                                   name:NSObject.BORDER_SHOW
+                                                   name:NSObject.BorderShowNotification
                                                  object:nil];
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(hide)
-                                                   name:NSObject.BORDER_HIDE
+                                                   name:NSObject.BorderHideNotification
                                                  object:nil];
       
    } /* End if () */

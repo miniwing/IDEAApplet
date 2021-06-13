@@ -73,7 +73,7 @@
       
       // the recognizer has not yet recognized its gesture, but may be evaluating touch events. this is the default state
       
-      [self sendSignal:UIView.eventTapPressing];
+      [self sendSignal:UIView.eventTapPressingSignal];
    }
    else if ( UIGestureRecognizerStateBegan == gesture.state ) {
       
@@ -94,14 +94,14 @@
       }
       else {
          
-         [self sendSignal:UIView.eventTapRaised];
+         [self sendSignal:UIView.eventTapRaisedSignal];
       }
    }
    else if ( UIGestureRecognizerStateCancelled == gesture.state ) {
       
       // the recognizer has received touches resulting in the cancellation of the gesture. the action method will be called at the next turn of the run loop. the recognizer will be reset to UIGestureRecognizerStatePossible
       
-      [self sendSignal:UIView.eventTapCancelled];
+      [self sendSignal:UIView.eventTapCancelledSignal];
    }
    else if ( UIGestureRecognizerStateFailed == gesture.state ) {
       

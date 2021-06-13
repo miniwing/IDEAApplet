@@ -41,8 +41,8 @@
 
 @implementation NSObject(Border)
 
-@def_notification ( BORDER_SHOW );
-@def_notification ( BORDER_HIDE );
+@def_notification ( BorderShow );
+@def_notification ( BorderHide );
 
 static void (*__layoutSubviews)  (id, SEL) = NULL;
 static void (*__setNeedsLayout)  (id, SEL) = NULL;
@@ -54,7 +54,7 @@ static BOOL __enabled = NO;
    
    __enabled = YES;
    
-   [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BORDER_SHOW object:nil];
+   [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BorderShowNotification object:nil];
    
    return;
 }
@@ -63,7 +63,7 @@ static BOOL __enabled = NO;
    
    __enabled = NO;
    
-   [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BORDER_HIDE object:nil];
+   [[NSNotificationCenter defaultCenter] postNotificationName:NSObject.BorderHideNotification object:nil];
    
    return;
 }
@@ -87,7 +87,7 @@ static BOOL __enabled = NO;
          
       } /* End for () */
       
-//      [self borderPresent:(UIView *)self];
+      //      [self borderPresent:(UIView *)self];
    }
    
    if (__layoutSubviews) {
@@ -109,7 +109,7 @@ static BOOL __enabled = NO;
          
       } /* End for () */
       
-//      [self borderPresent:(UIView *)self];
+      //      [self borderPresent:(UIView *)self];
       
    } /* End if () */
    
@@ -132,7 +132,7 @@ static BOOL __enabled = NO;
          
       } /* End for () */
       
-//      [self borderPresent:(UIView *)self];
+      //      [self borderPresent:(UIView *)self];
    }
    
    if (__setNeedsDisplay) {
@@ -151,7 +151,7 @@ static BOOL __enabled = NO;
       return;
       
    } /* End if () */
-
+   
    ServiceBorderLayer   *stBorderLayer    = nil;
    
    for (CALayer *stSublayer in aContainer.layer.sublayers) {

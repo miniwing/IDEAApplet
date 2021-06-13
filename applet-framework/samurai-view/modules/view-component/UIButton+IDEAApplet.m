@@ -94,7 +94,7 @@
 
 - (void)touchDown:(__unused id)sender {
    
-   [self.button sendSignal:UIView.eventTapPressing];
+   [self.button sendSignal:UIView.eventTapPressingSignal];
 }
 
 - (void)touchDownRepeat:(__unused id)sender {
@@ -130,18 +130,18 @@
    }
    else {
       
-      [self.button sendSignal:UIView.eventTapRaised];
+      [self.button sendSignal:UIView.eventTapRaisedSignal];
    }
 }
 
 - (void)touchUpOutside:(__unused id)sender {
    
-   [self.button sendSignal:UIView.eventTapCancelled];
+   [self.button sendSignal:UIView.eventTapCancelledSignal];
 }
 
 - (void)touchCancel:(__unused id)sender {
    
-   [self.button sendSignal:UIView.eventTapCancelled];
+   [self.button sendSignal:UIView.eventTapCancelledSignal];
 }
 
 @end

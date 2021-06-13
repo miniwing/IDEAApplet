@@ -171,6 +171,7 @@
 - (void)watchSourceFile:(NSString *)aFilePath {
    
    int    nFileHandle   = open([aFilePath UTF8String], O_EVTONLY);
+   
    if (nFileHandle) {
       
       unsigned long               ulMask  = DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND;
@@ -192,12 +193,12 @@
                BOOL bExists = [[NSFileManager defaultManager] fileExistsAtPath:aFilePath isDirectory:NULL];
                if (bExists) {
                   
-                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidChanged withObject:aFilePath];
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidChangedNotification withObject:aFilePath];
                   
                } /* End if (bExists) */
                else {
                   
-                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidRemoved withObject:aFilePath];
+                  [IDEAAppletWatcher notify:IDEAAppletWatcher.SourceFileDidRemovedNotification withObject:aFilePath];
                   
                } /* End else (!bExists) */
             });

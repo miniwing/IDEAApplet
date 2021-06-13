@@ -103,11 +103,11 @@
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    [NSObject borderEnable];
-
+   
    __CATCH(nErr);
-
+   
    return;
 }
 
@@ -116,11 +116,11 @@
    int                            nErr                                     = EFAULT;
    
    __TRY;
-
+   
    [NSObject borderDisable];
-
+   
    __CATCH(nErr);
-
+   
    return;
 }
 
