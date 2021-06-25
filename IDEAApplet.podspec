@@ -51,7 +51,7 @@ Pod::Spec.new do |spec|
                                             "${PODS_ROOT}/Headers/Public/AFNetworking",
                                            ],
     'FRAMEWORK_SEARCH_PATHS'            => [
-                                            "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking",
+#                                            "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking",
                                            ]
                                       }
 
