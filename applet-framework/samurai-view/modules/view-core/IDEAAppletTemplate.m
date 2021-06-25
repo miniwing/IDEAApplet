@@ -116,13 +116,13 @@
 @def_prop_assign ( BOOL ,                 responderDisabled );
 @def_prop_unsafe ( id   ,                 responder );
 
-@def_prop_copy   ( BlockType     ,  stateChanged );
-@def_prop_assign ( TemplateState ,  state );
-@def_prop_dynamic( BOOL,            created );
-@def_prop_dynamic( BOOL,            loading );
-@def_prop_dynamic( BOOL,            loaded );
-@def_prop_dynamic( BOOL,            failed );
-@def_prop_dynamic( BOOL,            cancelled );
+@def_prop_copy   ( BlockType     ,        stateChanged );
+@def_prop_assign ( TemplateState ,        state );
+@def_prop_dynamic( BOOL,                  created );
+@def_prop_dynamic( BOOL,                  loading );
+@def_prop_dynamic( BOOL,                  loaded );
+@def_prop_dynamic( BOOL,                  failed );
+@def_prop_dynamic( BOOL,                  cancelled );
 
 + (IDEAAppletTemplate *)template {
    

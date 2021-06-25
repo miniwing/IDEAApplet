@@ -83,7 +83,9 @@
 @implementation IDEAAppletResourceFetcher {
    
    NSMutableArray       * _operations;
+#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    AFURLSessionManager  * _sessionManager;
+#endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
 }
 
 @def_prop_unsafe(id,   responder);
@@ -104,8 +106,11 @@
    if (self) {
       
       _operations       = [NSMutableArray nonRetainingArray];
-      _sessionManager   = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
       
+#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
+      _sessionManager   = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
+#endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
+
       self.responder = nil;
    }
    
@@ -120,8 +125,10 @@
    
    self.responder = nil;
    
+#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    [_sessionManager.operationQueue cancelAllOperations];
-   
+#endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
+
    [_operations removeAllObjects];
    _operations = nil;
    
@@ -159,6 +166,7 @@
    
    @weakify(self);
    
+#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    _sessionManager   = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
    stSessionDataTask = [_sessionManager dataTaskWithRequest:stRequest
                                              uploadProgress:nil
@@ -216,61 +224,7 @@
    }];
    
    [stSessionDataTask resume];
-      
-//   //   AF_NETWORKING
-//   AFHTTPRequestOperation * operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//
-//   [_operations addObject:operation];
-//
-//   [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation * operation, id responseObject)
-//   {
-//
-//      @strongify(self);
-//
-//      //   NSString *   requestURL = nil;
-//      NSData *   responseData = operation.responseData;
-//      //   NSString *   responseType = nil;
-//
-//      [resource clear];
-//
-//      //   resource.resType = responseType ?: resource.resType;
-//      //   resource.resPath = requestURL ?: resource.resPath;
-//      resource.resContent = [responseData toString];
-//
-//      BOOL succeed = [resource parse];
-//      if (NO == succeed)
-//      {
-//         if (self.responder)
-//         {
-//            [self.responder handleResourceFailed:resource];
-//
-//         }  /* End if () */
-//
-//      }  /* End if () */
-//      else
-//      {
-//         if (self.responder)
-//         {
-//            [self.responder handleResourceLoaded:resource];
-//
-//         }  /* End if () */
-//
-//      } /* End else */
-//
-//      [_operations removeObject:operation];
-//
-//   }
-//                                    failure:^(AFHTTPRequestOperation * operation, NSError * error)
-//    {
-//
-//      @strongify(self);
-//
-//      [self handleResourceFailed:resource];
-//
-//      [_operations removeObject:operation];
-//   }];
-//
-//   [operation start];
+#endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    
    __CATCH(nErr);
    
@@ -287,7 +241,9 @@
    
    [_operations removeAllObjects];
    
+#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    [_sessionManager.operationQueue cancelAllOperations];
+#endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
    
    return;
 }
@@ -304,12 +260,12 @@
 
 TEST_CASE(UI, ResourceFetcher)
 
-DESCRIBE(before)
-{
+DESCRIBE(before) {
+   
 }
 
-DESCRIBE(after)
-{
+DESCRIBE(after) {
+   
 }
 
 TEST_CASE_END
