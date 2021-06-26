@@ -47,7 +47,7 @@ Pod::Spec.new do |spec|
                                             '${PODS_TARGET_SRCROOT}/',
                                             '${PODS_TARGET_SRCROOT}/../',
                                             '"${PODS_TARGET_SRCROOT}/"/**',
-                                            "${PODS_ROOT}/AFNetworking/**",
+#                                            "${PODS_ROOT}/AFNetworking/**",
                                             "${PODS_ROOT}/Headers/Public/AFNetworking",
                                            ],
     'FRAMEWORK_SEARCH_PATHS'            => [
@@ -58,7 +58,14 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'RTRootNavigationController'
 #  spec.dependency 'IDEANightVersion'
 
-#  spec.dependency 'AFNetworking'
+  $AFNETWORKING = ENV['AFNETWORKING']
+  if $AFNETWORKING == 'YES'
+    spec.dependency 'AFNetworking'
+  #    spec.dependency 'AFNetworking/Serialization'
+  #    spec.dependency 'AFNetworking/Security'
+  #    spec.dependency 'AFNetworking/Reachability'
+  #    spec.dependency 'AFNetworking/NSURLSession'
+  end # if $IDEAFONT_MSYH == 'YES'
 
 #  spec.dependency 'AFNetworking/Serialization'
 #  spec.dependency 'AFNetworking/Security'
