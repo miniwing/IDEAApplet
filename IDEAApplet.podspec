@@ -48,7 +48,7 @@ Pod::Spec.new do |spec|
                                             '${PODS_TARGET_SRCROOT}/../',
                                             '"${PODS_TARGET_SRCROOT}/"/**',
 #                                            "${PODS_ROOT}/AFNetworking/**",
-                                            "${PODS_ROOT}/Headers/Public/AFNetworking",
+#                                            "${PODS_ROOT}/Headers/Public/AFNetworking",
                                            ],
     'FRAMEWORK_SEARCH_PATHS'            => [
 #                                            "${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking",

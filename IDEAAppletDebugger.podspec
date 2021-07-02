@@ -35,7 +35,8 @@ Pod::Spec.new do |spec|
 #                                              ' SERVICE_INSPECTOR=0 ',
 #                                              ' SERVICE_MONITOR=0 ',
 #                                              ' SERVICE_TAPSPOT=0 ',
-                                              ' SERVICE_THEME=1 ',
+#                                              ' SERVICE_FILE_SYNC=1 ',
+#                                              ' SERVICE_THEME=1 ',
                                            ]
                                       }
 
@@ -69,6 +70,8 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'UIKitExtension'
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
+  spec.dependency 'GCDWebServer'
+  spec.dependency 'FMDB'
 
   spec.ios.private_header_files         = 'applet-debugger/*.{h,hpp}'
   spec.ios.source_files                 = 'applet-debugger/*.{h,m,c}'
@@ -117,6 +120,12 @@ Pod::Spec.new do |spec|
     tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m,c}'
   end
 
+  spec.subspec 'ServiceFileSync' do |sync|
+    sync.ios.private_header_files       = 'applet-debugger/ServiceFileSync/*.{h}'
+    sync.ios.source_files               = 'applet-debugger/ServiceFileSync/*.{h,m,c}'
+    sync.resource                       = 'applet-debugger/ServiceFileSync/ServiceFileSync.bundle'
+  end
+  
   spec.subspec 'ServiceTheme' do |theme|
     theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
     theme.ios.source_files              = 'applet-debugger/ServiceTheme/*.{h,m,c}'
@@ -577,6 +586,10 @@ __END_DECLS
 #ifndef SERVICE_TAPSPOT
 #  define SERVICE_TAPSPOT           (__OFF__)
 #endif /* SERVICE_TAPSPOT */
+
+#ifndef SERVICE_FILE_SYNC
+#  define SERVICE_FILE_SYNC         (__AUTO__)
+#endif /* SERVICE_FILE_SYNC */
 
 #ifndef SERVICE_THEME
 #  define SERVICE_THEME             (__AUTO__)

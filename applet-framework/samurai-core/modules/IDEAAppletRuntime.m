@@ -107,6 +107,7 @@
                                                                                  @"ServiceInspector",
                                                                                  @"ServiceMonitor",
                                                                                  @"ServiceTapspot",
+                                                                                 @"ServiceFileSync",
                                                                                  @"ServiceTheme"
                                                                               ];
    
