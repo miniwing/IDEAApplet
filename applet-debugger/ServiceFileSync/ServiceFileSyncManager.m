@@ -21,7 +21,12 @@
 #import "ServiceFileSyncManager.h"
 
 
-#define DK_SERVER_PORT 9002
+#define DK_SERVER_PORT  9002
+#define IOS_CELLULAR    @"pdp_ip0"
+#define IOS_WIFI        @"en0"
+//#define IOS_VPN       @"utun0"
+#define IP_ADDR_IPv4    @"ipv4"
+#define IP_ADDR_IPv6    @"ipv6"
 
 @interface ServiceFileSyncManager ()
 
@@ -737,7 +742,7 @@
       
       NSMutableString   *szSQL         = [NSMutableString stringWithFormat:@"INSERT INTO %@(%@) VALUES ", szTableName, szColumns];
       LogDebug((@"-[ServiceFileSyncManager insertRow:] : SQL : %@", szSQL));
-
+      
       NSMutableArray    *stAllValues   = [NSMutableArray array];
       
       @autoreleasepool {
@@ -764,11 +769,11 @@
       
       szAllValues = [NSString stringWithFormat:@"(%@)", [stAllValues componentsJoinedByString:@","]];
       LogDebug((@"-[ServiceFileSyncManager insertRow:] : AllValues : %@", szAllValues));
-
+      
       [szSQL appendString:szAllValues];
       [szSQL appendString:@";"];
       LogDebug((@"-[ServiceFileSyncManager insertRow:] : SQL : %@", szSQL));
-
+      
       nErr  = [stDatabase executeUpdate:szSQL] ? noErr : EFAULT;
       
    } /* End if () */
@@ -794,6 +799,592 @@
    __CATCH(nErr);
    
    return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)getAllTable:(GCDWebServerRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+
+   NSDictionary                  *stQuery                                  = nil;
+   
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szFileName                               = nil;
+   NSString                      *szTargetPath                             = nil;
+
+   FMDatabase                    *stDatabase                               = nil;
+   
+   NSString                      *szSQL                                    = nil;
+   FMResultSet                   *stResultSet                              = nil;
+   
+   NSMutableArray                *stDatas                                  = nil;
+   NSMutableDictionary           *stResponse                               = nil;
+   
+   __TRY;
+
+   stQuery = aRequest.query;
+   szDirPath = stQuery[@"dirPath"];
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath = [szDirPath substringFromIndex:5];
+   }
+   szFileName  = stQuery[@"fileName"];
+   szRootPath  = NSHomeDirectory();
+   szTargetPath= [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szFileName];
+   
+   if (![self.fileManager fileExistsAtPath:szTargetPath]) {
+      
+      stWebServerResponse  = [self responseWhenFailed];
+      
+      break;
+   }
+   
+   stDatabase  = [FMDatabase databaseWithPath:szTargetPath];
+   if (![stDatabase open]) {
+      
+      stWebServerResponse  = [self responseWhenFailed];
+      
+      break;
+   }
+   
+   szSQL       = @"SELECT * FROM sqlite_master WHERE type='table' ORDER BY name;";
+   stResultSet = [stDatabase executeQuery:szSQL];
+   stDatas     = [NSMutableArray array];
+   while ([stResultSet next]) {
+      NSString *name = [stResultSet stringForColumnIndex:1];
+      [stDatas addObject:name];
+   }
+   
+   [stDatabase close];
+   
+   stResponse  = [NSMutableDictionary dictionary];
+   [stResponse setValue:@(200) forKey:@"code"];
+   [stResponse setValue:stDatas forKey:@"data"];
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)saveFile:(GCDWebServerDataRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+      
+   NSDictionary                  *stResponse                               = nil;
+
+   NSDictionary                  *stData                                   = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szFileName                               = nil;
+   NSString                      *szContent                                = nil;
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szTargetPath                             = nil;
+
+   __TRY;
+
+   NSDictionary *stData = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
+   NSString *szDirPath = stData[@"dirPath"];
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath = [szDirPath substringFromIndex:5];
+   }
+   szFileName     = stData[@"fileName"];
+   szContent      = stData[@"content"];
+   szRootPath     = NSHomeDirectory();
+   szTargetPath   = [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szFileName];
+   
+   if (![self.fileManager createFileAtPath:szTargetPath contents:[szContent dataUsingEncoding:NSUTF8StringEncoding] attributes:nil]) {
+      LogDebug((@"Failed save file at \"%@\"", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+   }
+   else{
+      stResponse = [self getCode:200 data:nil];
+   }
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)deleteFile:(GCDWebServerDataRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+      
+   NSDictionary                  *stResponse                               = nil;
+
+   NSDictionary                  *stData                                   = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szFileName                               = nil;
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szTargetPath                             = nil;
+   NSError                       *stError                                  = nil;
+
+   __TRY;
+   
+   stData      = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
+   szDirPath   = stData[@"dirPath"];
+   
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath = [szDirPath substringFromIndex:5];
+   }
+   
+   szFileName     = stData[@"fileName"];
+   szRootPath     = NSHomeDirectory();
+   szTargetPath   = [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szFileName];
+   
+   if (![self.fileManager removeItemAtPath:szTargetPath error:&stError]) {
+      
+      LogDebug((@"Failed deleting file at \"%@\"", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+   }
+   else {
+      
+      stResponse = [self getCode:200 data:nil];
+   }
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)rename:(GCDWebServerDataRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+
+   
+   NSDictionary                  *stData                                   = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szOldName                                = nil;
+   NSString                      *szNewName                                = nil;
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szTargetPath                             = nil;
+   NSString                      *szDestinationPath                        = nil;
+   NSError                       *stError                                  = nil;
+
+   __TRY;
+   
+   stData = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
+   szDirPath = stData[@"dirPath"];
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath = [szDirPath substringFromIndex:5];
+   }
+   szOldName         = stData[@"oldName"];
+   szNewName         = stData[@"newName"];
+   szRootPath        = NSHomeDirectory();
+   szTargetPath      = [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szOldName];
+   szDestinationPath = [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szNewName];
+   
+   if (![self.fileManager moveItemAtPath:szTargetPath toPath:szDestinationPath error:&stError]) {
+      LogDebug((@"Failed rename file at \"%@\"", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+   }
+   else {
+      stResponse = [self getCode:200 data:nil];
+   }
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+
+- (GCDWebServerResponse *)getDeviceInfo {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   
+   NSMutableDictionary           *stDic                                    = nil;
+   
+   __TRY;
+   
+   stDic = [NSMutableDictionary dictionary];
+   [stDic setValue:[UIDevice currentDevice].name forKey:@"deviceName"];
+   [stDic setValue:[ServiceFileSyncManager uuid] forKey:@"deviceId"];
+   [stDic setValue:[NSString stringWithFormat:@"%@:%@", [ServiceFileSyncManager getIPAddress:YES], @(DK_SERVER_PORT)] forKey:@"deviceIp"];
+   
+   stResponse = [self getCode:200 data:stDic];
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)getFileList:(GCDWebServerRequest *)aRequest{
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSDictionary                  *stQuery                                  = nil;
+   
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szRealDirPath                            = nil;
+   NSString                      *szTargetPath                             = nil;
+   
+   NSMutableArray                *stFiles                                  = nil;
+   NSError                       *stError                                  = nil;
+   NSArray                       *stPaths                                  = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   
+   __TRY;
+   
+   stQuery        = aRequest.query;
+   szDirPath      = stQuery[@"dirPath"];
+   szRealDirPath  = szDirPath;
+   
+   if ([szRealDirPath hasPrefix:@"/root"]) {
+      
+      szRealDirPath = [szRealDirPath substringFromIndex:5];
+      
+   } /* End if () */
+   
+   szRootPath     = NSHomeDirectory();
+   szTargetPath   = [NSString stringWithFormat:@"%@%@",szRootPath,szRealDirPath];
+   
+   stFiles  = [NSMutableArray array];
+   stError  = nil;
+   stPaths  = [self.fileManager contentsOfDirectoryAtPath:szTargetPath error:&stError];
+   
+   for (NSString *szPath in stPaths) {
+      
+      BOOL      isDir = false;
+      NSString *szFullPath = [szTargetPath stringByAppendingPathComponent:szPath];
+      
+      [self.fileManager fileExistsAtPath:szFullPath isDirectory:&isDir];
+      
+      NSMutableDictionary *stDic = [NSMutableDictionary dictionary];
+      stDic[@"dirPath"]    = szDirPath;
+      stDic[@"isRootPath"] = [szPath isEqualToString:szRootPath] ? @YES : @NO;
+      stDic[@"fileName"]   = szPath;
+      //        dic[@"fileUrl"] = [self getRelativeFilePath:fullPath];
+      if (isDir) {
+         stDic[@"fileType"] = @"folder";
+      }
+      else {
+         stDic[@"fileType"] = [szPath pathExtension];
+      }
+      
+      NSDictionary   *stFileAttributes = [self.fileManager attributesOfItemAtPath:szFullPath error:nil];
+      NSDate         *stModifyDate     = [stFileAttributes objectForKey:NSFileModificationDate];
+      stDic[@"modifyTime"] = @([stModifyDate timeIntervalSince1970]*1000);
+      [stFiles addObject:stDic];
+   }
+   
+   NSMutableDictionary *stData = [NSMutableDictionary dictionary];
+   [stData setValue:szDirPath forKey:@"dirPath"];
+   [stData setValue:[ServiceFileSyncManager uuid] forKey:@"deviceId"];
+   [stData setValue:stFiles forKey:@"fileList"];
+   
+   stResponse = [self getCode:200 data:stData];
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse*)uploadFile:(GCDWebServerMultiPartFormRequest*)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   GCDWebServerMultiPartFile     *stFile                                   = nil;
+   
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szTargetPath                             = nil;
+   
+   NSError                       *stError                                  = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   
+   __TRY;
+   
+   stFile = [aRequest firstFileForControlName:@"file"];
+   szDirPath = [[aRequest firstArgumentForControlName:@"dirPath"] string];
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath = [szDirPath substringFromIndex:5];
+   }
+   szRootPath = NSHomeDirectory();
+   szTargetPath = [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, stFile.fileName];
+   
+   if (![self.fileManager fileExistsAtPath:[NSString stringWithFormat:@"%@%@", szRootPath, szDirPath]]) {
+      [self.fileManager createDirectoryAtPath:[NSString stringWithFormat:@"%@%@", szRootPath, szDirPath]
+                  withIntermediateDirectories:YES
+                                   attributes:nil error:nil];
+   }
+   
+   if (![self.fileManager moveItemAtPath:stFile.temporaryPath toPath:szTargetPath error:&stError]) {
+      
+      LogDebug((@"Failed moving uploaded file to \"%@\"", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+   }
+   else {
+      stResponse = [self getCode:200 data:nil];
+   }
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)downloadFile:(GCDWebServerRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szFileName                               = nil;
+   NSString                      *szTargetPath                             = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   BOOL                           bIsDirectory                             = NO;
+   
+   __TRY;
+   
+   szRootPath  = NSHomeDirectory();
+   szDirPath   = [[aRequest query] objectForKey:@"dirPath"];
+   if ([szDirPath hasPrefix:@"/root"]) {
+      szDirPath   = [szDirPath substringFromIndex:5];
+   }
+   szFileName     = [[aRequest query] objectForKey:@"fileName"];
+   szTargetPath   = [NSString stringWithFormat:@"%@%@%@",szRootPath,szDirPath,szFileName];
+   
+   if (![self.fileManager fileExistsAtPath:szTargetPath isDirectory:&bIsDirectory]) {
+      
+      LogDebug((@"\"%@\" does not exist", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+      stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+      [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+      
+   } /* End if () */
+   else {
+      
+      stWebServerResponse = [GCDWebServerFileResponse responseWithFile:szTargetPath isAttachment:YES];
+      [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+      
+   } /* End else */
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)createFolder:(GCDWebServerDataRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSDictionary                  *stData                                   = nil;
+   NSString                      *szDirPath                                = nil;
+   NSString                      *szFileName                               = nil;
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szTargetPath                             = nil;
+   NSError                       *stError                                  = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   
+   __TRY;
+   
+   stData      = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : Data : %@", stData));
+   
+   szDirPath   = stData[@"dirPath"];
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : DirPath : %@", szDirPath));
+   
+   if ([szDirPath hasPrefix:@"/root"]) {
+      
+      szDirPath = [szDirPath substringFromIndex:5];
+      
+   } /* End if () */
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : DirPath : %@", szDirPath));
+   
+   szFileName     = stData[@"fileName"];
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : FileName : %@", szFileName));
+   
+   szRootPath     = NSHomeDirectory();
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : RootPath : %@", szRootPath));
+   
+   szTargetPath   = [NSString stringWithFormat:@"%@%@%@",szRootPath,szDirPath,szFileName];
+   LogDebug((@"-[ServiceFileSyncManager createFolder:] : TargetPath : %@", szTargetPath));
+   
+   if (![[NSFileManager defaultManager] createDirectoryAtPath:szTargetPath withIntermediateDirectories:YES attributes:nil error:&stError]) {
+      
+      LogDebug((@"-[ServiceFileSyncManager createFolder:] : Failed creating directory \"%@\"", szTargetPath));
+      stResponse = [self getCode:0 data:nil];
+      
+   } /* End if () */
+   else {
+      
+      stResponse = [self getCode:200 data:nil];
+      
+   } /* End else */
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
+- (GCDWebServerResponse *)getFileDetail:(GCDWebServerRequest *)aRequest {
+   
+   int                            nErr                                     = EFAULT;
+   
+   GCDWebServerResponse          *stWebServerResponse                      = nil;
+   
+   NSString                      *szRootPath                               = nil;
+   NSString                      *szDirPath                                = nil;
+   
+   NSString                      *szFileName                               = nil;
+   NSString                      *szTargetPath                             = nil;
+   
+   NSDictionary                  *stResponse                               = nil;
+   
+   __TRY;
+   
+   szRootPath = NSHomeDirectory();
+   LogDebug((@"-[ServiceFileSyncManager getFileDetail:] : RootPath : %@", szRootPath));
+   
+   szDirPath = [[aRequest query] objectForKey:@"dirPath"];
+   LogDebug((@"-[ServiceFileSyncManager getFileDetail:] : DirPath : %@", szDirPath));
+   
+   if ([szDirPath hasPrefix:@"/root"]) {
+      
+      szDirPath = [szDirPath substringFromIndex:5];
+      
+   } /* End if () */
+   
+   szFileName     = [[aRequest query] objectForKey:@"fileName"];
+   szTargetPath   = [NSString stringWithFormat:@"%@%@%@",szRootPath,szDirPath,szFileName];
+   
+   if ([self.fileManager fileExistsAtPath:szTargetPath]) {
+      
+      NSMutableDictionary  *stDic         = [NSMutableDictionary dictionary];
+      NSString             *szFileContent = [[NSString alloc] initWithData:[self.fileManager contentsAtPath:szTargetPath] encoding:NSUTF8StringEncoding];
+      
+      [stDic setValue:szTargetPath.pathExtension forKey:@"fileType"];
+      [stDic setValue:szFileContent forKey:@"fileContent"];
+      
+      stResponse = [self getCode:200 data:stDic];
+      
+   } /* End if () */
+   else {
+      LogDebug((@"File not founded at \"%@\"", szTargetPath));
+      
+      stResponse = [self getCode:0 data:nil];
+      
+   } /* End else */
+   
+   stWebServerResponse = [GCDWebServerDataResponse responseWithJSONObject:stResponse];
+   [stWebServerResponse setValue:@"*" forAdditionalHeader:@"Access-Control-Allow-Origin"];
+   
+   __CATCH(nErr);
+   
+   return stWebServerResponse;
+}
+
++ (NSString *)uuid {
+   NSUserDefaults   *stUserDefaults   = [NSUserDefaults standardUserDefaults];
+   NSString         *szUUID           = [stUserDefaults objectForKey:@"UUID"];
+   if (!szUUID) {
+      szUUID = [[NSUUID UUID] UUIDString];
+      [stUserDefaults setObject:szUUID forKey:@"UUID"];
+      [stUserDefaults synchronize];
+   }
+   return szUUID;
+}
+
++ (NSString *)getIPAddress:(BOOL)preferIPv4 {
+   
+   NSArray *searchArray = preferIPv4 ?
+   @[ /*IOS_VPN @"/" IP_ADDR_IPv4, IOS_VPN @"/" IP_ADDR_IPv6,*/ IOS_WIFI @"/" IP_ADDR_IPv4, IOS_WIFI @"/" IP_ADDR_IPv6, IOS_CELLULAR @"/" IP_ADDR_IPv4, IOS_CELLULAR @"/" IP_ADDR_IPv6 ] :
+   @[ /*IOS_VPN @"/" IP_ADDR_IPv6, IOS_VPN @"/" IP_ADDR_IPv4,*/ IOS_WIFI @"/" IP_ADDR_IPv6, IOS_WIFI @"/" IP_ADDR_IPv4, IOS_CELLULAR @"/" IP_ADDR_IPv6, IOS_CELLULAR @"/" IP_ADDR_IPv4 ] ;
+   
+   NSDictionary *addresses = [[self class] getIPAddresses];
+   __block NSString *address;
+   [searchArray enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop)
+    {
+      address = addresses[key];
+      if(address) *stop = YES;
+   } ];
+   return address ? address : @"0.0.0.0";
+}
+
+//获取所有相关IP信息
++ (NSDictionary *)getIPAddresses {
+   NSMutableDictionary *addresses = [NSMutableDictionary dictionaryWithCapacity:8];
+   
+   // retrieve the current interfaces - returns 0 on success
+   struct ifaddrs *interfaces;
+   if(!getifaddrs(&interfaces)) {
+      // Loop through linked list of interfaces
+      struct ifaddrs *interface;
+      for(interface=interfaces; interface; interface=interface->ifa_next) {
+         if(!(interface->ifa_flags & IFF_UP) /* || (interface->ifa_flags & IFF_LOOPBACK) */ ) {
+            continue; // deeply nested code harder to read
+         }
+         const struct sockaddr_in *addr = (const struct sockaddr_in*)interface->ifa_addr;
+         char addrBuf[ MAX(INET_ADDRSTRLEN, INET6_ADDRSTRLEN) ];
+         if(addr && (addr->sin_family==AF_INET || addr->sin_family==AF_INET6)) {
+            NSString *name = [NSString stringWithUTF8String:interface->ifa_name];
+            NSString *type;
+            if(addr->sin_family == AF_INET) {
+               if(inet_ntop(AF_INET, &addr->sin_addr, addrBuf, INET_ADDRSTRLEN)) {
+                  type = IP_ADDR_IPv4;
+               }
+            } else {
+               const struct sockaddr_in6 *addr6 = (const struct sockaddr_in6*)interface->ifa_addr;
+               if(inet_ntop(AF_INET6, &addr6->sin6_addr, addrBuf, INET6_ADDRSTRLEN)) {
+                  type = IP_ADDR_IPv6;
+               }
+            }
+            if(type) {
+               NSString *key = [NSString stringWithFormat:@"%@/%@", name, type];
+               addresses[key] = [NSString stringWithUTF8String:addrBuf];
+            }
+         }
+      }
+      // Free memory
+      freeifaddrs(interfaces);
+   }
+   return [addresses count] ? addresses : nil;
 }
 
 @end
