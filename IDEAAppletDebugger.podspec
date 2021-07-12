@@ -37,6 +37,7 @@ Pod::Spec.new do |spec|
 #                                              ' SERVICE_TAPSPOT=0 ',
 #                                              ' SERVICE_FILE_SYNC=1 ',
 #                                              ' SERVICE_THEME=1 ',
+#                                              ' SERVICE_WIFI=1 ',
                                            ]
                                       }
 
@@ -130,6 +131,12 @@ Pod::Spec.new do |spec|
     theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
     theme.ios.source_files              = 'applet-debugger/ServiceTheme/*.{h,m,c}'
     theme.resource                      = 'applet-debugger/ServiceTheme/ServiceTheme.bundle'
+  end
+
+  spec.subspec 'ServiceWiFi' do |wifi|
+    wifi.ios.private_header_files       = 'applet-debugger/ServiceWiFi/*.{h}'
+    wifi.ios.source_files               = 'applet-debugger/ServiceWiFi/*.{h,m,c}'
+    wifi.resource                       = 'applet-debugger/ServiceWiFi/ServiceWiFi.bundle'
   end
 
 #  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
