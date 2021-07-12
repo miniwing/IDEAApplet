@@ -33,11 +33,13 @@
 
 #pragma mark -
 
+@class IDEAAppletService;
+
 @interface IDEAAppletServiceLoader : NSObject
 
 @singleton( IDEAAppletServiceLoader )
 
-@prop_readonly( NSArray *, services );
+@prop_readonly( NSArray<IDEAAppletService *> *, services );
 
 - (id)service:(Class)aClassType;
 

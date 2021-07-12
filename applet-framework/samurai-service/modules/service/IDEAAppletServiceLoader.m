@@ -142,7 +142,7 @@
    return;
 }
 
-- (NSArray *)services {
+- (NSArray<IDEAAppletService *> *)services {
    
    return [_services allValues];
 }

@@ -203,6 +203,11 @@ Pod::Spec.new do |spec|
 
     end # 'samurai-view'
 
+    framework.subspec 'samurai-route' do |route|
+      route.ios.private_header_files      = 'applet-framework/samurai-route/*.{h,hpp}'
+      route.ios.source_files              = 'applet-framework/samurai-route/*.{h,m,c}'
+    end # 'route'
+
     framework.subspec 'vendor' do |vendor|
       vendor.subspec 'fishhook' do |fishhook|
         fishhook.ios.private_header_files = 'applet-framework/vendor/fishhook/*.{h,hpp}'

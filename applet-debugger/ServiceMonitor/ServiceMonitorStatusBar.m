@@ -61,23 +61,29 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (id)init {
    
-   CGRect stBarFrame;
+   int                            nErr                                     = EFAULT;
+
+   CGRect                         stBarFrame                               = CGRectZero;
+
+   __TRY;
+
    stBarFrame.origin.x    = 0.0f;
-//   stBarFrame.origin.y    = 0.0f;
+   //   stBarFrame.origin.y    = 0.0f;
    stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - kBarHeight;
    stBarFrame.size.width  = [UIScreen mainScreen].bounds.size.width;
    stBarFrame.size.height = kBarHeight;
-      
+   
    if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
       
       UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
       
       stBarFrame.origin.y    = [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - kBarHeight;
-
+      
    } /* End if () */
    
    self = [super initWithFrame:stBarFrame];
-   if ( self ) {
+   
+   if (self) {
       
       self.hidden             = YES;
       self.backgroundColor    = [UIColor clearColor]; // [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
@@ -93,7 +99,9 @@ static const CGFloat             kBarHeight              = 20.0f;
                                                        forKeyPath:@"rootViewController"
                                                           options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
                                                           context:nil];
-
+   
+   __CATCH(nErr);
+   
    return self;
 }
 
@@ -102,15 +110,17 @@ static const CGFloat             kBarHeight              = 20.0f;
    [[UIApplication sharedApplication].delegate.window removeObserver:self
                                                           forKeyPath:@"rootViewController"
                                                              context:nil];
-
+   
    [_label removeFromSuperview];
    _label = nil;
    
    [_chart1 removeFromSuperview];
    _chart1 = nil;
-
+   
    [_chart2 removeFromSuperview];
    _chart2 = nil;
+   
+   __SUPER_DEALLOC;
    
    return;
 }
@@ -138,71 +148,92 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (void)update {
    
-   if ( NO == self.hidden ) {
+   if (NO == self.hidden) {
       
       [_chart1 reloadData];
       [_chart2 reloadData];
-
+      
       _label.text = [NSString stringWithFormat:@"CPU:% .2f%%   FPS:%lu", _cpuModel.percent * 100.0f, (unsigned long)_fpsModel.fps];
-   }
+      
+   } /* End if () */
+   
+   return;
 }
 
-- (void)show
-{
-   if ( NO == _inited )
-   {
+- (void)show {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   if (NO == _inited) {
+      
       _chart1  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
       _chart1.delegate  = self;
       _chart1.dataSource= self;
       _chart1.alpha     = 0.95f;
       [self addSubview:_chart1];
-
+      
       _chart2  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
       _chart2.delegate  = self;
       _chart2.dataSource= self;
       _chart2.alpha     = 0.95f;
       [self addSubview:_chart2];
-
+      
       _label = [[UILabel alloc] initWithFrame:self.bounds];
       _label.backgroundColor     = [UIColor clearColor];
       _label.textColor           = [UIColor blackColor];
       _label.backgroundColor     = [UIColor clearColor];
-
+      
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
       if (@available(iOS 13, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
-
+         
       } /* End if () */
       else {
          
 //         _label.font             = [UIFont fontWithName:@"Menlo-Bold" size:12.0f];
          _label.font             = [UIFont fontWithName:@"Menlo" size:12.0f];
-
+         
       } /* End else */
-
+      
       _label.baselineAdjustment  = UIBaselineAdjustmentAlignCenters;
       _label.textAlignment       = NSTextAlignmentCenter;
       _label.lineBreakMode       = NSLineBreakByClipping;
-
+      
       _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
       _label.layer.shadowOpacity = 1.0f;
       _label.layer.shadowRadius  = 1.0f;
       _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
+      
       [self addSubview:_label];
       
       _inited = YES;
-   }
+      
+   } /* End if () */
    
    [self update];
    
    self.hidden = NO;
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
-- (void)hide
-{
+- (void)hide {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
    self.hidden = YES;
+
+   __CATCH(nErr);
+   
+   return;
 }
 
 - (void)observeValueForKeyPath:(NSString *)aKeyPath ofObject:(id)aObject change:(NSDictionary<NSString *,id> *)aChange context:(void *)aContext {
@@ -211,25 +242,25 @@ static const CGFloat             kBarHeight              = 20.0f;
    
    UIViewController              *stViewControllerOld                      = nil;
    UIViewController              *stViewControllerNew                      = nil;
-
+   
    __TRY;
-
+   
    LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : KeyPath : %@", aKeyPath));
-
+   
    if ([aKeyPath isEqualToString:@"rootViewController"]) {
-
+      
       stViewControllerOld  = [aChange objectForKey:NSKeyValueChangeOldKey];
       LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeOldKey : %@", stViewControllerOld));
-
+      
       stViewControllerNew  = [aChange objectForKey:NSKeyValueChangeNewKey];
       LogDebug((@"-[ServiceMonitor observeValueForKeyPath:ofObject:change:context] : NSKeyValueChangeNewKey : %@", stViewControllerNew));
-
+      
       if (![stViewControllerOld isEqual:stViewControllerNew]) {
          
          if ([stViewControllerNew isKindOfClass:[UITabBarController class]]) {
             
             dispatch_async_foreground(^() {
-
+               
                [UIView animateWithDuration:0.25
                                 animations:^{
                   
@@ -241,7 +272,7 @@ static const CGFloat             kBarHeight              = 20.0f;
                                                [UIScreen mainScreen].bounds.size.height - stTabBarController.tabBar.frame.size.height - self.frame.size.height,
                                                self.frame.size.width,
                                                self.frame.size.height)];
-
+                     
                   } /* End if () */
                }];
             });
@@ -251,7 +282,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       } /* End if () */
       
    } /* End if () */
-      
+   
    __CATCH(nErr);
    
    return;
@@ -266,11 +297,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex {
    
-   if ( _chart1 == lineChartView ) {
+   if (_chart1 == lineChartView) {
       
       return _cpuModel.history.count;
    }
-   else if ( _chart2 == lineChartView ) {
+   else if (_chart2 == lineChartView) {
       
       return _fpsModel.history.count;
    }
@@ -292,11 +323,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
    
-   if ( _chart1 == lineChartView ) {
+   if (_chart1 == lineChartView) {
       
       return [[_cpuModel.history objectAtIndex:horizontalIndex] floatValue];
    }
-   else if ( _chart2 == lineChartView ) {
+   else if (_chart2 == lineChartView) {
       
       return [[_fpsModel.history objectAtIndex:horizontalIndex] floatValue];
    }
@@ -316,11 +347,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex {
    
-   if ( _chart1 == lineChartView ) {
+   if (_chart1 == lineChartView) {
       
       return [HEX_RGB(0xff002d) colorWithAlphaComponent:1.0f];
    }
-   else if ( _chart2 == lineChartView ) {
+   else if (_chart2 == lineChartView) {
       
       return [HEX_RGB(0x00a651) colorWithAlphaComponent:1.0f];
    }
@@ -331,7 +362,7 @@ static const CGFloat             kBarHeight              = 20.0f;
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex {
    
    return [[self lineChartView:lineChartView colorForLineAtLineIndex:lineIndex] colorWithAlphaComponent:0.2f];
-//   return [UIColor clearColor];
+   //   return [UIColor clearColor];
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {

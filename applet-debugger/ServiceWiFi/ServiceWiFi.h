@@ -33,5 +33,6 @@
 
 #pragma mark -
 
-@interface ServiceWiFi : IDEAAppletService < ManagedService >
+@interface ServiceWiFi : IDEAAppletService < ManagedService, ManagedDocker >
+
 @end

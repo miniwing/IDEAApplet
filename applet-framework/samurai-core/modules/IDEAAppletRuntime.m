@@ -108,7 +108,8 @@
                                                                                  @"ServiceMonitor",
                                                                                  @"ServiceTapspot",
                                                                                  @"ServiceFileSync",
-                                                                                 @"ServiceTheme"
+                                                                                 @"ServiceTheme",
+                                                                                 @"ServiceWiFi",
                                                                               ];
    
    for (NSString *szClazz in stClazzes) {

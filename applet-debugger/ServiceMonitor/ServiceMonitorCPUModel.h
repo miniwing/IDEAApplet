@@ -35,8 +35,8 @@
 
 @interface ServiceMonitorCPUModel : NSObject
 
-@prop_assign( float,         percent );
-@prop_strong( NSMutableArray *,   history );
+@prop_assign( float           ,  percent );
+@prop_strong( NSMutableArray *,  history );
 
 @singleton( ServiceMonitorCPUModel )
 

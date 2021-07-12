@@ -37,32 +37,33 @@
 
 #pragma mark -
 
-@implementation ServiceMonitorFPSModel
-{
+@implementation ServiceMonitorFPSModel {
+   
    CADisplayLink     * _displayLink;
    CFTimeInterval      _timestamp;
    NSUInteger          _frameCount;
 }
 
-@def_prop_assign  ( NSUInteger       , fps );
-@def_prop_strong  ( NSMutableArray  *, history );
+@def_prop_assign  (NSUInteger       , fps);
+@def_prop_strong  (NSMutableArray  *, history);
 
-@def_singleton    ( ServiceMonitorFPSModel )
+@def_singleton    (ServiceMonitorFPSModel)
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
-   if ( self )
-   {
+   
+   if (self) {
+      
       self.fps = 0;
       self.history = [[NSMutableArray alloc] init];
       
-      for ( NSUInteger H = 0; H < MAX_HISTORY; ++H )
-      {
+      for (NSUInteger H = 0; H < MAX_HISTORY; ++H) {
+         
          [self.history addObject:@(0)];
          
       } /* End for () */
@@ -78,13 +79,14 @@
 }
 
 
-- (void)dealloc
-{
-   if ( _displayLink )
-   {
+- (void)dealloc {
+   
+   if (_displayLink) {
+      
       [_displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
       _displayLink = nil;
-   }
+      
+   } /* End if () */
    
    [self.history removeAllObjects];
    self.history = nil;
@@ -94,16 +96,15 @@
    return;
 }
 
-
-- (void)update
-{
+- (void)update {
+   
    [self.history removeObjectAtIndex:0];
    [self.history removeLastObject];
 
    [self.history addObject:[NSNumber numberWithFloat:self.fps]];
    
-   if ( [self.history count] > MAX_HISTORY )
-   {
+   if ([self.history count] > MAX_HISTORY) {
+      
       [self.history removeObjectsInRange:NSMakeRange(0, [self.history count] - MAX_HISTORY)];
       
    } /* End if () */
@@ -114,20 +115,19 @@
    return;
 }
 
-
-- (void)updateFrameCount
-{
+- (void)updateFrameCount {
+   
    _frameCount += 1;
 
    CFTimeInterval  dwNow   = CACurrentMediaTime();
    CFTimeInterval  dwDiff  = dwNow - _timestamp;
 
-   if ( dwDiff >= 1.0f )
-   {
+   if (dwDiff >= 1.0f) {
+      
       self.fps = _frameCount;
       
-      if ( self.fps > self.maxFPS )
-      {
+      if (self.fps > self.maxFPS) {
+         
          self.maxFPS = self.fps;
          
       } /* End if () */

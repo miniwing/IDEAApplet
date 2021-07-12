@@ -118,13 +118,15 @@
    
    int                            nErr                                     = EFAULT;
    
-   NSArray                       *stServices                               = nil;
+   NSArray<IDEAAppletService *>  *stServices                               = nil;
    
    __TRY;
    
    stServices  = [IDEAAppletServiceLoader sharedInstance].services;
    
    for (IDEAAppletService *stService in stServices) {
+      
+      LogDebug((@"-[IDEAAppletService installDockers] : Service : %@", stService.name));
       
       if ([stService conformsToProtocol:@protocol(ManagedDocker)]) {
          

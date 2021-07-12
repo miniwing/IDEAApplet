@@ -41,7 +41,7 @@
 @prop_assign( NSUInteger       , downloadBytes );
 @prop_strong( NSMutableArray  *, downloadHistory );
 
-@singleton  ( ServiceMonitorNetworkModel )
+@singleton  ( ServiceMonitorNetworkModel );
 
 - (void)update;
 

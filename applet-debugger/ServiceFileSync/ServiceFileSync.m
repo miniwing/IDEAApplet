@@ -29,12 +29,17 @@
 //
 
 #import "ServiceFileSync.h"
+#import "ServiceFileSyncManager.h"
 
 // ----------------------------------
 // Source code
 // ----------------------------------
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+
+@interface ServiceFileSync ()
+
+@end
 
 #pragma mark -
 
@@ -101,6 +106,8 @@
    
    __TRY;
    
+   [[ServiceFileSyncManager sharedInstance] startServer];
+
    __CATCH(nErr);
    
    return;
@@ -111,7 +118,9 @@
    int                            nErr                                     = EFAULT;
    
    __TRY;
-   
+
+   [[ServiceFileSyncManager sharedInstance] stop];
+
    __CATCH(nErr);
    
    return;

@@ -14,11 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ServiceFileSyncManager : GCDWebServer
 
+@singleton  ( ServiceFileSyncManager );
+
 @end
 
 @interface ServiceFileSyncManager ()
 
 - (void)startServer;
+- (void)stopServer;
 
 @end
 

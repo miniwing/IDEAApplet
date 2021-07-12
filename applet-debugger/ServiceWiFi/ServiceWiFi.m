@@ -29,6 +29,7 @@
 //
 
 #import "ServiceWiFi.h"
+#import "ServiceWiFiWindow.h"
 
 // ----------------------------------
 // Source code
@@ -36,9 +37,13 @@
 
 #pragma mark -
 
-@implementation ServiceWiFi {
-   
-}
+@interface ServiceWiFi ()
+
+@prop_strong( ServiceWiFiWindow  *, serviceWiFiWindow );
+
+@end
+
+@implementation ServiceWiFi
 
 #pragma mark - ManagedService
 
@@ -47,7 +52,7 @@
    return SERVICE_WIFI;
 }
 
-#pragma mark -
+#pragma mark - ManagedService
 
 - (void)install {
    
@@ -93,6 +98,43 @@
    return;
 }
 
-#pragma mark -
+#pragma mark - ManagedDocker
+- (void)didDockerOpen {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   [self.serviceWiFiWindow show];
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+- (void)didDockerClose {
+   
+   int                            nErr                                     = EFAULT;
+   
+   __TRY;
+
+   [self.serviceWiFiWindow hide];
+
+   __CATCH(nErr);
+   
+   return;
+}
+
+#pragma mark - @prop_strong( ServiceWiFiWindow  *, serviceWiFiWindow );
+- (ServiceWiFiWindow *)serviceWiFiWindow {
+   
+   if (nil == _serviceWiFiWindow) {
+      
+      _serviceWiFiWindow   = [[ServiceWiFiWindow alloc] init];
+      
+   } /* End if () */
+   
+   return _serviceWiFiWindow;
+}
 
 @end

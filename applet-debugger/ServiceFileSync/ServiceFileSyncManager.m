@@ -20,7 +20,6 @@
 
 #import "ServiceFileSyncManager.h"
 
-
 #define DK_SERVER_PORT  9002
 #define IOS_CELLULAR    @"pdp_ip0"
 #define IOS_WIFI        @"en0"
@@ -39,6 +38,8 @@
 
 @implementation ServiceFileSyncManager
 
+@def_singleton    (ServiceFileSyncManager);
+
 - (void)dealloc {
    
    __LOG_FUNCTION;
@@ -50,15 +51,15 @@
    return;
 }
 
-+ (instancetype)sharedInstance {
-   
-   static  ServiceFileSyncManager   *g_INSTANCE;
-   static  dispatch_once_t           onceToken;
-   dispatch_once(&onceToken, ^{
-      g_INSTANCE = [[ServiceFileSyncManager alloc] init];
-   });
-   return g_INSTANCE;
-}
+//+ (instancetype)sharedInstance {
+//
+//   static  ServiceFileSyncManager   *g_INSTANCE;
+//   static  dispatch_once_t           onceToken;
+//   dispatch_once(&onceToken, ^{
+//      g_INSTANCE = [[ServiceFileSyncManager alloc] init];
+//   });
+//   return g_INSTANCE;
+//}
 
 - (instancetype)init {
    
@@ -242,8 +243,29 @@
 }
 
 - (void)startServer {
-   
+
+   int                            nErr                                     = EFAULT;
+      
+   __TRY;
+
    [self startWithPort:DK_SERVER_PORT bonjourName:@"Hello MINIWING"];
+
+   __CATCH(nErr);
+
+   return;
+}
+
+- (void)stopServer {
+   
+   int                            nErr                                     = EFAULT;
+      
+   __TRY;
+
+   [super stop];
+   
+   __CATCH(nErr);
+   
+   return;
 }
 
 #pragma mark -- 服务具体处理
@@ -294,6 +316,12 @@
    szDirPath   = stData[@"dirPath"];
    LogDebug((@"-[ServiceFileSyncManager deleteRow:] : DirPath : %@", szDirPath));
    
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
       
       szDirPath = [szDirPath substringFromIndex:5];
@@ -421,7 +449,13 @@
    
    szDirPath   = stData[@"dirPath"];
    LogDebug((@"-[ServiceFileSyncManager updateRow:] : DirPath : %@", szDirPath));
-   
+
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
       
       szDirPath = [szDirPath substringFromIndex:5];
@@ -573,6 +607,12 @@
    szDirPath   = stQuery[@"dirPath"];
    LogDebug((@"-[ServiceFileSyncManager getTableData:] : DirPath : %@", szDirPath));
    
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
       
       szDirPath   = [szDirPath substringFromIndex:5];
@@ -684,9 +724,17 @@
    szDirPath   = stData[@"dirPath"];
    LogDebug((@"-[ServiceFileSyncManager insertRow:] : DirPath : %@", szDirPath));
    
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
+      
       szDirPath   = [szDirPath substringFromIndex:5];
-   }
+      
+   } /* End if () */
    LogDebug((@"-[ServiceFileSyncManager insertRow:] : DirPath : %@", szDirPath));
    
    szFileName  = stData[@"fileName"];
@@ -826,9 +874,19 @@
 
    stQuery = aRequest.query;
    szDirPath = stQuery[@"dirPath"];
+   
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
+      
       szDirPath = [szDirPath substringFromIndex:5];
-   }
+      
+   } /* End if () */
+   
    szFileName  = stQuery[@"fileName"];
    szRootPath  = NSHomeDirectory();
    szTargetPath= [NSString stringWithFormat:@"%@%@%@", szRootPath, szDirPath, szFileName];
@@ -889,9 +947,19 @@
 
    NSDictionary *stData = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
    NSString *szDirPath = stData[@"dirPath"];
+   
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
+      
       szDirPath = [szDirPath substringFromIndex:5];
-   }
+      
+   } /* End if () */
+   
    szFileName     = stData[@"fileName"];
    szContent      = stData[@"content"];
    szRootPath     = NSHomeDirectory();
@@ -933,9 +1001,17 @@
    stData      = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
    szDirPath   = stData[@"dirPath"];
    
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
+      
       szDirPath = [szDirPath substringFromIndex:5];
-   }
+      
+   } /* End if () */
    
    szFileName     = stData[@"fileName"];
    szRootPath     = NSHomeDirectory();
@@ -980,10 +1056,20 @@
    __TRY;
    
    stData = [NSJSONSerialization JSONObjectWithData:aRequest.data options:0 error:nil];
+
    szDirPath = stData[@"dirPath"];
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+
    if ([szDirPath hasPrefix:@"/root"]) {
+      
       szDirPath = [szDirPath substringFromIndex:5];
-   }
+      
+   } /* End if () */
+   
    szOldName         = stData[@"oldName"];
    szNewName         = stData[@"newName"];
    szRootPath        = NSHomeDirectory();
@@ -1056,6 +1142,13 @@
    
    stQuery        = aRequest.query;
    szDirPath      = stQuery[@"dirPath"];
+   
+   if (nil == szDirPath || szDirPath.empty) {
+      
+      szDirPath   = @"/";
+      
+   } /* End if () */
+   
    szRealDirPath  = szDirPath;
    
    if ([szRealDirPath hasPrefix:@"/root"]) {
@@ -1065,7 +1158,7 @@
    } /* End if () */
    
    szRootPath     = NSHomeDirectory();
-   szTargetPath   = [NSString stringWithFormat:@"%@%@",szRootPath,szRealDirPath];
+   szTargetPath   = [NSString stringWithFormat:@"%@%@", szRootPath, szRealDirPath];
    
    stFiles  = [NSMutableArray array];
    stError  = nil;

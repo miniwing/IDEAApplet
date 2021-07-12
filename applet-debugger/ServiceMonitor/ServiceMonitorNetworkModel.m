@@ -36,29 +36,30 @@
 
 #pragma mark -
 
-@implementation ServiceMonitorNetworkModel
-{
+@implementation ServiceMonitorNetworkModel {
+   
    NSUInteger   _uploadStartBytes;
    NSUInteger   _downloadStartBytes;
 }
 
-@def_prop_assign  ( NSUInteger       , uploadBytes     );
-@def_prop_strong  ( NSMutableArray  *, uploadHistory   );
+@def_prop_assign  (NSUInteger       , uploadBytes );
+@def_prop_strong  (NSMutableArray  *, uploadHistory );
 
-@def_prop_assign  ( NSUInteger       , downloadBytes   );
-@def_prop_strong  ( NSMutableArray  *, downloadHistory );
+@def_prop_assign  (NSUInteger       , downloadBytes );
+@def_prop_strong  (NSMutableArray  *, downloadHistory );
 
-@def_singleton    ( ServiceMonitorNetworkModel )
+@def_singleton    (ServiceMonitorNetworkModel);
 
-- (id)init
-{
+- (id)init {
+   
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
    self = [super init];
-   if ( self )
-   {
+   
+   if (self) {
+      
       _uploadStartBytes = 0;
       _downloadStartBytes = 0;
 
@@ -68,8 +69,8 @@
       self.uploadHistory = [[NSMutableArray alloc] init];
       self.downloadHistory = [[NSMutableArray alloc] init];
       
-      for ( NSUInteger i = 0; i < MAX_HISTORY; ++i )
-      {
+      for (NSUInteger i = 0; i < MAX_HISTORY; ++i) {
+         
          [self.uploadHistory addObject:@(0)];
          [self.downloadHistory addObject:@(0)];
          
@@ -82,8 +83,8 @@
    return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
+   
    [self.uploadHistory removeAllObjects];
    self.uploadHistory = nil;
 
@@ -95,13 +96,13 @@
    return;
 }
 
-- (void)update
-{
+- (void)update {
+   
    struct ifaddrs * ifa_list = 0;
    struct ifaddrs * ifa = 0;
    
-   if ( getifaddrs(&ifa_list) == -1 )
-   {
+   if (getifaddrs(&ifa_list) == -1) {
+      
       return;
    }
    
@@ -116,22 +117,25 @@
 
    struct IF_DATA_TIMEVAL time = { 0 };
    
-   for ( ifa = ifa_list; ifa; ifa = ifa->ifa_next )
-   {
-      if (AF_LINK != ifa->ifa_addr->sa_family)
+   for (ifa = ifa_list; ifa; ifa = ifa->ifa_next) {
+      
+      if (AF_LINK != ifa->ifa_addr->sa_family) {
          continue;
+      }
       
-      if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING))
+      if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING)) {
          continue;
+      }
       
-      if (ifa->ifa_data == 0)
+      if (ifa->ifa_data == 0) {
          continue;
+      }
       
-   // Not a loopback device.
-   // network flow
+// Not a loopback device.
+// network flow
       
-      if ( strncmp(ifa->ifa_name, "lo", 2) )
-      {
+      if (strncmp(ifa->ifa_name, "lo", 2)) {
+         
          struct if_data *if_data = (struct if_data *)ifa->ifa_data;
          
          iBytes += if_data->ifi_ibytes;
@@ -140,10 +144,10 @@
          time = if_data->ifi_lastchange;
       }
 
-   //wifi flow
+// wifi flow
       
-      if ( 0 == strcmp(ifa->ifa_name, "en0") )
-      {
+      if (0 == strcmp(ifa->ifa_name, "en0")) {
+         
          struct if_data *if_data = (struct if_data *)ifa->ifa_data;
          
          wifiIBytes += if_data->ifi_ibytes;
@@ -152,8 +156,8 @@
 
    //3G and gprs flow
       
-      if ( 0 == strcmp(ifa->ifa_name, "pdp_ip0") )
-      {
+      if (0 == strcmp(ifa->ifa_name, "pdp_ip0")) {
+         
          struct if_data *if_data = (struct if_data *)ifa->ifa_data;
          
          wwanIBytes += if_data->ifi_ibytes;
@@ -161,15 +165,15 @@
       }
    }
 
-   freeifaddrs( ifa_list );
+   freeifaddrs(ifa_list);
    
-   if ( 0 == _uploadStartBytes )
-   {
+   if (0 == _uploadStartBytes) {
+      
       _uploadStartBytes = oBytes;
    }
 
-   if ( 0 == _downloadStartBytes )
-   {
+   if (0 == _downloadStartBytes) {
+      
       _downloadStartBytes = iBytes;
    }
    
@@ -185,7 +189,9 @@
    [self.downloadHistory addObject:[NSNumber numberWithFloat:downloadSegment]];
    [self.downloadHistory keepTail:MAX_HISTORY];
    
-//   PERF( @"Network, upload %d, download %d", self.uploadBytes, self.downloadBytes );
+//   PERF(@"Network, upload %d, download %d", self.uploadBytes, self.downloadBytes);
+   
+   return;
 }
 
 @end

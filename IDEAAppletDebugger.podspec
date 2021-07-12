@@ -69,9 +69,13 @@ Pod::Spec.new do |spec|
 
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'
+  spec.dependency 'AFNetworking'
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
   spec.dependency 'GCDWebServer'
+  spec.dependency 'GCDWebServer/WebUploader'
+  spec.dependency 'GCDWebServer/WebDAV'
+
   spec.dependency 'FMDB'
 
   spec.ios.private_header_files         = 'applet-debugger/*.{h,hpp}'

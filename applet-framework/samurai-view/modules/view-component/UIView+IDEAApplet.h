@@ -47,6 +47,11 @@
 
 - (NSIndexPath *)computeIndexPath;
 
+#if (__has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") || __has_include("UIKitExtension.h"))
+#else
+- (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
+#endif
+
 @end
 
 #endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)

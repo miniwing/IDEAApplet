@@ -67,6 +67,8 @@
       
    } /* End if () */
    
+   LogDebug((@"-[IDEAAppletService init] : Bundle : %@", self.bundle));
+   
    __CATCH(nErr);
    
    return self;
