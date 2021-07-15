@@ -69,7 +69,10 @@ Pod::Spec.new do |spec|
 
 #  spec.dependency 'FoundationExtension'
 #  spec.dependency 'UIKitExtension'
-  spec.dependency 'AFNetworking'
+
+  if ENV['IDERA_AFNETWORKING'] == 'YES'
+    spec.dependency 'AFNetworking'
+  end # IDERA_AFNETWORKING
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
   spec.dependency 'GCDWebServer'
