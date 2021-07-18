@@ -75,9 +75,6 @@ Pod::Spec.new do |spec|
   end # IDERA_AFNETWORKING
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
-  spec.dependency 'GCDWebServer'
-  spec.dependency 'GCDWebServer/WebUploader'
-  spec.dependency 'GCDWebServer/WebDAV'
 
   spec.dependency 'FMDB'
 
@@ -128,11 +125,16 @@ Pod::Spec.new do |spec|
     tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m,c}'
   end
 
-  spec.subspec 'ServiceFileSync' do |sync|
-    sync.ios.private_header_files       = 'applet-debugger/ServiceFileSync/*.{h}'
-    sync.ios.source_files               = 'applet-debugger/ServiceFileSync/*.{h,m,c}'
-    sync.resource                       = 'applet-debugger/ServiceFileSync/ServiceFileSync.bundle'
-  end
+  if ENV['IDEA_SERVICE_FILE_SYNC'] == 'YES'
+    spec.subspec 'ServiceFileSync' do |sync|
+      sync.ios.private_header_files     = 'applet-debugger/ServiceFileSync/*.{h}'
+      sync.ios.source_files             = 'applet-debugger/ServiceFileSync/*.{h,m,c}'
+      sync.resource                     = 'applet-debugger/ServiceFileSync/ServiceFileSync.bundle'
+    end
+    spec.dependency 'GCDWebServer'
+    spec.dependency 'GCDWebServer/WebUploader'
+    spec.dependency 'GCDWebServer/WebDAV'
+  end # ENV['IDEA_SERVICE_FILE_SYNC'] == 'YES'
   
   spec.subspec 'ServiceTheme' do |theme|
     theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
