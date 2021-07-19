@@ -67,8 +67,8 @@ Pod::Spec.new do |spec|
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'IDEAKIT_AFNETWORKING_OPERATIONS=1'
 #  }
 
-#  spec.dependency 'FoundationExtension'
-#  spec.dependency 'UIKitExtension'
+  spec.dependency 'FoundationExtension'
+  spec.dependency 'UIKitExtension'
 
   if ENV['IDERA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
@@ -237,6 +237,32 @@ Pod::Spec.new do |spec|
 #endif /* __OBJC__ */
 
 /******************************************************************************************************/
+
+#if __has_include(<FoundationExtension/FoundationExtension.h>)
+#  define FOUNDATION_EXTENSION                                          (1)
+#  import <FoundationExtension/FoundationExtension.h>
+#elif __has_include("FoundationExtension/FoundationExtension.h")
+#  define FOUNDATION_EXTENSION                                          (1)
+#  import "FoundationExtension/FoundationExtension.h"
+#elif __has_include("FoundationExtension.h")
+#  define FOUNDATION_EXTENSION                                          (1)
+#  import "FoundationExtension.h"
+#else
+#  define FOUNDATION_EXTENSION                                          (0)
+#endif
+
+#if __has_include(<UIKitExtension/UIKitExtension.h>)
+#  define UIKIT_EXTENSION                                               (1)
+#  import <UIKitExtension/UIKitExtension.h>
+#elif __has_include("UIKitExtension/UIKitExtension.h")
+#  define UIKIT_EXTENSION                                               (1)
+#  import "UIKitExtension/UIKitExtension.h"
+#elif __has_include("UIKitExtension.h")
+#  define UIKIT_EXTENSION                                               (1)
+#  import "UIKitExtension.h"
+#else
+#  define UIKIT_EXTENSION                                               (0)
+#endif
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #  define AF_NETWORKING                                                 (1)
