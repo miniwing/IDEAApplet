@@ -361,6 +361,9 @@ Pod::Spec.new do |spec|
 #  end
 
   pch_app_kit = <<-EOS
+  
+/******************************************************************************************************/
+
 #ifdef DEBUG
 #  pragma clang diagnostic ignored                 "-Wgnu"
 #  pragma clang diagnostic ignored                 "-Wcomma"
@@ -407,6 +410,8 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wquoted-include-in-framework-header"
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness-on-arrays"
 #endif /* DEBUG */
+
+/******************************************************************************************************/
 
 #import <Availability.h>
 
@@ -486,10 +491,16 @@ Pod::Spec.new do |spec|
 #else
 #  define __RETAIN(x)                              [(x) retain];
 #  define __AUTORELEASE(x)                         [(x) autorelease];
-#  define __RELEASE(x)                             if (nil != (x))                                                                                      {                                                                                                       [(x) release];                                                                                       (x) = nil;                                                                                        }
+#  define __RELEASE(x)                             if (nil != (x)) {                               \\
+                                                      [(x) release];                               \\
+                                                      (x) = nil;                                   \\
+                                                   }
 #  define __SUPER_DEALLOC                          objc_removeAssociatedObjects(self);[super dealloc];
 #  define __dispatch_release(x)                    dispatch_release((x))
 #endif
+
+#define __ON__                                     (1)
+#define __OFF__                                    (0)
 
 #if defined(DEBUG) && (1==DEBUG)
 #  define __AUTO__                                 (1)
@@ -501,24 +512,35 @@ Pod::Spec.new do |spec|
 
 /******************************************************************************************************/
 
+// #define MODULE                                     "IDEAApplet"
+
 #define LOG_BUG_SIZE                               (1024 * 1)
 
-enum {
-  
-  __LogLevelFatal   = 0,
-  __LogLevelError,
-  __LogLevelWarn,
-  __LogLevelInfo,
-  __LogLevelDebug
-
-};
+//enum {
+//
+//   __LogLevelFatal   = 0,
+//   __LogLevelError,
+//   __LogLevelWarn,
+//   __LogLevelInfo,
+//   __LogLevelDebug
+//
+//};
 
 #ifdef __OBJC__
 
-NS_INLINE const char* ____LogLevelToString(int _eLevel) {
-  
+typedef NS_ENUM(NSInteger, __LogLevel) {
+
+   __LogLevelFatal   = 0,
+   __LogLevelError,
+   __LogLevelWarn,
+   __LogLevelInfo,
+   __LogLevelDebug
+};
+
+NS_INLINE const char* ____LogLevelToString(__LogLevel _eLevel) {
+   
    switch (_eLevel) {
-     
+         
       case __LogLevelFatal:
          return ("Fatal");
       case __LogLevelError:
@@ -537,15 +559,15 @@ NS_INLINE const char* ____LogLevelToString(int _eLevel) {
    return ("Unknown");
 }
 
-NS_INLINE void ____Log(int _eLevel, const char *_cpszMsg) {
-  
-  printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
+NS_INLINE void ____Log(__LogLevel _eLevel, const char *_cpszMsg) {
+   
+   printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
 
-NS_INLINE void __LoggerFatal(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerFatal(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -560,8 +582,8 @@ NS_INLINE void __LoggerFatal(NSString *aFormat, ...) {
    return;
 }
 
-NS_INLINE void __LoggerError(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerError(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -576,8 +598,8 @@ NS_INLINE void __LoggerError(NSString *aFormat, ...) {
    return;
 }
 
-NS_INLINE void __LoggerWarn(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerWarn(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -592,8 +614,8 @@ NS_INLINE void __LoggerWarn(NSString *aFormat, ...) {
    return;
 }
 
-NS_INLINE void __LoggerInfo(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerInfo(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -608,8 +630,8 @@ NS_INLINE void __LoggerInfo(NSString *aFormat, ...) {
    return;
 }
 
-NS_INLINE void __LoggerDebug(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerDebug(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -628,8 +650,8 @@ NS_INLINE void __LoggerDebug(NSString *aFormat, ...) {
 
 __BEGIN_DECLS
 
-static __inline void __LoggerFatal(char *_Format, ...) {
-  
+static __inline void ____LoggerFatal(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -644,8 +666,8 @@ static __inline void __LoggerFatal(char *_Format, ...) {
    return;
 }
 
-static __inline void __LoggerError(char *_Format, ...) {
-  
+static __inline void ____LoggerError(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -660,8 +682,8 @@ static __inline void __LoggerError(char *_Format, ...) {
    return;
 }
 
-static __inline void __LoggerWarn(char *_Format, ...) {
-  
+static __inline void ____LoggerWarn(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -676,8 +698,8 @@ static __inline void __LoggerWarn(char *_Format, ...) {
    return;
 }
 
-static __inline void __LoggerInfo(char *_Format, ...) {
-  
+static __inline void ____LoggerInfo(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -692,8 +714,8 @@ static __inline void __LoggerInfo(char *_Format, ...) {
    return;
 }
 
-static __inline void __LoggerDebug(char *_Format, ...) {
-  
+static __inline void ____LoggerDebug(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -728,12 +750,29 @@ __END_DECLS
 
 /******************************************************************************************************/
 
-#if (defined(DEBUG) && (1 == DEBUG))
-#  define LogDebug(x)                              __LoggerDebug x
-#  define LogFunc(x)                               __LoggerDebug x
+#define __DebugFunc__                              (__AUTO__)
+#define __DebugDebug__                             (__AUTO__)
+#define __DebugColor__                             (__AUTO__)
+#define __DebugView__                              (__AUTO__)
+
+/******************************************************************************************************/
+
+#if __DebugDebug__
+#  define LogDebug(x)                              ____LoggerDebug x
 #else
 #  define LogDebug(x)
+#endif
+
+#if __DebugFunc__
+#  define LogFunc(x)                               ____LoggerInfo x
+#else
 #  define LogFunc(x)
+#endif
+
+#if __DebugView__
+#  define LogView(x)                               ____LoggerInfo x
+#else
+#  define LogView(x)
 #endif
 
 #define  __Function_Start()                        LogFunc(((@"%s - Enter!") , I_FUNCTION));
@@ -764,13 +803,12 @@ __END_DECLS
                                                    do {
 
 
-#define __CATCH(nErr)                                 nErr = noErr;           \\
+#define __CATCH(nErr)                              nErr = noErr;              \\
                                                    } while (0);               \\
                                                    FunctionEnd(nErr);
 
 
 #define __LOG_FUNCTION                             LogFunc((@"%s :", __PRETTY_FUNCTION__))
-
 
 /******************************************************************************************************/
 

@@ -170,6 +170,8 @@ Pod::Spec.new do |spec|
 
   pch_app_kit = <<-EOS
   
+/******************************************************************************************************/
+
 #ifdef DEBUG
 #  pragma clang diagnostic ignored                 "-Wgnu"
 #  pragma clang diagnostic ignored                 "-Wcomma"
@@ -216,6 +218,8 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wquoted-include-in-framework-header"
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness-on-arrays"
 #endif /* DEBUG */
+
+/******************************************************************************************************/
 
 #import <Availability.h>
 
@@ -304,7 +308,10 @@ Pod::Spec.new do |spec|
 #else
 #  define __RETAIN(x)                              [(x) retain];
 #  define __AUTORELEASE(x)                         [(x) autorelease];
-#  define __RELEASE(x)                             if (nil != (x))                                                                                      {                                                                                                       [(x) release];                                                                                       (x) = nil;                                                                                        }
+#  define __RELEASE(x)                             if (nil != (x)) {                               \\
+                                                      [(x) release];                               \\
+                                                      (x) = nil;                                   \\
+                                                   }
 #  define __SUPER_DEALLOC                          objc_removeAssociatedObjects(self);[super dealloc];
 #  define __dispatch_release(x)                    dispatch_release((x))
 #endif
@@ -322,33 +329,44 @@ Pod::Spec.new do |spec|
 
 /******************************************************************************************************/
 
+// #define MODULE                                     "IDEAAppletDebugger"
+
 #define LOG_BUG_SIZE                               (1024 * 1)
 
-enum
-{
-   LogLevelFatal = 0,
-   LogLevelError,
-   LogLevelWarn,
-   LogLevelInfo,
-   LogLevelDebug
-   
-};
+//enum {
+//
+//   __LogLevelFatal   = 0,
+//   __LogLevelError,
+//   __LogLevelWarn,
+//   __LogLevelInfo,
+//   __LogLevelDebug
+//
+//};
 
 #ifdef __OBJC__
 
-NS_INLINE const char* __LogLevelToString(int _eLevel) {
-  
+typedef NS_ENUM(NSInteger, __LogLevel) {
+
+   __LogLevelFatal   = 0,
+   __LogLevelError,
+   __LogLevelWarn,
+   __LogLevelInfo,
+   __LogLevelDebug
+};
+
+NS_INLINE const char* ____LogLevelToString(__LogLevel _eLevel) {
+   
    switch (_eLevel) {
-     
-      case LogLevelFatal:
+         
+      case __LogLevelFatal:
          return ("Fatal");
-      case LogLevelError:
+      case __LogLevelError:
          return ("Error");
-      case LogLevelWarn:
+      case __LogLevelWarn:
          return (" Warn");
-      case LogLevelInfo:
+      case __LogLevelInfo:
          return (" Info");
-      case LogLevelDebug:
+      case __LogLevelDebug:
          return ("Debug");
       default:
          break;
@@ -358,15 +376,15 @@ NS_INLINE const char* __LogLevelToString(int _eLevel) {
    return ("Unknown");
 }
 
-NS_INLINE void __Log(int _eLevel, const char *_cpszMsg) {
-  
-   printf("%s :: %s\\n", __LogLevelToString(_eLevel), _cpszMsg);
+NS_INLINE void ____Log(__LogLevel _eLevel, const char *_cpszMsg) {
+   
+   printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
    
    return;
 }
 
-NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerFatal(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -374,15 +392,15 @@ NS_INLINE void LoggerFatal(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelFatal, [szMSG UTF8String]);
+   ____Log(__LogLevelFatal, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerError(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerError(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -390,15 +408,15 @@ NS_INLINE void LoggerError(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelError, [szMSG UTF8String]);
+   ____Log(__LogLevelError, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerWarn(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -406,15 +424,15 @@ NS_INLINE void LoggerWarn(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelWarn, [szMSG UTF8String]);
+   ____Log(__LogLevelWarn, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerInfo(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -422,15 +440,15 @@ NS_INLINE void LoggerInfo(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelInfo, [szMSG UTF8String]);
+   ____Log(__LogLevelInfo, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
    return;
 }
 
-NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
-  
+NS_INLINE void ____LoggerDebug(NSString *aFormat, ...) {
+   
    va_list      args;
    NSString    *szMSG   = nil;
    
@@ -438,7 +456,7 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   __Log(LogLevelDebug, [szMSG UTF8String]);
+   ____Log(__LogLevelDebug, [szMSG UTF8String]);
    
    __RELEASE(szMSG);
    
@@ -449,8 +467,8 @@ NS_INLINE void LoggerDebug(NSString *aFormat, ...) {
 
 __BEGIN_DECLS
 
-static __inline void LoggerFatal(char *_Format, ...) {
-  
+static __inline void ____LoggerFatal(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -460,13 +478,13 @@ static __inline void LoggerFatal(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Fatal", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Fatal", s_MSG);
    
    return;
 }
 
-static __inline void LoggerError(char *_Format, ...) {
-  
+static __inline void ____LoggerError(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -476,13 +494,13 @@ static __inline void LoggerError(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Error", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Error", s_MSG);
    
    return;
 }
 
-static __inline void LoggerWarn(char *_Format, ...) {
-  
+static __inline void ____LoggerWarn(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -492,13 +510,13 @@ static __inline void LoggerWarn(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Warning", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Warning", s_MSG);
    
    return;
 }
 
-static __inline void LoggerInfo(char *_Format, ...) {
-  
+static __inline void ____LoggerInfo(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -508,13 +526,13 @@ static __inline void LoggerInfo(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Info", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Info", s_MSG);
    
    return;
 }
 
-static __inline void LoggerDebug(char *_Format, ...) {
-  
+static __inline void ____LoggerDebug(char *_Format, ...) {
+   
    va_list      args;
    static char s_MSG[LOG_BUG_SIZE]  = {0};
    
@@ -524,7 +542,7 @@ static __inline void LoggerDebug(char *_Format, ...) {
    vsnprintf(s_MSG, sizeof(s_MSG), _Format, args);
    va_end (args);
    
-   printf("%s :: %s\\n", "Debug", s_MSG);
+   printf("[%s] %s :: %s\\n", MODULE, "Debug", s_MSG);
    
    return;
 }
@@ -549,12 +567,29 @@ __END_DECLS
 
 /******************************************************************************************************/
 
-#if (defined(DEBUG) && (1 == DEBUG))
-#  define LogDebug(x)                              LoggerDebug x
-#  define LogFunc(x)                               LoggerDebug x
+#define __DebugFunc__                              (__AUTO__)
+#define __DebugDebug__                             (__AUTO__)
+#define __DebugColor__                             (__AUTO__)
+#define __DebugView__                              (__AUTO__)
+
+/******************************************************************************************************/
+
+#if __DebugDebug__
+#  define LogDebug(x)                              ____LoggerDebug x
 #else
 #  define LogDebug(x)
+#endif
+
+#if __DebugFunc__
+#  define LogFunc(x)                               ____LoggerInfo x
+#else
 #  define LogFunc(x)
+#endif
+
+#if __DebugView__
+#  define LogView(x)                               ____LoggerInfo x
+#else
+#  define LogView(x)
 #endif
 
 #define  __Function_Start()                        LogFunc(((@"%s - Enter!") , I_FUNCTION));
@@ -585,13 +620,12 @@ __END_DECLS
                                                    do {
 
 
-#define __CATCH(nErr)                                 nErr = noErr;           \\
+#define __CATCH(nErr)                              nErr = noErr;              \\
                                                    } while (0);               \\
                                                    FunctionEnd(nErr);
 
 
 #define __LOG_FUNCTION                             LogFunc((@"%s :", __PRETTY_FUNCTION__))
-
 
 /******************************************************************************************************/
 

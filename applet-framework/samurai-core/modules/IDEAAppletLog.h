@@ -36,13 +36,14 @@
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+    
    LogLevel_Error = 0,
    LogLevel_Warn,
    LogLevel_Info,
    LogLevel_Perf,
    LogLevel_All
+    
 } LogLevel;
 
 #pragma mark -
