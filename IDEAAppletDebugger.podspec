@@ -671,6 +671,10 @@ __END_DECLS
 #  define SERVICE_THEME             (__AUTO__)
 #endif /* SERVICE_THEME */
 
+#ifndef SERVICE_WIFI
+#  define SERVICE_WIFI              (__OFF__)
+#endif /* SERVICE_WIFI */
+
 /******************************************************************************************************/
 
   EOS
