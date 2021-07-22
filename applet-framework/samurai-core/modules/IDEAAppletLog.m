@@ -107,7 +107,7 @@ static void __NSLog(NSString * format, ...) {
 
 @def_prop_strong(NSMutableString   *,    output);
 @def_prop_strong(NSMutableArray    *,    buffer);
-@def_prop_assign(LogLevel           ,    filter);
+@def_prop_assign(__LogLevel           ,    filter);
 
 @def_prop_copy(BlockType            ,    outputHandler);
 
@@ -323,7 +323,7 @@ static void __NSLog(NSString * format, ...) {
 #  undef  MAX_CALLSTACK
 #  define MAX_CALLSTACK   (8)
             
-            if (LogLevel_Error == level) {
+            if (__LogLevel_Error == level) {
                
                fprintf(stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String]);
                

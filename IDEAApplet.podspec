@@ -516,16 +516,6 @@ Pod::Spec.new do |spec|
 
 #define LOG_BUG_SIZE                               (1024 * 1)
 
-//enum {
-//
-//   __LogLevelFatal   = 0,
-//   __LogLevelError,
-//   __LogLevelWarn,
-//   __LogLevelInfo,
-//   __LogLevelDebug
-//
-//};
-
 #ifdef __OBJC__
 
 typedef NS_ENUM(NSInteger, __LogLevel) {
@@ -559,10 +549,40 @@ NS_INLINE const char* ____LogLevelToString(__LogLevel _eLevel) {
    return ("Unknown");
 }
 
-NS_INLINE void ____Log(__LogLevel _eLevel, const char *_cpszMsg) {
+NS_INLINE void ____Log(__LogLevel _eLevel, const NSString *_aMsg) {
    
-   printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
-   
+   if (LOG_BUG_SIZE >= _aMsg.length) {
+      
+      printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), [_aMsg UTF8String]);
+      
+   }
+   else {
+
+      printf("####################################################################################\\n");
+      printf("[%s] %s :: ", MODULE, ____LogLevelToString(_eLevel));
+
+      // 在数组范围内，则循环分段
+      while (LOG_BUG_SIZE < _aMsg.length) {
+         
+         // 按字节长度截取字符串
+         NSString *szSubStr   = [_aMsg substringToIndex:LOG_BUG_SIZE]; // cutStr(bytes, maxByteNum);
+         
+         // 打印日志
+         printf("%s\\n", [szSubStr UTF8String]);
+         
+         // 截取出尚未打印字节数组
+         _aMsg = [_aMsg substringFromIndex:LOG_BUG_SIZE];
+         
+      } /* End while () */
+
+      // 打印剩余部分
+      printf("%s\\n", [_aMsg UTF8String]);
+      printf("####################################################################################\\n");
+
+   } /* End else */
+
+//   printf("[%s] %s :: %s\\n", MODULE, ____LogLevelToString(_eLevel), _cpszMsg);
+      
    return;
 }
 
@@ -575,7 +595,7 @@ NS_INLINE void ____LoggerFatal(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   ____Log(__LogLevelFatal, [szMSG UTF8String]);
+   ____Log(__LogLevelFatal, szMSG);
    
    __RELEASE(szMSG);
    
@@ -591,7 +611,7 @@ NS_INLINE void ____LoggerError(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   ____Log(__LogLevelError, [szMSG UTF8String]);
+   ____Log(__LogLevelError, szMSG);
    
    __RELEASE(szMSG);
    
@@ -607,7 +627,7 @@ NS_INLINE void ____LoggerWarn(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   ____Log(__LogLevelWarn, [szMSG UTF8String]);
+   ____Log(__LogLevelWarn, szMSG);
    
    __RELEASE(szMSG);
    
@@ -623,7 +643,7 @@ NS_INLINE void ____LoggerInfo(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   ____Log(__LogLevelInfo, [szMSG UTF8String]);
+   ____Log(__LogLevelInfo, szMSG);
    
    __RELEASE(szMSG);
    
@@ -639,7 +659,7 @@ NS_INLINE void ____LoggerDebug(NSString *aFormat, ...) {
    szMSG = [[NSString alloc] initWithFormat:aFormat  arguments:args];
    va_end (args);
    
-   ____Log(__LogLevelDebug, [szMSG UTF8String]);
+   ____Log(__LogLevelDebug, szMSG);
    
    __RELEASE(szMSG);
    
