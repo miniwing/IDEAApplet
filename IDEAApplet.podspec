@@ -58,7 +58,7 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'RTRootNavigationController'
 #  spec.dependency 'IDEANightVersion'
 
-  if ENV['IDERA_AFNETWORKING'] == 'YES'
+  if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
   #    spec.dependency 'AFNetworking/Serialization'
   #    spec.dependency 'AFNetworking/Security'

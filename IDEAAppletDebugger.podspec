@@ -70,9 +70,9 @@ Pod::Spec.new do |spec|
   spec.dependency 'FoundationExtension'
   spec.dependency 'UIKitExtension'
 
-  if ENV['IDERA_AFNETWORKING'] == 'YES'
+  if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
-  end # IDERA_AFNETWORKING
+  end # IDEA_AFNETWORKING
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
 
@@ -142,11 +142,13 @@ Pod::Spec.new do |spec|
     theme.resource                      = 'applet-debugger/ServiceTheme/ServiceTheme.bundle'
   end
 
-  spec.subspec 'ServiceWiFi' do |wifi|
-    wifi.ios.private_header_files       = 'applet-debugger/ServiceWiFi/*.{h}'
-    wifi.ios.source_files               = 'applet-debugger/ServiceWiFi/*.{h,m,c}'
-    wifi.resource                       = 'applet-debugger/ServiceWiFi/ServiceWiFi.bundle'
-  end
+  if ENV['IDEA_AFNETWORKING'] == 'YES'
+    spec.subspec 'ServiceWiFi' do |wifi|
+      wifi.ios.private_header_files     = 'applet-debugger/ServiceWiFi/*.{h}'
+      wifi.ios.source_files             = 'applet-debugger/ServiceWiFi/*.{h,m,c}'
+      wifi.resource                     = 'applet-debugger/ServiceWiFi/ServiceWiFi.bundle'
+    end
+  end # IDEA_AFNETWORKING
 
 #  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
 #                                    'applet-debugger/ServiceConsole/ServiceConsole.bundle',
