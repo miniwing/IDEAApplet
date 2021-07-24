@@ -28,6 +28,8 @@
 //   THE SOFTWARE.
 //
 
+#import "IDEAApplet.h"
+
 #import "IDEAAppletDockerManager.h"
 #import "IDEAAppletDockerView.h"
 #import "IDEAAppletDockerWindow.h"
@@ -176,10 +178,11 @@
          _dockerWindow.alpha  = 1.0f;
       }
                        completion:^(BOOL aFinished) {
-         [[UIApplication sharedApplication].delegate.window makeKeyAndVisible];
-         [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsFocusUpdate];
-//         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-         [[UIApplication sharedApplication].delegate.window.rootViewController setNeedsStatusBarAppearanceUpdate];
+         
+         [[IDEAApplet sharedExtensionApplication].delegate.window makeKeyAndVisible];
+         [[IDEAApplet sharedExtensionApplication].delegate.window.rootViewController setNeedsFocusUpdate];
+//         [[IDEAApplet sharedExtensionApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+         [[IDEAApplet sharedExtensionApplication].delegate.window.rootViewController setNeedsStatusBarAppearanceUpdate];
       }];
             
    } /* End if () */

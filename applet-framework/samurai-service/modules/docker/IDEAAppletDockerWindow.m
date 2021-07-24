@@ -28,6 +28,8 @@
 //   THE SOFTWARE.
 //
 
+#import "IDEAApplet.h"
+
 #import "IDEAAppletServiceRootController.h"
 #import "IDEAAppletDockerWindow.h"
 
@@ -66,6 +68,11 @@
       self.windowLevel        = UIWindowLevelStatusBar + 2.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       
+      [[IDEAApplet sharedExtensionApplication].delegate.window addObserver:self
+                                                                forKeyPath:@"rootViewController"
+                                                                   options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                                                                   context:nil];
+      
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(orientationWillChange)
                                                    name:UIApplicationWillChangeStatusBarOrientationNotification
@@ -76,21 +83,16 @@
                                                    name:UIApplicationDidChangeStatusBarOrientationNotification
                                                  object:nil];
       
-      [[UIApplication sharedApplication].delegate.window addObserver:self
-                                                          forKeyPath:@"rootViewController"
-                                                             options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                                                             context:nil];
-
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(onKeyboardWillShowNotification:)
                                                    name:UIKeyboardWillShowNotification
                                                  object:nil];
-
+      
       [[NSNotificationCenter defaultCenter] addObserver:self
                                                selector:@selector(onKeyboardWillHideNotification:)
                                                    name:UIKeyboardWillHideNotification
                                                  object:nil];
-
+      
    } /* End if () */
    
    __CATCH(nErr);
@@ -100,11 +102,11 @@
 
 - (void)dealloc {
    
-   [[UIApplication sharedApplication].delegate.window removeObserver:self
-                                                          forKeyPath:@"rootViewController"
-                                                             context:nil];
+   [[IDEAApplet sharedExtensionApplication].delegate.window removeObserver:self
+                                                                forKeyPath:@"rootViewController"
+                                                                   context:nil];
    [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+   
    __SUPER_DEALLOC;
    
    return;
@@ -226,9 +228,9 @@
    stWindowBound.origin.x     = [UIScreen mainScreen].bounds.size.width - stWindowBound.size.width - DOCKER_RIGHT;
    stWindowBound.origin.y     = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - DOCKER_BOTTOM;
    
-   if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+   if ([[IDEAApplet sharedExtensionApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]]) {
       
-      UITabBarController   *stTabBarController  = [UIApplication sharedApplication].delegate.window.rootViewController;
+      UITabBarController   *stTabBarController  = [IDEAApplet sharedExtensionApplication].delegate.window.rootViewController;
       
       stWindowBound.origin.y  = [UIScreen mainScreen].bounds.size.height - stWindowBound.size.height - stTabBarController.tabBar.frame.size.height - DOCKER_BOTTOM;
       

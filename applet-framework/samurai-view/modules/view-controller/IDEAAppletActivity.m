@@ -33,6 +33,8 @@
 #import "AppletCore.h"
 // ----------------------------------
 
+#import "IDEAApplet.h"
+
 #import "IDEAAppletActivity.h"
 #import "IDEAAppletIntent.h"
 
@@ -138,7 +140,7 @@ static NSMutableArray * __activities = nil;
       self.title = [[self class] description];
       
       _state   = ActivityState_Inited;
-      _orientation      = [UIApplication sharedApplication].statusBarOrientation;
+      _orientation      = [IDEAApplet sharedExtensionApplication].statusBarOrientation;
       _orientationMask  = UIInterfaceOrientationMaskPortrait;
       
       _inited = YES;

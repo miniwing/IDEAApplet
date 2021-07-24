@@ -50,3 +50,10 @@
 - (void)startup; // Applet will startup itself automaticlly, DO NOT call this again
 
 @end
+
+@interface IDEAApplet ()
+
++ (BOOL)isAppExtension;
++ (UIApplication *)sharedExtensionApplication;
+
+@end

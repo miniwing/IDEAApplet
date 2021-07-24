@@ -64,8 +64,8 @@
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+   
    ActivityState_Inited = 0,
    ActivityState_Created,
    ActivityState_Activating,

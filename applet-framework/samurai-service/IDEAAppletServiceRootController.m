@@ -27,7 +27,7 @@
 //   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //   THE SOFTWARE.
 //
-
+#import "IDEAApplet.h"
 #import "IDEAAppletServiceRootController.h"
 
 #import "__pragma_push.h"
@@ -43,24 +43,30 @@
 #pragma mark - UIStatusBar
 - (UIStatusBarStyle)preferredStatusBarStyle {
    
-   if (nil != UIApplication.sharedApplication.delegate.window.rootViewController) {
+   if ([IDEAApplet isAppExtension]) {
       
-      return UIApplication.sharedApplication.delegate.window.rootViewController.preferredStatusBarStyle;
+      return UIStatusBarStyleDefault;
+      
+   } /* End if () */
+   
+   if (nil != [IDEAApplet sharedExtensionApplication].delegate.window.rootViewController) {
+      
+      return [IDEAApplet sharedExtensionApplication].delegate.window.rootViewController.preferredStatusBarStyle;
 
    } /* End if () */
    
-   return [[UIApplication sharedApplication] statusBarStyle];
+   return [[IDEAApplet sharedExtensionApplication] statusBarStyle];
 }
 
 - (BOOL)prefersStatusBarHidden {
    
-   if (nil != UIApplication.sharedApplication.delegate.window.rootViewController) {
+   if (nil != [IDEAApplet sharedExtensionApplication].delegate.window.rootViewController) {
       
-      return UIApplication.sharedApplication.delegate.window.rootViewController.prefersStatusBarHidden;
+      return [IDEAApplet sharedExtensionApplication].delegate.window.rootViewController.prefersStatusBarHidden;
 
    } /* End if () */
 
-   return [UIApplication sharedApplication].isStatusBarHidden;
+   return [IDEAApplet sharedExtensionApplication].isStatusBarHidden;
 }
 
 @end

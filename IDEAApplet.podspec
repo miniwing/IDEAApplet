@@ -142,6 +142,11 @@ Pod::Spec.new do |spec|
       service.ios.public_header_files = 'applet-framework/samurai-service/*.{h,hpp}'
       service.ios.source_files        = 'applet-framework/samurai-service/*.{h,m,c}'
 
+      service.subspec 'extension' do |extension|
+        extension.ios.public_header_files = 'applet-framework/samurai-service/extension/*.{h,hpp}'
+        extension.ios.source_files        = 'applet-framework/samurai-service/extension/*.{h,m,c}'
+      end # 'docker'
+
       service.subspec 'modules' do |modules|
         modules.ios.public_header_files = 'applet-framework/samurai-service/modules/*.{h,hpp}'
         modules.ios.source_files        = 'applet-framework/samurai-service/modules/*.{h,m,c}'

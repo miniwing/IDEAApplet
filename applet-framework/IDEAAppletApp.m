@@ -33,6 +33,8 @@
 #import "AppletCore.h"
 // ----------------------------------
 
+#import "IDEAApplet.h"
+
 #import "IDEAAppletApp.h"
 #import "IDEAAppletClassLoader.h"
 #import "IDEAAppletService.h"
@@ -168,17 +170,17 @@ static __strong id __applicationInstance = nil;
 
 - (BOOL)active {
    
-   return (UIApplicationStateActive == [UIApplication sharedApplication].applicationState) ? YES : NO;
+   return (UIApplicationStateActive == [IDEAApplet sharedExtensionApplication].applicationState) ? YES : NO;
 }
 
 - (BOOL)inactive {
    
-   return (UIApplicationStateInactive == [UIApplication sharedApplication].applicationState) ? YES : NO;
+   return (UIApplicationStateInactive == [IDEAApplet sharedExtensionApplication].applicationState) ? YES : NO;
 }
 
 - (BOOL)background {
    
-   return (UIApplicationStateBackground == [UIApplication sharedApplication].applicationState) ? YES : NO;
+   return (UIApplicationStateBackground == [IDEAApplet sharedExtensionApplication].applicationState) ? YES : NO;
 }
 
 #pragma mark -
