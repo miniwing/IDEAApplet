@@ -615,8 +615,6 @@ __END_DECLS
 #endif
 
 #define  __Function_Start()                        LogFunc(((@"%s - Enter!") , I_FUNCTION));
-
-
 #define  __Function_End(_Return)                                                                                              \\
                                                    {                                                                          \\
                                                       if (noErr == (_Return))                                                 \\
@@ -629,25 +627,26 @@ __END_DECLS
                                                       } /*End else () */                                                      \\
                                                    }
 
-#if (defined(DEBUG) && (1 == DEBUG))
+#if (__Debug__)
 #  define FunctionStart                            __Function_Start
 #  define FunctionEnd                              __Function_End
 #else
 #  define FunctionStart()
 #  define FunctionEnd(x)
-
-#endif /* __DebugInfo__ */
+#endif /* (__Debug__) */
 
 #define __TRY                                      FunctionStart();           \\
                                                    do {
 
-
-#define __CATCH(nErr)                              nErr = noErr;              \\
+#define __CATCH(nErr)                                 nErr = noErr;           \\
                                                    } while (0);               \\
                                                    FunctionEnd(nErr);
 
-
 #define __LOG_FUNCTION                             LogFunc((@"%s :", __PRETTY_FUNCTION__))
+
+#define __LOG_RECT(rc)                             LogDebug((@"%s : RECT : (%d, %d, %d, %d)", __STRING(rc), (int)((rc).origin.x), (int)((rc).origin.y), (int)((rc).size.width), (int)((rc).size.height)))
+#define __LOG_SIZE(sz)                             LogDebug((@"%s : SIZE : (%d, %d)", __STRING(sz), (int)((sz).width), (int)((sz).height)))
+#define __LOG_POINT(pt)                            LogDebug((@"%s : POINT: (%d, %d)", __STRING(pt), (int)((pt).x), (int)((pt).y)))
 
 /******************************************************************************************************/
 
