@@ -241,6 +241,15 @@
 // Code block
 // ----------------------------------
 
+#if (__has_include(<YYKit/YYKit.h>))
+#  import <YYKit/YYKit.h>
+#elif (__has_include("YYKit/YYKit.h"))
+#  import "YYKit/YYKit.h"
+#elif (__has_include("YYKit.h"))
+#  import "YYKit.h"
+#elif (__has_include("YYKit.h"))
+#  import "YYKit.h"
+#else /* YY_KIT */
 #ifndef weakify
 #  if __has_feature(objc_arc)
 #     define weakify( x )                                                  \
@@ -274,6 +283,7 @@
              _Pragma("clang diagnostic pop")
 #  endif
 #endif
+#endif /* !YY_KIT */
 
 typedef id      BlockType;
 typedef void (^ BlockTypeVoid )( void );
