@@ -328,22 +328,22 @@ static __strong NSMutableDictionary * __rules = nil;
          }
       }
          break;
-         
-         //   case ValidatorRule_Tel:
-         //      {
-         //         NSString * textValue = [value toString];
-         //         if ( nil == textValue )
-         //         {
-         //            return NO;
-         //         }
-         //
-         //         if ( NO == [textValue isTelephone] )
-         //         {
-         //            return NO;
-         //         }
-         //      }
-         //      break;
-         
+
+//    case ValidatorRule_Tel:
+//       {
+//          NSString * textValue = [value toString];
+//          if ( nil == textValue )
+//          {
+//             return NO;
+//          }
+//
+//          if ( NO == [textValue isTelephone] )
+//          {
+//             return NO;
+//          }
+//       }
+//       break;
+
       case ValidatorRule_Image: {
          
          if ( NO == [aValue isKindOfClass:[UIImage class]] ) {

@@ -76,7 +76,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
 
-  spec.dependency 'FMDB'
+#  spec.dependency 'FMDB'
 
   spec.ios.private_header_files         = 'applet-debugger/*.{h,hpp}'
   spec.ios.source_files                 = 'applet-debugger/*.{h,m,c}'

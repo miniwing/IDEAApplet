@@ -36,8 +36,8 @@
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+   
    ValidatorRule_Unknown = 0,
    ValidatorRule_Regex,       // 验证此规则的值必须符合给定的正则表达式
    ValidatorRule_Accepted,    // 验证此规则的值必须是 yes、 on 或者是 1

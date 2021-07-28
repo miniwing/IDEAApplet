@@ -614,7 +614,7 @@ BASE_CLASS  (IDEAAppletSignal)
    
    triggerBefore(self, stateChanged);
    
-   PERF(@"Signal '%@', state %d -> %d", self.prettyName, _state, newState);
+   PERF(@"Signal '%@', state %d -> %d", self.prettyName, _state, aNewState);
    
    _state = aNewState;
    

@@ -41,8 +41,8 @@
 
 #pragma mark -
 
-#undef   MAX_UNITTEST_LOGS
-#define   MAX_UNITTEST_LOGS   (100)
+#undef  MAX_UNITTEST_LOGS
+#define MAX_UNITTEST_LOGS   (100)
 
 #pragma mark -
 

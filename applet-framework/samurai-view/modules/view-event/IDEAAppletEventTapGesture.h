@@ -39,7 +39,7 @@
 
 @interface UIView (EventTapGesture)
 
-@signal( eventTapPressing );   /// 按下
+@signal( eventTapPressing );    /// 按下
 @signal( eventTapRaised );      /// 抬起
 @signal( eventTapCancelled );   /// 取消
 

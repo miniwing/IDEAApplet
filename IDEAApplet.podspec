@@ -58,6 +58,10 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'RTRootNavigationController'
 #  spec.dependency 'IDEANightVersion'
 
+  if ENV['IDEA_FOUNDATION_EXTENSION'] == 'YES'
+    spec.dependency 'FoundationExtension'
+  end # IDEA_FOUNDATION_EXTENSION
+
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
   #    spec.dependency 'AFNetworking/Serialization'
@@ -440,6 +444,19 @@ Pod::Spec.new do |spec|
 /******************************************************************************************************/
 
 #ifdef __OBJC__
+
+#  if __has_include(<FoundationExtension/FoundationExtension.h>)
+#     define FOUNDATION_EXTENSION                                          (1)
+#     import <FoundationExtension/FoundationExtension.h>
+#  elif __has_include("FoundationExtension/FoundationExtension.h")
+#     define FOUNDATION_EXTENSION                                          (1)
+#     import "FoundationExtension/FoundationExtension.h"
+#  elif __has_include("FoundationExtension.h")
+#     define FOUNDATION_EXTENSION                                          (1)
+#     import "FoundationExtension.h"
+#  else
+#     define FOUNDATION_EXTENSION                                          (0)
+#  endif
 
 #  if __has_include(<RTRootNavigationController/RTRootNavigationController.h>)
 #     import <RTRootNavigationController/RTRootNavigationController.h>
