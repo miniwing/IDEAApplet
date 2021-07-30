@@ -533,8 +533,53 @@ Pod::Spec.new do |spec|
 #endif
 
 /******************************************************************************************************/
+#ifdef __OBJC__
 
-// #define MODULE                                     "IDEAApplet"
+// #if (__has_include(<YYKit/YYKit.h>))
+// #  import <YYKit/YYKit.h>
+// #elif (__has_include("YYKit/YYKit.h"))
+// #  import "YYKit/YYKit.h"
+// #elif (__has_include("YYKit.h"))
+// #  import "YYKit.h"
+// #elif (__has_include("YYKit.h"))
+// #  import "YYKit.h"
+// #else /* YY_KIT */
+// #  ifndef weakify
+// #     if __has_feature(objc_arc)
+// #        define weakify( x )                                               \\
+//             _Pragma("clang diagnostic push")                               \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
+//             autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;     \\
+//             _Pragma("clang diagnostic pop")
+// #     else
+// #        define weakify( x )                                               \\
+//             _Pragma("clang diagnostic push")                               \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
+//             autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;   \\
+//             _Pragma("clang diagnostic pop")
+// #     endif
+// #  endif /* !weakify */
+
+// #  ifndef strongify
+// #     if __has_feature(objc_arc)
+// #        define strongify( x )                                             \\
+//             _Pragma("clang diagnostic push")                               \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
+//             try{} @finally{} __typeof__(x) x = __weak_##x##__;             \\
+//             _Pragma("clang diagnostic pop")
+// #     else
+// #        define strongify( x )                                             \\
+//             _Pragma("clang diagnostic push")                               \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
+//             try{} @finally{} __typeof__(x) x = __block_##x##__;            \\
+//             _Pragma("clang diagnostic pop")
+// #     endif
+// #  endif /* !strongify */
+// #endif
+
+#endif /* __OBJC__ */
+
+/******************************************************************************************************/
 
 #define LOG_BUG_SIZE                               (1024 * 1)
 
@@ -794,6 +839,8 @@ __END_DECLS
 
 #define __DebugFunc__                              (__AUTO__)
 #define __DebugDebug__                             (__AUTO__)
+#define __DebugWarn__                              (__AUTO__)
+#define __DebugError__                             (__AUTO__)
 #define __DebugColor__                             (__AUTO__)
 #define __DebugView__                              (__AUTO__)
 
@@ -803,6 +850,18 @@ __END_DECLS
 #  define LogDebug(x)                              ____LoggerDebug x
 #else
 #  define LogDebug(x)
+#endif
+
+#if __DebugWarn__
+#  define LogWarn(x)                               ____LoggerWarn x
+#else
+#  define LogWarn(x)
+#endif
+
+#if __DebugError__
+#  define LogError(x)                              ____LoggerError x
+#else
+#  define LogError(x)
 #endif
 
 #if __DebugFunc__
@@ -816,6 +875,8 @@ __END_DECLS
 #else
 #  define LogView(x)
 #endif
+
+/******************************************************************************************************/
 
 #define  __Function_Start()                        LogFunc(((@"%s - Enter!") , I_FUNCTION));
 #define  __Function_End(_Return)                                                                                              \\
@@ -854,6 +915,9 @@ __END_DECLS
 /******************************************************************************************************/
 
 #define APPLET_DESCRIPTION                         (1)
+
+#define UI_AVAILABLE_SDK_IOS(_ios)                ((__IPHONE_##_ios != 0) &&                          \\
+                                                   (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_##_ios))
 
 /******************************************************************************************************/
 
