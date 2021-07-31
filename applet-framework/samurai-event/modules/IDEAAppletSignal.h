@@ -59,24 +59,6 @@
 
 #pragma mark -
 
-#undef  IDEA_MAKE_SIGNAL
-#define IDEA_MAKE_SIGNAL( ... )              \
-        macro_string(macro_join(signal, __VA_ARGS__))
-
-#undef  IDEA_SIGNAL
-#define IDEA_SIGNAL( ... )                   \
-        static_property(macro_join(signal, __VA_ARGS__))
-
-#undef  IDEA_DEF_SIGNAL
-#define IDEA_DEF_SIGNAL( ... )               \
-        IDEA_DEF_STATIC_PROPERTY2(macro_join(signal, __VA_ARGS__), @"signal", NSStringFromClass([self class]))
-
-#undef  IDEA_HANDLE_SIGNAL
-#define IDEA_HANDLE_SIGNAL( ... )            \
-        - (void) macro_join(handleSignal, macro_join(__VA_ARGS__)):(IDEAAppletSignal *)aSignal
-
-#pragma mark -
-
 //typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, id aObject );
 typedef NSObject * (^ IDEAAppletSignalBlock )( NSString *aName, HandlerBlockType aObject );
 
