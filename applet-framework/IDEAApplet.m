@@ -101,12 +101,12 @@
       
 #if __Debug__
    fprintf(stderr, "                                                                                   \n");
-   fprintf(stderr, "     ____    _                        __     _      _____                          \n");
-   fprintf(stderr, "    / ___\\  /_\\     /\\/\\    /\\ /\\    /__\\   /_\\     \\_   \\               \n");
-   fprintf(stderr, "    \\ \\    //_\\\\   /    \\  / / \\ \\  / \\//  //_\\\\     / /\\/              \n");
-   fprintf(stderr, "  /\\_\\ \\  /  _  \\ / /\\/\\ \\ \\ \\_/ / / _  \\ /  _  \\ /\\/ /_               \n");
-   fprintf(stderr, "  \\____/  \\_/ \\_/ \\/    \\/  \\___/  \\/ \\_/ \\_/ \\_/ \\____/                \n");
-   fprintf(stderr, "                                                                                   \n");
+//   fprintf(stderr, "     ____    _                        __     _      _____                          \n");
+//   fprintf(stderr, "    / ___\\  /_\\     /\\/\\    /\\ /\\    /__\\   /_\\     \\_   \\               \n");
+//   fprintf(stderr, "    \\ \\    //_\\\\   /    \\  / / \\ \\  / \\//  //_\\\\     / /\\/              \n");
+//   fprintf(stderr, "  /\\_\\ \\  /  _  \\ / /\\/\\ \\ \\ \\_/ / / _  \\ /  _  \\ /\\/ /_               \n");
+//   fprintf(stderr, "  \\____/  \\_/ \\_/ \\/    \\/  \\___/  \\/ \\_/ \\_/ \\_/ \\____/                \n");
+//   fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "                                                                                   \n");
    fprintf(stderr, "    version: %s\n", __SAMURAI_VERSION__);
    fprintf(stderr, "                                                                                   \n");
@@ -121,17 +121,17 @@
    fprintf(stderr, "  - version: %s\n", stSystemInfo.version);
    fprintf(stderr, "  - machine: %s\n", stSystemInfo.machine);
    fprintf(stderr, "                                                                                   \n");
-   fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
-   fprintf(stderr, "  |                                                                            |   \n");
-   fprintf(stderr, "  |  1. Have a bug or a feature request?                                       |   \n");
-   fprintf(stderr, "  |     https://github.com/hackers-painters/samurai-native/issues              |   \n");
-   fprintf(stderr, "  |                                                                            |   \n");
-   fprintf(stderr, "  |  2. Download lastest version?                                              |   \n");
-   fprintf(stderr, "  |     https://github.com/hackers-painters/samurai-native/archive/master.zip  |   \n");
-   fprintf(stderr, "  |                                                                            |   \n");
-   fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
-   fprintf(stderr, "                                                                                   \n");
-   fprintf(stderr, "                                                                                   \n");
+//   fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
+//   fprintf(stderr, "  |                                                                            |   \n");
+//   fprintf(stderr, "  |  1. Have a bug or a feature request?                                       |   \n");
+//   fprintf(stderr, "  |     https://github.com/hackers-painters/samurai-native/issues              |   \n");
+//   fprintf(stderr, "  |                                                                            |   \n");
+//   fprintf(stderr, "  |  2. Download lastest version?                                              |   \n");
+//   fprintf(stderr, "  |     https://github.com/hackers-painters/samurai-native/archive/master.zip  |   \n");
+//   fprintf(stderr, "  |                                                                            |   \n");
+//   fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
+//   fprintf(stderr, "                                                                                   \n");
+//   fprintf(stderr, "                                                                                   \n");
 #endif /* __Debug__ */
    
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
