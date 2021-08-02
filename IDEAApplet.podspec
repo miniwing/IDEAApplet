@@ -370,7 +370,7 @@ Pod::Spec.new do |spec|
 #  end
 
   pch_app_kit = <<-EOS
-  
+
 /******************************************************************************************************/
 
 #ifdef DEBUG
@@ -379,13 +379,18 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wformat"
 #  pragma clang diagnostic ignored                 "-Wswitch"
 #  pragma clang diagnostic ignored                 "-Wvarargs"
+#  pragma clang diagnostic ignored                 "-Wvarargs"
 #  pragma clang diagnostic ignored                 "-Wnonnull"
+#  pragma clang diagnostic ignored                 "-Wcomment"
+#  pragma clang diagnostic ignored                 "-Wprotocol"
 #  pragma clang diagnostic ignored                 "-Wpointer-sign"
 #  pragma clang diagnostic ignored                 "-Wdangling-else"
 #  pragma clang diagnostic ignored                 "-Wunused-result"
+#  pragma clang diagnostic ignored                 "-Wpch-date-time"
 #  pragma clang diagnostic ignored                 "-Wuninitialized"
 #  pragma clang diagnostic ignored                 "-Wdocumentation"
 #  pragma clang diagnostic ignored                 "-Wpch-date-time"
+#  pragma clang diagnostic ignored                 "-Wambiguous-macro"
 #  pragma clang diagnostic ignored                 "-Wenum-conversion"
 #  pragma clang diagnostic ignored                 "-Wunused-variable"
 #  pragma clang diagnostic ignored                 "-Wunused-function"
@@ -395,8 +400,10 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wshorten-64-to-32"
 #  pragma clang diagnostic ignored                 "-Wwritable-strings"
 #  pragma clang diagnostic ignored                 "-Wstrict-prototypes"
+#  pragma clang diagnostic ignored                 "-Wobjc-method-access"
 #  pragma clang diagnostic ignored                 "-Wdocumentation-html"
 #  pragma clang diagnostic ignored                 "-Wobjc-method-access"
+#  pragma clang diagnostic ignored                 "-Wincomplete-umbrella"
 #  pragma clang diagnostic ignored                 "-Wundeclared-selector"
 #  pragma clang diagnostic ignored                 "-Wimplicit-retain-self"
 #  pragma clang diagnostic ignored                 "-Wunguarded-availability"
@@ -407,8 +414,11 @@ Pod::Spec.new do |spec|
 #  pragma clang diagnostic ignored                 "-Wnullability-completeness"
 #  pragma clang diagnostic ignored                 "-Wobjc-missing-super-calls"
 #  pragma clang diagnostic ignored                 "-Wnonportable-include-path"
+#  pragma clang diagnostic ignored                 "-Warc-performSelector-leaks"
 #  pragma clang diagnostic ignored                 "-Wconditional-uninitialized"
+#  pragma clang diagnostic ignored                 "-Wincompatible-property-type"
 #  pragma clang diagnostic ignored                 "-Wincompatible-pointer-types"
+#  pragma clang diagnostic ignored                 "-Wunguarded-availability-new"
 #  pragma clang diagnostic ignored                 "-Wdeprecated-implementations"
 #  pragma clang diagnostic ignored                 "-Wmismatched-parameter-types"
 #  pragma clang diagnostic ignored                 "-Wobjc-redundant-literal-use"
@@ -427,6 +437,13 @@ Pod::Spec.new do |spec|
 #ifndef __IPHONE_10_0
 #  warning "This project uses features only available in iOS SDK 10.0 and later."
 #endif
+
+#import <sys/socket.h>
+#import <netinet/in.h>
+#import <netinet6/in6.h>
+#import <arpa/inet.h>
+#import <ifaddrs.h>
+#import <netdb.h>
 
 #import <objc/message.h>
 #import <objc/runtime.h>
@@ -923,5 +940,5 @@ __END_DECLS
 
   EOS
   spec.prefix_header_contents = pch_app_kit
-      
+
 end
