@@ -248,7 +248,11 @@ Pod::Spec.new do |spec|
 #  import <QuartzCore/QuartzCore.h>
 #  import <QuartzCore/CAAnimation.h>
 #  import <MessageUI/MessageUI.h>
-#endif /* __OBJC__ */
+#else /* __OBJC__ */
+#  import <stdlib.h>
+#  import <stdio.h>
+#  import <string.h>
+#endif /* !__OBJC__ */
 
 /******************************************************************************************************/
 
