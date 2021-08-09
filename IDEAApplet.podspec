@@ -560,40 +560,40 @@ Pod::Spec.new do |spec|
 // #  import "YYKit/YYKit.h"
 // #elif (__has_include("YYKit.h"))
 // #  import "YYKit.h"
-// #elif (__has_include("YYKit.h"))
-// #  import "YYKit.h"
 // #else /* YY_KIT */
+//
 // #  ifndef weakify
 // #     if __has_feature(objc_arc)
-// #        define weakify( x )                                               \\
-//             _Pragma("clang diagnostic push")                               \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-//             autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;     \\
+// #        define weakify( x )                                                                    \\
+//             _Pragma("clang diagnostic push")                                                    \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+//             autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;                          \\
 //             _Pragma("clang diagnostic pop")
 // #     else
-// #        define weakify( x )                                               \\
-//             _Pragma("clang diagnostic push")                               \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-//             autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;   \\
+// #        define weakify( x )                                                                    \\
+//             _Pragma("clang diagnostic push")                                                    \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+//             autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;                        \\
 //             _Pragma("clang diagnostic pop")
 // #     endif
 // #  endif /* !weakify */
-
+//
 // #  ifndef strongify
 // #     if __has_feature(objc_arc)
-// #        define strongify( x )                                             \\
-//             _Pragma("clang diagnostic push")                               \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-//             try{} @finally{} __typeof__(x) x = __weak_##x##__;             \\
+// #        define strongify( x )                                                                  \\
+//             _Pragma("clang diagnostic push")                                                    \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+//             try{} @finally{} __typeof__(x) x = __weak_##x##__;                                  \\
 //             _Pragma("clang diagnostic pop")
 // #     else
-// #        define strongify( x )                                             \\
-//             _Pragma("clang diagnostic push")                               \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-//             try{} @finally{} __typeof__(x) x = __block_##x##__;            \\
+// #        define strongify( x )                                                                  \\
+//             _Pragma("clang diagnostic push")                                                    \\
+//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+//             try{} @finally{} __typeof__(x) x = __block_##x##__;                                 \\
 //             _Pragma("clang diagnostic pop")
 // #     endif
 // #  endif /* !strongify */
+//
 // #endif
 
 #endif /* __OBJC__ */
@@ -910,19 +910,19 @@ __END_DECLS
                                                       } /*End else () */                                                      \\
                                                    }
 
-#if (__Debug__)
+#if (__DebugFunc__)
 #  define FunctionStart                            __Function_Start
 #  define FunctionEnd                              __Function_End
-#else
+#else /* (__DebugFunc__) */
 #  define FunctionStart()
 #  define FunctionEnd(x)
-#endif /* (__Debug__) */
+#endif /* (!__DebugFunc__) */
 
-#define __TRY                                      FunctionStart();           \\
+#define __TRY                                      FunctionStart();                                                           \\
                                                    do {
 
-#define __CATCH(nErr)                                 nErr = noErr;           \\
-                                                   } while (0);               \\
+#define __CATCH(nErr)                                 nErr = noErr;                                                           \\
+                                                   } while (0);                                                               \\
                                                    FunctionEnd(nErr);
 
 #define __LOG_FUNCTION                             LogFunc((@"%s :", __PRETTY_FUNCTION__))
@@ -935,8 +935,16 @@ __END_DECLS
 
 #define APPLET_DESCRIPTION                         (1)
 
-#define UI_AVAILABLE_SDK_IOS(_ios)                ((__IPHONE_##_ios != 0) &&                          \\
-                                                   (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_##_ios))
+#ifndef __DUMMY_CLASS
+# define __DUMMY_CLASS(_name_)                     @interface __DUMMY_CLASS_ ## _name_ : NSObject                             \\
+                                                   @end                                                                       \\
+                                                   @implementation __DUMMY_CLASS_ ## _name_                                   \\
+                                                   @end
+#endif
+
+/******************************************************************************************************/
+
+#define __AVAILABLE_SDK_IOS(_ios)                  ((__IPHONE_##_ios != 0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_##_ios))
 
 /******************************************************************************************************/
 

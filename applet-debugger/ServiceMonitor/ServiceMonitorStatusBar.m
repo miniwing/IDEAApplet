@@ -187,14 +187,14 @@ static const CGFloat             kBarHeight              = 20.0f;
       
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
-#ifdef __IPHONE_13_0
+#if __AVAILABLE_SDK_IOS(13_0)
       if (@available(iOS 13, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
          
       } /* End if () */
       else
-#endif /* __IPHONE_13_0 */
+#endif /* __AVAILABLE_SDK_IOS(13_0) */
       {
          
 //         _label.font             = [UIFont fontWithName:@"Menlo-Bold" size:12.0f];

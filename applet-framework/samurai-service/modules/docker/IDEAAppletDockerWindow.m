@@ -236,11 +236,11 @@
       
    } /* End if () */
    
-   if (@available(iOS 11, *)) {
-      
-//      stWindowBound.origin.y  = stWindowBound.origin.y - [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
-      
-   } /* End if () */
+//   if (@available(iOS 11, *)) {
+//      
+////      stWindowBound.origin.y  = stWindowBound.origin.y - [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+//      
+//   } /* End if () */
    
    self.frame = stWindowBound;
    
