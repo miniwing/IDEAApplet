@@ -330,10 +330,12 @@ Pod::Spec.new do |spec|
 #  define __dispatch_release(x)                    dispatch_release((x))
 #endif
 
+/******************************************************************************************************/
+
 #define __ON__                                     (1)
 #define __OFF__                                    (0)
 
-#if defined(DEBUG) && (1==DEBUG)
+#if (defined(DEBUG) && (1==DEBUG))
 #  define __AUTO__                                 (1)
 #  define __Debug__                                (1)
 #else

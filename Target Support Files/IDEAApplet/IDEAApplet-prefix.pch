@@ -90,7 +90,10 @@
 #else
 #  define __RETAIN(x)                              [(x) retain];
 #  define __AUTORELEASE(x)                         [(x) autorelease];
-#  define __RELEASE(x)                             if (nil != (x))                                                                                      {                                                                                                       [(x) release];                                                                                       (x) = nil;                                                                                        }
+#  define __RELEASE(x)                             if (nil != (x)) {                               \\
+                                                      [(x) release];                               \\
+                                                      (x) = nil;                                   \\
+                                                   }
 #  define __SUPER_DEALLOC                          objc_removeAssociatedObjects(self);[super dealloc];
 #  define __dispatch_release(x)                    dispatch_release((x))
 #endif
