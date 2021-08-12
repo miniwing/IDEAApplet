@@ -60,13 +60,13 @@
    
    if (self) {
       
-      _uploadStartBytes = 0;
-      _downloadStartBytes = 0;
+      _uploadStartBytes    = 0;
+      _downloadStartBytes  = 0;
 
-      self.uploadBytes = 0;
-      self.downloadBytes = 0;
+      self.uploadBytes     = 0;
+      self.downloadBytes   = 0;
       
-      self.uploadHistory = [[NSMutableArray alloc] init];
+      self.uploadHistory   = [[NSMutableArray alloc] init];
       self.downloadHistory = [[NSMutableArray alloc] init];
       
       for (NSUInteger i = 0; i < MAX_HISTORY; ++i) {
@@ -86,7 +86,7 @@
 - (void)dealloc {
    
    [self.uploadHistory removeAllObjects];
-   self.uploadHistory = nil;
+   self.uploadHistory   = nil;
 
    [self.downloadHistory removeAllObjects];
    self.downloadHistory = nil;
