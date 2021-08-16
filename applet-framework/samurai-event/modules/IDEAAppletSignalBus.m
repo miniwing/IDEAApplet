@@ -510,9 +510,9 @@
             if (NO == bPerformed) {
                
                szSelectorName = [aSignal.name substringFromIndex:@"selector.".length];
-               //               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-               //               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-               //               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+//               szSelectorName = [szSelectorName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
                
                stSelector = NSSelectorFromString(szSelectorName);
                
