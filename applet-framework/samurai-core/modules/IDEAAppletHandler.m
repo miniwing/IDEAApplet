@@ -137,12 +137,14 @@
 - (BOOL)trigger:(NSString *)name withObject:(id)object {
    
    if ( nil == name ) {
+      
       return NO;
    }
    
    HandlerBlockType   stBlock = (HandlerBlockType)[_blocks objectForKey:name];
    
    if ( nil == stBlock ) {
+      
       return NO;
    }
    

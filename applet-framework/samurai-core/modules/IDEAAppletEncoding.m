@@ -272,48 +272,48 @@
    return EncodingType_Unknown;
 }
 
-+ (EncodingType)typeOfObject:(id)obj {
++ (EncodingType)typeOfObject:(id)aObject {
    
-   if ( nil == obj ) {
+   if ( nil == aObject ) {
       
       return EncodingType_Unknown;
    }
    
-   if ( [obj isKindOfClass:[NSNumber class]] ) {
+   if ( [aObject isKindOfClass:[NSNumber class]] ) {
       
       return EncodingType_Number;
    }
-   else if ( [obj isKindOfClass:[NSString class]] ) {
+   else if ( [aObject isKindOfClass:[NSString class]] ) {
       
       return EncodingType_String;
    }
-   else if ( [obj isKindOfClass:[NSDate class]] ) {
+   else if ( [aObject isKindOfClass:[NSDate class]] ) {
       
       return EncodingType_Date;
    }
-   else if ( [obj isKindOfClass:[NSArray class]] ) {
+   else if ( [aObject isKindOfClass:[NSArray class]] ) {
       
       return EncodingType_Array;
    }
-   else if ( [obj isKindOfClass:[NSSet class]] ) {
+   else if ( [aObject isKindOfClass:[NSSet class]] ) {
       
       return EncodingType_Array;
    }
-   else if ( [obj isKindOfClass:[NSDictionary class]] ) {
+   else if ( [aObject isKindOfClass:[NSDictionary class]] ) {
       
       return EncodingType_Dict;
    }
-   else if ( [obj isKindOfClass:[NSData class]] ) {
+   else if ( [aObject isKindOfClass:[NSData class]] ) {
       
       return EncodingType_Data;
    }
-   else if ( [obj isKindOfClass:[NSURL class]] ) {
+   else if ( [aObject isKindOfClass:[NSURL class]] ) {
       
       return EncodingType_Url;
    }
    else {
       
-      const char * className = [[[obj class] description] UTF8String];
+      const char * className = [[[aObject class] description] UTF8String];
       return [self typeOfClassName:className];
    }
 }

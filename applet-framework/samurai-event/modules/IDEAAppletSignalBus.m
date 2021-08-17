@@ -108,18 +108,18 @@
    
 //// Check if foreign source
 //
-//   if (aSignal.name)
-//   {
+//   if (aSignal.name) {
+//
 //      aSignal.foreign = nil;
 //
 //      NSArray * nameComponents = [aSignal.name componentsSeparatedByString:@"."];
-//      if (nameComponents.count > 2 && [[nameComponents objectAtIndex:0] isEqualToString:@"signal"])
-//      {
+//      if (nameComponents.count > 2 && [[nameComponents objectAtIndex:0] isEqualToString:@"signal"]) {
+//
 //         NSString * sourceName = [[aSignal.source class] description];
 //         NSString * namePrefix = [nameComponents objectAtIndex:1];
 //
-//         if (NO == [sourceName isEqualToString:namePrefix])
-//         {
+//         if (NO == [sourceName isEqualToString:namePrefix]) {
+//
 //            aSignal.prefix  = namePrefix;
 //            aSignal.foreign = signal.source;
 //         }
@@ -127,7 +127,6 @@
 //   }
 
    // Routes signal
-   
    if (aSignal.target) {
       
       aSignal.sending   = YES;
@@ -266,6 +265,8 @@
       
    } /* End for () */
    
+//   LogDebug((@"-[IDEAAppletSignalBus routes:] : Class : %@", stClasses));
+   
    [self routes:aSignal to:aSignal.target forClasses:stClasses];
    
    if (NO == aSignal.arrived) {
@@ -273,6 +274,8 @@
       NSObject       *stObject      = [aSignal.target signalResponders];
       EncodingType    eObjectType   = [IDEAAppletEncoding typeOfObject:stObject];
       
+//      LogDebug((@"-[IDEAAppletSignalBus routes:] : signalResponders : %@", stObject));
+
       if (nil == stObject) {
          
          aSignal.arrived = YES;
@@ -282,27 +285,59 @@
          
          if (EncodingType_Array == eObjectType) {
             
-            NSArray  *stResponders = (NSArray *)stObject;
+//            NSArray  *stResponders = (NSArray *)stObject;
+//
+//            if (1 == stResponders.count) {
+//
+//               if (NO == aSignal.dead) {
+//
+//                  [aSignal log:aSignal.target];
+//
+//                  aSignal.target = [stResponders objectAtIndex:0];
+//                  aSignal.sending = YES;
+//
+//                  [self routes:aSignal];
+//
+//               } /* End if () */
+//
+////               [self forward:signal to:[responders objectAtIndex:0]];
+//
+//            } /* End if () */
+//            else {
+//
+//               for (NSObject *stResponder in stResponders) {
+//
+//                  IDEAAppletSignal  *stClonedSignal = [aSignal clone];
+//
+//                  if (stClonedSignal) {
+//
+//                     if (NO == stClonedSignal.dead) {
+//
+//                        [stClonedSignal log:stClonedSignal.target];
+//
+//                        stClonedSignal.target = stResponder;
+//                        stClonedSignal.sending = YES;
+//
+//                        [self routes:stClonedSignal];
+//
+//                     } /* End if () */
+//
+////                  [self forward:clonedSignal to:responder];
+//
+//                  } /* End if () */
+//
+//               } /* End for () */
+//
+//            } /* End else */
             
-            if (1 == stResponders.count) {
-               
-               if (NO == aSignal.dead) {
-                  
-                  [aSignal log:aSignal.target];
-                  
-                  aSignal.target = [stResponders objectAtIndex:0];
-                  aSignal.sending = YES;
-                  
-                  [self routes:aSignal];
-                  
-               } /* End if () */
-               
-//               [self forward:signal to:[responders objectAtIndex:0]];
-               
+            if ([(NSArray *)stObject containsObject:aSignal.source]) {
+
+//               LogDebug((@"-[IDEAAppletSignalBus routes:] : Signal.target : %@", aSignal.target));
+
             } /* End if () */
             else {
                
-               for (NSObject *stResponder in stResponders) {
+               for (NSObject *stResponder in (NSArray *)stObject) {
                   
                   IDEAAppletSignal  *stClonedSignal = [aSignal clone];
                   
@@ -319,13 +354,14 @@
                         
                      } /* End if () */
                      
-                     //   [self forward:clonedSignal to:responder];
+//                  [self forward:clonedSignal to:responder];
                      
                   } /* End if () */
                   
                } /* End for () */
-               
+
             } /* End else */
+
          }
          else {
             
@@ -340,7 +376,7 @@
                
             } /* End if () */
             
-//   [self forward:signal to:object];
+//          [self forward:signal to:object];
             
          } /* End else */
          
@@ -414,22 +450,22 @@
          
       } /* End if () */
       
-//      if (szNameSpace || szTagString)
-      {
-         if (szNameSpace && szTagString) {
-            
-            szPrioSelector = [NSString stringWithFormat:@"%@_%@", szNameSpace, szTagString];
-            
-         } /* End if () */
-//         else if (nameSpace)
-//         {
-//            prioSelector = nameSpace;
-//         }
-//         else if (tagString)
-//         {
-//            prioSelector = tagString;
-//         }
-      }
+//      if (szNameSpace || szTagString) {
+//
+      if (szNameSpace && szTagString) {
+         
+         szPrioSelector = [NSString stringWithFormat:@"%@_%@", szNameSpace, szTagString];
+         
+      } /* End if () */
+//      else if (nameSpace) {
+//
+//         prioSelector = nameSpace;
+//      }
+//      else if (tagString) {
+//
+//         prioSelector = tagString;
+//      }
+//    }
       
       szPrioAlias = [aSignal.source signalAlias];
       
@@ -460,8 +496,8 @@
          
          if (stCachedSelector) {
             
-            BOOL hit = [self signal:aSignal perform:stCachedSelector class:stTargetClass target:aTarget];
-            if (hit) {
+            BOOL bHit = [self signal:aSignal perform:stCachedSelector class:stTargetClass target:aTarget];
+            if (bHit) {
                
 //               continue;
                break;
@@ -474,7 +510,6 @@
       
       //      do
       {
-         
          NSString *szSelectorName   = nil;
          SEL       stSelector       = nil;
          BOOL      bPerformed       = NO;
@@ -881,6 +916,8 @@
       }
       //      while (0);
    }
+   
+   return;
 }
 
 - (BOOL)signal:(IDEAAppletSignal *)aSignal perform:(SEL)aSEL class:(Class)aClass target:(id)aTarget {
@@ -897,6 +934,7 @@
    if (NO == bPerformed) {
       
       IDEAAppletHandler *stHandler  = [aTarget blockHandler];
+      
       if (stHandler) {
          
          BOOL   bFound  = [stHandler trigger:[NSString stringWithUTF8String:sel_getName(aSEL)] withObject:aSignal];
@@ -937,8 +975,7 @@
    } /* End if () */
    
 #if __SAMURAI_DEBUG__
-#if __SIGNAL_CALLSTACK__
-   
+#  if __SIGNAL_CALLSTACK__
    NSString * selName = [NSString stringWithUTF8String:sel_getName(sel)];
    NSString * className = [clazz description];
    
@@ -951,8 +988,7 @@
    }
    
    PERF(@"  %@ [%d] %@::%@", performed ? @"✔" : @"✖", signal.jumpCount, className, selName);
-   
-#endif
+#  endif
 #endif
    
    return bPerformed;

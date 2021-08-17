@@ -43,8 +43,8 @@ Pod::Spec.new do |spec|
 
   spec.xcconfig                     = {
     'HEADER_SEARCH_PATHS'               => [
-                                              "${PODS_TARGET_SRCROOT}/",
-                                              "${PODS_TARGET_SRCROOT}/../",
+#                                              "${PODS_TARGET_SRCROOT}/",
+#                                              "${PODS_TARGET_SRCROOT}/../",
 #                                              '"${PODS_TARGET_SRCROOT}/applet-framework"/**',
 #                                              '"${PODS_TARGET_SRCROOT}/applet-webcore/vendor"/**',
 #                                              "${PODS_ROOT}/Headers/Public/IDEAApplet/",

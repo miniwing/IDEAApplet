@@ -44,9 +44,9 @@ Pod::Spec.new do |spec|
   
   spec.xcconfig                     = {
     'HEADER_SEARCH_PATHS'               => [
-                                            '${PODS_TARGET_SRCROOT}/',
-                                            '${PODS_TARGET_SRCROOT}/../',
-                                            '"${PODS_TARGET_SRCROOT}/"/**',
+#                                            '${PODS_TARGET_SRCROOT}/',
+#                                            '${PODS_TARGET_SRCROOT}/../',
+#                                            '"${PODS_TARGET_SRCROOT}/"/**',
 #                                            "${PODS_ROOT}/AFNetworking/**",
 #                                            "${PODS_ROOT}/Headers/Public/AFNetworking",
                                            ],
