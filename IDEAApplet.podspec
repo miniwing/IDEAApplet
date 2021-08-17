@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                 = "IDEAApplet"
-  spec.version              = "1.0.1"
+  spec.version              = "1.0.3"
   spec.summary              = "IDEAApplet"
   spec.description          = "IDEAApplet"
   spec.homepage             = "https://github.com/miniwing"
