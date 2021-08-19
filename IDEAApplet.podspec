@@ -754,6 +754,20 @@ NS_INLINE void ____LoggerDebug(NSString *aFormat, ...) {
    return;
 }
 
+NS_INLINE void ____LoggerClass(Class aClass) {
+   
+   unsigned int    nMethodCount  = 0;
+   Method         *stMethods     = class_copyMethodList(aClass, &nMethodCount);
+   
+   for (int H = 0; H< nMethodCount; H++) {
+      
+      NSLog(@\"    method name = %@ type = %s\", NSStringFromSelector(method_getName(stMethods[H])), method_getTypeEncoding(stMethods[H]));
+      
+   } /* End for () */
+   
+   return;
+}
+
 #else
 
 __BEGIN_DECLS
@@ -869,8 +883,10 @@ __END_DECLS
 
 #if __DebugDebug__
 #  define LogDebug(x)                              ____LoggerDebug x
+#  define LoggerClass(x)                           ____LoggerClass x
 #else
 #  define LogDebug(x)
+#  define LoggerClass(x)
 #endif
 
 #if __DebugWarn__
