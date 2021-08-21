@@ -257,58 +257,45 @@ Pod::Spec.new do |spec|
 /******************************************************************************************************/
 
 #if __has_include(<FoundationExtension/FoundationExtension.h>)
-#  define FOUNDATION_EXTENSION                                          (1)
 #  import <FoundationExtension/FoundationExtension.h>
+#  define FOUNDATION_EXTENSION                                          (1)
 #elif __has_include("FoundationExtension/FoundationExtension.h")
-#  define FOUNDATION_EXTENSION                                          (1)
 #  import "FoundationExtension/FoundationExtension.h"
-#elif __has_include("FoundationExtension.h")
 #  define FOUNDATION_EXTENSION                                          (1)
-#  import "FoundationExtension.h"
 #else
 #  define FOUNDATION_EXTENSION                                          (0)
 #endif
 
 #if __has_include(<UIKitExtension/UIKitExtension.h>)
-#  define UIKIT_EXTENSION                                               (1)
 #  import <UIKitExtension/UIKitExtension.h>
+#  define UIKIT_EXTENSION                                               (1)
 #elif __has_include("UIKitExtension/UIKitExtension.h")
-#  define UIKIT_EXTENSION                                               (1)
 #  import "UIKitExtension/UIKitExtension.h"
-#elif __has_include("UIKitExtension.h")
 #  define UIKIT_EXTENSION                                               (1)
-#  import "UIKitExtension.h"
 #else
 #  define UIKIT_EXTENSION                                               (0)
 #endif
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
-#  define AF_NETWORKING                                                 (1)
 #  import <AFNetworking/AFNetworking.h>
 #  import <AFNetworking/AFNetworkActivityIndicatorManager.h>
-#elif __has_include("AFNetworking/AFNetworking.h")
 #  define AF_NETWORKING                                                 (1)
+#elif __has_include("AFNetworking/AFNetworking.h")
 #  import "AFNetworking/AFNetworking.h"
 #  import "AFNetworking/AFNetworkActivityIndicatorManager.h"
-#elif __has_include("AFNetworking.h")
 #  define AF_NETWORKING                                                 (1)
-#  import "AFNetworking.h"
-#  import "AFNetworkActivityIndicatorManager.h"
 #else
 #  define AF_NETWORKING                                                 (0)
 #endif
 
 #if __has_include(<IDEANightVersion/DKNightVersion.h>)
-# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
-# import <IDEANightVersion/DKNightVersion.h>
+#  import <IDEANightVersion/DKNightVersion.h>
+#  define IDEA_NIGHT_VERSION_MANAGER                                     (1)
 #elif __has_include("IDEANightVersion/DKNightVersion.h")
-# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
-# import "IDEANightVersion/DKNightVersion.h"
-#elif __has_include("DKNightVersion.h")
-# define IDEA_NIGHT_VERSION_MANAGER                                     (1)
-# import "DKNightVersion.h"
+#  import "IDEANightVersion/DKNightVersion.h"
+#  define IDEA_NIGHT_VERSION_MANAGER                                     (1)
 #else
-# define IDEA_NIGHT_VERSION_MANAGER                                     (0)
+#  define IDEA_NIGHT_VERSION_MANAGER                                     (0)
 #endif
 
 /******************************************************************************************************/

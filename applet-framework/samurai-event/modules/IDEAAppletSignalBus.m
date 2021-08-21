@@ -267,8 +267,19 @@
    
 //   LogDebug((@"-[IDEAAppletSignalBus routes:] : Class : %@", stClasses));
    
+   if (nil != [aSignal.target getAssociatedObjectForKey:@selector(routes:)]) {
+      
+      nErr  = noErr;
+      
+      break;
+      
+   } /* End if () */
+
    [self routes:aSignal to:aSignal.target forClasses:stClasses];
    
+   [aSignal.target assignAssociatedObject:aSignal.target
+                                   forKey:@selector(routes:)];
+
    if (NO == aSignal.arrived) {
       
       NSObject       *stObject      = [aSignal.target signalResponders];
@@ -330,39 +341,68 @@
 //
 //            } /* End else */
             
-            if ([(NSArray *)stObject containsObject:aSignal.source]) {
+//            if ([(NSArray *)stObject containsObject:aSignal.source]) {
+//
+////               LogDebug((@"-[IDEAAppletSignalBus routes:] : Signal.target : %@", aSignal.target));
+//
+//            } /* End if () */
+//            else {
+//
+//               for (NSObject *stResponder in (NSArray *)stObject) {
+//
+//                  if (nil != getAssociatedObjectForKey(@selector(routes:))) {
+//
+//                     continue;
+//
+//                  } /* End if () */
+//
+//                  IDEAAppletSignal  *stClonedSignal = [aSignal clone];
+//
+//                  if (stClonedSignal) {
+//
+//                     if (NO == stClonedSignal.dead) {
+//
+//                        [stClonedSignal log:stClonedSignal.target];
+//
+//                        stClonedSignal.target = stResponder;
+//                        stClonedSignal.sending = YES;
+//
+//                        [self routes:stClonedSignal];
+//
+//                     } /* End if () */
+//
+////                  [self forward:clonedSignal to:responder];
+//
+//                  } /* End if () */
+//
+//               } /* End for () */
+//
+//            } /* End else */
 
-//               LogDebug((@"-[IDEAAppletSignalBus routes:] : Signal.target : %@", aSignal.target));
-
-            } /* End if () */
-            else {
+            for (NSObject *stResponder in (NSArray *)stObject) {
+                              
+               IDEAAppletSignal  *stClonedSignal = [aSignal clone];
                
-               for (NSObject *stResponder in (NSArray *)stObject) {
+               if (stClonedSignal) {
                   
-                  IDEAAppletSignal  *stClonedSignal = [aSignal clone];
-                  
-                  if (stClonedSignal) {
+                  if (NO == stClonedSignal.dead) {
                      
-                     if (NO == stClonedSignal.dead) {
-                        
-                        [stClonedSignal log:stClonedSignal.target];
-                        
-                        stClonedSignal.target = stResponder;
-                        stClonedSignal.sending = YES;
-                        
-                        [self routes:stClonedSignal];
-                        
-                     } /* End if () */
+                     [stClonedSignal log:stClonedSignal.target];
                      
-//                  [self forward:clonedSignal to:responder];
+                     stClonedSignal.target = stResponder;
+                     stClonedSignal.sending = YES;
                      
+                     [self routes:stClonedSignal];
+                                          
                   } /* End if () */
                   
-               } /* End for () */
+//                  [self forward:clonedSignal to:responder];
+                  
+               } /* End if () */
+               
+            } /* End for () */
 
-            } /* End else */
-
-         }
+         } /* End if () */
          else {
             
             if (NO == aSignal.dead) {
@@ -384,6 +424,8 @@
       
    } /* End if () */
    
+   [aSignal.target removeAssociatedObjectForKey:@selector(routes:)];
+
    __CATCH(nErr);
    
    return;

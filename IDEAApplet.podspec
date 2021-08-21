@@ -75,7 +75,10 @@ Pod::Spec.new do |spec|
 #  spec.dependency 'AFNetworking/Reachability'
 #  spec.dependency 'AFNetworking/NSURLSession'
 
-#  spec.dependency 'YYKit'
+  if ENV['IDEA_YYKIT'] == 'YES'
+    spec.dependency 'YYKit'
+  end # IDEA_YYKIT
+
 #  spec.dependency 'OpenSSL-Universal'
 #  spec.dependency 'MIHCrypto'
 #  spec.dependency 'RegexKitLite'
@@ -465,14 +468,11 @@ Pod::Spec.new do |spec|
 #ifdef __OBJC__
 
 #  if __has_include(<FoundationExtension/FoundationExtension.h>)
-#     define FOUNDATION_EXTENSION                                          (1)
 #     import <FoundationExtension/FoundationExtension.h>
+#     define FOUNDATION_EXTENSION                                          (1)
 #  elif __has_include("FoundationExtension/FoundationExtension.h")
-#     define FOUNDATION_EXTENSION                                          (1)
 #     import "FoundationExtension/FoundationExtension.h"
-#  elif __has_include("FoundationExtension.h")
 #     define FOUNDATION_EXTENSION                                          (1)
-#     import "FoundationExtension.h"
 #  else
 #     define FOUNDATION_EXTENSION                                          (0)
 #  endif
@@ -483,38 +483,28 @@ Pod::Spec.new do |spec|
 #  elif __has_include("RTRootNavigationController/RTRootNavigationController.h")
 #     import "RTRootNavigationController/RTRootNavigationController.h"
 #     define RT_ROOT_NAVIGATIONCONTROLLER                                  (1)
-#  elif __has_include("RTRootNavigationController.h")
-#     import "RTRootNavigationController.h"
-#     define RT_ROOT_NAVIGATIONCONTROLLER                                  (1)
 #  else
 #     define RT_ROOT_NAVIGATIONCONTROLLER                                  (0)
 #  endif
 
 #  if __has_include(<IDEANightVersion/DKNightVersion.h>)
-#     define DK_NIGHT_VERSION                                              (1)
 #     import <IDEANightVersion/DKNightVersion.h>
+#     define DK_NIGHT_VERSION                                              (1)
 #  elif __has_include("IDEANightVersion/DKNightVersion.h")
-#     define DK_NIGHT_VERSION                                              (1)
 #     import "IDEANightVersion/DKNightVersion.h"
-#  elif __has_include("DKNightVersion.h")
 #     define DK_NIGHT_VERSION                                              (1)
-#     import "DKNightVersion.h"
 #  else
 #     define DK_NIGHT_VERSION                                              (0)
 #  endif
 
 #  if __has_include(<AFNetworking/AFNetworking.h>)
-#     define AF_NETWORKING                                                 (1)
 #     import <AFNetworking/AFNetworking.h>
 #     import <AFNetworking/AFNetworkActivityIndicatorManager.h>
-#  elif __has_include("AFNetworking/AFNetworking.h")
 #     define AF_NETWORKING                                                 (1)
+#  elif __has_include("AFNetworking/AFNetworking.h")
 #     import "AFNetworking/AFNetworking.h"
 #     import "AFNetworking/AFNetworkActivityIndicatorManager.h"
-#  elif __has_include("AFNetworking.h")
 #     define AF_NETWORKING                                                 (1)
-#     import "AFNetworking.h"
-#     import "AFNetworkActivityIndicatorManager.h"
 #  else
 #     define AF_NETWORKING                                                 (0)
 #  endif

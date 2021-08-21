@@ -185,8 +185,6 @@
    return oldValue;
 }
 
-#if FOUNDATION_EXTENSION
-#else
 - (id)assignAssociatedObject:(id)obj forKey:(const char *)key {
    
    const char * propName = key; // [[NSString stringWithFormat:@"%@.%s", NSStringFromClass([self class]), key] UTF8String];
@@ -205,7 +203,6 @@
    
    return;
 }
-#endif
 
 - (void)removeAllAssociatedObjects {
    
