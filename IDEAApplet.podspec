@@ -36,7 +36,6 @@ Pod::Spec.new do |spec|
                                            ]
                                       }
 
-
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
 
