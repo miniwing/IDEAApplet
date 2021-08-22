@@ -252,8 +252,8 @@
    return;
 }
 
-+ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue
-{
++ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
+   
    if (NULL == aQueue) {
       
       aQueue   = [IDEAAppletQueue sharedInstance].concurrent;

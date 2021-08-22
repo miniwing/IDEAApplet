@@ -49,12 +49,12 @@
    NSMutableDictionary * _map;
 }
 
-@def_singleton( IDEAAppletNotificationCenter )
+@def_singleton(IDEAAppletNotificationCenter)
 
 - (id)init {
    
    self = [super init];
-   if ( self ) {
+   if (self) {
       
       _map = [[NSMutableDictionary alloc] init];
       
@@ -84,7 +84,7 @@
 
 - (void)postNotification:(NSString *)aName object:(id)aObject {
    
-   INFO( @"Notification '%@'", [name stringByReplacingOccurrencesOfString:@"notification." withString:@""] );
+   INFO(@"Notification '%@'", [name stringByReplacingOccurrencesOfString:@"notification." withString:@""]);
    
    [[NSNotificationCenter defaultCenter] postNotificationName:aName object:aObject];
    
@@ -93,7 +93,7 @@
 
 - (void)addObserver:(id)aObserver forNotification:(NSString *)aName {
    
-   if ( nil == aObserver ) {
+   if (nil == aObserver) {
       
       return;
       
@@ -104,7 +104,7 @@
    
    NSMutableArray *stObservers   = [_map objectForKey:aName];
    
-   if ( nil == stObservers ) {
+   if (nil == stObservers) {
       
       stObservers = [NSMutableArray nonRetainingArray];
       
@@ -112,7 +112,7 @@
       
    } /* End if () */
    
-   if ( NO == [stObservers containsObject:aObserver] ) {
+   if (NO == [stObservers containsObject:aObserver]) {
       
       [stObservers addObject:aObserver];
       
@@ -125,13 +125,13 @@
    
    NSMutableArray *stObservers   = [_map objectForKey:aName];
    
-   if ( stObservers ) {
+   if (stObservers) {
       
       [stObservers removeObject:aObserver];
       
    } /* End if () */
    
-   if ( nil == stObservers || 0 == stObservers.count ) {
+   if (nil == stObservers || 0 == stObservers.count) {
       
       [_map removeObjectForKey:aName];
       
@@ -144,7 +144,7 @@
 
 - (void)removeObserver:(id)aObserver {
    
-   for ( NSMutableArray *stObservers in _map.allValues ) {
+   for (NSMutableArray *stObservers in _map.allValues) {
       
       [stObservers removeObject:aObserver];
       
@@ -159,9 +159,9 @@
    
    NSMutableArray *stObservers   = [_map objectForKey:aNotification.name];
    
-   if ( stObservers && stObservers.count ) {
+   if (stObservers && stObservers.count) {
       
-      for ( NSObject * observer in stObservers ) {
+      for (NSObject * observer in stObservers) {
          
          [[IDEAAppletNotificationBus sharedInstance] routes:aNotification target:observer];
          
@@ -182,13 +182,13 @@
 
 #if __SAMURAI_TESTING__
 
-TEST_CASE( Event, NotificationCenter )
+TEST_CASE(Event, NotificationCenter)
 
-DESCRIBE( before ) {
+DESCRIBE(before) {
    
 }
 
-DESCRIBE( after ) {
+DESCRIBE(after) {
    
 }
 

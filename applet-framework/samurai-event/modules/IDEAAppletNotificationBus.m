@@ -142,7 +142,7 @@
             BOOL bHit = [self notification:aNotification perform:stCachedSelector class:stTargetClass target:aTarget];
             if ( bHit ) {
                
-               //               continue;
+//               continue;
                break;
                
             } /* End if () */
