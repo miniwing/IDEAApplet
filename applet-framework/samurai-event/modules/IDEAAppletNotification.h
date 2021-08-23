@@ -114,10 +114,19 @@ typedef NSNotification IDEAAppletNotification;
 + (void)postNotify:(NSString *)aName;
 - (void)postNotify:(NSString *)aName;
 
++ (void)postNotify:(NSString *)aName completion:(void (^)(void))aCompletion;
+- (void)postNotify:(NSString *)aName completion:(void (^)(void))aCompletion;
+
 + (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
 - (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue;
 
++ (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion;
+- (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion;
+
 + (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
 - (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue;
+
++ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion;
+- (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion;
 
 @end

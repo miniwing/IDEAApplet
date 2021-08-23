@@ -239,15 +239,44 @@
    return;
 }
 
++ (void)postNotify:(NSString *)aName completion:(void (^)(void))aCompletion {
+   
+   [self postNotify:aName withObject:nil onQueue:NULL completion:aCompletion];
+      
+   return;
+}
+
+- (void)postNotify:(NSString *)aName completion:(void (^)(void))aCompletion {
+   
+   [self postNotify:aName withObject:nil onQueue:NULL completion:aCompletion];
+      
+   return;
+}
+
 + (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
    
    [self postNotify:aName withObject:nil onQueue:aQueue];
 
    return;
 }
+
 - (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
    
    [self postNotify:aName withObject:nil onQueue:aQueue];
+
+   return;
+}
+
++ (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+
+   [self postNotify:aName withObject:nil onQueue:aQueue completion:aCompletion];
+
+   return;
+}
+
+- (void)postNotify:(NSString *)aName onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+
+   [self postNotify:aName withObject:nil onQueue:aQueue completion:aCompletion];
 
    return;
 }
@@ -276,6 +305,40 @@
 - (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
    [NSObject postNotify:aName withObject:aObject onQueue:aQueue];
+
+   return;
+}
+
++ (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+
+   if (NULL == aQueue) {
+
+      aQueue   = [IDEAAppletQueue sharedInstance].concurrent;
+
+   } /* End if () */
+
+   dispatch_async(aQueue, ^{
+
+      @autoreleasepool {
+
+         [[IDEAAppletNotificationCenter sharedInstance] postNotification:aName object:aObject];
+
+         if (aCompletion) {
+
+            aCompletion();
+
+         } /* End if () */
+
+      }; /* @autoreleasepool */
+
+   });
+
+   return;
+}
+
+- (void)postNotify:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+
+   [NSObject postNotify:aName withObject:aObject onQueue:aQueue completion:aCompletion];
 
    return;
 }
