@@ -49,10 +49,10 @@
 #import "IDEAAppletNamespace.h"
 
 // Extensions
-#import "NSObject+Extension.h"
-#import "NSString+Extension.h"
-#import "NSArray+Extension.h"
-#import "NSMutableArray+Extension.h"
+#import "IDEAApplet/NSObject+Extension.h"
+#import "IDEAApplet/NSString+Extension.h"
+#import "IDEAApplet/NSArray+Extension.h"
+#import "IDEAApplet/NSMutableArray+Extension.h"
 #import "NSBundle+Extension.h"
 #import "NSData+Extension.h"
 #import "NSDate+Extension.h"
@@ -61,7 +61,6 @@
 #import "NSMutableDictionary+Extension.h"
 
 // Namesapce
-
 
 @namespace( core )                                    // S.core
 @namespace( core, debugger ,   IDEAAppletDebugger )   // S.core.debugger

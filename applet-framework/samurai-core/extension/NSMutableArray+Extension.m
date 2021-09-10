@@ -28,7 +28,7 @@
 //   THE SOFTWARE.
 //
 
-#import "NSMutableArray+Extension.h"
+#import "IDEAApplet/NSMutableArray+Extension.h"
 
 #import "IDEAAppletUnitTest.h"
 

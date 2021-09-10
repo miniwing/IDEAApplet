@@ -28,9 +28,9 @@
 //   THE SOFTWARE.
 //
 
-#import "NSString+Extension.h"
+#import "IDEAApplet/NSString+Extension.h"
 #import "NSData+Extension.h"
-#import "NSObject+Extension.h"
+#import "IDEAApplet/NSObject+Extension.h"
 
 #import "IDEAAppletEncoding.h"
 #import "IDEAAppletSystem.h"

@@ -33,7 +33,7 @@
 #import "IDEAAppletUnitTest.h"
 #import "IDEAAppletRuntime.h"
 
-#import "NSObject+Extension.h"
+#import "IDEAApplet/NSObject+Extension.h"
 #import "NSDate+Extension.h"
 #import "NSDictionary+Extension.h"
 #import "NSMutableDictionary+Extension.h"

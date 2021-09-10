@@ -32,9 +32,9 @@
 #import "IDEAAppletLog.h"
 #import "IDEAAppletUnitTest.h"
 
-#import "NSObject+Extension.h"
-#import "NSArray+Extension.h"
-#import "NSMutableArray+Extension.h"
+#import "IDEAApplet/NSObject+Extension.h"
+#import "IDEAApplet/NSArray+Extension.h"
+#import "IDEAApplet/NSMutableArray+Extension.h"
 
 #import "__pragma_push.h"
 

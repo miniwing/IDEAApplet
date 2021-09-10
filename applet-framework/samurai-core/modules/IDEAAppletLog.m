@@ -31,8 +31,8 @@
 #import "IDEAAppletLog.h"
 #import "IDEAAppletUnitTest.h"
 
-#import "NSArray+Extension.h"
-#import "NSMutableArray+Extension.h"
+#import "IDEAApplet/NSArray+Extension.h"
+#import "IDEAApplet/NSMutableArray+Extension.h"
 
 #if __SAMURAI_DEBUG__
 #import "fishhook.h"

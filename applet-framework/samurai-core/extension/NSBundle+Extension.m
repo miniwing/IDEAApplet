@@ -29,7 +29,7 @@
 //
 
 #import "NSBundle+Extension.h"
-#import "NSObject+Extension.h"
+#import "IDEAApplet/NSObject+Extension.h"
 
 #import "IDEAAppletSystem.h"
 #import "IDEAAppletEncoding.h"
