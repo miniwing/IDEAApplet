@@ -52,7 +52,7 @@
    return YES;
 }
 
--(BOOL) resignFirstResponder {
+- (BOOL) resignFirstResponder {
    
    [self.textField resignFirstResponder];
    

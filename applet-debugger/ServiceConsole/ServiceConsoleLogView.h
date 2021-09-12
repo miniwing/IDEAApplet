@@ -10,6 +10,6 @@
 
 @interface ServiceConsoleLogView : UIView
 
--(void) appendLogString:(NSString *)logString;
+- (void) appendLogString:(NSString *)logString;
 
 @end

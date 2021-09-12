@@ -43,7 +43,7 @@ static NSMutableDictionary * __commandCache = nil;
 
 @implementation ServiceCommandCache
 
--(NSString *)cmdDescription {
+- (NSString *)cmdDescription {
    
    if ( !_cmdDescription || ![_cmdDescription isKindOfClass:[NSString class]] ) {
       
