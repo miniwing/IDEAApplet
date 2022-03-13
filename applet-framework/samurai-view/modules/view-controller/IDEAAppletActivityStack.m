@@ -356,7 +356,7 @@
       szResource = [NSString stringWithFormat:@"/%@", szResource];
       stActivity = [[IDEAAppletActivityRouter sharedInstance] activityForURL:szResource];
       
-      ERROR( @"Activity router, invalid url '%@'", url );
+      ERROR( @"Activity router, invalid url '%@'", aURL );
       
       return nil;
       

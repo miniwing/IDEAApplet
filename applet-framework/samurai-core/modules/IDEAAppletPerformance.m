@@ -84,7 +84,7 @@
       CFTimeInterval time1 = [[_tags objectForKey:name1] doubleValue];
       CFTimeInterval time2 = CACurrentMediaTime();
       
-      PERF( @"Time '%@' = %.0f(ms)", tag, fabs(time2 - time1) );
+      PERF( @"Time '%@' = %.0f(ms)", aTag, fabs(time2 - time1) );
       
 #endif   // #if __SAMURAI_LOGGING__
       

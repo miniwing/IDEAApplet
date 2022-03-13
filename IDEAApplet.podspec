@@ -488,12 +488,12 @@ Pod::Spec.new do |spec|
 
 #  if __has_include(<IDEANightVersion/DKNightVersion.h>)
 #     import <IDEANightVersion/DKNightVersion.h>
-#     define DK_NIGHT_VERSION                                              (1)
+#     define IDEA_NIGHT_VERSION_MANAGER                                              (1)
 #  elif __has_include("IDEANightVersion/DKNightVersion.h")
 #     import "IDEANightVersion/DKNightVersion.h"
-#     define DK_NIGHT_VERSION                                              (1)
+#     define IDEA_NIGHT_VERSION_MANAGER                                              (1)
 #  else
-#     define DK_NIGHT_VERSION                                              (0)
+#     define IDEA_NIGHT_VERSION_MANAGER                                              (0)
 #  endif
 
 #  if __has_include(<AFNetworking/AFNetworking.h>)

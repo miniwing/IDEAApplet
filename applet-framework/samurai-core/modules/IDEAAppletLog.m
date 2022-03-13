@@ -132,15 +132,17 @@ static void __NSLog(NSString * format, ...) {
 #endif
       
 #if __SAMURAI_DEBUG__
-      struct rebinding r[] = { {
-         
-         (char *)"NSLog",
-         (void *)__NSLog
-      }, {
-         
-         (char *)"NSLogv",
-         (void *)__NSLogv
-      }
+      struct rebinding r[] = {
+         {
+            
+            (char *)"NSLog",
+            (void *)__NSLog
+         },
+         {
+            
+            (char *)"NSLogv",
+            (void *)__NSLogv
+         }
       };
       
       rebind_symbols(r, 2);
@@ -323,7 +325,7 @@ static void __NSLog(NSString * format, ...) {
 #  undef  MAX_CALLSTACK
 #  define MAX_CALLSTACK   (8)
             
-            if (__LogLevel_Error == level) {
+            if (__LogLevelError == level) {
                
                fprintf(stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String]);
                

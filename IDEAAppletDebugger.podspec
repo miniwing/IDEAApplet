@@ -35,9 +35,9 @@ Pod::Spec.new do |spec|
 #                                              ' SERVICE_INSPECTOR=0 ',
 #                                              ' SERVICE_MONITOR=0 ',
 #                                              ' SERVICE_TAPSPOT=0 ',
-#                                              ' SERVICE_FILE_SYNC=1 ',
-#                                              ' SERVICE_THEME=1 ',
-#                                              ' SERVICE_WIFI=1 ',
+#                                              ' SERVICE_FILE_SYNC=0 ',
+#                                              ' SERVICE_THEME=0 ',
+#                                              ' SERVICE_WIFI=0 ',
                                            ]
                                       }
 
@@ -80,6 +80,7 @@ Pod::Spec.new do |spec|
   end # IDEA_AFNETWORKING
   spec.dependency 'IDEANightVersion'
   spec.dependency 'IDEAApplet'
+#  spec.dependency 'IDEAColor'
 
 #  spec.dependency 'FMDB'
 
@@ -736,7 +737,7 @@ __END_DECLS
 #endif /* SERVICE_BORDER */
 
 #ifndef SERVICE_CONSOLE
-#  define SERVICE_CONSOLE                          (__OFF__)
+#  define SERVICE_CONSOLE                          (__AUTO__)
 #endif /* SERVICE_CONSOLE */
 
 #ifndef SERVICE_GESTURE
@@ -752,7 +753,7 @@ __END_DECLS
 #endif /* SERVICE_INSPECTOR */
 
 #ifndef SERVICE_MONITOR
-#  define SERVICE_MONITOR                          (__OFF__)
+#  define SERVICE_MONITOR                          (__AUTO__)
 #endif /* SERVICE_MONITOR */
 
 #ifndef SERVICE_TAPSPOT
@@ -760,7 +761,7 @@ __END_DECLS
 #endif /* SERVICE_TAPSPOT */
 
 #ifndef SERVICE_FILE_SYNC
-#  define SERVICE_FILE_SYNC                        (__AUTO__)
+#  define SERVICE_FILE_SYNC                        (__OFF__)
 #endif /* SERVICE_FILE_SYNC */
 
 #ifndef SERVICE_THEME

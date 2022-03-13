@@ -88,7 +88,6 @@ static NSMutableDictionary * __commandCache = nil;
                           impClass:self.class
                 commandDescription:@"Exit the application."];
    
-   
    [ServiceConsole addClassCommand:@"help"
                        commandType:ServiceConsoleCommandTypeSee
                           impClass:self.class

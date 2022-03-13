@@ -219,7 +219,7 @@
    } /* End for () */
    
 #define DOCKER_RIGHT    (10.0f)
-#define DOCKER_BOTTOM   (0)
+#define DOCKER_BOTTOM   (20.0f)
 #define DOCKER_MARGIN   (4.0f)
 #define DOCKER_HEIGHT   (30.0f)
    

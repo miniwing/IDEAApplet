@@ -84,7 +84,7 @@
 
 - (void)postNotification:(NSString *)aName object:(id)aObject {
    
-   INFO(@"Notification '%@'", [name stringByReplacingOccurrencesOfString:@"notification." withString:@""]);
+   INFO(@"Notification '%@'", [aName stringByReplacingOccurrencesOfString:@"notification." withString:@""]);
    
    [[NSNotificationCenter defaultCenter] postNotificationName:aName object:aObject];
    

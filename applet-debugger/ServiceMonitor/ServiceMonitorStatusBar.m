@@ -82,11 +82,13 @@ static const CGFloat             kBarHeight              = 20.0f;
    } /* End if () */
    
    self = [super initWithFrame:stBarFrame];
-   
+      
    if (self) {
       
       self.hidden             = YES;
-      self.backgroundColor    = [UIColor clearColor]; // [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
+      self.backgroundColor    = [UIColor clearColor];
+      self.backgroundColor    = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
+      self.backgroundColor    = [UIColor systemGrayColor];
       self.windowLevel        = UIWindowLevelStatusBar + 5.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       

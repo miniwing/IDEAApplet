@@ -46,10 +46,9 @@
    
    if ( self = [super init] ) {
       
-      _isShowing = NO;
-      _animationDuration = 0.25;
-      _height = 216.0f;
-      
+      _isShowing        = NO;
+      _animationDuration= 0.25;
+      _height           = 216.0f;
       
       [self observeNotification:UIKeyboardDidShowNotification];
       [self observeNotification:UIKeyboardDidHideNotification];
@@ -153,7 +152,7 @@
 
 - (void)setAccessor:(UIView *)view {
    
-   _accessor = view;
+   _accessor      = view;
    _accessorFrame = view.frame;
    
    return;

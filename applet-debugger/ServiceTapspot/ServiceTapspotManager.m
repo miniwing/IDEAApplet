@@ -119,11 +119,11 @@
             }
             else if ( UITouchPhaseMoved == stTouch.phase ) {
                
-               INFO( @"View '%@ %p', touch moved", [[touch.view class] description], touch.view );
+               INFO( @"View '%@ %p', touch moved", [[stTouch.view class] description], stTouch.view );
             }
             else if ( UITouchPhaseEnded == stTouch.phase ) {
                
-               INFO( @"View '%@ %p', touch ended", [[touch.view class] description], touch.view );
+               INFO( @"View '%@ %p', touch ended", [[stTouch.view class] description], stTouch.view );
 
 //               [touch.view.layer removeAnimationForKey:@"alpha"];
 //               

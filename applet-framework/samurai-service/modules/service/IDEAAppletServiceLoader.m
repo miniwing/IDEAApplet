@@ -96,6 +96,12 @@
 //      fprintf(stderr, "  Loading service '%s'\n", [[classType description] UTF8String]);
       LogDebug((@"Loading service '%s'", [[stClassType description] UTF8String]));
       
+//      if ([[stClassType description] isEqualToString:@"ServiceMonitor"])
+//      {
+//         LogDebug((@"Loading service '%s'", [[stClassType description] UTF8String]));
+//
+//      } /* End if () */
+      
       IDEAAppletService *stService = [self service:stClassType];
       if (stService) {
          

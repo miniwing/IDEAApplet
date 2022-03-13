@@ -154,7 +154,7 @@
             _dockerWindow = [[IDEAAppletDockerWindow alloc] init];
             _dockerWindow.alpha  = 0.0f;
             _dockerWindow.hidden = NO;
-            
+                        
          } /* End if () */
          
          [_dockerWindow addDockerView:stDockerView];
@@ -174,7 +174,7 @@
 //      [UIView commitAnimations];
       
       [UIView animateWithDuration:0.25f
-                       animations:^() {
+                       animations:^(void) {
          _dockerWindow.alpha  = 1.0f;
       }
                        completion:^(BOOL aFinished) {
