@@ -245,7 +245,7 @@
          
          if ( aPropertyOrBlock ) {
             
-            [self addBlock:aPropertyOrBlock forName:szName];
+            [self addBlock:[aPropertyOrBlock copy] forName:szName];
             
          } /* End if () */
          else {
@@ -274,7 +274,7 @@
          
          if ( stSignalBlock ) {
             
-            [self addBlock:stSignalBlock forName:szSignalName];
+            [self addBlock:[stSignalBlock copy] forName:szSignalName];
             
          } /* End if () */
          else {
@@ -315,7 +315,7 @@
          
          if ( aPropertyOrBlock ) {
             
-            [self addBlock:aPropertyOrBlock forName:szName];
+            [self addBlock:[aPropertyOrBlock copy] forName:szName];
             
          } /* End if () */
          else {
@@ -344,7 +344,7 @@
          
          if ( stSignalBlock ) {
             
-            [self addBlock:stSignalBlock forName:szSignalName];
+            [self addBlock:[stSignalBlock copy] forName:szSignalName];
             
          } /* End if () */
          else {

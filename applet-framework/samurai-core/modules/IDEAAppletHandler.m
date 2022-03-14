@@ -108,9 +108,12 @@
 
 #pragma mark -
 
+@interface IDEAAppletHandler ()
+@property (nonatomic, strong)    NSMutableDictionary * blocks;
+@end
+
 @implementation IDEAAppletHandler {
    
-   NSMutableDictionary * _blocks;
 }
 
 - (id)init {
@@ -118,14 +121,14 @@
    self = [super init];
    if ( self ) {
       
-      _blocks = [[NSMutableDictionary alloc] init];
+      self.blocks = [[NSMutableDictionary alloc] init];
    }
    return self;
 }
 
 - (void)dealloc {
    
-   [_blocks removeAllObjects];
+   [self.blocks removeAllObjects];
    _blocks = nil;
 }
 
@@ -140,8 +143,8 @@
       
       return NO;
    }
-      
-   HandlerBlockType   stBlock = (HandlerBlockType)[_blocks objectForKey:name];
+   
+   HandlerBlockType   stBlock = (HandlerBlockType)[self.blocks objectForKey:name];
    
    if ( nil == stBlock ) {
       
@@ -161,12 +164,12 @@
    
    if ( nil == aHandler ) {
       
-      [_blocks removeObjectForKey:aName];
+      [self.blocks removeObjectForKey:aName];
       
    } /* End if () */
    else {
       
-      [_blocks setObject:aHandler forKey:aName];
+      [self.blocks setObject:aHandler forKey:aName];
       
    } /* End else */
    
@@ -181,16 +184,27 @@
       
    } /* End if () */
    
-   [_blocks removeObjectForKey:aName];
+   [self.blocks removeObjectForKey:aName];
    
    return;
 }
 
 - (void)removeAllHandlers {
    
-   [_blocks removeAllObjects];
+   [self.blocks removeAllObjects];
    
    return;
+}
+
+- (NSMutableDictionary *)blocks {
+   
+   if (nil == _blocks) {
+      
+      _blocks  = [NSMutableDictionary dictionary];
+      
+   } /* End if () */
+   
+   return _blocks;
 }
 
 @end

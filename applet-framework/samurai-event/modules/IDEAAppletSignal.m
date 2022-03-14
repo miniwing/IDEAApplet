@@ -68,7 +68,7 @@
       
       if (aSignalBlock) {
          
-         [self addBlock:aSignalBlock forName:aName];
+         [self addBlock:[aSignalBlock copy] forName:aName];
          
       } /* End if () */
       else {
@@ -80,7 +80,7 @@
       return self;
    };
    
-   return [stBlock copy];
+   return stBlock;
 }
 
 #pragma mark -

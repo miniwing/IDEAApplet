@@ -56,24 +56,24 @@
    
    @weakify( self );
    
-   IDEAAppletIntentObserverBlock block = ^ NSObject * ( NSString * action, id intentBlock ) {
+   IDEAAppletIntentObserverBlock block = ^ NSObject * ( NSString * aAction, id aIntentBlock ) {
       
       @strongify( self );
       
-      action = [action stringByReplacingOccurrencesOfString:@"intent." withString:@"handleIntent____"];
-      action = [action stringByReplacingOccurrencesOfString:@"intent____" withString:@"handleIntent____"];
-      action = [action stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
-      action = [action stringByReplacingOccurrencesOfString:@"." withString:@"____"];
-      action = [action stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
-      action = [action stringByAppendingString:@":"];
+      aAction = [aAction stringByReplacingOccurrencesOfString:@"intent." withString:@"handleIntent____"];
+      aAction = [aAction stringByReplacingOccurrencesOfString:@"intent____" withString:@"handleIntent____"];
+      aAction = [aAction stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+      aAction = [aAction stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+      aAction = [aAction stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+      aAction = [aAction stringByAppendingString:@":"];
       
-      if ( intentBlock ) {
+      if ( aIntentBlock ) {
          
-         [self addBlock:intentBlock forName:action];
+         [self addBlock:[aIntentBlock copy] forName:aAction];
       }
       else {
          
-         [self removeBlockForName:action];
+         [self removeBlockForName:aAction];
       }
       
       return self;

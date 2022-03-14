@@ -74,7 +74,7 @@
    
    @weakify(self);
    
-   IDEAAppletNotificationBlock stBlock = ^ NSObject * (NSString * aName, id aNotificationBlock) {
+   IDEAAppletNotificationBlock stBlock = [^ NSObject * (NSString * aName, id aNotificationBlock) {
       
       @strongify(self);
       
@@ -96,7 +96,7 @@
       
       if (aNotificationBlock) {
          
-         [self addBlock:aNotificationBlock forName:aName];
+         [self addBlock:[aNotificationBlock copy] forName:aName];
          
       } /* End if () */
       else {
@@ -106,9 +106,9 @@
       } /* End else */
       
       return self;
-   };
+   } copy];
    
-   return [stBlock copy];
+   return stBlock;
 }
 
 - (void)observeNotification:(NSString *)aName {
