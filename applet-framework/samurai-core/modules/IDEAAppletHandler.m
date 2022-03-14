@@ -48,17 +48,17 @@
 
 - (IDEAAppletHandler *)blockHandlerOrCreate {
    
-   IDEAAppletHandler * handler = [self getAssociatedObjectForKey:"blockHandler"];
+   IDEAAppletHandler * stHandler = [self getAssociatedObjectForKey:"blockHandler"];
    
-   if ( nil == handler ) {
+   if ( nil == stHandler ) {
       
-      handler = [[IDEAAppletHandler alloc] init];
+      stHandler = [[IDEAAppletHandler alloc] init];
       
-      [self retainAssociatedObject:handler forKey:"blockHandler"];
+      [self retainAssociatedObject:stHandler forKey:"blockHandler"];
       
    } /* End if () */
    
-   return handler;
+   return stHandler;
 }
 
 - (IDEAAppletHandler *)blockHandler {
@@ -140,7 +140,7 @@
       
       return NO;
    }
-   
+      
    HandlerBlockType   stBlock = (HandlerBlockType)[_blocks objectForKey:name];
    
    if ( nil == stBlock ) {

@@ -234,27 +234,27 @@ static void __uncaughtExceptionHandler( NSException * exception ) {
 }
 #endif   // #if __SAMURAI_DEBUG__
 
-#if __SAMURAI_DEBUG__
+#if __SAMURAI_UNCAUGHT_EXCEPTION__
 static void __uncaughtSignalHandler( int signal ) {
    
    fprintf( stderr, "\nUncaught signal: %d", signal );
    
    TRAP();
 }
-#endif   // #if __SAMURAI_DEBUG__
+#endif   // #if __SAMURAI_UNCAUGHT_EXCEPTION__
 
 + (void)classAutoLoad {
    
-#if __SAMURAI_DEBUG__
+#if __SAMURAI_UNCAUGHT_EXCEPTION__
    NSSetUncaughtExceptionHandler( &__uncaughtExceptionHandler );
-   
-   signal( SIGABRT,   &__uncaughtSignalHandler );
-   signal( SIGILL,      &__uncaughtSignalHandler );
-   signal( SIGSEGV,   &__uncaughtSignalHandler );
-   signal( SIGFPE,      &__uncaughtSignalHandler );
-   signal( SIGBUS,      &__uncaughtSignalHandler );
-   signal( SIGPIPE,   &__uncaughtSignalHandler );
-#endif
+
+   signal( SIGABRT,  &__uncaughtSignalHandler );
+   signal( SIGILL ,  &__uncaughtSignalHandler );
+   signal( SIGSEGV,  &__uncaughtSignalHandler );
+   signal( SIGFPE ,  &__uncaughtSignalHandler );
+   signal( SIGBUS ,  &__uncaughtSignalHandler );
+   signal( SIGPIPE,  &__uncaughtSignalHandler );
+#endif /* __SAMURAI_UNCAUGHT_EXCEPTION__ */
    
    [IDEAAppletDebugger sharedInstance];
 }

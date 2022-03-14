@@ -994,7 +994,6 @@
    } /* End if () */
    
    // try selector
-   
    if (NO == bPerformed) {
       
       Method    stMethod   = class_getInstanceMethod(aClass, aSEL);
