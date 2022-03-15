@@ -11,6 +11,6 @@
 
 #include <stdio.h>
 
-int ideaapplet_getdefaultgateway(in_addr_t * addr);
+int IDEAApplet_GetDefaultGateway(in_addr_t * addr);
 
 #endif /* IDEAAppletIPHelper_h */

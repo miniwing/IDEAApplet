@@ -18,7 +18,8 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 @interface ServiceWiFiWindow ()
 
-@prop_strong( UILabel   *, label );
+@prop_strong( UILabel                        *, label );
+@prop_strong( AFNetworkReachabilityManager   *, networkReachManager );
 
 @end
 
@@ -66,12 +67,12 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label.textAlignment       = NSTextAlignmentLeft;
       _label.lineBreakMode       = NSLineBreakByClipping;
       
-      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
-      _label.layer.shadowOpacity = 1.0f;
-      _label.layer.shadowRadius  = 1.0f;
-      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
+//      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
+//      _label.layer.shadowOpacity = 1.0f;
+//      _label.layer.shadowRadius  = 1.0f;
+//      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
       [_label setBackgroundColor:UIColor.clearColor];
-      [_label setTextColor:UIColor.blackColor];
+      [_label setTextColor:UIColor.darkGrayColor];
       
       [self addSubview:_label];
       
@@ -104,8 +105,8 @@ static const CGFloat             kBarHeight              = 20.0f;
    
    __TRY;
    
-   szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getBSSID]];
-   LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : WiFi : %@", szWiFi));
+   szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getIPAddress]];
+   LogDebug((@"[ServiceWiFiWindow show] : WiFi : %@", szWiFi));
 
    [self.label setText:szWiFi];
    [self setHidden:NO animated:YES];
@@ -134,12 +135,11 @@ static const CGFloat             kBarHeight              = 20.0f;
    int                            nErr                                     = EFAULT;
 
    __block NSString              *szWiFi                                   = nil;
-   AFNetworkReachabilityManager  *stNetworkReachManager                    = [AFNetworkReachabilityManager sharedManager];
 
    __TRY;
    
    // 网络状态改变的回调
-   [stNetworkReachManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus aStatus) {
+   [self.networkReachManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus aStatus) {
       
       switch (aStatus) {
             
@@ -171,9 +171,12 @@ static const CGFloat             kBarHeight              = 20.0f;
             
       } /* End switch () */
       
-      ideaapplet_dispatch_async_on_main_queue(^{
+      @weakify(self);
+      IDEA_APPLET_DISPATCH_ASYNC_ON_MAIN_QUEUE(^{
 
-         szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getBSSID]];
+         @strongify(self);
+         
+         szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getIPAddress]];
          LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : WiFi : %@", szWiFi));
 
          [self.label setText:szWiFi];
@@ -181,11 +184,22 @@ static const CGFloat             kBarHeight              = 20.0f;
    }];
    
    // 开始监测
-   [stNetworkReachManager startMonitoring];
+   [self.networkReachManager startMonitoring];
    
    __CATCH(nErr);
 
    return;
+}
+
+- (AFNetworkReachabilityManager *)networkReachManager {
+   
+   if (nil == _networkReachManager) {
+      
+      _networkReachManager = [AFNetworkReachabilityManager sharedManager];
+      
+   } /* End if () */
+   
+   return _networkReachManager;
 }
 
 @end

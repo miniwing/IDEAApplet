@@ -22,7 +22,7 @@
    NSString       *szIP          = nil;
    struct in_addr  stGatewayAddr = {0};
    
-   int r = ideaapplet_getdefaultgateway(&(stGatewayAddr.s_addr));
+   int r = IDEAApplet_GetDefaultGateway(&(stGatewayAddr.s_addr));
    
    if (r >= 0) {
       
@@ -32,7 +32,8 @@
    else {
        
       LogDebug((@"Wifi is not connected or you are using simulator Gateway ip address will be nil"));
-   }
+      
+   } /* End else */
    
    return szIP;
 }
@@ -90,7 +91,7 @@
    
    } /* End for () */
    
-   return Nil;
+   return nil;
 }
 
 + (NSString *)getIPAddress {
@@ -235,6 +236,5 @@
    
    return NO;
 }
-
 
 @end

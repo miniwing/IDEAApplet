@@ -36,10 +36,7 @@
 
 #pragma mark -
 
-void ideaapplet_dispatch_async_on_main_queue(void (^block)(void));
-
-void ideaapplet_dispatch_sync_on_main_queue(void (^block)(void));
-
-void ideaapplet_dispatch_async_on_background_queue(void (^block)(void));
-
-void ideaapplet_dispatch_sync_on_background_queue(void (^block)(void));
+void IDEA_APPLET_DISPATCH_ASYNC_ON_MAIN_QUEUE      (void (^block)(void));
+void IDEA_APPLET_DISPATCH_SYNC_ON_MAIN_QUEUE       (void (^block)(void));
+void IDEA_APPLET_DISPATCH_ASYNC_ON_BACKGROUND_QUEUE(void (^block)(void));
+void IDEA_APPLET_DISPATCH_SYNC_ON_BACKGROUND_QUEUE (void (^block)(void));

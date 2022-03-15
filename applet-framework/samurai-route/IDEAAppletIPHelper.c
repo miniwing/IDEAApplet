@@ -22,13 +22,13 @@
 #include "IDEAAppletNetRoute.h"
 //#endif
 
-#define CTL_NET         4               /* network, see socket.h */
+#define CTL_NET            4               /* network, see socket.h */
 
 #if defined(BSD) || defined(__APPLE__)
 
 #  define ROUNDUP(a)       ((a) > 0 ? (1 + (((a) - 1) | (sizeof(long) - 1))) : sizeof(long))
 
-int ideaapplet_getdefaultgateway(in_addr_t * addr) {
+int IDEAApplet_GetDefaultGateway(in_addr_t * addr) {
    
    int mib[] = {
       CTL_NET,

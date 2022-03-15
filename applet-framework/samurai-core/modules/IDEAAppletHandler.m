@@ -129,29 +129,33 @@
 - (void)dealloc {
    
    [self.blocks removeAllObjects];
-   _blocks = nil;
+   
+//   _blocks = nil;
+   __RELEASE(_blocks);
+   
+   return;
 }
 
-- (BOOL)trigger:(NSString *)name {
+- (BOOL)trigger:(NSString *)aName {
    
-   return [self trigger:name withObject:nil];
+   return [self trigger:aName withObject:nil];
 }
 
-- (BOOL)trigger:(NSString *)name withObject:(id)object {
+- (BOOL)trigger:(NSString *)aName withObject:(id)aObject {
    
-   if ( nil == name ) {
+   if ( nil == aName ) {
       
       return NO;
    }
    
-   HandlerBlockType   stBlock = (HandlerBlockType)[self.blocks objectForKey:name];
+   HandlerBlockType   stBlock = (HandlerBlockType)[self.blocks objectForKey:aName];
    
    if ( nil == stBlock ) {
       
       return NO;
    }
    
-   stBlock( object );
+   stBlock( aObject );
    
    return YES;
 }

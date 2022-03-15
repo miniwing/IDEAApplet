@@ -36,7 +36,7 @@
 // ----------------------------------
 // Source code
 // ----------------------------------
-void ideaapplet_dispatch_async_on_main_queue(void (^block)(void)) {
+void IDEA_APPLET_DISPATCH_ASYNC_ON_MAIN_QUEUE(void (^block)(void)) {
    
    if (pthread_main_np()) {
       
@@ -54,7 +54,7 @@ void ideaapplet_dispatch_async_on_main_queue(void (^block)(void)) {
    return;
 }
 
-void ideaapplet_dispatch_sync_on_main_queue(void (^block)(void)) {
+void IDEA_APPLET_DISPATCH_SYNC_ON_MAIN_QUEUE(void (^block)(void)) {
    
    if (pthread_main_np()) {
       
@@ -70,14 +70,14 @@ void ideaapplet_dispatch_sync_on_main_queue(void (^block)(void)) {
    return;
 }
 
-void ideaapplet_dispatch_async_on_background_queue(void (^block)(void)) {
+void IDEA_APPLET_DISPATCH_ASYNC_ON_BACKGROUND_QUEUE(void (^block)(void)) {
    
    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block);
    
    return;
 }
 
-void ideaapplet_dispatch_sync_on_background_queue(void (^block)(void)) {
+void IDEA_APPLET_DISPATCH_SYNC_ON_BACKGROUND_QUEUE(void (^block)(void)) {
    
    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), block);
    

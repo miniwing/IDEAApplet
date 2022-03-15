@@ -69,14 +69,14 @@ static const char * __prefix[] = {
 
 #if __SAMURAI_DEBUG__
 
-static void __NSLogv(NSString * format, va_list args) {
+static void __NSLogv(NSString * aFormat, va_list aArgs) {
    
-   [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:format args:args];
+   [[IDEAAppletLogger sharedInstance] file:nil line:0 func:nil level:LogLevel_Info format:aFormat args:aArgs];
 }
 
-static void __NSLog(NSString * format, ...) {
+static void __NSLog(NSString * aFormat, ...) {
    
-   if (nil == format || NO == [format isKindOfClass:[NSString class]]) {
+   if (nil == aFormat || NO == [aFormat isKindOfClass:[NSString class]]) {
       
       return;
       
@@ -84,9 +84,9 @@ static void __NSLog(NSString * format, ...) {
    
    va_list args;
    
-   va_start(args, format);
+   va_start(args, aFormat);
    
-   __NSLogv(format, args);
+   __NSLogv(aFormat, args);
    
    va_end(args);
 }
@@ -107,7 +107,7 @@ static void __NSLog(NSString * format, ...) {
 
 @def_prop_strong(NSMutableString   *,    output);
 @def_prop_strong(NSMutableArray    *,    buffer);
-@def_prop_assign(__LogLevel           ,    filter);
+@def_prop_assign(LogLevel           ,    filter);
 
 @def_prop_copy(BlockType            ,    outputHandler);
 
@@ -244,11 +244,11 @@ static void __NSLog(NSString * format, ...) {
    return;
 }
 
-- (void)file:(NSString *)file line:(NSUInteger)line func:(NSString *)func level:(LogLevel)level format:(NSString *)format args:(va_list)params {
+- (void)file:(NSString *)aFile line:(NSUInteger)aLine func:(NSString *)aFunc level:(LogLevel)aLevel format:(NSString *)aFormat args:(va_list)aParams {
    
 #if __SAMURAI_LOGGING__
    
-   if (NO == _enabled || level > _filter) {
+   if (NO == _enabled || aLevel > _filter) {
       
       return;
       
@@ -258,7 +258,7 @@ static void __NSLog(NSString * format, ...) {
    
    @autoreleasepool {
       
-      const char * prefix = __prefix[level];
+      const char * prefix = __prefix[aLevel];
       if (NULL == prefix) {
          
          prefix = "";
@@ -280,7 +280,7 @@ static void __NSLog(NSString * format, ...) {
          padding[i] = ' ';
       }
       
-      NSMutableString * content = [[NSMutableString alloc] initWithFormat:(NSString *)format arguments:params];
+      NSMutableString * content = [[NSMutableString alloc] initWithFormat:(NSString *)aFormat arguments:aParams];
       if (content) {
          
          if ([content rangeOfString:@"\n"].length) {
@@ -325,9 +325,9 @@ static void __NSLog(NSString * format, ...) {
 #  undef  MAX_CALLSTACK
 #  define MAX_CALLSTACK   (8)
             
-            if (__LogLevelError == level) {
+            if (LogLevel_Error == aLevel) {
                
-               fprintf(stderr, "    %s(#%lu) %s\n", [[file lastPathComponent] UTF8String], (unsigned long)line, [func UTF8String]);
+               fprintf(stderr, "    %s(#%lu) %s\n", [[aFile lastPathComponent] UTF8String], (unsigned long)aLine, [aFunc UTF8String]);
                
                void *   stacks[MAX_CALLSTACK + 1];
                
@@ -337,9 +337,9 @@ static void __NSLog(NSString * format, ...) {
                   char ** symbols = backtrace_symbols(stacks, (int)depth);
                   if (symbols) {
                      
-                     for (int i = 2; i < depth; ++i) {
+                     for (int H = 2; H < depth; ++H) {
                         
-                        fprintf(stderr, "    | %s\n", (const char *)symbols[i]);
+                        fprintf(stderr, "    | %s\n", (const char *)symbols[H]);
                      }
                      
                      free(symbols);
