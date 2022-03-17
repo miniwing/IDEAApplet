@@ -72,7 +72,9 @@ static const CGFloat             kBarHeight              = 20.0f;
 //      _label.layer.shadowRadius  = 1.0f;
 //      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
       [_label setBackgroundColor:UIColor.clearColor];
-      [_label setTextColor:UIColor.darkGrayColor];
+//      [_label setTextColor:UIColor.darkGrayColor];
+      
+      [_label setTextColorPicker:DKColorPickerWithKey(@"label")];
       
       [self addSubview:_label];
       

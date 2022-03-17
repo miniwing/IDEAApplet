@@ -45,10 +45,10 @@
 @implementation ServiceMonitor {
    
    NSTimer                    *     _timer;
-   ServiceMonitorCPUModel     *     _model1;
-   ServiceMonitorMemoryModel  *     _model2;
-   ServiceMonitorNetworkModel *     _model3;
-   ServiceMonitorFPSModel     *     _model4;
+   ServiceMonitorCPUModel     *     _cpuModel;
+   ServiceMonitorMemoryModel  *     _memModel;
+   ServiceMonitorNetworkModel *     _networkModel;
+   ServiceMonitorFPSModel     *     _fpsModel;
    ServiceMonitorStatusBar    *     _bar;
 }
 
@@ -76,10 +76,10 @@
                                                 name:UIApplicationWillTerminateNotification
                                               object:nil];
    
-   _model1 = [ServiceMonitorCPUModel sharedInstance];
-   _model2 = [ServiceMonitorMemoryModel sharedInstance];
-   _model3 = [ServiceMonitorNetworkModel sharedInstance];
-   _model4 = [ServiceMonitorFPSModel sharedInstance];
+   _cpuModel      = [ServiceMonitorCPUModel     sharedInstance];
+   _memModel      = [ServiceMonitorMemoryModel  sharedInstance];
+   _networkModel  = [ServiceMonitorNetworkModel sharedInstance];
+   _fpsModel      = [ServiceMonitorFPSModel     sharedInstance];
    
    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0f / 10.0f
                                              target:self
@@ -100,11 +100,11 @@
    
    __TRY;
 
-   _bar     = nil;
-   _model1  = nil;
-   _model2  = nil;
-   _model3  = nil;
-   _model4  = nil;
+   _bar           = nil;
+   _cpuModel      = nil;
+   _memModel      = nil;
+   _networkModel  = nil;
+   _fpsModel      = nil;
    
    [_timer invalidate];
    _timer   = nil;
@@ -169,10 +169,10 @@
 
 - (void)didTimeout {
    
-   [_model1 update];
-   [_model2 update];
-   [_model3 update];
-   [_model4 update];
+   [_cpuModel     update];
+   [_memModel     update];
+   [_networkModel update];
+   [_fpsModel     update];
    
    [_bar update];
 

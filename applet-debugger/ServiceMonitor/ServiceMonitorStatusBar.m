@@ -87,8 +87,8 @@ static const CGFloat             kBarHeight              = 20.0f;
       
       self.hidden             = YES;
       self.backgroundColor    = [UIColor clearColor];
-      self.backgroundColor    = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
-      self.backgroundColor    = [UIColor systemGrayColor];
+//      self.backgroundColor    = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
+//      self.backgroundColor    = [UIColor systemGrayColor];
       self.windowLevel        = UIWindowLevelStatusBar + 5.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       
@@ -102,6 +102,11 @@ static const CGFloat             kBarHeight              = 20.0f;
                                                           options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
                                                           context:nil];
    
+   [[NSNotificationCenter defaultCenter] addObserver:self
+                                            selector:@selector(onThemeUpdate:)
+                                                name:DKNightVersionThemeChangingNotification
+                                              object:nil];
+
    __CATCH(nErr);
    
    return self;
@@ -112,6 +117,8 @@ static const CGFloat             kBarHeight              = 20.0f;
    [[UIApplication sharedApplication].delegate.window removeObserver:self
                                                           forKeyPath:@"rootViewController"
                                                              context:nil];
+   
+   [[NSNotificationCenter defaultCenter] removeObserver:self];
    
    [_label removeFromSuperview];
    _label = nil;
@@ -184,21 +191,33 @@ static const CGFloat             kBarHeight              = 20.0f;
       
       _label = [[UILabel alloc] initWithFrame:self.bounds];
       _label.backgroundColor     = [UIColor clearColor];
-      _label.textColor           = [UIColor blackColor];
-      _label.backgroundColor     = [UIColor clearColor];
+      _label.textColor           = [UIColor labelColor];
+
+//      dispatch_async(dispatch_get_main_queue(), ^{
+//         [_label setTextColorPicker:DKColorPickerWithKey(@"label")];
+//      });
       
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
-#if __AVAILABLE_SDK_IOS(13_0)
+      UIStatusBarStyle  eBarStyle = [UIApplication sharedApplication].delegate.window.rootViewController.preferredStatusBarStyle;
+         
+      if (UIStatusBarStyleLightContent == eBarStyle) {
+         
+         [_label setTextColor:UIColor.whiteColor];
+
+      } /* End if () */
+      else {
+         
+         [_label setTextColor:UIColor.labelColor];
+
+      } /* End else */
+
       if (@available(iOS 13, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
          
       } /* End if () */
-      else
-#endif /* __AVAILABLE_SDK_IOS(13_0) */
-      {
-         
+      else {
 //         _label.font             = [UIFont fontWithName:@"Menlo-Bold" size:12.0f];
          _label.font             = [UIFont fontWithName:@"Menlo" size:12.0f];
          
@@ -208,10 +227,10 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label.textAlignment       = NSTextAlignmentCenter;
       _label.lineBreakMode       = NSLineBreakByClipping;
       
-      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
-      _label.layer.shadowOpacity = 1.0f;
-      _label.layer.shadowRadius  = 1.0f;
-      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
+//      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
+//      _label.layer.shadowOpacity = 1.0f;
+//      _label.layer.shadowRadius  = 1.0f;
+//      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
       
       [self addSubview:_label];
       
@@ -293,6 +312,38 @@ static const CGFloat             kBarHeight              = 20.0f;
    return;
 }
 
+//UIStatusBarStyleDefault                                  = 0, // Automatically chooses light or dark content based on the user interface style
+//UIStatusBarStyleLightContent     API_AVAILABLE(ios(7.0)) = 1, // Light content, for use on dark backgrounds
+- (void)onThemeUpdate:(NSNotification *)aNotification {
+
+   LogDebug((@"-[ServiceMonitor onThemeUpdate:] : Notification : %@", aNotification));
+   
+//   UIStatusBarStyle  eBarStyle = [UIApplication sharedApplication].delegate.window.rootViewController.preferredStatusBarStyle;
+//
+//   if (UIStatusBarStyleLightContent == eBarStyle) {
+//
+//      [_label setTextColor:UIColor.whiteColor];
+//
+//   } /* End if () */
+//   else {
+//
+//      [_label setTextColor:UIColor.labelColor];
+//
+//   } /* End else */
+   
+   if ([DKThemeVersionNormal isEqualToString:aNotification.object]) {
+
+      [_label setTextColor:UIColor.labelColor];
+
+   } /* End if () */
+   else {
+
+      [_label setTextColor:UIColor.whiteColor];
+
+   } /* End else */
+         
+   return;
+}
 #pragma mark - JBLineChartViewDataSource
 
 - (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView {
