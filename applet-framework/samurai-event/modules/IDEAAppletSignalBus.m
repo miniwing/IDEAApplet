@@ -988,6 +988,26 @@
             bPerformed        = YES;
             
          } /* End if () */
+         else {
+            NSString *szName  = [aSignal.name copy];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"signal."    withString:@"handleSignal____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"signal____" withString:@"handleSignal____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"-"          withString:@"____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"."          withString:@"____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"/"          withString:@"____"];
+            szName   = [szName stringByAppendingString:@":"];
+
+            bFound  = [stHandler trigger:szName withObject:aSignal];
+            if (bFound) {
+               
+               aSignal.hit       = YES;
+               aSignal.hitCount += 1;
+               
+               bPerformed        = YES;
+               
+            } /* End if () */
+            
+         } /* End else */
          
       } /* End if () */
       

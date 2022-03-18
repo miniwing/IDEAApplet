@@ -106,6 +106,7 @@
       } /* End else */
       
       return self;
+      
    } copy];
    
    return stBlock;

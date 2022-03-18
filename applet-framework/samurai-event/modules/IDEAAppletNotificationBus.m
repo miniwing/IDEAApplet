@@ -304,6 +304,24 @@
             bPerformed = YES;
             
          } /* End if () */
+         else {
+            NSString *szName  = [aNotification.name copy];
+            
+            szName   = [szName stringByReplacingOccurrencesOfString:@"notification." withString:@"handleNotification____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"-" withString:@"____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"." withString:@"____"];
+            szName   = [szName stringByReplacingOccurrencesOfString:@"/" withString:@"____"];
+            szName   = [szName stringByAppendingString:@":"];
+
+            found = [stHandler trigger:szName withObject:aNotification];
+            
+            if ( found ) {
+               
+               bPerformed = YES;
+               
+            } /* End if () */
+         }
          
       } /* End if () */
       

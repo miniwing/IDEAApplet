@@ -264,36 +264,40 @@ static void __uncaughtSignalHandler( int signal ) {
    return [[IDEAAppletDebugger sharedInstance] callstack:MAX_CALLSTACK_DEPTH];
 }
 
-- (NSArray *)callstack:(NSInteger)depth; {
+- (NSArray *)callstack:(NSInteger)aDepth; {
    
-   NSMutableArray * array = [[NSMutableArray alloc] init];
+   NSMutableArray * stArray = [[NSMutableArray alloc] init];
    
-   void * stacks[MAX_CALLSTACK_DEPTH] = { 0 };
+   void * pvStacks[MAX_CALLSTACK_DEPTH] = { 0 };
    
-   int frameCount = backtrace( stacks, MIN((int)depth, MAX_CALLSTACK_DEPTH) );
+   int frameCount = backtrace( pvStacks, MIN((int)aDepth, MAX_CALLSTACK_DEPTH) );
+   
    if ( frameCount ) {
       
-      char ** symbols = backtrace_symbols( stacks, (int)frameCount );
-      if ( symbols ) {
+      char ** ppszSymbols = backtrace_symbols( pvStacks, (int)frameCount );
+      if ( ppszSymbols ) {
          
-         for ( int i = 0; i < frameCount; ++i ) {
+         for ( int H = 0; H < frameCount; ++H ) {
             
-            NSString * line = [NSString stringWithUTF8String:(const char *)symbols[i]];
-            if ( 0 == [line length] )
+            NSString * szLine = [NSString stringWithUTF8String:(const char *)ppszSymbols[H]];
+            
+            LogDebug((@"-[IDEAApplet CallStack] : Line : %@", szLine));
+            
+            if ( 0 == [szLine length] )
                continue;
             
-            IDEAAppletCallFrame * frame = [IDEAAppletCallFrame parse:line];
-            if ( frame ) {
+            IDEAAppletCallFrame * stFrame = [IDEAAppletCallFrame parse:szLine];
+            if ( stFrame ) {
                
-               [array addObject:frame];
+               [stArray addObject:stFrame];
             }
          }
          
-         free( symbols );
+         free( ppszSymbols );
       }
    }
    
-   return array;
+   return stArray;
 }
 
 - (void)trap {
