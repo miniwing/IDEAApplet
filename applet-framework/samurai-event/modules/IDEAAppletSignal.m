@@ -316,54 +316,110 @@
 
 - (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:nil input:nil onQueue:aQueue];
+   [self postSignal:aName from:self withObject:nil input:nil onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:self withObject:nil input:nil onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:nil input:aInput onQueue:aQueue];
+   [self postSignal:aName from:self withObject:nil input:aInput onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:self withObject:nil input:aInput onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:aObject input:nil onQueue:aQueue];
+   [self postSignal:aName from:self withObject:aObject input:nil onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:self withObject:aObject input:nil onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:self withObject:aObject input:aInput onQueue:aQueue];
+   [self postSignal:aName from:self withObject:aObject input:aInput onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:self withObject:aObject input:aInput onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:aSource withObject:nil onQueue:aQueue];
+   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName from:(id)aSource onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:aSource withObject:nil input:aInput onQueue:aQueue];
+   [self postSignal:aName from:aSource withObject:nil input:aInput onQueue:aQueue completion:nil];
+   
+   return;
+}
+
+- (void)postSignal:(NSString *)aName from:(id)aSource input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:aSource withObject:nil input:aInput onQueue:aQueue completion:aCompletion];
    
    return;
 }
 
 - (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue {
    
-   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue];
+   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue completion:nil];
+
+   return;
+}
+
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
+   
+   [self postSignal:aName from:aSource withObject:nil input:nil onQueue:aQueue completion:aCompletion];
 
    return;
 }
 
 - (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue {
+   
+   [self postSignal:aName from:aSource withObject:aObject input:aInput onQueue:aQueue completion:nil];
+
+   return;
+}
+
+- (void)postSignal:(NSString *)aName from:(id)aSource withObject:(NSObject *)aObject input:(NSDictionary *)aInput onQueue:(dispatch_queue_t)aQueue completion:(void (^)(void))aCompletion {
    
    if (NULL == aQueue) {
       
@@ -382,6 +438,12 @@
       stSignal.input    = aInput ? [aInput mutableCopy] : nil;
 
       [stSignal send];
+      
+      if (aCompletion) {
+         
+         aCompletion();
+         
+      } /* End if () */
    });
    
    return;
