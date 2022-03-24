@@ -47,6 +47,7 @@
 @def_singleton( IDEAAppletModelManager )
 
 + (void)classAutoLoad {
+   
    [IDEAAppletModelManager sharedInstance];
    
    for (NSString *szClassName in [IDEAAppletModel subClasses]) {

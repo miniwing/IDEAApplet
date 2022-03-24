@@ -33,7 +33,7 @@
 #define __SAMURAI_DEBUG__              (__AUTO__)  /// 调试模式
 #define __SAMURAI_LOGGING__            (__AUTO__)  /// 日志模式
 #define __SAMURAI_TESTING__            (__OFF__ )  /// 单元测试
-#define __SAMURAI_UNCAUGHT_EXCEPTION__ (__AUTO__)  /// 异常捕获
+#define __SAMURAI_UNCAUGHT_EXCEPTION__ (__OFF__ )  /// 异常捕获
 
 #define __SAMURAI_SERVICE__            (__AUTO__)  /// 后台服务
 #define __SAMURAI_WEBCORE__            (__OFF__ )  /// WebCore
