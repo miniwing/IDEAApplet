@@ -24,8 +24,12 @@
 #define __Katana__selector__
 
 #include <stdio.h>
-#include "katana-parser/katana.h"
-#include "katana-parser/katana_parser.h"
+
+//#include "katana-parser/katana.h"
+//#include "katana-parser/katana_parser.h"
+
+#include "katana.h"
+#include "katana_parser.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -30,11 +30,17 @@
 #include <stdio.h>
 #include <string.h>     // Only for debug assertions at present.
 
-#include "gumbo-parser/gumbo_char_ref.h"
-#include "gumbo-parser/gumbo_error.h"
-#include "gumbo-parser/gumbo_string_piece.h"
-#include "gumbo-parser/gumbo_utf8.h"
-#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_char_ref.h"
+//#include "gumbo-parser/gumbo_error.h"
+//#include "gumbo-parser/gumbo_string_piece.h"
+//#include "gumbo-parser/gumbo_utf8.h"
+//#include "gumbo-parser/gumbo_util.h"
+
+#include "gumbo_char_ref.h"
+#include "gumbo_error.h"
+#include "gumbo_string_piece.h"
+#include "gumbo_utf8.h"
+#include "gumbo_util.h"
 
 struct GumboInternalParser;
 

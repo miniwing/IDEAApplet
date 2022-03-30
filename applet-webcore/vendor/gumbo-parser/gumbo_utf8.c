@@ -19,12 +19,19 @@
 #include <string.h>
 #include <strings.h>    // For strncasecmp.
 
-#include "gumbo-parser/gumbo.h"
-#include "gumbo-parser/gumbo_utf8.h"
-#include "gumbo-parser/gumbo_error.h"
-#include "gumbo-parser/gumbo_parser.h"
-#include "gumbo-parser/gumbo_util.h"
-#include "gumbo-parser/gumbo_vector.h"
+//#include "gumbo-parser/gumbo.h"
+//#include "gumbo-parser/gumbo_utf8.h"
+//#include "gumbo-parser/gumbo_error.h"
+//#include "gumbo-parser/gumbo_parser.h"
+//#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_vector.h"
+
+#include "gumbo.h"
+#include "gumbo_utf8.h"
+#include "gumbo_error.h"
+#include "gumbo_parser.h"
+#include "gumbo_util.h"
+#include "gumbo_vector.h"
 
 const int kUtf8ReplacementChar = 0xFFFD;
 

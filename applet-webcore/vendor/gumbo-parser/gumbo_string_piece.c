@@ -19,8 +19,11 @@
 #include <string.h>
 #include <strings.h>
 
-#include "gumbo-parser/gumbo_string_piece.h"
-#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_string_piece.h"
+//#include "gumbo-parser/gumbo_util.h"
+
+#include "gumbo_string_piece.h"
+#include "gumbo_util.h"
 
 struct GumboInternalParser;
 

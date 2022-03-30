@@ -42,8 +42,6 @@
 
 @implementation UIImage(ViewUtility)
 
-#if __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h")
-#else /* __has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
 + (UIImage *)applet_imageWithColor:(UIColor *)color {
    
    return [self applet_imageWithColor:color size:CGSizeMake(1.0f, 1.0f)];
@@ -66,7 +64,6 @@
    
    return result;
 }
-#endif /* !__has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") */
 
 @end
 

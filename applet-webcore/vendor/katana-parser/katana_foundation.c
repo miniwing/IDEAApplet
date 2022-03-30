@@ -10,8 +10,11 @@
 #include <stdbool.h>
 #include <assert.h>
 
-#include "katana-parser/katana_foundation.h"
-#include "katana-parser/katana_parser.h"
+//#include "katana-parser/katana_foundation.h"
+//#include "katana-parser/katana_parser.h"
+
+#include "katana_foundation.h"
+#include "katana_parser.h"
 
 //#undef   assert
 //#define assert(x)

@@ -71,9 +71,9 @@
 
 /* Copy the first part of user declarations.  */
 
+//#include "katana-parser/katana_tokenizer.h"
 
-
-#include "katana-parser/katana_tokenizer.h"
+#include "katana_tokenizer.h"
 
 #define YYENABLE_NLS 0
 #define YYLTYPE_IS_TRIVIAL 1

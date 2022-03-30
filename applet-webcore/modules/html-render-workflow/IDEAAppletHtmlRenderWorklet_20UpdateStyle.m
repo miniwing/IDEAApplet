@@ -97,7 +97,7 @@
 
       [aRenderObject computeProperties];
 
-      DEBUG_RENDERER_STYLE( renderObject );
+      DEBUG_RENDERER_STYLE( aRenderObject );
 
       [aRenderObject.view html_applyStyle:aRenderObject.style];
       

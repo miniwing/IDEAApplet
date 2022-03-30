@@ -387,6 +387,8 @@
                   
                   if (NO == stClonedSignal.dead) {
                      
+                     [aSignal.target removeAssociatedObjectForKey:@selector(routes:)];
+
                      [stClonedSignal log:stClonedSignal.target];
                      
                      stClonedSignal.target = stResponder;
@@ -405,6 +407,8 @@
          } /* End if () */
          else {
             
+            [aSignal.target removeAssociatedObjectForKey:@selector(routes:)];
+
             if (NO == aSignal.dead) {
                
                [aSignal log:aSignal.target];

@@ -53,15 +53,27 @@
 
 - (void)loadTemplate:(NSString *)urlOrFile {
    
-   [self loadTemplate:urlOrFile type:nil];
+   [self loadTemplate:urlOrFile inBundle:nil type:nil];
+}
+
+- (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle {
+   
+   [self loadTemplate:urlOrFile inBundle:aBundle type:nil];
 }
 
 - (void)loadTemplate:(NSString *)urlOrFile type:(NSString *)type {
    
+   [self loadTemplate:urlOrFile inBundle:nil type:type];
+}
+
+- (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle type:(NSString *)type {
+   
    if ( nil == self.template ) {
       
       self.template = [[IDEAAppletTemplate alloc] init];
+      
       self.template.responder = self;
+      self.template.bundle    = aBundle;
    }
    
    if ( [urlOrFile hasPrefix:@"http://"] || [urlOrFile hasPrefix:@"https://"] ) {
@@ -113,6 +125,7 @@
 @def_joint       ( stateChanged );
 
 @def_prop_strong ( IDEAAppletDocument *,  document );
+@def_prop_strong ( NSBundle *,            bundle );
 @def_prop_assign ( BOOL ,                 responderDisabled );
 @def_prop_unsafe ( id   ,                 responder );
 
@@ -281,7 +294,7 @@
    ASSERT( nil != aFile );
    
    self.state     = TemplateState_Created;
-   self.document  = [IDEAAppletDocument resourceAtPath:aFile inBundle:nil];
+   self.document  = [IDEAAppletDocument resourceAtPath:aFile inBundle:self.bundle];
    
    [self loadMainResource:self.document];
    
@@ -292,8 +305,8 @@
    
    ASSERT( nil != url );
    
-   self.state = TemplateState_Created;
-   self.document = [IDEAAppletDocument resourceWithURL:url type:type];
+   self.state     = TemplateState_Created;
+   self.document  = [IDEAAppletDocument resourceWithURL:url type:type];
    
    [self loadMainResource:self.document];
 }

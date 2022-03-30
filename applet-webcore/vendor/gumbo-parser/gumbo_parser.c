@@ -21,17 +21,27 @@
 #include <string.h>
 #include <strings.h>
 
-#include "gumbo-parser/gumbo.h"
-#include "gumbo-parser/gumbo_attribute.h"
-#include "gumbo-parser/gumbo_error.h"
-#include "gumbo-parser/gumbo_insertion_mode.h"
-#include "gumbo-parser/gumbo_parser.h"
-#include "gumbo-parser/gumbo_tokenizer.h"
-#include "gumbo-parser/gumbo_tokenizer_states.h"
-#include "gumbo-parser/gumbo_utf8.h"
-#include "gumbo-parser/gumbo_util.h"
-#include "gumbo-parser/gumbo_vector.h"
+//#include "gumbo-parser/gumbo.h"
+//#include "gumbo-parser/gumbo_attribute.h"
+//#include "gumbo-parser/gumbo_error.h"
+//#include "gumbo-parser/gumbo_insertion_mode.h"
+//#include "gumbo-parser/gumbo_parser.h"
+//#include "gumbo-parser/gumbo_tokenizer.h"
+//#include "gumbo-parser/gumbo_tokenizer_states.h"
+//#include "gumbo-parser/gumbo_utf8.h"
+//#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_vector.h"
 
+#include "gumbo.h"
+#include "gumbo_attribute.h"
+#include "gumbo_error.h"
+#include "gumbo_insertion_mode.h"
+#include "gumbo_parser.h"
+#include "gumbo_tokenizer.h"
+#include "gumbo_tokenizer_states.h"
+#include "gumbo_utf8.h"
+#include "gumbo_util.h"
+#include "gumbo_vector.h"
 
 #define AVOID_UNUSED_VARIABLE_WARNING(i) (void)(i)
 

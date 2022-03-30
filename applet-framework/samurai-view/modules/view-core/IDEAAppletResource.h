@@ -64,7 +64,7 @@ typedef enum
 + (id)resourceWithString:(NSString *)string type:(NSString *)type baseURL:(NSString *)path;
 + (id)resourceWithURL:(NSString *)url;
 + (id)resourceWithURL:(NSString *)url type:(NSString *)type;
-+ (id)resourceAtPath:(NSString *)path inBundle:(NSString *)aBundleName;
++ (id)resourceAtPath:(NSString *)path inBundle:(NSBundle *)aBundle;
 + (id)resourceForClass:(Class)clazz;
 
 + (NSArray *)supportedTypesForClass:(Class)clazz;

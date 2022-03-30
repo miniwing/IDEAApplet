@@ -66,6 +66,9 @@ typedef enum
 - (void)loadTemplate:(NSString *)urlOrFile;
 - (void)loadTemplate:(NSString *)urlOrFile type:(NSString *)type;
 
+- (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle;
+- (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle type:(NSString *)type;
+
 - (void)handleTemplate:(IDEAAppletTemplate *)template;
 
 @end
@@ -76,21 +79,23 @@ typedef enum
 
 @joint( stateChanged );
 
-@prop_strong( IDEAAppletDocument *,      document );
+@prop_strong( IDEAAppletDocument *,    document );
 
-@prop_assign( NSTimeInterval,         timeoutSeconds );
-@prop_assign( BOOL,                  timeout );
+@prop_strong( NSBundle *,              bundle );
 
-@prop_assign( BOOL,                  responderDisabled );
-@prop_unsafe( id,                  responder );
+@prop_assign( NSTimeInterval,          timeoutSeconds );
+@prop_assign( BOOL,                    timeout );
 
-@prop_copy( BlockType,               stateChanged );
-@prop_assign( TemplateState,         state );
-@prop_readonly( BOOL,               created );
-@prop_readonly( BOOL,               loading );
-@prop_readonly( BOOL,               loaded );
-@prop_readonly( BOOL,               failed );
-@prop_readonly( BOOL,               cancelled );
+@prop_assign( BOOL,                    responderDisabled );
+@prop_unsafe( id,                      responder );
+
+@prop_copy( BlockType,                 stateChanged );
+@prop_assign( TemplateState,           state );
+@prop_readonly( BOOL,                  created );
+@prop_readonly( BOOL,                  loading );
+@prop_readonly( BOOL,                  loaded );
+@prop_readonly( BOOL,                  failed );
+@prop_readonly( BOOL,                  cancelled );
 
 + (IDEAAppletTemplate *)template;
 

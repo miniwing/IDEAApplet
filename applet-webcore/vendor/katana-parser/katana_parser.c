@@ -28,13 +28,21 @@
 #include <string.h>
 #include <strings.h>
 
-#include "katana-parser/katana.h"
-#include "katana-parser/katana_selector.h"
-#include "katana-parser/katana.tab.h"
-#include "katana-parser/katana_parser.h"
-#include "katana-parser/katana_tokenizer.h"
+//#include "katana-parser/katana.h"
+//#include "katana-parser/katana_selector.h"
+//#include "katana-parser/katana.tab.h"
+//#include "katana-parser/katana_parser.h"
+//#include "katana-parser/katana_tokenizer.h"
+//
+//#include "katana-parser/katana_foundation.h"
 
-#include "katana-parser/katana_foundation.h"
+#include "katana.h"
+#include "katana_selector.h"
+#include "katana.tab.h"
+#include "katana_parser.h"
+#include "katana_tokenizer.h"
+
+#include "katana_foundation.h"
 
 //#undef   assert
 //#define assert(x)

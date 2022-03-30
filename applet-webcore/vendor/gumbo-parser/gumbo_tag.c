@@ -18,7 +18,9 @@
 #include <ctype.h>
 #include <strings.h>    // For strcasecmp.
 
-#include "gumbo-parser/gumbo.h"
+//#include "gumbo-parser/gumbo.h"
+
+#include "gumbo.h"
 
 // NOTE(jdtang): Keep this in sync with the GumboTag enum in the header.
 // TODO(jdtang): Investigate whether there're efficiency benefits to putting the

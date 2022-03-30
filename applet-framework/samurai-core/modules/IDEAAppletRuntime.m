@@ -90,84 +90,105 @@
    return stClassNames;
 }
 
-+ (NSArray *)subClasses {
-   
-   int                            nErr                                     = EFAULT;
-   
-   NSMutableArray                *stResults                                = [NSMutableArray array];
-   
-   __TRY;
-   
-#if __Debug__
-   NSArray<NSString *>           *stClazzes                                = @[
-                                                                                 @"ServiceBorder",
-                                                                                 @"ServiceConsole",
-                                                                                 @"ServiceGesture",
-                                                                                 @"ServiceGrids",
-                                                                                 @"ServiceInspector",
-                                                                                 @"ServiceMonitor",
-                                                                                 @"ServiceTapspot",
-                                                                                 @"ServiceFileSync",
-                                                                                 @"ServiceTheme",
-                                                                                 @"ServiceWiFi",
-                                                                              ];
-   
-   for (NSString *szClazz in stClazzes) {
-      
-      if (NSClassFromString(szClazz)) {
-         
-         [stResults addObject:szClazz];
-         
-      } /* End if () */
-      
-   } /* End for () */
-#else /* __Debug__ */
-   for (NSString *szClassName in [self loadedClassNames]) {
-      
-      Class stClassType = NSClassFromString(szClassName);
-      
-      if (stClassType == self) {
-         
-         continue;
-         
-      } /* End if () */
-      
-//      if ([NSStringFromClass(stClassType) isEqualToString:@"WKNSError"]) {
+//+ (NSArray *)subClasses {
+//
+//   int                            nErr                                     = EFAULT;
+//
+//   NSMutableArray                *stResults                                = [NSMutableArray array];
+//
+//   __TRY;
+//
+//#if __Debug__
+//   NSArray<NSString *>           *stClazzes                                = @[
+//                                                                                 @"ServiceBorder",
+//                                                                                 @"ServiceConsole",
+//                                                                                 @"ServiceGesture",
+//                                                                                 @"ServiceGrids",
+//                                                                                 @"ServiceInspector",
+//                                                                                 @"ServiceMonitor",
+//                                                                                 @"ServiceTapspot",
+//                                                                                 @"ServiceFileSync",
+//                                                                                 @"ServiceTheme",
+//                                                                                 @"ServiceWiFi",
+//                                                                              ];
+//
+//   for (NSString *szClazz in stClazzes) {
+//
+//      if (NSClassFromString(szClazz)) {
+//
+//         [stResults addObject:szClazz];
+//
+//      } /* End if () */
+//
+//   } /* End for () */
+//#else /* __Debug__ */
+//   for (NSString *szClassName in [self loadedClassNames]) {
+//
+//      Class stClassType = NSClassFromString(szClassName);
+//
+//      if (stClassType == self) {
 //
 //         continue;
 //
 //      } /* End if () */
+//
+////      if ([NSStringFromClass(stClassType) isEqualToString:@"WKNSError"]) {
+////
+////         continue;
+////
+////      } /* End if () */
+//
+//      if ([NSStringFromClass(stClassType) hasPrefix:@"WKNS"]) {
+//
+//         continue;
+//
+//      } /* End if () */
+//
+//      if ([stClassType isKindOfClass:[NSProxy class]]) {
+//
+//         continue;
+//
+//      } /* End if () */
+//
+//      if (NO == [stClassType isSubclassOfClass:self]) {
+//
+//         continue;
+//
+//      } /* End if () */
+//
+////      Harry FIXED :
+//      [stResults addObject:[stClassType description]];
+////      [stResults addObject:[stClassType class]];
+//
+//   } /* End for () */
+//#endif /* !__Debug__ */
+//
+//   LogDebug((@"+[NSObject subClasses] : %@", stResults));
+//
+//   __CATCH(nErr);
+//
+//   return stResults;
+//}
 
-      if ([NSStringFromClass(stClassType) hasPrefix:@"WKNS"]) {
-         
-         continue;
-
-      } /* End if () */
-
-      if ([stClassType isKindOfClass:[NSProxy class]]) {
-         
-         continue;
-         
-      } /* End if () */
++ (NSArray *)subClasses {
+   
+   NSMutableArray * results = [[NSMutableArray alloc] init];
+   
+   for ( NSString * className in [self loadedClassNames] ) {
       
-      if (NO == [stClassType isSubclassOfClass:self]) {
-         
+      Class classType = NSClassFromString( className );
+      if ( classType == self ) {
          continue;
-         
-      } /* End if () */
+      }
+      
+      if ( NO == [classType isSubclassOfClass:self] ) {
+         continue;
+      }
+      
+      [results addObject:[classType description]];
+   }
    
-//      Harry FIXED :
-      [stResults addObject:[stClassType description]];
-//      [stResults addObject:[stClassType class]];
-
-   } /* End for () */
-#endif /* !__Debug__ */
-   
-   LogDebug((@"+[NSObject subClasses] : %@", stResults));
-   
-   __CATCH(nErr);
-   
-   return stResults;
+   return results;
 }
 
 + (NSArray *)methods {

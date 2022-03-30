@@ -26,7 +26,10 @@
 #include <stdio.h>
 #include "katana.lex.h"
 #include "katana.tab.h"
-#include "katana-parser/katana_parser.h"
+
+//#include "katana-parser/katana_parser.h"
+
+#include "katana_parser.h"
 
 #ifdef __cplusplus
 extern "C" {

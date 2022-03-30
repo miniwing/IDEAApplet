@@ -195,24 +195,27 @@
 
    self.defaultStyleSheets = [NSMutableArray array];
       
-   stStyleSheet   = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
-   
+//   stStyleSheet   = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:@"IDEAApplet"];
+   stStyleSheet   = [IDEAAppletCSSStyleSheet resourceAtPath:@"html.css" inBundle:[NSBundle bundleForClass:self.class]];
+
    if (stStyleSheet && [stStyleSheet parse]) {
       
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
    
-   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:@"IDEAApplet"];
-   
+//   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:@"IDEAApplet"];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+native.css" inBundle:[NSBundle bundleForClass:self.class]];
+
    if (stStyleSheet && [stStyleSheet parse]) {
       
       [self.defaultStyleSheets addObject:stStyleSheet];
       
    } /* End if () */
    
-   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:@"IDEAApplet"];
-   
+//   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:@"IDEAApplet"];
+   stStyleSheet = [IDEAAppletCSSStyleSheet resourceAtPath:@"html+applet.css" inBundle:[NSBundle bundleForClass:self.class]];
+
    if (stStyleSheet && [stStyleSheet parse]) {
       
       [self.defaultStyleSheets addObject:stStyleSheet];

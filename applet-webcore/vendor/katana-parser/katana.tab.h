@@ -74,10 +74,11 @@ extern int katanadebug;
 *
 */
 
-#include "katana-parser/katana.h"
-#include "katana-parser/katana_foundation.h"
+//#include "katana-parser/katana.h"
+//#include "katana-parser/katana_foundation.h"
 
-
+#include "katana.h"
+#include "katana_foundation.h"
 
 /* Token type.  */
 #ifndef KATANATOKENTYPE

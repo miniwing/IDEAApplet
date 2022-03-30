@@ -241,7 +241,9 @@ Pod::Spec.new do |spec|
       webcore.ios.source_files        = 'applet-webcore/*.{h,m,c}'
 
       webcore.subspec 'resource' do |resource|
-        resource.resource_bundle      = { 'IDEAApplet'  => [ 'applet-webcore/resource/*.{css,html}' ] }
+#        resource.resource_bundle      = { 'IDEAApplet'  => [ 'applet-webcore/resource/*.{css,html}' ] }
+        resource.resources  = 'applet-webcore/**/*.{html,css}',
+                              'applet-framework/**/*.{html,css}'
       end
 
       webcore.subspec 'extension' do |extension|
@@ -359,6 +361,10 @@ Pod::Spec.new do |spec|
 
     end
   end # $applet_webcore == 'YES'
+  
+#  spec.resources  = 'applet-webcore/**/*.{html,css}',
+#                    'applet-framework/**/*.{html,css}'
+
 #############################################################################################
 
 #  spec.subspec 'Services' do |sub|

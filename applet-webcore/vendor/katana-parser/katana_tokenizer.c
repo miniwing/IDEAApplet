@@ -22,13 +22,19 @@
 
 #include <assert.h>
 
-#include "katana-parser/katana_tokenizer.h"
-#include "katana-parser/katana.tab.h"
-#include "katana-parser/katana.lex.h"
-#include "katana-parser/katana_parser.h"
-#include "katana-parser/katana_foundation.h"
+//#include "katana-parser/katana_tokenizer.h"
+//#include "katana-parser/katana.tab.h"
+//#include "katana-parser/katana.lex.h"
+//#include "katana-parser/katana_parser.h"
+//#include "katana-parser/katana_foundation.h"
 
-#undef   assert
+#include "katana_tokenizer.h"
+#include "katana.tab.h"
+#include "katana.lex.h"
+#include "katana_parser.h"
+#include "katana_foundation.h"
+
+#undef  assert
 #define assert(x)
 
 static inline double katana_characters_to_double(const char* data, size_t length, bool* ok);

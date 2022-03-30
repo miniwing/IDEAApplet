@@ -33,7 +33,8 @@
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
 #import "IDEAAppletCSSObject.h"
-#import "katana-parser/katana.h"
+//#import "katana-parser/katana.h"
+#import "katana.h"
 
 #pragma mark -
 

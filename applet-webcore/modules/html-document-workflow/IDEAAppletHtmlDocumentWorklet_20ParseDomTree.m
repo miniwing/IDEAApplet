@@ -42,7 +42,8 @@
 #import "IDEAAppletHtmlDomNode.h"
 #import "IDEAAppletHtmlUserAgent.h"
 
-#import "gumbo-parser/gumbo.h"
+//#import "gumbo-parser/gumbo.h"
+#import "gumbo.h"
 
 // ----------------------------------
 // Source code

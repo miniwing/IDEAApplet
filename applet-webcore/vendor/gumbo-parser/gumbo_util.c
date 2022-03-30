@@ -21,9 +21,13 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include "gumbo-parser/gumbo.h"
-#include "gumbo-parser/gumbo_util.h"
-#include "gumbo-parser/gumbo_parser.h"
+//#include "gumbo-parser/gumbo.h"
+//#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_parser.h"
+
+#include "gumbo.h"
+#include "gumbo_util.h"
+#include "gumbo_parser.h"
 
 // TODO(jdtang): This should be elsewhere, but there's no .c file for
 // SourcePositions and yet the constant needs some linkage, so this is as good

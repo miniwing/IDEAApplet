@@ -30,8 +30,10 @@
 extern "C" {
 #endif
 
-#include "katana-parser/katana.h"
-    
+//#include "katana-parser/katana.h"
+
+#include "katana.h"
+
 struct KatanaInternalParser;
 
 /**

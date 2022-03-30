@@ -226,7 +226,7 @@ BASE_CLASS(IDEAAppletResource)
    return resource;
 }
 
-+ (id)resourceAtPath:(NSString *)aPath inBundle:(NSString *)aBundleName {
++ (id)resourceAtPath:(NSString *)aPath inBundle:(NSBundle *)aBundle {
    
    if (nil == aPath) {
       
@@ -316,27 +316,22 @@ BASE_CLASS(IDEAAppletResource)
       //      NSString       *szResPath     = [[[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt] stringByStandardizingPath];
       //      NSString       *szWWWPath     = [[[NSBundle mainBundle] pathForResource:szFileName ofType:szFileExt inDirectory:[[stResource class] baseDirectory]] stringByStandardizingPath];
       
-      BOOL            bDir          = NO;
-      NSFileManager  *stFileManager = [NSFileManager defaultManager];
+//
+//      NSURL          *stBundleURL   = [[NSBundle bundleForClass:[self class]] URLForResource:aBundleName withExtension:@"bundle"];
+//
+//      NSBundle       *stBundle      = nil;
       
-      NSURL          *stBundleURL   = [[NSBundle bundleForClass:[self class]] URLForResource:aBundleName withExtension:@"bundle"];
-      
-      NSBundle       *stBundle      = nil;
-      
-      if (nil == stBundleURL) {
+      if (nil == aBundle) {
          
-         stBundle = [NSBundle mainBundle];
+         aBundle  = [NSBundle mainBundle];
          
       } /* End if () */
-      else {
-         
-         stBundle = [NSBundle bundleWithURL:stBundleURL];
-         
-      } /* End else */
       
-      NSString       *szDocPath     = [[stBundle pathForResource:szFileName ofType:szFileExt inDirectory:[aPath stringByDeletingLastPathComponent]] stringByStandardizingPath];
-      NSString       *szResPath     = [[stBundle pathForResource:szFileName ofType:szFileExt] stringByStandardizingPath];
-      NSString       *szWWWPath     = [[stBundle pathForResource:szFileName ofType:szFileExt inDirectory:[[stResource class] baseDirectory]] stringByStandardizingPath];
+      BOOL            bDir          = NO;
+      NSFileManager  *stFileManager = [NSFileManager defaultManager];
+      NSString       *szDocPath     = [[aBundle pathForResource:szFileName ofType:szFileExt inDirectory:[aPath stringByDeletingLastPathComponent]] stringByStandardizingPath];
+      NSString       *szResPath     = [[aBundle pathForResource:szFileName ofType:szFileExt] stringByStandardizingPath];
+      NSString       *szWWWPath     = [[aBundle pathForResource:szFileName ofType:szFileExt inDirectory:[[stResource class] baseDirectory]] stringByStandardizingPath];
       
       if ((NO == [stFileManager fileExistsAtPath:szDocPath isDirectory:&bDir]) || (YES == bDir)) {
          

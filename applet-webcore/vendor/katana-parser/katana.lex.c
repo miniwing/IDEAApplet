@@ -1902,7 +1902,9 @@ static yyconst flex_int32_t yy_rule_can_match_eol[91] =
 #define YYSTYPE         KATANASTYPE
 #define YYLTYPE         KATANALTYPE
 
-#include "katana-parser/katana_tokenizer.h"
+//#include "katana-parser/katana_tokenizer.h"
+
+#include "katana_tokenizer.h"
 
 extern int katanalex \
             (YYSTYPE* yylval_param, YYLTYPE* yylloc, yyscan_t yyscanner, void* parser);

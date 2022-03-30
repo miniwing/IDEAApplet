@@ -83,7 +83,7 @@
       } /* End else */
       
 #if __SAMURAI_DEBUG__
-      [renderObject dump];
+      [aRenderObject dump];
 #endif   // #if __SAMURAI_DEBUG__
       
    } // if ( NO == CGSizeEqualToSize( aRenderObject.view.frame.size, CGSizeZero ) )

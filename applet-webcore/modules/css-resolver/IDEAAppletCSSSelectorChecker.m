@@ -35,9 +35,13 @@
 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
 
-#import "katana-parser/katana.h"
-#import "katana-parser/katana_parser.h"
-#import "katana-parser/katana_selector.h"
+//#import "katana-parser/katana.h"
+//#import "katana-parser/katana_parser.h"
+//#import "katana-parser/katana_selector.h"
+
+#import "katana.h"
+#import "katana_parser.h"
+#import "katana_selector.h"
 
 // ----------------------------------
 // Source code

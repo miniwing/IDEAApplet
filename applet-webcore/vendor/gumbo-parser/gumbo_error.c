@@ -20,12 +20,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "gumbo-parser/gumbo_error.h"
-#include "gumbo-parser/gumbo.h"
-#include "gumbo-parser/gumbo_parser.h"
-#include "gumbo-parser/gumbo_string_buffer.h"
-#include "gumbo-parser/gumbo_util.h"
-#include "gumbo-parser/gumbo_vector.h"
+//#include "gumbo-parser/gumbo_error.h"
+//#include "gumbo-parser/gumbo.h"
+//#include "gumbo-parser/gumbo_parser.h"
+//#include "gumbo-parser/gumbo_string_buffer.h"
+//#include "gumbo-parser/gumbo_util.h"
+//#include "gumbo-parser/gumbo_vector.h"
+
+#include "gumbo_error.h"
+#include "gumbo.h"
+#include "gumbo_parser.h"
+#include "gumbo_string_buffer.h"
+#include "gumbo_util.h"
+#include "gumbo_vector.h"
 
 static const size_t kMessageBufferSize = 256;
 

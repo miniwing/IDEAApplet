@@ -25,7 +25,8 @@
 
 #include "util.h"
 
-#include "katana-parser/katana_selector.h"
+//#include "katana-parser/katana_selector.h"
+#include "katana_selector.h"
 
 #undef   assert
 #define assert(x)
