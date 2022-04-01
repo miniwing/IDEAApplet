@@ -63,6 +63,8 @@ Pod::Spec.new do |spec|
 
   spec.frameworks                   = ['Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreFoundation']
   
+#  spec.static_framework             = false
+
 #  spec.pod_target_xcconfig  = {
 #    'GCC_PREPROCESSOR_DEFINITIONS'  => 'IDEAKIT_AFNETWORKING_OPERATIONS=1'
 #  }

@@ -1041,18 +1041,18 @@
    
 #if __SAMURAI_DEBUG__
 #  if __SIGNAL_CALLSTACK__
-   NSString * selName = [NSString stringWithUTF8String:sel_getName(sel)];
-   NSString * className = [clazz description];
+   NSString * szSelName    = [NSString stringWithUTF8String:sel_getName(aSEL)];
+   NSString * szClassName  = [aClass description];
    
-   if (NSNotFound != [selName rangeOfString:@"____"].location) {
+   if (NSNotFound != [szSelName rangeOfString:@"____"].location) {
       
-      selName = [selName stringByReplacingOccurrencesOfString:@"handleSignal____" withString:@"handleSignal("];
-      selName = [selName stringByReplacingOccurrencesOfString:@"____" withString:@", "];
-      selName = [selName stringByReplacingOccurrencesOfString:@":" withString:@""];
-      selName = [selName stringByAppendingString:@")"];
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@"handleSignal____" withString:@"handleSignal("];
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@"____" withString:@", "];
+      szSelName = [szSelName stringByReplacingOccurrencesOfString:@":" withString:@""];
+      szSelName = [szSelName stringByAppendingString:@")"];
    }
    
-   PERF(@"  %@ [%d] %@::%@", performed ? @"✔" : @"✖", signal.jumpCount, className, selName);
+   PERF(@"  %@ [%d] %@::%@", bPerformed ? @"✔" : @"✖", aSignal.jumpCount, szClassName, szSelName);
 #  endif
 #endif
    

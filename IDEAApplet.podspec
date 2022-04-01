@@ -54,6 +54,8 @@ Pod::Spec.new do |spec|
                                            ]
                                       }
 
+#  spec.static_framework             = false
+  
 #  spec.dependency 'RTRootNavigationController'
 #  spec.dependency 'IDEANightVersion'
 
@@ -63,10 +65,6 @@ Pod::Spec.new do |spec|
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
-  #    spec.dependency 'AFNetworking/Serialization'
-  #    spec.dependency 'AFNetworking/Security'
-  #    spec.dependency 'AFNetworking/Reachability'
-  #    spec.dependency 'AFNetworking/NSURLSession'
   end # if $IDEAFONT_MSYH == 'YES'
 
 #  spec.dependency 'AFNetworking/Serialization'

@@ -33,7 +33,7 @@
 #pragma mark -
 
 #undef  __SIGNAL_CALLSTACK__
-#define __SIGNAL_CALLSTACK__           (__OFF__)
+#define __SIGNAL_CALLSTACK__           (__AUTO__)
 
 #undef  __NOTIFICATION_CALLSTACK__
-#define __NOTIFICATION_CALLSTACK__     (__OFF__)
+#define __NOTIFICATION_CALLSTACK__     (__AUTO__)

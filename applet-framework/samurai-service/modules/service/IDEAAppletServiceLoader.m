@@ -28,6 +28,14 @@
 //   THE SOFTWARE.
 //
 
+#include <mach-o/getsect.h>
+#include <mach-o/loader.h>
+#include <mach-o/dyld.h>
+#include <dlfcn.h>
+#include <objc/runtime.h>
+#include <objc/message.h>
+#include <mach-o/ldsyms.h>
+
 #import "IDEAAppletServiceLoader.h"
 #import "IDEAAppletService.h"
 
@@ -47,6 +55,8 @@
 @def_singleton    ( IDEAAppletServiceLoader );
 
 @def_prop_dynamic ( NSArray *, services     );
+
+/******************************************************************************************************************************/
 
 - (id)init {
    

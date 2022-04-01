@@ -83,7 +83,7 @@
 @implementation IDEAAppletResourceFetcher {
    
    NSMutableArray       * _operations;
-#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
+#if (AF_NETWORKING)
    AFURLSessionManager  * _sessionManager;
 #endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
 }
@@ -107,7 +107,7 @@
       
       _operations       = [NSMutableArray nonRetainingArray];
       
-#if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
+#if (AF_NETWORKING)
       _sessionManager   = [[AFURLSessionManager alloc] initWithSessionConfiguration:nil];
 #endif // #if (__has_include(<AFNetworking/AFNetworking.h>) || __has_include("AFNetworking/AFNetworking.h") || __has_include("AFNetworking.h"))
 

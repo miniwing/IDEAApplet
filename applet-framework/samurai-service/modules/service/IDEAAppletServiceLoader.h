@@ -31,6 +31,29 @@
 #import "IDEAAppletCore.h"
 #import "IDEAAppletServiceConfig.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+#pragma mark -
+
+typedef struct __ServicStartUp {
+   
+   char * _Nonnull key;
+//   char * (* _Nonnull function)(void);
+   void (* _Nonnull function)(void);
+
+} St_ServicStartUp;
+
+#define __SERVICE_STARTUP_SECTION_NAME    "__S_STARTUP"
+#define __SERVICE_STARTUP_KEY             "__service_main"
+
+#define __S_STARTUP(key)                  \
+                                          static void __startup_##key(void); \
+                                          __attribute__((used, section("__S_STARTUP," ""#key""))) \
+                                          static const St_ServicStartUp __fn_##key = (St_ServicStartUp){(char *)(&#key), (void *)(&__startup_##key)}; \
+                                          static void __startup_##key() \
+
+#define SERVICE_MAIN()                    __S_STARTUP(__service_main)
+
 #pragma mark -
 
 @class IDEAAppletService;
@@ -47,3 +70,5 @@
 - (void)uninstallServices;
 
 @end
+
+NS_ASSUME_NONNULL_END

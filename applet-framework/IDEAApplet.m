@@ -31,6 +31,8 @@
 #import "IDEAApplet.h"
 #import "IDEAAppletClassLoader.h"
 
+#import "IDEAAppletDebug.h"
+
 #import "__pragma_push.h"
 
 // ----------------------------------
@@ -48,21 +50,70 @@
 static dispatch_once_t   stOnceToken;
 
 + (void)load {
-   
-   //   dispatch_async_background_serial(^() {
-   //      [IDEAApplet sharedInstance];
-   //   });
+
+//   dispatch_async_background_serial(^() {
+//
+//      [IDEAApplet sharedInstance];
+//   });
 
    LogDebug((@"+[IDEAApplet load] : OnceToken : %p", &stOnceToken));
-
-//   static dispatch_once_t   stOnceToken;
+   LogDebug((@"[CallStack : %s] : %@", __PRETTY_FUNCTION__, [[IDEAAppletDebugger sharedInstance] callstack:10]));
+   
    dispatch_once(&stOnceToken, ^{
+
+      __init();
 
       [IDEAApplet sharedInstance];
    });
    
    return;
 }
+
+static dispatch_once_t onceToken;
+
+NS_INLINE void __init() {
+   
+   @synchronized (IDEAAppletServiceLoader.class) {
+      
+      dispatch_once(&onceToken, ^(void) {
+         
+         _dyld_register_func_for_add_image(__dyld_callback);
+      });
+
+   } /* synchronized */
+   
+   return;
+}
+
+NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t _vmaddr_slide) {
+   
+   char           *psz_section_name = __SERVICE_STARTUP_KEY;
+   unsigned long   ul_size          = 0;
+#ifndef __LP64__
+   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(_mach_header, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
+#else
+   const struct mach_header_64   *mhp64 = (const struct mach_header_64 *)_mach_header;
+   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(mhp64, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
+#endif
+   
+   unsigned long   ul_counter = ul_size / sizeof(St_ServicStartUp);
+   unsigned long   ul_offset  = sizeof(St_ServicStartUp) / sizeof(void *);
+   
+   for (int H = 0; H < ul_counter; ++H) {
+      
+      St_ServicStartUp   st_start_up   = *(St_ServicStartUp*)(pst_memory + ul_offset * (H));
+      
+      if (st_start_up.key) {
+         
+         st_start_up.function();
+         
+      } /* End if () */
+      
+   } /* End if () */
+   
+   return;
+}
+
 #endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
 - (id)init {
@@ -232,6 +283,7 @@ static dispatch_once_t   stOnceToken;
 }
 
 + (BOOL)isAppExtension {
+   
     static BOOL isAppExtension = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
