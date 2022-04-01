@@ -44,13 +44,22 @@
 @def_singleton    ( IDEAApplet );
 
 #if __IDEA_APPLET_AUTO_LOAD__
+
+static dispatch_once_t   stOnceToken;
+
 + (void)load {
    
    //   dispatch_async_background_serial(^() {
    //      [IDEAApplet sharedInstance];
    //   });
-   
-   [IDEAApplet sharedInstance];
+
+   LogDebug((@"+[IDEAApplet load] : OnceToken : %p", &stOnceToken));
+
+//   static dispatch_once_t   stOnceToken;
+   dispatch_once(&stOnceToken, ^{
+
+      [IDEAApplet sharedInstance];
+   });
    
    return;
 }

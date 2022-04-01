@@ -30,8 +30,8 @@
 
 #if (TARGET_OS_IPHONE)
 
-#define __SAMURAI_DEBUG__              (__OFF__ )  /// 调试模式
-#define __SAMURAI_LOGGING__            (__OFF__ )  /// 日志模式
+#define __SAMURAI_DEBUG__              (__AUTO__)  /// 调试模式
+#define __SAMURAI_LOGGING__            (__AUTO__)  /// 日志模式
 #define __SAMURAI_TESTING__            (__OFF__ )  /// 单元测试
 #define __SAMURAI_UNCAUGHT_EXCEPTION__ (__OFF__ )  /// 异常捕获
 
