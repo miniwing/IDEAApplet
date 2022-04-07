@@ -94,6 +94,7 @@
    __TRY;
 
 #if __SAMURAI_SERVICE__
+   
    for (NSString *szClassName in [IDEAAppletService subClasses]) {
       
       Class stClassType = NSClassFromString(szClassName);
@@ -106,8 +107,8 @@
 //      fprintf(stderr, "  Loading service '%s'\n", [[classType description] UTF8String]);
       LogDebug((@"Loading service '%s'", [[stClassType description] UTF8String]));
       
-//      if ([[stClassType description] isEqualToString:@"ServiceMonitor"])
-//      {
+//      if ([[stClassType description] isEqualToString:@"ServiceMonitor"]) {
+//      
 //         LogDebug((@"Loading service '%s'", [[stClassType description] UTF8String]));
 //
 //      } /* End if () */
@@ -139,6 +140,7 @@
    
 //   fprintf(stderr, "\n");
    LogDebug((@"\n"));
+   
 #endif /* __SAMURAI_SERVICE__ */
    
    __CATCH(nErr);

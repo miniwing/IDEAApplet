@@ -61,7 +61,7 @@ static dispatch_once_t   stOnceToken;
    
    dispatch_once(&stOnceToken, ^{
 
-      __init();
+//      __init();
 
       [IDEAApplet sharedInstance];
    });
@@ -69,50 +69,50 @@ static dispatch_once_t   stOnceToken;
    return;
 }
 
-static dispatch_once_t onceToken;
-
-NS_INLINE void __init() {
-   
-   @synchronized (IDEAAppletServiceLoader.class) {
-      
-      dispatch_once(&onceToken, ^(void) {
-         
-         _dyld_register_func_for_add_image(__dyld_callback);
-      });
-
-   } /* synchronized */
-   
-   return;
-}
-
-NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t _vmaddr_slide) {
-   
-   char           *psz_section_name = __SERVICE_STARTUP_KEY;
-   unsigned long   ul_size          = 0;
-#ifndef __LP64__
-   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(_mach_header, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
-#else
-   const struct mach_header_64   *mhp64 = (const struct mach_header_64 *)_mach_header;
-   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(mhp64, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
-#endif
-   
-   unsigned long   ul_counter = ul_size / sizeof(St_ServicStartUp);
-   unsigned long   ul_offset  = sizeof(St_ServicStartUp) / sizeof(void *);
-   
-   for (int H = 0; H < ul_counter; ++H) {
-      
-      St_ServicStartUp   st_start_up   = *(St_ServicStartUp*)(pst_memory + ul_offset * (H));
-      
-      if (st_start_up.key) {
-         
-         st_start_up.function();
-         
-      } /* End if () */
-      
-   } /* End if () */
-   
-   return;
-}
+//static dispatch_once_t onceToken;
+//
+//NS_INLINE void __init() {
+//
+//   @synchronized (IDEAAppletServiceLoader.class) {
+//
+//      dispatch_once(&onceToken, ^(void) {
+//
+//         _dyld_register_func_for_add_image(__dyld_callback);
+//      });
+//
+//   } /* synchronized */
+//
+//   return;
+//}
+//
+//NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t _vmaddr_slide) {
+//
+//   char           *psz_section_name = __SERVICE_STARTUP_KEY;
+//   unsigned long   ul_size          = 0;
+//#ifndef __LP64__
+//   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(_mach_header, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
+//#else
+//   const struct mach_header_64   *mhp64 = (const struct mach_header_64 *)_mach_header;
+//   uintptr_t      *pst_memory       = (uintptr_t*)getsectiondata(mhp64, __SERVICE_STARTUP_SECTION_NAME, psz_section_name, &ul_size);
+//#endif
+//
+//   unsigned long   ul_counter = ul_size / sizeof(St_ServicStartUp);
+//   unsigned long   ul_offset  = sizeof(St_ServicStartUp) / sizeof(void *);
+//
+//   for (int H = 0; H < ul_counter; ++H) {
+//
+//      St_ServicStartUp   st_start_up   = *(St_ServicStartUp*)(pst_memory + ul_offset * (H));
+//
+//      if (st_start_up.key) {
+//
+//         st_start_up.function();
+//
+//      } /* End if () */
+//
+//   } /* End if () */
+//
+//   return;
+//}
 
 #endif /* __IDEA_APPLET_AUTO_LOAD__ */
 
@@ -158,30 +158,31 @@ NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t 
    __TRY;
    
    uname(&stSystemInfo);
-      
+
 #if __Debug__
-   fprintf(stderr, "                                                                                   \n");
-//   fprintf(stderr, "     ____    _                        __     _      _____                          \n");
-//   fprintf(stderr, "    / ___\\  /_\\     /\\/\\    /\\ /\\    /__\\   /_\\     \\_   \\               \n");
-//   fprintf(stderr, "    \\ \\    //_\\\\   /    \\  / / \\ \\  / \\//  //_\\\\     / /\\/              \n");
-//   fprintf(stderr, "  /\\_\\ \\  /  _  \\ / /\\/\\ \\ \\ \\_/ / / _  \\ /  _  \\ /\\/ /_               \n");
-//   fprintf(stderr, "  \\____/  \\_/ \\_/ \\/    \\/  \\___/  \\/ \\_/ \\_/ \\_/ \\____/                \n");
-//   fprintf(stderr, "                                                                                   \n");
-   fprintf(stderr, "                                                                                   \n");
+   fprintf(stderr, "  +----------------------------------------------------------------------------+  \n");
+   fprintf(stderr, "                                                                                  \n");
+   fprintf(stderr, "       ____    _                        __     _      _____                       \n");
+   fprintf(stderr, "      / ___\  /_\     /\/\    /\ /\    /__\   /_\     \_   \                      \n");
+   fprintf(stderr, "      \ \    //_\\   /    \  / / \ \  / \//  //_\\     / /\/                      \n");
+   fprintf(stderr, "    /\_\ \  /  _  \ / /\/\ \ \ \_/ / / _  \ /  _  \ /\/ /_                        \n");
+   fprintf(stderr, "    \____/  \_/ \_/ \/    \/  \___/  \/ \_/ \_/ \_/ \____/                        \n");
+   fprintf(stderr, "                                                                                  \n");
+   fprintf(stderr, "                                                                                  \n");
    fprintf(stderr, "    version: %s\n", __SAMURAI_VERSION__);
-   fprintf(stderr, "                                                                                   \n");
+   fprintf(stderr, "                                                                                  \n");
    fprintf(stderr, "  - debug:   %s\n", options[__SAMURAI_DEBUG__]);
    fprintf(stderr, "  - logging: %s\n", options[__SAMURAI_LOGGING__]);
    fprintf(stderr, "  - testing: %s\n", options[__SAMURAI_TESTING__]);
    fprintf(stderr, "  - service: %s\n", options[__SAMURAI_SERVICE__]);
-   fprintf(stderr, "                                                                                   \n");
+   fprintf(stderr, "                                                                                  \n");
    fprintf(stderr, "  - system:  %s\n", stSystemInfo.sysname);
    fprintf(stderr, "  - node:    %s\n", stSystemInfo.nodename);
    fprintf(stderr, "  - release: %s\n", stSystemInfo.release);
    fprintf(stderr, "  - version: %s\n", stSystemInfo.version);
    fprintf(stderr, "  - machine: %s\n", stSystemInfo.machine);
-   fprintf(stderr, "                                                                                   \n");
-//   fprintf(stderr, "  +----------------------------------------------------------------------------+   \n");
+   fprintf(stderr, "                                                                                  \n");
+   fprintf(stderr, "  +----------------------------------------------------------------------------+  \n");
 //   fprintf(stderr, "  |                                                                            |   \n");
 //   fprintf(stderr, "  |  1. Have a bug or a feature request?                                       |   \n");
 //   fprintf(stderr, "  |     https://github.com/hackers-painters/samurai-native/issues              |   \n");
@@ -197,7 +198,7 @@ NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t 
 #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    [[IDEAAppletServiceLoader sharedInstance] installServices];
-      
+   
    [[NSNotificationCenter defaultCenter] addObserver:self
                                             selector:@selector(UIApplicationDidFinishLaunchingNotification)
                                                 name:UIApplicationDidFinishLaunchingNotification
@@ -212,7 +213,7 @@ NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t 
    
    [self startup];
    
-#endif   // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
+#endif // #if (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR)
    
    __CATCH(nErr);
    
@@ -284,20 +285,30 @@ NS_INLINE void __dyld_callback(const struct mach_header *_mach_header, intptr_t 
 
 + (BOOL)isAppExtension {
    
-    static BOOL isAppExtension = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class cls = NSClassFromString(@"UIApplication");
-        if(!cls || ![cls respondsToSelector:@selector(sharedApplication)]) isAppExtension = YES;
-        if ([[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"]) isAppExtension = YES;
-    });
-    return isAppExtension;
+   static BOOL             isAppExtension = NO;
+   static dispatch_once_t  onceToken;
+   
+   dispatch_once(&onceToken, ^{
+      
+      Class stClass  = NSClassFromString(@"UIApplication");
+      
+      if (!stClass || ![stClass respondsToSelector:@selector(sharedApplication)]) {
+         
+         isAppExtension = YES;
+      }
+      
+      if ([[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"]) {
+         
+         isAppExtension = YES;
+      }
+   });
+   return isAppExtension;
 }
 
 + (UIApplication *)sharedExtensionApplication {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    return [self isAppExtension] ? nil : [UIApplication performSelector:@selector(sharedApplication)];
+   return [self isAppExtension] ? nil : [UIApplication performSelector:@selector(sharedApplication)];
 #pragma clang diagnostic pop
 }
 

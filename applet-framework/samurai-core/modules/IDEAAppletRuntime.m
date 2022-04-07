@@ -172,7 +172,7 @@
 
 + (NSArray *)subClasses {
    
-   NSMutableArray * results = [[NSMutableArray alloc] init];
+   NSMutableArray * results = [NSMutableArray array];
    
    for ( NSString * className in [self loadedClassNames] ) {
       
