@@ -47,7 +47,6 @@
 
 #if __IDEA_APPLET_AUTO_LOAD__
 
-static dispatch_once_t   stOnceToken;
 
 + (void)load {
 
@@ -56,9 +55,10 @@ static dispatch_once_t   stOnceToken;
 //      [IDEAApplet sharedInstance];
 //   });
 
-   LogDebug((@"+[IDEAApplet load] : OnceToken : %p", &stOnceToken));
-   LogDebug((@"[CallStack : %s] : %@", __PRETTY_FUNCTION__, [[IDEAAppletDebugger sharedInstance] callstack:10]));
-   
+//   LogDebug((@"+[IDEAApplet load] : OnceToken : %p", &stOnceToken));
+//   LogDebug((@"[CallStack : %s] : %@", __PRETTY_FUNCTION__, [[IDEAAppletDebugger sharedInstance] callstack:10]));
+   static dispatch_once_t   stOnceToken;
+
    dispatch_once(&stOnceToken, ^{
 
 //      __init();
