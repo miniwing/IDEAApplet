@@ -28,8 +28,8 @@
 //   THE SOFTWARE.
 //
 
-#import "IDEAApplet/NSArray+Extension.h"
-#import "IDEAApplet/NSObject+Extension.h"
+#import "NSArray+Extension.h"
+#import "NSObject+Extension.h"
 
 #import "IDEAAppletUnitTest.h"
 

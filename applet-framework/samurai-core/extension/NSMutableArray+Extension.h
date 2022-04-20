@@ -31,7 +31,7 @@
 #import "IDEAAppletConfig.h"
 #import "IDEAAppletProperty.h"
 
-#import "IDEAApplet/NSArray+Extension.h"
+#import "NSArray+Extension.h"
 
 #pragma mark -
 

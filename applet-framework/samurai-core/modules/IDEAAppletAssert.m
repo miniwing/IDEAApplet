@@ -32,7 +32,7 @@
 #import "IDEAAppletLog.h"
 #import "IDEAAppletUnitTest.h"
 
-#import "IDEAApplet/NSObject+Extension.h"
+#import "NSObject+Extension.h"
 
 #import "__pragma_push.h"
 

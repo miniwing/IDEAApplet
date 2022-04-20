@@ -33,9 +33,9 @@
 #import "IDEAAppletProperty.h"
 #import "IDEAAppletUnitTest.h"
 
-#import "IDEAApplet/NSArray+Extension.h"
-#import "IDEAApplet/NSString+Extension.h"
-#import "IDEAApplet/NSObject+Extension.h"
+#import "NSArray+Extension.h"
+#import "NSString+Extension.h"
+#import "NSObject+Extension.h"
 
 #import "__pragma_push.h"
 
