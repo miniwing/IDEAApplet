@@ -85,6 +85,16 @@ static const CGFloat             kBarHeight              = 20.0f;
       
    if (self) {
       
+      [[UIApplication sharedApplication].delegate.window addObserver:self
+                                                          forKeyPath:@"rootViewController"
+                                                             options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                                                             context:nil];
+      
+      [[NSNotificationCenter defaultCenter] addObserver:self
+                                               selector:@selector(onThemeUpdate:)
+                                                   name:DKNightVersionThemeChangingNotification
+                                                 object:nil];
+
       self.hidden             = YES;
       self.backgroundColor    = [UIColor clearColor];
 //      self.backgroundColor    = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
@@ -97,16 +107,6 @@ static const CGFloat             kBarHeight              = 20.0f;
       
    } /* End if () */
    
-   [[UIApplication sharedApplication].delegate.window addObserver:self
-                                                       forKeyPath:@"rootViewController"
-                                                          options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                                                          context:nil];
-   
-   [[NSNotificationCenter defaultCenter] addObserver:self
-                                            selector:@selector(onThemeUpdate:)
-                                                name:DKNightVersionThemeChangingNotification
-                                              object:nil];
-
    __CATCH(nErr);
    
    return self;
@@ -199,15 +199,13 @@ static const CGFloat             kBarHeight              = 20.0f;
       
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
-      UIStatusBarStyle  eBarStyle = [UIApplication sharedApplication].delegate.window.rootViewController.preferredStatusBarStyle;
-         
-      if (UIStatusBarStyleLightContent == eBarStyle) {
-         
+      if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
+
          [_label setTextColor:UIColor.whiteColor];
 
       } /* End if () */
       else {
-         
+
          [_label setTextColor:UIColor.labelColor];
 
       } /* End else */
@@ -331,7 +329,7 @@ static const CGFloat             kBarHeight              = 20.0f;
 //
 //   } /* End else */
    
-   if ([DKThemeVersionNormal isEqualToString:aNotification.object]) {
+   if ([DKThemeVersionNormal isEqualToString:[DKNightVersionManager sharedManager].themeVersion]) {
 
       [_label setTextColor:UIColor.labelColor];
 

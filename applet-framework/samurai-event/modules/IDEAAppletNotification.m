@@ -74,7 +74,7 @@
    
    @weakify(self);
    
-   IDEAAppletNotificationBlock stBlock = ^ NSObject * (NSString * aName, id aNotificationBlock) {
+   IDEAAppletNotificationBlock stBlock = ^ NSObject * (NSString *aName, id aNotificationBlock) {
       
       @strongify(self);
       
