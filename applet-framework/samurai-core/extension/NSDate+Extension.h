@@ -43,8 +43,8 @@
 
 #pragma mark -
 
-typedef enum
-{
+typedef enum {
+   
    WeekdayType_Sunday      = 1,
    WeekdayType_Monday,
    WeekdayType_Tuesday,
@@ -52,6 +52,7 @@ typedef enum
    WeekdayType_Thursday,
    WeekdayType_Friday,
    WeekdayType_Saturday
+   
 } WeekdayType;
 
 #pragma mark -
