@@ -172,7 +172,7 @@ static UIColor *kJBChartVerticalSelectionViewDefaultBgColor = nil;
 {
    if (self == [JBChartVerticalSelectionView class])
    {
-      kJBChartVerticalSelectionViewDefaultBgColor = [UIColor whiteColor];
+      kJBChartVerticalSelectionViewDefaultBgColor = UIColor.whiteColor;
    }
 }
 
@@ -181,7 +181,7 @@ static UIColor *kJBChartVerticalSelectionViewDefaultBgColor = nil;
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColor.clearColor;
     }
     return self;
 }
@@ -191,7 +191,7 @@ static UIColor *kJBChartVerticalSelectionViewDefaultBgColor = nil;
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [[UIColor clearColor] set];
+    [UIColor.clearColor set];
     CGContextFillRect(context, rect);
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();

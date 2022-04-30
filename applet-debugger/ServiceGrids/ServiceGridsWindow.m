@@ -42,7 +42,7 @@
    if ( self ) {
       
       self.hidden = YES;
-      self.backgroundColor       = [UIColor clearColor];
+      self.backgroundColor       = UIColor.clearColor;
       self.windowLevel           = UIWindowLevelStatusBar + 2.0f;
       self.userInteractionEnabled= NO;
       self.rootViewController    = [[ServiceRootController alloc] init];
@@ -88,7 +88,7 @@
       
       CGContextSaveGState( stContext );
 
-      CGContextSetFillColorWithColor( stContext, [[UIColor clearColor] CGColor] );
+      CGContextSetFillColorWithColor( stContext, [UIColor.clearColor CGColor] );
       CGContextFillRect( stContext, aRect );
 
       CGFloat x = 0;

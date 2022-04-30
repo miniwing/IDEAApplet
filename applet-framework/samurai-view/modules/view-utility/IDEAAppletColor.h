@@ -47,10 +47,10 @@
 #define HEX_RGB(V)      [UIColor fromHexValue:V]
 
 #undef  HEX_RGBA
-#define HEX_RGBA(V, A)   [UIColor fromHexValue:V alpha:A]
+#define HEX_RGBA(V, A)  [UIColor fromHexValue:V alpha:A]
 
 #undef  SHORT_RGB
-#define SHORT_RGB(V)   [UIColor fromShortHexValue:V]
+#define SHORT_RGB(V)    [UIColor fromShortHexValue:V]
 
 #pragma mark -
 

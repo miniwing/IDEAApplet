@@ -43,14 +43,14 @@ static const CGFloat             kBarHeight              = 20.0f;
    if (self) {
       
       self.hidden             = YES;
-      self.backgroundColor    = [UIColor clearColor]; // [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
+      self.backgroundColor    = UIColor.clearColor; // [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
       self.windowLevel        = UIWindowLevelStatusBar + 5.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       
       _label = [[UILabel alloc] initWithFrame:self.bounds];
-      _label.backgroundColor     = [UIColor clearColor];
-      _label.textColor           = [UIColor blackColor];
-      _label.backgroundColor     = [UIColor clearColor];
+      _label.backgroundColor     = UIColor.clearColor;
+      _label.textColor           = UIColor.blackColor;
+      _label.backgroundColor     = UIColor.clearColor;
       
       if (@available(iOS 13, *)) {
          
@@ -67,7 +67,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label.textAlignment       = NSTextAlignmentLeft;
       _label.lineBreakMode       = NSLineBreakByClipping;
       
-//      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
+//      _label.layer.shadowColor   = [UIColor.whiteColor CGColor];
 //      _label.layer.shadowOpacity = 1.0f;
 //      _label.layer.shadowRadius  = 1.0f;
 //      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);

@@ -47,7 +47,7 @@
    self = [super initWithFrame:aFrame];
    if ( self ) {
       
-      self.backgroundColor          = [UIColor clearColor];
+      self.backgroundColor          = UIColor.clearColor;
       self.userInteractionEnabled   = NO;
       self.contentMode              = UIViewContentModeCenter;
       
@@ -102,7 +102,7 @@
       
       CGContextSaveGState( stContext );
       
-      CGContextSetFillColorWithColor( stContext, [[UIColor clearColor] CGColor] );
+      CGContextSetFillColorWithColor( stContext, [UIColor.clearColor CGColor] );
       CGContextFillRect( stContext, aRect );
       
       CGRect stBound;
@@ -114,7 +114,7 @@
       CGContextFillPath( stContext );
 
       CGContextAddEllipseInRect( stContext, CGRectInset(stBound, 5, 5) );
-      CGContextSetFillColorWithColor( stContext, [[UIColor whiteColor] CGColor] );
+      CGContextSetFillColorWithColor( stContext, [UIColor.whiteColor CGColor] );
       CGContextFillPath( stContext );
 
       CGContextRestoreGState( stContext );

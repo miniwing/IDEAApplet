@@ -96,7 +96,7 @@ static const CGFloat             kBarHeight              = 20.0f;
                                                  object:nil];
 
       self.hidden             = YES;
-      self.backgroundColor    = [UIColor clearColor];
+      self.backgroundColor    = UIColor.clearColor;
 //      self.backgroundColor    = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:0.5f];
 //      self.backgroundColor    = [UIColor systemGrayColor];
       self.windowLevel        = UIWindowLevelStatusBar + 5.0f;
@@ -190,10 +190,21 @@ static const CGFloat             kBarHeight              = 20.0f;
       [self addSubview:_chart2];
       
       _label = [[UILabel alloc] initWithFrame:self.bounds];
-      _label.backgroundColor     = [UIColor clearColor];
-      _label.textColor           = [UIColor labelColor];
+      _label.backgroundColor     = UIColor.clearColor;
+      
+      if (@available(iOS 13, *)) {
+         
+         _label.textColor        = UIColor.labelColor;
+
+      } /* End if () */
+      else {
+         
+         _label.textColor        = UIColor.blackColor;
+
+      } /* End else */
 
 //      dispatch_async(dispatch_get_main_queue(), ^{
+//      
 //         [_label setTextColorPicker:DKColorPickerWithKey(@"label")];
 //      });
       
@@ -225,7 +236,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label.textAlignment       = NSTextAlignmentCenter;
       _label.lineBreakMode       = NSLineBreakByClipping;
       
-//      _label.layer.shadowColor   = [[UIColor whiteColor] CGColor];
+//      _label.layer.shadowColor   = [UIColor.whiteColor CGColor];
 //      _label.layer.shadowOpacity = 1.0f;
 //      _label.layer.shadowRadius  = 1.0f;
 //      _label.layer.shadowOffset  = CGSizeMake(0.f, 0.0f);
@@ -410,18 +421,18 @@ static const CGFloat             kBarHeight              = 20.0f;
       return [HEX_RGB(0x00a651) colorWithAlphaComponent:1.0f];
    }
    
-   return [UIColor grayColor];
+   return UIColor.grayColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView fillColorForLineAtLineIndex:(NSUInteger)lineIndex {
    
    return [[self lineChartView:lineChartView colorForLineAtLineIndex:lineIndex] colorWithAlphaComponent:0.2f];
-   //   return [UIColor clearColor];
+   //   return UIColor.clearColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForDotAtHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
    
-   return [UIColor whiteColor];
+   return UIColor.whiteColor;
 }
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex {
@@ -431,12 +442,12 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView verticalSelectionColorForLineAtLineIndex:(NSUInteger)lineIndex {
    
-   return [UIColor whiteColor];
+   return UIColor.whiteColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionColorForLineAtLineIndex:(NSUInteger)lineIndex {
    
-   return [UIColor whiteColor];
+   return UIColor.whiteColor;
 }
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView selectionFillColorForLineAtLineIndex:(NSUInteger)lineIndex {

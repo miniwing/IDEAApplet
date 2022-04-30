@@ -308,7 +308,7 @@ static __strong id __applicationInstance = nil;
       
       self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
       self.window.alpha = 1.0f;
-      self.window.backgroundColor   = [UIColor whiteColor];
+      self.window.backgroundColor   = UIColor.whiteColor;
       
    } /* End if () */
    

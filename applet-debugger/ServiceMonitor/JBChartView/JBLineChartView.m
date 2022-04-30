@@ -195,12 +195,12 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
 {
    if (self == [JBLineChartView class])
    {
-      kJBLineChartViewDefaultLineColor = [UIColor blackColor];
-        kJBLineChartViewDefaultLineFillColor = [UIColor clearColor];
-      kJBLineChartViewDefaultLineSelectionColor = [UIColor whiteColor];
-        kJBLineChartViewDefaultLineSelectionFillColor = [UIColor clearColor];
-        kJBLineChartViewDefaultDotColor = [UIColor blackColor];
-        kJBLineChartViewDefaultDotSelectionColor = [UIColor whiteColor];
+      kJBLineChartViewDefaultLineColor = UIColor.blackColor;
+        kJBLineChartViewDefaultLineFillColor = UIColor.clearColor;
+      kJBLineChartViewDefaultLineSelectionColor = UIColor.whiteColor;
+        kJBLineChartViewDefaultLineSelectionFillColor = UIColor.clearColor;
+        kJBLineChartViewDefaultDotColor = UIColor.blackColor;
+        kJBLineChartViewDefaultDotSelectionColor = UIColor.whiteColor;
    }
 }
 
@@ -1083,7 +1083,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
     if (self)
     {
         self.zPosition = 0.1f;
-        self.fillColor = [UIColor clearColor].CGColor;
+        self.fillColor = UIColor.clearColor.CGColor;
     }
     return self;
 }
@@ -1118,7 +1118,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
     if (self)
     {
         self.zPosition = 0.0f;
-        self.strokeColor = [UIColor clearColor].CGColor;
+        self.strokeColor = UIColor.clearColor.CGColor;
         self.lineWidth = 0.0f;
     }
     return self;
@@ -1158,7 +1158,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColor.clearColor;
     }
     return self;
 }
@@ -1428,7 +1428,7 @@ static UIColor *kJBLineChartViewDefaultDotSelectionColor = nil;
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColor.clearColor;
     }
     return self;
 }

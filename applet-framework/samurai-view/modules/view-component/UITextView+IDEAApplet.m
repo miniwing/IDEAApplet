@@ -135,7 +135,7 @@
    
    textView.renderer = renderer;
    
-   textView.textColor = [UIColor darkGrayColor];
+   textView.textColor = UIColor.darkGrayColor;
    textView.font = [UIFont systemFontOfSize:14.0f];
    textView.textAlignment = NSTextAlignmentLeft;
    textView.clearsOnInsertion = NO;

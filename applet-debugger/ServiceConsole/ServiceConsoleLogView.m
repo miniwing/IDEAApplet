@@ -218,8 +218,8 @@
       self.logView.frame           = logViewFrame;
       self.logView.editable        = NO;
       self.logView.font            = [UIFont fontWithName:@"Menlo" size:10.0f];
-      self.logView.textColor       = [UIColor whiteColor];
-      self.logView.backgroundColor = [UIColor clearColor];
+      self.logView.textColor       = UIColor.whiteColor;
+      self.logView.backgroundColor = UIColor.clearColor;
       self.logView.text            = [NSString stringWithFormat:@"[ Service-Command ]\n\n You can input 'see help' to see the all cmd.\n\n"];
       
       [self addSubview:self.logView];

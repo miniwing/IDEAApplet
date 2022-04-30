@@ -56,19 +56,19 @@
       self.layer.masksToBounds = NO;
 
       _circle = [[UIImageView alloc] init];
-      _circle.backgroundColor = [UIColor clearColor];
+      _circle.backgroundColor = UIColor.clearColor;
       _circle.contentMode = UIViewContentModeScaleAspectFit;
       _circle.alpha = 0.0f;
       [self addSubview:_circle];
 
       _finger1 = [[UIImageView alloc] init];
-      _finger1.backgroundColor = [UIColor clearColor];
+      _finger1.backgroundColor = UIColor.clearColor;
       _finger1.contentMode = UIViewContentModeScaleAspectFit;
       _finger1.alpha = 0.0f;
       [self addSubview:_finger1];
 
       _finger2 = [[UIImageView alloc] init];
-      _finger2.backgroundColor = [UIColor clearColor];
+      _finger2.backgroundColor = UIColor.clearColor;
       _finger2.contentMode = UIViewContentModeScaleAspectFit;
       _finger2.alpha = 0.0f;
       [self addSubview:_finger2];

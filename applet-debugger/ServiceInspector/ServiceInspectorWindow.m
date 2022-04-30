@@ -99,8 +99,8 @@
 //            NSString *      renderTips = [NSString stringWithFormat:@" #%@ ", self.renderer.dom.domId];
 //            NSDictionary *   renderAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                   [UIFont systemFontOfSize:12.0f], NSFontAttributeName,
-//                                   [UIColor yellowColor], NSForegroundColorAttributeName,
-//                                   [[UIColor blackColor] colorWithAlphaComponent:0.5f], NSBackgroundColorAttributeName,
+//                                   UIColor.yellowColor, NSForegroundColorAttributeName,
+//                                   [UIColor.blackColor colorWithAlphaComponent:0.5f], NSBackgroundColorAttributeName,
 //                                   nil];
 //
 //            [renderTips drawAtPoint:CGPointZero withAttributes:renderAttr];
@@ -110,8 +110,8 @@
 //            NSString *      renderTips = [NSString stringWithFormat:@" <%@/> ", self.renderer.dom.domTag];
 //            NSDictionary *   renderAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 //                                   [UIFont systemFontOfSize:12.0f], NSFontAttributeName,
-//                                   [UIColor whiteColor], NSForegroundColorAttributeName,
-//                                   [[UIColor blackColor] colorWithAlphaComponent:0.5f], NSBackgroundColorAttributeName,
+//                                   UIColor.whiteColor, NSForegroundColorAttributeName,
+//                                   [UIColor.blackColor colorWithAlphaComponent:0.5f], NSBackgroundColorAttributeName,
 //                                   nil];
 //
 //            [renderTips drawAtPoint:CGPointZero withAttributes:renderAttr];
@@ -193,7 +193,7 @@
    self = [super initWithFrame:screenBound];
    if (self) {
       
-      self.backgroundColor    = [UIColor blackColor];
+      self.backgroundColor    = UIColor.blackColor;
       self.windowLevel        = UIWindowLevelStatusBar + 1.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       

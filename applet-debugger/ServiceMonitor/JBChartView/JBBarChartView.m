@@ -66,7 +66,7 @@ static UIColor *kJBBarChartViewDefaultBarColor = nil;
 {
    if (self == [JBBarChartView class])
    {
-      kJBBarChartViewDefaultBarColor = [UIColor blackColor];
+      kJBBarChartViewDefaultBarColor = UIColor.blackColor;
    }
 }
 

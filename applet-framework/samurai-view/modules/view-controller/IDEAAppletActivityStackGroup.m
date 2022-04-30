@@ -364,7 +364,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    }
    
    self.view.userInteractionEnabled = YES;
-   self.view.backgroundColor        = [UIColor whiteColor];
+   self.view.backgroundColor        = UIColor.whiteColor;
    self.view.autoresizingMask       = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
    
    return;
@@ -374,7 +374,7 @@ BASE_CLASS( IDEAAppletActivityStackGroup )
    
    [super loadView];
    
-   self.view.backgroundColor = [UIColor whiteColor];
+   self.view.backgroundColor = UIColor.whiteColor;
    
    return;
 }

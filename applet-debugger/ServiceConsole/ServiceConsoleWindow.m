@@ -32,7 +32,7 @@
    if ( self )
    {
       self.hidden = YES;
-      self.backgroundColor  = [[UIColor blackColor] colorWithAlphaComponent:0.7];
+      self.backgroundColor  = [UIColor.blackColor colorWithAlphaComponent:0.7];
       self.windowLevel      = UIWindowLevelStatusBar + 2.0f;
       
       UIButton * closeButton = UIButton.new;

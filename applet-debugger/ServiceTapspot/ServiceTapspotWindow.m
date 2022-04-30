@@ -50,7 +50,7 @@
    self = [super initWithFrame:stScreenBound];
    if ( self ) {
       
-      self.backgroundColor    = [UIColor blackColor];
+      self.backgroundColor    = UIColor.blackColor;
       self.windowLevel        = UIWindowLevelStatusBar + 1.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       

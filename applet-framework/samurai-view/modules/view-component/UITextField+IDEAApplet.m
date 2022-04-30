@@ -185,7 +185,7 @@
    
    textField.renderer = renderer;
    
-   textField.textColor = [UIColor darkGrayColor];
+   textField.textColor = UIColor.darkGrayColor;
    textField.font = [UIFont systemFontOfSize:14.0f];
    textField.textAlignment = NSTextAlignmentLeft;
    textField.borderStyle = UITextBorderStyleNone;

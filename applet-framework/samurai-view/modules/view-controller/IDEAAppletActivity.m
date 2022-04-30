@@ -338,7 +338,7 @@ static NSMutableArray * __activities = nil;
       }
       
       self.view.userInteractionEnabled = YES;
-      self.view.backgroundColor = [UIColor whiteColor];
+      self.view.backgroundColor = UIColor.whiteColor;
       self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
    }
    

@@ -56,7 +56,7 @@
    
    if (self) {
       
-      self.backgroundColor = [UIColor clearColor];
+      self.backgroundColor = UIColor.clearColor;
       
       _open = [[UIButton alloc] initWithFrame:CGRectZero];
       _open.hidden                        = NO;

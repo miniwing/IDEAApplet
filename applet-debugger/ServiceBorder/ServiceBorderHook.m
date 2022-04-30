@@ -208,7 +208,7 @@ static BOOL __enabled = NO;
       
       if ([stRenderer.childs count]) {
          
-         stBorderLayer.backgroundColor = [[UIColor clearColor] CGColor];
+         stBorderLayer.backgroundColor = [UIColor.clearColor CGColor];
       }
       else {
          
@@ -217,7 +217,7 @@ static BOOL __enabled = NO;
    }
    else {
       
-      stBorderLayer.backgroundColor = [[UIColor clearColor] CGColor];
+      stBorderLayer.backgroundColor = [UIColor.clearColor CGColor];
       stBorderLayer.borderColor = [HEX_RGBA(0xcccccc, 1.0f) CGColor];
       stBorderLayer.borderWidth = 2.0f;
    }

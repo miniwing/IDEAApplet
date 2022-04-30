@@ -55,13 +55,13 @@
       self.layer.masksToBounds = NO;
 
       _circle = [[UIImageView alloc] init];
-      _circle.backgroundColor = [UIColor clearColor];
+      _circle.backgroundColor = UIColor.clearColor;
       _circle.contentMode = UIViewContentModeScaleAspectFit;
       _circle.alpha = 0.0f;
       [self addSubview:_circle];
 
       _finger = [[UIImageView alloc] init];
-      _finger.backgroundColor = [UIColor clearColor];
+      _finger.backgroundColor = UIColor.clearColor;
       _finger.contentMode = UIViewContentModeScaleAspectFit;
       _finger.alpha = 0.0f;
       [self addSubview:_finger];

@@ -47,7 +47,7 @@
    if ( self ) {
       
       self.userInteractionEnabled = NO;
-      self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
+      self.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.2f];
       self.alpha = 0.85f;
       self.hidden = [[ServiceGestureSetting sharedInstance] isEnabled] ? NO : YES;
       self.layer.borderColor = [HEX_RGBA(0xeb212e, 0.6) CGColor];

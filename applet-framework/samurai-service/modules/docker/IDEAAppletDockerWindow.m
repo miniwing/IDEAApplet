@@ -64,7 +64,7 @@
    if (self) {
       
       //   self.alpha = 0.75f;
-      self.backgroundColor    = [UIColor clearColor];
+      self.backgroundColor    = UIColor.clearColor;
       self.windowLevel        = UIWindowLevelStatusBar + 2.0f;
       self.rootViewController = [[ServiceRootController alloc] init];
       

@@ -487,7 +487,7 @@ BASE_CLASS( IDEAAppletActivityStack )
    if ( self ) {
       
       self.navigationBarHidden = NO;
-      self.view.backgroundColor = [UIColor whiteColor];
+      self.view.backgroundColor = UIColor.whiteColor;
       self.viewControllers = [NSArray arrayWithObject:activity];
    }
    
@@ -557,7 +557,7 @@ BASE_CLASS( IDEAAppletActivityStack )
    } /* End if () */
    
    self.view.userInteractionEnabled = YES;
-   self.view.backgroundColor        = [UIColor whiteColor];
+   self.view.backgroundColor        = UIColor.whiteColor;
    self.view.autoresizingMask       = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
    
    return;
@@ -567,7 +567,7 @@ BASE_CLASS( IDEAAppletActivityStack )
    
    [super loadView];
    
-   self.view.backgroundColor = [UIColor whiteColor];
+   self.view.backgroundColor = UIColor.whiteColor;
    //   self.navigationController.navigationBar.clipsToBounds = YES;
    
    return;
