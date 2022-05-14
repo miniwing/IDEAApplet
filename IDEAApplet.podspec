@@ -379,7 +379,7 @@ Pod::Spec.new do |spec|
 
 /******************************************************************************************************/
 
-#ifdef DEBUG
+#if (defined(DEBUG) && (1==DEBUG))
 #  pragma clang diagnostic ignored                 "-Wgnu"
 #  pragma clang diagnostic ignored                 "-Wcomma"
 #  pragma clang diagnostic ignored                 "-Wformat"
