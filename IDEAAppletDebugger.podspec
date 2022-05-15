@@ -75,7 +75,7 @@ Pod::Spec.new do |spec|
 
   if ENV['IDEA_UIKIT_EXTENSION'] == 'YES'
     spec.dependency 'UIKitExtension'
-  end # IDEA_FOUNDATION_EXTENSION
+  end # IDEA_UIKIT_EXTENSION
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
@@ -654,6 +654,8 @@ __END_DECLS
 #define __DebugColor__                             (__AUTO__)
 #define __DebugView__                              (__AUTO__)
 
+#define __DebugKeyboard__                          (__OFF__)
+
 /******************************************************************************************************/
 
 #if __DebugDebug__
@@ -684,6 +686,12 @@ __END_DECLS
 #  define LogView(x)                               ____LoggerInfo x
 #else
 #  define LogView(x)
+#endif
+
+#if __DebugKeyboard__
+#  define LogKeyboard(x)                           ____LoggerInfo x
+#else
+#  define LogKeyboard(x)
 #endif
 
 /******************************************************************************************************/
