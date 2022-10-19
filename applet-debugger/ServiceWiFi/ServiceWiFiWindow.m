@@ -108,7 +108,7 @@ static const CGFloat             kBarHeight              = 20.0f;
    __TRY;
    
    szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getIPAddress]];
-   LogDebug((@"[ServiceWiFiWindow show] : WiFi : %@", szWiFi));
+   LogDebug((@"-[ServiceWiFiWindow show] : WiFi : %@", szWiFi));
 
    [self.label setText:szWiFi];
    [self setHidden:NO animated:YES];
@@ -147,26 +147,26 @@ static const CGFloat             kBarHeight              = 20.0f;
             
          case AFNetworkReachabilityStatusReachableViaWWAN: {
             
-            LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusReachableViaWWAN"));
+            LogDebug((@"-[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusReachableViaWWAN"));
             
             break;
          }
          case AFNetworkReachabilityStatusReachableViaWiFi: {
             
-            LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusReachableViaWiFi"));
+            LogDebug((@"-[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusReachableViaWiFi"));
             
             break;
          }
          case AFNetworkReachabilityStatusNotReachable: {
             
-            LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusNotReachable"));
+            LogDebug((@"-[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusNotReachable"));
             
             break;
          }
          case AFNetworkReachabilityStatusUnknown:
          default: {
             
-            LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusUnknown"));
+            LogDebug((@"-[ServiceWiFiWindow monitorReachabilityStatus] : networkStatus : %@", @"AFNetworkReachabilityStatusUnknown"));
             
             break;
          }
@@ -179,7 +179,7 @@ static const CGFloat             kBarHeight              = 20.0f;
          @strongify(self);
          
          szWiFi   = [NSString stringWithFormat:@"%@ : %@", [IDEAAppletRoute getSSID], [IDEAAppletRoute getIPAddress]];
-         LogDebug((@"[ServiceWiFiWindow monitorReachabilityStatus] : WiFi : %@", szWiFi));
+         LogDebug((@"-[ServiceWiFiWindow monitorReachabilityStatus] : WiFi : %@", szWiFi));
 
          [self.label setText:szWiFi];
       });

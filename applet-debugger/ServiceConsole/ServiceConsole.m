@@ -196,7 +196,7 @@ static NSMutableDictionary * __commandCache = nil;
    
    aCommand = [aCommand lowercaseString];
    
-   INFO(@"[ ServiceCommand ] - %@",aCommand);
+   INFO(@"-[ ServiceCommand ] - %@",aCommand);
    
    NSString * errorString = [NSString stringWithFormat:@"Invalid command : %@. ( You can input 'see help' to see all command. )",aCommand];
    

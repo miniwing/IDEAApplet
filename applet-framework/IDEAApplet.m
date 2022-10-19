@@ -56,7 +56,7 @@
 //   });
 
 //   LogDebug((@"+[IDEAApplet load] : OnceToken : %p", &stOnceToken));
-//   LogDebug((@"[CallStack : %s] : %@", __PRETTY_FUNCTION__, [[IDEAAppletDebugger sharedInstance] callstack:10]));
+//   LogDebug((@"-[CallStack : %s] : %@", __PRETTY_FUNCTION__, [[IDEAAppletDebugger sharedInstance] callstack:10]));
    static dispatch_once_t   stOnceToken;
 
    dispatch_once(&stOnceToken, ^{
