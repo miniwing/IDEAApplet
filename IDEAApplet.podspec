@@ -30,8 +30,11 @@ Pod::Spec.new do |spec|
   spec.tvos.pod_target_xcconfig     = { 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet' }
 
   spec.pod_target_xcconfig          = {
-    'GCC_PREPROCESSOR_DEFINITIONS'  => [ ' MODULE=\"IDEAApplet\" ', ' __UIWebView__=0 ', ]
-  }
+    'GCC_PREPROCESSOR_DEFINITIONS'      => [
+                                             ' MODULE=\"IDEAApplet\" ',
+                                             ' __UIWebView__=0 '
+                                           ]
+                                      }
 
 #  spec.requires_arc = true
 #  spec.non_arc_files  = ['Classes/Frameworks/PGSQLKit/*.{h,m}']
