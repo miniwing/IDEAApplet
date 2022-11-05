@@ -65,18 +65,21 @@ Pod::Spec.new do |spec|
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
-  end # if $IDEAFONT_MSYH == 'YES'
+  end # if IDEA_AFNETWORKING
 
 #  spec.dependency 'AFNetworking/Serialization'
 #  spec.dependency 'AFNetworking/Security'
 #  spec.dependency 'AFNetworking/Reachability'
 #  spec.dependency 'AFNetworking/NSURLSession'
 
-  if ENV['IDEA_YYKIT'] == 'YES'
-    spec.dependency 'YYKit'
-  end # IDEA_YYKIT
+#  if ENV['IDEA_YYKIT'] == 'YES'
+#    spec.dependency 'YYKit'
+#  end # IDEA_YYKIT
 
-#  spec.dependency 'OpenSSL-Universal'
+#  if ENV['OpenSSL'] == 'YES'
+#    spec.dependency 'OpenSSL-Universal'
+#  end # OpenSSL
+  
 #  spec.dependency 'MIHCrypto'
 #  spec.dependency 'RegexKitLite'
 
@@ -553,47 +556,45 @@ Pod::Spec.new do |spec|
 /******************************************************************************************************/
 #ifdef __OBJC__
 
-// #if (__has_include(<YYKit/YYKit.h>))
-// #  import <YYKit/YYKit.h>
-// #elif (__has_include("YYKit/YYKit.h"))
-// #  import "YYKit/YYKit.h"
-// #elif (__has_include("YYKit.h"))
-// #  import "YYKit.h"
-// #else /* YY_KIT */
-//
-// #  ifndef weakify
-// #     if __has_feature(objc_arc)
-// #        define weakify( x )                                                                    \\
-//             _Pragma("clang diagnostic push")                                                    \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
-//             autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;                          \\
-//             _Pragma("clang diagnostic pop")
-// #     else
-// #        define weakify( x )                                                                    \\
-//             _Pragma("clang diagnostic push")                                                    \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
-//             autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;                        \\
-//             _Pragma("clang diagnostic pop")
-// #     endif
-// #  endif /* !weakify */
-//
-// #  ifndef strongify
-// #     if __has_feature(objc_arc)
-// #        define strongify( x )                                                                  \\
-//             _Pragma("clang diagnostic push")                                                    \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
-//             try{} @finally{} __typeof__(x) x = __weak_##x##__;                                  \\
-//             _Pragma("clang diagnostic pop")
-// #     else
-// #        define strongify( x )                                                                  \\
-//             _Pragma("clang diagnostic push")                                                    \\
-//             _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
-//             try{} @finally{} __typeof__(x) x = __block_##x##__;                                 \\
-//             _Pragma("clang diagnostic pop")
-// #     endif
-// #  endif /* !strongify */
-//
-// #endif
+#if (__has_include(<YYKit/YYKit.h>))
+#  import <YYKit/YYKit.h>
+#elif (__has_include("YYKit/YYKit.h"))
+#  import "YYKit/YYKit.h"
+#else /* YY_KIT */
+
+#  ifndef weakify
+#     if __has_feature(objc_arc)
+#        define weakify( x )                                                                    \\
+            _Pragma("clang diagnostic push")                                                    \\
+            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+            autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;                          \\
+            _Pragma("clang diagnostic pop")
+#     else
+#        define weakify( x )                                                                    \\
+            _Pragma("clang diagnostic push")                                                    \\
+            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+            autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;                        \\
+            _Pragma("clang diagnostic pop")
+#     endif
+#  endif /* !weakify */
+
+#  ifndef strongify
+#     if __has_feature(objc_arc)
+#        define strongify( x )                                                                  \\
+            _Pragma("clang diagnostic push")                                                    \\
+            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+            try{} @finally{} __typeof__(x) x = __weak_##x##__;                                  \\
+            _Pragma("clang diagnostic pop")
+#     else
+#        define strongify( x )                                                                  \\
+            _Pragma("clang diagnostic push")                                                    \\
+            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")                                    \\
+            try{} @finally{} __typeof__(x) x = __block_##x##__;                                 \\
+            _Pragma("clang diagnostic pop")
+#     endif
+#  endif /* !strongify */
+
+#endif
 
 #endif /* __OBJC__ */
 

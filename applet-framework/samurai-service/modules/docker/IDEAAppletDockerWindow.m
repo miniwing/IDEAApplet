@@ -301,7 +301,7 @@
 
    __TRY;
    
-   stUserInfo  = [aNotification userInfo];
+   stUserInfo           = [aNotification userInfo];
    nAnimationCurve      = [[stUserInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
    tAnimationDuration   = [[stUserInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
    
