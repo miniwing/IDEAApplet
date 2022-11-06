@@ -56,7 +56,11 @@ Pod::Spec.new do |spec|
 
 #  spec.static_framework             = false
   
-#  spec.dependency 'ROOT_NAVIGATION_CONTROLLER'
+  if ENV['IDEA_ROOT_NAVIGATION_CONTROLLER'] == 'YES'
+    spec.dependency 'RTRootNavigationController'
+#    spec.dependency 'RTInteractivePush'
+  end # IDEA_ROOT_NAVIGATION_CONTROLLER
+  
 #  spec.dependency 'IDEANightVersion'
 
   if ENV['IDEA_FOUNDATION_EXTENSION'] == 'YES'
