@@ -55,17 +55,21 @@ Pod::Spec.new do |spec|
                                       }
 
 #  spec.static_framework             = false
-  
+
+  if ENV['IDEA_FOUNDATION_EXTENSION'] == 'YES'
+    spec.dependency 'FoundationExtension'
+  end # IDEA_FOUNDATION_EXTENSION
+
+  if ENV['IDEA_UIKIT_EXTENSION'] == 'YES'
+    spec.dependency 'UIKitExtension'
+  end # IDEA_UIKIT_EXTENSION
+
   if ENV['IDEA_ROOT_NAVIGATION_CONTROLLER'] == 'YES'
     spec.dependency 'RTRootNavigationController'
 #    spec.dependency 'RTInteractivePush'
   end # IDEA_ROOT_NAVIGATION_CONTROLLER
   
 #  spec.dependency 'IDEANightVersion'
-
-  if ENV['IDEA_FOUNDATION_EXTENSION'] == 'YES'
-    spec.dependency 'FoundationExtension'
-  end # IDEA_FOUNDATION_EXTENSION
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
