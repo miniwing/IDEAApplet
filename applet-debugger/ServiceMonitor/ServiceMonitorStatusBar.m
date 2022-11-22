@@ -53,10 +53,12 @@ static const CGFloat             kBarHeight              = 20.0f;
    
    BOOL                      _inited;
    UILabel                 * _label;
-   JBLineChartView         * _chart1;     // cpu
-   JBLineChartView         * _chart2;     // fps
+   JBLineChartView         * _chartCpu;     // cpu
+   JBLineChartView         * _chartFps;     // fps
    ServiceMonitorCPUModel  * _cpuModel;
    ServiceMonitorFPSModel  * _fpsModel;
+
+   ServiceMonitorNetworkModel * _networkModel;
 }
 
 - (id)init {
@@ -123,11 +125,11 @@ static const CGFloat             kBarHeight              = 20.0f;
    [_label removeFromSuperview];
    _label = nil;
    
-   [_chart1 removeFromSuperview];
-   _chart1 = nil;
+   [_chartCpu removeFromSuperview];
+   _chartCpu = nil;
    
-   [_chart2 removeFromSuperview];
-   _chart2 = nil;
+   [_chartFps removeFromSuperview];
+   _chartFps = nil;
    
    __SUPER_DEALLOC;
    
@@ -159,8 +161,8 @@ static const CGFloat             kBarHeight              = 20.0f;
    
    if (NO == self.hidden) {
       
-      [_chart1 reloadData];
-      [_chart2 reloadData];
+      [_chartCpu reloadData];
+      [_chartFps reloadData];
       
       _label.text = [NSString stringWithFormat:@"CPU:% .2f%%   FPS:%lu", _cpuModel.percent * 100.0f, (unsigned long)_fpsModel.fps];
       
@@ -177,31 +179,31 @@ static const CGFloat             kBarHeight              = 20.0f;
 
    if (NO == _inited) {
       
-      _chart1  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
-      _chart1.delegate  = self;
-      _chart1.dataSource= self;
-      _chart1.alpha     = 0.95f;
-      [self addSubview:_chart1];
+      _chartCpu  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
+      _chartCpu.delegate  = self;
+      _chartCpu.dataSource= self;
+      _chartCpu.alpha     = 0.95f;
+      [self addSubview:_chartCpu];
       
-      _chart2  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
-      _chart2.delegate  = self;
-      _chart2.dataSource= self;
-      _chart2.alpha     = 0.95f;
-      [self addSubview:_chart2];
+      _chartFps  = [[JBLineChartView alloc] initWithFrame:CGRectInset(self.bounds, -5.0f, -1.0f)];
+      _chartFps.delegate  = self;
+      _chartFps.dataSource= self;
+      _chartFps.alpha     = 0.95f;
+      [self addSubview:_chartFps];
       
       _label = [[UILabel alloc] initWithFrame:self.bounds];
       _label.backgroundColor     = UIColor.clearColor;
       
-      if (@available(iOS 13, *)) {
-         
-         _label.textColor        = UIColor.labelColor;
-
-      } /* End if () */
-      else {
-         
-         _label.textColor        = UIColor.blackColor;
-
-      } /* End else */
+//      if (@available(iOS 13, *)) {
+//
+//         _label.textColor        = UIColor.labelColor;
+//
+//      } /* End if () */
+//      else {
+//
+//         _label.textColor        = UIColor.blackColor;
+//
+//      } /* End else */
 
 //      dispatch_async(dispatch_get_main_queue(), ^{
 //      
@@ -217,7 +219,16 @@ static const CGFloat             kBarHeight              = 20.0f;
       } /* End if () */
       else {
 
-         [_label setTextColor:UIColor.labelColor];
+         if (@available(iOS 13, *)) {
+            
+            _label.textColor        = UIColor.labelColor;
+
+         } /* End if () */
+         else {
+            
+            _label.textColor        = UIColor.blackColor;
+
+         } /* End else */
 
       } /* End else */
 
@@ -362,11 +373,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex {
    
-   if (_chart1 == lineChartView) {
+   if (_chartCpu == lineChartView) {
       
       return _cpuModel.history.count;
    }
-   else if (_chart2 == lineChartView) {
+   else if (_chartFps == lineChartView) {
       
       return _fpsModel.history.count;
    }
@@ -388,11 +399,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex {
    
-   if (_chart1 == lineChartView) {
+   if (_chartCpu == lineChartView) {
       
       return [[_cpuModel.history objectAtIndex:horizontalIndex] floatValue];
    }
-   else if (_chart2 == lineChartView) {
+   else if (_chartFps == lineChartView) {
       
       return [[_fpsModel.history objectAtIndex:horizontalIndex] floatValue];
    }
@@ -412,11 +423,11 @@ static const CGFloat             kBarHeight              = 20.0f;
 
 - (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex {
    
-   if (_chart1 == lineChartView) {
+   if (_chartCpu == lineChartView) {
       
       return [HEX_RGB(0xff002d) colorWithAlphaComponent:1.0f];
    }
-   else if (_chart2 == lineChartView) {
+   else if (_chartFps == lineChartView) {
       
       return [HEX_RGB(0x00a651) colorWithAlphaComponent:1.0f];
    }
