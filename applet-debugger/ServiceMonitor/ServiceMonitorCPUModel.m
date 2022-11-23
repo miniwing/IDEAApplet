@@ -121,8 +121,7 @@
       mach_msg_type_number_t thread_info_count = THREAD_INFO_MAX;
       
       kr = thread_info(thread_list[i], THREAD_BASIC_INFO, (thread_info_t)thinfo, &thread_info_count);
-      if (KERN_SUCCESS != kr)
-      {
+      if (KERN_SUCCESS != kr) {
          return;
          
       } /* End if () */
@@ -131,9 +130,9 @@
       
       if (0 == (basic_info_th->flags & TH_FLAGS_IDLE)) {
          
-         tot_sec  = tot_sec + basic_info_th->user_time.seconds + basic_info_th->system_time.seconds;
+         tot_sec  = tot_sec  + basic_info_th->user_time.seconds + basic_info_th->system_time.seconds;
          tot_usec = tot_usec + basic_info_th->system_time.microseconds + basic_info_th->system_time.microseconds;
-         tot_cpu  = tot_cpu + basic_info_th->cpu_usage / (float)TH_USAGE_SCALE;
+         tot_cpu  = tot_cpu  + basic_info_th->cpu_usage / (float)TH_USAGE_SCALE;
          
       } /* End if () */
       
