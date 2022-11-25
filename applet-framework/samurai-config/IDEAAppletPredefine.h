@@ -50,7 +50,6 @@
 #import <math.h>
 #import <unistd.h>
 #import <limits.h>
-#import <execinfo.h>
 
 #import <netdb.h>
 #import <net/if.h>

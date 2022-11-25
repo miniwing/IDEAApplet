@@ -28,7 +28,7 @@
 //   THE SOFTWARE.
 //
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-#pragma clang diagnostic ignored "-Wunreachable-code"
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//#pragma clang diagnostic ignored "-Wundeclared-selector"
+//#pragma clang diagnostic ignored "-Wunreachable-code"

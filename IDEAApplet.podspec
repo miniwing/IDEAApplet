@@ -465,6 +465,7 @@ Pod::Spec.new do |spec|
 #import <arpa/inet.h>
 #import <ifaddrs.h>
 #import <netdb.h>
+#import <execinfo.h>
 
 #import <pthread/pthread.h>
 
