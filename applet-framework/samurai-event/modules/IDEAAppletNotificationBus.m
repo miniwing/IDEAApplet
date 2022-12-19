@@ -113,7 +113,7 @@
          
          NSArray  *stArray = [aNotification.name componentsSeparatedByString:@"/"];
          
-         szNotificationClass = (NSString *)[stArray safeObjectAtIndex:0];
+         szNotificationClass  = (NSString *)[stArray safeObjectAtIndex:0];
          szNotificationMethod = (NSString *)[stArray safeObjectAtIndex:1];
          
          if ( szNotificationMethod ) {

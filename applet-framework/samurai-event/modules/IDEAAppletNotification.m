@@ -79,13 +79,15 @@
       @strongify(self);
       
       if (aNotificationBlock) {
-         
+
          [[IDEAAppletNotificationCenter sharedInstance] addObserver:self forNotification:aName];
-      }
-      else {
          
+      } /* End if () */
+      else {
+
          [[IDEAAppletNotificationCenter sharedInstance] removeObserver:self forNotification:aName];
-      }
+         
+      } /* End else */
       
       aName = [aName stringByReplacingOccurrencesOfString:@"notification." withString:@"handleNotification____"];
       aName = [aName stringByReplacingOccurrencesOfString:@"notification____" withString:@"handleNotification____"];

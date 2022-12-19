@@ -28,6 +28,9 @@
 //   THE SOFTWARE.
 //
 
+#import "NSMutableDictionary+Extension.h"
+#import "NSDictionary+Extension.h"
+
 #import "IDEAAppletHandler.h"
 #import "IDEAAppletTrigger.h"
 #import "IDEAAppletUnitTest.h"
@@ -121,8 +124,9 @@
    self = [super init];
    if ( self ) {
       
-      self.blocks = [[NSMutableDictionary alloc] init];
+//      self.blocks = [NSMutableDictionary dictionary];
    }
+   
    return self;
 }
 
@@ -150,7 +154,7 @@
    
    HandlerBlockType   stBlock = (HandlerBlockType)[self.blocks objectForKey:aName];
    
-   if ( nil == stBlock ) {
+   if ( nil == stBlock || 0x0 == stBlock ) {
       
       return NO;
    }
