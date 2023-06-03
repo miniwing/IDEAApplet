@@ -49,7 +49,7 @@
 
 @implementation NSObject(TemplateResponder)
 
-@def_prop_dynamic_strong( IDEAAppletTemplate *, template, setTemplate );
+@def_prop_dynamic_strong( IDEAAppletTemplate *, _template, setTemplate );
 
 - (void)loadTemplate:(NSString *)urlOrFile {
    
@@ -68,42 +68,42 @@
 
 - (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle type:(NSString *)type {
    
-   if ( nil == self.template ) {
+   if ( nil == self._template ) {
       
-      self.template = [[IDEAAppletTemplate alloc] init];
+      self._template = [[IDEAAppletTemplate alloc] init];
       
-      self.template.responder = self;
-      self.template.bundle    = aBundle;
+      self._template.responder = self;
+      self._template.bundle    = aBundle;
    }
    
    if ( [urlOrFile hasPrefix:@"http://"] || [urlOrFile hasPrefix:@"https://"] ) {
       
-      [self.template loadURL:urlOrFile type:type];
+      [self._template loadURL:urlOrFile type:type];
    }
    else if ( [urlOrFile hasPrefix:@"//"] ) {
       
       urlOrFile = [NSString stringWithFormat:@"http:%@", urlOrFile];
       
-      [self.template loadURL:urlOrFile type:type];
+      [self._template loadURL:urlOrFile type:type];
    }
    else if ( [urlOrFile hasPrefix:@"file://"] ) {
       
-      [self.template loadFile:[urlOrFile stringByReplacingOccurrencesOfString:@"file://" withString:@"/"]];
+      [self._template loadFile:[urlOrFile stringByReplacingOccurrencesOfString:@"file://" withString:@"/"]];
    }
    else if ( [urlOrFile hasPrefix:@"/"] ) {
       
-      [self.template loadFile:urlOrFile];
+      [self._template loadFile:urlOrFile];
    }
    else {
       
       Class classType = NSClassFromString( urlOrFile );
       if ( classType ) {
          
-         [self.template loadClass:classType];
+         [self._template loadClass:classType];
       }
       else {
          
-         [self.template loadFile:urlOrFile];
+         [self._template loadFile:urlOrFile];
       }
    }
 }

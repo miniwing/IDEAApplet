@@ -49,28 +49,28 @@
 
 - (void)loadTemplate {
    
-   self.template  = [[IDEAAppletTemplate alloc] init];
-   self.template.responder = self;
+   self._template  = [[IDEAAppletTemplate alloc] init];
+   self._template.responder = self;
    
-   [self.template loadClass:[self class]];
+   [self._template loadClass:[self class]];
    
    return;
 }
 
 - (void)unloadTemplate {
    
-   [self.template stopLoading];
-   [self.template.document.renderTree unbindOutletsFrom:self];
+   [self._template stopLoading];
+   [self._template.document.renderTree unbindOutletsFrom:self];
    
-   self.template.responder = nil;
-   self.template  = nil;
+   self._template.responder = nil;
+   self._template  = nil;
    
    return;
 }
 
 - (void)handleTemplate:(IDEAAppletTemplate *)aTemplate {
    
-   ASSERT( aTemplate == self.template );
+   ASSERT( aTemplate == self._template );
    
    if ( aTemplate.loading ) {
       
@@ -85,7 +85,7 @@
       
       if ( aTemplate.document.renderTree ) {
          
-         UIView   *stRootView = [self.template.document.renderTree createViewWithIdentifier:nil];
+         UIView   *stRootView = [self._template.document.renderTree createViewWithIdentifier:nil];
          
          if ( stRootView ) {
             
@@ -118,12 +118,12 @@
 
             self.view = stRootView;
             
-            [self.template.document.renderTree bindOutletsTo:self];
+            [self._template.document.renderTree bindOutletsTo:self];
             
          } /* End if () */
          else {
             
-            [self.template.document.renderTree unbindOutletsFrom:self];
+            [self._template.document.renderTree unbindOutletsFrom:self];
             
          } /* End else */
       }
@@ -138,8 +138,8 @@
          
       } /* End else */
       
-      [self.template.document configureForViewController:self];
-      [self.template.document.renderTree rechain];
+      [self._template.document configureForViewController:self];
+      [self._template.document.renderTree rechain];
 
    #if __SAMURAI_UI_USE_CALLCHAIN__
       [self performCallChainWithSelector:@selector(onTemplateLoaded) reversed:YES];
@@ -203,10 +203,10 @@
    
    if ( [self isViewLoaded] ) {
       
-      if ( self.template ) {
+      if ( self._template ) {
          
-         if ( self.template.document && self.template.document.renderTree ) {
-            [self.template.document.renderTree rechain];
+         if ( self._template.document && self._template.document.renderTree ) {
+            [self._template.document.renderTree rechain];
          }
       }
    }
@@ -228,11 +228,11 @@
          
          self.view.layer.hidden = NO;
          
-         if ( self.template ) {
+         if ( self._template ) {
             
-            if ( self.template.document && self.template.document.renderTree ) {
+            if ( self._template.document && self._template.document.renderTree ) {
                
-               [self.template.document.renderTree relayout];
+               [self._template.document.renderTree relayout];
             }
          }
       }
@@ -245,11 +245,11 @@
    
    if ( [self isViewLoaded] ) {
       
-      if ( self.template ) {
+      if ( self._template ) {
          
-         if ( self.template.document && self.template.document.renderTree ) {
+         if ( self._template.document && self._template.document.renderTree ) {
             
-            [self.template.document.renderTree restyle];
+            [self._template.document.renderTree restyle];
          }
       }
    }

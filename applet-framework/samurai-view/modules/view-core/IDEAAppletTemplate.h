@@ -61,7 +61,7 @@ typedef enum
 
 @interface NSObject(TemplateResponder)
 
-@prop_strong( IDEAAppletTemplate *, template );
+@prop_strong( IDEAAppletTemplate *, _template );
 
 - (void)loadTemplate:(NSString *)urlOrFile;
 - (void)loadTemplate:(NSString *)urlOrFile type:(NSString *)type;
@@ -69,7 +69,7 @@ typedef enum
 - (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle;
 - (void)loadTemplate:(NSString *)urlOrFile inBundle:(NSBundle *)aBundle type:(NSString *)type;
 
-- (void)handleTemplate:(IDEAAppletTemplate *)template;
+- (void)handleTemplate:(IDEAAppletTemplate *)_template;
 
 @end
 

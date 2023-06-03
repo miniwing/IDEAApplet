@@ -51,29 +51,29 @@
 
 - (void)loadTemplate {
    
-   self.template = [[IDEAAppletTemplate alloc] init];
-   self.template.responder = self;
+   self._template = [[IDEAAppletTemplate alloc] init];
+   self._template.responder = self;
    
-   [self.template loadClass:[self class]];
+   [self._template loadClass:[self class]];
    
    return;
 }
 
 - (void)unloadTemplate {
    
-   [self.template stopLoading];
-   [self.template.document.renderTree unbindOutletsFrom:self];
-   [self.template.document.renderTree.view removeFromSuperview];
+   [self._template stopLoading];
+   [self._template.document.renderTree unbindOutletsFrom:self];
+   [self._template.document.renderTree.view removeFromSuperview];
 
-   self.template.responder = nil;
-   self.template = nil;
+   self._template.responder = nil;
+   self._template = nil;
    
    return;
 }
 
 - (void)handleTemplate:(IDEAAppletTemplate *)aTemplate {
    
-   ASSERT( aTemplate == self.template );
+   ASSERT( aTemplate == self._template );
    
    if ( aTemplate.loading ) {
       
