@@ -110,7 +110,7 @@
       return self;
    };
    
-   return stBlock;
+   return [stBlock copy];
 }
 
 - (void)observeNotification:(NSString *)aName {

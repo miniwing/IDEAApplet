@@ -80,7 +80,7 @@
       return self;
    };
    
-   return stBlock;
+   return [stBlock copy];
 }
 
 #pragma mark -
