@@ -60,8 +60,9 @@
 
 #pragma mark -
 
-typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, id object );
-//typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, HandlerBlockType object );
+// typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, id object );
+// typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, HandlerBlockType object );
+typedef NSObject * (^ IDEAAppletNotificationBlock )( NSString * name, HandlerNotificationBlockType object );
 
 #pragma mark -
 

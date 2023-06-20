@@ -90,6 +90,8 @@
       
       [handler removeHandlerForName:aName];
    }
+   
+   return;
 }
 
 - (void)removeAllBlocks {
@@ -124,8 +126,9 @@
    self = [super init];
    if ( self ) {
       
-//      self.blocks = [NSMutableDictionary dictionary];
-   }
+      self.blocks = [NSMutableDictionary dictionary];
+      
+   } /* End if () */
    
    return self;
 }
@@ -204,16 +207,16 @@
    return;
 }
 
-- (NSMutableDictionary *)blocks {
-   
-   if (nil == _blocks) {
-      
-      _blocks  = [NSMutableDictionary dictionary];
-      
-   } /* End if () */
-   
-   return _blocks;
-}
+//- (NSMutableDictionary *)blocks {
+//
+//   if (nil == _blocks) {
+//
+//      _blocks  = [NSMutableDictionary dictionary];
+//
+//   } /* End if () */
+//
+//   return _blocks;
+//}
 
 @end
 

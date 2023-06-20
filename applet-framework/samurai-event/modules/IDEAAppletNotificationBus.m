@@ -197,7 +197,7 @@
          if ( szNotificationClass ) {
             
             szSelectorName = [NSString stringWithFormat:@"handleNotification____%@:", szNotificationClass];
-            stSelector = NSSelectorFromString( szSelectorName );
+            stSelector     = NSSelectorFromString( szSelectorName );
             
             bPerformed = [self notification:aNotification perform:stSelector class:stTargetClass target:aTarget];
             if ( bPerformed ) {

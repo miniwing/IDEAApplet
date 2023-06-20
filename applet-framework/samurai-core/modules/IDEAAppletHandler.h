@@ -37,6 +37,7 @@
 #pragma mark -
 
 typedef void (^ HandlerBlockType )( id object );
+typedef void (^ HandlerNotificationBlockType )( NSNotification *object );
 
 #pragma mark -
 
