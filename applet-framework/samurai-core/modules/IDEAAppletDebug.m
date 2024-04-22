@@ -116,7 +116,7 @@
 
 + (id)parseFormat1:(NSString *)aLine {
    
-   //   example: peeper  0x00001eca -[PPAppDelegate application:didFinishLaunchingWithOptions:] + 106
+   //   example: peeper  0x00001eca -[PPAPPDelegate application:didFinishLaunchingWithOptions:] + 106
    
    static __strong NSRegularExpression * __regex = nil;
    
