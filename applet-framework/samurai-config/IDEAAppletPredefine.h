@@ -105,7 +105,7 @@
 #     import <QuartzCore/QuartzCore.h>
 #     import <AudioToolbox/AudioToolbox.h>
 #     import <TargetConditionals.h>
-#     import <AssetsLibrary/AssetsLibrary.h>
+//#     import <AssetsLibrary/AssetsLibrary.h>
 #     import <SystemConfiguration/SystemConfiguration.h>
 
 #     import <AVFoundation/AVFoundation.h>
