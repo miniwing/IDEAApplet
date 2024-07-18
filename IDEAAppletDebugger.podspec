@@ -8,10 +8,11 @@ Pod::Spec.new do |spec|
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
 #  spec.platform             = :ios, "10.0"
   
+  spec.tvos.deployment_target       = '12.0'
   spec.ios.deployment_target        = '12.0'
+
+  spec.osx.deployment_target        = '10.15'
   spec.watchos.deployment_target    = '5.0'
-  spec.osx.deployment_target        = '10.10'
-  spec.tvos.deployment_target       = '10.0'
 
   spec.ios.pod_target_xcconfig      = {
                                         'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAAppletDebugger',
