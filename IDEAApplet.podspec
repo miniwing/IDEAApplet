@@ -73,7 +73,7 @@ Pod::Spec.new do |spec|
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'
-  end # if IDEA_AFNETWORKING
+  end # IDEA_AFNETWORKING
 
 #  spec.dependency 'AFNetworking/Serialization'
 #  spec.dependency 'AFNetworking/Security'
