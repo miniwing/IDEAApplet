@@ -212,7 +212,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       
 //      _label.font                = [UIFont systemFontOfSize:12.0f];
       
-      if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
+      if ([DKThemeVersionNight isEqualToString:[DKNightVersionManager sharedManager].themeVersion]) {
 
          [_label setTextColor:UIColor.whiteColor];
 

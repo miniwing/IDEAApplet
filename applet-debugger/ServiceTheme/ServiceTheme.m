@@ -131,7 +131,7 @@
    
    __TRY;
 
-   if ([[DKNightVersionManager sharedManager].themeVersion isEqualToString:DKThemeVersionNight]) {
+   if ([DKThemeVersionNight isEqualToString:[DKNightVersionManager sharedManager].themeVersion]) {
       
       [[DKNightVersionManager sharedManager] dawnComing];
 
