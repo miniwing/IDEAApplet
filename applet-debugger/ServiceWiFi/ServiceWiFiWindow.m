@@ -131,7 +131,7 @@ static const CGFloat             kBarHeight              = 20.0f;
    return;
 }
 
-//监测网络状态的方法
+// 监测网络状态的方法
 - (void)monitorReachabilityStatus {
    
    int                            nErr                                     = EFAULT;

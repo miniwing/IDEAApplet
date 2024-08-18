@@ -175,6 +175,7 @@
       
       [UIView animateWithDuration:0.25f
                        animations:^(void) {
+         
          _dockerWindow.alpha  = 1.0f;
       }
                        completion:^(BOOL aFinished) {
@@ -199,6 +200,7 @@
    
    __TRY;
    
+   __RELEASE(_dockerWindow);
    _dockerWindow = nil;
    
    __CATCH(nErr);
