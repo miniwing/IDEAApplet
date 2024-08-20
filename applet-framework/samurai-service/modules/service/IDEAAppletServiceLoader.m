@@ -94,10 +94,10 @@
    __TRY;
 
 #if __SAMURAI_SERVICE__
-   
    for (NSString *szClassName in [IDEAAppletService subClasses]) {
       
       Class stClassType = NSClassFromString(szClassName);
+      
       if (nil == stClassType) {
          
          continue;

@@ -126,7 +126,10 @@
    
    if (self) {
       
+#if TARGET_INTERFACE_BUILDER
+#else
       [self install];
+#endif /* TARGET_INTERFACE_BUILDER */
       
    } /* End if () */
    
