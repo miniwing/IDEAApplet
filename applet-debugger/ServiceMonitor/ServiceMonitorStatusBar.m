@@ -351,16 +351,20 @@ static const CGFloat             kBarHeight              = 20.0f;
 //
 //   } /* End else */
    
-   if ([DKThemeVersionNormal isEqualToString:[DKNightVersionManager sharedManager].themeVersion]) {
-
-      [_label setTextColor:UIColor.labelColor];
-
-   } /* End if () */
-   else {
-
-      [_label setTextColor:UIColor.whiteColor];
-
-   } /* End else */
+   [UIView animateWithDuration:DKNightVersionAnimationDuration
+                    animations:^(void) {
+      
+      if ([DKThemeVersionNormal isEqualToString:[DKNightVersionManager sharedManager].themeVersion]) {
+         
+         [_label setTextColor:UIColor.labelColor];
+         
+      } /* End if () */
+      else {
+         
+         [_label setTextColor:UIColor.whiteColor];
+         
+      } /* End else */
+   }];
          
    return;
 }

@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
   spec.homepage             = "https://github.com/miniwing"
   spec.license              = "MIT"
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
-#  spec.platform             = :ios, "10.0"
+#  spec.platform             = :ios, "12.0"
   
   spec.tvos.deployment_target       = '12.0'
   spec.ios.deployment_target        = '12.0'
