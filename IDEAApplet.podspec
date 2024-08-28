@@ -6,21 +6,20 @@ Pod::Spec.new do |spec|
   spec.homepage             = "https://github.com/miniwing"
   spec.license              = "MIT"
   spec.author               = { "Harry" => "miniwing.hz@gmail.com" }
-#  spec.platform             = :ios, "12.0"
+#  spec.platform             = :ios, ENV['ios.deployment_target']
   
 #  spec.source               = { :git => "https://github.com/miniwing/Idea.Applets.git" }
   spec.source               = { :path => "." }
 
-  spec.tvos.deployment_target       = '12.0'
-  spec.ios.deployment_target        = '12.0'
-
-  spec.osx.deployment_target        = '10.15'
-  spec.watchos.deployment_target    = '5.0'
+  spec.ios.deployment_target        = ENV['ios.deployment_target']
+  spec.watchos.deployment_target    = ENV['watchos.deployment_target']
+  spec.tvos.deployment_target       = ENV['tvos.deployment_target']
+  spec.osx.deployment_target        = ENV['osx.deployment_target']
 
   spec.ios.pod_target_xcconfig      = {
                                         'PRODUCT_BUNDLE_IDENTIFIER' => 'com.idea.IDEAApplet',
-                                        'ENABLE_BITCODE'            => 'NO',
-                                        'SWIFT_VERSION'             => '5.0',
+                                        'ENABLE_BITCODE'            => ENV['ENABLE_BITCODE'],
+                                        'SWIFT_VERSION'             => ENV['SWIFT_VERSION'],
                                         'EMBEDDED_CONTENT_CONTAINS_SWIFT'       => 'NO',
                                         'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => 'NO',
                                         'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
@@ -100,7 +99,7 @@ Pod::Spec.new do |spec|
 #  spec.vendored_frameworks      = 'libXG-SDK.a'
 
   spec.subspec 'applet-framework' do |framework|
-    framework.ios.deployment_target   = '10.0'
+    framework.ios.deployment_target   = ENV['ios.deployment_target']
         
     framework.ios.public_header_files = 'applet-framework/*.{h,hpp}'
     framework.ios.source_files        = 'applet-framework/*.{h,m,c}'
@@ -244,8 +243,9 @@ Pod::Spec.new do |spec|
     puts '------------------ applet-webcore ----------------'
   
     spec.subspec 'applet-webcore' do |webcore|
-      webcore.ios.deployment_target   = '10.0'
-      
+#      webcore.ios.deployment_target     = '10.0'
+      webcore.ios.deployment_target     = ENV['ios.deployment_target']
+
       webcore.ios.private_header_files = 'applet-webcore/*.{h}'
       webcore.ios.source_files        = 'applet-webcore/*.{h,m,c}'
 
