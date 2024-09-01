@@ -87,55 +87,65 @@ Pod::Spec.new do |spec|
 
 #  spec.dependency 'FMDB'
 
-  spec.ios.private_header_files         = 'applet-debugger/*.{h,hpp}'
-  spec.ios.source_files                 = 'applet-debugger/*.{h,m,c}'
+#  spec.ios.public_header_files          = 'applet-debugger/**/*.{h,hpp}'
+#  spec.ios.private_header_files         = 'applet-debugger/**/*.{h,hpp}'
+#  spec.ios.source_files                 = 'applet-debugger/**/*.{h,m,c}'
   
   spec.subspec 'ServiceBorder' do |border|
-    border.ios.private_header_files     = 'applet-debugger/ServiceBorder/*.{h}'
+    border.ios.public_header_files      = 'applet-debugger/ServiceBorder/*.{h}'
+#    border.ios.private_header_files     = 'applet-debugger/ServiceBorder/*.{h}'
     border.ios.source_files             = 'applet-debugger/ServiceBorder/*.{h,m,c}'
     border.resource                     = 'applet-debugger/ServiceBorder/ServiceBorder.bundle'
   end
 
   spec.subspec 'ServiceConsole' do |console|
-    console.ios.private_header_files    = 'applet-debugger/ServiceConsole/*.{h}'
+    console.ios.public_header_files     = 'applet-debugger/ServiceConsole/*.{h}'
+#    console.ios.private_header_files    = 'applet-debugger/ServiceConsole/*.{h}'
     console.ios.source_files            = 'applet-debugger/ServiceConsole/*.{h,m,c}'
     console.resource                    = 'applet-debugger/ServiceConsole/ServiceConsole.bundle'
   end
 
   spec.subspec 'ServiceGesture' do |gesture|
-    gesture.ios.private_header_files    = 'applet-debugger/ServiceGesture/*.{h}'
+    gesture.ios.public_header_files     = 'applet-debugger/ServiceGesture/*.{h}'
+#    gesture.ios.private_header_files    = 'applet-debugger/ServiceGesture/*.{h}'
     gesture.ios.source_files            = 'applet-debugger/ServiceGesture/*.{h,m,c}'
     gesture.resource                    = 'applet-debugger/ServiceGesture/ServiceGesture.bundle'
   end
 
   spec.subspec 'ServiceGrids' do |grids|
-    grids.ios.private_header_files      = 'applet-debugger/ServiceGrids/*.{h}'
+    grids.ios.public_header_files       = 'applet-debugger/ServiceGrids/*.{h}'
+#    grids.ios.private_header_files      = 'applet-debugger/ServiceGrids/*.{h}'
     grids.ios.source_files              = 'applet-debugger/ServiceGrids/*.{h,m,c}'
     grids.resource                      = 'applet-debugger/ServiceGrids/ServiceGrids.bundle'
   end
 
   spec.subspec 'ServiceInspector' do |inspector|
-    inspector.ios.private_header_files  = 'applet-debugger/ServiceInspector/*.{h}'
+    inspector.ios.public_header_files   = 'applet-debugger/ServiceInspector/*.{h}'
+#    inspector.ios.private_header_files  = 'applet-debugger/ServiceInspector/*.{h}'
     inspector.ios.source_files          = 'applet-debugger/ServiceInspector/*.{h,m,c}'
     inspector.resource                  = 'applet-debugger/ServiceInspector/ServiceInspector.bundle'
   end
   
   spec.subspec 'ServiceMonitor' do |monitor|
-    monitor.ios.private_header_files    = 'applet-debugger/ServiceMonitor/*.{h}'
+    monitor.ios.public_header_files     = 'applet-debugger/ServiceMonitor/*.{h}'
+#    monitor.ios.private_header_files    = 'applet-debugger/ServiceMonitor/*.{h}'
     monitor.ios.source_files            = 'applet-debugger/ServiceMonitor/*.{h,m,c}'
     monitor.subspec 'JBChartView' do |chart|
-      chart.ios.private_header_files    = 'applet-debugger/ServiceMonitor/JBChartView/*.{h}'
+      chart.ios.public_header_files     = 'applet-debugger/ServiceMonitor/JBChartView/*.{h}'
+#      chart.ios.private_header_files    = 'applet-debugger/ServiceMonitor/JBChartView/*.{h}'
       chart.ios.source_files            = 'applet-debugger/ServiceMonitor/JBChartView/*.{h,m,c}'
     end
   end
 
   spec.subspec 'ServiceTapspot' do |tapspot|
-    tapspot.ios.private_header_files    = 'applet-debugger/ServiceTapspot/*.{h}'
+    tapspot.ios.public_header_files     = 'applet-debugger/ServiceTapspot/*.{h}'
+#    tapspot.ios.private_header_files    = 'applet-debugger/ServiceTapspot/*.{h}'
     tapspot.ios.source_files            = 'applet-debugger/ServiceTapspot/*.{h,m,c}'
   end
 
   if ENV['IDEA_SERVICE_FILE_SYNC'] == 'YES'
     spec.subspec 'ServiceFileSync' do |sync|
+      sync.ios.public_header_files      = 'applet-debugger/ServiceFileSync/*.{h}'
       sync.ios.private_header_files     = 'applet-debugger/ServiceFileSync/*.{h}'
       sync.ios.source_files             = 'applet-debugger/ServiceFileSync/*.{h,m,c}'
       sync.resource                     = 'applet-debugger/ServiceFileSync/ServiceFileSync.bundle'
@@ -145,19 +155,28 @@ Pod::Spec.new do |spec|
     spec.dependency 'GCDWebServer/WebDAV'
   end # ENV['IDEA_SERVICE_FILE_SYNC'] == 'YES'
   
-  spec.subspec 'ServiceTheme' do |theme|
-    theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
-    theme.ios.source_files              = 'applet-debugger/ServiceTheme/*.{h,m,c}'
-    theme.resource                      = 'applet-debugger/ServiceTheme/ServiceTheme.bundle'
-  end
-
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.subspec 'ServiceWiFi' do |wifi|
-      wifi.ios.private_header_files     = 'applet-debugger/ServiceWiFi/*.{h}'
+      wifi.ios.public_header_files      = 'applet-debugger/ServiceWiFi/*.{h}'
+#      wifi.ios.private_header_files     = 'applet-debugger/ServiceWiFi/*.{h}'
       wifi.ios.source_files             = 'applet-debugger/ServiceWiFi/*.{h,m,c}'
       wifi.resource                     = 'applet-debugger/ServiceWiFi/ServiceWiFi.bundle'
     end
   end # IDEA_AFNETWORKING
+
+  spec.subspec 'ServiceTheme' do |theme|
+    theme.ios.public_header_files       = 'applet-debugger/ServiceTheme/*.{h}'
+#    theme.ios.private_header_files      = 'applet-debugger/ServiceTheme/*.{h}'
+    theme.ios.source_files              = 'applet-debugger/ServiceTheme/*.{h,m,c}'
+    theme.resource                      = 'applet-debugger/ServiceTheme/ServiceTheme.bundle'
+  end
+
+  spec.subspec 'ServiceDebug' do |theme|
+    theme.ios.public_header_files       = 'applet-debugger/ServiceDebug/*.{h}'
+#    theme.ios.private_header_files      = 'applet-debugger/ServiceDebug/*.{h}'
+    theme.ios.source_files              = 'applet-debugger/ServiceDebug/*.{h,m,c}'
+    theme.resource                      = 'applet-debugger/ServiceDebug/ServiceDebug.bundle'
+  end
 
 #  spec.resource                   = 'applet-debugger/ServiceBorder/ServiceBorder.bundle',
 #                                    'applet-debugger/ServiceConsole/ServiceConsole.bundle',
@@ -300,10 +319,10 @@ Pod::Spec.new do |spec|
 #  define AF_NETWORKING                                                 (0)
 #endif
 
-#if __has_include(<IDEANightVersion/DKNightVersion.h>)
+#if __has_include(<IDEANightVersion/IDEANightVersion-umbrella.h>)
 #  import <IDEANightVersion/DKNightVersion.h>
 #  define IDEA_NIGHT_VERSION_MANAGER                                     (1)
-#elif __has_include("IDEANightVersion/DKNightVersion.h")
+#elif __has_include("IDEANightVersion/IDEANightVersion-umbrella.h")
 #  import "IDEANightVersion/DKNightVersion.h"
 #  define IDEA_NIGHT_VERSION_MANAGER                                     (1)
 #else
@@ -745,7 +764,7 @@ __END_DECLS
 /******************************************************************************************************/
 
 #ifndef SERVICE_BORDER
-#  define SERVICE_BORDER                           (__OFF__)
+#  define SERVICE_BORDER                           (__AUTO__)
 #endif /* SERVICE_BORDER */
 
 #ifndef SERVICE_CONSOLE
@@ -753,15 +772,15 @@ __END_DECLS
 #endif /* SERVICE_CONSOLE */
 
 #ifndef SERVICE_GESTURE
-#  define SERVICE_GESTURE                          (__OFF__)
+#  define SERVICE_GESTURE                          (__AUTO__)
 #endif /* SERVICE_GESTURE */
 
 #ifndef SERVICE_GRIDS
-#  define SERVICE_GRIDS                            (__OFF__)
+#  define SERVICE_GRIDS                            (__AUTO__)
 #endif /* SERVICE_GRIDS */
 
 #ifndef SERVICE_INSPECTOR
-#  define SERVICE_INSPECTOR                        (__OFF__)
+#  define SERVICE_INSPECTOR                        (__AUTO__)
 #endif /* SERVICE_INSPECTOR */
 
 #ifndef SERVICE_MONITOR
@@ -769,19 +788,23 @@ __END_DECLS
 #endif /* SERVICE_MONITOR */
 
 #ifndef SERVICE_TAPSPOT
-#  define SERVICE_TAPSPOT                          (__OFF__)
+#  define SERVICE_TAPSPOT                          (__AUTO__)
 #endif /* SERVICE_TAPSPOT */
 
 #ifndef SERVICE_FILE_SYNC
-#  define SERVICE_FILE_SYNC                        (__OFF__)
+#  define SERVICE_FILE_SYNC                        (__AUTO__)
 #endif /* SERVICE_FILE_SYNC */
 
 #ifndef SERVICE_THEME
 #  define SERVICE_THEME                            (__AUTO__)
 #endif /* SERVICE_THEME */
 
+#ifndef SERVICE_DEBUG
+#  define SERVICE_DEBUG                            (__AUTO__)
+#endif /* SERVICE_DEBUG */
+
 #ifndef SERVICE_WIFI
-#  define SERVICE_WIFI                             (__OFF__)
+#  define SERVICE_WIFI                             (__AUTO__)
 #endif /* SERVICE_WIFI */
 
 /******************************************************************************************************/

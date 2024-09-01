@@ -64,7 +64,7 @@
       _open.adjustsImageWhenHighlighted   = YES;
       [_open addTarget:self action:@selector(open) forControlEvents:UIControlEventTouchUpInside];
       [self addSubview:_open];
-      
+            
       _close = [[UIButton alloc] initWithFrame:CGRectZero];
       _close.hidden                       = YES;
       _close.backgroundColor              = UIColor.clearColor;

@@ -28,8 +28,15 @@
 //   THE SOFTWARE.
 //
 
-#import "ServiceWiFi.h"
-#import "ServiceWiFiWindow.h"
+#import "ServiceDebug.h"
+
+// ----------------------------------
+// Private
+// ----------------------------------
+
+@interface ServiceDebug ()
+
+@end
 
 // ----------------------------------
 // Source code
@@ -37,37 +44,32 @@
 
 #pragma mark -
 
-@interface ServiceWiFi ()
+@implementation ServiceDebug
 
-@prop_strong( ServiceWiFiWindow  *, serviceWiFiWindow );
++ (NSString *)openNotification {
+   
+   return @"Notification@ServiceDebug@Open";
+}
 
-@end
-
-@implementation ServiceWiFi
++ (NSString *)closeNotification {
+   
+   return @"Notification@ServiceDebug@Close";
+}
 
 #pragma mark - ManagedService
 
 - (BOOL)isAutoLoad {
    
-   return SERVICE_WIFI;
+   return SERVICE_DEBUG;
 }
 
-#pragma mark - ManagedService
+#pragma mark -
 
 - (void)install {
    
    int                            nErr                                     = EFAULT;
    
    __TRY;
-   
-   [[NSNotificationCenter defaultCenter] addObserver:self
-                                            selector:@selector(didApplicationLaunched)
-                                                name:UIApplicationDidFinishLaunchingNotification
-                                              object:nil];
-   [[NSNotificationCenter defaultCenter] addObserver:self
-                                            selector:@selector(willApplicationTerminate)
-                                                name:UIApplicationWillTerminateNotification
-                                              object:nil];
 
    __CATCH(nErr);
    
@@ -107,14 +109,15 @@
    return;
 }
 
-#pragma mark - ManagedDocker
 - (void)didDockerOpen {
    
    int                            nErr                                     = EFAULT;
    
    __TRY;
 
-   [self.serviceWiFiWindow show];
+   [self postNotify:ServiceDebug.openNotification
+            onQueue:dispatch_get_main_queue()
+         completion:nil];
 
    __CATCH(nErr);
    
@@ -127,49 +130,13 @@
    
    __TRY;
 
-   [self.serviceWiFiWindow hide];
+   [self postNotify:ServiceDebug.closeNotification
+            onQueue:dispatch_get_main_queue()
+         completion:nil];
 
    __CATCH(nErr);
    
    return;
-}
-
-- (void)didApplicationLaunched {
-   
-   int                            nErr                                     = EFAULT;
-   
-   __TRY;
-
-   [self.serviceWiFiWindow show];
-
-   __CATCH(nErr);
-   
-   return;
-}
-
-- (void)willApplicationTerminate {
-   
-   int                            nErr                                     = EFAULT;
-   
-   __TRY;
-
-   [self.serviceWiFiWindow hide];
-
-   __CATCH(nErr);
-   
-   return;
-}
-
-#pragma mark - @prop_strong( ServiceWiFiWindow  *, serviceWiFiWindow );
-- (ServiceWiFiWindow *)serviceWiFiWindow {
-   
-   if (nil == _serviceWiFiWindow) {
-      
-      _serviceWiFiWindow   = [[ServiceWiFiWindow alloc] init];
-      
-   } /* End if () */
-   
-   return _serviceWiFiWindow;
 }
 
 @end
