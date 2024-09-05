@@ -45,7 +45,7 @@
    
    if ([IDEAApplet isAppExtension]) {
       
-      if ((@available(iOS 13, *))) {
+      if ((@available(iOS 13.0, *))) {
          
          return UIStatusBarStyleDarkContent;
 

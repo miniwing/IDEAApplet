@@ -236,7 +236,7 @@
       
    } /* End if () */
    
-//   if (@available(iOS 11, *)) {
+//   if (@available(iOS 11.0, *)) {
 //      
 ////      stWindowBound.origin.y  = stWindowBound.origin.y - [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
 //      

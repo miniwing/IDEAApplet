@@ -194,7 +194,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label = [[UILabel alloc] initWithFrame:self.bounds];
       _label.backgroundColor     = UIColor.clearColor;
       
-//      if (@available(iOS 13, *)) {
+//      if (@available(iOS 13.0, *)) {
 //
 //         _label.textColor        = UIColor.labelColor;
 //
@@ -219,7 +219,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       } /* End if () */
       else {
 
-         if (@available(iOS 13, *)) {
+         if (@available(iOS 13.0, *)) {
             
             _label.textColor        = UIColor.labelColor;
 
@@ -232,7 +232,7 @@ static const CGFloat             kBarHeight              = 20.0f;
 
       } /* End else */
 
-      if (@available(iOS 13, *)) {
+      if (@available(iOS 13.0, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
          

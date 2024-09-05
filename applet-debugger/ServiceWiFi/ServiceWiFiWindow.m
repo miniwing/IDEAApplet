@@ -52,7 +52,7 @@ static const CGFloat             kBarHeight              = 20.0f;
       _label.textColor           = UIColor.blackColor;
       _label.backgroundColor     = UIColor.clearColor;
       
-      if (@available(iOS 13, *)) {
+      if (@available(iOS 13.0, *)) {
          
          _label.font             = [UIFont monospacedSystemFontOfSize:12.0f weight:UIFontWeightSemibold];
          

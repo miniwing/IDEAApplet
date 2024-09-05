@@ -68,7 +68,7 @@ Pod::Spec.new do |spec|
 #    spec.dependency 'RTInteractivePush'
   end # IDEA_ROOT_NAVIGATION_CONTROLLER
   
-#  spec.dependency 'IDEANightVersion'
+  spec.dependency 'IDEANightVersion'
 
   if ENV['IDEA_AFNETWORKING'] == 'YES'
     spec.dependency 'AFNetworking'

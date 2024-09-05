@@ -97,7 +97,7 @@
    
    self = [super init];
    if (self) {
-      
+            
    } /* End if () */
    
    __CATCH(nErr);
