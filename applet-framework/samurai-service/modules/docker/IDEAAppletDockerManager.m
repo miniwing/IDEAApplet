@@ -178,7 +178,7 @@
          
          _dockerWindow.alpha  = 1.0f;
       }
-                       completion:^(BOOL aFinished) {
+                       completion:^(BOOL isFinished) {
          
          [[IDEAApplet sharedExtensionApplication].delegate.window makeKeyAndVisible];
          [[IDEAApplet sharedExtensionApplication].delegate.window.rootViewController setNeedsFocusUpdate];

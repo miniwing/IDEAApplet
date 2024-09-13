@@ -46,14 +46,14 @@
 
 @implementation ServiceDebug
 
-+ (NSString *)openNotification {
++ (NSString *)debugNotification {
    
-   return @"Notification@ServiceDebug@Open";
+   return @"Notification@ServiceDebug@Debug";
 }
 
-+ (NSString *)closeNotification {
++ (NSString *)doneNotification {
    
-   return @"Notification@ServiceDebug@Close";
+   return @"Notification@ServiceDebug@Done";
 }
 
 #pragma mark - ManagedService
@@ -115,7 +115,7 @@
    
    __TRY;
 
-   [self postNotify:ServiceDebug.openNotification
+   [self postNotify:ServiceDebug.debugNotification
             onQueue:dispatch_get_main_queue()
          completion:nil];
 
@@ -130,7 +130,7 @@
    
    __TRY;
 
-   [self postNotify:ServiceDebug.closeNotification
+   [self postNotify:ServiceDebug.debugNotification
             onQueue:dispatch_get_main_queue()
          completion:nil];
 

@@ -34,7 +34,7 @@
 
 @interface ServiceDebug : IDEAAppletService < ManagedService, ManagedDocker >
 
-@property (class, nonatomic, readonly)       NSString                            * openNotification;
-@property (class, nonatomic, readonly)       NSString                            * closeNotification;
+@property (class, nonatomic, readonly)       NSString                            * debugNotification;
+@property (class, nonatomic, readonly)       NSString                            * doneNotification;
 
 @end

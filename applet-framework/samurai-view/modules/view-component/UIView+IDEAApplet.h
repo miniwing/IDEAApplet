@@ -47,7 +47,7 @@
 
 - (NSIndexPath *)computeIndexPath;
 
-#if (__has_include(<UIKitExtension/UIKitExtension.h>) || __has_include("UIKitExtension/UIKitExtension.h") || __has_include("UIKitExtension.h"))
+#if (__has_include(<UIKitExtension/UIKitExtension-umbrella.h>) || __has_include("UIKitExtension/UIKitExtension-umbrella.h") || __has_include("UIKitExtension.h"))
 #else
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
 #endif

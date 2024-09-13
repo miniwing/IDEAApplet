@@ -240,9 +240,9 @@
 // Code block
 // ----------------------------------
 
-//#if (__has_include(<YYKit/YYKit.h>))
+//#if (__has_include(<YYKit/YYKit-umbrella.h>))
 //#  import <YYKit/YYKit.h>
-//#elif (__has_include("YYKit/YYKit.h"))
+//#elif (__has_include("YYKit/YYKit-umbrella.h"))
 //#  import "YYKit/YYKit.h"
 //#elif (__has_include("YYKit.h"))
 //#  import "YYKit.h"
