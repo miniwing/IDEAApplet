@@ -491,10 +491,10 @@ Pod::Spec.new do |spec|
 #  endif
 
 #  if __has_include(<RTRootNavigationController/RTRootNavigationController-umbrella.h>)
-#     import <RTRootNavigationController/RTRootNavigationController.h>
+#     import <RTRootNavigationController/RTRootNavigationController-umbrella.h>
 #     define RT_ROOT_NAVIGATIONCONTROLLER                                  (1)
 #  elif __has_include("RTRootNavigationController/RTRootNavigationController-umbrella.h")
-#     import "RTRootNavigationController/RTRootNavigationController.h"
+#     import "RTRootNavigationController/RTRootNavigationController-umbrella.h"
 #     define RT_ROOT_NAVIGATIONCONTROLLER                                  (1)
 #  else
 #     define rt_topViewController                                          topViewController
@@ -505,13 +505,13 @@ Pod::Spec.new do |spec|
 #  endif
 
 #  if __has_include(<IDEANightVersion/IDEANightVersion-umbrella.h>)
-#     import <IDEANightVersion/DKNightVersion.h>
-#     define IDEA_NIGHT_VERSION_MANAGER                                              (1)
+#     import <IDEANightVersion/IDEANightVersion-umbrella.h>
+#     define IDEA_NIGHT_VERSION_MANAGER                                    (1)
 #  elif __has_include("IDEANightVersion/IDEANightVersion-umbrella.h")
-#     import "IDEANightVersion/DKNightVersion.h"
-#     define IDEA_NIGHT_VERSION_MANAGER                                              (1)
+#     import "IDEANightVersion/IDEANightVersion-umbrella.h"
+#     define IDEA_NIGHT_VERSION_MANAGER                                    (1)
 #  else
-#     define IDEA_NIGHT_VERSION_MANAGER                                              (0)
+#     define IDEA_NIGHT_VERSION_MANAGER                                    (0)
 #  endif
 
 #  if __has_include(<AFNetworking/AFNetworking.h>)
@@ -566,13 +566,13 @@ Pod::Spec.new do |spec|
 /******************************************************************************************************/
 
 #if (__has_include(<YYKit/YYKit-umbrella.h>))
-#  import <YYKit/YYKit.h>
+#  import <YYKit/YYKit-umbrella.h>
 #     define YY_KIT                                                        (1)
 #elif (__has_include("YYKit/YYKit-umbrella.h"))
-#  import "YYKit/YYKit.h"
+#  import "YYKit/YYKit-umbrella.h"
 #     define YY_KIT                                                        (1)
 #elif (__has_include("YYKit-umbrella.h"))
-#  import "YYKit.h"
+#  import "YYKit-umbrella.h"
 #     define YY_KIT                                                        (1)
 #else /* YY_KIT */
 #     define YY_KIT                                                        (0)
