@@ -83,59 +83,59 @@
 
 #pragma mark -
 
-#undef  integer
-#define integer( __name )                                   \
-        property (nonatomic, readonly) NSInteger __name;    \
-        - (NSInteger)__name;                                \
-        + (NSInteger)__name;
+//#undef  integer
+//#define integer( __name )                                   \
+//        property (nonatomic, readonly) NSInteger __name;    \
+//        - (NSInteger)__name;                                \
+//        + (NSInteger)__name;
 
-#undef  def_integer
-#define def_integer( __name, __value )                      \
-        dynamic __name;                                     \
-        - (NSInteger)__name { return __value; }             \
-        + (NSInteger)__name { return __value; }
-
-#pragma mark -
-
-#undef  unsigned_integer
-#define unsigned_integer( __name )                          \
-        property (nonatomic, readonly) NSUInteger __name;   \
-        - (NSUInteger)__name;                               \
-        + (NSUInteger)__name;
-
-#undef  def_unsigned_integer
-#define def_unsigned_integer( __name, __value )             \
-        dynamic __name;                                     \
-        - (NSUInteger)__name { return __value; }            \
-        + (NSUInteger)__name { return __value; }
+//#undef  def_integer
+//#define def_integer( __name, __value )                      \
+//        dynamic __name;                                     \
+//        - (NSInteger)__name { return __value; }             \
+//        + (NSInteger)__name { return __value; }
 
 #pragma mark -
 
-#undef  number
-#define number( __name )                                    \
-        property (nonatomic, readonly) NSNumber * __name;   \
-        - (NSNumber *)__name;                               \
-        + (NSNumber *)__name;
+//#undef  unsigned_integer
+//#define unsigned_integer( __name )                          \
+//        property (nonatomic, readonly) NSUInteger __name;   \
+//        - (NSUInteger)__name;                               \
+//        + (NSUInteger)__name;
 
-#undef  def_number
-#define def_number( __name, __value )                       \
-        dynamic __name;                                     \
-        - (NSNumber *)__name { return @(__value); }         \
-        + (NSNumber *)__name { return @(__value); }
+//#undef  def_unsigned_integer
+//#define def_unsigned_integer( __name, __value )             \
+//        dynamic __name;                                     \
+//        - (NSUInteger)__name { return __value; }            \
+//        + (NSUInteger)__name { return __value; }
 
 #pragma mark -
 
-#undef  string
-#define string( __name )                                    \
-        property (nonatomic, readonly) NSString * __name;   \
-        - (NSString *)__name;                               \
-        + (NSString *)__name;
+//#undef  number
+//#define number( __name )                                    \
+//        property (nonatomic, readonly) NSNumber * __name;   \
+//        - (NSNumber *)__name;                               \
+//        + (NSNumber *)__name;
 
-#undef  def_string
-#define def_string( __name, __value )                       \
-        dynamic __name;                                     \
-        - (NSString *)__name { return __value; }            \
-        + (NSString *)__name { return __value; }
+//#undef  def_number
+//#define def_number( __name, __value )                       \
+//        dynamic __name;                                     \
+//        - (NSNumber *)__name { return @(__value); }         \
+//        + (NSNumber *)__name { return @(__value); }
+
+#pragma mark -
+
+//#undef  string
+//#define string( __name )                                    \
+//        property (nonatomic, readonly) NSString * __name;   \
+//        - (NSString *)__name;                               \
+//        + (NSString *)__name;
+//
+//#undef  def_string
+//#define def_string( __name, __value )                       \
+//        dynamic __name;                                     \
+//        - (NSString *)__name { return __value; }            \
+//        + (NSString *)__name { return __value; }
 
 #pragma mark -
 
