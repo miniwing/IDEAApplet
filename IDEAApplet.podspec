@@ -458,6 +458,7 @@ Pod::Spec.new do |spec|
 #import <stdlib.h>
 #import <stdio.h>
 #import <string.h>
+#import <stdarg.h>
 
 #import <sys/socket.h>
 #import <netinet/in.h>
@@ -578,33 +579,21 @@ Pod::Spec.new do |spec|
 #     define YY_KIT                                                        (0)
 #  ifndef weakify
 #     if __has_feature(objc_arc)
-#        define weakify( x )                                               \\
-            _Pragma("clang diagnostic push")                               \\
-            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-            autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x;     \\
-            _Pragma("clang diagnostic pop")
+#        define weakify(x)                                                 \\
+            try{} @finally{} __weak __typeof__(x) __weak_##x##__ = x;
 #     else
-#        define weakify( x )                                               \\
-            _Pragma("clang diagnostic push")                               \\
-            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-            autoreleasepool{} __block __typeof__(x) __block_##x##__ = x;   \\
-            _Pragma("clang diagnostic pop")
+#        define weakify(x)                                                 \\
+            try{} @finally{} __block __typeof__(x) __block_##x##__ = x;
 #     endif
 #  endif /* !weakify */
 
 #  ifndef strongify
 #     if __has_feature(objc_arc)
-#        define strongify( x )                                             \\
-            _Pragma("clang diagnostic push")                               \\
-            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-            try{} @finally{} __typeof__(x) x = __weak_##x##__;             \\
-            _Pragma("clang diagnostic pop")
+#        define strongify(x)                                               \\
+            try{} @finally{} __typeof__(x) x = __weak_##x##__;
 #     else
-#        define strongify( x )                                             \\
-            _Pragma("clang diagnostic push")                               \\
-            _Pragma("clang diagnostic ignored \\"-Wshadow\\"")               \\
-            try{} @finally{} __typeof__(x) x = __block_##x##__;            \\
-            _Pragma("clang diagnostic pop")
+#        define strongify(x)                                               \\
+            try{} @finally{} __typeof__(x) x = __block_##x##__;
 #     endif
 #  endif /* !strongify */
 #endif
